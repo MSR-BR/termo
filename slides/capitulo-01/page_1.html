@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="pt-BR" style="--viewport-height: 9.25px;"><head>
+<meta charset="utf-8">
+<meta content="width=1280, height=720" name="viewport">
+
+
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script>
+
+
+
+
+
+
+
+
+
+<title>Capítulo 1 — Conceitos Fundamentais de Termodinâmica</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Lora:ital,wght@0,400;0,600;1,400&amp;display=swap" rel="stylesheet"><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"><style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  width: 1280px; height: 720px; overflow: hidden;
+  background-color: #0B1F3A;
+}
+
+.slide-root {
+  width: 1280px; height: 720px;
+  display: flex; flex-direction: row;
+}
+
+/* ══ LEFT PANEL ══ */
+.left-panel {
+  width: 480px; height: 720px;
+  background: #0B1F3A;
+  display: flex; flex-direction: column;
+  justify-content: space-between;
+  padding: 44px 40px 34px 44px;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.left-panel::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 5px;
+  background: linear-gradient(90deg, #B03A2E 0%, #E05A3A 60%, transparent 100%);
+}
+
+.left-panel::after {
+  content: "";
+  position: absolute;
+  bottom: -120px; right: -120px;
+  width: 320px; height: 320px;
+  border-radius: 50%;
+  border: 40px solid rgba(255,255,255,0.04);
+  pointer-events: none;
+}
+
+.chapter-badge {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: rgba(176,58,46,0.18);
+  border: 1px solid rgba(176,58,46,0.45);
+  border-radius: 20px;
+  padding: 6px 18px;
+  font-family: "Inter", sans-serif;
+  font-size: 14px; font-weight: 700;
+  color: #E87D6B;
+  letter-spacing: 1.2px; text-transform: uppercase;
+  width: fit-content;
+}
+
+.title-block {
+  display: flex; flex-direction: column; gap: 10px;
+}
+
+.chap-number {
+  font-family: "Inter", sans-serif;
+  font-size: 80px; font-weight: 800;
+  color: rgba(255,255,255,0.06);
+  line-height: 1; letter-spacing: -2px;
+  margin-bottom: -14px;
+}
+
+.title-rule {
+  width: 50px; height: 4px;
+  background: #B03A2E;
+  border-radius: 2px;
+  margin-bottom: 8px;
+}
+
+.main-title {
+  font-family: "Inter", sans-serif;
+  font-size: 30px; font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1.22;
+  letter-spacing: -0.3px;
+}
+
+.sub-title {
+  font-family: "Lora", Georgia, serif;
+  font-size: 16px; font-style: italic;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.5;
+  margin-top: 6px;
+}
+
+.quote-block {
+  border-left: 3px solid rgba(176,58,46,0.6);
+  padding: 12px 0 12px 18px;
+}
+
+.quote-text {
+  font-family: "Lora", Georgia, serif;
+  font-size: 14.5px; font-style: italic;
+  color: rgba(255,255,255,0.72);
+  line-height: 1.7;
+}
+
+.author-block { display: flex; flex-direction: column; gap: 5px; }
+
+.author-name {
+  font-family: "Inter", sans-serif;
+  font-size: 16px; font-weight: 700;
+  color: #FFFFFF;
+}
+
+.author-inst {
+  font-family: "Inter", sans-serif;
+  font-size: 13px; color: rgba(255,255,255,0.45);
+  letter-spacing: 0.6px; text-transform: uppercase;
+}
+
+/* ══ RIGHT PANEL ══ */
+.right-panel {
+  flex: 1; height: 720px;
+  background: #FCFCFA;
+  display: flex; flex-direction: column;
+  padding: 32px 36px 28px 36px;
+  gap: 16px;
+  overflow: hidden;
+}
+
+.section-label {
+  font-family: "Inter", sans-serif;
+  font-size: 13px; font-weight: 700;
+  color: #004B87; letter-spacing: 1.4px;
+  text-transform: uppercase;
+  display: flex; align-items: center; gap: 9px;
+}
+.section-label::after {
+  content: "";
+  flex: 1; height: 1px;
+  background: #DDE3ED;
+}
+
+.topics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px;
+  flex: 1;
+}
+
+.topic-pill {
+  background: #F2F4F7;
+  border: 1px solid #E2E8F0;
+  border-left: 4px solid #004B87;
+  border-radius: 7px;
+  padding: 11px 14px;
+  display: flex; align-items: flex-start; gap: 11px;
+}
+.topic-pill.accent { border-left-color: #B03A2E; }
+.topic-pill.green  { border-left-color: #1A7A4A; }
+.topic-pill.purple { border-left-color: #6D28D9; }
+
+.pill-num {
+  font-family: "Inter", sans-serif;
+  font-size: 18px; font-weight: 800;
+  color: #004B87;
+  flex-shrink: 0;
+  line-height: 1;
+  margin-top: 1px;
+  width: 24px;
+  text-align: right;
+}
+.pill-num.accent { color: #B03A2E; }
+.pill-num.green  { color: #1A7A4A; }
+.pill-num.purple { color: #6D28D9; }
+
+.pill-icon {
+  font-size: 17px; color: #004B87;
+  margin-top: 2px; flex-shrink: 0;
+  width: 20px; text-align: center;
+}
+.pill-icon.accent  { color: #B03A2E; }
+.pill-icon.green   { color: #1A7A4A; }
+.pill-icon.purple  { color: #6D28D9; }
+
+.pill-text { display: flex; flex-direction: column; gap: 3px; }
+
+.pill-name {
+  font-family: "Inter", sans-serif;
+  font-size: 14px; font-weight: 700;
+  color: #1A2535; line-height: 1.2;
+}
+
+.pill-desc {
+  font-family: "Lora", Georgia, serif;
+  font-size: 12.5px; color: #5D6D7E; line-height: 1.45;
+}
+
+.meta-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid #E2E8F0;
+}
+
+.meta-item {
+  display: flex; align-items: center; gap: 7px;
+  font-family: "Inter", sans-serif;
+  font-size: 13px; color: #7D8FA9;
+}
+.meta-item i { font-size: 13px; color: #004B87; }
+
+.slide-counter {
+  font-family: "Inter", sans-serif;
+  font-size: 13px; color: #B0BAC9;
+}
+</style></head>
+<body class="">
+<div class="slide-root">
+
+  <!-- ══ LEFT PANEL ══ -->
+  <div class="left-panel">
+
+    <div class="chapter-badge">
+      <i class="fa-solid fa-atom" style="font-size:12px;"></i>
+      Capítulo 1
+    </div>
+
+    <div class="title-block">
+      <div class="chap-number">01</div>
+      <div class="title-rule"></div>
+      <div class="main-title">Conceitos<br>Fundamentais<br>de Termodinâmica</div>
+      <div class="sub-title" style="font-size: 18px;">Termodinâmica para Estudantes de Física</div>
+    </div>
+
+    <div class="quote-block">
+      <p class="quote-text" style="font-size: 18px;">
+        "Antes de formularmos as Leis da Termodinâmica, precisamos construir
+        o vocabulário e as ferramentas que sustentam todo o curso:
+        temperatura, calor, trabalho, energia interna e entropia."
+      </p>
+    </div>
+
+    <div class="author-block">
+      <div class="author-name" style="font-size: 18px;">Mario Reis</div>
+      <div class="author-inst" style="font-size: 14px;">Universidade Federal Fluminense · 2026</div>
+    </div>
+
+  </div>
+
+  <!-- ══ RIGHT PANEL ══ -->
+  <div class="right-panel">
+
+    <div class="section-label" style="font-size: 16px;">
+      <i class="fa-solid fa-list-ol" style="font-size: inherit;"></i>
+      Tópicos deste capítulo</div>
+
+    <div class="topics-grid">
+
+      <!-- 1 -->
+      <div class="topic-pill">
+        <span class="pill-num">1</span>
+        <i class="fa-solid fa-temperature-half pill-icon"></i>
+        <div class="pill-text">
+          <span class="pill-name" style="font-size: 20px;">Lei Zero e Termometria</span>
+          <span class="pill-desc" style="font-size: 16px;">Equilíbrio térmico · Escalas de temperatura · Termômetros</span>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="topic-pill accent">
+        <span class="pill-num accent">2</span>
+        <i class="fa-solid fa-box-open pill-icon accent"></i>
+        <div class="pill-text">
+          <span class="pill-name" style="font-size: 20px;">Sistemas e Transformações</span>
+          <span class="pill-desc" style="font-size: 16px;">Aberto · Fechado · Isolado · Reversível · Irreversível</span>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="topic-pill green">
+        <span class="pill-num green">3</span>
+        <i class="fa-solid fa-route pill-icon green"></i>
+        <div class="pill-text">
+          <span class="pill-name" style="font-size: 20px;">Funções de Estado</span>
+          <span class="pill-desc" style="font-size: 16px;">Grandezas de estado · Grandezas de caminho</span>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="topic-pill">
+        <span class="pill-num">4</span>
+        <i class="fa-solid fa-fire-flame-curved pill-icon"></i>
+        <div class="pill-text">
+          <span class="pill-name" style="font-size: 20px;">Calor</span>
+          <span class="pill-desc" style="font-size: 16px;">Transferência de energia</span>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="topic-pill accent">
+        <span class="pill-num accent">5</span>
+        <i class="fa-solid fa-compress-arrows-alt pill-icon accent"></i>
+        <div class="pill-text">
+          <span class="pill-name" style="font-size: 20px;">Trabalho</span>
+          <span class="pill-desc" style="font-size: 16px;">Trabalho por variação de volume · Equação de estado · Variáveis conjugadas</span>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="topic-pill green">
+        <span class="pill-num green">6</span>
+        <i class="fa-solid fa-bolt pill-icon green"></i>
+        <div class="pill-text">
+          <span class="pill-name" style="font-size: 20px;">Energia Interna e 1ª Lei</span>
+          <span class="pill-desc" style="font-size: 16px;">Conservação de energia · Calor e trabalho como formas de transferência</span>
+        </div>
+      </div>
+
+      <!-- 7 -->
+      <div class="topic-pill purple">
+        <span class="pill-num purple">7</span>
+        <i class="fa-solid fa-arrow-trend-up pill-icon purple"></i>
+        <div class="pill-text">
+          <span class="pill-name" style="font-size: 20px;">Entropia</span>
+          <span class="pill-desc" style="font-size: 16px;">Desigualdade de Clausius · Variação de entropia</span>
+        </div>
+      </div>
+
+      <!-- 8 -->
+      <div class="topic-pill purple">
+        <span class="pill-num purple">8</span>
+        <i class="fa-solid fa-chart-line pill-icon purple"></i>
+        <div class="pill-text">
+          <span class="pill-name" style="font-size: 20px;">Capacidade Calorífica</span>
+          <span class="pill-desc" style="font-size: 16px;">Volume constante · Pressão constante</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="meta-bar">
+      
+      <div class="meta-item">
+        <i class="fa-solid fa-graduation-cap"></i>
+        Graduação em Física
+      </div>
+      
+      <div class="slide-counter">1 / 22</div>
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body></html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR" style="--viewport-height: 9.25px;"><head>
+<meta charset="utf-8"><meta content="width=1280, height=720" name="viewport">
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};</script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script>
+<title>§2.12 — Capacidade Calorífica</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Lora:ital,wght@0,400;1,400&amp;display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{width:1280px;height:720px;overflow:hidden;background:#FCFCFA;color:#2C3E50;font-family:'Lora',Georgia,serif}
+.slide{width:1280px;height:720px;display:flex;flex-direction:column}
+.hdr{margin:12px 36px 0;padding:10px 18px;background:#F2F4F7;border-left:5px solid #004B87;border-radius:4px;flex-shrink:0;display:flex;justify-content:space-between;align-items:center}
+.hdr-inner{display:flex;flex-direction:column}
+.hdr-title{font-family:'Inter',sans-serif;font-weight:700;font-size:21px;color:#004B87}
+.hdr-sub{font-family:'Inter',sans-serif;font-size:12px;color:#5D6D7E;text-transform:uppercase;letter-spacing:.6px;margin-top:2px}
+.slide-num{font-family:'Inter',sans-serif;font-size:12px;color:#B0BAC9;flex-shrink:0}
+.body{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:12px 36px 16px}
+.col{display:flex;flex-direction:column;gap:11px}
+.card{background:#fff;border-radius:8px;border:1px solid #E2E8F0;padding:14px 16px;display:flex;flex-direction:column;gap:7px}
+.card.blue{border-top:3px solid #004B87}
+.card.red{border-top:3px solid #B03A2E}
+.card.green{border-top:3px solid #1A7A4A}
+.ch{font-family:'Inter',sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;display:flex;align-items:center;gap:7px}
+.ch.blue{color:#004B87} .ch.red{color:#B03A2E} .ch.green{color:#1A7A4A}
+.body-t{font-size:13px;line-height:1.65;text-align:justify}
+.bl{color:#004B87;font-weight:700} .hl{color:#B03A2E;font-weight:700} .gr{color:#1A7A4A;font-weight:700}
+.eq{background:#EEF3FC;border:1px solid #C5D8F5;border-radius:6px;padding:8px 12px;text-align:center;font-size:15px;margin:3px 0}
+.eq-lbl{font-family:'Inter',sans-serif;font-size:10px;color:#5D6D7E;text-transform:uppercase;margin-bottom:2px}
+.step{display:flex;align-items:flex-start;gap:8px;margin-bottom:5px}
+.step-n{font-family:'Inter',sans-serif;font-weight:700;font-size:11px;color:#fff;background:#004B87;border-radius:50%;width:19px;height:19px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.step-t{font-size:13px;line-height:1.6}
+.answer{background:#E8F5EC;border:1px solid #A7D7B5;border-radius:6px;padding:7px 12px;text-align:center;font-size:14px}
+.answer-lbl{font-family:'Inter',sans-serif;font-size:10px;color:#1A7A4A;text-transform:uppercase;margin-bottom:2px}
+.mini-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:4px}
+.mini-table th{background:#004B87;color:#fff;font-family:'Inter',sans-serif;font-weight:700;padding:4px 8px;text-align:center}
+.mini-table td{padding:4px 8px;border-bottom:1px solid #F0F2F5;font-family:'Inter',sans-serif;text-align:center}
+.mini-table tr:last-child td{border-bottom:none}
+</style>
+
+    <style id="compress-style">
+        html, body.compress-body {
+            margin: 0 !important;
+        }
+        body.compress-body {
+            --compress-ratio: 0.7619047619047619;
+            --compress-expanded-width: 1680.0px;
+            --compress-original-height: 945px;
+            --compress-pt: 0px;
+            --compress-pr: 0px;
+            --compress-pb: 0px;
+            --compress-pl: 0px;
+            box-sizing: border-box !important;
+            height: var(--compress-original-height) !important;
+            width: var(--compress-expanded-width) !important;
+            padding: var(--compress-pt) var(--compress-pr) var(--compress-pb) var(--compress-pl) !important;
+            overflow: hidden !important;
+            transform: scale(var(--compress-ratio)) !important;
+            transform-origin: top left !important;
+        }
+        
+        body.compress-body .title .text-xs, body.compress-body .section-title .text-xs, body.compress-body .subtitle .text-xs, body.compress-body .title.text-xs, body.compress-body .section-title.text-xs, body.compress-body .subtitle.text-xs, body.compress-body header .text-xs, body.compress-body header.text-xs, body.compress-body h1 .text-xs, body.compress-body h1.text-xs, body.compress-body *:has(> h1) .text-xs, body.compress-body *:has(> h1).text-xs { font-size: calc(0.75rem / var(--compress-ratio)) !important; }
+        body.compress-body .title .text-sm, body.compress-body .section-title .text-sm, body.compress-body .subtitle .text-sm, body.compress-body .title.text-sm, body.compress-body .section-title.text-sm, body.compress-body .subtitle.text-sm, body.compress-body header .text-sm, body.compress-body header.text-sm, body.compress-body h1 .text-sm, body.compress-body h1.text-sm, body.compress-body *:has(> h1) .text-sm, body.compress-body *:has(> h1).text-sm { font-size: calc(0.875rem / var(--compress-ratio)) !important; }
+        body.compress-body .title .text-base, body.compress-body .section-title .text-base, body.compress-body .subtitle .text-base, body.compress-body .title.text-base, body.compress-body .section-title.text-base, body.compress-body .subtitle.text-base, body.compress-body header .text-base, body.compress-body header.text-base, body.compress-body h1 .text-base, body.compress-body h1.text-base, body.compress-body *:has(> h1) .text-base, body.compress-body *:has(> h1).text-base { font-size: calc(1rem / var(--compress-ratio)) !important; }
+        body.compress-body .title .text-lg, body.compress-body .section-title .text-lg, body.compress-body .subtitle .text-lg, body.compress-body .title.text-lg, body.compress-body .section-title.text-lg, body.compress-body .subtitle.text-lg, body.compress-body header .text-lg, body.compress-body header.text-lg, body.compress-body h1 .text-lg, body.compress-body h1.text-lg, body.compress-body *:has(> h1) .text-lg, body.compress-body *:has(> h1).text-lg { font-size: calc(1.125rem / var(--compress-ratio)) !important; }
+        body.compress-body .title .text-xl, body.compress-body .section-title .text-xl, body.compress-body .subtitle .text-xl, body.compress-body .title.text-xl, body.compress-body .section-title.text-xl, body.compress-body .subtitle.text-xl, body.compress-body header .text-xl, body.compress-body header.text-xl, body.compress-body h1 .text-xl, body.compress-body h1.text-xl, body.compress-body *:has(> h1) .text-xl, body.compress-body *:has(> h1).text-xl { font-size: calc(1.25rem / var(--compress-ratio)) !important; }
+        body.compress-body .title .text-2xl, body.compress-body .section-title .text-2xl, body.compress-body .subtitle .text-2xl, body.compress-body .title.text-2xl, body.compress-body .section-title.text-2xl, body.compress-body .subtitle.text-2xl, body.compress-body header .text-2xl, body.compress-body header.text-2xl, body.compress-body h1 .text-2xl, body.compress-body h1.text-2xl, body.compress-body *:has(> h1) .text-2xl, body.compress-body *:has(> h1).text-2xl { font-size: calc(1.5rem / var(--compress-ratio)) !important; }
+        body.compress-body .title .text-3xl, body.compress-body .section-title .text-3xl, body.compress-body .subtitle .text-3xl, body.compress-body .title.text-3xl, body.compress-body .section-title.text-3xl, body.compress-body .subtitle.text-3xl, body.compress-body header .text-3xl, body.compress-body header.text-3xl, body.compress-body h1 .text-3xl, body.compress-body h1.text-3xl, body.compress-body *:has(> h1) .text-3xl, body.compress-body *:has(> h1).text-3xl { font-size: calc(1.875rem / var(--compress-ratio)) !important; }
+        body.compress-body .title .text-4xl, body.compress-body .section-title .text-4xl, body.compress-body .subtitle .text-4xl, body.compress-body .title.text-4xl, body.compress-body .section-title.text-4xl, body.compress-body .subtitle.text-4xl, body.compress-body header .text-4xl, body.compress-body header.text-4xl, body.compress-body h1 .text-4xl, body.compress-body h1.text-4xl, body.compress-body *:has(> h1) .text-4xl, body.compress-body *:has(> h1).text-4xl { font-size: calc(2.25rem / var(--compress-ratio)) !important; }
+        body.compress-body .title .text-5xl, body.compress-body .section-title .text-5xl, body.compress-body .subtitle .text-5xl, body.compress-body .title.text-5xl, body.compress-body .section-title.text-5xl, body.compress-body .subtitle.text-5xl, body.compress-body header .text-5xl, body.compress-body header.text-5xl, body.compress-body h1 .text-5xl, body.compress-body h1.text-5xl, body.compress-body *:has(> h1) .text-5xl, body.compress-body *:has(> h1).text-5xl { font-size: calc(3rem / var(--compress-ratio)) !important; }
+        body.compress-body .title .text-6xl, body.compress-body .section-title .text-6xl, body.compress-body .subtitle .text-6xl, body.compress-body .title.text-6xl, body.compress-body .section-title.text-6xl, body.compress-body .subtitle.text-6xl, body.compress-body header .text-6xl, body.compress-body header.text-6xl, body.compress-body h1 .text-6xl, body.compress-body h1.text-6xl, body.compress-body *:has(> h1) .text-6xl, body.compress-body *:has(> h1).text-6xl { font-size: calc(3.75rem / var(--compress-ratio)) !important; }
+        body.compress-body .title .text-7xl, body.compress-body .section-title .text-7xl, body.compress-body .subtitle .text-7xl, body.compress-body .title.text-7xl, body.compress-body .section-title.text-7xl, body.compress-body .subtitle.text-7xl, body.compress-body header .text-7xl, body.compress-body header.text-7xl, body.compress-body h1 .text-7xl, body.compress-body h1.text-7xl, body.compress-body *:has(> h1) .text-7xl, body.compress-body *:has(> h1).text-7xl { font-size: calc(4.5rem / var(--compress-ratio)) !important; }
+        body.compress-body .title .text-8xl, body.compress-body .section-title .text-8xl, body.compress-body .subtitle .text-8xl, body.compress-body .title.text-8xl, body.compress-body .section-title.text-8xl, body.compress-body .subtitle.text-8xl, body.compress-body header .text-8xl, body.compress-body header.text-8xl, body.compress-body h1 .text-8xl, body.compress-body h1.text-8xl, body.compress-body *:has(> h1) .text-8xl, body.compress-body *:has(> h1).text-8xl { font-size: calc(6rem / var(--compress-ratio)) !important; }
+        body.compress-body .title .text-9xl, body.compress-body .section-title .text-9xl, body.compress-body .subtitle .text-9xl, body.compress-body .title.text-9xl, body.compress-body .section-title.text-9xl, body.compress-body .subtitle.text-9xl, body.compress-body header .text-9xl, body.compress-body header.text-9xl, body.compress-body h1 .text-9xl, body.compress-body h1.text-9xl, body.compress-body *:has(> h1) .text-9xl, body.compress-body *:has(> h1).text-9xl { font-size: calc(8rem / var(--compress-ratio)) !important; }
+        
+        
+        body.compress-body .slide-container,
+        body.compress-body > div:first-child {
+            width: 1680.0px !important;
+            height: 945px !important;
+            max-width: 100% !important;
+            max-height: 100% !important;
+            box-sizing: border-box !important;
+        }
+    </style>
+    
+</head>
+<body class="compress-body">
+<div class="slide">
+
+  <!-- HEADER -->
+  <div class="hdr">
+    <div class="hdr-inner">
+      <div class="hdr-title">§2.12 — Capacidade Calorífica: \(C_V\), \(C_P\) e Calor Específico</div>
+      <div class="hdr-sub" style="font-size: 16px;">Capítulo 1 · Conceitos Fundamentais de Termodinâmica</div>
+    </div>
+    <div class="slide-num">20 / 20</div>
+  </div>
+
+  <!-- BODY: two columns -->
+  <div class="body">
+
+    <!-- LEFT COLUMN -->
+    <div class="col">
+
+      <!-- Card: Definições fundamentais -->
+      <div class="card blue">
+        <div class="ch blue" style="font-size: 14px;"><i class="fas fa-thermometer-half" style="font-size: inherit;"></i> Definições</div>
+        <p class="body-t" style="font-size: 14px;">
+          A <span class="bl" style="font-size: inherit;">capacidade calorífica</span> quantifica a energia necessária para elevar em 1 K a temperatura de um sistema.
+          Depende das condições impostas durante o processo:
+        </p>
+        <div class="eq-lbl" style="font-size: 14px;">Volume constante (isocórico)</div>
+        <div class="eq" style="font-size: 14px;">\[ C_V = \left.\frac{\delta Q}{dT}\right|_V = \left.\frac{\partial U}{\partial T}\right|_V \]</div>
+        <div class="eq-lbl" style="font-size: 14px;">Pressão constante (isobárico)</div>
+        <div class="eq" style="font-size: 14px;">\[ C_P = \left.\frac{\delta Q}{dT}\right|_P \]</div>
+        <p class="body-t" style="font-size: 14px;">
+          Como a pressão constante o sistema também realiza trabalho \((-PdV)\), parte do calor fornecido não é armazenada como energia interna.
+          Por isso <span class="hl" style="font-size: inherit;">\(C_P &gt; C_V\)</span> sempre.
+        </p>
+      </div>
+
+      <!-- Card: Calor específico -->
+      <div class="card red">
+        <div class="ch red" style="font-size: 14px;"><i class="fas fa-flask" style="font-size: inherit;"></i> Calor Específico Molar \(c = C/n\)</div>
+        <p class="body-t" style="font-size: 14px;">
+          O <span class="hl" style="font-size: inherit;">calor específico molar</span> normaliza a capacidade calorífica pelo número de mols \(n\),
+          tornando-a uma propriedade <em style="font-size: inherit;">intensiva</em> — independente da quantidade de substância:
+        </p>
+        <div class="eq" style="font-size: 14px;">\[ c = \frac{C}{n} \qquad \left[\text{J mol}^{-1}\text{K}^{-1}\right] \]</div>
+        <p class="body-t" style="font-size: 14px;">
+          Para um <span class="bl" style="font-size: inherit;">gás ideal</span>, a energia interna depende apenas de \(T\):
+          \( U = \tfrac{3}{2}nRT \). Aplicando a definição de \(C_V\):
+        </p>
+        <div class="eq" style="font-size: 14px;">\[ C_V = \frac{3}{2}nR \quad \Longrightarrow \quad c_V = \frac{C_V}{n} = \frac{3}{2}R \]</div>
+        <p class="body-t" style="font-size: 14px; color: rgb(93, 109, 126);">
+          \(R = 8{,}314\;\text{J mol}^{-1}\text{K}^{-1}\) — constante universal dos gases.
+        </p>
+      </div>
+
+    </div><!-- /LEFT -->
+
+    <!-- RIGHT COLUMN -->
+    <div class="col">
+
+      <!-- Card: Exemplo 2.7 -->
+      <div class="card green">
+        <div class="ch green" style="font-size: 14px;"><i class="fas fa-calculator" style="font-size: inherit;"></i> Exemplo 2.7 — Processo Isocórico</div>
+        <p class="body-t" style="font-size: 14px;">
+          Mostre que, num processo isocórico, a variação de energia interna é
+          \(\Delta U = \int C_V\,dT\), e use isso para calcular \(\Delta U\) de
+          \(n\) mols de gás ideal aquecidos de \(T_1\) a \(T_2\).
+        </p>
+        <div class="step">
+          <div class="step-n">1</div>
+          <div class="step-t" style="font-size: 14px;">Volume constante \(\Rightarrow dW = -P\,dV = 0\).</div>
+        </div>
+        <div class="step">
+          <div class="step-n">2</div>
+          <div class="step-t" style="font-size: 14px;">1ª Lei: \(dU = \delta Q + dW = \delta Q\).<br style="font-size: inherit;">
+            Logo \(\displaystyle\Delta U = \int_{T_1}^{T_2} C_V\,dT\).</div>
+        </div>
+        <div class="step">
+          <div class="step-n">3</div>
+          <div class="step-t" style="font-size: 14px;">Gás ideal, \(C_V = \tfrac{3}{2}nR\) (constante):
+            \(\Delta U = C_V\,(T_2-T_1) = \tfrac{3}{2}nR\,\Delta T\).</div>
+        </div>
+      </div>
+
+      <!-- Card: Exercício 2.11 -->
+      
+
+    </div><!-- /RIGHT -->
+
+  </div><!-- /body -->
+</div><!-- /slide -->
+
+
+<script>(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()</script>
+</body></html>
