@@ -1,25 +1,119 @@
 {
   "description": "Resumo visual dos conceitos fundamentais da Termodinâmica.",
   "topics": [
-    {"id": "1.0", "title": "Abertura do Capítulo", "note": "Visão geral dos conceitos fundamentais de termodinâmica.", "url": "slides/capitulo-01/page_1.html"},
-    {"id": "1.1", "title": "Lei Zero da Termodinâmica", "note": "Equilíbrio térmico, temperatura e termometria.", "url": "slides/capitulo-01/page_2.html"},
-    {"id": "1.1", "title": "Métodos de Medição de Temperatura", "note": "Termômetros, sensores por contato e medição sem contato.", "url": "slides/capitulo-01/page_3.html"},
-    {"id": "1.1", "title": "Escalas Termométricas", "note": "Escalas Celsius, Kelvin e Fahrenheit.", "url": "slides/capitulo-01/page_4.html"},
-    {"id": "1.1", "title": "Exemplo 1.1: Relação entre Escalas", "note": "Conversão entre escalas termométricas e exemplo resolvido.", "url": "slides/capitulo-01/page_5.html"},
-    {"id": "1.2", "title": "Classificação dos Sistemas Termodinâmicos", "note": "Sistemas abertos, fechados e isolados.", "url": "slides/capitulo-01/page_6.html"},
-    {"id": "1.3", "title": "Tipos de Transformações Termodinâmicas", "note": "Processos quasi-estáticos, reversíveis e irreversíveis.", "url": "slides/capitulo-01/page_7.html"},
-    {"id": "1.4", "title": "Estados Termodinâmicos e Funções de Estado", "note": "Variáveis de estado e grandezas dependentes do caminho.", "url": "slides/capitulo-01/page_8.html"},
-    {"id": "1.5", "title": "Calor", "note": "Definição, convenção de sinais e calorimetria.", "url": "slides/capitulo-01/page_9.html"},
-    {"id": "1.5", "title": "Exemplo 1.2: Aquecendo um Bloco de Cobre", "note": "Aplicação da equação do calor sensível.", "url": "slides/capitulo-01/page_10.html"},
-    {"id": "1.5", "title": "Exemplo 1.4: Equilíbrio Térmico", "note": "Troca de calor e temperatura final de equilíbrio.", "url": "slides/capitulo-01/page_11.html"},
-    {"id": "1.6", "title": "Gás Ideal", "note": "Argumentos qualitativos e equação de estado.", "url": "slides/capitulo-01/page_12.html"},
-    {"id": "1.7", "title": "Trabalho Termodinâmico", "note": "Definição e expressão diferencial do trabalho.", "url": "slides/capitulo-01/page_13.html"},
-    {"id": "1.7", "title": "Exemplo 1.5: Trabalho Isotérmico", "note": "Cálculo do trabalho em expansão/compressão isotérmica.", "url": "slides/capitulo-01/page_14.html"},
-    {"id": "1.8", "title": "Variáveis Conjugadas", "note": "Pares conjugados, variáveis intensivas e extensivas.", "url": "slides/capitulo-01/page_15.html"},
-    {"id": "1.9", "title": "Energia Interna", "note": "Energia interna como função de estado.", "url": "slides/capitulo-01/page_16.html"},
-    {"id": "1.10", "title": "Primeira Lei da Termodinâmica", "note": "Conservação de energia, calor, trabalho e energia interna.", "url": "slides/capitulo-01/page_17.html"},
-    {"id": "1.10", "title": "Exemplo 1.6: Aplicação da Primeira Lei", "note": "Exemplo resolvido com calor, trabalho e variação de energia interna.", "url": "slides/capitulo-01/page_18.html"},
-    {"id": "1.11", "title": "Entropia e Desigualdade de Clausius", "note": "Introdução à entropia, reversibilidade e irreversibilidade.", "url": "slides/capitulo-01/page_19.html"},
-    {"id": "1.12", "title": "Capacidade Calorífica", "note": "Capacidades caloríficas, calor específico molar e processo isocórico.", "url": "slides/capitulo-01/page_20.html"}
+    {
+      "id": "1.1",
+      "title": "Lei Zero da Termodinâmica",
+      "note": "Equilíbrio térmico, temperatura e termometria.",
+      "url": "slides/capitulo-01/page_2.html"
+    },
+    {
+      "id": "1.1",
+      "title": "Métodos de Medição de Temperatura",
+      "note": "Termômetros, sensores por contato e medição sem contato.",
+      "url": "slides/capitulo-01/page_3.html"
+    },
+    {
+      "id": "1.1",
+      "title": "Escalas Termométricas",
+      "note": "Escalas Celsius, Kelvin e Fahrenheit.",
+      "url": "slides/capitulo-01/page_4.html"
+    },
+    {
+      "id": "1.1",
+      "title": "Exemplo 1.1: Relação entre Escalas",
+      "note": "Conversão entre escalas termométricas e exemplo resolvido.",
+      "url": "slides/capitulo-01/page_5.html"
+    },
+    {
+      "id": "1.2",
+      "title": "Classificação dos Sistemas Termodinâmicos",
+      "note": "Sistemas abertos, fechados e isolados.",
+      "url": "slides/capitulo-01/page_6.html"
+    },
+    {
+      "id": "1.3",
+      "title": "Tipos de Transformações Termodinâmicas",
+      "note": "Processos quasi-estáticos, reversíveis e irreversíveis.",
+      "url": "slides/capitulo-01/page_7.html"
+    },
+    {
+      "id": "1.4",
+      "title": "Estados Termodinâmicos e Funções de Estado",
+      "note": "Variáveis de estado e grandezas dependentes do caminho.",
+      "url": "slides/capitulo-01/page_8.html"
+    },
+    {
+      "id": "1.5",
+      "title": "Calor",
+      "note": "Definição, convenção de sinais e calorimetria.",
+      "url": "slides/capitulo-01/page_9.html"
+    },
+    {
+      "id": "1.5",
+      "title": "Exemplo 1.2: Aquecendo um Bloco de Cobre",
+      "note": "Aplicação da equação do calor sensível.",
+      "url": "slides/capitulo-01/page_10.html"
+    },
+    {
+      "id": "1.5",
+      "title": "Exemplo 1.4: Equilíbrio Térmico",
+      "note": "Troca de calor e temperatura final de equilíbrio.",
+      "url": "slides/capitulo-01/page_11.html"
+    },
+    {
+      "id": "1.6",
+      "title": "Gás Ideal",
+      "note": "Argumentos qualitativos e equação de estado.",
+      "url": "slides/capitulo-01/page_12.html"
+    },
+    {
+      "id": "1.7",
+      "title": "Trabalho Termodinâmico",
+      "note": "Definição e expressão diferencial do trabalho.",
+      "url": "slides/capitulo-01/page_13.html"
+    },
+    {
+      "id": "1.7",
+      "title": "Exemplo 1.5: Trabalho Isotérmico",
+      "note": "Cálculo do trabalho em expansão/compressão isotérmica.",
+      "url": "slides/capitulo-01/page_14.html"
+    },
+    {
+      "id": "1.8",
+      "title": "Variáveis Conjugadas",
+      "note": "Pares conjugados, variáveis intensivas e extensivas.",
+      "url": "slides/capitulo-01/page_15.html"
+    },
+    {
+      "id": "1.9",
+      "title": "Energia Interna",
+      "note": "Energia interna como função de estado.",
+      "url": "slides/capitulo-01/page_16.html"
+    },
+    {
+      "id": "1.10",
+      "title": "Primeira Lei da Termodinâmica",
+      "note": "Conservação de energia, calor, trabalho e energia interna.",
+      "url": "slides/capitulo-01/page_17.html"
+    },
+    {
+      "id": "1.10",
+      "title": "Exemplo 1.6: Aplicação da Primeira Lei",
+      "note": "Exemplo resolvido com calor, trabalho e variação de energia interna.",
+      "url": "slides/capitulo-01/page_18.html"
+    },
+    {
+      "id": "1.11",
+      "title": "Entropia e Desigualdade de Clausius",
+      "note": "Introdução à entropia, reversibilidade e irreversibilidade.",
+      "url": "slides/capitulo-01/page_19.html"
+    },
+    {
+      "id": "1.12",
+      "title": "Capacidade Calorífica",
+      "note": "Capacidades caloríficas, calor específico molar e processo isocórico.",
+      "url": "slides/capitulo-01/page_20.html"
+    }
   ]
 }

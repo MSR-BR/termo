@@ -327,6 +327,115 @@ body{width:1280px;height:720px;overflow:hidden;background:#FCFCFA;color:#2C3E50;
   }
 </style>
 
+
+<style id="page8-responsive-unified">
+/* Responsividade unificada no estilo de page_8: preserva o layout original em desktop
+   e empilha os boxes progressivamente quando a janela fica estreita. */
+html, body {
+  width: 100% !important;
+  min-height: 100% !important;
+  height: auto !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+}
+body {
+  display: block !important;
+  background: #FCFCFA;
+}
+.slide, .slide-root {
+  width: min(1280px, 100vw) !important;
+  max-width: 1280px !important;
+  height: auto !important;
+  min-height: 720px !important;
+  margin: 0 auto !important;
+  overflow: visible !important;
+}
+.body {
+  min-height: 0 !important;
+}
+.card, .col, .hdr, .hdr-inner {
+  min-width: 0 !important;
+}
+.card {
+  overflow: visible !important;
+}
+img, svg, canvas, video, table, .eq, .answer, .notation-box, .table-wrap {
+  max-width: 100% !important;
+}
+.table-wrap {
+  overflow-x: auto !important;
+}
+table {
+  width: 100% !important;
+}
+
+@media (max-width: 1150px) {
+  .body {
+    grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)) !important;
+    height: auto !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .slide, .slide-root {
+    width: 100vw !important;
+    min-height: 100vh !important;
+  }
+  .hdr {
+    margin: 8px 10px 0 10px !important;
+    padding: 10px 12px !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 4px !important;
+  }
+  .hdr-title {
+    font-size: clamp(18px, 5.2vw, 24px) !important;
+    line-height: 1.2 !important;
+  }
+  .hdr-sub {
+    font-size: clamp(10px, 3.3vw, 13px) !important;
+    line-height: 1.35 !important;
+  }
+  .slide-num {
+    align-self: flex-end !important;
+    font-size: 11px !important;
+  }
+  .body {
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 10px !important;
+    gap: 10px !important;
+  }
+  .col {
+    width: 100% !important;
+    gap: 10px !important;
+  }
+  .card {
+    width: 100% !important;
+    padding: 13px !important;
+  }
+  .body-t {
+    font-size: clamp(14px, 3.8vw, 16px) !important;
+    line-height: 1.6 !important;
+  }
+  .ch {
+    font-size: 12px !important;
+    line-height: 1.3 !important;
+  }
+  .eq, .answer, .notation-box {
+    font-size: clamp(14px, 4vw, 16px) !important;
+    overflow-x: auto !important;
+  }
+  .left-panel, .right-panel {
+    width: 100% !important;
+    height: auto !important;
+  }
+  .slide-root {
+    flex-direction: column !important;
+  }
+}
+</style>
+
 </head>
 <body class="compress-body">
 <div class="slide">
