@@ -964,6 +964,91 @@ mjx-c.mjx-c2212::before {
         }
     </style>
     
+
+
+<!-- Ajustes globais: tipografia uniforme e escala responsiva -->
+<style id="responsive-uniform-style">
+  :root {
+    --std-title-size: 26px;
+    --std-subtitle-size: 14px;
+    --std-title-color: #004B87;
+  }
+
+  html {
+    width: 100% !important;
+    min-height: 100% !important;
+    overflow-x: hidden !important;
+    background: #FCFCFA !important;
+  }
+
+  body {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+    transform: none !important;
+    transform-origin: top left !important;
+    background: #FCFCFA !important;
+  }
+
+  #responsive-shell {
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  #responsive-stage {
+    width: 1280px;
+    height: 720px;
+    flex: 0 0 1280px;
+    transform-origin: top left;
+  }
+
+  /* Títulos principais padronizados */
+  .hdr-title,
+  .title-main-text,
+  .title-main-heading,
+  .title-main-header,
+  .title-main,
+  .main-title {
+    font-family: "Inter", sans-serif !important;
+    font-size: var(--std-title-size) !important;
+    font-weight: 700 !important;
+    line-height: 1.2 !important;
+    color: var(--std-title-color) !important;
+  }
+
+  /* Subtítulos principais padronizados */
+  .hdr-sub,
+  .title-sub-text,
+  .title-sub-heading,
+  .title-sub-header,
+  .subtitle-secondary-text,
+  .sub-title {
+    font-family: "Inter", sans-serif !important;
+    font-size: var(--std-subtitle-size) !important;
+    font-weight: 400 !important;
+    line-height: 1.35 !important;
+    color: #5D6D7E !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.55px !important;
+  }
+
+  /* Evita que regras antigas de compressão deformem o corpo */
+  body.compress-body {
+    transform: none !important;
+    width: 100% !important;
+    height: auto !important;
+  }
+</style>
+
 </head>
 <body class="compress-body">
 <div class="slide">
@@ -1065,4 +1150,56 @@ mjx-c.mjx-c2212::before {
 
 
 <script>(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()</script><script>(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()</script><script>(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()</script><script>(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()</script><script>(function(){(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()})()</script><script>(function(){(function(){(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()})()})()</script><script>(function(){(function(){(function(){(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()})()})()})()</script><script>(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()})()})()})()})()</script><script>(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()})()})()})()})()})()</script><script>(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()})()})()})()})()})()})()</script><script>(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()})()})()})()})()})()})()})()</script><script>(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()})()})()})()})()})()})()})()})()</script><script>(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()})()})()})()})()})()})()})()})()})()</script><script>(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()})()})()})()})()})()})()})()})()})()})()</script>
+
+
+<script id="responsive-scale-script">
+(function () {
+  function setupResponsiveSlide() {
+    if (document.getElementById('responsive-stage')) return;
+
+    var currentScript = document.getElementById('responsive-scale-script');
+    var shell = document.createElement('div');
+    shell.id = 'responsive-shell';
+
+    var stage = document.createElement('div');
+    stage.id = 'responsive-stage';
+
+    var nodes = Array.prototype.slice.call(document.body.childNodes).filter(function (node) {
+      return node !== currentScript && !(node.nodeType === 3 && node.textContent.trim() === '');
+    });
+
+    document.body.insertBefore(shell, document.body.firstChild);
+    shell.appendChild(stage);
+
+    nodes.forEach(function (node) {
+      stage.appendChild(node);
+    });
+
+    function fit() {
+      var baseWidth = 1280;
+      var baseHeight = 720;
+      var availableWidth = document.documentElement.clientWidth || window.innerWidth;
+      var scale = Math.min(1, availableWidth / baseWidth);
+      stage.style.transform = 'scale(' + scale + ')';
+      shell.style.height = (baseHeight * scale) + 'px';
+      shell.style.maxWidth = (baseWidth * scale) + 'px';
+    }
+
+    window.addEventListener('resize', fit);
+    window.addEventListener('orientationchange', fit);
+    fit();
+
+    if (window.MathJax && window.MathJax.typesetPromise) {
+      window.MathJax.typesetPromise();
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupResponsiveSlide);
+  } else {
+    setupResponsiveSlide();
+  }
+})();
+</script>
+
 </body></html>
