@@ -52,7 +52,7 @@
 
 
 
-<title>§2.9 — Energia Interna</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Lora:ital,wght@0,400;1,400&amp;display=swap" rel="stylesheet"><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"><style>
+<title>§1.9 — Energia Interna</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Lora:ital,wght@0,400;1,400&amp;display=swap" rel="stylesheet"><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"><style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{width:1280px;height:720px;overflow:hidden;background:#FCFCFA;color:#2C3E50;font-family:'Lora',Georgia,serif}
 .slide{width:1280px;height:720px;display:flex;flex-direction:column}
@@ -1065,86 +1065,240 @@ mjx-c.mjx-c73::before {
 .CtxtMenu_Menu .CtxtMenu_MenuClose {  top:-10px; left:-10px}
 </style>
 
-<!-- Ajustes globais: tipografia uniforme e escala responsiva -->
-<style id="responsive-uniform-style">
+<!-- Responsividade e padronização adicionadas -->
+<style id="responsive-standardization">
   :root {
-    --std-title-size: 26px;
-    --std-subtitle-size: 14px;
-    --std-title-color: #004B87;
+    --std-title-size: clamp(24px, 2.3vw, 30px);
+    --std-subtitle-size: clamp(13px, 1.25vw, 15px);
+    --std-body-size: clamp(14px, 1.15vw, 16px);
+    --std-small-size: clamp(12px, 1vw, 13px);
+    --std-blue: #004B87;
+    --std-muted: #5D6D7E;
   }
 
-  html {
-    width: 100% !important;
-    min-height: 100% !important;
-    overflow-x: hidden !important;
-    background: #FCFCFA !important;
-  }
-
-  body {
+  html, body {
     width: 100% !important;
     height: auto !important;
     min-height: 100vh !important;
     overflow-x: hidden !important;
     overflow-y: auto !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    display: block !important;
-    transform: none !important;
-    transform-origin: top left !important;
     background: #FCFCFA !important;
   }
 
-  #responsive-shell {
-    width: 100%;
-    margin: 0 auto;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
+  body {
+    display: block !important;
+    transform: none !important;
+    transform-origin: initial !important;
+    padding: 0 !important;
+    margin: 0 !important;
   }
 
-  #responsive-stage {
-    width: 1280px;
-    height: 720px;
-    flex: 0 0 1280px;
-    transform-origin: top left;
+  .slide,
+  .slide-root,
+  .slide-root-container,
+  .slide-root-canvas,
+  .slide-layout-root,
+  .slide-root-layout,
+  .main-slide-canvas,
+  .thermo-slide-root,
+  .slide-root-canvas,
+  .slide-root-container,
+  .slide-root-canvas {
+    width: min(1280px, 100%) !important;
+    max-width: 1280px !important;
+    height: auto !important;
+    min-height: 720px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    overflow: visible !important;
   }
 
-  /* Títulos principais padronizados */
   .hdr-title,
+  .title-main,
   .title-main-text,
   .title-main-heading,
   .title-main-header,
-  .title-main,
+  .header-title,
   .main-title {
     font-family: "Inter", sans-serif !important;
     font-size: var(--std-title-size) !important;
     font-weight: 700 !important;
-    line-height: 1.2 !important;
-    color: var(--std-title-color) !important;
+    line-height: 1.18 !important;
+    color: var(--std-blue) !important;
   }
 
-  /* Subtítulos principais padronizados */
   .hdr-sub,
+  .title-sub,
   .title-sub-text,
   .title-sub-heading,
   .title-sub-header,
-  .subtitle-secondary-text,
+  .header-sub,
   .sub-title {
     font-family: "Inter", sans-serif !important;
     font-size: var(--std-subtitle-size) !important;
-    font-weight: 400 !important;
     line-height: 1.35 !important;
-    color: #5D6D7E !important;
+    color: var(--std-muted) !important;
     text-transform: uppercase !important;
-    letter-spacing: 0.55px !important;
+    letter-spacing: 0.6px !important;
   }
 
-  /* Evita que regras antigas de compressão deformem o corpo */
-  body.compress-body {
-    transform: none !important;
-    width: 100% !important;
+  .body-t,
+  .body-text,
+  .text-paragraph,
+  .theory-text-block,
+  .concept-text-block,
+  .content-paragraph-block,
+  .explanatory-paragraph-text,
+  .gas-ideal-text-paragraph,
+  .serif-text {
+    font-size: var(--std-body-size) !important;
+  }
+
+  .hdr,
+  .title-section-wrapper,
+  .title-section-container,
+  .title-header-wrapper,
+  .header {
+    max-width: calc(100% - 72px) !important;
+  }
+
+  img, svg, video, canvas {
+    max-width: 100% !important;
     height: auto !important;
+  }
+
+  table {
+    max-width: 100% !important;
+  }
+
+  .table-wrap,
+  .system-table-container {
+    overflow-x: auto !important;
+  }
+
+  @media (max-width: 900px) {
+    .slide,
+    .slide-root,
+    .slide-root-container,
+    .slide-root-canvas,
+    .slide-layout-root,
+    .slide-root-layout,
+    .main-slide-canvas,
+    .thermo-slide-root {
+      width: 100% !important;
+      min-height: auto !important;
+      height: auto !important;
+    }
+
+    .hdr,
+    .title-section-wrapper,
+    .title-section-container,
+    .title-header-wrapper,
+    .header {
+      margin: 10px 12px 0 12px !important;
+      max-width: calc(100% - 24px) !important;
+      padding: 12px 14px !important;
+      align-items: flex-start !important;
+      gap: 8px !important;
+    }
+
+    .hdr {
+      flex-direction: column !important;
+    }
+
+    .slide-num {
+      align-self: flex-end !important;
+    }
+
+    .body,
+    .main-grid,
+    .main-content-layout,
+    .content-main-layout,
+    .content-layout-grid,
+    .main-content-container,
+    .content-grid-container,
+    .content-columns-wrapper,
+    .main-content-wrapper,
+    .gas-ideal-content-layout,
+    .content-main-layout {
+      display: flex !important;
+      flex-direction: column !important;
+      grid-template-columns: 1fr !important;
+      width: 100% !important;
+      height: auto !important;
+      padding: 12px !important;
+      gap: 12px !important;
+      align-items: stretch !important;
+      overflow: visible !important;
+    }
+
+    .col,
+    .left-column,
+    .right-column,
+    .left-column-content,
+    .right-column-content,
+    .left-content-column,
+    .right-content-column,
+    .left-theory-column,
+    .right-practice-column,
+    .left-column-theoretical,
+    .right-column-practical,
+    .left-column-textual,
+    .right-column-tabular,
+    .content-column-left,
+    .content-column-right,
+    .left-explanation-column,
+    .right-formalism-column,
+    .gas-ideal-left-column,
+    .gas-ideal-right-column,
+    .left-panel,
+    .right-panel {
+      width: 100% !important;
+      max-width: 100% !important;
+      flex: none !important;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 12px !important;
+    }
+
+    .card,
+    .theory-card-item,
+    .theory-card-block,
+    .example-card-item,
+    .example-card-block,
+    .info-card-block,
+    .practice-card-block,
+    .practice-example-card,
+    .measurement-category-box,
+    .scale-detail-card,
+    .state-functions-card,
+    .equation-display-card,
+    .gas-ideal-practice-card {
+      width: 100% !important;
+      min-height: auto !important;
+      height: auto !important;
+      overflow: visible !important;
+    }
+
+    .section-grid,
+    .functions-list-grid {
+      grid-template-columns: 1fr !important;
+    }
+  }
+
+  @media (max-width: 520px) {
+    :root {
+      --std-title-size: 22px;
+      --std-subtitle-size: 12px;
+      --std-body-size: 14px;
+    }
+
+    .card,
+    .theory-card-item,
+    .example-card-item,
+    .info-card-block {
+      padding: 12px !important;
+    }
   }
 </style>
 
@@ -1153,7 +1307,7 @@ mjx-c.mjx-c73::before {
 <div class="slide">
   <div class="hdr">
     <div class="hdr-inner">
-      <div class="hdr-title">§2.9 — Energia Interna: Uma Função de Estado</div>
+      <div class="hdr-title">§1.9 — Energia Interna: Uma Função de Estado</div>
       <div class="hdr-sub">Definição · Componentes microscópicos · Gás ideal · Propriedades</div>
     </div>
     <div class="slide-num">16 / 20</div>
@@ -1247,56 +1401,4 @@ mjx-c.mjx-c73::before {
 
 
 <script>(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()</script><script>(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()</script><script>(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()</script><script>(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()</script><script>(function(){(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()})()</script><script>(function(){(function(){(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()})()})()</script><script>(function(){(function(){(function(){(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()})()})()})()</script><script>(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()})()})()})()})()</script><script>(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()})()})()})()})()})()</script><script>(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()})()})()})()})()})()})()</script><script>(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()})()})()})()})()})()})()})()</script><script>(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()})()})()})()})()})()})()})()})()</script><script>(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()})()})()})()})()})()})()})()})()})()</script><script>(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()})()})()})()})()})()})()})()})()})()})()</script>
-
-
-<script id="responsive-scale-script">
-(function () {
-  function setupResponsiveSlide() {
-    if (document.getElementById('responsive-stage')) return;
-
-    var currentScript = document.getElementById('responsive-scale-script');
-    var shell = document.createElement('div');
-    shell.id = 'responsive-shell';
-
-    var stage = document.createElement('div');
-    stage.id = 'responsive-stage';
-
-    var nodes = Array.prototype.slice.call(document.body.childNodes).filter(function (node) {
-      return node !== currentScript && !(node.nodeType === 3 && node.textContent.trim() === '');
-    });
-
-    document.body.insertBefore(shell, document.body.firstChild);
-    shell.appendChild(stage);
-
-    nodes.forEach(function (node) {
-      stage.appendChild(node);
-    });
-
-    function fit() {
-      var baseWidth = 1280;
-      var baseHeight = 720;
-      var availableWidth = document.documentElement.clientWidth || window.innerWidth;
-      var scale = Math.min(1, availableWidth / baseWidth);
-      stage.style.transform = 'scale(' + scale + ')';
-      shell.style.height = (baseHeight * scale) + 'px';
-      shell.style.maxWidth = (baseWidth * scale) + 'px';
-    }
-
-    window.addEventListener('resize', fit);
-    window.addEventListener('orientationchange', fit);
-    fit();
-
-    if (window.MathJax && window.MathJax.typesetPromise) {
-      window.MathJax.typesetPromise();
-    }
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setupResponsiveSlide);
-  } else {
-    setupResponsiveSlide();
-  }
-})();
-</script>
-
 </body></html>
