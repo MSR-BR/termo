@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR" style="--viewport-height: 9.25px;"><head>
 <meta charset="utf-8">
-<meta content="width=1280, height=720" name="viewport">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 
 <script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};</script>
@@ -1432,6 +1432,393 @@ table {
   }
 }
 </style>
+
+
+
+<!-- RESPONSIVE-UNIFORM-V2 -->
+<style id="responsive-uniform-v2">
+  /* Base responsiva: mantém o conteúdo, mas remove o canvas fixo 1280x720 */
+  html {
+    width: 100% !important;
+    min-height: 100% !important;
+    overflow-x: hidden !important;
+    background: #FCFCFA !important;
+  }
+
+  body {
+    width: 100% !important;
+    min-height: 100vh !important;
+    height: auto !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    background: #FCFCFA !important;
+    color: #2C3E50 !important;
+    font-family: 'Lora', Georgia, serif !important;
+  }
+
+  .slide,
+  .slide-root,
+  .slide-root-container,
+  .slide-layout-root,
+  .slide-root-canvas,
+  .main-slide-canvas,
+  .thermo-slide-root,
+  .slide-root-layout,
+  .slide-root-canvas {
+    width: 100% !important;
+    max-width: 1280px !important;
+    height: auto !important;
+    min-height: 720px !important;
+    margin: 0 auto !important;
+    overflow: visible !important;
+  }
+
+  /* Cabeçalho padronizado em todas as páginas conceituais */
+  .hdr,
+  .title-section-wrapper,
+  .title-section-container,
+  .title-header-wrapper,
+  .title-section-block,
+  .header {
+    width: auto !important;
+    max-width: none !important;
+    margin: 12px 36px 0 36px !important;
+    padding: 12px 20px !important;
+    min-height: auto !important;
+    height: auto !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 12px !important;
+    flex-wrap: wrap !important;
+    overflow: visible !important;
+  }
+
+  .hdr-inner,
+  .header-inner {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .hdr-title,
+  .title-main-text,
+  .title-main-heading,
+  .title-main-header,
+  .header-title {
+    font-family: 'Inter', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: clamp(24px, 2.25vw, 30px) !important;
+    line-height: 1.18 !important;
+    color: #004B87 !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .hdr-sub,
+  .title-sub-text,
+  .title-sub-heading,
+  .title-sub-header,
+  .header-sub {
+    font-family: 'Inter', sans-serif !important;
+    font-weight: 400 !important;
+    font-size: clamp(13px, 1.15vw, 15px) !important;
+    line-height: 1.35 !important;
+    color: #5D6D7E !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.6px !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .slide-num {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 12px !important;
+    color: #B0BAC9 !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* Corpo: mantém o grid no desktop e quebra os boxes para baixo em telas menores */
+  .body,
+  .main-content-layout,
+  .content-main-layout,
+  .main-content-container,
+  .main-content-wrapper,
+  .content-columns-wrapper,
+  .content-layout-grid,
+  .content-grid-container,
+  .gas-ideal-content-layout {
+    width: auto !important;
+    height: auto !important;
+    min-height: 0 !important;
+    flex: 1 1 auto !important;
+    gap: 14px !important;
+    padding: 14px 36px 22px 36px !important;
+    overflow: visible !important;
+  }
+
+  .body {
+    display: grid !important;
+  }
+
+  .col,
+  .left-column-content,
+  .right-column-content,
+  .left-theory-column,
+  .right-practice-column,
+  .left-column-theoretical,
+  .right-column-practical,
+  .content-column-left,
+  .content-column-right,
+  .gas-ideal-left-column,
+  .gas-ideal-right-column {
+    min-width: 0 !important;
+    width: auto !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  .card,
+  .theory-card-block,
+  .example-card-block,
+  .theory-card-item,
+  .example-card-item,
+  .practice-card-block,
+  .info-card-block,
+  .practical-example-card,
+  .measurement-category-box,
+  .scale-detail-card,
+  .example-solved-card,
+  .example-practical-card,
+  .practice-example-card,
+  .state-functions-card,
+  .variable-definition-block,
+  .math-block-card {
+    min-width: 0 !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+  }
+
+  .ch,
+  .section-header,
+  .section-heading,
+  .section-header-title,
+  .content-heading-text,
+  .card-heading,
+  .variable-definition-heading {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 13px !important;
+    line-height: 1.25 !important;
+    font-weight: 700 !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .body-t,
+  .body-text,
+  .text-paragraph,
+  .theory-text-block,
+  .concept-text-block,
+  .explanatory-paragraph-text,
+  .content-paragraph-block,
+  .section-intro-text,
+  .gas-ideal-text-paragraph,
+  .theory-text-paragraph,
+  .text-block-narrative,
+  .serif-text,
+  .concept-explanation-paragraph {
+    font-size: 15px !important;
+    line-height: 1.62 !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  /* Equações: rolagem horizontal interna se necessário, sem quebrar o layout */
+  .eq,
+  .equation-display-card,
+  .equation-highlight-box,
+  .equation-block-highlight,
+  .gas-ideal-equation-box,
+  .notation-box,
+  .answer,
+  .calc-box,
+  .formula-box {
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+    white-space: normal !important;
+    font-size: 16px !important;
+  }
+
+  mjx-container {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  mjx-container[display="true"] {
+    display: block !important;
+    width: 100% !important;
+    padding-bottom: 2px !important;
+  }
+
+  .table-wrap,
+  .system-table-container,
+  table {
+    max-width: 100% !important;
+  }
+
+  .table-wrap,
+  .system-table-container {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  table {
+    width: 100% !important;
+    min-width: max-content !important;
+  }
+
+  img, svg, canvas, video {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  /* Capa / página 1 */
+  .left-panel, .right-panel {
+    height: auto !important;
+    min-height: 720px !important;
+    overflow: visible !important;
+  }
+  .right-panel { min-width: 0 !important; }
+  .topics-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)) !important; }
+  .main-title { font-size: clamp(32px, 3vw, 42px) !important; }
+  .sub-title, .quote-text, .author-name { font-size: 18px !important; }
+  .author-inst { font-size: 14px !important; }
+
+  @media (max-width: 1100px) {
+    .body {
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+    .main-content-layout,
+    .content-main-layout,
+    .main-content-container,
+    .main-content-wrapper,
+    .content-columns-wrapper,
+    .content-layout-grid,
+    .content-grid-container,
+    .gas-ideal-content-layout {
+      display: grid !important;
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      align-items: start !important;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .slide,
+    .slide-root,
+    .slide-root-container,
+    .slide-layout-root,
+    .slide-root-canvas,
+    .main-slide-canvas,
+    .thermo-slide-root,
+    .slide-root-layout {
+      min-height: 0 !important;
+    }
+
+    .hdr,
+    .title-section-wrapper,
+    .title-section-container,
+    .title-header-wrapper,
+    .title-section-block,
+    .header {
+      margin: 10px 14px 0 14px !important;
+      padding: 11px 14px !important;
+    }
+
+    .body,
+    .main-content-layout,
+    .content-main-layout,
+    .main-content-container,
+    .main-content-wrapper,
+    .content-columns-wrapper,
+    .content-layout-grid,
+    .content-grid-container,
+    .gas-ideal-content-layout {
+      display: grid !important;
+      grid-template-columns: 1fr !important;
+      gap: 12px !important;
+      padding: 12px 14px 18px 14px !important;
+    }
+
+    .hdr-title,
+    .title-main-text,
+    .title-main-heading,
+    .title-main-header,
+    .header-title {
+      font-size: 24px !important;
+    }
+
+    .hdr-sub,
+    .title-sub-text,
+    .title-sub-heading,
+    .title-sub-header,
+    .header-sub {
+      font-size: 13px !important;
+    }
+
+    .body-t,
+    .body-text,
+    .text-paragraph,
+    .theory-text-block,
+    .concept-text-block,
+    .explanatory-paragraph-text,
+    .content-paragraph-block,
+    .section-intro-text,
+    .gas-ideal-text-paragraph,
+    .theory-text-paragraph,
+    .text-block-narrative,
+    .serif-text,
+    .concept-explanation-paragraph {
+      font-size: 14.5px !important;
+      text-align: left !important;
+    }
+
+    .eq,
+    .equation-display-card,
+    .equation-highlight-box,
+    .equation-block-highlight,
+    .gas-ideal-equation-box,
+    .notation-box,
+    .answer,
+    .calc-box,
+    .formula-box {
+      font-size: 14.5px !important;
+      padding-left: 10px !important;
+      padding-right: 10px !important;
+    }
+
+    mjx-container {
+      font-size: 88% !important;
+    }
+
+    .slide-root {
+      flex-direction: column !important;
+    }
+    .left-panel,
+    .right-panel {
+      width: 100% !important;
+      min-height: 0 !important;
+      padding: 28px 22px !important;
+    }
+    .topics-grid {
+      grid-template-columns: 1fr !important;
+    }
+  }
+</style>
+<!-- /RESPONSIVE-UNIFORM-V2 -->
 
 </head>
 <body class="">
