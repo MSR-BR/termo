@@ -1,1159 +1,220 @@
 <!DOCTYPE html>
-<html lang="pt-BR" style="--viewport-height: 9.25px;"><head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+<html lang="pt-BR" style="--viewport-height: 9.25px;"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>Capítulo 1 — Conceitos Fundamentais de Termodinâmica</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Lora:ital,wght@0,400;0,600;1,400&amp;display=swap" rel="stylesheet"/><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};</script><script async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><style>
+:root{
+  --bg:#FCFCFA; --page:#EDEDED; --text:#2C3E50; --muted:#5D6D7E;
+  --blue:#004B87; --blue-soft:#E8F0FE; --red:#B03A2E; --green:#1A7A4A;
+  --purple:#6D28D9; --orange:#A04000; --border:#DDE3ED; --card:#FFFFFF;
+  --shadow:0 10px 28px rgba(0,0,0,.08);
+  --title:clamp(1.32rem, 2.2vw, 1.72rem);
+  --subtitle:clamp(.82rem, 1.25vw, 1rem);
+  --body:clamp(.93rem, 1.25vw, 1.04rem);
+  --small:clamp(.82rem, 1.1vw, .94rem);
+  --card-title:clamp(.96rem, 1.35vw, 1.08rem);
+}
+*{box-sizing:border-box}
+html,body{margin:0!important;padding:0!important;width:100%!important;min-height:100%!important;height:auto!important;overflow-x:hidden!important;overflow-y:auto!important;background:var(--page)!important;color:var(--text)!important;font-family:"Lora", Georgia, serif!important;}
+body{display:flex!important;justify-content:center!important;align-items:flex-start!important;padding:clamp(8px,1.8vw,18px)!important;}
 
-<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script>
-
-
-
-
-
-
-
-
-
-<title>Capítulo 1 — Conceitos Fundamentais de Termodinâmica</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Lora:ital,wght@0,400;0,600;1,400&amp;display=swap" rel="stylesheet"><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"><style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-body {
-  width: 1280px; height: 720px; overflow: hidden;
-  background-color: #0B1F3A;
+/* Canvas padrão: mesmo espírito da página Escalas Termométricas */
+.slide,.slide-root,.slide-root-container,.slide-layout-root,.slide-root-layout,.thermo-slide-root,.main-slide-canvas,.slide-root-canvas{
+  width:min(100%,1280px)!important;max-width:1280px!important;min-height:min(720px, calc(100vh - 2*clamp(8px,1.8vw,18px)))!important;height:auto!important;background:var(--bg)!important;color:var(--text)!important;display:flex!important;flex-direction:column!important;position:relative!important;overflow:visible!important;border:1px solid rgba(0,0,0,.04)!important;box-shadow:var(--shadow)!important;
 }
 
-.slide-root {
-  width: 1280px; height: 720px;
-  display: flex; flex-direction: row;
+/* Cabeçalho uniforme */
+.hdr,.header,.title-header-wrapper,.title-section-wrapper,.title-section-container,.title-section-block,.title-header-container,.title-section,.title-section-container,.title-section-wrapper{
+  display:flex!important;align-items:flex-start!important;justify-content:space-between!important;gap:14px!important;padding:clamp(10px,1.5vw,15px) clamp(16px,2.4vw,30px)!important;margin:clamp(10px,1.5vw,14px) clamp(16px,3vw,40px) clamp(6px,1vw,10px)!important;background:#F2F4F7!important;border-left:5px solid var(--blue)!important;border-radius:6px!important;flex-shrink:0!important;
+}
+.hdr-inner,.header-inner{display:flex!important;flex-direction:column!important;min-width:0!important;}
+.hdr-title,.header-title,.title-main-text,.title-main-heading,.title-main-header,.title-main,.title-main-title,h1.title-main-heading{
+  font-family:"Inter",sans-serif!important;font-weight:700!important;font-size:var(--title)!important;color:var(--blue)!important;line-height:1.18!important;letter-spacing:-.01em!important;margin:0!important;text-transform:none!important;
+}
+.hdr-sub,.header-sub,.title-sub-text,.title-sub-heading,.title-sub-header,.subtitle-secondary-text,.sub-title{
+  font-family:"Inter",sans-serif!important;font-weight:400!important;font-size:var(--subtitle)!important;color:var(--muted)!important;line-height:1.35!important;margin-top:3px!important;text-transform:uppercase!important;letter-spacing:.045em!important;
+}
+.slide-num,.slide-counter{font-family:"Inter",sans-serif!important;font-size:.78rem!important;color:#98A4B5!important;white-space:nowrap!important;align-self:center!important;}
+
+/* Layout principal: caixas quebram para baixo ao estreitar */
+.body,.main-content-layout,.main-content-wrapper,.content-main-layout,.content-grid-container,.content-columns-wrapper,.main-content-container,.content-layout-grid,.gas-ideal-content-layout,.content-grid,.main-grid{
+  flex:1 1 auto!important;width:100%!important;display:grid!important;grid-template-columns:repeat(auto-fit,minmax(min(100%,310px),1fr))!important;gap:clamp(12px,1.8vw,18px)!important;padding:clamp(10px,1.5vw,14px) clamp(16px,3vw,40px) clamp(16px,2.3vw,26px)!important;align-items:stretch!important;min-height:0!important;overflow:visible!important;
+}
+.col,.left-column,.right-column,.left-content-column,.right-content-column,.left-theory-column,.right-application-column,.left-explanation-column,.right-formalism-column,.left-column-content,.right-column-content,.content-column-left,.content-column-right,.left-column-theoretical,.right-column-practical,.left-column-textual,.right-column-tabular,.left-derivation-pane,.right-application-pane,.left-column-theory,.right-column-practical,.gas-ideal-left-column,.gas-ideal-right-column,.left-pane,.right-pane{
+  min-width:0!important;display:flex!important;flex-direction:column!important;gap:clamp(10px,1.5vw,14px)!important;justify-content:center!important;overflow:visible!important;
 }
 
-/* ══ LEFT PANEL ══ */
-.left-panel {
-  width: 480px; height: 720px;
-  background: #0B1F3A;
-  display: flex; flex-direction: column;
-  justify-content: space-between;
-  padding: 44px 40px 34px 44px;
-  flex-shrink: 0;
-  position: relative;
-  overflow: hidden;
+/* Cartões */
+.card,.scale-detail-card,.theory-card-item,.theory-card-block,.example-card-item,.example-card-block,.info-card-block,.practice-card-block,.practice-example-card,.example-solved-card,.math-block-card,.state-functions-card,.variable-definition-block,.gas-ideal-practice-card,.gas-ideal-equation-box,.equation-display-card,.equation-display-box,.equation-highlight-box,.practice-exercise-container,.analogy-sidebar-container,.consequence-summary-banner,.note,.callout,.ref-box,.answer,.data-item,.notation-box{
+  background:var(--card)!important;border:1px solid var(--border)!important;border-radius:9px!important;padding:clamp(12px,1.8vw,18px)!important;box-shadow:0 2px 10px rgba(0,0,0,.045)!important;min-width:0!important;overflow:visible!important;
 }
+.card,.theory-card-item,.theory-card-block,.example-card-item,.example-card-block,.info-card-block{border-top:3px solid var(--blue)!important;}
+.card.red,.red,.note{border-top-color:var(--red)!important}.card.green,.green{border-top-color:var(--green)!important}.card.purple,.purple{border-top-color:var(--purple)!important}
+.ref-box,.state-functions-card,.practice-exercise-container{background:var(--blue-soft)!important;border-color:#C5D8F5!important;}
+.note,.callout{background:#FFF8F6!important;border-left:4px solid var(--red)!important;border-top:0!important;}
+.answer{background:#E8F5EC!important;border-color:#A7D7B5!important;}
 
-.left-panel::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 5px;
-  background: linear-gradient(90deg, #B03A2E 0%, #E05A3A 60%, transparent 100%);
+/* Tipografia interna uniforme */
+.body-t,.body-text,.content-paragraph-block,.concept-text-block,.text-paragraph,.theory-text-block,.theory-text-paragraph,.text-block-narrative,.explanatory-paragraph-text,.section-intro-text,p,li,td,.step-t,.analogy,.analogy-body,.topic-note{
+  font-family:"Lora", Georgia, serif!important;font-size:var(--body)!important;line-height:1.58!important;color:var(--text)!important;text-align:justify!important;
 }
-
-.left-panel::after {
-  content: "";
-  position: absolute;
-  bottom: -120px; right: -120px;
-  width: 320px; height: 320px;
-  border-radius: 50%;
-  border: 40px solid rgba(255,255,255,0.04);
-  pointer-events: none;
+.ch,.card-heading,.section-heading,.section-header,.section-header-title,.content-heading-text,.scale-card-title,.card-header-label,.variable-definition-heading,.gas-ideal-card-title,.example-step-title,.exercise-title,.ref-title,.answer-lbl,.eq-lbl,.notation-lbl{
+  font-family:"Inter",sans-serif!important;font-weight:700!important;font-size:var(--card-title)!important;line-height:1.25!important;color:var(--blue)!important;display:flex!important;align-items:center!important;gap:8px!important;margin-bottom:clamp(4px,.8vw,8px)!important;text-transform:none!important;letter-spacing:.015em!important;
 }
+.ch.red,.red .ch,.exercise-title{color:var(--red)!important}.ch.green{color:var(--green)!important}.ch.purple{color:var(--purple)!important}
+.bl,.blue-hl{color:var(--blue)!important;font-weight:700!important}.hl,.highlight,.term-highlight{color:var(--red)!important;font-weight:700!important}.gr{color:var(--green)!important;font-weight:700!important}
 
-.chapter-badge {
-  display: inline-flex; align-items: center; gap: 9px;
-  background: rgba(176,58,46,0.18);
-  border: 1px solid rgba(176,58,46,0.45);
-  border-radius: 20px;
-  padding: 6px 18px;
-  font-family: "Inter", sans-serif;
-  font-size: 14px; font-weight: 700;
-  color: #E87D6B;
-  letter-spacing: 1.2px; text-transform: uppercase;
-  width: fit-content;
+/* Listas */
+ul,.bullet,.bullet-list,.prop-list,.variable-list-items,.example-list-container{margin:.35rem 0!important;padding-left:1.2rem!important;list-style:none!important;}
+li{position:relative!important;margin-bottom:.33rem!important;padding-left:.25rem!important;}
+li::before{content:"▸"!important;color:var(--blue)!important;position:absolute!important;left:-1rem!important;top:.05rem!important;font-size:.75em!important;}
+
+/* Equações e tabelas: não estouram; rolagem horizontal interna */
+.eq,.equation-display-card,.equation-display-box,.equation-highlight-box,.math-block-card,.formula,.notation-box{
+  background:#F8F9FA!important;border:1px solid #D5D8DC!important;border-radius:8px!important;text-align:center!important;font-size:clamp(.95rem,1.25vw,1.08rem)!important;line-height:1.45!important;overflow-x:auto!important;overflow-y:hidden!important;max-width:100%!important;white-space:normal!important;-webkit-overflow-scrolling:touch!important;
 }
-
-.title-block {
-  display: flex; flex-direction: column; gap: 10px;
+.eq mjx-container,.equation-display-card mjx-container,.equation-display-box mjx-container,.math-block-card mjx-container,mjx-container,math{
+  max-width:100%!important;overflow-x:auto!important;overflow-y:hidden!important;white-space:nowrap!important;
 }
+.table-wrap{max-width:100%!important;overflow-x:auto!important;border-radius:8px!important;border:1px solid var(--border)!important;}
+table{width:100%!important;min-width:420px!important;border-collapse:collapse!important;font-family:"Inter",sans-serif!important;font-size:var(--small)!important;}th{background:var(--blue)!important;color:white!important;padding:7px 10px!important;}td{padding:7px 10px!important;border-bottom:1px solid #EEF1F5!important;text-align:center!important;}
+img,svg,video{max-width:100%!important;height:auto!important;}
 
-.chap-number {
-  font-family: "Inter", sans-serif;
-  font-size: 80px; font-weight: 800;
-  color: rgba(255,255,255,0.06);
-  line-height: 1; letter-spacing: -2px;
-  margin-bottom: -14px;
+/* Cover */
+.slide-root{display:grid!important;grid-template-columns:minmax(280px,38%) 1fr!important;}
+.left-panel,.right-panel{min-width:0!important;overflow:visible!important;}
+.left-panel{background:#0B1F3A!important;color:white!important;padding:clamp(28px,4vw,48px)!important;display:flex!important;flex-direction:column!important;justify-content:space-between!important;}
+.right-panel{padding:clamp(24px,4vw,48px)!important;display:flex!important;align-items:center!important;justify-content:center!important;}
+.main-title{font-family:"Inter",sans-serif!important;font-size:clamp(1.8rem,4vw,3rem)!important;color:#fff!important;line-height:1.12!important;}
+.chap-number{font-family:"Inter",sans-serif!important;font-size:clamp(3rem,7vw,5rem)!important;font-weight:800!important;color:rgba(255,255,255,.12)!important;}
+
+/* Responsividade real */
+@media (max-width: 900px){
+  body{padding:0!important;background:var(--bg)!important;}
+  .slide,.slide-root,.slide-root-container,.slide-layout-root,.slide-root-layout,.thermo-slide-root,.main-slide-canvas,.slide-root-canvas{width:100%!important;max-width:none!important;min-height:100vh!important;border:0!important;box-shadow:none!important;}
+  .slide-root{display:flex!important;flex-direction:column!important;}
+  .hdr,.header,.title-header-wrapper,.title-section-wrapper,.title-section-container,.title-section-block,.title-header-container{margin:10px 12px 6px!important;padding:11px 14px!important;}
+  .body,.main-content-layout,.main-content-wrapper,.content-main-layout,.content-grid-container,.content-columns-wrapper,.main-content-container,.content-layout-grid,.gas-ideal-content-layout,.content-grid,.main-grid{grid-template-columns:1fr!important;padding:10px 12px 18px!important;gap:12px!important;}
+  .slide-num{display:none!important;}
+  .body-t,.body-text,.content-paragraph-block,.concept-text-block,.text-paragraph,.theory-text-block,.theory-text-paragraph,.text-block-narrative,.explanatory-paragraph-text,.section-intro-text,p,li,td,.step-t,.analogy,.analogy-body{text-align:left!important;}
 }
-
-.title-rule {
-  width: 50px; height: 4px;
-  background: #B03A2E;
-  border-radius: 2px;
-  margin-bottom: 8px;
+@media (max-width: 520px){
+  :root{--title:1.22rem;--subtitle:.76rem;--body:.94rem;--card-title:.98rem;}
+  .hdr,.header,.title-header-wrapper,.title-section-wrapper,.title-section-container{flex-direction:column!important;}
+  .card,.scale-detail-card,.theory-card-item,.theory-card-block,.example-card-item,.example-card-block,.info-card-block,.practice-card-block,.practice-example-card,.example-solved-card,.math-block-card,.state-functions-card,.variable-definition-block,.gas-ideal-practice-card,.gas-ideal-equation-box,.equation-display-card,.equation-display-box,.equation-highlight-box,.practice-exercise-container,.analogy-sidebar-container,.consequence-summary-banner,.note,.callout,.ref-box,.answer,.data-item,.notation-box{padding:12px!important;}
+  table{min-width:360px!important;}
 }
-
-.main-title {
-  font-family: "Inter", sans-serif;
-  font-size: 30px; font-weight: 800;
-  color: #FFFFFF;
-  line-height: 1.22;
-  letter-spacing: -0.3px;
-}
-
-.sub-title {
-  font-family: "Lora", Georgia, serif;
-  font-size: 16px; font-style: italic;
-  color: rgba(255,255,255,0.55);
-  line-height: 1.5;
-  margin-top: 6px;
-}
-
-.quote-block {
-  border-left: 3px solid rgba(176,58,46,0.6);
-  padding: 12px 0 12px 18px;
-}
-
-.quote-text {
-  font-family: "Lora", Georgia, serif;
-  font-size: 14.5px; font-style: italic;
-  color: rgba(255,255,255,0.72);
-  line-height: 1.7;
-}
-
-.author-block { display: flex; flex-direction: column; gap: 5px; }
-
-.author-name {
-  font-family: "Inter", sans-serif;
-  font-size: 16px; font-weight: 700;
-  color: #FFFFFF;
-}
-
-.author-inst {
-  font-family: "Inter", sans-serif;
-  font-size: 13px; color: rgba(255,255,255,0.45);
-  letter-spacing: 0.6px; text-transform: uppercase;
-}
-
-/* ══ RIGHT PANEL ══ */
-.right-panel {
-  flex: 1; height: 720px;
-  background: #FCFCFA;
-  display: flex; flex-direction: column;
-  padding: 32px 36px 28px 36px;
-  gap: 16px;
-  overflow: hidden;
-}
-
-.section-label {
-  font-family: "Inter", sans-serif;
-  font-size: 13px; font-weight: 700;
-  color: #004B87; letter-spacing: 1.4px;
-  text-transform: uppercase;
-  display: flex; align-items: center; gap: 9px;
-}
-.section-label::after {
-  content: "";
-  flex: 1; height: 1px;
-  background: #DDE3ED;
-}
-
-.topics-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 9px;
-  flex: 1;
-}
-
-.topic-pill {
-  background: #F2F4F7;
-  border: 1px solid #E2E8F0;
-  border-left: 4px solid #004B87;
-  border-radius: 7px;
-  padding: 11px 14px;
-  display: flex; align-items: flex-start; gap: 11px;
-}
-.topic-pill.accent { border-left-color: #B03A2E; }
-.topic-pill.green  { border-left-color: #1A7A4A; }
-.topic-pill.purple { border-left-color: #6D28D9; }
-
-.pill-num {
-  font-family: "Inter", sans-serif;
-  font-size: 18px; font-weight: 800;
-  color: #004B87;
-  flex-shrink: 0;
-  line-height: 1;
-  margin-top: 1px;
-  width: 24px;
-  text-align: right;
-}
-.pill-num.accent { color: #B03A2E; }
-.pill-num.green  { color: #1A7A4A; }
-.pill-num.purple { color: #6D28D9; }
-
-.pill-icon {
-  font-size: 17px; color: #004B87;
-  margin-top: 2px; flex-shrink: 0;
-  width: 20px; text-align: center;
-}
-.pill-icon.accent  { color: #B03A2E; }
-.pill-icon.green   { color: #1A7A4A; }
-.pill-icon.purple  { color: #6D28D9; }
-
-.pill-text { display: flex; flex-direction: column; gap: 3px; }
-
-.pill-name {
-  font-family: "Inter", sans-serif;
-  font-size: 14px; font-weight: 700;
-  color: #1A2535; line-height: 1.2;
-}
-
-.pill-desc {
-  font-family: "Lora", Georgia, serif;
-  font-size: 12.5px; color: #5D6D7E; line-height: 1.45;
-}
-
-.meta-bar {
-  display: flex; align-items: center; justify-content: space-between;
-  padding-top: 12px;
-  border-top: 1px solid #E2E8F0;
-}
-
-.meta-item {
-  display: flex; align-items: center; gap: 7px;
-  font-family: "Inter", sans-serif;
-  font-size: 13px; color: #7D8FA9;
-}
-.meta-item i { font-size: 13px; color: #004B87; }
-
-.slide-counter {
-  font-family: "Inter", sans-serif;
-  font-size: 13px; color: #B0BAC9;
-}
-</style>
-
-<!-- Responsividade e padronização adicionadas -->
-<style id="responsive-standardization">
-  :root {
-    --std-title-size: clamp(24px, 2.3vw, 30px);
-    --std-subtitle-size: clamp(13px, 1.25vw, 15px);
-    --std-body-size: clamp(14px, 1.15vw, 16px);
-    --std-small-size: clamp(12px, 1vw, 13px);
-    --std-blue: #004B87;
-    --std-muted: #5D6D7E;
-  }
-
-  html, body {
-    width: 100% !important;
-    height: auto !important;
-    min-height: 100vh !important;
-    overflow-x: hidden !important;
-    overflow-y: auto !important;
-    background: #FCFCFA !important;
-  }
-
-  body {
-    display: block !important;
-    transform: none !important;
-    transform-origin: initial !important;
-    padding: 0 !important;
-    margin: 0 !important;
-  }
-
-  .slide,
-  .slide-root,
-  .slide-root-container,
-  .slide-root-canvas,
-  .slide-layout-root,
-  .slide-root-layout,
-  .main-slide-canvas,
-  .thermo-slide-root,
-  .slide-root-canvas,
-  .slide-root-container,
-  .slide-root-canvas {
-    width: min(1280px, 100%) !important;
-    max-width: 1280px !important;
-    height: auto !important;
-    min-height: 720px !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    overflow: visible !important;
-  }
-
-  .hdr-title,
-  .title-main,
-  .title-main-text,
-  .title-main-heading,
-  .title-main-header,
-  .header-title,
-  .main-title {
-    font-family: "Inter", sans-serif !important;
-    font-size: var(--std-title-size) !important;
-    font-weight: 700 !important;
-    line-height: 1.18 !important;
-    color: var(--std-blue) !important;
-  }
-
-  .hdr-sub,
-  .title-sub,
-  .title-sub-text,
-  .title-sub-heading,
-  .title-sub-header,
-  .header-sub,
-  .sub-title {
-    font-family: "Inter", sans-serif !important;
-    font-size: var(--std-subtitle-size) !important;
-    line-height: 1.35 !important;
-    color: var(--std-muted) !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.6px !important;
-  }
-
-  .body-t,
-  .body-text,
-  .text-paragraph,
-  .theory-text-block,
-  .concept-text-block,
-  .content-paragraph-block,
-  .explanatory-paragraph-text,
-  .gas-ideal-text-paragraph,
-  .serif-text {
-    font-size: var(--std-body-size) !important;
-  }
-
-  .hdr,
-  .title-section-wrapper,
-  .title-section-container,
-  .title-header-wrapper,
-  .header {
-    max-width: calc(100% - 72px) !important;
-  }
-
-  img, svg, video, canvas {
-    max-width: 100% !important;
-    height: auto !important;
-  }
-
-  table {
-    max-width: 100% !important;
-  }
-
-  .table-wrap,
-  .system-table-container {
-    overflow-x: auto !important;
-  }
-
-  @media (max-width: 900px) {
-    .slide,
-    .slide-root,
-    .slide-root-container,
-    .slide-root-canvas,
-    .slide-layout-root,
-    .slide-root-layout,
-    .main-slide-canvas,
-    .thermo-slide-root {
-      width: 100% !important;
-      min-height: auto !important;
-      height: auto !important;
-    }
-
-    .hdr,
-    .title-section-wrapper,
-    .title-section-container,
-    .title-header-wrapper,
-    .header {
-      margin: 10px 12px 0 12px !important;
-      max-width: calc(100% - 24px) !important;
-      padding: 12px 14px !important;
-      align-items: flex-start !important;
-      gap: 8px !important;
-    }
-
-    .hdr {
-      flex-direction: column !important;
-    }
-
-    .slide-num {
-      align-self: flex-end !important;
-    }
-
-    .body,
-    .main-grid,
-    .main-content-layout,
-    .content-main-layout,
-    .content-layout-grid,
-    .main-content-container,
-    .content-grid-container,
-    .content-columns-wrapper,
-    .main-content-wrapper,
-    .gas-ideal-content-layout,
-    .content-main-layout {
-      display: flex !important;
-      flex-direction: column !important;
-      grid-template-columns: 1fr !important;
-      width: 100% !important;
-      height: auto !important;
-      padding: 12px !important;
-      gap: 12px !important;
-      align-items: stretch !important;
-      overflow: visible !important;
-    }
-
-    .col,
-    .left-column,
-    .right-column,
-    .left-column-content,
-    .right-column-content,
-    .left-content-column,
-    .right-content-column,
-    .left-theory-column,
-    .right-practice-column,
-    .left-column-theoretical,
-    .right-column-practical,
-    .left-column-textual,
-    .right-column-tabular,
-    .content-column-left,
-    .content-column-right,
-    .left-explanation-column,
-    .right-formalism-column,
-    .gas-ideal-left-column,
-    .gas-ideal-right-column,
-    .left-panel,
-    .right-panel {
-      width: 100% !important;
-      max-width: 100% !important;
-      flex: none !important;
-      display: flex !important;
-      flex-direction: column !important;
-      gap: 12px !important;
-    }
-
-    .card,
-    .theory-card-item,
-    .theory-card-block,
-    .example-card-item,
-    .example-card-block,
-    .info-card-block,
-    .practice-card-block,
-    .practice-example-card,
-    .measurement-category-box,
-    .scale-detail-card,
-    .state-functions-card,
-    .equation-display-card,
-    .gas-ideal-practice-card {
-      width: 100% !important;
-      min-height: auto !important;
-      height: auto !important;
-      overflow: visible !important;
-    }
-
-    .section-grid,
-    .functions-list-grid {
-      grid-template-columns: 1fr !important;
-    }
-  }
-
-  @media (max-width: 520px) {
-    :root {
-      --std-title-size: 22px;
-      --std-subtitle-size: 12px;
-      --std-body-size: 14px;
-    }
-
-    .card,
-    .theory-card-item,
-    .example-card-item,
-    .info-card-block {
-      padding: 12px !important;
-    }
-  }
-</style>
-
-
-<style id="page8-responsive-unified">
-/* Responsividade unificada no estilo de page_8: preserva o layout original em desktop
-   e empilha os boxes progressivamente quando a janela fica estreita. */
-html, body {
-  width: 100% !important;
-  min-height: 100% !important;
-  height: auto !important;
-  overflow-x: hidden !important;
-  overflow-y: auto !important;
-}
-body {
-  display: block !important;
-  background: #FCFCFA;
-}
-.slide, .slide-root {
-  width: min(1280px, 100vw) !important;
-  max-width: 1280px !important;
-  height: auto !important;
-  min-height: 720px !important;
-  margin: 0 auto !important;
-  overflow: visible !important;
-}
-.body {
-  min-height: 0 !important;
-}
-.card, .col, .hdr, .hdr-inner {
-  min-width: 0 !important;
-}
-.card {
-  overflow: visible !important;
-}
-img, svg, canvas, video, table, .eq, .answer, .notation-box, .table-wrap {
-  max-width: 100% !important;
-}
-.table-wrap {
-  overflow-x: auto !important;
-}
-table {
-  width: 100% !important;
-}
-
-@media (max-width: 1150px) {
-  .body {
-    grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)) !important;
-    height: auto !important;
-  }
-}
-
-@media (max-width: 760px) {
-  .slide, .slide-root {
-    width: 100vw !important;
-    min-height: 100vh !important;
-  }
-  .hdr {
-    margin: 8px 10px 0 10px !important;
-    padding: 10px 12px !important;
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 4px !important;
-  }
-  .hdr-title {
-    font-size: clamp(18px, 5.2vw, 24px) !important;
-    line-height: 1.2 !important;
-  }
-  .hdr-sub {
-    font-size: clamp(10px, 3.3vw, 13px) !important;
-    line-height: 1.35 !important;
-  }
-  .slide-num {
-    align-self: flex-end !important;
-    font-size: 11px !important;
-  }
-  .body {
-    display: flex !important;
-    flex-direction: column !important;
-    padding: 10px !important;
-    gap: 10px !important;
-  }
-  .col {
-    width: 100% !important;
-    gap: 10px !important;
-  }
-  .card {
-    width: 100% !important;
-    padding: 13px !important;
-  }
-  .body-t {
-    font-size: clamp(14px, 3.8vw, 16px) !important;
-    line-height: 1.6 !important;
-  }
-  .ch {
-    font-size: 12px !important;
-    line-height: 1.3 !important;
-  }
-  .eq, .answer, .notation-box {
-    font-size: clamp(14px, 4vw, 16px) !important;
-    overflow-x: auto !important;
-  }
-  .left-panel, .right-panel {
-    width: 100% !important;
-    height: auto !important;
-  }
-  .slide-root {
-    flex-direction: column !important;
-  }
-}
-</style>
-
-
-
-<!-- RESPONSIVE-UNIFORM-V2 -->
-<style id="responsive-uniform-v2">
-  /* Base responsiva: mantém o conteúdo, mas remove o canvas fixo 1280x720 */
-  html {
-    width: 100% !important;
-    min-height: 100% !important;
-    overflow-x: hidden !important;
-    background: #FCFCFA !important;
-  }
-
-  body {
-    width: 100% !important;
-    min-height: 100vh !important;
-    height: auto !important;
-    overflow-x: hidden !important;
-    overflow-y: auto !important;
-    background: #FCFCFA !important;
-    color: #2C3E50 !important;
-    font-family: 'Lora', Georgia, serif !important;
-  }
-
-  .slide,
-  .slide-root,
-  .slide-root-container,
-  .slide-layout-root,
-  .slide-root-canvas,
-  .main-slide-canvas,
-  .thermo-slide-root,
-  .slide-root-layout,
-  .slide-root-canvas {
-    width: 100% !important;
-    max-width: 1280px !important;
-    height: auto !important;
-    min-height: 720px !important;
-    margin: 0 auto !important;
-    overflow: visible !important;
-  }
-
-  /* Cabeçalho padronizado em todas as páginas conceituais */
-  .hdr,
-  .title-section-wrapper,
-  .title-section-container,
-  .title-header-wrapper,
-  .title-section-block,
-  .header {
-    width: auto !important;
-    max-width: none !important;
-    margin: 12px 36px 0 36px !important;
-    padding: 12px 20px !important;
-    min-height: auto !important;
-    height: auto !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    gap: 12px !important;
-    flex-wrap: wrap !important;
-    overflow: visible !important;
-  }
-
-  .hdr-inner,
-  .header-inner {
-    min-width: 0 !important;
-    max-width: 100% !important;
-  }
-
-  .hdr-title,
-  .title-main-text,
-  .title-main-heading,
-  .title-main-header,
-  .header-title {
-    font-family: 'Inter', sans-serif !important;
-    font-weight: 700 !important;
-    font-size: clamp(24px, 2.25vw, 30px) !important;
-    line-height: 1.18 !important;
-    color: #004B87 !important;
-    white-space: normal !important;
-    overflow-wrap: anywhere !important;
-  }
-
-  .hdr-sub,
-  .title-sub-text,
-  .title-sub-heading,
-  .title-sub-header,
-  .header-sub {
-    font-family: 'Inter', sans-serif !important;
-    font-weight: 400 !important;
-    font-size: clamp(13px, 1.15vw, 15px) !important;
-    line-height: 1.35 !important;
-    color: #5D6D7E !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.6px !important;
-    white-space: normal !important;
-    overflow-wrap: anywhere !important;
-  }
-
-  .slide-num {
-    font-family: 'Inter', sans-serif !important;
-    font-size: 12px !important;
-    color: #B0BAC9 !important;
-    flex-shrink: 0 !important;
-  }
-
-  /* Corpo: mantém o grid no desktop e quebra os boxes para baixo em telas menores */
-  .body,
-  .main-content-layout,
-  .content-main-layout,
-  .main-content-container,
-  .main-content-wrapper,
-  .content-columns-wrapper,
-  .content-layout-grid,
-  .content-grid-container,
-  .gas-ideal-content-layout {
-    width: auto !important;
-    height: auto !important;
-    min-height: 0 !important;
-    flex: 1 1 auto !important;
-    gap: 14px !important;
-    padding: 14px 36px 22px 36px !important;
-    overflow: visible !important;
-  }
-
-  .body {
-    display: grid !important;
-  }
-
-  .col,
-  .left-column-content,
-  .right-column-content,
-  .left-theory-column,
-  .right-practice-column,
-  .left-column-theoretical,
-  .right-column-practical,
-  .content-column-left,
-  .content-column-right,
-  .gas-ideal-left-column,
-  .gas-ideal-right-column {
-    min-width: 0 !important;
-    width: auto !important;
-    height: auto !important;
-    overflow: visible !important;
-  }
-
-  .card,
-  .theory-card-block,
-  .example-card-block,
-  .theory-card-item,
-  .example-card-item,
-  .practice-card-block,
-  .info-card-block,
-  .practical-example-card,
-  .measurement-category-box,
-  .scale-detail-card,
-  .example-solved-card,
-  .example-practical-card,
-  .practice-example-card,
-  .state-functions-card,
-  .variable-definition-block,
-  .math-block-card {
-    min-width: 0 !important;
-    height: auto !important;
-    min-height: 0 !important;
-    overflow: visible !important;
-  }
-
-  .ch,
-  .section-header,
-  .section-heading,
-  .section-header-title,
-  .content-heading-text,
-  .card-heading,
-  .variable-definition-heading {
-    font-family: 'Inter', sans-serif !important;
-    font-size: 13px !important;
-    line-height: 1.25 !important;
-    font-weight: 700 !important;
-    white-space: normal !important;
-    overflow-wrap: anywhere !important;
-  }
-
-  .body-t,
-  .body-text,
-  .text-paragraph,
-  .theory-text-block,
-  .concept-text-block,
-  .explanatory-paragraph-text,
-  .content-paragraph-block,
-  .section-intro-text,
-  .gas-ideal-text-paragraph,
-  .theory-text-paragraph,
-  .text-block-narrative,
-  .serif-text,
-  .concept-explanation-paragraph {
-    font-size: 15px !important;
-    line-height: 1.62 !important;
-    overflow-wrap: anywhere !important;
-  }
-
-  /* Equações: rolagem horizontal interna se necessário, sem quebrar o layout */
-  .eq,
-  .equation-display-card,
-  .equation-highlight-box,
-  .equation-block-highlight,
-  .gas-ideal-equation-box,
-  .notation-box,
-  .answer,
-  .calc-box,
-  .formula-box {
-    max-width: 100% !important;
-    min-width: 0 !important;
-    overflow-x: auto !important;
-    overflow-y: hidden !important;
-    -webkit-overflow-scrolling: touch !important;
-    white-space: normal !important;
-    font-size: 16px !important;
-  }
-
-  mjx-container {
-    max-width: 100% !important;
-    overflow-x: auto !important;
-    overflow-y: hidden !important;
-    -webkit-overflow-scrolling: touch !important;
-  }
-
-  mjx-container[display="true"] {
-    display: block !important;
-    width: 100% !important;
-    padding-bottom: 2px !important;
-  }
-
-  .table-wrap,
-  .system-table-container,
-  table {
-    max-width: 100% !important;
-  }
-
-  .table-wrap,
-  .system-table-container {
-    overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-  }
-
-  table {
-    width: 100% !important;
-    min-width: max-content !important;
-  }
-
-  img, svg, canvas, video {
-    max-width: 100% !important;
-    height: auto !important;
-  }
-
-  /* Capa / página 1 */
-  .left-panel, .right-panel {
-    height: auto !important;
-    min-height: 720px !important;
-    overflow: visible !important;
-  }
-  .right-panel { min-width: 0 !important; }
-  .topics-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)) !important; }
-  .main-title { font-size: clamp(32px, 3vw, 42px) !important; }
-  .sub-title, .quote-text, .author-name { font-size: 18px !important; }
-  .author-inst { font-size: 14px !important; }
-
-  @media (max-width: 1100px) {
-    .body {
-      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    }
-    .main-content-layout,
-    .content-main-layout,
-    .main-content-container,
-    .main-content-wrapper,
-    .content-columns-wrapper,
-    .content-layout-grid,
-    .content-grid-container,
-    .gas-ideal-content-layout {
-      display: grid !important;
-      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-      align-items: start !important;
-    }
-  }
-
-  @media (max-width: 760px) {
-    .slide,
-    .slide-root,
-    .slide-root-container,
-    .slide-layout-root,
-    .slide-root-canvas,
-    .main-slide-canvas,
-    .thermo-slide-root,
-    .slide-root-layout {
-      min-height: 0 !important;
-    }
-
-    .hdr,
-    .title-section-wrapper,
-    .title-section-container,
-    .title-header-wrapper,
-    .title-section-block,
-    .header {
-      margin: 10px 14px 0 14px !important;
-      padding: 11px 14px !important;
-    }
-
-    .body,
-    .main-content-layout,
-    .content-main-layout,
-    .main-content-container,
-    .main-content-wrapper,
-    .content-columns-wrapper,
-    .content-layout-grid,
-    .content-grid-container,
-    .gas-ideal-content-layout {
-      display: grid !important;
-      grid-template-columns: 1fr !important;
-      gap: 12px !important;
-      padding: 12px 14px 18px 14px !important;
-    }
-
-    .hdr-title,
-    .title-main-text,
-    .title-main-heading,
-    .title-main-header,
-    .header-title {
-      font-size: 24px !important;
-    }
-
-    .hdr-sub,
-    .title-sub-text,
-    .title-sub-heading,
-    .title-sub-header,
-    .header-sub {
-      font-size: 13px !important;
-    }
-
-    .body-t,
-    .body-text,
-    .text-paragraph,
-    .theory-text-block,
-    .concept-text-block,
-    .explanatory-paragraph-text,
-    .content-paragraph-block,
-    .section-intro-text,
-    .gas-ideal-text-paragraph,
-    .theory-text-paragraph,
-    .text-block-narrative,
-    .serif-text,
-    .concept-explanation-paragraph {
-      font-size: 14.5px !important;
-      text-align: left !important;
-    }
-
-    .eq,
-    .equation-display-card,
-    .equation-highlight-box,
-    .equation-block-highlight,
-    .gas-ideal-equation-box,
-    .notation-box,
-    .answer,
-    .calc-box,
-    .formula-box {
-      font-size: 14.5px !important;
-      padding-left: 10px !important;
-      padding-right: 10px !important;
-    }
-
-    mjx-container {
-      font-size: 88% !important;
-    }
-
-    .slide-root {
-      flex-direction: column !important;
-    }
-    .left-panel,
-    .right-panel {
-      width: 100% !important;
-      min-height: 0 !important;
-      padding: 28px 22px !important;
-    }
-    .topics-grid {
-      grid-template-columns: 1fr !important;
-    }
-  }
-</style>
-<!-- /RESPONSIVE-UNIFORM-V2 -->
-
-</head>
-<body class="">
+</style></head>
+<body>
 <div class="slide-root">
-
-  <!-- ══ LEFT PANEL ══ -->
-  <div class="left-panel">
-
-    <div class="chapter-badge">
-      <i class="fa-solid fa-atom" style="font-size:12px;"></i>
+<!-- ══ LEFT PANEL ══ -->
+<div class="left-panel">
+<div class="chapter-badge">
+<i class="fa-solid fa-atom"></i>
       Capítulo 1
     </div>
-
-    <div class="title-block">
-      <div class="chap-number">01</div>
-      <div class="title-rule"></div>
-      <div class="main-title">Conceitos<br>Fundamentais<br>de Termodinâmica</div>
-      <div class="sub-title" style="font-size: 18px;">Termodinâmica para Estudantes de Física</div>
-    </div>
-
-    <div class="quote-block">
-      <p class="quote-text" style="font-size: 18px;">
+<div class="title-block">
+<div class="chap-number">01</div>
+<div class="title-rule"></div>
+<div class="main-title">Conceitos<br/>Fundamentais<br/>de Termodinâmica</div>
+<div class="sub-title">Termodinâmica para Estudantes de Física</div>
+</div>
+<div class="quote-block">
+<p class="quote-text">
         "Antes de formularmos as Leis da Termodinâmica, precisamos construir
         o vocabulário e as ferramentas que sustentam todo o curso:
         temperatura, calor, trabalho, energia interna e entropia."
       </p>
-    </div>
-
-    <div class="author-block">
-      <div class="author-name" style="font-size: 18px;">Mario Reis</div>
-      <div class="author-inst" style="font-size: 14px;">Universidade Federal Fluminense · 2026</div>
-    </div>
-
-  </div>
-
-  <!-- ══ RIGHT PANEL ══ -->
-  <div class="right-panel">
-
-    <div class="section-label" style="font-size: 16px;">
-      <i class="fa-solid fa-list-ol" style="font-size: inherit;"></i>
+</div>
+<div class="author-block">
+<div class="author-name">Mario Reis</div>
+<div class="author-inst">Universidade Federal Fluminense · 2026</div>
+</div>
+</div>
+<!-- ══ RIGHT PANEL ══ -->
+<div class="right-panel">
+<div class="section-label">
+<i class="fa-solid fa-list-ol"></i>
       Tópicos deste capítulo</div>
-
-    <div class="topics-grid">
-
-      <!-- 1 -->
-      <div class="topic-pill">
-        <span class="pill-num">1</span>
-        <i class="fa-solid fa-temperature-half pill-icon"></i>
-        <div class="pill-text">
-          <span class="pill-name" style="font-size: 20px;">Lei Zero e Termometria</span>
-          <span class="pill-desc" style="font-size: 16px;">Equilíbrio térmico · Escalas de temperatura · Termômetros</span>
-        </div>
-      </div>
-
-      <!-- 2 -->
-      <div class="topic-pill accent">
-        <span class="pill-num accent">2</span>
-        <i class="fa-solid fa-box-open pill-icon accent"></i>
-        <div class="pill-text">
-          <span class="pill-name" style="font-size: 20px;">Sistemas e Transformações</span>
-          <span class="pill-desc" style="font-size: 16px;">Aberto · Fechado · Isolado · Reversível · Irreversível</span>
-        </div>
-      </div>
-
-      <!-- 3 -->
-      <div class="topic-pill green">
-        <span class="pill-num green">3</span>
-        <i class="fa-solid fa-route pill-icon green"></i>
-        <div class="pill-text">
-          <span class="pill-name" style="font-size: 20px;">Funções de Estado</span>
-          <span class="pill-desc" style="font-size: 16px;">Grandezas de estado · Grandezas de caminho</span>
-        </div>
-      </div>
-
-      <!-- 4 -->
-      <div class="topic-pill">
-        <span class="pill-num">4</span>
-        <i class="fa-solid fa-fire-flame-curved pill-icon"></i>
-        <div class="pill-text">
-          <span class="pill-name" style="font-size: 20px;">Calor</span>
-          <span class="pill-desc" style="font-size: 16px;">Transferência de energia</span>
-        </div>
-      </div>
-
-      <!-- 5 -->
-      <div class="topic-pill accent">
-        <span class="pill-num accent">5</span>
-        <i class="fa-solid fa-compress-arrows-alt pill-icon accent"></i>
-        <div class="pill-text">
-          <span class="pill-name" style="font-size: 20px;">Trabalho</span>
-          <span class="pill-desc" style="font-size: 16px;">Trabalho por variação de volume · Equação de estado · Variáveis conjugadas</span>
-        </div>
-      </div>
-
-      <!-- 6 -->
-      <div class="topic-pill green">
-        <span class="pill-num green">6</span>
-        <i class="fa-solid fa-bolt pill-icon green"></i>
-        <div class="pill-text">
-          <span class="pill-name" style="font-size: 20px;">Energia Interna e 1ª Lei</span>
-          <span class="pill-desc" style="font-size: 16px;">Conservação de energia · Calor e trabalho como formas de transferência</span>
-        </div>
-      </div>
-
-      <!-- 7 -->
-      <div class="topic-pill purple">
-        <span class="pill-num purple">7</span>
-        <i class="fa-solid fa-arrow-trend-up pill-icon purple"></i>
-        <div class="pill-text">
-          <span class="pill-name" style="font-size: 20px;">Entropia</span>
-          <span class="pill-desc" style="font-size: 16px;">Desigualdade de Clausius · Variação de entropia</span>
-        </div>
-      </div>
-
-      <!-- 8 -->
-      <div class="topic-pill purple">
-        <span class="pill-num purple">8</span>
-        <i class="fa-solid fa-chart-line pill-icon purple"></i>
-        <div class="pill-text">
-          <span class="pill-name" style="font-size: 20px;">Capacidade Calorífica</span>
-          <span class="pill-desc" style="font-size: 16px;">Volume constante · Pressão constante</span>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="meta-bar">
-      
-      <div class="meta-item">
-        <i class="fa-solid fa-graduation-cap"></i>
+<div class="topics-grid">
+<!-- 1 -->
+<div class="topic-pill">
+<span class="pill-num">1</span>
+<i class="fa-solid fa-temperature-half pill-icon"></i>
+<div class="pill-text">
+<span class="pill-name">Lei Zero e Termometria</span>
+<span class="pill-desc">Equilíbrio térmico · Escalas de temperatura · Termômetros</span>
+</div>
+</div>
+<!-- 2 -->
+<div class="topic-pill accent">
+<span class="pill-num accent">2</span>
+<i class="fa-solid fa-box-open pill-icon accent"></i>
+<div class="pill-text">
+<span class="pill-name">Sistemas e Transformações</span>
+<span class="pill-desc">Aberto · Fechado · Isolado · Reversível · Irreversível</span>
+</div>
+</div>
+<!-- 3 -->
+<div class="topic-pill green">
+<span class="pill-num green">3</span>
+<i class="fa-solid fa-route pill-icon green"></i>
+<div class="pill-text">
+<span class="pill-name">Funções de Estado</span>
+<span class="pill-desc">Grandezas de estado · Grandezas de caminho</span>
+</div>
+</div>
+<!-- 4 -->
+<div class="topic-pill">
+<span class="pill-num">4</span>
+<i class="fa-solid fa-fire-flame-curved pill-icon"></i>
+<div class="pill-text">
+<span class="pill-name">Calor</span>
+<span class="pill-desc">Transferência de energia</span>
+</div>
+</div>
+<!-- 5 -->
+<div class="topic-pill accent">
+<span class="pill-num accent">5</span>
+<i class="fa-solid fa-compress-arrows-alt pill-icon accent"></i>
+<div class="pill-text">
+<span class="pill-name">Trabalho</span>
+<span class="pill-desc">Trabalho por variação de volume · Equação de estado · Variáveis conjugadas</span>
+</div>
+</div>
+<!-- 6 -->
+<div class="topic-pill green">
+<span class="pill-num green">6</span>
+<i class="fa-solid fa-bolt pill-icon green"></i>
+<div class="pill-text">
+<span class="pill-name">Energia Interna e 1ª Lei</span>
+<span class="pill-desc">Conservação de energia · Calor e trabalho como formas de transferência</span>
+</div>
+</div>
+<!-- 7 -->
+<div class="topic-pill purple">
+<span class="pill-num purple">7</span>
+<i class="fa-solid fa-arrow-trend-up pill-icon purple"></i>
+<div class="pill-text">
+<span class="pill-name">Entropia</span>
+<span class="pill-desc">Desigualdade de Clausius · Variação de entropia</span>
+</div>
+</div>
+<!-- 8 -->
+<div class="topic-pill purple">
+<span class="pill-num purple">8</span>
+<i class="fa-solid fa-chart-line pill-icon purple"></i>
+<div class="pill-text">
+<span class="pill-name">Capacidade Calorífica</span>
+<span class="pill-desc">Volume constante · Pressão constante</span>
+</div>
+</div>
+</div>
+<div class="meta-bar">
+<div class="meta-item">
+<i class="fa-solid fa-graduation-cap"></i>
         Graduação em Física
       </div>
-      
-      <div class="slide-counter">1 / 22</div>
-    </div>
-
-  </div>
-
+<div class="slide-counter">1 / 22</div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</div>
+</div>
 </body></html>

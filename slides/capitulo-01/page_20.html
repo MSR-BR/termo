@@ -1,916 +1,184 @@
 <!DOCTYPE html>
-<html lang="pt-BR" style="--viewport-height: 9.25px;"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};</script>
-<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script>
-<title>§1.12 — Capacidade Calorífica</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Lora:ital,wght@0,400;1,400&amp;display=swap" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{width:1280px;height:720px;overflow:hidden;background:#FCFCFA;color:#2C3E50;font-family:'Lora',Georgia,serif}
-.slide{width:1280px;height:720px;display:flex;flex-direction:column}
-.hdr{margin:12px 36px 0;padding:10px 18px;background:#F2F4F7;border-left:5px solid #004B87;border-radius:4px;flex-shrink:0;display:flex;justify-content:space-between;align-items:center}
-.hdr-inner{display:flex;flex-direction:column}
-.hdr-title{font-family:'Inter',sans-serif;font-weight:700;font-size:21px;color:#004B87}
-.hdr-sub{font-family:'Inter',sans-serif;font-size:12px;color:#5D6D7E;text-transform:uppercase;letter-spacing:.6px;margin-top:2px}
-.slide-num{font-family:'Inter',sans-serif;font-size:12px;color:#B0BAC9;flex-shrink:0}
-.body{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:12px 36px 16px}
-.col{display:flex;flex-direction:column;gap:11px}
-.card{background:#fff;border-radius:8px;border:1px solid #E2E8F0;padding:14px 16px;display:flex;flex-direction:column;gap:7px}
-.card.blue{border-top:3px solid #004B87}
-.card.red{border-top:3px solid #B03A2E}
-.card.green{border-top:3px solid #1A7A4A}
-.ch{font-family:'Inter',sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;display:flex;align-items:center;gap:7px}
-.ch.blue{color:#004B87} .ch.red{color:#B03A2E} .ch.green{color:#1A7A4A}
-.body-t{font-size:13px;line-height:1.65;text-align:justify}
-.bl{color:#004B87;font-weight:700} .hl{color:#B03A2E;font-weight:700} .gr{color:#1A7A4A;font-weight:700}
-.eq{background:#EEF3FC;border:1px solid #C5D8F5;border-radius:6px;padding:8px 12px;text-align:center;font-size:15px;margin:3px 0}
-.eq-lbl{font-family:'Inter',sans-serif;font-size:10px;color:#5D6D7E;text-transform:uppercase;margin-bottom:2px}
-.step{display:flex;align-items:flex-start;gap:8px;margin-bottom:5px}
-.step-n{font-family:'Inter',sans-serif;font-weight:700;font-size:11px;color:#fff;background:#004B87;border-radius:50%;width:19px;height:19px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
-.step-t{font-size:13px;line-height:1.6}
-.answer{background:#E8F5EC;border:1px solid #A7D7B5;border-radius:6px;padding:7px 12px;text-align:center;font-size:14px}
-.answer-lbl{font-family:'Inter',sans-serif;font-size:10px;color:#1A7A4A;text-transform:uppercase;margin-bottom:2px}
-.mini-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:4px}
-.mini-table th{background:#004B87;color:#fff;font-family:'Inter',sans-serif;font-weight:700;padding:4px 8px;text-align:center}
-.mini-table td{padding:4px 8px;border-bottom:1px solid #F0F2F5;font-family:'Inter',sans-serif;text-align:center}
-.mini-table tr:last-child td{border-bottom:none}
-</style>
 
-    <style id="compress-style">
-        html, body.compress-body {
-            margin: 0 !important;
-        }
-        body.compress-body {
-            --compress-ratio: 0.7619047619047619;
-            --compress-expanded-width: 1680.0px;
-            --compress-original-height: 945px;
-            --compress-pt: 0px;
-            --compress-pr: 0px;
-            --compress-pb: 0px;
-            --compress-pl: 0px;
-            box-sizing: border-box !important;
-            height: var(--compress-original-height) !important;
-            width: var(--compress-expanded-width) !important;
-            padding: var(--compress-pt) var(--compress-pr) var(--compress-pb) var(--compress-pl) !important;
-            overflow: hidden !important;
-            transform: scale(var(--compress-ratio)) !important;
-            transform-origin: top left !important;
-        }
-        
-        body.compress-body .title .text-xs, body.compress-body .section-title .text-xs, body.compress-body .subtitle .text-xs, body.compress-body .title.text-xs, body.compress-body .section-title.text-xs, body.compress-body .subtitle.text-xs, body.compress-body header .text-xs, body.compress-body header.text-xs, body.compress-body h1 .text-xs, body.compress-body h1.text-xs, body.compress-body *:has(> h1) .text-xs, body.compress-body *:has(> h1).text-xs { font-size: calc(0.75rem / var(--compress-ratio)) !important; }
-        body.compress-body .title .text-sm, body.compress-body .section-title .text-sm, body.compress-body .subtitle .text-sm, body.compress-body .title.text-sm, body.compress-body .section-title.text-sm, body.compress-body .subtitle.text-sm, body.compress-body header .text-sm, body.compress-body header.text-sm, body.compress-body h1 .text-sm, body.compress-body h1.text-sm, body.compress-body *:has(> h1) .text-sm, body.compress-body *:has(> h1).text-sm { font-size: calc(0.875rem / var(--compress-ratio)) !important; }
-        body.compress-body .title .text-base, body.compress-body .section-title .text-base, body.compress-body .subtitle .text-base, body.compress-body .title.text-base, body.compress-body .section-title.text-base, body.compress-body .subtitle.text-base, body.compress-body header .text-base, body.compress-body header.text-base, body.compress-body h1 .text-base, body.compress-body h1.text-base, body.compress-body *:has(> h1) .text-base, body.compress-body *:has(> h1).text-base { font-size: calc(1rem / var(--compress-ratio)) !important; }
-        body.compress-body .title .text-lg, body.compress-body .section-title .text-lg, body.compress-body .subtitle .text-lg, body.compress-body .title.text-lg, body.compress-body .section-title.text-lg, body.compress-body .subtitle.text-lg, body.compress-body header .text-lg, body.compress-body header.text-lg, body.compress-body h1 .text-lg, body.compress-body h1.text-lg, body.compress-body *:has(> h1) .text-lg, body.compress-body *:has(> h1).text-lg { font-size: calc(1.125rem / var(--compress-ratio)) !important; }
-        body.compress-body .title .text-xl, body.compress-body .section-title .text-xl, body.compress-body .subtitle .text-xl, body.compress-body .title.text-xl, body.compress-body .section-title.text-xl, body.compress-body .subtitle.text-xl, body.compress-body header .text-xl, body.compress-body header.text-xl, body.compress-body h1 .text-xl, body.compress-body h1.text-xl, body.compress-body *:has(> h1) .text-xl, body.compress-body *:has(> h1).text-xl { font-size: calc(1.25rem / var(--compress-ratio)) !important; }
-        body.compress-body .title .text-2xl, body.compress-body .section-title .text-2xl, body.compress-body .subtitle .text-2xl, body.compress-body .title.text-2xl, body.compress-body .section-title.text-2xl, body.compress-body .subtitle.text-2xl, body.compress-body header .text-2xl, body.compress-body header.text-2xl, body.compress-body h1 .text-2xl, body.compress-body h1.text-2xl, body.compress-body *:has(> h1) .text-2xl, body.compress-body *:has(> h1).text-2xl { font-size: calc(1.5rem / var(--compress-ratio)) !important; }
-        body.compress-body .title .text-3xl, body.compress-body .section-title .text-3xl, body.compress-body .subtitle .text-3xl, body.compress-body .title.text-3xl, body.compress-body .section-title.text-3xl, body.compress-body .subtitle.text-3xl, body.compress-body header .text-3xl, body.compress-body header.text-3xl, body.compress-body h1 .text-3xl, body.compress-body h1.text-3xl, body.compress-body *:has(> h1) .text-3xl, body.compress-body *:has(> h1).text-3xl { font-size: calc(1.875rem / var(--compress-ratio)) !important; }
-        body.compress-body .title .text-4xl, body.compress-body .section-title .text-4xl, body.compress-body .subtitle .text-4xl, body.compress-body .title.text-4xl, body.compress-body .section-title.text-4xl, body.compress-body .subtitle.text-4xl, body.compress-body header .text-4xl, body.compress-body header.text-4xl, body.compress-body h1 .text-4xl, body.compress-body h1.text-4xl, body.compress-body *:has(> h1) .text-4xl, body.compress-body *:has(> h1).text-4xl { font-size: calc(2.25rem / var(--compress-ratio)) !important; }
-        body.compress-body .title .text-5xl, body.compress-body .section-title .text-5xl, body.compress-body .subtitle .text-5xl, body.compress-body .title.text-5xl, body.compress-body .section-title.text-5xl, body.compress-body .subtitle.text-5xl, body.compress-body header .text-5xl, body.compress-body header.text-5xl, body.compress-body h1 .text-5xl, body.compress-body h1.text-5xl, body.compress-body *:has(> h1) .text-5xl, body.compress-body *:has(> h1).text-5xl { font-size: calc(3rem / var(--compress-ratio)) !important; }
-        body.compress-body .title .text-6xl, body.compress-body .section-title .text-6xl, body.compress-body .subtitle .text-6xl, body.compress-body .title.text-6xl, body.compress-body .section-title.text-6xl, body.compress-body .subtitle.text-6xl, body.compress-body header .text-6xl, body.compress-body header.text-6xl, body.compress-body h1 .text-6xl, body.compress-body h1.text-6xl, body.compress-body *:has(> h1) .text-6xl, body.compress-body *:has(> h1).text-6xl { font-size: calc(3.75rem / var(--compress-ratio)) !important; }
-        body.compress-body .title .text-7xl, body.compress-body .section-title .text-7xl, body.compress-body .subtitle .text-7xl, body.compress-body .title.text-7xl, body.compress-body .section-title.text-7xl, body.compress-body .subtitle.text-7xl, body.compress-body header .text-7xl, body.compress-body header.text-7xl, body.compress-body h1 .text-7xl, body.compress-body h1.text-7xl, body.compress-body *:has(> h1) .text-7xl, body.compress-body *:has(> h1).text-7xl { font-size: calc(4.5rem / var(--compress-ratio)) !important; }
-        body.compress-body .title .text-8xl, body.compress-body .section-title .text-8xl, body.compress-body .subtitle .text-8xl, body.compress-body .title.text-8xl, body.compress-body .section-title.text-8xl, body.compress-body .subtitle.text-8xl, body.compress-body header .text-8xl, body.compress-body header.text-8xl, body.compress-body h1 .text-8xl, body.compress-body h1.text-8xl, body.compress-body *:has(> h1) .text-8xl, body.compress-body *:has(> h1).text-8xl { font-size: calc(6rem / var(--compress-ratio)) !important; }
-        body.compress-body .title .text-9xl, body.compress-body .section-title .text-9xl, body.compress-body .subtitle .text-9xl, body.compress-body .title.text-9xl, body.compress-body .section-title.text-9xl, body.compress-body .subtitle.text-9xl, body.compress-body header .text-9xl, body.compress-body header.text-9xl, body.compress-body h1 .text-9xl, body.compress-body h1.text-9xl, body.compress-body *:has(> h1) .text-9xl, body.compress-body *:has(> h1).text-9xl { font-size: calc(8rem / var(--compress-ratio)) !important; }
-        
-        
-        body.compress-body .slide-container,
-        body.compress-body > div:first-child {
-            width: 1680.0px !important;
-            height: 945px !important;
-            max-width: 100% !important;
-            max-height: 100% !important;
-            box-sizing: border-box !important;
-        }
-    </style>
-    
-
-
-<!-- Responsividade e padronização adicionadas -->
-<style id="responsive-standardization">
-  :root {
-    --std-title-size: clamp(24px, 2.3vw, 30px);
-    --std-subtitle-size: clamp(13px, 1.25vw, 15px);
-    --std-body-size: clamp(14px, 1.15vw, 16px);
-    --std-small-size: clamp(12px, 1vw, 13px);
-    --std-blue: #004B87;
-    --std-muted: #5D6D7E;
-  }
-
-  html, body {
-    width: 100% !important;
-    height: auto !important;
-    min-height: 100vh !important;
-    overflow-x: hidden !important;
-    overflow-y: auto !important;
-    background: #FCFCFA !important;
-  }
-
-  body {
-    display: block !important;
-    transform: none !important;
-    transform-origin: initial !important;
-    padding: 0 !important;
-    margin: 0 !important;
-  }
-
-  .slide,
-  .slide-root,
-  .slide-root-container,
-  .slide-root-canvas,
-  .slide-layout-root,
-  .slide-root-layout,
-  .main-slide-canvas,
-  .thermo-slide-root,
-  .slide-root-canvas,
-  .slide-root-container,
-  .slide-root-canvas {
-    width: min(1280px, 100%) !important;
-    max-width: 1280px !important;
-    height: auto !important;
-    min-height: 720px !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    overflow: visible !important;
-  }
-
-  .hdr-title,
-  .title-main,
-  .title-main-text,
-  .title-main-heading,
-  .title-main-header,
-  .header-title,
-  .main-title {
-    font-family: "Inter", sans-serif !important;
-    font-size: var(--std-title-size) !important;
-    font-weight: 700 !important;
-    line-height: 1.18 !important;
-    color: var(--std-blue) !important;
-  }
-
-  .hdr-sub,
-  .title-sub,
-  .title-sub-text,
-  .title-sub-heading,
-  .title-sub-header,
-  .header-sub,
-  .sub-title {
-    font-family: "Inter", sans-serif !important;
-    font-size: var(--std-subtitle-size) !important;
-    line-height: 1.35 !important;
-    color: var(--std-muted) !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.6px !important;
-  }
-
-  .body-t,
-  .body-text,
-  .text-paragraph,
-  .theory-text-block,
-  .concept-text-block,
-  .content-paragraph-block,
-  .explanatory-paragraph-text,
-  .gas-ideal-text-paragraph,
-  .serif-text {
-    font-size: var(--std-body-size) !important;
-  }
-
-  .hdr,
-  .title-section-wrapper,
-  .title-section-container,
-  .title-header-wrapper,
-  .header {
-    max-width: calc(100% - 72px) !important;
-  }
-
-  img, svg, video, canvas {
-    max-width: 100% !important;
-    height: auto !important;
-  }
-
-  table {
-    max-width: 100% !important;
-  }
-
-  .table-wrap,
-  .system-table-container {
-    overflow-x: auto !important;
-  }
-
-  @media (max-width: 900px) {
-    .slide,
-    .slide-root,
-    .slide-root-container,
-    .slide-root-canvas,
-    .slide-layout-root,
-    .slide-root-layout,
-    .main-slide-canvas,
-    .thermo-slide-root {
-      width: 100% !important;
-      min-height: auto !important;
-      height: auto !important;
-    }
-
-    .hdr,
-    .title-section-wrapper,
-    .title-section-container,
-    .title-header-wrapper,
-    .header {
-      margin: 10px 12px 0 12px !important;
-      max-width: calc(100% - 24px) !important;
-      padding: 12px 14px !important;
-      align-items: flex-start !important;
-      gap: 8px !important;
-    }
-
-    .hdr {
-      flex-direction: column !important;
-    }
-
-    .slide-num {
-      align-self: flex-end !important;
-    }
-
-    .body,
-    .main-grid,
-    .main-content-layout,
-    .content-main-layout,
-    .content-layout-grid,
-    .main-content-container,
-    .content-grid-container,
-    .content-columns-wrapper,
-    .main-content-wrapper,
-    .gas-ideal-content-layout,
-    .content-main-layout {
-      display: flex !important;
-      flex-direction: column !important;
-      grid-template-columns: 1fr !important;
-      width: 100% !important;
-      height: auto !important;
-      padding: 12px !important;
-      gap: 12px !important;
-      align-items: stretch !important;
-      overflow: visible !important;
-    }
-
-    .col,
-    .left-column,
-    .right-column,
-    .left-column-content,
-    .right-column-content,
-    .left-content-column,
-    .right-content-column,
-    .left-theory-column,
-    .right-practice-column,
-    .left-column-theoretical,
-    .right-column-practical,
-    .left-column-textual,
-    .right-column-tabular,
-    .content-column-left,
-    .content-column-right,
-    .left-explanation-column,
-    .right-formalism-column,
-    .gas-ideal-left-column,
-    .gas-ideal-right-column,
-    .left-panel,
-    .right-panel {
-      width: 100% !important;
-      max-width: 100% !important;
-      flex: none !important;
-      display: flex !important;
-      flex-direction: column !important;
-      gap: 12px !important;
-    }
-
-    .card,
-    .theory-card-item,
-    .theory-card-block,
-    .example-card-item,
-    .example-card-block,
-    .info-card-block,
-    .practice-card-block,
-    .practice-example-card,
-    .measurement-category-box,
-    .scale-detail-card,
-    .state-functions-card,
-    .equation-display-card,
-    .gas-ideal-practice-card {
-      width: 100% !important;
-      min-height: auto !important;
-      height: auto !important;
-      overflow: visible !important;
-    }
-
-    .section-grid,
-    .functions-list-grid {
-      grid-template-columns: 1fr !important;
-    }
-  }
-
-  @media (max-width: 520px) {
-    :root {
-      --std-title-size: 22px;
-      --std-subtitle-size: 12px;
-      --std-body-size: 14px;
-    }
-
-    .card,
-    .theory-card-item,
-    .example-card-item,
-    .info-card-block {
-      padding: 12px !important;
-    }
-  }
-</style>
-
-
-<style id="page8-responsive-unified">
-/* Responsividade unificada no estilo de page_8: preserva o layout original em desktop
-   e empilha os boxes progressivamente quando a janela fica estreita. */
-html, body {
-  width: 100% !important;
-  min-height: 100% !important;
-  height: auto !important;
-  overflow-x: hidden !important;
-  overflow-y: auto !important;
+<html lang="pt-BR" style="--viewport-height: 9.25px;"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>§1.12 — Capacidade Calorífica</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Lora:ital,wght@0,400;0,600;1,400&amp;display=swap" rel="stylesheet"/><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};</script><script async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><style>
+:root{
+  --bg:#FCFCFA; --page:#EDEDED; --text:#2C3E50; --muted:#5D6D7E;
+  --blue:#004B87; --blue-soft:#E8F0FE; --red:#B03A2E; --green:#1A7A4A;
+  --purple:#6D28D9; --orange:#A04000; --border:#DDE3ED; --card:#FFFFFF;
+  --shadow:0 10px 28px rgba(0,0,0,.08);
+  --title:clamp(1.32rem, 2.2vw, 1.72rem);
+  --subtitle:clamp(.82rem, 1.25vw, 1rem);
+  --body:clamp(.93rem, 1.25vw, 1.04rem);
+  --small:clamp(.82rem, 1.1vw, .94rem);
+  --card-title:clamp(.96rem, 1.35vw, 1.08rem);
 }
-body {
-  display: block !important;
-  background: #FCFCFA;
-}
-.slide, .slide-root {
-  width: min(1280px, 100vw) !important;
-  max-width: 1280px !important;
-  height: auto !important;
-  min-height: 720px !important;
-  margin: 0 auto !important;
-  overflow: visible !important;
-}
-.body {
-  min-height: 0 !important;
-}
-.card, .col, .hdr, .hdr-inner {
-  min-width: 0 !important;
-}
-.card {
-  overflow: visible !important;
-}
-img, svg, canvas, video, table, .eq, .answer, .notation-box, .table-wrap {
-  max-width: 100% !important;
-}
-.table-wrap {
-  overflow-x: auto !important;
-}
-table {
-  width: 100% !important;
+*{box-sizing:border-box}
+html,body{margin:0!important;padding:0!important;width:100%!important;min-height:100%!important;height:auto!important;overflow-x:hidden!important;overflow-y:auto!important;background:var(--page)!important;color:var(--text)!important;font-family:"Lora", Georgia, serif!important;}
+body{display:flex!important;justify-content:center!important;align-items:flex-start!important;padding:clamp(8px,1.8vw,18px)!important;}
+
+/* Canvas padrão: mesmo espírito da página Escalas Termométricas */
+.slide,.slide-root,.slide-root-container,.slide-layout-root,.slide-root-layout,.thermo-slide-root,.main-slide-canvas,.slide-root-canvas{
+  width:min(100%,1280px)!important;max-width:1280px!important;min-height:min(720px, calc(100vh - 2*clamp(8px,1.8vw,18px)))!important;height:auto!important;background:var(--bg)!important;color:var(--text)!important;display:flex!important;flex-direction:column!important;position:relative!important;overflow:visible!important;border:1px solid rgba(0,0,0,.04)!important;box-shadow:var(--shadow)!important;
 }
 
-@media (max-width: 1150px) {
-  .body {
-    grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)) !important;
-    height: auto !important;
-  }
+/* Cabeçalho uniforme */
+.hdr,.header,.title-header-wrapper,.title-section-wrapper,.title-section-container,.title-section-block,.title-header-container,.title-section,.title-section-container,.title-section-wrapper{
+  display:flex!important;align-items:flex-start!important;justify-content:space-between!important;gap:14px!important;padding:clamp(10px,1.5vw,15px) clamp(16px,2.4vw,30px)!important;margin:clamp(10px,1.5vw,14px) clamp(16px,3vw,40px) clamp(6px,1vw,10px)!important;background:#F2F4F7!important;border-left:5px solid var(--blue)!important;border-radius:6px!important;flex-shrink:0!important;
+}
+.hdr-inner,.header-inner{display:flex!important;flex-direction:column!important;min-width:0!important;}
+.hdr-title,.header-title,.title-main-text,.title-main-heading,.title-main-header,.title-main,.title-main-title,h1.title-main-heading{
+  font-family:"Inter",sans-serif!important;font-weight:700!important;font-size:var(--title)!important;color:var(--blue)!important;line-height:1.18!important;letter-spacing:-.01em!important;margin:0!important;text-transform:none!important;
+}
+.hdr-sub,.header-sub,.title-sub-text,.title-sub-heading,.title-sub-header,.subtitle-secondary-text,.sub-title{
+  font-family:"Inter",sans-serif!important;font-weight:400!important;font-size:var(--subtitle)!important;color:var(--muted)!important;line-height:1.35!important;margin-top:3px!important;text-transform:uppercase!important;letter-spacing:.045em!important;
+}
+.slide-num,.slide-counter{font-family:"Inter",sans-serif!important;font-size:.78rem!important;color:#98A4B5!important;white-space:nowrap!important;align-self:center!important;}
+
+/* Layout principal: caixas quebram para baixo ao estreitar */
+.body,.main-content-layout,.main-content-wrapper,.content-main-layout,.content-grid-container,.content-columns-wrapper,.main-content-container,.content-layout-grid,.gas-ideal-content-layout,.content-grid,.main-grid{
+  flex:1 1 auto!important;width:100%!important;display:grid!important;grid-template-columns:repeat(auto-fit,minmax(min(100%,310px),1fr))!important;gap:clamp(12px,1.8vw,18px)!important;padding:clamp(10px,1.5vw,14px) clamp(16px,3vw,40px) clamp(16px,2.3vw,26px)!important;align-items:stretch!important;min-height:0!important;overflow:visible!important;
+}
+.col,.left-column,.right-column,.left-content-column,.right-content-column,.left-theory-column,.right-application-column,.left-explanation-column,.right-formalism-column,.left-column-content,.right-column-content,.content-column-left,.content-column-right,.left-column-theoretical,.right-column-practical,.left-column-textual,.right-column-tabular,.left-derivation-pane,.right-application-pane,.left-column-theory,.right-column-practical,.gas-ideal-left-column,.gas-ideal-right-column,.left-pane,.right-pane{
+  min-width:0!important;display:flex!important;flex-direction:column!important;gap:clamp(10px,1.5vw,14px)!important;justify-content:center!important;overflow:visible!important;
 }
 
-@media (max-width: 760px) {
-  .slide, .slide-root {
-    width: 100vw !important;
-    min-height: 100vh !important;
-  }
-  .hdr {
-    margin: 8px 10px 0 10px !important;
-    padding: 10px 12px !important;
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 4px !important;
-  }
-  .hdr-title {
-    font-size: clamp(18px, 5.2vw, 24px) !important;
-    line-height: 1.2 !important;
-  }
-  .hdr-sub {
-    font-size: clamp(10px, 3.3vw, 13px) !important;
-    line-height: 1.35 !important;
-  }
-  .slide-num {
-    align-self: flex-end !important;
-    font-size: 11px !important;
-  }
-  .body {
-    display: flex !important;
-    flex-direction: column !important;
-    padding: 10px !important;
-    gap: 10px !important;
-  }
-  .col {
-    width: 100% !important;
-    gap: 10px !important;
-  }
-  .card {
-    width: 100% !important;
-    padding: 13px !important;
-  }
-  .body-t {
-    font-size: clamp(14px, 3.8vw, 16px) !important;
-    line-height: 1.6 !important;
-  }
-  .ch {
-    font-size: 12px !important;
-    line-height: 1.3 !important;
-  }
-  .eq, .answer, .notation-box {
-    font-size: clamp(14px, 4vw, 16px) !important;
-    overflow-x: auto !important;
-  }
-  .left-panel, .right-panel {
-    width: 100% !important;
-    height: auto !important;
-  }
-  .slide-root {
-    flex-direction: column !important;
-  }
+/* Cartões */
+.card,.scale-detail-card,.theory-card-item,.theory-card-block,.example-card-item,.example-card-block,.info-card-block,.practice-card-block,.practice-example-card,.example-solved-card,.math-block-card,.state-functions-card,.variable-definition-block,.gas-ideal-practice-card,.gas-ideal-equation-box,.equation-display-card,.equation-display-box,.equation-highlight-box,.practice-exercise-container,.analogy-sidebar-container,.consequence-summary-banner,.note,.callout,.ref-box,.answer,.data-item,.notation-box{
+  background:var(--card)!important;border:1px solid var(--border)!important;border-radius:9px!important;padding:clamp(12px,1.8vw,18px)!important;box-shadow:0 2px 10px rgba(0,0,0,.045)!important;min-width:0!important;overflow:visible!important;
 }
-</style>
+.card,.theory-card-item,.theory-card-block,.example-card-item,.example-card-block,.info-card-block{border-top:3px solid var(--blue)!important;}
+.card.red,.red,.note{border-top-color:var(--red)!important}.card.green,.green{border-top-color:var(--green)!important}.card.purple,.purple{border-top-color:var(--purple)!important}
+.ref-box,.state-functions-card,.practice-exercise-container{background:var(--blue-soft)!important;border-color:#C5D8F5!important;}
+.note,.callout{background:#FFF8F6!important;border-left:4px solid var(--red)!important;border-top:0!important;}
+.answer{background:#E8F5EC!important;border-color:#A7D7B5!important;}
 
+/* Tipografia interna uniforme */
+.body-t,.body-text,.content-paragraph-block,.concept-text-block,.text-paragraph,.theory-text-block,.theory-text-paragraph,.text-block-narrative,.explanatory-paragraph-text,.section-intro-text,p,li,td,.step-t,.analogy,.analogy-body,.topic-note{
+  font-family:"Lora", Georgia, serif!important;font-size:var(--body)!important;line-height:1.58!important;color:var(--text)!important;text-align:justify!important;
+}
+.ch,.card-heading,.section-heading,.section-header,.section-header-title,.content-heading-text,.scale-card-title,.card-header-label,.variable-definition-heading,.gas-ideal-card-title,.example-step-title,.exercise-title,.ref-title,.answer-lbl,.eq-lbl,.notation-lbl{
+  font-family:"Inter",sans-serif!important;font-weight:700!important;font-size:var(--card-title)!important;line-height:1.25!important;color:var(--blue)!important;display:flex!important;align-items:center!important;gap:8px!important;margin-bottom:clamp(4px,.8vw,8px)!important;text-transform:none!important;letter-spacing:.015em!important;
+}
+.ch.red,.red .ch,.exercise-title{color:var(--red)!important}.ch.green{color:var(--green)!important}.ch.purple{color:var(--purple)!important}
+.bl,.blue-hl{color:var(--blue)!important;font-weight:700!important}.hl,.highlight,.term-highlight{color:var(--red)!important;font-weight:700!important}.gr{color:var(--green)!important;font-weight:700!important}
 
+/* Listas */
+ul,.bullet,.bullet-list,.prop-list,.variable-list-items,.example-list-container{margin:.35rem 0!important;padding-left:1.2rem!important;list-style:none!important;}
+li{position:relative!important;margin-bottom:.33rem!important;padding-left:.25rem!important;}
+li::before{content:"▸"!important;color:var(--blue)!important;position:absolute!important;left:-1rem!important;top:.05rem!important;font-size:.75em!important;}
 
-<!-- RESPONSIVE-UNIFORM-V2 -->
-<style id="responsive-uniform-v2">
-  /* Base responsiva: mantém o conteúdo, mas remove o canvas fixo 1280x720 */
-  html {
-    width: 100% !important;
-    min-height: 100% !important;
-    overflow-x: hidden !important;
-    background: #FCFCFA !important;
-  }
+/* Equações e tabelas: não estouram; rolagem horizontal interna */
+.eq,.equation-display-card,.equation-display-box,.equation-highlight-box,.math-block-card,.formula,.notation-box{
+  background:#F8F9FA!important;border:1px solid #D5D8DC!important;border-radius:8px!important;text-align:center!important;font-size:clamp(.95rem,1.25vw,1.08rem)!important;line-height:1.45!important;overflow-x:auto!important;overflow-y:hidden!important;max-width:100%!important;white-space:normal!important;-webkit-overflow-scrolling:touch!important;
+}
+.eq mjx-container,.equation-display-card mjx-container,.equation-display-box mjx-container,.math-block-card mjx-container,mjx-container,math{
+  max-width:100%!important;overflow-x:auto!important;overflow-y:hidden!important;white-space:nowrap!important;
+}
+.table-wrap{max-width:100%!important;overflow-x:auto!important;border-radius:8px!important;border:1px solid var(--border)!important;}
+table{width:100%!important;min-width:420px!important;border-collapse:collapse!important;font-family:"Inter",sans-serif!important;font-size:var(--small)!important;}th{background:var(--blue)!important;color:white!important;padding:7px 10px!important;}td{padding:7px 10px!important;border-bottom:1px solid #EEF1F5!important;text-align:center!important;}
+img,svg,video{max-width:100%!important;height:auto!important;}
 
-  body {
-    width: 100% !important;
-    min-height: 100vh !important;
-    height: auto !important;
-    overflow-x: hidden !important;
-    overflow-y: auto !important;
-    background: #FCFCFA !important;
-    color: #2C3E50 !important;
-    font-family: 'Lora', Georgia, serif !important;
-  }
+/* Cover */
+.slide-root{display:grid!important;grid-template-columns:minmax(280px,38%) 1fr!important;}
+.left-panel,.right-panel{min-width:0!important;overflow:visible!important;}
+.left-panel{background:#0B1F3A!important;color:white!important;padding:clamp(28px,4vw,48px)!important;display:flex!important;flex-direction:column!important;justify-content:space-between!important;}
+.right-panel{padding:clamp(24px,4vw,48px)!important;display:flex!important;align-items:center!important;justify-content:center!important;}
+.main-title{font-family:"Inter",sans-serif!important;font-size:clamp(1.8rem,4vw,3rem)!important;color:#fff!important;line-height:1.12!important;}
+.chap-number{font-family:"Inter",sans-serif!important;font-size:clamp(3rem,7vw,5rem)!important;font-weight:800!important;color:rgba(255,255,255,.12)!important;}
 
-  .slide,
-  .slide-root,
-  .slide-root-container,
-  .slide-layout-root,
-  .slide-root-canvas,
-  .main-slide-canvas,
-  .thermo-slide-root,
-  .slide-root-layout,
-  .slide-root-canvas {
-    width: 100% !important;
-    max-width: 1280px !important;
-    height: auto !important;
-    min-height: 720px !important;
-    margin: 0 auto !important;
-    overflow: visible !important;
-  }
-
-  /* Cabeçalho padronizado em todas as páginas conceituais */
-  .hdr,
-  .title-section-wrapper,
-  .title-section-container,
-  .title-header-wrapper,
-  .title-section-block,
-  .header {
-    width: auto !important;
-    max-width: none !important;
-    margin: 12px 36px 0 36px !important;
-    padding: 12px 20px !important;
-    min-height: auto !important;
-    height: auto !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    gap: 12px !important;
-    flex-wrap: wrap !important;
-    overflow: visible !important;
-  }
-
-  .hdr-inner,
-  .header-inner {
-    min-width: 0 !important;
-    max-width: 100% !important;
-  }
-
-  .hdr-title,
-  .title-main-text,
-  .title-main-heading,
-  .title-main-header,
-  .header-title {
-    font-family: 'Inter', sans-serif !important;
-    font-weight: 700 !important;
-    font-size: clamp(24px, 2.25vw, 30px) !important;
-    line-height: 1.18 !important;
-    color: #004B87 !important;
-    white-space: normal !important;
-    overflow-wrap: anywhere !important;
-  }
-
-  .hdr-sub,
-  .title-sub-text,
-  .title-sub-heading,
-  .title-sub-header,
-  .header-sub {
-    font-family: 'Inter', sans-serif !important;
-    font-weight: 400 !important;
-    font-size: clamp(13px, 1.15vw, 15px) !important;
-    line-height: 1.35 !important;
-    color: #5D6D7E !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.6px !important;
-    white-space: normal !important;
-    overflow-wrap: anywhere !important;
-  }
-
-  .slide-num {
-    font-family: 'Inter', sans-serif !important;
-    font-size: 12px !important;
-    color: #B0BAC9 !important;
-    flex-shrink: 0 !important;
-  }
-
-  /* Corpo: mantém o grid no desktop e quebra os boxes para baixo em telas menores */
-  .body,
-  .main-content-layout,
-  .content-main-layout,
-  .main-content-container,
-  .main-content-wrapper,
-  .content-columns-wrapper,
-  .content-layout-grid,
-  .content-grid-container,
-  .gas-ideal-content-layout {
-    width: auto !important;
-    height: auto !important;
-    min-height: 0 !important;
-    flex: 1 1 auto !important;
-    gap: 14px !important;
-    padding: 14px 36px 22px 36px !important;
-    overflow: visible !important;
-  }
-
-  .body {
-    display: grid !important;
-  }
-
-  .col,
-  .left-column-content,
-  .right-column-content,
-  .left-theory-column,
-  .right-practice-column,
-  .left-column-theoretical,
-  .right-column-practical,
-  .content-column-left,
-  .content-column-right,
-  .gas-ideal-left-column,
-  .gas-ideal-right-column {
-    min-width: 0 !important;
-    width: auto !important;
-    height: auto !important;
-    overflow: visible !important;
-  }
-
-  .card,
-  .theory-card-block,
-  .example-card-block,
-  .theory-card-item,
-  .example-card-item,
-  .practice-card-block,
-  .info-card-block,
-  .practical-example-card,
-  .measurement-category-box,
-  .scale-detail-card,
-  .example-solved-card,
-  .example-practical-card,
-  .practice-example-card,
-  .state-functions-card,
-  .variable-definition-block,
-  .math-block-card {
-    min-width: 0 !important;
-    height: auto !important;
-    min-height: 0 !important;
-    overflow: visible !important;
-  }
-
-  .ch,
-  .section-header,
-  .section-heading,
-  .section-header-title,
-  .content-heading-text,
-  .card-heading,
-  .variable-definition-heading {
-    font-family: 'Inter', sans-serif !important;
-    font-size: 13px !important;
-    line-height: 1.25 !important;
-    font-weight: 700 !important;
-    white-space: normal !important;
-    overflow-wrap: anywhere !important;
-  }
-
-  .body-t,
-  .body-text,
-  .text-paragraph,
-  .theory-text-block,
-  .concept-text-block,
-  .explanatory-paragraph-text,
-  .content-paragraph-block,
-  .section-intro-text,
-  .gas-ideal-text-paragraph,
-  .theory-text-paragraph,
-  .text-block-narrative,
-  .serif-text,
-  .concept-explanation-paragraph {
-    font-size: 15px !important;
-    line-height: 1.62 !important;
-    overflow-wrap: anywhere !important;
-  }
-
-  /* Equações: rolagem horizontal interna se necessário, sem quebrar o layout */
-  .eq,
-  .equation-display-card,
-  .equation-highlight-box,
-  .equation-block-highlight,
-  .gas-ideal-equation-box,
-  .notation-box,
-  .answer,
-  .calc-box,
-  .formula-box {
-    max-width: 100% !important;
-    min-width: 0 !important;
-    overflow-x: auto !important;
-    overflow-y: hidden !important;
-    -webkit-overflow-scrolling: touch !important;
-    white-space: normal !important;
-    font-size: 16px !important;
-  }
-
-  mjx-container {
-    max-width: 100% !important;
-    overflow-x: auto !important;
-    overflow-y: hidden !important;
-    -webkit-overflow-scrolling: touch !important;
-  }
-
-  mjx-container[display="true"] {
-    display: block !important;
-    width: 100% !important;
-    padding-bottom: 2px !important;
-  }
-
-  .table-wrap,
-  .system-table-container,
-  table {
-    max-width: 100% !important;
-  }
-
-  .table-wrap,
-  .system-table-container {
-    overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-  }
-
-  table {
-    width: 100% !important;
-    min-width: max-content !important;
-  }
-
-  img, svg, canvas, video {
-    max-width: 100% !important;
-    height: auto !important;
-  }
-
-  /* Capa / página 1 */
-  .left-panel, .right-panel {
-    height: auto !important;
-    min-height: 720px !important;
-    overflow: visible !important;
-  }
-  .right-panel { min-width: 0 !important; }
-  .topics-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)) !important; }
-  .main-title { font-size: clamp(32px, 3vw, 42px) !important; }
-  .sub-title, .quote-text, .author-name { font-size: 18px !important; }
-  .author-inst { font-size: 14px !important; }
-
-  @media (max-width: 1100px) {
-    .body {
-      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    }
-    .main-content-layout,
-    .content-main-layout,
-    .main-content-container,
-    .main-content-wrapper,
-    .content-columns-wrapper,
-    .content-layout-grid,
-    .content-grid-container,
-    .gas-ideal-content-layout {
-      display: grid !important;
-      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-      align-items: start !important;
-    }
-  }
-
-  @media (max-width: 760px) {
-    .slide,
-    .slide-root,
-    .slide-root-container,
-    .slide-layout-root,
-    .slide-root-canvas,
-    .main-slide-canvas,
-    .thermo-slide-root,
-    .slide-root-layout {
-      min-height: 0 !important;
-    }
-
-    .hdr,
-    .title-section-wrapper,
-    .title-section-container,
-    .title-header-wrapper,
-    .title-section-block,
-    .header {
-      margin: 10px 14px 0 14px !important;
-      padding: 11px 14px !important;
-    }
-
-    .body,
-    .main-content-layout,
-    .content-main-layout,
-    .main-content-container,
-    .main-content-wrapper,
-    .content-columns-wrapper,
-    .content-layout-grid,
-    .content-grid-container,
-    .gas-ideal-content-layout {
-      display: grid !important;
-      grid-template-columns: 1fr !important;
-      gap: 12px !important;
-      padding: 12px 14px 18px 14px !important;
-    }
-
-    .hdr-title,
-    .title-main-text,
-    .title-main-heading,
-    .title-main-header,
-    .header-title {
-      font-size: 24px !important;
-    }
-
-    .hdr-sub,
-    .title-sub-text,
-    .title-sub-heading,
-    .title-sub-header,
-    .header-sub {
-      font-size: 13px !important;
-    }
-
-    .body-t,
-    .body-text,
-    .text-paragraph,
-    .theory-text-block,
-    .concept-text-block,
-    .explanatory-paragraph-text,
-    .content-paragraph-block,
-    .section-intro-text,
-    .gas-ideal-text-paragraph,
-    .theory-text-paragraph,
-    .text-block-narrative,
-    .serif-text,
-    .concept-explanation-paragraph {
-      font-size: 14.5px !important;
-      text-align: left !important;
-    }
-
-    .eq,
-    .equation-display-card,
-    .equation-highlight-box,
-    .equation-block-highlight,
-    .gas-ideal-equation-box,
-    .notation-box,
-    .answer,
-    .calc-box,
-    .formula-box {
-      font-size: 14.5px !important;
-      padding-left: 10px !important;
-      padding-right: 10px !important;
-    }
-
-    mjx-container {
-      font-size: 88% !important;
-    }
-
-    .slide-root {
-      flex-direction: column !important;
-    }
-    .left-panel,
-    .right-panel {
-      width: 100% !important;
-      min-height: 0 !important;
-      padding: 28px 22px !important;
-    }
-    .topics-grid {
-      grid-template-columns: 1fr !important;
-    }
-  }
-</style>
-<!-- /RESPONSIVE-UNIFORM-V2 -->
-
-</head>
-<body class="compress-body">
+/* Responsividade real */
+@media (max-width: 900px){
+  body{padding:0!important;background:var(--bg)!important;}
+  .slide,.slide-root,.slide-root-container,.slide-layout-root,.slide-root-layout,.thermo-slide-root,.main-slide-canvas,.slide-root-canvas{width:100%!important;max-width:none!important;min-height:100vh!important;border:0!important;box-shadow:none!important;}
+  .slide-root{display:flex!important;flex-direction:column!important;}
+  .hdr,.header,.title-header-wrapper,.title-section-wrapper,.title-section-container,.title-section-block,.title-header-container{margin:10px 12px 6px!important;padding:11px 14px!important;}
+  .body,.main-content-layout,.main-content-wrapper,.content-main-layout,.content-grid-container,.content-columns-wrapper,.main-content-container,.content-layout-grid,.gas-ideal-content-layout,.content-grid,.main-grid{grid-template-columns:1fr!important;padding:10px 12px 18px!important;gap:12px!important;}
+  .slide-num{display:none!important;}
+  .body-t,.body-text,.content-paragraph-block,.concept-text-block,.text-paragraph,.theory-text-block,.theory-text-paragraph,.text-block-narrative,.explanatory-paragraph-text,.section-intro-text,p,li,td,.step-t,.analogy,.analogy-body{text-align:left!important;}
+}
+@media (max-width: 520px){
+  :root{--title:1.22rem;--subtitle:.76rem;--body:.94rem;--card-title:.98rem;}
+  .hdr,.header,.title-header-wrapper,.title-section-wrapper,.title-section-container{flex-direction:column!important;}
+  .card,.scale-detail-card,.theory-card-item,.theory-card-block,.example-card-item,.example-card-block,.info-card-block,.practice-card-block,.practice-example-card,.example-solved-card,.math-block-card,.state-functions-card,.variable-definition-block,.gas-ideal-practice-card,.gas-ideal-equation-box,.equation-display-card,.equation-display-box,.equation-highlight-box,.practice-exercise-container,.analogy-sidebar-container,.consequence-summary-banner,.note,.callout,.ref-box,.answer,.data-item,.notation-box{padding:12px!important;}
+  table{min-width:360px!important;}
+}
+</style></head>
+<body>
 <div class="slide">
-
-  <!-- HEADER -->
-  <div class="hdr">
-    <div class="hdr-inner">
-      <div class="hdr-title">§1.12 — Capacidade Calorífica: \(C_V\), \(C_P\) e Calor Específico</div>
-      <div class="hdr-sub" style="font-size: 16px;">Capítulo 1 · Conceitos Fundamentais de Termodinâmica</div>
-    </div>
-    <div class="slide-num">20 / 20</div>
-  </div>
-
-  <!-- BODY: two columns -->
-  <div class="body">
-
-    <!-- LEFT COLUMN -->
-    <div class="col">
-
-      <!-- Card: Definições fundamentais -->
-      <div class="card blue">
-        <div class="ch blue" style="font-size: 14px;"><i class="fas fa-thermometer-half" style="font-size: inherit;"></i> Definições</div>
-        <p class="body-t" style="font-size: 14px;">
-          A <span class="bl" style="font-size: inherit;">capacidade calorífica</span> quantifica a energia necessária para elevar em 1 K a temperatura de um sistema.
+<!-- HEADER -->
+<div class="hdr">
+<div class="hdr-inner">
+<div class="hdr-title">§1.12 — Capacidade Calorífica: \(C_V\), \(C_P\) e Calor Específico</div>
+<div class="hdr-sub">Capítulo 1 · Conceitos Fundamentais de Termodinâmica</div>
+</div>
+<div class="slide-num">20 / 20</div>
+</div>
+<!-- BODY: two columns -->
+<div class="body">
+<!-- LEFT COLUMN -->
+<div class="col">
+<!-- Card: Definições fundamentais -->
+<div class="card blue">
+<div class="ch blue"><i class="fas fa-thermometer-half"></i> Definições</div>
+<p class="body-t">
+          A <span class="bl">capacidade calorífica</span> quantifica a energia necessária para elevar em 1 K a temperatura de um sistema.
           Depende das condições impostas durante o processo:
         </p>
-        <div class="eq-lbl" style="font-size: 14px;">Volume constante (isocórico)</div>
-        <div class="eq" style="font-size: 14px;">\[ C_V = \left.\frac{\delta Q}{dT}\right|_V = \left.\frac{\partial U}{\partial T}\right|_V \]</div>
-        <div class="eq-lbl" style="font-size: 14px;">Pressão constante (isobárico)</div>
-        <div class="eq" style="font-size: 14px;">\[ C_P = \left.\frac{\delta Q}{dT}\right|_P \]</div>
-        <p class="body-t" style="font-size: 14px;">
+<div class="eq-lbl">Volume constante (isocórico)</div>
+<div class="eq">\[ C_V = \left.\frac{\delta Q}{dT}\right|_V = \left.\frac{\partial U}{\partial T}\right|_V \]</div>
+<div class="eq-lbl">Pressão constante (isobárico)</div>
+<div class="eq">\[ C_P = \left.\frac{\delta Q}{dT}\right|_P \]</div>
+<p class="body-t">
           Como a pressão constante o sistema também realiza trabalho \((-PdV)\), parte do calor fornecido não é armazenada como energia interna.
-          Por isso <span class="hl" style="font-size: inherit;">\(C_P &gt; C_V\)</span> sempre.
+          Por isso <span class="hl">\(C_P &gt; C_V\)</span> sempre.
         </p>
-      </div>
-
-      <!-- Card: Calor específico -->
-      <div class="card red">
-        <div class="ch red" style="font-size: 14px;"><i class="fas fa-flask" style="font-size: inherit;"></i> Calor Específico Molar \(c = C/n\)</div>
-        <p class="body-t" style="font-size: 14px;">
-          O <span class="hl" style="font-size: inherit;">calor específico molar</span> normaliza a capacidade calorífica pelo número de mols \(n\),
-          tornando-a uma propriedade <em style="font-size: inherit;">intensiva</em> — independente da quantidade de substância:
+</div>
+<!-- Card: Calor específico -->
+<div class="card red">
+<div class="ch red"><i class="fas fa-flask"></i> Calor Específico Molar \(c = C/n\)</div>
+<p class="body-t">
+          O <span class="hl">calor específico molar</span> normaliza a capacidade calorífica pelo número de mols \(n\),
+          tornando-a uma propriedade <em>intensiva</em> — independente da quantidade de substância:
         </p>
-        <div class="eq" style="font-size: 14px;">\[ c = \frac{C}{n} \qquad \left[\text{J mol}^{-1}\text{K}^{-1}\right] \]</div>
-        <p class="body-t" style="font-size: 14px;">
-          Para um <span class="bl" style="font-size: inherit;">gás ideal</span>, a energia interna depende apenas de \(T\):
+<div class="eq">\[ c = \frac{C}{n} \qquad \left[\text{J mol}^{-1}\text{K}^{-1}\right] \]</div>
+<p class="body-t">
+          Para um <span class="bl">gás ideal</span>, a energia interna depende apenas de \(T\):
           \( U = \tfrac{3}{2}nRT \). Aplicando a definição de \(C_V\):
         </p>
-        <div class="eq" style="font-size: 14px;">\[ C_V = \frac{3}{2}nR \quad \Longrightarrow \quad c_V = \frac{C_V}{n} = \frac{3}{2}R \]</div>
-        <p class="body-t" style="font-size: 14px; color: rgb(93, 109, 126);">
+<div class="eq">\[ C_V = \frac{3}{2}nR \quad \Longrightarrow \quad c_V = \frac{C_V}{n} = \frac{3}{2}R \]</div>
+<p class="body-t">
           \(R = 8{,}314\;\text{J mol}^{-1}\text{K}^{-1}\) — constante universal dos gases.
         </p>
-      </div>
-
-    </div><!-- /LEFT -->
-
-    <!-- RIGHT COLUMN -->
-    <div class="col">
-
-      <!-- Card: Exemplo 1.7 -->
-      <div class="card green">
-        <div class="ch green" style="font-size: 14px;"><i class="fas fa-calculator" style="font-size: inherit;"></i> Exemplo 1.7 — Processo Isocórico</div>
-        <p class="body-t" style="font-size: 14px;">
+</div>
+</div><!-- /LEFT -->
+<!-- RIGHT COLUMN -->
+<div class="col">
+<!-- Card: Exemplo 1.7 -->
+<div class="card green">
+<div class="ch green"><i class="fas fa-calculator"></i> Exemplo 1.7 — Processo Isocórico</div>
+<p class="body-t">
           Mostre que, num processo isocórico, a variação de energia interna é
           \(\Delta U = \int C_V\,dT\), e use isso para calcular \(\Delta U\) de
           \(n\) mols de gás ideal aquecidos de \(T_1\) a \(T_2\).
         </p>
-        <div class="step">
-          <div class="step-n">1</div>
-          <div class="step-t" style="font-size: 14px;">Volume constante \(\Rightarrow dW = -P\,dV = 0\).</div>
-        </div>
-        <div class="step">
-          <div class="step-n">2</div>
-          <div class="step-t" style="font-size: 14px;">1ª Lei: \(dU = \delta Q + dW = \delta Q\).<br style="font-size: inherit;">
+<div class="step">
+<div class="step-n">1</div>
+<div class="step-t">Volume constante \(\Rightarrow dW = -P\,dV = 0\).</div>
+</div>
+<div class="step">
+<div class="step-n">2</div>
+<div class="step-t">1ª Lei: \(dU = \delta Q + dW = \delta Q\).<br/>
             Logo \(\displaystyle\Delta U = \int_{T_1}^{T_2} C_V\,dT\).</div>
-        </div>
-        <div class="step">
-          <div class="step-n">3</div>
-          <div class="step-t" style="font-size: 14px;">Gás ideal, \(C_V = \tfrac{3}{2}nR\) (constante):
+</div>
+<div class="step">
+<div class="step-n">3</div>
+<div class="step-t">Gás ideal, \(C_V = \tfrac{3}{2}nR\) (constante):
             \(\Delta U = C_V\,(T_2-T_1) = \tfrac{3}{2}nR\,\Delta T\).</div>
-        </div>
-      </div>
-
-      <!-- Card: Exercício 2.11 -->
-      
-
-    </div><!-- /RIGHT -->
-
-  </div><!-- /body -->
+</div>
+</div>
+<!-- Card: Exercício 2.11 -->
+</div><!-- /RIGHT -->
+</div><!-- /body -->
 </div><!-- /slide -->
-
-
 <script>(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()</script>
 </body></html>
