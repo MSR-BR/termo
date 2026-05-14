@@ -102,11 +102,39 @@ img,svg,video{max-width:100%!important;height:auto!important;}
   .card,.scale-detail-card,.theory-card-item,.theory-card-block,.example-card-item,.example-card-block,.info-card-block,.practice-card-block,.practice-example-card,.example-solved-card,.math-block-card,.state-functions-card,.variable-definition-block,.gas-ideal-practice-card,.gas-ideal-equation-box,.equation-display-card,.equation-display-box,.equation-highlight-box,.practice-exercise-container,.analogy-sidebar-container,.consequence-summary-banner,.note,.callout,.ref-box,.answer,.data-item,.notation-box{padding:12px!important;}
   table{min-width:360px!important;}
 }
+
+/* Botão Índice */
+.index-back-button{
+  width:fit-content!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  gap:6px!important;
+  text-decoration:none!important;
+  font-family:"Inter",sans-serif!important;
+  font-size:0.78rem!important;
+  font-weight:700!important;
+  color:var(--blue)!important;
+  background:#EEF3FC!important;
+  border:1px solid #C5D8F5!important;
+  padding:5px 10px!important;
+  border-radius:7px!important;
+  margin-bottom:8px!important;
+  transition:0.18s ease!important;
+}
+.index-back-button:hover{
+  background:#DCEBFF!important;
+  transform:translateY(-1px)!important;
+}
+
 </style></head>
 <body>
 <div class="slide">
 <div class="hdr">
 <div class="hdr-inner">
+<a href="../../index.html" class="index-back-button">
+  <i class="fa-solid fa-arrow-left"></i>
+  Índice
+</a>
 <div class="hdr-title">Métodos de Medição de Temperatura</div>
 <div class="hdr-sub">Termômetros por contato · Termopares · Infravermelho · Resistência</div>
 </div>
