@@ -102,7 +102,7 @@ img,svg,video{max-width:100%!important;height:auto!important;}
   .card,.scale-detail-card,.theory-card-item,.theory-card-block,.example-card-item,.example-card-block,.info-card-block,.practice-card-block,.practice-example-card,.example-solved-card,.math-block-card,.state-functions-card,.variable-definition-block,.gas-ideal-practice-card,.gas-ideal-equation-box,.equation-display-card,.equation-display-box,.equation-highlight-box,.practice-exercise-container,.analogy-sidebar-container,.consequence-summary-banner,.note,.callout,.ref-box,.answer,.data-item,.notation-box{padding:12px!important;}
   table{min-width:360px!important;}
 }
-</style></head>
+</style><link href="../../assets/ai-exercises.css" rel="stylesheet"/></head>
 <body>
 <div class="slide">
 <div class="hdr">
@@ -158,7 +158,35 @@ img,svg,video{max-width:100%!important;height:auto!important;}
 <strong>Resposta:</strong> Pela Lei Zero, <math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>T</mi><mi>A</mi></msub><mo>=</mo><msub><mi>T</mi><mi>B</mi></msub><mo>=</mo><mn>65</mn><mstyle scriptlevel="0"><mspace width="0.167em"></mspace></mstyle><mrow data-mjx-texclass="ORD"><mo data-mjx-pseudoscript="true">°</mo></mrow><mi>C</mi></math> — café e água estão em equilíbrio térmico entre si, sem necessidade de contato direto.
       </div>
 </div>
+
+<section class="card purple ai-exercise-card" id="aiExerciseBox">
+<div class="ai-exercise-header">
+<div class="ai-exercise-title">
+<i class="fa-solid fa-wand-magic-sparkles"></i>
+      Exercício
+    </div>
+<div class="ai-exercise-actions">
+<label class="ai-level-label" for="difficultySelect">Nível:</label>
+<select class="ai-select difficultySelect" id="difficultySelect">
+<option value="facil">Fácil</option>
+<option selected="" value="medio">Médio</option>
+<option value="dificil">Difícil</option>
+</select>
+<button class="ai-btn newExerciseBtn" type="button">Novo exercício</button>
+<button class="ai-btn secondary showSolutionBtn" disabled="" type="button">Ver solução</button>
 </div>
 </div>
-<script>(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()</script><script>(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()</script><script>(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()</script><script>(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()</script><script>(function(){(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()})()</script><script>(function(){(function(){(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()})()})()</script><script>(function(){(function(){(function(){(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()})()})()})()</script><script>(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()})()})()})()})()</script><script>(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()})()})()})()})()})()</script><script>(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()})()})()})()})()})()})()</script><script>(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()})()})()})()})()})()})()})()</script><script>(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()})()})()})()})()})()})()})()})()</script><script>(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()})()})()})()})()})()})()})()})()})()</script>
-</body></html>
+<div class="ai-disclaimer">
+<strong>Aviso importante:</strong> todo o conteúdo didático das páginas e do livro associado foi criado pelo Prof. Mario Reis.
+    O aplicativo de criação de exercícios é um experimento didático; os exercícios e soluções são gerados automaticamente por IA e
+    <strong>podem conter erros conceituais, matemáticos ou pedagógicos</strong>. Erros detectados devem ser comunicados para
+    <a href="mailto:marioreis@id.uff.br">marioreis@id.uff.br</a>.
+  </div>
+<div class="ai-output exerciseOutput">
+<p class="ai-status">Escolha o nível e clique em <strong>Novo exercício</strong>.</p>
+</div>
+<div class="ai-solution solutionOutput"></div>
+</section>
+</div>
+</div>
+<script defer="True" src="../../assets/ai-exercises.js"></script></body></html>
