@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="pt-BR" style="--viewport-height: 9.25px;"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>§1.1 — Escalas Termométricas</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Lora:ital,wght@0,400;0,600;1,400&amp;display=swap" rel="stylesheet"/><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};</script><script async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><style>
+<html lang="pt-BR" style="--viewport-height: 9.25px;"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>Escalas Termométricas</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Lora:ital,wght@0,400;0,600;1,400&amp;display=swap" rel="stylesheet"/><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};</script><script async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><style>
 :root{
   --bg:#FCFCFA; --page:#EDEDED; --text:#2C3E50; --muted:#5D6D7E;
   --blue:#004B87; --blue-soft:#E8F0FE; --red:#B03A2E; --green:#1A7A4A;
@@ -102,12 +102,237 @@ img,svg,video{max-width:100%!important;height:auto!important;}
   .card,.scale-detail-card,.theory-card-item,.theory-card-block,.example-card-item,.example-card-block,.info-card-block,.practice-card-block,.practice-example-card,.example-solved-card,.math-block-card,.state-functions-card,.variable-definition-block,.gas-ideal-practice-card,.gas-ideal-equation-box,.equation-display-card,.equation-display-box,.equation-highlight-box,.practice-exercise-container,.analogy-sidebar-container,.consequence-summary-banner,.note,.callout,.ref-box,.answer,.data-item,.notation-box{padding:12px!important;}
   table{min-width:360px!important;}
 }
-</style><link href="../../assets/ai-exercises.css" rel="stylesheet"/></head>
+
+/* Botão Índice */
+.index-back-button{
+  width:fit-content!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  gap:6px!important;
+  text-decoration:none!important;
+  font-family:"Inter",sans-serif!important;
+  font-size:0.78rem!important;
+  font-weight:700!important;
+  color:var(--blue)!important;
+  background:#EEF3FC!important;
+  border:1px solid #C5D8F5!important;
+  padding:5px 10px!important;
+  border-radius:7px!important;
+  margin-bottom:8px!important;
+  transition:0.18s ease!important;
+}
+.index-back-button:hover{
+  background:#DCEBFF!important;
+  transform:translateY(-1px)!important;
+}
+
+/* Caixa local de exercício — layout responsivo */
+.ai-exercise-card{
+  grid-column:1 / -1!important;
+  border-top:3px solid var(--purple)!important;
+  background:#FFFFFF!important;
+  min-height:310px!important;
+}
+.ai-exercise-top{
+  display:flex!important;
+  align-items:flex-start!important;
+  justify-content:space-between!important;
+  gap:16px!important;
+  flex-wrap:wrap!important;
+  margin-bottom:14px!important;
+}
+.ai-exercise-title{
+  font-family:"Inter",sans-serif!important;
+  font-size:var(--card-title)!important;
+  font-weight:700!important;
+  color:var(--purple)!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:8px!important;
+  line-height:1.25!important;
+}
+.ai-exercise-controls{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  gap:10px!important;
+  flex-wrap:wrap!important;
+}
+.ai-level-group{
+  display:flex!important;
+  align-items:center!important;
+  gap:7px!important;
+  font-family:"Inter",sans-serif!important;
+  font-size:0.88rem!important;
+  color:var(--muted)!important;
+  font-weight:600!important;
+}
+.ai-select{
+  font-family:"Inter",sans-serif!important;
+  font-size:0.88rem!important;
+  font-weight:600!important;
+  color:var(--text)!important;
+  background:#FFFFFF!important;
+  border:1px solid #C9D5E5!important;
+  border-radius:8px!important;
+  padding:8px 11px!important;
+  min-width:105px!important;
+}
+.ai-btn{
+  font-family:"Inter",sans-serif!important;
+  font-size:0.88rem!important;
+  font-weight:700!important;
+  border:1px solid #C5D8F5!important;
+  border-radius:8px!important;
+  padding:8px 13px!important;
+  cursor:pointer!important;
+  transition:0.18s ease!important;
+  min-height:36px!important;
+}
+.ai-btn-primary{
+  color:#FFFFFF!important;
+  background:var(--blue)!important;
+  border-color:var(--blue)!important;
+}
+.ai-btn-primary:hover{
+  background:#003A69!important;
+  transform:translateY(-1px)!important;
+}
+.ai-btn-secondary{
+  color:var(--purple)!important;
+  background:#FAF5FF!important;
+  border-color:#DDD6FE!important;
+}
+.ai-btn-secondary:hover{
+  background:#F0E7FF!important;
+  transform:translateY(-1px)!important;
+}
+.ai-btn:disabled{
+  opacity:.48!important;
+  cursor:not-allowed!important;
+  transform:none!important;
+}
+.ai-disclaimer{
+  background:#FFF8F6!important;
+  border-left:4px solid var(--red)!important;
+  border-radius:0 8px 8px 0!important;
+  padding:12px 14px!important;
+  margin-bottom:14px!important;
+  font-family:"Lora",Georgia,serif!important;
+  font-size:clamp(.86rem,1.08vw,.98rem)!important;
+  line-height:1.55!important;
+  color:var(--text)!important;
+  text-align:left!important;
+}
+.ai-disclaimer strong{
+  color:var(--red)!important;
+  font-family:"Inter",sans-serif!important;
+}
+.ai-disclaimer a{
+  color:var(--blue)!important;
+  font-weight:700!important;
+}
+.ai-workspace{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) minmax(280px,.78fr)!important;
+  gap:14px!important;
+  align-items:stretch!important;
+}
+.ai-output,
+.ai-solution{
+  background:#F8F9FA!important;
+  border:1px solid #E2E8F0!important;
+  border-radius:8px!important;
+  padding:14px 16px!important;
+  min-height:190px!important;
+  overflow:auto!important;
+  font-family:"Lora",Georgia,serif!important;
+  font-size:var(--body)!important;
+  line-height:1.58!important;
+  color:var(--text)!important;
+}
+.ai-output-title,
+.ai-solution-title{
+  font-family:"Inter",sans-serif!important;
+  font-weight:700!important;
+  color:var(--blue)!important;
+  font-size:0.92rem!important;
+  margin-bottom:8px!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:7px!important;
+}
+.ai-solution{
+  display:none;
+  background:#E8F5EC!important;
+  border-color:#A7D7B5!important;
+}
+.ai-placeholder{
+  color:var(--muted)!important;
+  text-align:left!important;
+  margin:0!important;
+}
+@media (max-width:900px){
+  .ai-exercise-top{
+    flex-direction:column!important;
+    align-items:stretch!important;
+  }
+  .ai-exercise-controls{
+    justify-content:flex-start!important;
+  }
+  .ai-workspace{
+    grid-template-columns:1fr!important;
+  }
+  .ai-output,.ai-solution{
+    min-height:150px!important;
+  }
+}
+@media (max-width:520px){
+  .ai-exercise-controls{
+    flex-direction:column!important;
+    align-items:stretch!important;
+  }
+  .ai-level-group{
+    width:100%!important;
+    justify-content:space-between!important;
+  }
+  .ai-select,.ai-btn{
+    width:100%!important;
+  }
+}
+
+
+.simulator-btn{
+  display:inline-flex!important;
+  align-items:center!important;
+  gap:8px!important;
+  margin-top:10px!important;
+  padding:10px 14px!important;
+  border-radius:8px!important;
+  text-decoration:none!important;
+  font-family:"Inter",sans-serif!important;
+  font-size:.9rem!important;
+  font-weight:700!important;
+  color:#FFFFFF!important;
+  background:var(--green)!important;
+  border:1px solid var(--green)!important;
+  transition:.18s ease!important;
+}
+.simulator-btn:hover{
+  background:#14663E!important;
+  transform:translateY(-1px)!important;
+}
+
+</style></head>
 <body>
 <div class="slide">
 <div class="hdr">
 <div class="hdr-inner">
-<div class="hdr-title">§1.1 — Escalas Termométricas</div>
+<a href="../../index.html" class="index-back-button">
+  <i class="fa-solid fa-arrow-left"></i>
+  Índice
+</a>
+<div class="hdr-title">Escalas Termométricas</div>
 <div class="hdr-sub">Celsius · Fahrenheit · Kelvin — fundamentos e comparação</div>
 </div>
 <div class="slide-num">4 / 22</div>
@@ -163,34 +388,199 @@ img,svg,video{max-width:100%!important;height:auto!important;}
       </div>
 </div>
 
+
+<div class="card green">
+  <div class="ch green">
+    <i class="fa-solid fa-flask"></i>
+    Simulador Interativo
+  </div>
+
+  <p class="body-t">
+    Explore interativamente diferentes escalas termométricas e a conversão entre temperaturas utilizando o simulador desenvolvido para este material.
+  </p>
+
+  <a
+    href="https://msr-br.github.io/Termodinamica/termometros.html"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="simulator-btn"
+  >
+    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+    Abrir simulador
+  </a>
+</div>
+
+
+<!-- Card extra: Exercício gerado por IA -->
 <section class="card purple ai-exercise-card" id="aiExerciseBox">
-<div class="ai-exercise-header">
-<div class="ai-exercise-title">
-<i class="fa-solid fa-wand-magic-sparkles"></i>
+  <div class="ai-exercise-top">
+    <div class="ai-exercise-title">
+      <i class="fa-solid fa-wand-magic-sparkles"></i>
       Exercício
     </div>
-<div class="ai-exercise-actions">
-<label class="ai-level-label" for="difficultySelect">Nível:</label>
-<select class="ai-select difficultySelect" id="difficultySelect">
-<option value="facil">Fácil</option>
-<option selected="" value="medio">Médio</option>
-<option value="dificil">Difícil</option>
-</select>
-<button class="ai-btn newExerciseBtn" type="button">Novo exercício</button>
-<button class="ai-btn secondary showSolutionBtn" disabled="" type="button">Ver solução</button>
-</div>
-</div>
-<div class="ai-disclaimer">
-<strong>Aviso importante:</strong> todo o conteúdo didático das páginas e do livro associado foi criado pelo Prof. Mario Reis.
-    O aplicativo de criação de exercícios é um experimento didático; os exercícios e soluções são gerados automaticamente por IA e
+
+    <div class="ai-exercise-controls">
+      <div class="ai-level-group">
+        <label for="difficultySelect">Nível</label>
+        <select class="ai-select" id="difficultySelect">
+          <option value="facil">Fácil</option>
+          <option selected value="medio">Médio</option>
+          <option value="dificil">Difícil</option>
+        </select>
+      </div>
+
+      <button class="ai-btn ai-btn-primary" id="newExerciseBtn" type="button">Novo exercício</button>
+      <button class="ai-btn ai-btn-secondary" id="showSolutionBtn" disabled type="button">Ver solução</button>
+    </div>
+  </div>
+
+  <div class="ai-disclaimer">
+    <strong>Aviso importante:</strong> todo o conteúdo didático das páginas e do livro associado foi criado pelo Prof. Mario Reis.
+    O aplicativo de criação de exercícios é um experimento didático; os exercícios e soluções serão gerados automaticamente por IA e
     <strong>podem conter erros conceituais, matemáticos ou pedagógicos</strong>. Erros detectados devem ser comunicados para
     <a href="mailto:marioreis@id.uff.br">marioreis@id.uff.br</a>.
   </div>
-<div class="ai-output exerciseOutput">
-<p class="ai-status">Escolha o nível e clique em <strong>Novo exercício</strong>.</p>
-</div>
-<div class="ai-solution solutionOutput"></div>
+
+  <div class="ai-workspace">
+    <div class="ai-output" id="exerciseOutput">
+      <div class="ai-output-title">
+        <i class="fa-solid fa-circle-question"></i>
+        Enunciado
+      </div>
+      <p class="ai-placeholder">Escolha o nível e clique em <strong>Novo exercício</strong>.</p>
+    </div>
+
+    <div class="ai-solution" id="solutionOutput">
+      <div class="ai-solution-title">
+        <i class="fa-solid fa-check"></i>
+        Solução
+      </div>
+      <p class="ai-placeholder">A solução aparecerá aqui após a geração do exercício.</p>
+    </div>
+  </div>
 </section>
+
 </div>
 </div>
-<script defer="True" src="../../assets/ai-exercises.js"></script></body></html>
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  const show = document.getElementById("showSolutionBtn");
+  const solution = document.getElementById("solutionOutput");
+  const novo = document.getElementById("newExerciseBtn");
+  const output = document.getElementById("exerciseOutput");
+  const difficulty = document.getElementById("difficultySelect");
+
+  let currentSolution = "";
+
+  function escapeHtml(value){
+    return String(value || "").replace(/[&<>"']/g, function(s){
+      return ({
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#039;"
+      })[s];
+    });
+  }
+
+  function setLoading(){
+    output.innerHTML = `
+      <div class="ai-output-title">
+        <i class="fa-solid fa-spinner fa-spin"></i>
+        Gerando exercício
+      </div>
+      <p class="ai-placeholder">Aguarde alguns segundos...</p>
+    `;
+    solution.style.display = "none";
+    solution.innerHTML = "";
+    currentSolution = "";
+    if(show) show.disabled = true;
+  }
+
+  function getPageContext(){
+    const title = document.querySelector(".hdr-title")?.innerText || document.title || "";
+    const subtitle = document.querySelector(".hdr-sub")?.innerText || "";
+    const cards = Array.from(document.querySelectorAll(".card:not(.ai-exercise-card)"))
+      .map(function(card){ return card.innerText.trim(); })
+      .filter(Boolean)
+      .join("\n\n");
+    return { title, subtitle, content: cards };
+  }
+
+  async function gerarExercicio(){
+    if(!novo || !output) return;
+
+    const ctx = getPageContext();
+
+    novo.disabled = true;
+    if(show) show.disabled = true;
+    setLoading();
+
+    try{
+      const response = await fetch("/api/exercicio", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          pageTitle: ctx.title,
+          pageSubtitle: ctx.subtitle,
+          pageContent: ctx.content,
+          difficulty: difficulty ? difficulty.value : "medio",
+          language: "pt-BR",
+          level: "graduação em Física"
+        })
+      });
+
+      const data = await response.json();
+
+      if(!response.ok){
+        throw new Error(data.error || "Erro ao chamar a API.");
+      }
+
+      currentSolution = data.solution || "";
+
+      output.innerHTML = `
+        <div class="ai-output-title">
+          <i class="fa-solid fa-circle-question"></i>
+          ${escapeHtml(data.title || "Exercício")}
+        </div>
+        <p>${escapeHtml(data.statement || "A API não retornou um enunciado.")}</p>
+      `;
+
+      solution.innerHTML = `
+        <div class="ai-solution-title">
+          <i class="fa-solid fa-check"></i>
+          Solução
+        </div>
+        <p>${escapeHtml(currentSolution || "A API não retornou uma solução.")}</p>
+      `;
+      solution.style.display = "none";
+
+      if(show) show.disabled = !currentSolution;
+    }catch(error){
+      output.innerHTML = `
+        <div class="ai-output-title">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          Não foi possível gerar o exercício
+        </div>
+        <p class="ai-placeholder">Verifique se o projeto está publicado no Vercel, se o arquivo <strong>api/exercicio.js</strong> existe e se a variável <strong>GEMINI_API_KEY</strong> foi configurada.</p>
+      `;
+    }finally{
+      novo.disabled = false;
+    }
+  }
+
+  if(novo){
+    novo.addEventListener("click", gerarExercicio);
+  }
+
+  if(show && solution){
+    show.addEventListener("click", function(){
+      solution.style.display = solution.style.display === "block" ? "none" : "block";
+    });
+  }
+});
+</script>
+
+</body></html>
