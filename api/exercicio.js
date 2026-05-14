@@ -3,9 +3,9 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Use POST." });
   }
 
-  const apiKey = process.env.OPENAI_API_KEY;
+  const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
-    return res.status(500).json({ error: "OPENAI_API_KEY não configurada." });
+    return res.status(500).json({ error: "GEMINI_API_KEY não configurada." });
   }
 
   const {
@@ -31,10 +31,10 @@ ${pageContent}
 
 Dificuldade escolhida: ${difficulty}.
 
-Critérios de dificuldade:
-- facil: exercício conceitual, direto, sem contas longas.
-- medio: exercício com interpretação física e, se apropriado, uma conta simples.
-- dificil: exercício com raciocínio em mais etapas, conexão entre conceitos ou cálculo mais elaborado.
+Critérios:
+- facil: conceitual, direto, sem contas longas.
+- medio: interpretação física e, se apropriado, uma conta simples.
+- dificil: raciocínio em mais etapas, conexão entre conceitos ou cálculo mais elaborado.
 
 Regras:
 - O exercício deve estar diretamente relacionado ao conteúdo da página.
@@ -42,7 +42,7 @@ Regras:
 - A solução deve ser clara, curta e passo a passo.
 - Responda APENAS em JSON válido, sem markdown.
 
-Formato obrigatório:
+Formato:
 {
   "title": "título curto",
   "statement": "enunciado do exercício",
@@ -50,34 +50,39 @@ Formato obrigatório:
 }
 `;
 
+  const model = process.env.GEMINI_MODEL || "gemini-2.5-flash";
+
   try {
-    const openaiRes = await fetch("https://api.openai.com/v1/responses", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${apiKey}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        model: process.env.OPENAI_MODEL || "gpt-5.4",
-        input: prompt
-      })
-    });
+    const geminiRes = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [
+            {
+              parts: [{ text: prompt }]
+            }
+          ],
+          generationConfig: {
+            temperature: 0.7,
+            responseMimeType: "application/json"
+          }
+        })
+      }
+    );
 
-    const data = await openaiRes.json();
+    const data = await geminiRes.json();
 
-    if (!openaiRes.ok) {
-      return res.status(openaiRes.status).json({
-        error: "Erro na API de IA.",
+    if (!geminiRes.ok) {
+      return res.status(geminiRes.status).json({
+        error: "Erro na API Gemini.",
         details: data
       });
     }
 
     const raw =
-      data.output_text ||
-      (data.output || [])
-        .flatMap(item => item.content || [])
-        .map(part => part.text || "")
-        .join("\n");
+      data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
 
     let parsed;
     try {
