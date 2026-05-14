@@ -162,37 +162,60 @@ img,svg,video{max-width:100%!important;height:auto!important;}
 </div>
 <script>(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()</script><script>(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()</script><script>(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()</script><script>(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()</script><script>(function(){(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()})()</script><script>(function(){(function(){(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()})()})()</script><script>(function(){(function(){(function(){(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()})()})()})()</script><script>(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()})()})()})()})()</script><script>(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()})()})()})()})()})()</script><script>(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()})()})()})()})()})()})()</script><script>(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()})()})()})()})()})()})()})()</script><script>(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()})()})()})()})()})()})()})()})()</script><script>(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){(function(){window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};})()})()})()})()})()})()})()})()})()})()})()})()})()</script>
 
-  <section class="ai-exercise-box" id="aiExerciseBox">
-  <div class="ai-exercise-header">
-    <div class="ai-exercise-title">
-      <i class="fa-solid fa-wand-magic-sparkles"></i>
-      Exercício
-    </div>
+<div class="card purple">
 
-    <div class="ai-exercise-actions">
-      <label class="ai-level-label" for="difficultySelect">Nível:</label>
-      <select id="difficultySelect" class="ai-select">
-        <option value="facil">Fácil</option>
-        <option value="medio" selected>Médio</option>
-        <option value="dificil">Difícil</option>
-      </select>
-
-      <button class="ai-btn" id="newExerciseBtn" type="button">Novo exercício</button>
-      <button class="ai-btn secondary" id="showSolutionBtn" type="button" disabled>Ver solução</button>
-    </div>
+  <div class="card-head">
+    <i class="fa-solid fa-wand-magic-sparkles"></i>
+    Exercício Gerado por IA
   </div>
 
-  <div class="ai-disclaimer">
-    <strong>Aviso importante:</strong> todo o conteúdo didático das páginas e do livro associado foi criado pelo Prof. Mario Reis.
-    O aplicativo de criação de exercícios é um experimento didático; os exercícios e soluções são gerados automaticamente por IA e
-    <strong>podem conter erros conceituais, matemáticos ou pedagógicos</strong>. Erros detectados devem ser comunicados para
-    <a href="mailto:marioreis@id.uff.br">marioreis@id.uff.br</a>.
+  <div class="exercise-controls">
+
+    <label for="difficultySelect">
+      Nível:
+    </label>
+
+    <select id="difficultySelect">
+      <option value="facil">Fácil</option>
+      <option value="medio" selected>Médio</option>
+      <option value="dificil">Difícil</option>
+    </select>
+
+    <button id="newExerciseBtn">
+      Novo exercício
+    </button>
+
+    <button id="showSolutionBtn" disabled>
+      Ver solução
+    </button>
+
   </div>
 
-  <div class="ai-output" id="exerciseOutput">
-    <p class="ai-status">Escolha o nível e clique em <strong>Novo exercício</strong>.</p>
+  <div class="exercise-disclaimer">
+
+    <strong>Aviso importante:</strong>
+
+    Todo o conteúdo didático das páginas e do livro associado foi criado pelo Prof. Mario Reis.
+
+    O aplicativo de criação de exercícios é um experimento didático.
+    Exercícios e soluções são gerados automaticamente por IA e podem conter erros conceituais, matemáticos ou pedagógicos.
+
+    Erros detectados devem ser comunicados para:
+
+    <a href="mailto:marioreis@id.uff.br">
+      marioreis@id.uff.br
+    </a>
+
   </div>
 
-  <div class="ai-solution" id="solutionOutput"></div>
-</section>
+  <div id="exerciseOutput">
+
+    Escolha o nível e clique em
+    <strong>Novo exercício</strong>.
+
+  </div>
+
+  <div id="solutionOutput"></div>
+
+</div>
 </body></html>
