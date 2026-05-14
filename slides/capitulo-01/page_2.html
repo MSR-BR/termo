@@ -256,6 +256,27 @@ img,svg,video{max-width:100%!important;height:auto!important;}
   }
 }
 
+
+/* Ajustes finais da caixa de exercício */
+.ai-exercise-card{
+  min-height:310px!important;
+}
+.ai-output{
+  min-height:190px!important;
+}
+.ai-solution{
+  display:none;
+  min-height:190px!important;
+}
+.ai-placeholder{
+  margin:0!important;
+}
+@media (max-width:900px){
+  .ai-output,.ai-solution{
+    min-height:150px!important;
+  }
+}
+
 </style></head>
 <body>
 <div class="slide">
@@ -354,7 +375,7 @@ img,svg,video{max-width:100%!important;height:auto!important;}
         <i class="fa-solid fa-circle-question"></i>
         Enunciado
       </div>
-      <p class="ai-placeholder">Escolha o nível e clique em <strong>Novo exercício</strong>. A geração automática será conectada à API na próxima etapa.</p>
+      <p class="ai-placeholder">Escolha o nível e clique em <strong>Novo exercício</strong>.</p>
     </div>
 
     <div class="ai-solution" id="solutionOutput">
@@ -362,7 +383,7 @@ img,svg,video{max-width:100%!important;height:auto!important;}
         <i class="fa-solid fa-check"></i>
         Solução
       </div>
-      <p class="ai-placeholder">A solução aparecerá aqui depois que a API estiver conectada.</p>
+      <p class="ai-placeholder">A solução aparecerá aqui após a geração do exercício.</p>
     </div>
   </div>
 </section>
@@ -370,23 +391,122 @@ img,svg,video{max-width:100%!important;height:auto!important;}
 </div>
 </div>
 
+
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   const show = document.getElementById("showSolutionBtn");
   const solution = document.getElementById("solutionOutput");
   const novo = document.getElementById("newExerciseBtn");
   const output = document.getElementById("exerciseOutput");
+  const difficulty = document.getElementById("difficultySelect");
+
+  let currentSolution = "";
+
+  function escapeHtml(value){
+    return String(value || "").replace(/[&<>"']/g, function(s){
+      return ({
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#039;"
+      })[s];
+    });
+  }
+
+  function setLoading(){
+    output.innerHTML = `
+      <div class="ai-output-title">
+        <i class="fa-solid fa-spinner fa-spin"></i>
+        Gerando exercício
+      </div>
+      <p class="ai-placeholder">Aguarde alguns segundos...</p>
+    `;
+    solution.style.display = "none";
+    solution.innerHTML = "";
+    currentSolution = "";
+    if(show) show.disabled = true;
+  }
+
+  function getPageContext(){
+    const title = document.querySelector(".hdr-title")?.innerText || document.title || "";
+    const subtitle = document.querySelector(".hdr-sub")?.innerText || "";
+    const cards = Array.from(document.querySelectorAll(".card:not(.ai-exercise-card)"))
+      .map(function(card){ return card.innerText.trim(); })
+      .filter(Boolean)
+      .join("\n\n");
+    return { title, subtitle, content: cards };
+  }
+
+  async function gerarExercicio(){
+    if(!novo || !output) return;
+
+    const ctx = getPageContext();
+
+    novo.disabled = true;
+    if(show) show.disabled = true;
+    setLoading();
+
+    try{
+      const response = await fetch("/api/exercicio", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          pageTitle: ctx.title,
+          pageSubtitle: ctx.subtitle,
+          pageContent: ctx.content,
+          difficulty: difficulty ? difficulty.value : "medio",
+          language: "pt-BR",
+          level: "graduação em Física"
+        })
+      });
+
+      const data = await response.json();
+
+      if(!response.ok){
+        throw new Error(data.error || "Erro ao chamar a API.");
+      }
+
+      currentSolution = data.solution || "";
+
+      output.innerHTML = `
+        <div class="ai-output-title">
+          <i class="fa-solid fa-circle-question"></i>
+          ${escapeHtml(data.title || "Exercício")}
+        </div>
+        <p>${escapeHtml(data.statement || "A API não retornou um enunciado.")}</p>
+      `;
+
+      solution.innerHTML = `
+        <div class="ai-solution-title">
+          <i class="fa-solid fa-check"></i>
+          Solução
+        </div>
+        <p>${escapeHtml(currentSolution || "A API não retornou uma solução.")}</p>
+      `;
+      solution.style.display = "none";
+
+      if(show) show.disabled = !currentSolution;
+    }catch(error){
+      output.innerHTML = `
+        <div class="ai-output-title">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          Não foi possível gerar o exercício
+        </div>
+        <p class="ai-placeholder">Verifique se o projeto está publicado no Vercel, se o arquivo <strong>api/exercicio.js</strong> existe e se a variável <strong>GEMINI_API_KEY</strong> foi configurada.</p>
+      `;
+    }finally{
+      novo.disabled = false;
+    }
+  }
 
   if(novo){
-    novo.addEventListener("click", function(){
-      output.innerHTML = '<div class="ai-output-title"><i class="fa-solid fa-circle-question"></i> Enunciado</div><p class="ai-placeholder">Layout pronto. Na próxima etapa, este botão chamará a API para gerar um exercício sobre a Lei Zero da Termodinâmica.</p>';
-      if(show) show.disabled = false;
-    });
+    novo.addEventListener("click", gerarExercicio);
   }
 
   if(show && solution){
     show.addEventListener("click", function(){
-      solution.scrollIntoView({behavior:"smooth", block:"nearest"});
+      solution.style.display = solution.style.display === "block" ? "none" : "block";
     });
   }
 });

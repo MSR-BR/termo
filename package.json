@@ -1,14 +1,6 @@
 {
-<<<<<<< HEAD
-  "type": "module",
-=======
->>>>>>> a3d6b2ff01ccb992fdea388a3a11b1f7ab174a55
   "scripts": {
     "dev": "vercel dev",
     "deploy": "vercel --prod"
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> a3d6b2ff01ccb992fdea388a3a11b1f7ab174a55
