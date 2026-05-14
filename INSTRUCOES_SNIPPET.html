@@ -1,0 +1,40 @@
+
+<!-- adicionar no <head> -->
+<link rel="stylesheet" href="../../assets/ai-exercises.css">
+<script defer src="../../assets/ai-exercises.js"></script>
+
+<!-- adicionar dentro do grid principal da página -->
+<div class="ai-card">
+  <div class="ai-head">
+    <div class="ai-title">🧠 Exercício gerado por IA</div>
+
+    <div class="ai-controls">
+      <select id="difficultySelect" class="ai-select">
+        <option value="facil">Fácil</option>
+        <option value="medio" selected>Médio</option>
+        <option value="dificil">Difícil</option>
+      </select>
+
+      <button id="newExerciseBtn" class="ai-btn">
+        Novo exercício
+      </button>
+
+      <button id="showSolutionBtn" class="ai-btn" disabled>
+        Ver solução
+      </button>
+    </div>
+  </div>
+
+  <div class="ai-disclaimer">
+    <strong>Aviso importante:</strong>
+    Todo o conteúdo didático das páginas e do livro associado foi criado pelo Prof. Mario Reis.
+    Exercícios e soluções são gerados automaticamente por IA e podem conter erros.
+    Reportar problemas para: marioreis@id.uff.br
+  </div>
+
+  <div id="exerciseOutput" class="ai-output">
+    Escolha o nível e clique em <strong>Novo exercício</strong>.
+  </div>
+
+  <div id="solutionOutput" class="ai-solution"></div>
+</div>
