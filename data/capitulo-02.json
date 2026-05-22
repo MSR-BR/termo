@@ -1,83 +1,68 @@
 {
-  "description": "Potenciais termodinâmicos, transformações de Legendre, entalpia, energia livre de Helmholtz, energia livre de Gibbs, grande potencial termodinâmico, relações de Maxwell e aplicações físicas.",
+  "description": "Capítulo 2 — Potenciais Termodinâmicos e Aplicações.",
   "topics": [
     {
       "id": "2.1",
-      "title": "Potenciais Termodinâmicos",
-      "note": "Introdução aos potenciais e ao papel das equações de estado.",
-      "url": "slides/capitulo-02/page_2.html"
+      "title": "Potenciais Termodinâmicos e Transformações de Legendre",
+      "note": "Objetivos do capítulo, condições dos processos, ideia de potencial termodinâmico e mudança de variáveis naturais.",
+      "url": "slides/capitulo-02/page_1.html",
+      "sourcePages": ["page_4.html", "page_5.html"]
     },
     {
       "id": "2.2",
-      "title": "Transformações de Legendre",
-      "note": "Mudança de variáveis naturais em termodinâmica.",
-      "url": "slides/capitulo-02/page_4.html"
+      "title": "Entropia e Energia Interna",
+      "note": "Entropia como função de estado, energia interna como potencial fundamental e identificação de variáveis conjugadas.",
+      "url": "slides/capitulo-02/page_2.html",
+      "sourcePages": ["page_6.html", "page_7.html"]
     },
     {
       "id": "2.3",
       "title": "Energia Livre de Helmholtz",
-      "note": "Definição, interpretação física e variáveis naturais.",
-      "url": "slides/capitulo-02/page_3.html"
+      "note": "Definição, diferencial, variáveis naturais, trabalho isotérmico e exemplo do gás ideal.",
+      "url": "slides/capitulo-02/page_3.html",
+      "sourcePages": ["page_8.html", "page_9.html", "page_10.html"]
     },
     {
       "id": "2.4",
       "title": "Entalpia e Calor Isobárico",
-      "note": "Definição da entalpia e interpretação do calor a pressão constante.",
-      "url": "slides/capitulo-02/page_5.html"
+      "note": "Definição de entalpia, calor a pressão constante, aquecimento isobárico e processos endotérmicos/exotérmicos.",
+      "url": "slides/capitulo-02/page_4.html",
+      "sourcePages": ["page_11.html", "page_12.html", "page_13.html", "page_14.html"]
     },
     {
       "id": "2.5",
-      "title": "Exemplo: Entalpia",
-      "note": "Aplicações envolvendo variação de entalpia.",
-      "url": "slides/capitulo-02/page_7.html"
+      "title": "Energia Livre de Gibbs e Espontaneidade",
+      "note": "Definição de Gibbs, critério de espontaneidade, equilíbrio e exemplo da sublimação do CO₂.",
+      "url": "slides/capitulo-02/page_5.html",
+      "sourcePages": ["page_15.html", "page_16.html", "page_17.html"]
     },
     {
       "id": "2.6",
-      "title": "Energia Livre de Gibbs e Espontaneidade",
-      "note": "Definição, equilíbrio e critério de espontaneidade.",
-      "url": "slides/capitulo-02/page_8.html"
+      "title": "Grand Potencial e Sistemas Abertos",
+      "note": "Definição, diferencial, variáveis naturais e interpretação física do grande potencial.",
+      "url": "slides/capitulo-02/page_6.html",
+      "sourcePages": ["page_18.html"]
     },
     {
       "id": "2.7",
-      "title": "Exemplo: Sublimação do CO₂",
-      "note": "Aplicação da energia livre de Gibbs em transições de fase.",
-      "url": "slides/capitulo-02/page_10.html"
+      "title": "Variáveis Conjugadas Mecânicas e Magnéticas",
+      "note": "Analogias entre pressão-volume e campo magnético-magnetização.",
+      "url": "slides/capitulo-02/page_7.html",
+      "sourcePages": ["page_19.html"]
     },
     {
       "id": "2.8",
-      "title": "Grande Potencial Termodinâmico",
-      "note": "Potencial associado a sistemas abertos com troca de partículas.",
-      "url": "slides/capitulo-02/page_11.html"
+      "title": "Relações de Maxwell",
+      "note": "Fundamentos matemáticos, relações principais e aplicação ao gás ideal.",
+      "url": "slides/capitulo-02/page_8.html",
+      "sourcePages": ["page_20.html", "page_21.html", "page_22.html"]
     },
     {
       "id": "2.9",
-      "title": "Variáveis Conjugadas Magnéticas",
-      "note": "Campo magnético e magnetização como variáveis conjugadas.",
-      "url": "slides/capitulo-02/page_12.html"
-    },
-    {
-      "id": "2.10",
-      "title": "Relações de Maxwell",
-      "note": "Derivação, significado físico e principais relações termodinâmicas.",
-      "url": "slides/capitulo-02/page_13.html"
-    },
-    {
-      "id": "2.11",
-      "title": "Exemplo: Maxwell e Gás Ideal",
-      "note": "Aplicação das relações de Maxwell ao gás ideal.",
-      "url": "slides/capitulo-02/page_22.html"
-    },
-    {
-      "id": "2.12",
-      "title": "Retângulo Termodinâmico",
-      "note": "Mnemônico visual para potenciais e relações de Maxwell.",
-      "url": "slides/capitulo-02/page_23.html"
-    },
-    {
-      "id": "2.13",
-      "title": "Tabela Resumo",
-      "note": "Resumo geral dos potenciais termodinâmicos.",
-      "url": "slides/capitulo-02/page_24.html"
+      "title": "Retângulo Termodinâmico e Tabela Resumo",
+      "note": "Organização visual dos potenciais, variáveis naturais, relações de Maxwell e síntese final.",
+      "url": "slides/capitulo-02/page_9.html",
+      "sourcePages": ["page_23.html", "page_24.html"]
     }
   ]
 }
