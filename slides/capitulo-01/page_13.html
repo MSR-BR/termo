@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="pt-BR" style="--viewport-height: 9.25px;"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>§1.7 — Trabalho: dW = -P dV</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Lora:ital,wght@0,400;0,600;1,400&amp;display=swap" rel="stylesheet"/><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};</script><script async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><style>
+<html lang="pt-BR" style="--viewport-height: 9.25px;"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>Trabalho: dW = -P dV</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Lora:ital,wght@0,400;0,600;1,400&amp;display=swap" rel="stylesheet"/><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:true}};</script><script async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><style>
 :root{
   --bg:#FCFCFA; --page:#EDEDED; --text:#2C3E50; --muted:#5D6D7E;
   --blue:#004B87; --blue-soft:#E8F0FE; --red:#B03A2E; --green:#1A7A4A;
@@ -102,12 +102,46 @@ img,svg,video{max-width:100%!important;height:auto!important;}
   .card,.scale-detail-card,.theory-card-item,.theory-card-block,.example-card-item,.example-card-block,.info-card-block,.practice-card-block,.practice-example-card,.example-solved-card,.math-block-card,.state-functions-card,.variable-definition-block,.gas-ideal-practice-card,.gas-ideal-equation-box,.equation-display-card,.equation-display-box,.equation-highlight-box,.practice-exercise-container,.analogy-sidebar-container,.consequence-summary-banner,.note,.callout,.ref-box,.answer,.data-item,.notation-box{padding:12px!important;}
   table{min-width:360px!important;}
 }
-</style><link href="../../assets/ai-exercises.css" rel="stylesheet"/></head>
+
+/* Botão Índice */
+.index-back-button{
+  width:fit-content!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  gap:6px!important;
+  text-decoration:none!important;
+  font-family:"Inter",sans-serif!important;
+  font-size:0.78rem!important;
+  font-weight:700!important;
+  color:var(--blue)!important;
+  background:#EEF3FC!important;
+  border:1px solid #C5D8F5!important;
+  padding:5px 10px!important;
+  border-radius:7px!important;
+  margin-bottom:8px!important;
+  transition:0.18s ease!important;
+}
+.index-back-button:hover{
+  background:#DCEBFF!important;
+  transform:translateY(-1px)!important;
+}
+@media (max-width:520px){
+  .index-back-button{
+    font-size:0.76rem!important;
+    padding:5px 9px!important;
+  }
+}
+
+</style></head>
 <body>
 <div class="slide">
 <div class="hdr">
 <div class="hdr-inner">
-<div class="hdr-title">§1.7 — Trabalho Termodinâmico: <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>d</mi><mi>W</mi><mo>=</mo><mo>−</mo><mi>P</mi><mstyle scriptlevel="0"><mspace width="0.167em"></mspace></mstyle><mi>d</mi><mi>V</mi></math></div>
+<a href="../../index.html" class="index-back-button">
+  <i class="fa-solid fa-arrow-left"></i>
+  Índice
+</a>
+<div class="hdr-title">Trabalho Termodinâmico: <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>d</mi><mi>W</mi><mo>=</mo><mo>−</mo><mi>P</mi><mstyle scriptlevel="0"><mspace width="0.167em"></mspace></mstyle><mi>d</mi><mi>V</mi></math></div>
 <div class="hdr-sub">Definição · Derivação · Convenção de sinais</div>
 </div>
 <div class="slide-num">13 / 20</div>
@@ -149,34 +183,6 @@ img,svg,video{max-width:100%!important;height:auto!important;}
 </div>
 </div>
 
-<section class="card purple ai-exercise-card" id="aiExerciseBox">
-<div class="ai-exercise-header">
-<div class="ai-exercise-title">
-<i class="fa-solid fa-wand-magic-sparkles"></i>
-      Exercício
-    </div>
-<div class="ai-exercise-actions">
-<label class="ai-level-label" for="difficultySelect">Nível:</label>
-<select class="ai-select difficultySelect" id="difficultySelect">
-<option value="facil">Fácil</option>
-<option selected="" value="medio">Médio</option>
-<option value="dificil">Difícil</option>
-</select>
-<button class="ai-btn newExerciseBtn" type="button">Novo exercício</button>
-<button class="ai-btn secondary showSolutionBtn" disabled="" type="button">Ver solução</button>
 </div>
 </div>
-<div class="ai-disclaimer">
-<strong>Aviso importante:</strong> todo o conteúdo didático das páginas e do livro associado foi criado pelo Prof. Mario Reis.
-    O aplicativo de criação de exercícios é um experimento didático; os exercícios e soluções são gerados automaticamente por IA e
-    <strong>podem conter erros conceituais, matemáticos ou pedagógicos</strong>. Erros detectados devem ser comunicados para
-    <a href="mailto:marioreis@id.uff.br">marioreis@id.uff.br</a>.
-  </div>
-<div class="ai-output exerciseOutput">
-<p class="ai-status">Escolha o nível e clique em <strong>Novo exercício</strong>.</p>
-</div>
-<div class="ai-solution solutionOutput"></div>
-</section>
-</div>
-</div>
-<script defer="True" src="../../assets/ai-exercises.js"></script></body></html>
+</body></html>
