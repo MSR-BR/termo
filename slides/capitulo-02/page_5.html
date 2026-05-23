@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Energia Livre de Gibbs e Espontaneidade</title>
+
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/>
+
+<script>
+window.va = window.va || function () {
+  (window.vaq = window.vaq || []).push(arguments);
+};
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)'], ['$', '$']], displayMath: [['\\[','\\]']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<style>
+:root{
+  --bg:#F5F7FB;
+  --panel:#FFFFFF;
+  --text:#2C3E50;
+  --muted:#5D6D7E;
+  --blue:#004B87;
+  --blue-soft:#EAF2FD;
+  --border:#D9E2EC;
+  --shadow:0 10px 28px rgba(0,0,0,0.06);
+  --red:#B03A2E;
+  --green:#1E8449;
+  --purple:#6C3483;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:"Inter",sans-serif;
+  min-height:100vh;
+  padding:24px;
+}
+
+.page{
+  width:100%;
+  max-width:1400px;
+  margin:0 auto;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+.hero,.card{
+  background:#FFFFFF;
+  border:1px solid var(--border);
+  border-radius:22px;
+  box-shadow:var(--shadow);
+}
+
+.hero-inner,.card{padding:30px}
+
+.index-back-button{
+  width:fit-content;
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  text-decoration:none;
+  font-size:.82rem;
+  font-weight:700;
+  color:var(--blue);
+  background:#FFFFFF;
+  border:1px solid #C7D8F3;
+  border-radius:10px;
+  padding:8px 12px;
+  margin-bottom:18px;
+}
+
+.index-back-button:hover{background:var(--blue-soft);transform:translateY(-1px)}
+
+.chapter-label{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:var(--blue-soft);
+  color:var(--blue);
+  border-radius:999px;
+  padding:8px 14px;
+  font-size:.84rem;
+  font-weight:800;
+  margin-bottom:18px;
+}
+
+.chapter-title{
+  font-size:clamp(2rem,4vw,3.3rem);
+  color:var(--blue);
+  font-weight:800;
+  line-height:1.06;
+  margin-bottom:18px;
+}
+
+.chapter-text,.body-text{
+  font-family:"Lora",serif;
+  line-height:1.75;
+  color:var(--text);
+  font-size:1rem;
+}
+
+.chapter-text p,.body-text p{margin-bottom:14px}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+.card-title{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:var(--blue);
+  font-size:1.18rem;
+  font-weight:800;
+  margin-bottom:18px;
+}
+
+.card-title.green{color:var(--green)}
+.card-title.purple{color:var(--purple)}
+.card-title.red{color:var(--red)}
+
+.math-box{
+  background:#F8FAFC;
+  border:1px solid #E2E8F0;
+  border-left:4px solid var(--blue);
+  border-radius:0 14px 14px 0;
+  padding:18px;
+  margin:16px 0;
+  overflow-x:auto;
+}
+
+.math-box.green{border-left-color:var(--green)}
+.math-box.purple{border-left-color:var(--purple)}
+.math-box.red{border-left-color:var(--red)}
+
+.highlight{
+  background:#F0F7FF;
+  border-left:4px solid var(--blue);
+  border-radius:0 10px 10px 0;
+  padding:16px 18px;
+  margin-top:18px;
+}
+
+.warning{
+  background:#FFF8F6;
+  border-left:4px solid var(--red);
+  border-radius:0 10px 10px 0;
+  padding:16px 18px;
+  margin-top:18px;
+}
+
+.status-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:14px;
+  margin-top:16px;
+}
+
+.status-card{
+  border:1px solid #E2E8F0;
+  border-radius:14px;
+  padding:16px;
+  background:#F8FAFC;
+}
+
+.status-card.negative{border-left:5px solid var(--green)}
+.status-card.zero{border-left:5px solid var(--blue)}
+.status-card.positive{border-left:5px solid var(--red)}
+
+.status-title{
+  font-family:"Inter",sans-serif;
+  font-weight:800;
+  margin-bottom:8px;
+}
+
+.status-title.negative{color:var(--green)}
+.status-title.zero{color:var(--blue)}
+.status-title.positive{color:var(--red)}
+
+.ai-exercise-card{border-top:3px solid var(--purple)}
+
+.ai-exercise-top{
+  display:flex;
+  justify-content:space-between;
+  gap:14px;
+  flex-wrap:wrap;
+  margin-bottom:14px;
+}
+
+.ai-exercise-title{
+  font-size:1.15rem;
+  font-weight:800;
+  color:var(--purple);
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.ai-controls{display:flex;gap:10px;flex-wrap:wrap}
+
+.ai-select,.ai-btn{
+  border-radius:8px;
+  border:1px solid #C9D5E5;
+  min-height:38px;
+  padding:8px 12px;
+  font-family:"Inter",sans-serif;
+  font-size:.9rem;
+}
+
+.ai-btn{
+  background:var(--blue);
+  color:#FFF;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.ai-btn.secondary{
+  background:#F3E8FF;
+  color:var(--purple);
+  border-color:#DDD6FE;
+}
+
+.ai-disclaimer{
+  background:#FFF8F6;
+  border-left:4px solid var(--red);
+  border-radius:0 10px 10px 0;
+  padding:14px 16px;
+  margin-bottom:14px;
+  font-family:"Lora",serif;
+  line-height:1.6;
+}
+
+.ai-output,.ai-solution{
+  background:#F8FAFC;
+  border:1px solid #E2E8F0;
+  border-radius:10px;
+  padding:16px;
+  min-height:140px;
+  font-family:"Lora",serif;
+  line-height:1.7;
+}
+
+.ai-solution{
+  display:none;
+  margin-top:14px;
+  background:#E8F5EC;
+}
+
+@media (max-width:980px){
+  .grid{grid-template-columns:1fr}
+}
+
+@media (max-width:700px){
+  body{padding:12px}
+  .hero-inner,.card{padding:22px}
+  .chapter-title{line-height:1.1}
+  .ai-controls{flex-direction:column;width:100%}
+  .ai-select,.ai-btn{width:100%}
+}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+<section class="hero">
+<div class="hero-inner">
+
+<a href="../../index.html" class="index-back-button">
+<i class="fa-solid fa-arrow-left"></i>
+Índice
+</a>
+
+<div class="chapter-label">
+<i class="fa-solid fa-layer-group"></i>
+Capítulo 2 · Item 2.5
+</div>
+
+<h1 class="chapter-title">
+Energia Livre de Gibbs e Espontaneidade
+</h1>
+
+<div class="chapter-text">
+
+<p>
+A energia livre de Gibbs é o potencial termodinâmico adequado para sistemas submetidos simultaneamente a temperatura e pressão constantes. Ela é especialmente importante para estudar equilíbrio, espontaneidade, reações químicas e transições de fase.
+</p>
+
+<p>
+Mantemos a convenção usada em todo o material:
+\[
+dU=dQ+dW,\qquad dW=-P\,dV
+\]
+Energia que entra no sistema é positiva; energia que sai do sistema é negativa.
+</p>
+
+</div>
+
+</div>
+</section>
+
+<div class="grid">
+
+<section class="card">
+<div class="card-title">
+<i class="fa-solid fa-g"></i>
+Definição da Energia Livre de Gibbs
+</div>
+
+<div class="body-text">
+
+<p>
+A energia livre de Gibbs é definida como:
+</p>
+
+<div class="math-box">
+\[
+G = U - TS + PV
+\]
+</div>
+
+<p>
+Como a entalpia é \(H=U+PV\), também podemos escrever:
+</p>
+
+<div class="math-box">
+\[
+G = H - TS
+\]
+</div>
+
+<p>
+A energia livre de Gibbs é obtida por transformações de Legendre que substituem as variáveis \(S\) e \(V\) por \(T\) e \(P\).
+</p>
+
+<div class="highlight">
+<strong>Variáveis naturais:</strong>
+\[
+G=G(T,P,N)
+\]
+</div>
+
+</div>
+</section>
+
+<section class="card">
+<div class="card-title green">
+<i class="fa-solid fa-square-root-variable"></i>
+Forma Diferencial
+</div>
+
+<div class="body-text">
+
+<p>
+Derivando a definição \(G=U-TS+PV\), obtemos:
+</p>
+
+<div class="math-box green">
+\[
+dG=dU-T\,dS-S\,dT+P\,dV+V\,dP
+\]
+</div>
+
+<p>
+Usando:
+</p>
+
+<div class="math-box green">
+\[
+dU=T\,dS-P\,dV+\mu\,dN
+\]
+</div>
+
+<p>
+segue:
+</p>
+
+<div class="math-box green">
+\[
+dG=-S\,dT+V\,dP+\mu\,dN
+\]
+</div>
+
+<p>
+Essa forma diferencial mostra que \(T\), \(P\) e \(N\) são as variáveis naturais de \(G\).
+</p>
+
+</div>
+</section>
+
+</div>
+
+<section class="card">
+<div class="card-title purple">
+<i class="fa-solid fa-diagram-project"></i>
+Derivadas Termodinâmicas
+</div>
+
+<div class="body-text">
+
+<p>
+A partir da diferencial da energia livre de Gibbs, obtemos diretamente:
+</p>
+
+<div class="grid">
+
+<div class="math-box purple">
+\[
+-S=
+\left(\frac{\partial G}{\partial T}\right)_{P,N}
+\]
+</div>
+
+<div class="math-box purple">
+\[
+V=
+\left(\frac{\partial G}{\partial P}\right)_{T,N}
+\]
+</div>
+
+<div class="math-box purple">
+\[
+\mu=
+\left(\frac{\partial G}{\partial N}\right)_{T,P}
+\]
+</div>
+
+</div>
+
+<p>
+Portanto, \(G\) permite determinar entropia, volume e potencial químico quando o sistema é descrito em função de temperatura, pressão e número de partículas.
+</p>
+
+</div>
+</section>
+
+<section class="card">
+<div class="card-title green">
+<i class="fa-solid fa-seedling"></i>
+Critério de Espontaneidade
+</div>
+
+<div class="body-text">
+
+<p>
+Para sistemas fechados submetidos a temperatura e pressão constantes, a energia livre de Gibbs fornece um critério direto de espontaneidade.
+</p>
+
+<div class="status-grid">
+
+<div class="status-card negative">
+<div class="status-title negative">\(\Delta G < 0\)</div>
+Processo espontâneo.
+</div>
+
+<div class="status-card zero">
+<div class="status-title zero">\(\Delta G = 0\)</div>
+Sistema em equilíbrio.
+</div>
+
+<div class="status-card positive">
+<div class="status-title positive">\(\Delta G > 0\)</div>
+Processo não espontâneo nas condições consideradas.
+</div>
+
+</div>
+
+<div class="highlight">
+<strong>Interpretação:</strong>
+em condições de \(T\) e \(P\) constantes, o sistema evolui espontaneamente no sentido de diminuir sua energia livre de Gibbs.
+</div>
+
+</div>
+</section>
+
+<section class="card">
+<div class="card-title red">
+<i class="fa-solid fa-snowflake"></i>
+Exemplo: Sublimação do CO₂
+</div>
+
+<div class="body-text">
+
+<p>
+A sublimação do dióxido de carbono sólido pode ser analisada pelo sinal da variação da energia livre de Gibbs. O processo será espontâneo nas condições em que:
+</p>
+
+<div class="math-box red">
+\[
+\Delta G = \Delta H - T\Delta S < 0
+\]
+</div>
+
+<p>
+A sublimação envolve absorção de energia térmica do meio, isto é, entrada de calor no sistema. Portanto, de acordo com a convenção adotada, esse calor é positivo para o sistema.
+</p>
+
+<div class="math-box red">
+\[
+\Delta Q > 0
+\]
+</div>
+
+<p>
+Entretanto, a espontaneidade não depende apenas da entalpia. O termo entrópico \(T\Delta S\) pode favorecer o processo, pois a passagem do sólido para o gás aumenta significativamente a entropia.
+</p>
+
+<div class="warning">
+<strong>Comentário físico:</strong>
+mesmo processos endotérmicos podem ser espontâneos quando o ganho entrópico é suficientemente grande para tornar \(\Delta G<0\).
+</div>
+
+</div>
+</section>
+
+<section class="card ai-exercise-card" id="aiExerciseBox">
+
+<div class="ai-exercise-top">
+<div class="ai-exercise-title">
+<i class="fa-solid fa-wand-magic-sparkles"></i>
+Exercício
+</div>
+
+<div class="ai-controls">
+<select class="ai-select" id="difficultySelect">
+<option value="facil">Fácil</option>
+<option selected value="medio">Médio</option>
+<option value="dificil">Difícil</option>
+</select>
+
+<button class="ai-btn" id="newExerciseBtn" type="button">Novo exercício</button>
+<button class="ai-btn secondary" id="showSolutionBtn" type="button" disabled>Ver solução</button>
+</div>
+</div>
+
+<div class="ai-disclaimer">
+<strong>Aviso importante:</strong> todo o conteúdo didático das páginas e do livro associado foi criado pelo Prof. Mario Reis. O aplicativo de criação de exercícios é um experimento didático; os exercícios e soluções serão gerados automaticamente por IA e <strong>podem conter erros conceituais, matemáticos ou pedagógicos</strong>. Erros detectados devem ser comunicados para <a href="mailto:marioreis@id.uff.br">marioreis@id.uff.br</a>.
+</div>
+
+<div class="ai-output" id="exerciseOutput">
+Escolha o nível e clique em <strong>Novo exercício</strong>.
+</div>
+
+<div class="ai-solution" id="solutionOutput"></div>
+
+</section>
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+
+const novo = document.getElementById("newExerciseBtn");
+const show = document.getElementById("showSolutionBtn");
+const output = document.getElementById("exerciseOutput");
+const solution = document.getElementById("solutionOutput");
+const difficulty = document.getElementById("difficultySelect");
+
+let currentSolution = "";
+
+function escapeHtml(value){
+  return String(value || "").replace(/[&<>"']/g,function(s){
+    return ({
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#039;"
+    })[s];
+  });
+}
+
+function getPageContext(){
+  const title = document.querySelector(".chapter-title")?.innerText || document.title;
+  const cards = Array.from(document.querySelectorAll(".card:not(.ai-exercise-card)"))
+    .map(card => card.innerText.trim())
+    .filter(Boolean)
+    .join("\\n\\n");
+  return { title, content: cards };
+}
+
+async function gerarExercicio(){
+
+  novo.disabled = true;
+  show.disabled = true;
+  output.innerHTML = "Gerando exercício...";
+  solution.style.display = "none";
+  solution.innerHTML = "";
+
+  const ctx = getPageContext();
+
+  try{
+
+    const response = await fetch("/api/exercicio",{
+      method:"POST",
+      headers:{ "Content-Type":"application/json" },
+      body:JSON.stringify({
+        pageTitle:ctx.title,
+        pageContent:ctx.content,
+        difficulty:difficulty.value,
+        language:"pt-BR",
+        level:"graduação em Física"
+      })
+    });
+
+    const data = await response.json();
+
+    if(!response.ok){
+      throw new Error(data.error || "Erro na API.");
+    }
+
+    currentSolution = data.solution || "";
+
+    output.innerHTML = `
+      <strong>${escapeHtml(data.title || "Exercício")}</strong><br><br>
+      ${escapeHtml(data.statement || "A API não retornou um enunciado.")}
+    `;
+
+    solution.innerHTML = `
+      <strong>Solução</strong><br><br>
+      ${escapeHtml(currentSolution || "A API não retornou uma solução.")}
+    `;
+
+    show.disabled = !currentSolution;
+
+  }catch(error){
+
+    output.innerHTML = `
+      Não foi possível gerar o exercício. Verifique se o projeto está publicado no Vercel, se o arquivo <strong>api/exercicio.js</strong> existe e se a variável <strong>GEMINI_API_KEY</strong> foi configurada.
+    `;
+
+  }finally{
+    novo.disabled = false;
+  }
+}
+
+novo.addEventListener("click", gerarExercicio);
+
+show.addEventListener("click", function(){
+  solution.style.display = solution.style.display === "block" ? "none" : "block";
+});
+
+});
+</script>
+
+</body>
+</html>
