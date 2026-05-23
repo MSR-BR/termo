@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Tabela Resumo dos Potenciais Termodinâmicos</title>
+
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/>
+
+<script>
+window.va = window.va || function () {
+  (window.vaq = window.vaq || []).push(arguments);
+};
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)'], ['$', '$']], displayMath: [['\\[','\\]']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<style>
+:root{
+  --bg:#F5F7FB;
+  --panel:#FFFFFF;
+  --text:#2C3E50;
+  --blue:#004B87;
+  --blue-soft:#EAF2FD;
+  --border:#D9E2EC;
+  --shadow:0 10px 28px rgba(0,0,0,0.06);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:"Inter",sans-serif;
+  min-height:100vh;
+  padding:24px;
+}
+
+.page{
+  width:100%;
+  max-width:1450px;
+  margin:0 auto;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+.hero,.card{
+  background:#FFFFFF;
+  border:1px solid var(--border);
+  border-radius:22px;
+  box-shadow:var(--shadow);
+}
+
+.hero-inner,.card{
+  padding:30px;
+}
+
+.index-back-button{
+  width:fit-content;
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  text-decoration:none;
+  font-size:.82rem;
+  font-weight:700;
+  color:var(--blue);
+  background:#FFFFFF;
+  border:1px solid #C7D8F3;
+  border-radius:10px;
+  padding:8px 12px;
+  margin-bottom:18px;
+}
+
+.chapter-label{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:var(--blue-soft);
+  color:var(--blue);
+  border-radius:999px;
+  padding:8px 14px;
+  font-size:.84rem;
+  font-weight:800;
+  margin-bottom:18px;
+}
+
+.chapter-title{
+  font-size:clamp(2rem,4vw,3.2rem);
+  color:var(--blue);
+  font-weight:800;
+  line-height:1.06;
+  margin-bottom:18px;
+}
+
+.chapter-text{
+  font-family:"Lora",serif;
+  line-height:1.75;
+  font-size:1rem;
+}
+
+.chapter-text p{
+  margin-bottom:14px;
+}
+
+.table-wrap{
+  overflow-x:auto;
+}
+
+.summary-table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:1000px;
+}
+
+.summary-table th{
+  background:#EAF2FD;
+  color:#0B1F3A;
+  padding:16px;
+  text-align:left;
+  font-size:.92rem;
+  border:1px solid #D9E2EC;
+}
+
+.summary-table td{
+  padding:16px;
+  border:1px solid #E5E7EB;
+  vertical-align:top;
+  font-size:.95rem;
+  line-height:1.7;
+}
+
+.summary-table td:first-child{
+  font-weight:800;
+  color:var(--blue);
+}
+
+.math{
+  white-space:nowrap;
+}
+
+.highlight{
+  background:#F0F7FF;
+  border-left:4px solid var(--blue);
+  border-radius:0 10px 10px 0;
+  padding:16px 18px;
+  margin-top:18px;
+  font-family:"Lora",serif;
+  line-height:1.7;
+}
+
+@media (max-width:700px){
+  body{padding:12px}
+  .hero-inner,.card{padding:22px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+<section class="hero">
+<div class="hero-inner">
+
+<a href="../../index.html" class="index-back-button">
+<i class="fa-solid fa-arrow-left"></i>
+Índice
+</a>
+
+<div class="chapter-label">
+<i class="fa-solid fa-layer-group"></i>
+Capítulo 2 · Item 2.9
+</div>
+
+<h1 class="chapter-title">
+Tabela Resumo dos Potenciais Termodinâmicos
+</h1>
+
+<div class="chapter-text">
+<p>
+A tabela abaixo resume os principais potenciais termodinâmicos, suas definições, diferenciais, variáveis naturais e aplicações físicas típicas. Ela organiza de forma unificada os resultados desenvolvidos ao longo do capítulo.
+</p>
+
+<p>
+Neste material foi utilizada consistentemente a convenção:
+\[
+dU=dQ+dW,
+\qquad
+dW=-P\,dV.
+\]
+Assim, energia que entra no sistema é positiva; energia que sai do sistema é negativa.
+</p>
+</div>
+
+</div>
+</section>
+
+<section class="card">
+
+<div class="table-wrap">
+
+<table class="summary-table">
+
+<thead>
+<tr>
+<th>Potencial</th>
+<th>Definição</th>
+<th>Diferencial</th>
+<th>Variáveis naturais</th>
+<th>Aplicação típica</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Energia Interna \(U\)</td>
+
+<td class="math">
+\[
+U
+\]
+</td>
+
+<td class="math">
+\[
+dU=T\,dS-P\,dV+\mu\,dN
+\]
+</td>
+
+<td>
+\[
+(S,V,N)
+\]
+</td>
+
+<td>
+Sistema isolado ou descrição fundamental da termodinâmica.
+</td>
+</tr>
+
+<tr>
+<td>Helmholtz \(F\)</td>
+
+<td class="math">
+\[
+F=U-TS
+\]
+</td>
+
+<td class="math">
+\[
+dF=-S\,dT-P\,dV+\mu\,dN
+\]
+</td>
+
+<td>
+\[
+(T,V,N)
+\]
+</td>
+
+<td>
+Processos isotérmicos e ensemble canônico.
+</td>
+</tr>
+
+<tr>
+<td>Entalpia \(H\)</td>
+
+<td class="math">
+\[
+H=U+PV
+\]
+</td>
+
+<td class="math">
+\[
+dH=T\,dS+V\,dP+\mu\,dN
+\]
+</td>
+
+<td>
+\[
+(S,P,N)
+\]
+</td>
+
+<td>
+Processos isobáricos e calor a pressão constante.
+</td>
+</tr>
+
+<tr>
+<td>Gibbs \(G\)</td>
+
+<td class="math">
+\[
+G=U-TS+PV
+\]
+</td>
+
+<td class="math">
+\[
+dG=-S\,dT+V\,dP+\mu\,dN
+\]
+</td>
+
+<td>
+\[
+(T,P,N)
+\]
+</td>
+
+<td>
+Espontaneidade, equilíbrio químico e transições de fase.
+</td>
+</tr>
+
+<tr>
+<td>Grande Potencial \(\Phi\)</td>
+
+<td class="math">
+\[
+\Phi=U-TS-\mu N
+\]
+</td>
+
+<td class="math">
+\[
+d\Phi=-S\,dT-P\,dV-N\,d\mu
+\]
+</td>
+
+<td>
+\[
+(T,V,\mu)
+\]
+</td>
+
+<td>
+Sistemas abertos e ensemble grande canônico.
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<div class="highlight">
+<strong>Resumo conceitual:</strong>
+cada potencial termodinâmico é construído para tornar naturais as variáveis mantidas constantes em um determinado tipo de processo físico. As transformações de Legendre permitem trocar variáveis extensivas por intensivas, adaptando a descrição termodinâmica às condições experimentais mais relevantes.
+</div>
+
+</section>
+
+</div>
+
+</body>
+</html>
