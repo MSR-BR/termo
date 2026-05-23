@@ -423,6 +423,10 @@ A energia livre de Helmholtz é um dos potenciais termodinâmicos fundamentais. 
 <p>
 Esse potencial é especialmente útil para descrever sistemas mantidos a temperatura constante, sendo central para processos isotérmicos, equilíbrio térmico e formulações estatísticas como o ensemble canônico.
 </p>
+
+<p>
+Neste material, usaremos sempre a convenção \(dU=dQ+dW\), com \(dW=-P\,dV\). Assim, calor ou trabalho que entram no sistema são positivos; calor ou trabalho que saem do sistema são negativos.
+</p>
 </div>
 
 </div>
@@ -562,23 +566,52 @@ Exemplo: Trabalho Isotérmico no Gás Ideal
 </div>
 
 <div class="body-text">
+
 <p>
-Considere um gás ideal sofrendo uma expansão isotérmica reversível. Como a temperatura permanece constante, a energia interna do gás ideal não varia. Assim, o calor recebido do reservatório é convertido em trabalho.
+Considere um gás ideal sofrendo uma transformação isotérmica reversível. Com a convenção adotada neste material, energia que entra no sistema é positiva e energia que sai do sistema é negativa. Assim:
 </p>
 
 <div class="math-box green">
 \[
-W = nRT\ln\left(\frac{V_f}{V_i}\right)
+dU = dQ + dW
+\]
+</div>
+
+<div class="math-box green">
+\[
+dW = -P\,dV
 \]
 </div>
 
 <p>
-Nesse caso, a variação da energia livre de Helmholtz está associada ao trabalho máximo que pode ser extraído do sistema em uma transformação isotérmica reversível.
+Na expansão isotérmica de um gás ideal, \(dV>0\). Portanto, \(dW<0\): o sistema realiza trabalho sobre o meio externo, ou seja, energia sai do sistema na forma de trabalho.
+</p>
+
+<div class="math-box green">
+\[
+W = -\int_{V_i}^{V_f} P\,dV
+= -nRT\ln\left(\frac{V_f}{V_i}\right)
+\]
+</div>
+
+<p>
+Como, para o gás ideal em processo isotérmico, \(\Delta U=0\), a Primeira Lei fornece:
+</p>
+
+<div class="math-box green">
+\[
+\Delta Q = -\Delta W
+= nRT\ln\left(\frac{V_f}{V_i}\right)
+\]
+</div>
+
+<p>
+Ou seja, na expansão isotérmica, o calor entra no sistema \((\Delta Q>0)\) para compensar a energia que sai como trabalho \((\Delta W<0)\). Na compressão isotérmica ocorre o contrário: o trabalho entra no sistema \((\Delta W>0)\) e o calor sai para o reservatório \((\Delta Q<0)\).
 </p>
 
 <div class="warning">
-<strong>Conexão com o capítulo:</strong>
-a energia livre de Helmholtz é o primeiro exemplo claro de como uma transformação de Legendre adapta a descrição termodinâmica às condições físicas do processo.
+<strong>Conexão com Helmholtz:</strong>
+em processos isotérmicos reversíveis, a energia livre de Helmholtz organiza precisamente a parte da energia associada ao trabalho útil, respeitando a convenção \(dU=dQ+dW\) e \(dW=-P\,dV\).
 </div>
 </div>
 </section>
