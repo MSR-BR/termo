@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Energia Livre de Helmholtz</title>
+
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/>
+
+<script>
+window.va = window.va || function () {
+  (window.vaq = window.vaq || []).push(arguments);
+};
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)'], ['$', '$']], displayMath: [['\\[','\\]']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<style>
+:root{
+  --bg:#F5F7FB;
+  --panel:#FFFFFF;
+  --text:#2C3E50;
+  --muted:#5D6D7E;
+  --blue:#004B87;
+  --blue-soft:#EAF2FD;
+  --border:#D9E2EC;
+  --shadow:0 10px 28px rgba(0,0,0,0.06);
+  --red:#B03A2E;
+  --green:#1E8449;
+  --purple:#6C3483;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:"Inter",sans-serif;
+  min-height:100vh;
+  padding:24px;
+}
+
+.page{
+  width:100%;
+  max-width:1400px;
+  margin:0 auto;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+.hero,.card{
+  background:#FFFFFF;
+  border:1px solid var(--border);
+  border-radius:22px;
+  box-shadow:var(--shadow);
+}
+
+.hero-inner,.card{padding:30px}
+
+.index-back-button{
+  width:fit-content;
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  text-decoration:none;
+  font-size:.82rem;
+  font-weight:700;
+  color:var(--blue);
+  background:#FFFFFF;
+  border:1px solid #C7D8F3;
+  border-radius:10px;
+  padding:8px 12px;
+  margin-bottom:18px;
+}
+
+.index-back-button:hover{
+  background:var(--blue-soft);
+  transform:translateY(-1px);
+}
+
+.chapter-label{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:var(--blue-soft);
+  color:var(--blue);
+  border-radius:999px;
+  padding:8px 14px;
+  font-size:.84rem;
+  font-weight:800;
+  margin-bottom:18px;
+}
+
+.chapter-title{
+  font-size:clamp(2rem,4vw,3.3rem);
+  color:var(--blue);
+  font-weight:800;
+  line-height:1.06;
+  margin-bottom:18px;
+}
+
+.chapter-text,.body-text{
+  font-family:"Lora",serif;
+  line-height:1.75;
+  color:var(--text);
+  font-size:1rem;
+}
+
+.chapter-text p,.body-text p{margin-bottom:14px}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+.card-title{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:var(--blue);
+  font-size:1.18rem;
+  font-weight:800;
+  margin-bottom:18px;
+}
+
+.card-title.green{color:var(--green)}
+.card-title.purple{color:var(--purple)}
+
+.math-box{
+  background:#F8FAFC;
+  border:1px solid #E2E8F0;
+  border-left:4px solid var(--blue);
+  border-radius:0 14px 14px 0;
+  padding:18px;
+  margin:16px 0;
+  overflow-x:auto;
+}
+
+.math-box.green{border-left-color:var(--green)}
+.math-box.purple{border-left-color:var(--purple)}
+
+.highlight{
+  background:#F0F7FF;
+  border-left:4px solid var(--blue);
+  border-radius:0 10px 10px 0;
+  padding:16px 18px;
+  margin-top:18px;
+}
+
+.warning{
+  background:#FFF8F6;
+  border-left:4px solid var(--red);
+  border-radius:0 10px 10px 0;
+  padding:16px 18px;
+  margin-top:18px;
+}
+
+.example-box{
+  background:#F9FAFB;
+  border:1px solid #E5E7EB;
+  border-radius:16px;
+  padding:18px;
+  margin-top:18px;
+}
+
+.example-title{
+  color:var(--green);
+  font-size:1rem;
+  font-weight:800;
+  margin-bottom:10px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.definition-list{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:14px;
+  margin-top:16px;
+}
+
+.definition-item{
+  background:#F8FAFC;
+  border:1px solid #E2E8F0;
+  border-radius:14px;
+  padding:16px;
+  overflow-x:auto;
+}
+
+.definition-label{
+  color:var(--blue);
+  font-weight:800;
+  margin-bottom:8px;
+  font-family:"Inter",sans-serif;
+}
+
+@media (max-width:980px){
+  .grid{grid-template-columns:1fr}
+}
+
+@media (max-width:700px){
+  body{padding:12px}
+  .hero-inner,.card{padding:22px}
+  .chapter-title{line-height:1.1}
+}
+
+/* Caixa local de exercício — padrão responsivo */
+.ai-exercise-card{
+  grid-column:1 / -1!important;
+  border-top:3px solid var(--purple)!important;
+  background:#FFFFFF!important;
+  min-height:310px!important;
+}
+.ai-exercise-top{
+  display:flex!important;
+  align-items:flex-start!important;
+  justify-content:space-between!important;
+  gap:16px!important;
+  flex-wrap:wrap!important;
+  margin-bottom:14px!important;
+}
+.ai-exercise-title{
+  font-family:"Inter",sans-serif!important;
+  font-size:1.18rem!important;
+  font-weight:800!important;
+  color:var(--purple)!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:8px!important;
+  line-height:1.25!important;
+}
+.ai-exercise-controls{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  gap:10px!important;
+  flex-wrap:wrap!important;
+}
+.ai-level-group{
+  display:flex!important;
+  align-items:center!important;
+  gap:7px!important;
+  font-family:"Inter",sans-serif!important;
+  font-size:.88rem!important;
+  color:var(--muted)!important;
+  font-weight:600!important;
+}
+.ai-select{
+  font-family:"Inter",sans-serif!important;
+  font-size:.88rem!important;
+  font-weight:600!important;
+  color:var(--text)!important;
+  background:#FFFFFF!important;
+  border:1px solid #C9D5E5!important;
+  border-radius:8px!important;
+  padding:8px 11px!important;
+  min-width:105px!important;
+}
+.ai-btn{
+  font-family:"Inter",sans-serif!important;
+  font-size:.88rem!important;
+  font-weight:700!important;
+  border:1px solid #C5D8F5!important;
+  border-radius:8px!important;
+  padding:8px 13px!important;
+  cursor:pointer!important;
+  transition:.18s ease!important;
+  min-height:36px!important;
+}
+.ai-btn-primary{
+  color:#FFFFFF!important;
+  background:var(--blue)!important;
+  border-color:var(--blue)!important;
+}
+.ai-btn-primary:hover{
+  background:#003A69!important;
+  transform:translateY(-1px)!important;
+}
+.ai-btn-secondary{
+  color:var(--purple)!important;
+  background:#FAF5FF!important;
+  border-color:#DDD6FE!important;
+}
+.ai-btn-secondary:hover{
+  background:#F0E7FF!important;
+  transform:translateY(-1px)!important;
+}
+.ai-btn:disabled{
+  opacity:.48!important;
+  cursor:not-allowed!important;
+  transform:none!important;
+}
+.ai-disclaimer{
+  background:#FFF8F6!important;
+  border-left:4px solid var(--red)!important;
+  border-radius:0 8px 8px 0!important;
+  padding:12px 14px!important;
+  margin-bottom:14px!important;
+  font-family:"Lora",Georgia,serif!important;
+  font-size:clamp(.86rem,1.08vw,.98rem)!important;
+  line-height:1.55!important;
+  color:var(--text)!important;
+  text-align:left!important;
+}
+.ai-disclaimer strong{
+  color:var(--red)!important;
+  font-family:"Inter",sans-serif!important;
+}
+.ai-disclaimer a{
+  color:var(--blue)!important;
+  font-weight:700!important;
+}
+.ai-workspace{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) minmax(280px,.78fr)!important;
+  gap:14px!important;
+  align-items:stretch!important;
+}
+.ai-output,
+.ai-solution{
+  background:#F8F9FA!important;
+  border:1px solid #E2E8F0!important;
+  border-radius:8px!important;
+  padding:14px 16px!important;
+  min-height:190px!important;
+  overflow:auto!important;
+  font-family:"Lora",Georgia,serif!important;
+  font-size:1rem!important;
+  line-height:1.58!important;
+  color:var(--text)!important;
+}
+.ai-output-title,
+.ai-solution-title{
+  font-family:"Inter",sans-serif!important;
+  font-weight:700!important;
+  color:var(--blue)!important;
+  font-size:.92rem!important;
+  margin-bottom:8px!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:7px!important;
+}
+.ai-solution{
+  display:none;
+  background:#E8F5EC!important;
+  border-color:#A7D7B5!important;
+}
+.ai-placeholder{
+  color:var(--muted)!important;
+  text-align:left!important;
+  margin:0!important;
+}
+@media (max-width:900px){
+  .ai-exercise-top{
+    flex-direction:column!important;
+    align-items:stretch!important;
+  }
+  .ai-exercise-controls{
+    justify-content:flex-start!important;
+  }
+  .ai-workspace{
+    grid-template-columns:1fr!important;
+  }
+  .ai-output,.ai-solution{
+    min-height:150px!important;
+  }
+}
+@media (max-width:520px){
+  .ai-exercise-controls{
+    flex-direction:column!important;
+    align-items:stretch!important;
+  }
+  .ai-level-group{
+    width:100%!important;
+    justify-content:space-between!important;
+  }
+  .ai-select,.ai-btn{
+    width:100%!important;
+  }
+}
+
+</style>
+</head>
+
+<body>
+<div class="page">
+
+<section class="hero">
+<div class="hero-inner">
+
+<a href="../../index.html" class="index-back-button">
+<i class="fa-solid fa-arrow-left"></i>
+Índice
+</a>
+
+<div class="chapter-label">
+<i class="fa-solid fa-layer-group"></i>
+Capítulo 2 · Item 2.3
+</div>
+
+<h1 class="chapter-title">
+Energia Livre de Helmholtz
+</h1>
+
+<div class="chapter-text">
+<p>
+A energia livre de Helmholtz é um dos potenciais termodinâmicos fundamentais. Ela é obtida a partir da energia interna por uma transformação de Legendre que troca a entropia \(S\) pela temperatura \(T\).
+</p>
+
+<p>
+Esse potencial é especialmente útil para descrever sistemas mantidos a temperatura constante, sendo central para processos isotérmicos, equilíbrio térmico e formulações estatísticas como o ensemble canônico.
+</p>
+</div>
+
+</div>
+</section>
+
+<div class="grid">
+
+<section class="card">
+<div class="card-title">
+<i class="fa-solid fa-temperature-half"></i>
+Definição
+</div>
+
+<div class="body-text">
+<p>
+A energia livre de Helmholtz é definida como:
+</p>
+
+<div class="math-box">
+\[
+F = U - TS
+\]
+</div>
+
+<p>
+Nessa expressão, \(U\) representa a energia interna, \(T\) a temperatura absoluta e \(S\) a entropia. O termo \(TS\) corresponde à parcela da energia associada ao conteúdo entrópico do sistema.
+</p>
+
+<div class="highlight">
+<strong>Variáveis naturais:</strong>
+\[
+F = F(T,V,N)
+\]
+</div>
+
+<p>
+Assim, a energia livre de Helmholtz é naturalmente expressa em função da temperatura, do volume e do número de partículas.
+</p>
+</div>
+</section>
+
+<section class="card">
+<div class="card-title green">
+<i class="fa-solid fa-square-root-variable"></i>
+Forma Diferencial
+</div>
+
+<div class="body-text">
+<p>
+Partindo da definição \(F=U-TS\), obtemos:
+</p>
+
+<div class="math-box green">
+\[
+dF = dU - TdS - SdT
+\]
+</div>
+
+<p>
+Usando a forma fundamental da energia interna:
+</p>
+
+<div class="math-box green">
+\[
+dU = TdS - PdV + \mu dN
+\]
+</div>
+
+<p>
+resulta:
+</p>
+
+<div class="math-box green">
+\[
+dF = -SdT - PdV + \mu dN
+\]
+</div>
+
+<p>
+Essa expressão mostra que \(T\), \(V\) e \(N\) são as variáveis naturais de \(F\).
+</p>
+</div>
+</section>
+
+</div>
+
+<section class="card">
+<div class="card-title purple">
+<i class="fa-solid fa-diagram-project"></i>
+Derivadas Termodinâmicas
+</div>
+
+<div class="body-text">
+<p>
+A partir da forma diferencial de \(F\), podemos identificar diretamente a entropia, a pressão e o potencial químico como derivadas parciais da energia livre de Helmholtz:
+</p>
+
+<div class="definition-list">
+
+<div class="definition-item">
+<div class="definition-label">Entropia</div>
+\[
+-S =
+\left(\frac{\partial F}{\partial T}\right)_{V,N}
+\]
+</div>
+
+<div class="definition-item">
+<div class="definition-label">Pressão</div>
+\[
+-P =
+\left(\frac{\partial F}{\partial V}\right)_{T,N}
+\]
+</div>
+
+<div class="definition-item">
+<div class="definition-label">Potencial químico</div>
+\[
+\mu =
+\left(\frac{\partial F}{\partial N}\right)_{T,V}
+\]
+</div>
+
+</div>
+
+<div class="highlight">
+<strong>Ideia física:</strong>
+quando a temperatura é controlada por um reservatório térmico, a energia livre de Helmholtz indica a parcela da energia que pode ser convertida em trabalho útil.
+</div>
+</div>
+</section>
+
+<section class="card">
+<div class="card-title green">
+<i class="fa-solid fa-flask"></i>
+Exemplo: Trabalho Isotérmico no Gás Ideal
+</div>
+
+<div class="body-text">
+<p>
+Considere um gás ideal sofrendo uma expansão isotérmica reversível. Como a temperatura permanece constante, a energia interna do gás ideal não varia. Assim, o calor recebido do reservatório é convertido em trabalho.
+</p>
+
+<div class="math-box green">
+\[
+W = nRT\ln\left(\frac{V_f}{V_i}\right)
+\]
+</div>
+
+<p>
+Nesse caso, a variação da energia livre de Helmholtz está associada ao trabalho máximo que pode ser extraído do sistema em uma transformação isotérmica reversível.
+</p>
+
+<div class="warning">
+<strong>Conexão com o capítulo:</strong>
+a energia livre de Helmholtz é o primeiro exemplo claro de como uma transformação de Legendre adapta a descrição termodinâmica às condições físicas do processo.
+</div>
+</div>
+</section>
+
+
+<section class="card ai-exercise-card" id="aiExerciseBox">
+  <div class="ai-exercise-top">
+    <div class="ai-exercise-title">
+      <i class="fa-solid fa-wand-magic-sparkles"></i>
+      Exercício
+    </div>
+
+    <div class="ai-exercise-controls">
+      <div class="ai-level-group">
+        <label for="difficultySelect">Nível</label>
+        <select class="ai-select" id="difficultySelect">
+          <option value="facil">Fácil</option>
+          <option selected value="medio">Médio</option>
+          <option value="dificil">Difícil</option>
+        </select>
+      </div>
+
+      <button class="ai-btn ai-btn-primary" id="newExerciseBtn" type="button">Novo exercício</button>
+      <button class="ai-btn ai-btn-secondary" id="showSolutionBtn" disabled type="button">Ver solução</button>
+    </div>
+  </div>
+
+  <div class="ai-disclaimer">
+    <strong>Aviso importante:</strong> todo o conteúdo didático das páginas e do livro associado foi criado pelo Prof. Mario Reis.
+    O aplicativo de criação de exercícios é um experimento didático; os exercícios e soluções serão gerados automaticamente por IA e
+    <strong>podem conter erros conceituais, matemáticos ou pedagógicos</strong>. Erros detectados devem ser comunicados para
+    <a href="mailto:marioreis@id.uff.br">marioreis@id.uff.br</a>.
+  </div>
+
+  <div class="ai-workspace">
+    <div class="ai-output" id="exerciseOutput">
+      <div class="ai-output-title">
+        <i class="fa-solid fa-circle-question"></i>
+        Enunciado
+      </div>
+      <p class="ai-placeholder">Escolha o nível e clique em <strong>Novo exercício</strong>.</p>
+    </div>
+
+    <div class="ai-solution" id="solutionOutput">
+      <div class="ai-solution-title">
+        <i class="fa-solid fa-check"></i>
+        Solução
+      </div>
+      <p class="ai-placeholder">A solução aparecerá aqui após a geração do exercício.</p>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  const show = document.getElementById("showSolutionBtn");
+  const solution = document.getElementById("solutionOutput");
+  const novo = document.getElementById("newExerciseBtn");
+  const output = document.getElementById("exerciseOutput");
+  const difficulty = document.getElementById("difficultySelect");
+
+  let currentSolution = "";
+
+  function escapeHtml(value){
+    return String(value || "").replace(/[&<>"']/g, function(s){
+      return ({
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#039;"
+      })[s];
+    });
+  }
+
+  function setLoading(){
+    output.innerHTML = `
+      <div class="ai-output-title">
+        <i class="fa-solid fa-spinner fa-spin"></i>
+        Gerando exercício
+      </div>
+      <p class="ai-placeholder">Aguarde alguns segundos...</p>
+    `;
+    solution.style.display = "none";
+    solution.innerHTML = "";
+    currentSolution = "";
+    if(show) show.disabled = true;
+  }
+
+  function getPageContext(){
+    const title = document.querySelector(".chapter-title")?.innerText || document.title || "";
+    const subtitle = document.querySelector(".chapter-label")?.innerText || "";
+    const cards = Array.from(document.querySelectorAll(".card:not(.ai-exercise-card)"))
+      .map(function(card){ return card.innerText.trim(); })
+      .filter(Boolean)
+      .join("\n\n");
+    return { title, subtitle, content: cards };
+  }
+
+  async function gerarExercicio(){
+    if(!novo || !output) return;
+
+    const ctx = getPageContext();
+
+    novo.disabled = true;
+    if(show) show.disabled = true;
+    setLoading();
+
+    try{
+      const response = await fetch("/api/exercicio", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          pageTitle: ctx.title,
+          pageSubtitle: ctx.subtitle,
+          pageContent: ctx.content,
+          difficulty: difficulty ? difficulty.value : "medio",
+          language: "pt-BR",
+          level: "graduação em Física"
+        })
+      });
+
+      const data = await response.json();
+
+      if(!response.ok){
+        throw new Error(data.error || "Erro ao chamar a API.");
+      }
+
+      currentSolution = data.solution || "";
+
+      output.innerHTML = `
+        <div class="ai-output-title">
+          <i class="fa-solid fa-circle-question"></i>
+          ${escapeHtml(data.title || "Exercício")}
+        </div>
+        <p>${escapeHtml(data.statement || "A API não retornou um enunciado.")}</p>
+      `;
+
+      solution.innerHTML = `
+        <div class="ai-solution-title">
+          <i class="fa-solid fa-check"></i>
+          Solução
+        </div>
+        <p>${escapeHtml(currentSolution || "A API não retornou uma solução.")}</p>
+      `;
+      solution.style.display = "none";
+
+      if(show) show.disabled = !currentSolution;
+    }catch(error){
+      output.innerHTML = `
+        <div class="ai-output-title">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          Não foi possível gerar o exercício
+        </div>
+        <p class="ai-placeholder">Verifique se o projeto está publicado no Vercel, se o arquivo <strong>api/exercicio.js</strong> existe e se a variável <strong>GEMINI_API_KEY</strong> foi configurada.</p>
+      `;
+    }finally{
+      novo.disabled = false;
+    }
+  }
+
+  if(novo){
+    novo.addEventListener("click", gerarExercicio);
+  }
+
+  if(show && solution){
+    show.addEventListener("click", function(){
+      solution.style.display = solution.style.display === "block" ? "none" : "block";
+    });
+  }
+});
+</script>
+
+</body>
+</html>
