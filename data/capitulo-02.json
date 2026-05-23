@@ -1,48 +1,59 @@
-	
-description	"Capítulo 2 — Potenciais Termodinâmicos e Aplicações."
-topics	
-0	
-id	"2.1"
-title	"Potenciais Termodinâmicos e Transformações de Legendre"
-note	"Objetivos do capítulo, condições dos processos, ideia de potencial termodinâmico e mudança de variáveis naturais."
-url	"slides/capitulo-02/page_1.html"
-1	
-id	"2.2"
-title	"Entropia e Energia Interna"
-note	"Entropia como função de estado, energia interna como potencial fundamental e identificação de variáveis conjugadas."
-url	"slides/capitulo-02/page_2.html"
-2	
-id	"2.3"
-title	"Energia Livre de Helmholtz"
-note	"Definição, diferencial, variáveis naturais e interpretação física. Inclui exercícios automáticos por IA."
-url	"slides/capitulo-02/page_3.html"
-3	
-id	"2.4"
-title	"Entalpia e Calor Isobárico"
-note	"Definição de entalpia, calor a pressão constante, aquecimento isobárico e processos endotérmicos/exotérmicos. Inclui exercícios automáticos por IA."
-url	"slides/capitulo-02/page_4.html"
-4	
-id	"2.5"
-title	"Energia Livre de Gibbs e Espontaneidade"
-note	"Definição de Gibbs, critério de espontaneidade, equilíbrio e exemplo da sublimação do CO₂. Inclui exercícios automáticos por IA."
-url	"slides/capitulo-02/page_5.html"
-5	
-id	"2.6"
-title	"Grand Potencial e Sistemas Abertos"
-note	"Definição, diferencial, variáveis naturais e interpretação física do grande potencial."
-url	"slides/capitulo-02/page_6.html"
-6	
-id	"2.7"
-title	"Variáveis Conjugadas Mecânicas e Magnéticas"
-note	"Analogias entre pressão-volume e campo magnético-magnetização."
-url	"slides/capitulo-02/page_7.html"
-7	
-id	"2.8"
-title	"Relações de Maxwell e Retângulo Termodinâmico"
-note	"Fundamentos matemáticos, relações principais, aplicação ao gás ideal, retângulo termodinâmico e simulador interativo. Inclui exercícios automáticos por IA."
-url	"slides/capitulo-02/page_8.html"
-8	
-id	"2.9"
-title	"Tabela Resumo dos Potenciais Termodinâmicos"
-note	"Síntese final com definições, variáveis naturais, processos ideais e interpretações físicas dos potenciais."
-url	"slides/capitulo-02/page_9.html"
+{
+  "description": "Capítulo 2 — Potenciais Termodinâmicos e Aplicações. Conteúdo reorganizado por blocos conceituais, preservando o material dos HTMLs originais, exceto os exercícios finais.",
+  "topics": [
+    {
+      "id": "2.1",
+      "title": "Potenciais Termodinâmicos e Transformações de Legendre",
+      "note": "Objetivos do capítulo, condições dos processos, ideia de potencial termodinâmico e mudança de variáveis naturais.",
+      "url": "slides/capitulo-02/page_1.html"
+    },
+    {
+      "id": "2.2",
+      "title": "Entropia e Energia Interna",
+      "note": "Entropia como função de estado, energia interna como potencial fundamental e identificação de variáveis conjugadas.",
+      "url": "slides/capitulo-02/page_2.html"
+    },
+    {
+      "id": "2.3",
+      "title": "Energia Livre de Helmholtz",
+      "note": "Definição, diferencial, variáveis naturais e interpretação física. Inclui exercícios automáticos por IA.",
+      "url": "slides/capitulo-02/page_3.html"
+    },
+    {
+      "id": "2.4",
+      "title": "Entalpia e Calor Isobárico",
+      "note": "Definição de entalpia, calor a pressão constante, aquecimento isobárico e processos endotérmicos/exotérmicos. Inclui exercícios automáticos por IA.",
+      "url": "slides/capitulo-02/page_4.html"
+    },
+    {
+      "id": "2.5",
+      "title": "Energia Livre de Gibbs e Espontaneidade",
+      "note": "Definição de Gibbs, critério de espontaneidade, equilíbrio e exemplo da sublimação do CO₂. Inclui exercícios automáticos por IA.",
+      "url": "slides/capitulo-02/page_5.html"
+    },
+    {
+      "id": "2.6",
+      "title": "Grande Potencial e Sistemas Abertos",
+      "note": "Definição, diferencial, variáveis naturais e interpretação física do grande potencial.",
+      "url": "slides/capitulo-02/page_6.html"
+    },
+    {
+      "id": "2.7",
+      "title": "Variáveis Conjugadas Mecânicas e Magnéticas",
+      "note": "Analogias entre pressão-volume e campo magnético-magnetização.",
+      "url": "slides/capitulo-02/page_7.html"
+    },
+    {
+      "id": "2.8",
+      "title": "Relações de Maxwell e Retângulo Termodinâmico",
+      "note": "Fundamentos matemáticos, relações principais, aplicação ao gás ideal, retângulo termodinâmico e simulador interativo. Inclui exercícios automáticos por IA.",
+      "url": "slides/capitulo-02/page_8.html"
+    },
+    {
+      "id": "2.9",
+      "title": "Tabela Resumo dos Potenciais Termodinâmicos",
+      "note": "Síntese final com definições, variáveis naturais, processos ideais e interpretações físicas dos potenciais.",
+      "url": "slides/capitulo-02/page_9.html"
+    }
+  ]
+}
