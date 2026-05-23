@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Variáveis Conjugadas Mecânicas e Magnéticas</title>
+
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/>
+
+<script>
+window.va = window.va || function () {
+  (window.vaq = window.vaq || []).push(arguments);
+};
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)'], ['$', '$']], displayMath: [['\\[','\\]']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<style>
+:root{
+  --bg:#F5F7FB;
+  --panel:#FFFFFF;
+  --text:#2C3E50;
+  --muted:#5D6D7E;
+  --blue:#004B87;
+  --blue-soft:#EAF2FD;
+  --border:#D9E2EC;
+  --shadow:0 10px 28px rgba(0,0,0,0.06);
+  --red:#B03A2E;
+  --green:#1E8449;
+  --purple:#6C3483;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:"Inter",sans-serif;
+  min-height:100vh;
+  padding:24px;
+}
+
+.page{
+  width:100%;
+  max-width:1400px;
+  margin:0 auto;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+.hero,.card{
+  background:#FFFFFF;
+  border:1px solid var(--border);
+  border-radius:22px;
+  box-shadow:var(--shadow);
+}
+
+.hero-inner,.card{padding:30px}
+
+.index-back-button{
+  width:fit-content;
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  text-decoration:none;
+  font-size:.82rem;
+  font-weight:700;
+  color:var(--blue);
+  background:#FFFFFF;
+  border:1px solid #C7D8F3;
+  border-radius:10px;
+  padding:8px 12px;
+  margin-bottom:18px;
+}
+
+.index-back-button:hover{
+  background:var(--blue-soft);
+  transform:translateY(-1px);
+}
+
+.chapter-label{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:var(--blue-soft);
+  color:var(--blue);
+  border-radius:999px;
+  padding:8px 14px;
+  font-size:.84rem;
+  font-weight:800;
+  margin-bottom:18px;
+}
+
+.chapter-title{
+  font-size:clamp(2rem,4vw,3.2rem);
+  color:var(--blue);
+  font-weight:800;
+  line-height:1.06;
+  margin-bottom:18px;
+}
+
+.chapter-text,.body-text{
+  font-family:"Lora",serif;
+  line-height:1.75;
+  color:var(--text);
+  font-size:1rem;
+}
+
+.chapter-text p,.body-text p{margin-bottom:14px}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+.card-title{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:var(--blue);
+  font-size:1.18rem;
+  font-weight:800;
+  margin-bottom:18px;
+}
+
+.card-title.green{color:var(--green)}
+.card-title.purple{color:var(--purple)}
+.card-title.red{color:var(--red)}
+
+.math-box{
+  background:#F8FAFC;
+  border:1px solid #E2E8F0;
+  border-left:4px solid var(--blue);
+  border-radius:0 14px 14px 0;
+  padding:18px;
+  margin:16px 0;
+  overflow-x:auto;
+}
+
+.math-box.green{border-left-color:var(--green)}
+.math-box.purple{border-left-color:var(--purple)}
+.math-box.red{border-left-color:var(--red)}
+
+.highlight{
+  background:#F0F7FF;
+  border-left:4px solid var(--blue);
+  border-radius:0 10px 10px 0;
+  padding:16px 18px;
+  margin-top:18px;
+}
+
+.warning{
+  background:#FFF8F6;
+  border-left:4px solid var(--red);
+  border-radius:0 10px 10px 0;
+  padding:16px 18px;
+  margin-top:18px;
+}
+
+.table-wrap{
+  overflow-x:auto;
+  margin-top:16px;
+}
+
+.compare-table{
+  width:100%;
+  border-collapse:collapse;
+  background:#FFFFFF;
+  border:1px solid #D9E2EC;
+  border-radius:14px;
+  overflow:hidden;
+}
+
+.compare-table th{
+  background:#EAF2FD;
+  color:#0B1F3A;
+  padding:14px;
+  text-align:left;
+  font-size:.9rem;
+}
+
+.compare-table td{
+  padding:14px;
+  border-top:1px solid #E5E7EB;
+  vertical-align:middle;
+  font-size:.95rem;
+}
+
+.compare-table td:first-child{
+  font-weight:800;
+  color:var(--blue);
+}
+
+.definition-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:14px;
+  margin-top:16px;
+}
+
+.definition-item{
+  background:#F8FAFC;
+  border:1px solid #E2E8F0;
+  border-radius:14px;
+  padding:16px;
+  overflow-x:auto;
+}
+
+.definition-title{
+  color:var(--blue);
+  font-weight:800;
+  font-family:"Inter",sans-serif;
+  margin-bottom:8px;
+}
+
+@media (max-width:980px){
+  .grid{grid-template-columns:1fr}
+}
+
+@media (max-width:700px){
+  body{padding:12px}
+  .hero-inner,.card{padding:22px}
+  .chapter-title{line-height:1.1}
+}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+<section class="hero">
+<div class="hero-inner">
+
+<a href="../../index.html" class="index-back-button">
+<i class="fa-solid fa-arrow-left"></i>
+Índice
+</a>
+
+<div class="chapter-label">
+<i class="fa-solid fa-layer-group"></i>
+Capítulo 2 · Item 2.7
+</div>
+
+<h1 class="chapter-title">Variáveis Conjugadas Mecânicas e Magnéticas</h1>
+
+<div class="chapter-text">
+<p>
+Na Termodinâmica, muitos termos de trabalho aparecem como produtos entre uma variável intensiva e a variação de uma variável extensiva conjugada. No caso mecânico, o par conjugado mais conhecido é pressão-volume. Em sistemas magnéticos, surge um par análogo: campo magnético e magnetização.
+</p>
+
+<p>
+Mantemos a convenção usada em todo o material:
+\[
+dU=dQ+dW,\qquad dW=-P\,dV.
+\]
+Assim, energia que entra no sistema é positiva; energia que sai do sistema é negativa.
+</p>
+
+<p>
+Ao estudar materiais magnéticos, o trabalho associado à magnetização pode ser incorporado à energia interna de forma análoga ao trabalho mecânico, permitindo estender os potenciais termodinâmicos para sistemas magnéticos.
+</p>
+</div>
+
+</div>
+</section>
+
+<div class="grid">
+
+<section class="card">
+<div class="card-title">
+<i class="fa-solid fa-gears"></i>
+Par Mecânico: Pressão e Volume
+</div>
+
+<div class="body-text">
+<p>
+No caso mecânico usual, o trabalho de expansão ou compressão é escrito como:
+</p>
+
+<div class="math-box">
+\[
+dW=-P\,dV
+\]
+</div>
+
+<p>
+Essa expressão mostra que \(P\) e \(V\) formam um par conjugado. A pressão é uma variável intensiva, enquanto o volume é uma variável extensiva.
+</p>
+
+<p>
+Durante uma expansão, \(dV>0\), portanto \(dW<0\): o sistema realiza trabalho sobre o meio externo e energia sai do sistema. Durante uma compressão, \(dV<0\), portanto \(dW>0\): o meio externo realiza trabalho sobre o sistema e energia entra no sistema.
+</p>
+
+<div class="highlight">
+<strong>Par conjugado mecânico:</strong>
+\[
+(-P,V)
+\]
+</div>
+</div>
+</section>
+
+<section class="card">
+<div class="card-title green">
+<i class="fa-solid fa-magnet"></i>
+Par Magnético: Campo e Magnetização
+</div>
+
+<div class="body-text">
+<p>
+Em sistemas magnéticos, a variável extensiva associada ao estado magnético do material é a magnetização \(M\). A variável intensiva conjugada é o campo magnético \(B\).
+</p>
+
+<div class="math-box green">
+\[
+dW_{\mathrm{mag}}=B\,dM
+\]
+</div>
+
+<p>
+Essa expressão representa o trabalho magnético associado à variação da magnetização do sistema. Assim como comprimir um gás altera sua energia, magnetizar um material também pode alterar seus potenciais termodinâmicos.
+</p>
+
+<div class="highlight">
+<strong>Par conjugado magnético:</strong>
+\[
+(B,M)
+\]
+</div>
+
+<p>
+A forma exata do sinal pode depender da convenção adotada para o trabalho magnético e para a definição do campo termodinâmico. Neste material, a convenção será mantida de forma consistente com a interpretação de energia que entra ou sai do sistema.
+</p>
+</div>
+</section>
+
+</div>
+
+<section class="card">
+<div class="card-title purple">
+<i class="fa-solid fa-table"></i>
+Analogia entre Sistemas Mecânicos e Magnéticos
+</div>
+
+<div class="body-text">
+<p>
+A estrutura termodinâmica dos sistemas magnéticos pode ser compreendida por analogia com sistemas mecânicos. A troca \( -P\,dV \leftrightarrow B\,dM \) permite construir potenciais e relações diferenciais equivalentes.
+</p>
+
+<div class="table-wrap">
+<table class="compare-table">
+<thead>
+<tr>
+<th>Propriedade</th>
+<th>Sistema Mecânico</th>
+<th>Sistema Magnético</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Variável extensiva</td>
+<td>\(V\) — volume</td>
+<td>\(M\) — magnetização</td>
+</tr>
+
+<tr>
+<td>Variável intensiva</td>
+<td>\(-P\) — pressão com sinal termodinâmico</td>
+<td>\(B\) — campo magnético</td>
+</tr>
+
+<tr>
+<td>Termo de trabalho</td>
+<td>\(dW=-P\,dV\)</td>
+<td>\(dW_{\mathrm{mag}}=B\,dM\)</td>
+</tr>
+
+<tr>
+<td>Derivada da energia interna</td>
+<td>\(\left(\frac{\partial U}{\partial V}\right)_{S,N}=-P\)</td>
+<td>\(\left(\frac{\partial U}{\partial M}\right)_{S,N}=B\)</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="warning">
+<strong>Atenção:</strong>
+o sinal do termo magnético deve ser usado de forma consistente ao longo de todo o tratamento. O ponto essencial é identificar corretamente o par conjugado e a direção da troca de energia.
+</div>
+</div>
+</section>
+
+<section class="card">
+<div class="card-title red">
+<i class="fa-solid fa-square-root-variable"></i>
+Energia Interna com Termo Magnético
+</div>
+
+<div class="body-text">
+<p>
+Ao incluir o trabalho magnético, a forma diferencial da energia interna pode ser escrita como:
+</p>
+
+<div class="math-box red">
+\[
+dU=T\,dS + B\,dM+\mu\,dN
+\]
+</div>
+
+<p>
+Nesse caso, a magnetização \(M\) passa a ocupar papel análogo ao volume em sistemas mecânicos, enquanto o campo \(B\) desempenha papel análogo à variável intensiva conjugada.
+</p>
+
+<p>
+A partir dessa forma diferencial, obtemos:
+</p>
+
+<div class="definition-grid">
+
+<div class="definition-item">
+<div class="definition-title">Temperatura</div>
+\[
+T=
+\left(
+\frac{\partial U}{\partial S}
+\right)_{M,N}
+\]
+</div>
+
+<div class="definition-item">
+<div class="definition-title">Campo magnético</div>
+\[
+B=
+\left(
+\frac{\partial U}{\partial M}
+\right)_{S,N}
+\]
+</div>
+
+<div class="definition-item">
+<div class="definition-title">Potencial químico</div>
+\[
+\mu=
+\left(
+\frac{\partial U}{\partial N}
+\right)_{S,M}
+\]
+</div>
+
+</div>
+
+<div class="highlight">
+<strong>Consequência:</strong>
+ao reconhecer \(B\) e \(M\) como variáveis conjugadas, é possível construir potenciais termodinâmicos magnéticos e deduzir relações de Maxwell apropriadas para materiais magnéticos.
+</div>
+</div>
+</section>
+
+</div>
+
+</body>
+</html>

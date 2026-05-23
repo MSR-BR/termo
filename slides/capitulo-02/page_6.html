@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Grande Potencial e Sistemas Abertos</title>
+
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/>
+
+<script>
+window.va = window.va || function () {
+  (window.vaq = window.vaq || []).push(arguments);
+};
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)'], ['$', '$']], displayMath: [['\\[','\\]']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<style>
+:root{
+  --bg:#F5F7FB;
+  --panel:#FFFFFF;
+  --text:#2C3E50;
+  --muted:#5D6D7E;
+  --blue:#004B87;
+  --blue-soft:#EAF2FD;
+  --border:#D9E2EC;
+  --shadow:0 10px 28px rgba(0,0,0,0.06);
+  --red:#B03A2E;
+  --green:#1E8449;
+  --purple:#6C3483;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:"Inter",sans-serif;
+  min-height:100vh;
+  padding:24px;
+}
+
+.page{
+  width:100%;
+  max-width:1400px;
+  margin:0 auto;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+.hero,.card{
+  background:#FFFFFF;
+  border:1px solid var(--border);
+  border-radius:22px;
+  box-shadow:var(--shadow);
+}
+
+.hero-inner,.card{padding:30px}
+
+.index-back-button{
+  width:fit-content;
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  text-decoration:none;
+  font-size:.82rem;
+  font-weight:700;
+  color:var(--blue);
+  background:#FFFFFF;
+  border:1px solid #C7D8F3;
+  border-radius:10px;
+  padding:8px 12px;
+  margin-bottom:18px;
+}
+
+.index-back-button:hover{background:var(--blue-soft);transform:translateY(-1px)}
+
+.chapter-label{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:var(--blue-soft);
+  color:var(--blue);
+  border-radius:999px;
+  padding:8px 14px;
+  font-size:.84rem;
+  font-weight:800;
+  margin-bottom:18px;
+}
+
+.chapter-title{
+  font-size:clamp(2rem,4vw,3.2rem);
+  color:var(--blue);
+  font-weight:800;
+  line-height:1.06;
+  margin-bottom:18px;
+}
+
+.chapter-text,.body-text{
+  font-family:"Lora",serif;
+  line-height:1.75;
+  color:var(--text);
+  font-size:1rem;
+}
+
+.chapter-text p,.body-text p{margin-bottom:14px}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+.card-title{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:var(--blue);
+  font-size:1.18rem;
+  font-weight:800;
+  margin-bottom:18px;
+}
+
+.card-title.green{color:var(--green)}
+.card-title.purple{color:var(--purple)}
+
+.math-box{
+  background:#F8FAFC;
+  border:1px solid #E2E8F0;
+  border-left:4px solid var(--blue);
+  border-radius:0 14px 14px 0;
+  padding:18px;
+  margin:16px 0;
+  overflow-x:auto;
+}
+
+.math-box.green{border-left-color:var(--green)}
+.math-box.purple{border-left-color:var(--purple)}
+
+.highlight{
+  background:#F0F7FF;
+  border-left:4px solid var(--blue);
+  border-radius:0 10px 10px 0;
+  padding:16px 18px;
+  margin-top:18px;
+}
+
+.warning{
+  background:#FFF8F6;
+  border-left:4px solid var(--red);
+  border-radius:0 10px 10px 0;
+  padding:16px 18px;
+  margin-top:18px;
+}
+
+.definition-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:14px;
+  margin-top:16px;
+}
+
+.definition-item{
+  background:#F8FAFC;
+  border:1px solid #E2E8F0;
+  border-radius:14px;
+  padding:16px;
+  overflow-x:auto;
+}
+
+.definition-title{
+  color:var(--blue);
+  font-weight:800;
+  font-family:"Inter",sans-serif;
+  margin-bottom:8px;
+}
+
+@media (max-width:980px){
+  .grid{grid-template-columns:1fr}
+}
+
+@media (max-width:700px){
+  body{padding:12px}
+  .hero-inner,.card{padding:22px}
+  .chapter-title{line-height:1.1}
+}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+<section class="hero">
+<div class="hero-inner">
+
+<a href="../../index.html" class="index-back-button">
+<i class="fa-solid fa-arrow-left"></i>
+Índice
+</a>
+
+<div class="chapter-label">
+<i class="fa-solid fa-layer-group"></i>
+Capítulo 2 · Item 2.6
+</div>
+
+<h1 class="chapter-title">Grande Potencial e Sistemas Abertos</h1>
+
+<div class="chapter-text">
+<p>
+O grande potencial termodinâmico é o potencial adequado para sistemas abertos, isto é, sistemas que podem trocar partículas com o ambiente. Ele é particularmente importante quando o número de partículas deixa de ser fixo e o potencial químico passa a ser uma variável de controle.
+</p>
+
+<p>
+Mantemos a convenção usada em todo o material:
+\[
+dU=dQ+dW,\qquad dW=-P\,dV.
+\]
+Assim, energia que entra no sistema é positiva; energia que sai do sistema é negativa.
+</p>
+
+<p>
+Além das trocas de calor e trabalho, sistemas abertos podem trocar matéria. Por isso, o termo associado ao potencial químico torna-se essencial na descrição termodinâmica.
+</p>
+</div>
+
+</div>
+</section>
+
+<div class="grid">
+
+<section class="card">
+<div class="card-title">
+<i class="fa-solid fa-arrow-right-arrow-left"></i>
+Definição do Grande Potencial
+</div>
+
+<div class="body-text">
+<p>
+O grande potencial é definido por:
+</p>
+
+<div class="math-box">
+\[
+\Phi = U - TS - \mu N
+\]
+</div>
+
+<p>
+Também é comum encontrar a notação:
+</p>
+
+<div class="math-box">
+\[
+\Omega = U - TS - \mu N.
+\]
+</div>
+
+<p>
+O termo \(\mu N\) representa a contribuição associada à troca de partículas com o reservatório. Ao subtrair esse termo, passamos de uma descrição em que \(N\) é controlado para uma descrição em que o potencial químico \(\mu\) é controlado.
+</p>
+
+<div class="highlight">
+<strong>Variáveis naturais:</strong>
+\[
+\Phi=\Phi(T,V,\mu).
+\]
+</div>
+</div>
+</section>
+
+<section class="card">
+<div class="card-title green">
+<i class="fa-solid fa-square-root-variable"></i>
+Forma Diferencial
+</div>
+
+<div class="body-text">
+<p>
+Partindo da definição:
+</p>
+
+<div class="math-box green">
+\[
+\Phi = U - TS - \mu N
+\]
+</div>
+
+<p>
+temos:
+</p>
+
+<div class="math-box green">
+\[
+d\Phi=dU-T\,dS-S\,dT-\mu\,dN-N\,d\mu.
+\]
+</div>
+
+<p>
+Usando a forma diferencial da energia interna:
+</p>
+
+<div class="math-box green">
+\[
+dU=T\,dS-P\,dV+\mu\,dN,
+\]
+</div>
+
+<p>
+obtemos:
+</p>
+
+<div class="math-box green">
+\[
+d\Phi=-S\,dT-P\,dV-N\,d\mu.
+\]
+</div>
+
+<p>
+Essa expressão mostra que as variáveis naturais do grande potencial são \(T\), \(V\) e \(\mu\).
+</p>
+</div>
+</section>
+
+</div>
+
+<section class="card">
+<div class="card-title purple">
+<i class="fa-solid fa-atom"></i>
+Sistemas Abertos e Potencial Químico
+</div>
+
+<div class="body-text">
+<p>
+O potencial químico controla a tendência de partículas entrarem ou saírem do sistema. Quando dois sistemas podem trocar partículas, o equilíbrio ocorre quando seus potenciais químicos se igualam:
+</p>
+
+<div class="math-box purple">
+\[
+\mu_1=\mu_2.
+\]
+</div>
+
+<p>
+Se houver diferença de potencial químico, as partículas tendem a fluir espontaneamente do sistema com maior potencial químico para o sistema com menor potencial químico, até que o equilíbrio seja atingido.
+</p>
+
+<div class="warning">
+<strong>Interpretação física:</strong>
+o potencial químico desempenha, para a troca de partículas, um papel análogo ao da temperatura para a troca de calor e ao da pressão para o trabalho mecânico.
+</div>
+
+<p>
+Na Mecânica Estatística, o grande potencial aparece naturalmente no ensemble grande canônico, usado para descrever sistemas em contato com um reservatório térmico e com um reservatório de partículas.
+</p>
+</div>
+</section>
+
+<section class="card">
+<div class="card-title">
+<i class="fa-solid fa-diagram-project"></i>
+Derivadas Termodinâmicas
+</div>
+
+<div class="body-text">
+<p>
+A partir da forma diferencial do grande potencial:
+</p>
+
+<div class="math-box">
+\[
+d\Phi=-S\,dT-P\,dV-N\,d\mu,
+\]
+</div>
+
+<p>
+podemos identificar:
+</p>
+
+<div class="definition-grid">
+
+<div class="definition-item">
+<div class="definition-title">Entropia</div>
+\[
+-S=
+\left(
+\frac{\partial\Phi}{\partial T}
+\right)_{V,\mu}
+\]
+</div>
+
+<div class="definition-item">
+<div class="definition-title">Pressão</div>
+\[
+-P=
+\left(
+\frac{\partial\Phi}{\partial V}
+\right)_{T,\mu}
+\]
+</div>
+
+<div class="definition-item">
+<div class="definition-title">Número de partículas</div>
+\[
+-N=
+\left(
+\frac{\partial\Phi}{\partial \mu}
+\right)_{T,V}
+\]
+</div>
+
+</div>
+
+<div class="highlight">
+<strong>Comentário:</strong>
+o grande potencial é especialmente útil em gases quânticos, sistemas eletrônicos, matéria condensada, adsorção, transições de fase e sistemas nos quais o número de partículas pode variar.
+</div>
+</div>
+</section>
+
+</div>
+
+</body>
+</html>

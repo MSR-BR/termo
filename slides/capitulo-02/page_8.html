@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Relações de Maxwell e Retângulo Termodinâmico</title>
+
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/>
+
+<script>
+window.va = window.va || function () {
+  (window.vaq = window.vaq || []).push(arguments);
+};
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)'], ['$', '$']], displayMath: [['\\[','\\]']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<style>
+:root{
+  --bg:#F5F7FB;
+  --panel:#FFFFFF;
+  --text:#2C3E50;
+  --muted:#5D6D7E;
+  --blue:#004B87;
+  --blue-soft:#EAF2FD;
+  --border:#D9E2EC;
+  --shadow:0 10px 28px rgba(0,0,0,0.06);
+  --red:#B03A2E;
+  --green:#1E8449;
+  --purple:#6C3483;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:"Inter",sans-serif;
+  min-height:100vh;
+  padding:24px;
+}
+
+.page{
+  width:100%;
+  max-width:1400px;
+  margin:0 auto;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+.hero,.card{
+  background:#FFFFFF;
+  border:1px solid var(--border);
+  border-radius:22px;
+  box-shadow:var(--shadow);
+}
+
+.hero-inner,.card{padding:30px}
+
+.index-back-button{
+  width:fit-content;
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  text-decoration:none;
+  font-size:.82rem;
+  font-weight:700;
+  color:var(--blue);
+  background:#FFFFFF;
+  border:1px solid #C7D8F3;
+  border-radius:10px;
+  padding:8px 12px;
+  margin-bottom:18px;
+}
+
+.index-back-button:hover{background:var(--blue-soft);transform:translateY(-1px)}
+
+.chapter-label{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:var(--blue-soft);
+  color:var(--blue);
+  border-radius:999px;
+  padding:8px 14px;
+  font-size:.84rem;
+  font-weight:800;
+  margin-bottom:18px;
+}
+
+.chapter-title{
+  font-size:clamp(2rem,4vw,3.2rem);
+  color:var(--blue);
+  font-weight:800;
+  line-height:1.06;
+  margin-bottom:18px;
+}
+
+.chapter-text,.body-text{
+  font-family:"Lora",serif;
+  line-height:1.75;
+  color:var(--text);
+  font-size:1rem;
+}
+
+.chapter-text p,.body-text p{margin-bottom:14px}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+.card-title{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:var(--blue);
+  font-size:1.18rem;
+  font-weight:800;
+  margin-bottom:18px;
+}
+
+.card-title.green{color:var(--green)}
+.card-title.purple{color:var(--purple)}
+.card-title.red{color:var(--red)}
+
+.math-box{
+  background:#F8FAFC;
+  border:1px solid #E2E8F0;
+  border-left:4px solid var(--blue);
+  border-radius:0 14px 14px 0;
+  padding:18px;
+  margin:16px 0;
+  overflow-x:auto;
+}
+
+.math-box.green{border-left-color:var(--green)}
+.math-box.purple{border-left-color:var(--purple)}
+.math-box.red{border-left-color:var(--red)}
+
+.highlight{
+  background:#F0F7FF;
+  border-left:4px solid var(--blue);
+  border-radius:0 10px 10px 0;
+  padding:16px 18px;
+  margin-top:18px;
+}
+
+.warning{
+  background:#FFF8F6;
+  border-left:4px solid var(--red);
+  border-radius:0 10px 10px 0;
+  padding:16px 18px;
+  margin-top:18px;
+}
+
+.maxwell-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:14px;
+  margin-top:16px;
+}
+
+.relation-card{
+  background:#F8FAFC;
+  border:1px solid #E2E8F0;
+  border-left:4px solid var(--blue);
+  border-radius:0 14px 14px 0;
+  padding:16px;
+  overflow-x:auto;
+}
+
+.relation-title{
+  font-family:"Inter",sans-serif;
+  font-weight:800;
+  color:var(--blue);
+  margin-bottom:8px;
+}
+
+.rectangle-box{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(70px,1fr));
+  gap:10px;
+  max-width:520px;
+  margin:18px auto;
+}
+
+.rect-cell{
+  min-height:74px;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  font-weight:800;
+  padding:10px;
+  border:1px solid #D9E2EC;
+  background:#F8FAFC;
+}
+
+.rect-cell.var{
+  background:#0B1F3A;
+  color:#FFFFFF;
+}
+
+.rect-cell.pot{
+  background:#EAF2FD;
+  color:var(--blue);
+  border-color:#BFD4F3;
+}
+
+.rect-cell.arrow{
+  color:var(--muted);
+  background:#FFFFFF;
+}
+
+.simulator-card{
+  border-top:3px solid var(--green);
+}
+
+.simulator-button{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin-top:14px;
+  padding:11px 15px;
+  border-radius:10px;
+  background:var(--green);
+  color:#FFFFFF;
+  text-decoration:none;
+  font-family:"Inter",sans-serif;
+  font-weight:800;
+  transition:.18s ease;
+}
+
+.simulator-button:hover{
+  background:#14663E;
+  transform:translateY(-1px);
+}
+
+.ai-exercise-card{border-top:3px solid var(--purple)}
+
+.ai-exercise-top{
+  display:flex;
+  justify-content:space-between;
+  gap:14px;
+  flex-wrap:wrap;
+  margin-bottom:14px;
+}
+
+.ai-exercise-title{
+  font-size:1.15rem;
+  font-weight:800;
+  color:var(--purple);
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.ai-controls{display:flex;gap:10px;flex-wrap:wrap}
+
+.ai-select,.ai-btn{
+  border-radius:8px;
+  border:1px solid #C9D5E5;
+  min-height:38px;
+  padding:8px 12px;
+  font-family:"Inter",sans-serif;
+  font-size:.9rem;
+}
+
+.ai-btn{
+  background:var(--blue);
+  color:#FFF;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.ai-btn.secondary{
+  background:#F3E8FF;
+  color:var(--purple);
+  border-color:#DDD6FE;
+}
+
+.ai-disclaimer{
+  background:#FFF8F6;
+  border-left:4px solid var(--red);
+  border-radius:0 10px 10px 0;
+  padding:14px 16px;
+  margin-bottom:14px;
+  font-family:"Lora",serif;
+  line-height:1.6;
+}
+
+.ai-output,.ai-solution{
+  background:#F8FAFC;
+  border:1px solid #E2E8F0;
+  border-radius:10px;
+  padding:16px;
+  min-height:140px;
+  font-family:"Lora",serif;
+  line-height:1.7;
+}
+
+.ai-solution{
+  display:none;
+  margin-top:14px;
+  background:#E8F5EC;
+}
+
+@media (max-width:980px){
+  .grid{grid-template-columns:1fr}
+}
+
+@media (max-width:700px){
+  body{padding:12px}
+  .hero-inner,.card{padding:22px}
+  .chapter-title{line-height:1.1}
+  .ai-controls{flex-direction:column;width:100%}
+  .ai-select,.ai-btn{width:100%}
+  .rectangle-box{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+<section class="hero">
+<div class="hero-inner">
+
+<a href="../../index.html" class="index-back-button">
+<i class="fa-solid fa-arrow-left"></i>
+Índice
+</a>
+
+<div class="chapter-label">
+<i class="fa-solid fa-layer-group"></i>
+Capítulo 2 · Item 2.8
+</div>
+
+<h1 class="chapter-title">Relações de Maxwell e Retângulo Termodinâmico</h1>
+
+<div class="chapter-text">
+<p>
+As relações de Maxwell são identidades termodinâmicas que surgem da estrutura matemática dos potenciais termodinâmicos. Elas conectam derivadas parciais envolvendo variáveis como \(T\), \(S\), \(P\) e \(V\), permitindo obter informações difíceis de medir diretamente a partir de grandezas experimentais mais acessíveis.
+</p>
+
+<p>
+O retângulo termodinâmico organiza visualmente os potenciais \(U\), \(F\), \(H\) e \(G\), suas variáveis naturais e as relações de Maxwell. Ele funciona como um mnemônico para reconstruir as relações fundamentais sem depender apenas da memorização.
+</p>
+</div>
+
+</div>
+</section>
+
+<div class="grid">
+
+<section class="card">
+<div class="card-title">
+<i class="fa-solid fa-square-root-variable"></i>
+Origem Matemática das Relações de Maxwell
+</div>
+
+<div class="body-text">
+<p>
+A origem das relações de Maxwell está no fato de que os potenciais termodinâmicos são funções de estado. Se uma função possui diferencial exata, a ordem das derivadas parciais mistas de segunda ordem pode ser trocada:
+</p>
+
+<div class="math-box">
+\[
+\frac{\partial^2 f}{\partial x\,\partial y}
+=
+\frac{\partial^2 f}{\partial y\,\partial x}.
+\]
+</div>
+
+<p>
+Aplicando essa propriedade às diferenciais dos potenciais termodinâmicos, obtemos relações entre derivadas de variáveis conjugadas.
+</p>
+
+<div class="highlight">
+<strong>Ideia central:</strong>
+as relações de Maxwell são consequência direta da existência dos potenciais termodinâmicos como funções de estado.
+</div>
+</div>
+</section>
+
+<section class="card">
+<div class="card-title green">
+<i class="fa-solid fa-diagram-project"></i>
+Exemplo a partir da Energia Interna
+</div>
+
+<div class="body-text">
+<p>
+Para um sistema simples com número de partículas constante, a energia interna pode ser escrita como:
+</p>
+
+<div class="math-box green">
+\[
+dU=T\,dS-P\,dV.
+\]
+</div>
+
+<p>
+Logo:
+</p>
+
+<div class="math-box green">
+\[
+T=
+\left(\frac{\partial U}{\partial S}\right)_V,
+\qquad
+-P=
+\left(\frac{\partial U}{\partial V}\right)_S.
+\]
+</div>
+
+<p>
+Como as derivadas mistas de \(U(S,V)\) devem ser iguais, obtemos:
+</p>
+
+<div class="math-box green">
+\[
+\left(\frac{\partial T}{\partial V}\right)_S
+=
+-\left(\frac{\partial P}{\partial S}\right)_V.
+\]
+</div>
+</div>
+</section>
+
+</div>
+
+<section class="card">
+<div class="card-title purple">
+<i class="fa-solid fa-link"></i>
+Relações de Maxwell Associadas aos Potenciais
+</div>
+
+<div class="body-text">
+<p>
+A partir dos potenciais \(U\), \(F\), \(H\) e \(G\), obtemos um conjunto de relações que conecta grandezas térmicas e mecânicas. Para \(N\) constante, podemos escrever:
+</p>
+
+<div class="maxwell-grid">
+
+<div class="relation-card">
+<div class="relation-title">A partir de \(U(S,V)\)</div>
+\[
+\left(\frac{\partial T}{\partial V}\right)_S
+=
+-\left(\frac{\partial P}{\partial S}\right)_V
+\]
+</div>
+
+<div class="relation-card">
+<div class="relation-title">A partir de \(F(T,V)\)</div>
+\[
+\left(\frac{\partial S}{\partial V}\right)_T
+=
+\left(\frac{\partial P}{\partial T}\right)_V
+\]
+</div>
+
+<div class="relation-card">
+<div class="relation-title">A partir de \(H(S,P)\)</div>
+\[
+\left(\frac{\partial T}{\partial P}\right)_S
+=
+\left(\frac{\partial V}{\partial S}\right)_P
+\]
+</div>
+
+<div class="relation-card">
+<div class="relation-title">A partir de \(G(T,P)\)</div>
+\[
+\left(\frac{\partial S}{\partial P}\right)_T
+=
+-\left(\frac{\partial V}{\partial T}\right)_P
+\]
+</div>
+
+</div>
+
+<div class="warning">
+<strong>Comentário físico:</strong>
+essas relações permitem transformar derivadas envolvendo entropia, geralmente difícil de medir diretamente, em derivadas envolvendo pressão, volume e temperatura, que podem ser obtidas experimentalmente.
+</div>
+</div>
+</section>
+
+<section class="card">
+<div class="card-title red">
+<i class="fa-solid fa-flask"></i>
+Aplicação: Gás Ideal Isotérmico
+</div>
+
+<div class="body-text">
+<p>
+Em um processo isotérmico de um gás ideal, a energia interna não varia:
+</p>
+
+<div class="math-box red">
+\[
+\Delta U=0.
+\]
+</div>
+
+<p>
+Com a convenção adotada neste material,
+\[
+dU=dQ+dW,\qquad dW=-P\,dV.
+\]
+Na expansão, \(dV>0\), portanto \(dW<0\): energia sai do sistema como trabalho. Para manter \(\Delta U=0\), o sistema deve receber calor positivo.
+</p>
+
+<div class="math-box red">
+\[
+\Delta Q=-\Delta W
+=
+nRT\ln\left(\frac{V_f}{V_i}\right).
+\]
+</div>
+
+<p>
+O mesmo resultado pode ser recuperado usando a relação de Maxwell:
+</p>
+
+<div class="math-box red">
+\[
+\left(\frac{\partial S}{\partial V}\right)_T
+=
+\left(\frac{\partial P}{\partial T}\right)_V.
+\]
+</div>
+
+<p>
+Para o gás ideal, \(P=nRT/V\), logo:
+</p>
+
+<div class="math-box red">
+\[
+\Delta S_T
+=
+\int_{V_i}^{V_f}
+\left(\frac{\partial P}{\partial T}\right)_V dV
+=
+nR\ln\left(\frac{V_f}{V_i}\right).
+\]
+</div>
+
+<p>
+Como o processo é isotérmico reversível:
+</p>
+
+<div class="math-box red">
+\[
+\Delta Q=T\Delta S_T
+=
+nRT\ln\left(\frac{V_f}{V_i}\right).
+\]
+</div>
+</div>
+</section>
+
+<section class="card">
+<div class="card-title green">
+<i class="fa-solid fa-table-cells-large"></i>
+Retângulo Termodinâmico
+</div>
+
+<div class="body-text">
+<p>
+O retângulo termodinâmico é uma forma compacta de organizar os potenciais e suas variáveis naturais. Ele permite reconstruir diferenciais, derivadas e relações de Maxwell de forma visual.
+</p>
+
+<div class="rectangle-box">
+<div class="rect-cell var">S</div>
+<div class="rect-cell arrow">↔</div>
+<div class="rect-cell var">T</div>
+
+<div class="rect-cell pot">U</div>
+<div class="rect-cell pot">F</div>
+<div class="rect-cell pot">G</div>
+
+<div class="rect-cell var">V</div>
+<div class="rect-cell arrow">↔</div>
+<div class="rect-cell var">P</div>
+</div>
+
+<p>
+A leitura do diagrama ajuda a identificar quais variáveis são naturais para cada potencial e quais derivadas devem ser comparadas para obter as relações de Maxwell.
+</p>
+
+<div class="highlight">
+<strong>Mnemônico:</strong>
+em vez de memorizar fórmulas isoladas, o estudante reconstrói as relações a partir da posição relativa entre potenciais e variáveis conjugadas.
+</div>
+</div>
+</section>
+
+<section class="card simulator-card">
+<div class="card-title green">
+<i class="fa-solid fa-display"></i>
+Simulador: Retângulo Termodinâmico
+</div>
+
+<div class="body-text">
+<p>
+Use o simulador interativo para visualizar os potenciais termodinâmicos, suas variáveis naturais, diferenciais e relações associadas.
+</p>
+
+<a
+  href="https://msr-br.github.io/Termodinamica/qt.html"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="simulator-button"
+>
+<i class="fa-solid fa-arrow-up-right-from-square"></i>
+Abrir simulador
+</a>
+</div>
+</section>
+
+<section class="card ai-exercise-card" id="aiExerciseBox">
+
+<div class="ai-exercise-top">
+<div class="ai-exercise-title">
+<i class="fa-solid fa-wand-magic-sparkles"></i>
+Exercício
+</div>
+
+<div class="ai-controls">
+<select class="ai-select" id="difficultySelect">
+<option value="facil">Fácil</option>
+<option selected value="medio">Médio</option>
+<option value="dificil">Difícil</option>
+</select>
+
+<button class="ai-btn" id="newExerciseBtn" type="button">Novo exercício</button>
+<button class="ai-btn secondary" id="showSolutionBtn" type="button" disabled>Ver solução</button>
+</div>
+</div>
+
+<div class="ai-disclaimer">
+<strong>Aviso importante:</strong> todo o conteúdo didático das páginas e do livro associado foi criado pelo Prof. Mario Reis. O aplicativo de criação de exercícios é um experimento didático; os exercícios e soluções serão gerados automaticamente por IA e <strong>podem conter erros conceituais, matemáticos ou pedagógicos</strong>. Erros detectados devem ser comunicados para <a href="mailto:marioreis@id.uff.br">marioreis@id.uff.br</a>.
+</div>
+
+<div class="ai-output" id="exerciseOutput">
+Escolha o nível e clique em <strong>Novo exercício</strong>.
+</div>
+
+<div class="ai-solution" id="solutionOutput"></div>
+
+</section>
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+
+const novo = document.getElementById("newExerciseBtn");
+const show = document.getElementById("showSolutionBtn");
+const output = document.getElementById("exerciseOutput");
+const solution = document.getElementById("solutionOutput");
+const difficulty = document.getElementById("difficultySelect");
+
+let currentSolution = "";
+
+function escapeHtml(value){
+  return String(value || "").replace(/[&<>"']/g,function(s){
+    return ({
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#039;"
+    })[s];
+  });
+}
+
+function getPageContext(){
+  const title = document.querySelector(".chapter-title")?.innerText || document.title;
+  const cards = Array.from(document.querySelectorAll(".card:not(.ai-exercise-card)"))
+    .map(card => card.innerText.trim())
+    .filter(Boolean)
+    .join("\\n\\n");
+  return { title, content: cards };
+}
+
+async function gerarExercicio(){
+
+  novo.disabled = true;
+  show.disabled = true;
+  output.innerHTML = "Gerando exercício...";
+  solution.style.display = "none";
+  solution.innerHTML = "";
+
+  const ctx = getPageContext();
+
+  try{
+
+    const response = await fetch("/api/exercicio",{
+      method:"POST",
+      headers:{ "Content-Type":"application/json" },
+      body:JSON.stringify({
+        pageTitle:ctx.title,
+        pageContent:ctx.content,
+        difficulty:difficulty.value,
+        language:"pt-BR",
+        level:"graduação em Física"
+      })
+    });
+
+    const data = await response.json();
+
+    if(!response.ok){
+      throw new Error(data.error || "Erro na API.");
+    }
+
+    currentSolution = data.solution || "";
+
+    output.innerHTML = `
+      <strong>${escapeHtml(data.title || "Exercício")}</strong><br><br>
+      ${escapeHtml(data.statement || "A API não retornou um enunciado.")}
+    `;
+
+    solution.innerHTML = `
+      <strong>Solução</strong><br><br>
+      ${escapeHtml(currentSolution || "A API não retornou uma solução.")}
+    `;
+
+    show.disabled = !currentSolution;
+
+  }catch(error){
+
+    output.innerHTML = `
+      Não foi possível gerar o exercício. Verifique se o projeto está publicado no Vercel, se o arquivo <strong>api/exercicio.js</strong> existe e se a variável <strong>GEMINI_API_KEY</strong> foi configurada.
+    `;
+
+  }finally{
+    novo.disabled = false;
+  }
+}
+
+novo.addEventListener("click", gerarExercicio);
+
+show.addEventListener("click", function(){
+  solution.style.display = solution.style.display === "block" ? "none" : "block";
+});
+
+});
+</script>
+
+</body>
+</html>
