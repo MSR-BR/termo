@@ -99,7 +99,9 @@ window.MathJax = {
 
 <link href="../../assets/chapter-embedded-slide.css" rel="stylesheet"/>
 <link href="../../assets/ai-exercises.css" rel="stylesheet"/>
+<link href="../../assets/termo-share.css" rel="stylesheet"/>
 <script defer src="../../assets/ai-exercises.js"></script>
+<script defer src="../../assets/termo-share.js"></script>
 </head>
 <body>
 <div class="page">

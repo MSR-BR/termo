@@ -1,6 +1,11 @@
 (function () {
   if (window.TermoAIExercise) return;
 
+  const inlineMathPattern = /\\\(([\s\S]+?)\\\)/g;
+  const mathSegmentPattern = /\\\[[\s\S]+?\\\]|\\\([\s\S]+?\\\)/g;
+  const mathLikePattern =
+    /(?:\\[A-Za-z]+|[A-Za-z]_[A-Za-z0-9]+|[A-Za-z]\^[A-Za-z0-9]+|\b(?:sum|ln|exp|lim|frac|partial)\b|[=+\-*/^_]|[Σ∑∂ΔΩβλμ→≤≥±≠∞])/;
+
   function escapeHtml(value){
     return String(value || "").replace(/[&<>"']/g, function (s) {
       return ({
@@ -13,10 +18,110 @@
     });
   }
 
+  function countWords(value) {
+    return (
+      String(value || "")
+        .replace(/\\[A-Za-z]+/g, " ")
+        .match(/[A-Za-zÀ-ÿ]{2,}/g) || []
+    ).length;
+  }
+
+  function mathDensity(value) {
+    const text = String(value || "");
+    const mathChars = (text.match(/[\\=+\-*/^_{}[\]()0-9Σ∑∂ΔΩβλμ∞≤≥±≠]/g) || []).length;
+    return mathChars / Math.max(text.length, 1);
+  }
+
+  function isMathy(value) {
+    return mathLikePattern.test(String(value || ""));
+  }
+
+  function cleanupEquation(value) {
+    return String(value || "")
+      .replace(/^\s*\\\[/, "")
+      .replace(/\\\]\s*$/, "")
+      .replace(/^\s*\\\(/, "")
+      .replace(/\\\)\s*$/, "")
+      .replace(/^\s*\[\s*/, "")
+      .replace(/\s*\]\s*$/, "")
+      .replace(/^\s*\$+/, "")
+      .replace(/\$+\s*$/, "")
+      .replace(/\r\n?/g, "\n")
+      .replace(/\\\\/g, "\\")
+      .replace(/\s*\n\s*/g, " ")
+      .replace(/\s{2,}/g, " ")
+      .trim();
+  }
+
+  function shouldDisplayEquation(value) {
+    const text = cleanupEquation(value);
+    if (!text || !isMathy(text)) return false;
+
+    const words = countWords(text);
+    const density = mathDensity(text);
+
+    if (words <= 4) return true;
+    return density > 0.18 && words <= 8;
+  }
+
+  function normalizeMathLine(rawLine) {
+    const line = String(rawLine || "").trim();
+    if (!line) return "";
+
+    const bracketInlineMatch = line.match(/^\[\s*\\\(([\s\S]+?)\\\)\s*\]$/);
+    if (bracketInlineMatch) {
+      return `\\[${cleanupEquation(bracketInlineMatch[1])}\\]`;
+    }
+
+    const bracketMathMatch = line.match(/^\[\s*([\s\S]+?)\s*\]$/);
+    if (bracketMathMatch && shouldDisplayEquation(bracketMathMatch[1])) {
+      return `\\[${cleanupEquation(bracketMathMatch[1])}\\]`;
+    }
+
+    const displayMatch = line.match(/^\\\[\s*([\s\S]+?)\s*\\\]$/);
+    if (displayMatch) {
+      return `\\[${cleanupEquation(displayMatch[1])}\\]`;
+    }
+
+    const inlineMatch = line.match(/^\\\(\s*([\s\S]+?)\s*\\\)$/);
+    if (inlineMatch) {
+      const cleaned = cleanupEquation(inlineMatch[1]);
+      return shouldDisplayEquation(cleaned)
+        ? `\\[${cleaned}\\]`
+        : `\\(${cleaned}\\)`;
+    }
+
+    if (countWords(line) <= 2 && shouldDisplayEquation(line)) {
+      return `\\[${cleanupEquation(line)}\\]`;
+    }
+
+    return line;
+  }
+
   function normalizeGeneratedMath(value) {
     return String(value || "")
       .replace(/\r\n?/g, "\n")
       .replace(/\\\\/g, "\\")
+      .replace(/^\s*```(?:latex|tex)?\s*$/gim, "")
+      .replace(/^\s*```\s*$/gm, "")
+      .replace(/\$\$([\s\S]+?)\$\$/g, function (_match, equation) {
+        return `\n\\[${cleanupEquation(equation)}\\]\n`;
+      })
+      .replace(/(^|[^\\])\$([^$\n]+?)\$/g, function (_match, lead, equation) {
+        return `${lead}\\(${cleanupEquation(equation)}\\)`;
+      })
+      .replace(/\\\(\s*\$([^$]+)\$\s*\\\)/g, function (_match, equation) {
+        return `\\(${cleanupEquation(equation)}\\)`;
+      })
+      .replace(/\[\s*\\\(([\s\S]+?)\\\)\s*\]/g, function (_match, equation) {
+        return `\n\\[${cleanupEquation(equation)}\\]\n`;
+      })
+      .split("\n")
+      .map(function (line) {
+        return normalizeMathLine(line.trimEnd());
+      })
+      .join("\n")
+      .replace(/\n{3,}/g, "\n\n")
       .trim();
   }
 
@@ -70,15 +175,102 @@
     return formatted;
   }
 
-  function formatGeneratedText(value) {
-    const normalized = normalizeGeneratedMath(value);
-    if (!normalized) return "";
+  function protectMathSegments(text) {
+    const tokens = [];
+    const masked = String(text || "").replace(mathSegmentPattern, function (match) {
+      const key = `@@TERMO_MATH_${tokens.length}@@`;
+      tokens.push(escapeHtml(match));
+      return key;
+    });
 
-    return normalized
-      .split(/\n{2,}/)
-      .map(function (paragraph) {
-        const mathAware = autoFormatPlainMath(paragraph);
-        return `<p>${escapeHtml(mathAware).replace(/\n/g, "<br>")}</p>`;
+    return { masked, tokens };
+  }
+
+  function restoreMathSegments(text, tokens) {
+    return String(text || "").replace(/@@TERMO_MATH_(\d+)@@/g, function (_match, index) {
+      return tokens[Number(index)] || "";
+    });
+  }
+
+  function renderInlineMarkup(text) {
+    const mathAware = autoFormatPlainMath(text);
+    const protectedText = protectMathSegments(mathAware);
+    const escaped = escapeHtml(protectedText.masked)
+      .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+
+    return restoreMathSegments(escaped, protectedText.tokens);
+  }
+
+  function tokenizeGeneratedText(value) {
+    const normalized = normalizeGeneratedMath(value);
+    if (!normalized) return [];
+
+    const blocks = [];
+    const lines = normalized.split("\n");
+    let paragraphLines = [];
+    let displayLines = [];
+
+    function flushParagraph() {
+      if (!paragraphLines.length) return;
+      const text = paragraphLines.join("\n").trim();
+      if (text) {
+        blocks.push({ type: "paragraph", value: text });
+      }
+      paragraphLines = [];
+    }
+
+    function flushDisplay() {
+      if (!displayLines.length) return;
+      const text = displayLines.join("\n").trim();
+      if (text) {
+        blocks.push({ type: "math", value: text });
+      }
+      displayLines = [];
+    }
+
+    lines.forEach(function (rawLine) {
+      const line = rawLine.trimEnd();
+      const trimmed = line.trim();
+
+      if (!trimmed) {
+        flushParagraph();
+        flushDisplay();
+        return;
+      }
+
+      if (displayLines.length) {
+        displayLines.push(trimmed);
+        if (/\\\]\s*$/.test(trimmed)) {
+          flushDisplay();
+        }
+        return;
+      }
+
+      if (/^\\\[/.test(trimmed)) {
+        flushParagraph();
+        displayLines.push(trimmed);
+        if (/\\\]\s*$/.test(trimmed)) {
+          flushDisplay();
+        }
+        return;
+      }
+
+      paragraphLines.push(trimmed);
+    });
+
+    flushParagraph();
+    flushDisplay();
+    return blocks;
+  }
+
+  function formatGeneratedText(value) {
+    return tokenizeGeneratedText(value)
+      .map(function (block) {
+        if (block.type === "math") {
+          return `<div class="termo-exercise__math-block">${escapeHtml(block.value)}</div>`;
+        }
+
+        return `<p>${renderInlineMarkup(block.value).replace(/\n/g, "<br>")}</p>`;
       })
       .join("");
   }

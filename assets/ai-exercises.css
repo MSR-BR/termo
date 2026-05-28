@@ -186,6 +186,17 @@
   margin-bottom:0;
 }
 
+.termo-exercise__content strong{
+  font-weight:700;
+}
+
+.termo-exercise__math-block{
+  margin:14px 0 18px;
+  padding:6px 0;
+  overflow-x:auto;
+  overflow-y:hidden;
+}
+
 .termo-exercise__solution{
   display:none;
   background:#E8F5EC;
@@ -200,6 +211,15 @@
   max-width:100%;
   overflow-x:auto;
   overflow-y:hidden;
+}
+
+.termo-exercise__math-block mjx-container[display="true"],
+.termo-exercise__panel mjx-container[display="true"]{
+  margin:0.4rem auto !important;
+}
+
+.termo-exercise__math-block mjx-container{
+  padding:2px 0;
 }
 
 @media (max-width:700px){
