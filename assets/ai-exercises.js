@@ -96,6 +96,19 @@
     }
   }
 
+  async function readApiPayload(response) {
+    const contentType = (response.headers.get("content-type") || "").toLowerCase();
+
+    if (contentType.includes("application/json")) {
+      return response.json();
+    }
+
+    const text = await response.text();
+    return {
+      error: text || `HTTP ${response.status}`
+    };
+  }
+
   function firstText(selectors) {
     for (const selector of selectors) {
       const node = document.querySelector(selector);
@@ -247,9 +260,14 @@
         })
       });
 
-      const data = await response.json();
+      const data = await readApiPayload(response);
       if (!response.ok) {
-        throw new Error(data.error || "Erro ao chamar a API.");
+        throw new Error(
+          data?.error ||
+          data?.details?.error ||
+          data?.details?.message ||
+          `Erro HTTP ${response.status}`
+        );
       }
 
       outputTitle.innerHTML = `
@@ -264,13 +282,14 @@
 
       await typesetMath([output, solution]);
       toggleBtn.disabled = !(data.solution || "").trim();
-    } catch (_error) {
+    } catch (error) {
       outputTitle.innerHTML = `
         <i class="fa-solid fa-triangle-exclamation"></i>
         Não foi possível gerar o exercício
       `;
       output.classList.add("termo-exercise__placeholder");
       output.innerHTML = `
+        <p><strong>Erro retornado:</strong> ${escapeHtml(error && error.message ? error.message : "Falha ao chamar a API de exercícios.")}</p>
         <p>Verifique se o projeto está publicado no Vercel, se o arquivo <strong>api/exercicio.js</strong> existe e se a variável <strong>GEMINI_API_KEY</strong> foi configurada.</p>
       `;
     } finally {

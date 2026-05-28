@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "scripts": {
     "dev": "node dev-server.mjs",
     "dev:vercel": "vercel dev",
