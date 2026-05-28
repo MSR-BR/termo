@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=1280, height=720" name="viewport"/>
+<title>Termodinâmica Estatística - Terceira Lei</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Lora:ital,wght@0,400;0,700;0,800;1,400&amp;display=swap" rel="stylesheet"/>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><style>* {
+    margin: 0 0;
+    padding: 0 0;
+    box-sizing: border-box
+    }
+body {width: 1280px; height: 720px; overflow: hidden; background-color: #F8F9FA;
+    font-family: "Inter", sans-serif;
+    color: #1E293B}
+.thermo-slide-canvas {
+    width: 1280px;
+    height: 720px;
+    padding: 0 0;
+    display: flex;
+    flex-direction: column;
+    background-color: #F8F9FA
+    }
+/* Title Region */
+.thermo-title-section-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 30px 60px 20px 60px;
+    margin-bottom: 0;
+    border-left: 8px solid #E07820;
+    background-color: rgba(26, 60, 92, 0.04);
+    flex-shrink: 0
+    }
+.thermo-section-label-amber {
+    color: #E07820;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 6px
+    }
+.thermo-main-slide-title {
+    color: #1A3C5C;
+    font-family: "Lora", serif;
+    font-size: 36px;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1.2
+    }
+/* Content Layout */
+.thermo-content-grid-layout {
+    display: flex;
+    flex-direction: row;
+    padding: 10px 60px 19px 60px;
+    gap: 14px 30px;
+    flex: 1;
+    align-items: stretch
+    }
+/* Left Column */
+.thermo-left-derivation-column {
+    flex: 1.2;
+    display: flex;
+    flex-direction: column;
+    gap: 12px 20px;
+    justify-content: center
+    }
+/* Right Column */
+.thermo-right-visual-column {
+    flex: 0.8;
+    display: flex;
+    flex-direction: column;
+    gap: 10px 20px;
+    justify-content: center
+    }
+/* Cards and Blocks */
+.thermo-theory-content-card {
+    background-color: #FFF;
+    padding: 14px 24px;
+    border-radius: 4px;
+    border-left: 4px solid #1A3C5C;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center
+    }
+.thermo-theory-card-heading {
+    font-family: "Lora", serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #1A3C5C;
+    margin-bottom: 7px;
+    display: flex;
+    align-items: center;
+    gap: 6px 10px
+    }
+.thermo-theory-card-text {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #1E293B;
+    margin-bottom: 9px
+    }
+.thermo-equation-highlight-block {
+    background-color: rgba(224, 120, 32, 0.05);
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: 1px dashed #E07820;
+    margin: 6px 0;
+    text-align: center
+    }
+.thermo-nernst-postulate-badge {
+    display: inline-block;
+    background-color: #1A3C5C;
+    color: #FFF;
+    padding: 4px 14px;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 20px;
+    margin-bottom: 9px;
+    text-transform: uppercase
+    }
+/* Image Styling */
+.thermo-quantization-image-container {
+    height: 226px;
+    background-color: #FFF;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #E2E8F0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative
+    }
+.thermo-quantization-image-container img {
+    height: 100%;
+    width: auto;
+    object-fit: contain
+    }
+.thermo-image-caption-text {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgba(26, 60, 92, 0.85);
+    color: white;
+    padding: 4px 12px;
+    font-size: 12px;
+    text-align: center
+    }
+/* Provocation Box */
+.thermo-provocation-alert-box {
+    background-color: #FFF7ED;
+    border: 1px solid #FFEDD5;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border-left: 5px solid #E07820;
+    flex: 0.6;
+    display: flex;
+    flex-direction: column;
+    justify-content: center
+    }
+.thermo-provocation-title {
+    color: #E07820;
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px
+    }
+.thermo-provocation-body {
+    font-size: 15px;
+    font-style: italic;
+    color: #475569;
+    line-height: 1.5
+    }
+/* Math Styling */
+.math-text {
+    font-family: "Lora", serif;
+    font-weight: 600
+    }
+ul.thermo-bullet-list {
+    list-style: none;
+    padding-left: 0
+    }
+ul.thermo-bullet-list li {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 6px;
+    line-height: 1.5;
+    font-size: 15px
+    }
+ul.thermo-bullet-list li::before {
+    content: "";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: absolute;
+    left: 0;
+    color: #E07820
+    }
+html { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="thermo-slide-canvas" style="overflow: hidden;">
+<!-- Header Region -->
+<div class="thermo-title-section-wrapper">
+<span class="thermo-section-label-amber">Capítulo 4: Termodinâmica Estatística</span>
+<h1 class="thermo-main-slide-title">Terceira Lei da Termodinâmica e Entropia Residual</h1>
+</div>
+<!-- Main Content Area -->
+<div class="thermo-content-grid-layout">
+<!-- Left Column: Theory and Math -->
+<div class="thermo-left-derivation-column">
+<div class="thermo-theory-content-card">
+<div class="thermo-nernst-postulate-badge">Postulado de Nernst (1906)</div>
+<div class="thermo-theory-card-heading">
+<i class="fa-solid fa-snowflake"></i>
+                        O Limite do Zero Absoluto
+                    </div>
+<p class="thermo-theory-card-text">
+                        A Terceira Lei estabelece que a entropia de um sistema em equilíbrio térmico aproxima-se de uma constante universal quando \( T \to 0 \). Em termos estatísticos, isso reflete a transição do sistema para o seu <strong>estado fundamental</strong>.
+                    </p>
+<div class="thermo-equation-highlight-block">
+                        \[ S = k_B \ln \Omega \quad \xrightarrow{T \to 0} \quad S_0 = k_B \ln g_0 \]
+                    </div>
+<p class="thermo-theory-card-text" style="margin-top: 6px;">
+                        Para um cristal perfeito, o estado fundamental é único (\( g_0 = 1 \)), o que implica \( S_0 = 0 \). No entanto, se houver desordem estrutural ou multiplicidade de estados de mesma energia mínima, surge a <strong>Entropia Residual</strong>.
+                    </p>
+<ul class="thermo-bullet-list">
+<li><strong>Necessidade da Quantização:</strong> No regime clássico, a entropia diverge para \( -\infty \) (\( S \sim \ln T \)). A quantização dos níveis de energia é o que garante um limite finito e nulo.</li>
+<li><strong>Consequência Física:</strong> É impossível atingir o zero absoluto em um número finito de passos (processos adiabáticos e isotérmicos tornam-se indistinguíveis).</li>
+</ul>
+</div>
+</div>
+<!-- Right Column: Visual and Provocation -->
+<div class="thermo-right-visual-column">
+<!-- Image Container -->
+<div class="thermo-quantization-image-container">
+<img alt="Quantização de Spin" src="https://static-us-img.skywork.ai/prod/nexus/1779576094/cropped_image_2_1779576094374970181.jpg"/>
+<div class="thermo-image-caption-text">
+                        Níveis de energia quantizados (\( \hbar \)) garantem a ocupação de um estado único no limite \( T \to 0 \).
+                    </div>
+</div>
+<!-- Provocation Box -->
+<div class="thermo-provocation-alert-box">
+<div class="thermo-provocation-title">
+<i class="fa-solid fa-lightbulb"></i>
+                        Provocação Teórica
+                    </div>
+<p class="thermo-provocation-body">
+                        "Considere o monóxido de carbono (CO). Devido à similaridade entre os átomos de C e O, as moléculas podem congelar em orientações aleatórias (CO ou OC) em uma rede sólida. Como essa 'frustração' geométrica afeta o valor de \( S \) medido experimentalmente em relação à previsão da Terceira Lei para um cristal perfeito?"
+                    </p>
+<div style="margin-top: 6px;font-size: 13px;color: #1A3C5C;font-weight: 700;">
+                        Dica: Pense na multiplicidade \( \Omega = 2^N \) para \( N \) partículas.
+                    </div>
+</div>
+<!-- Footer Summary -->
+<div style="background-color: #1A3C5C;color: white;padding: 7px 15px;border-radius: 8px;font-size: 14px;">
+<i class="fa-solid fa-circle-info" style="margin-right: 8px; color: #E07820;"></i>
+<strong>Resumo:</strong> A Terceira Lei exige a Mecânica Quântica. Sem níveis discretos, a termodinâmica falha em baixas temperaturas.
+                </div>
+</div>
+</div>
+</div>
+</body>
+</html>

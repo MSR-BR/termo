@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=1280, height=720" name="viewport"/>
+<title>Termodinâmica Estatística - Evolução da Entropia</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Lora:ital,wght@0,400;0,700;0,800;1,400&amp;display=swap" rel="stylesheet"/>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><style>body {width: 1280px; height: 720px; overflow: hidden; background-color: #F8F9FA;
+    font-family: "Inter", sans-serif;
+    color: #1E293B}
+.slide-root-container {
+    width: 1280px;
+    height: 720px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    background-color: #F8F9FA
+    }
+/* Title Region Header */
+.title-region-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 30px 60px 20px 60px;
+    margin-bottom: 6px;
+    border-left: 8px solid #E07820;
+    background-color: rgba(26, 60, 92, 0.04)
+    }
+.title-section-label {
+    color: #E07820;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 6px
+    }
+.title-main-heading {
+    color: #1A3C5C;
+    font-family: "Lora", serif;
+    font-size: 36px;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1.2
+    }
+/* Main Layout Columns */
+.main-content-columns-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 15px 24px;
+    padding: 0 60px;
+    flex: 1
+    }
+.left-historical-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center
+    }
+.right-historical-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center
+    }
+/* Content Cards */
+.entropy-historical-card {
+    background-color: #FFF;
+    border-left: 4px solid #1A3C5C;
+    padding: 15px 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    flex: 1;
+    display: flex;
+    flex-direction: column
+    }
+.card-header-group {
+    display: flex;
+    align-items: center;
+    gap: 8px 12px;
+    margin-bottom: 10px
+    }
+.card-icon-container {
+    color: #E07820;
+    font-size: 24px
+    }
+.card-title-text {
+    color: #1A3C5C;
+    font-family: "Lora", serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0
+    }
+.card-body-description {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #334155;
+    margin-bottom: 13px
+    }
+.formula-display-box {
+    background-color: #F1F5F9;
+    padding: 10px 15px;
+    border-radius: 4px;
+    text-align: center;
+    margin: 6px 0;
+    border: 1px solid #E2E8F0
+    }
+/* Bottom Region */
+.bottom-interaction-wrapper {
+    padding: 13px 60px 26px 60px;
+    display: flex;
+    gap: 15px 24px
+    }
+.theory-provocation-card {
+    background-color: #1A3C5C;
+    color: #F8F9FA;
+    padding: 11px 24px;
+    border-radius: 8px;
+    flex: 1
+    }
+.analogy-didactic-card {
+    background-color: rgba(224, 120, 32, 0.1);
+    border: 1px dashed #E07820;
+    color: #1E293B;
+    padding: 11px 24px;
+    border-radius: 8px;
+    flex: 1
+    }
+.accent-label-small {
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 2px
+    }
+.theory-text-content {
+    font-size: 15px;
+    line-height: 1.4;
+    margin: 0 0
+    }
+ul {
+    padding-left: 20px;
+    margin: 0 0;
+    list-style: none
+    }
+li {
+    position: relative;
+    margin-bottom: 5px;
+    font-size: 15px;
+    line-height: 1.4
+    }
+li::before {
+    content: "•";
+    color: #E07820;
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em
+    }
+html { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="slide-root-container" style="overflow: hidden;">
+<!-- Header Section -->
+<div class="title-region-wrapper">
+<span class="title-section-label">4.1 Entropia — Visão Histórica</span>
+<h1 class="title-main-heading">Evolução Histórica do Conceito de Entropia</h1>
+</div>
+<!-- Main Content Grid -->
+<div class="main-content-columns-wrapper">
+<!-- Left: Clausius -->
+<div class="left-historical-column">
+<div class="entropy-historical-card">
+<div class="card-header-group">
+<div class="card-icon-container"><i class="fa-solid fa-burst"></i></div>
+<h2 class="card-title-text">A Visão Macroscópica (Clausius)</h2>
+</div>
+<p class="card-body-description">
+                        Em 1865, Rudolf Clausius consolidou a Segunda Lei da Termodinâmica definindo a entropia como uma função de estado. Sua abordagem era puramente fenomenológica, focada em processos reversíveis e trocas de calor.
+                    </p>
+<div class="formula-display-box">
+                        \[ dS = \frac{dQ_{rev}}{T} \]
+                    </div>
+<ul>
+<li><strong>Termo:</strong> Derivado do grego <em>entropé</em> (transformação).</li>
+<li><strong>Significado:</strong> Mede a energia térmica indisponível para realizar trabalho útil em um sistema.</li>
+<li><strong>Escala:</strong> Lida apenas com quantidades macroscópicas mensuráveis (Calor e Temperatura).</li>
+</ul>
+</div>
+</div>
+<!-- Right: Boltzmann -->
+<div class="right-historical-column">
+<div class="entropy-historical-card">
+<div class="card-header-group">
+<div class="card-icon-container"><i class="fas fa-cubes"></i></div>
+<h2 class="card-title-text">A Visão Microscópica (Boltzmann)</h2>
+</div>
+<p class="card-body-description">
+                        Ludwig Boltzmann, em 1877, revolucionou a física ao propor que a entropia é uma medida do "desordenamento" ou, mais precisamente, do número de configurações microscópicas que resultam no mesmo estado macroscópico.
+                    </p>
+<div class="formula-display-box">
+                        \[ S = k_B \ln \Omega \]
+                    </div>
+<ul>
+<li><strong>\(\Omega\):</strong> Número de microestados acessíveis ao sistema para uma dada energia fixa.</li>
+<li><strong>Ponte:</strong> Conecta a mecânica Newtoniana (micro) com a termodinâmica (macro).</li>
+<li><strong>Universalidade:</strong> Explica a seta do tempo via probabilidade: sistemas evoluem para estados de maior \(\Omega\).</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Bottom Interaction/Didactic Region -->
+<div class="bottom-interaction-wrapper">
+<div class="theory-provocation-card">
+<span class="accent-label-small" style="color: #E07820;">Provocação Teórica</span>
+<p class="theory-text-content">
+                    Se a entropia de Clausius requer temperatura para ser definida, como Boltzmann pôde defini-la sem menção explícita à temperatura em sua fórmula fundamental? Como o conceito de temperatura emerge da contagem de estados \(\Omega\)?
+                </p>
+</div>
+<div class="analogy-didactic-card">
+<span class="accent-label-small" style="color: #1A3C5C;">Analogia Didática</span>
+<p class="theory-text-content">
+                    Pense em um dado de 6 faces. O "macroestado" é o fato de você ter um dado em mãos. O "microestado" é a face voltada para cima. Se o dado é justo, existem \(\Omega = 6\) possibilidades. A entropia deste sistema seria \(S = k_B \ln 6\).
+                </p>
+</div>
+</div>
+</div>
+</body>
+</html>

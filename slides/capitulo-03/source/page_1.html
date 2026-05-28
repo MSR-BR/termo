@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Capítulo 4: Termodinâmica Estatística</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><style>* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box
+    }
+body {width: 1280px; height: 720px; overflow: hidden; background: #cbd5e1;
+    display: block}
+.cover-slide-root {
+    width: 1280px;
+    height: 720px;
+    background-color: #F8F9FA;
+    display: flex;
+    flex-direction: row
+    }
+/* LEFT PANEL — image column */
+.cover-left-image-panel {
+    width: 45%;
+    height: 720px;
+    flex-shrink: 0;
+    position: relative
+    }
+.cover-left-image-panel img {
+    width: 100%;
+    height: 720px;
+    object-fit: cover;
+    display: block
+    }
+/* Gradient overlay fading image into right panel */
+.cover-left-image-gradient-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 180px;
+    height: 720px;
+    background: linear-gradient(to right, transparent, #F8F9FA)
+    }
+/* Dark tint overlay on image for depth */
+.cover-left-image-tint-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 720px;
+    background: linear-gradient(to right, rgba(15, 23, 42, 0.38) 0%, rgba(15, 23, 42, 0.1) 80%, transparent 100%)
+    }
+/* RIGHT PANEL — text content */
+.cover-right-content-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 56px;
+    padding-bottom: 48px;
+    padding-left: 52px;
+    padding-right: 56px
+    }
+/* Section label row */
+.cover-section-label-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px
+    }
+.cover-section-label-accent-bar {
+    width: 32px;
+    height: 3px;
+    background-color: #E07820;
+    border-radius: 2px;
+    flex-shrink: 0
+    }
+.cover-section-label-text {
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: #E07820;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    line-height: 1.2
+    }
+/* Chapter badge */
+.cover-chapter-badge-wrapper {
+    margin-bottom: 14px
+    }
+.cover-chapter-badge-pill {
+    display: inline-block;
+    background-color: rgba(224, 120, 32, 0.1);
+    border: 1.5px solid rgba(224, 120, 32, 0.35);
+    border-radius: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 16px;
+    padding-right: 16px
+    }
+.cover-chapter-badge-pill span {
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: #E07820;
+    letter-spacing: 1px
+    }
+/* Main title */
+.cover-main-title-block {
+    margin-bottom: 18px
+    }
+.cover-main-title-heading {
+    font-family: "Lora", serif;
+    font-size: 56px;
+    font-weight: 800;
+    line-height: 1.1;
+    color: #1A3C5C
+    }
+.cover-main-title-heading em {
+    font-style: italic;
+    color: #E07820
+    }
+/* Subtitle */
+.cover-subtitle-block {
+    margin-bottom: 30px
+    }
+.cover-subtitle-text {
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: #475569
+    }
+/* Divider */
+.cover-horizontal-divider {
+    width: 100%;
+    height: 1px;
+    background-color: #E2E8F0;
+    margin-bottom: 26px
+    }
+/* Topics preview row */
+.cover-topics-preview-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 30px
+    }
+.cover-topic-tag-item {
+    display: inline-block;
+    background-color: rgba(26, 60, 92, 0.06);
+    border: 1px solid #E2E8F0;
+    border-radius: 6px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 10px;
+    padding-right: 10px
+    }
+.cover-topic-tag-item span {
+    font-family: "Inter", sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    color: #475569;
+    white-space: nowrap
+    }
+/* Author / metadata block */
+.cover-author-metadata-block {
+    display: flex;
+    flex-direction: column;
+    gap: 6px
+    }
+.cover-author-name-text {
+    font-family: "Lora", serif;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.5;
+    color: #1A3C5C
+    }
+.cover-author-affiliation-text {
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #64748B
+    }
+.cover-author-date-text {
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #94A3B8
+    }
+/* Equation accent block */
+.cover-equation-accent-block {
+    margin-bottom: 26px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-left: 5px solid #E07820;
+    background-color: rgba(26, 60, 92, 0.03);
+    border-radius: 0 8px 8px 0
+    }
+.cover-equation-accent-label {
+    font-family: "Inter", sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: #E07820;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-bottom: 6px;
+    line-height: 1.2
+    }
+.cover-equation-accent-formula {
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #1E293B;
+    line-height: 1.5
+    }
+html { overflow: hidden; }
+</style>
+<!-- MathJax for LaTeX rendering -->
+<script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        packages: {'[+]': ['ams']}
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea']
+      },
+      startup: {
+        typeset: true
+      }
+    };
+  </script>
+<script async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body>
+<div class="cover-slide-root" style="overflow: hidden;">
+<!-- LEFT: Scientific visualization image -->
+<div class="cover-left-image-panel">
+<img alt="Visualização científica de partículas quânticas luminosas" src="https://agents-download.skywork.ai/image/ppt/7464087147499397121/12046e38f57281e655b5a8b74c2195ba.png"/>
+<div class="cover-left-image-tint-overlay"></div>
+<div class="cover-left-image-gradient-overlay"></div>
+</div>
+<!-- RIGHT: Text content -->
+<div class="cover-right-content-panel">
+<!-- Section label -->
+<div class="cover-section-label-row">
+<div class="cover-section-label-accent-bar"></div>
+<span class="cover-section-label-text">Notas de Aula · UFF</span>
+</div>
+<!-- Chapter badge -->
+<div class="cover-chapter-badge-wrapper">
+<div class="cover-chapter-badge-pill">
+<span>Capítulo 4</span>
+</div>
+</div>
+<!-- Main title -->
+<div class="cover-main-title-block">
+<h1 class="cover-main-title-heading">
+          Termodinâmica<br/><em>Estatística</em>
+</h1>
+</div>
+<!-- Subtitle -->
+<div class="cover-subtitle-block">
+<p class="cover-subtitle-text">
+          Do microcosmo ao macrocosmo: entropia, funções de partição<br/>
+          e potenciais termodinâmicos a partir de primeiros princípios.
+        </p>
+</div>
+<!-- Equation accent card -->
+<div class="cover-equation-accent-block">
+<div class="cover-equation-accent-label">Relação Central</div>
+<div class="cover-equation-accent-formula">
+          \( S = k_B \ln \Omega \;\longrightarrow\; p_i = \dfrac{e^{-\beta\varepsilon_i}}{Z} \;\longrightarrow\; F = -k_B T \ln Z \)
+        </div>
+</div>
+<!-- Topics preview -->
+<div class="cover-topics-preview-row">
+<div class="cover-topic-tag-item"><span>Entropia de Boltzmann &amp; Gibbs</span></div>
+<div class="cover-topic-tag-item"><span>Ensemble Canônico</span></div>
+<div class="cover-topic-tag-item"><span>Gás Ideal Monoatômico</span></div>
+<div class="cover-topic-tag-item"><span>Paramagnetismo Quântico</span></div>
+<div class="cover-topic-tag-item"><span>Função de Brillouin</span></div>
+<div class="cover-topic-tag-item"><span>Sólido de Einstein</span></div>
+<div class="cover-topic-tag-item"><span>Terceira Lei da Termodinâmica</span></div>
+</div>
+<!-- Divider -->
+<div class="cover-horizontal-divider"></div>
+<!-- Author metadata -->
+<div class="cover-author-metadata-block">
+<span class="cover-author-name-text">Prof. Mario Reis</span>
+<span class="cover-author-affiliation-text">Universidade Federal Fluminense (UFF) · Departamento de Física</span>
+<span class="cover-author-date-text">2026 · Videoaula — Graduação em Física</span>
+</div>
+</div>
+</div>
+</body>
+</html>

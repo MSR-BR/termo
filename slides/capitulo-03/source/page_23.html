@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Termodinâmica Estatística - Dulong-Petit</title>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/bundle/touch.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Lora:ital,wght@0,400;0,700;0,800;1,400&amp;display=swap" rel="stylesheet"/>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><style>:root {
+    --background: #F8F9FA;
+    --title-text: #1A3C5C;
+    --body-text: #1E293B;
+    --secondary-text: #475569;
+    --muted-text: #64748B;
+    --accent: #E07820;
+    --secondary-accent: #0F172A;
+    --border: #E2E8F0
+    }
+* {
+    box-sizing: border-box;
+    margin: 0 0;
+    padding: 0 0
+    }
+body {width: 1280px; height: 720px; overflow: hidden; background-color: #CCC;
+    font-family: "Inter", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center}
+.slide-main-canvas {
+    width: 1280px;
+    height: 720px;
+    background-color: var(--background);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 0 0
+    }
+.title-region-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 30px 60px 20px 60px;
+    margin-bottom: 4px;
+    border-left: 8px solid var(--accent);
+    background-color: rgba(26, 60, 92, 0.04)
+    }
+.title-section-label {
+    color: var(--accent);
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 8px
+    }
+.title-main-heading {
+    color: var(--title-text);
+    font-family: "Lora", serif;
+    font-size: 36px;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1.2
+    }
+.content-layout-container {
+    display: flex;
+    flex-direction: row;
+    gap: 11px 30px;
+    padding: 0 60px 15px 60px;
+    flex: 1;
+    align-items: stretch
+    }
+.left-column-derivation {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 8px 20px;
+    justify-content: center
+    }
+.right-column-results {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 8px 20px;
+    justify-content: center
+    }
+.academic-card-module {
+    background: white;
+    border-radius: 4px;
+    padding: 9px 24px;
+    border-left: 4px solid var(--title-text);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    flex: 1
+    }
+.accent-card-module {
+    background: white;
+    border-radius: 4px;
+    padding: 9px 24px;
+    border-left: 4px solid var(--accent);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    flex: 1
+    }
+.card-heading-text {
+    font-family: "Lora", serif;
+    font-size: 21px;
+    font-weight: 700;
+    color: var(--title-text);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 5px 12px
+    }
+.card-heading-text i {
+    color: var(--accent);
+    font-size: 17px
+    }
+.body-paragraph-text {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--body-text);
+    margin-bottom: 6px;
+    text-align: justify
+    }
+.equation-display-block {
+    background: rgba(26, 60, 92, 0.02);
+    padding: 6px 15px;
+    border-radius: 4px;
+    margin: 4px 0;
+    border: 1px dashed var(--border);
+    text-align: center
+    }
+.highlight-box-result {
+    background-color: rgba(224, 120, 32, 0.08);
+    border: 1px solid var(--accent);
+    padding: 6px 15px;
+    border-radius: 4px;
+    margin-top: auto
+    }
+.failure-analysis-footer {
+    background: var(--secondary-accent);
+    color: white;
+    padding: 8px 40px;
+    margin: 0 60px 11px 60px;
+    border-radius: 8px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px 20px
+    }
+.failure-icon-wrapper {
+    color: var(--accent);
+    font-size: 28px;
+    padding-top: 2px
+    }
+.failure-text-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px 5px
+    }
+.failure-title {
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--accent)
+    }
+.failure-description {
+    font-size: 15px;
+    line-height: 1.5;
+    color: #E2E8F0
+    }
+.theory-provocation-note {
+    font-size: 13px;
+    font-style: italic;
+    color: var(--muted-text);
+    margin-top: 4px;
+    border-top: 1px solid var(--border);
+    padding-top: 4px
+    }
+html { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="slide-main-canvas" style="overflow: hidden;">
+<!-- Título da Seção e do Slide -->
+<div class="title-region-wrapper">
+<span class="title-section-label">Exemplo IV: Capacidade Calorífica em Sólidos</span>
+<h1 class="title-main-heading">O Modelo Clássico de Dulong-Petit (1819)</h1>
+</div>
+<!-- Conteúdo Principal em Duas Colunas -->
+<div class="content-layout-container">
+<!-- Coluna Esquerda: Fundamentação e Oscilador 1D -->
+<div class="left-column-derivation">
+<div class="academic-card-module">
+<div class="card-heading-text">
+<i class="fas fa-microscope"></i> Fundamentação Microscópica
+          </div>
+<p class="body-paragraph-text">
+            Historicamente, Dulong e Petit observaram que o calor específico molar de sólidos cristalinos era aproximadamente \(3R\). No limite clássico, modelamos os átomos como osciladores harmônicos 1D independentes em torno de suas posições de rede:
+          </p>
+<div class="equation-display-block">
+            \[ E(p,x) = \frac{p^2}{2m} + \frac{1}{2}kx^2 \]
+          </div>
+<p class="body-paragraph-text">
+            A função de partição para um único oscilador unidimensional no espaço de fase clássico é calculada via integração direta:
+          </p>
+<div class="equation-display-block">
+            \[ Z_{1D}(1) = \frac{1}{h} \iint e^{-\beta E(p,x)} dp dx = \frac{k_B T}{\hbar \omega} \]
+          </div>
+<p class="theory-provocation-note">
+            Como o teorema da equipartição se manifesta aqui? Cada termo quadrático na energia contribui com \(\frac{1}{2}k_B T\).
+          </p>
+</div>
+</div>
+<!-- Coluna Direita: Generalização 3D e Lei Final -->
+<div class="right-column-results">
+<div class="accent-card-module">
+<div class="card-heading-text">
+<i class="fas fa-cube"></i> Generalização para o Sólido 3D
+          </div>
+<p class="body-paragraph-text">
+            Um sólido com \(N\) átomos possui \(3N\) graus de liberdade vibracionais independentes. Considerando os osciladores como distinguíveis (devido às suas posições fixas na rede), a função de partição total e a energia interna \(U\) são:
+          </p>
+<div class="equation-display-block">
+            \[ Z(N) = [Z_{1D}]^{3N} = \left( \frac{k_B T}{\hbar \omega} \right)^{3N} \]
+          </div>
+<div class="equation-display-block">
+            \[ U = -\frac{\partial \ln Z}{\partial \beta} = 3N k_B T \]
+          </div>
+<div class="highlight-box-result">
+<p style="font-weight: 700;color: var(--title-text);margin-bottom: 2px;">Lei de Dulong-Petit:</p>
+<p style="font-size: 20px;font-weight: 800;color: var(--accent);text-align: center;">
+              \[ C_V = \left( \frac{\partial U}{\partial T} \right)_V = 3N k_B = 3R \approx 24.9 \text{ J/mol·K} \]
+            </p>
+</div>
+<p class="theory-provocation-note" style="margin-top: 6px;">
+            Dica de Exercício: Mostre que para o oscilador clássico \(\langle p^2/2m \rangle = \langle kx^2/2 \rangle = \frac{1}{2}k_B T\).
+          </p>
+</div>
+</div>
+</div>
+<!-- Rodapé: Análise de Falha -->
+<div class="failure-analysis-footer">
+<div class="failure-icon-wrapper">
+<i class="fa-solid fa-triangle-exclamation"></i>
+</div>
+<div class="failure-text-content">
+<span class="failure-title">A Crise das Baixas Temperaturas</span>
+<p class="failure-description">
+          O modelo clássico é um sucesso notável para altas temperaturas, mas falha catastroficamente quando \(T \to 0\). Experimentalmente, o calor específico deve tender a zero (Terceira Lei), enquanto Dulong-Petit prevê um valor constante. Esta discrepância foi um dos primeiros indícios de que a natureza contínua da energia clássica era insuficiente para descrever a matéria em escalas microscópicas.
+        </p>
+</div>
+</div>
+</div>
+</body>
+</html>

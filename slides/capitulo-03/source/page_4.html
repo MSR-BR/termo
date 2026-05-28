@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Termodinâmica Estatística - Ensemble Overview</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Lora:ital,wght@0,400;0,700;0,800;1,400&amp;display=swap" rel="stylesheet"/>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><style>body {width: 1280px; height: 720px; overflow: hidden; background-color: #F8F9FA;
+    display: flex;
+    justify-content: center;
+    align-items: center}
+.slide-root-container {
+    width: 1280px;
+    height: 720px;
+    background-color: #F8F9FA;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    position: relative
+    }
+.title-region-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 40px;
+    margin-bottom: 10px;
+    border-left: 6px solid #E07820;
+    background-color: rgba(26, 60, 92, 0.03);
+    box-sizing: border-box
+    }
+.section-label-text {
+    color: #E07820;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 4px
+    }
+.page-title-heading {
+    color: #1A3C5C;
+    font-family: "Lora", serif;
+    font-size: 32px;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1.2
+    }
+.main-content-layout {
+    padding: 0 40px 26px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px 24px;
+    box-sizing: border-box;
+    flex: 1
+    }
+.narrative-intro-block {
+    color: #1E293B;
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0 0
+    }
+.ensemble-comparison-grid {
+    display: flex;
+    gap: 13px 20px;
+    width: 100%
+    }
+.ensemble-card-item {
+    flex: 1;
+    background-color: #FFF;
+    border: 1px solid #E2E8F0;
+    border-left: 4px solid #1A3C5C;
+    padding: 13px 20px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 8px 12px;
+    box-sizing: border-box
+    }
+.ensemble-card-item.accent-border {
+    border-left-color: #E07820
+    }
+.card-header-group {
+    display: flex;
+    align-items: center;
+    gap: 8px 12px
+    }
+.card-icon-wrapper {
+    width: 32px;
+    height: 32px;
+    background-color: rgba(26, 60, 92, 0.1);
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #1A3C5C
+    }
+.ensemble-card-item.accent-border .card-icon-wrapper {
+    background-color: rgba(224, 120, 32, 0.1);
+    color: #E07820
+    }
+.card-title-text {
+    font-family: "Lora", serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #1A3C5C;
+    margin: 0 0
+    }
+.card-content-list {
+    list-style: none;
+    padding: 0 0;
+    margin: 0 0;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    color: #475569
+    }
+.card-list-item {
+    margin-bottom: 5px;
+    line-height: 1.4
+    }
+.card-list-item strong {
+    color: #1E293B
+    }
+.math-constraint-box {
+    background-color: #F1F5F9;
+    padding: 5px 12px;
+    border-radius: 4px;
+    font-size: 13px;
+    color: #1A3C5C;
+    text-align: center
+    }
+.table-data-wrapper {
+    width: 100%;
+    flex: 1
+    }
+.ensemble-summary-table {
+    width: 100%;
+    height: 100%;
+    border-collapse: collapse;
+    font-family: "Inter", sans-serif;
+    font-size: 14px
+    }
+.ensemble-summary-table th {
+    background-color: rgba(26, 60, 92, 0.05);
+    color: #1A3C5C;
+    font-weight: 700;
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 2px solid #E2E8F0
+    }
+.ensemble-summary-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #E2E8F0;
+    color: #1E293B;
+    vertical-align: middle
+    }
+.theoretical-provocation-block {
+    background-color: rgba(224, 120, 32, 0.05);
+    border: 1px dashed #E07820;
+    padding: 10px 24px;
+    border-radius: 8px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px 16px;
+    box-sizing: border-box
+    }
+.provocation-icon {
+    color: #E07820;
+    font-size: 24px;
+    margin-top: 2px
+    }
+.provocation-content-text {
+    flex: 1
+    }
+.provocation-title {
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #E07820;
+    margin: 0 0 2px 0
+    }
+.provocation-body {
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #1E293B;
+    margin: 0 0
+    }
+html { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="slide-root-container" style="overflow: hidden;">
+<!-- Header Section -->
+<div class="title-region-wrapper">
+<span class="section-label-text">4.1 Entropia e Fundamentos</span>
+<h1 class="page-title-heading">Visão Geral dos Ensembles Estatísticos</h1>
+</div>
+<!-- Main Content Area -->
+<div class="main-content-layout">
+<!-- Narrative Introduction -->
+<p class="narrative-intro-block">
+                Na mecânica estatística, um <strong>ensemble</strong> (ou coletividade) é uma construção mental composta por um grande número de cópias virtuais de um sistema sob as mesmas condições macroscópicas. A escolha do ensemble depende de como o sistema interage com o ambiente, o que define os vínculos aplicados à entropia de Gibbs e determina a distribuição de probabilidade \(p_i\) dos microestados.
+            </p>
+<!-- Ensemble Comparison Cards -->
+<div class="ensemble-comparison-grid">
+<!-- Micro-Canonical -->
+<div class="ensemble-card-item">
+<div class="card-header-group">
+<div class="card-icon-wrapper"><i class="fas fa-cube"></i></div>
+<h3 class="card-title-text">Micro-Canônico</h3>
+</div>
+<ul class="card-content-list">
+<li class="card-list-item"><strong>Troca:</strong> Nenhuma (Isolado)</li>
+<li class="card-list-item"><strong>Vínculos:</strong> \(N, V, E\) constantes</li>
+<li class="card-list-item"><strong>Potencial:</strong> Entropia \(S\)</li>
+</ul>
+<div class="math-constraint-box">
+                        Vínculo: \(\sum p_i = 1\)
+                    </div>
+</div>
+<!-- Canonical -->
+<div class="ensemble-card-item accent-border">
+<div class="card-header-group">
+<div class="card-icon-wrapper"><i class="fa-solid fa-thermometer"></i></div>
+<h3 class="card-title-text">Canônico</h3>
+</div>
+<ul class="card-content-list">
+<li class="card-list-item"><strong>Troca:</strong> Energia (Fechado)</li>
+<li class="card-list-item"><strong>Vínculos:</strong> \(N, V, T\) constantes</li>
+<li class="card-list-item"><strong>Potencial:</strong> Energia Livre \(F\)</li>
+</ul>
+<div class="math-constraint-box">
+                        \(\sum p_i = 1\) &amp; \(\sum p_i \varepsilon_i = U\)
+                    </div>
+</div>
+<!-- Grand-Canonical -->
+<div class="ensemble-card-item">
+<div class="card-header-group">
+<div class="card-icon-wrapper"><i class="fas fa-door-open"></i></div>
+<h3 class="card-title-text">Grand-Canônico</h3>
+</div>
+<ul class="card-content-list">
+<li class="card-list-item"><strong>Troca:</strong> Energia + Partículas</li>
+<li class="card-list-item"><strong>Vínculos:</strong> \(\mu, V, T\) constantes</li>
+<li class="card-list-item"><strong>Potencial:</strong> Grande Potencial \(\Phi\)</li>
+</ul>
+<div class="math-constraint-box">
+                        Vínculos em \(U\) e \(N\) médio
+                    </div>
+</div>
+</div>
+<!-- Detailed Comparison Table -->
+<div class="table-data-wrapper">
+<table class="ensemble-summary-table">
+<thead>
+<tr>
+<th>Ensemble</th>
+<th>Interação com Reservatório</th>
+<th>Distribuição de Probabilidade \(p_i\)</th>
+<th>Função de Partição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Micro-Canônico</strong></td>
+<td>Nenhuma (Isolamento Térmico e Mecânico)</td>
+<td>\(p_i = 1/\Omega\)</td>
+<td>\(\Omega(N, V, E)\)</td>
+</tr>
+<tr>
+<td><strong>Canônico</strong></td>
+<td>Térmica (Reservatório de Temperatura \(T\))</td>
+<td>\(p_i = e^{-\beta\varepsilon_i}/Z\)</td>
+<td>\(Z = \sum_i e^{-\beta\varepsilon_i}\)</td>
+</tr>
+<tr>
+<td><strong>Grand-Canônico</strong></td>
+<td>Térmica e Química (Reservatório de \(T\) e \(\mu\))</td>
+<td>\(p_i = e^{-\beta(\varepsilon_i - \mu N_i)}/\Xi\)</td>
+<td>\(\Xi = \sum_{N,i} e^{-\beta(\varepsilon_i - \mu N)}\)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Theoretical Provocation -->
+<div class="theoretical-provocation-block">
+<div class="provocation-icon"><i class="fas fa-lightbulb"></i></div>
+<div class="provocation-content-text">
+<p class="provocation-title">Provocação Teórica</p>
+<p class="provocation-body">
+                        Se todos os ensembles descrevem o mesmo sistema no limite termodinâmico (\(N \to \infty\)), por que utilizamos diferentes formulações? 
+                        <strong>Dica:</strong> Pense na facilidade matemática de tratar somas sobre energias em vez de restrições rígidas de energia fixa.
+                    </p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

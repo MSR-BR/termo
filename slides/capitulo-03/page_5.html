@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ensemble Micro-Canônico e Fórmula de Boltzmann</title>
+
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/>
+
+<script>
+window.va = window.va || function () {
+  (window.vaq = window.vaq || []).push(arguments);
+};
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)'], ['$', '$']], displayMath: [['\\[','\\]']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<link href="../../assets/chapter-embedded-slide.css" rel="stylesheet"/>
+<link href="../../assets/ai-exercises.css" rel="stylesheet"/>
+<script defer src="../../assets/ai-exercises.js"></script>
+</head>
+<body>
+<div class="page">
+  <section class="hero">
+    <div class="hero-inner">
+      <a href="../../index.html?chapter=03" class="index-back-button">
+        <i class="fa-solid fa-arrow-left"></i>
+        Índice
+      </a>
+      <div class="chapter-label">
+        <i class="fa-solid fa-layer-group"></i>
+        Capítulo 3 · Item 3.2
+      </div>
+      <h1 class="chapter-title">Ensemble Micro-Canônico e Fórmula de Boltzmann</h1>
+      <div class="chapter-text">
+        <p>Sistema isolado, postulado da equiprobabilidade e derivação da relação de Boltzmann.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="content-root">
+    
+  <section class="source-fragment">
+    <style>.source-embed.page-5 *{
+    box-sizing: border-box;
+    margin: 0 0;
+    padding: 0 0
+    }.source-embed.page-5{width: 100%; height: auto; overflow: visible; background: #d0d0d0;
+    display: block;
+    font-family: "Inter", sans-serif}.source-embed.page-5 .slide-root{
+    width: 100%;
+    height: auto;
+    background-color: #F8F9FA;
+    display: flex;
+    flex-direction: column
+    }.source-embed.page-5 .title-region{
+    display: flex;
+    flex-direction: column;
+    padding: 18px 40px 14px 40px;
+    border-left: 6px solid #E07820;
+    background-color: rgba(26, 60, 92, 0.03);
+    flex-shrink: 0
+    }.source-embed.page-5 .title-section-label{
+    color: #E07820;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 4px
+    }.source-embed.page-5 .title-main-heading{
+    color: #1A3C5C;
+    font-family: "Lora", serif;
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin: 0
+    }.source-embed.page-5 .microcanonical-content-area{
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    gap: 16px 20px;
+    padding: 11px 40px 13px 40px
+    }.source-embed.page-5 .microcanonical-left-column{
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 10px 12px
+    }.source-embed.page-5 .microcanonical-left-motivation-card{
+    background-color: #fff;
+    border-left: 4px solid #1A3C5C;
+    border-radius: 4px;
+    padding: 10px 16px;
+    flex: 1 1 0
+    }.source-embed.page-5 .microcanonical-left-motivation-card-heading{
+    color: #1A3C5C;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 6px 7px
+    }.source-embed.page-5 .microcanonical-left-motivation-card-heading i{
+    color: #1A3C5C;
+    font-size: 13px
+    }.source-embed.page-5 .microcanonical-left-motivation-card-body{
+    color: #1E293B;
+    font-family: "Inter", sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.6
+    }.source-embed.page-5 .microcanonical-left-derivation-card{
+    background-color: #fff;
+    border-left: 4px solid #E07820;
+    border-radius: 4px;
+    padding: 10px 16px;
+    flex: 2 1 0
+    }.source-embed.page-5 .microcanonical-left-derivation-card-heading{
+    color: #E07820;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px 7px
+    }.source-embed.page-5 .microcanonical-left-derivation-card-heading i{
+    color: #E07820;
+    font-size: 13px
+    }.source-embed.page-5 .microcanonical-left-derivation-step-list{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px 6px
+    }.source-embed.page-5 .microcanonical-left-derivation-step-item{
+    color: #1E293B;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.55;
+    padding-left: 14px;
+    border-left: 2px solid #E2E8F0
+    }.source-embed.page-5 .microcanonical-left-derivation-step-label{
+    color: #E07820;
+    font-weight: 700;
+    margin-right: 4px
+    }.source-embed.page-5 .microcanonical-left-result-box{
+    background-color: rgba(26, 60, 92, 0.05);
+    border: 1.5px solid #1A3C5C;
+    border-radius: 6px;
+    padding: 8px 16px;
+    margin-top: 8px;
+    text-align: center
+    }.source-embed.page-5 .microcanonical-left-result-box-label{
+    color: #1A3C5C;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 3px
+    }.source-embed.page-5 .microcanonical-right-column{
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 10px 12px
+    }.source-embed.page-5 .microcanonical-right-analogy-card{
+    background-color: #fff;
+    border-left: 4px solid #E07820;
+    border-radius: 4px;
+    padding: 10px 16px;
+    flex: 1 1 0
+    }.source-embed.page-5 .microcanonical-right-analogy-card-heading{
+    color: #E07820;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px 7px
+    }.source-embed.page-5 .microcanonical-right-analogy-card-heading i{
+    color: #E07820;
+    font-size: 13px
+    }.source-embed.page-5 .microcanonical-right-dice-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px 6px;
+    margin-bottom: 6px
+    }.source-embed.page-5 .microcanonical-right-dice-face{
+    background-color: #F8F9FA;
+    border: 1.5px solid #E2E8F0;
+    border-radius: 6px;
+    padding: 6px 4px;
+    text-align: center
+    }.source-embed.page-5 .microcanonical-right-dice-face-number{
+    color: #1A3C5C;
+    font-family: "Lora", serif;
+    font-size: 18px;
+    font-weight: 700;
+    display: block
+    }.source-embed.page-5 .microcanonical-right-dice-face-prob{
+    color: #E07820;
+    font-family: "Inter", sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    display: block;
+    margin-top: 2px
+    }.source-embed.page-5 .microcanonical-right-analogy-text{
+    color: #475569;
+    font-family: "Inter", sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.55
+    }.source-embed.page-5 .microcanonical-right-interpretation-card{
+    background-color: #fff;
+    border-left: 4px solid #1A3C5C;
+    border-radius: 4px;
+    padding: 10px 16px;
+    flex: 1 1 0
+    }.source-embed.page-5 .microcanonical-right-interpretation-card-heading{
+    color: #1A3C5C;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px 7px
+    }.source-embed.page-5 .microcanonical-right-interpretation-card-heading i{
+    color: #1A3C5C;
+    font-size: 13px
+    }.source-embed.page-5 .microcanonical-right-interpretation-list{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px 7px
+    }.source-embed.page-5 .microcanonical-right-interpretation-list-item{
+    color: #1E293B;
+    font-family: "Inter", sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.55;
+    padding-left: 14px;
+    border-left: 2px solid #E2E8F0
+    }.source-embed.page-5 .microcanonical-right-interpretation-list-item strong{
+    color: #1A3C5C;
+    font-weight: 600
+    }.source-embed.page-5 .microcanonical-right-exercise-card{
+    background-color: rgba(224, 120, 32, 0.06);
+    border: 1.5px solid #E07820;
+    border-radius: 6px;
+    padding: 8px 14px;
+    flex: 0 0 auto
+    }.source-embed.page-5 .microcanonical-right-exercise-card-heading{
+    color: #E07820;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 5px 6px
+    }.source-embed.page-5 .microcanonical-right-exercise-card-heading i{
+    font-size: 12px
+    }.source-embed.page-5 .microcanonical-right-exercise-card-text{
+    color: #1E293B;
+    font-family: "Inter", sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.55
+    }.source-embed.page-5 .microcanonical-right-exercise-card-hint{
+    color: #475569;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5;
+    margin-top: 4px;
+    font-style: italic
+    }.source-embed.page-5 .katex-display{
+    margin: 5px 0 !important;
+    overflow: visible !important
+    }.source-embed.page-5{ overflow: visible; }
+
+
+.source-embed.page-5{
+  display:block !important;
+  width:100% !important;
+  max-width:100% !important;
+  margin:0 !important;
+  padding:0 !important;
+  background:transparent !important;
+  overflow:visible !important;
+}
+.source-embed.page-5 > div{
+  width:100% !important;
+  max-width:100% !important;
+  height:auto !important;
+  min-height:0 !important;
+  margin:0 !important;
+  overflow:visible !important;
+}
+.source-embed.page-5 [class*="title-region"],
+.source-embed.page-5 [class*="title-section"],
+.source-embed.page-5 [class*="title-header"]{
+  display:none !important;
+}
+.source-embed.page-5 img,
+.source-embed.page-5 svg,
+.source-embed.page-5 canvas,
+.source-embed.page-5 video{
+  max-width:100% !important;
+  height:auto !important;
+}
+.source-embed.page-5 mjx-container,
+.source-embed.page-5 .MathJax,
+.source-embed.page-5 .mjx-chtml{
+  max-width:100% !important;
+  overflow-x:auto !important;
+  overflow-y:hidden !important;
+}
+@media (max-width:980px){
+  .source-embed.page-5 [class*="columns-wrapper"],
+  .source-embed.page-5 [class*="content-layout"],
+  .source-embed.page-5 [class*="content-area"],
+  .source-embed.page-5 [class*="layout-row"],
+  .source-embed.page-5 [class*="main-content"],
+  .source-embed.page-5 [class*="interaction-wrapper"]{
+    display:flex !important;
+    flex-direction:column !important;
+    gap:16px !important;
+  }
+  .source-embed.page-5 [class*="left-"],
+  .source-embed.page-5 [class*="right-"],
+  .source-embed.page-5 [class*="-column"]{
+    width:100% !important;
+    max-width:100% !important;
+    flex:1 1 auto !important;
+  }
+  .source-embed.page-5 [class*="grid"]{
+    grid-template-columns:1fr !important;
+  }
+}
+@media (max-width:700px){
+  .source-embed.page-5 [class*="columns-wrapper"],
+  .source-embed.page-5 [class*="content-layout"],
+  .source-embed.page-5 [class*="content-area"],
+  .source-embed.page-5 [class*="layout-row"],
+  .source-embed.page-5 [class*="main-content"],
+  .source-embed.page-5 [class*="interaction-wrapper"]{
+    padding-left:16px !important;
+    padding-right:16px !important;
+  }
+  .source-embed.page-5 [class*="title-main-heading"]{
+    font-size:clamp(1.7rem, 6vw, 2.25rem) !important;
+    line-height:1.12 !important;
+  }
+}
+</style>
+    <div class="source-embed page-5">
+      <div class="slide-root">
+
+
+
+<div class="microcanonical-content-area">
+
+<div class="microcanonical-left-column">
+
+<div class="microcanonical-left-motivation-card">
+<div class="microcanonical-left-motivation-card-heading">
+<i class="fa-solid fa-circle-info"></i>
+            Definição e Contexto
+          </div>
+<div class="microcanonical-left-motivation-card-body">
+            O ensemble micro-canônico descreve um <strong>sistema completamente isolado</strong>: energia total \(E\), volume \(V\) e número de partículas \(N\) são todos fixos. Não há troca de calor nem de matéria com o exterior. O único vínculo matemático disponível para a maximização da entropia de Gibbs é a <em>condição de normalização</em> das probabilidades. A pergunta central é: qual a distribuição \(\{p_i\}\) que maximiza \(S\) com esse único vínculo?
+          </div>
+</div>
+
+<div class="microcanonical-left-derivation-card">
+<div class="microcanonical-left-derivation-card-heading">
+<i class="fa-solid fa-square-root-variable"></i>
+            Derivação via Multiplicadores de Lagrange
+          </div>
+<ul class="microcanonical-left-derivation-step-list">
+<li class="microcanonical-left-derivation-step-item">
+<span class="microcanonical-left-derivation-step-label">Passo 1 — Vínculo:</span>
+              Normalização das probabilidades: \(\displaystyle\sum_i p_i = 1\)
+            </li>
+<li class="microcanonical-left-derivation-step-item">
+<span class="microcanonical-left-derivation-step-label">Passo 2 — Funcional a maximizar:</span>
+              Introduz-se o multiplicador \(\lambda\) para incorporar o vínculo:
+              \[\mathcal{L} = -k_B\sum_i p_i \ln p_i + \lambda\!\left(1 - \sum_i p_i\right)\]
+            </li>
+<li class="microcanonical-left-derivation-step-item">
+<span class="microcanonical-left-derivation-step-label">Passo 3 — Condição de estacionaridade:</span>
+              Aplicando \(\partial\mathcal{L}/\partial p_i = 0\) para cada \(i\):
+              \[-k_B(\ln p_i + 1) - \lambda = 0 \;\Longrightarrow\; p_i = e^{-(1+\lambda/k_B)} = \mathcal{C}\]
+              Todas as probabilidades são iguais a uma constante \(\mathcal{C}\)!
+            </li>
+<li class="microcanonical-left-derivation-step-item">
+<span class="microcanonical-left-derivation-step-label">Passo 4 — Normalização:</span>
+              Somando sobre os \(\Omega\) estados acessíveis: \(\displaystyle\sum_{i=1}^{\Omega} \mathcal{C} = 1 \Rightarrow \mathcal{C} = \frac{1}{\Omega}\)
+            </li>
+</ul>
+<div class="microcanonical-left-result-box">
+<div class="microcanonical-left-result-box-label">Resultado: Postulado da Equiprobabilidade</div>
+            \[\boxed{p_i = \frac{1}{\Omega}}\]
+          </div>
+</div>
+</div>
+
+<div class="microcanonical-right-column">
+
+<div class="microcanonical-right-analogy-card">
+<div class="microcanonical-right-analogy-card-heading">
+<i class="fa-solid fa-dice"></i>
+            Analogia: Dado Justo
+          </div>
+<div class="microcanonical-right-dice-grid">
+<div class="microcanonical-right-dice-face">
+<span class="microcanonical-right-dice-face-number">1</span>
+<span class="microcanonical-right-dice-face-prob">\(p = \tfrac{1}{6}\)</span>
+</div>
+<div class="microcanonical-right-dice-face">
+<span class="microcanonical-right-dice-face-number">2</span>
+<span class="microcanonical-right-dice-face-prob">\(p = \tfrac{1}{6}\)</span>
+</div>
+<div class="microcanonical-right-dice-face">
+<span class="microcanonical-right-dice-face-number">3</span>
+<span class="microcanonical-right-dice-face-prob">\(p = \tfrac{1}{6}\)</span>
+</div>
+<div class="microcanonical-right-dice-face">
+<span class="microcanonical-right-dice-face-number">4</span>
+<span class="microcanonical-right-dice-face-prob">\(p = \tfrac{1}{6}\)</span>
+</div>
+<div class="microcanonical-right-dice-face">
+<span class="microcanonical-right-dice-face-number">5</span>
+<span class="microcanonical-right-dice-face-prob">\(p = \tfrac{1}{6}\)</span>
+</div>
+<div class="microcanonical-right-dice-face">
+<span class="microcanonical-right-dice-face-number">6</span>
+<span class="microcanonical-right-dice-face-prob">\(p = \tfrac{1}{6}\)</span>
+</div>
+</div>
+<div class="microcanonical-right-analogy-text">
+            Um dado justo com \(\Omega = 6\) faces é o análogo perfeito: sem informação extra, a única distribuição que maximiza a incerteza (entropia) atribui probabilidade \(1/6\) a cada face — exatamente o que a derivação formal nos diz.
+          </div>
+</div>
+
+<div class="microcanonical-right-interpretation-card">
+<div class="microcanonical-right-interpretation-card-heading">
+<i class="fa-solid fa-lightbulb"></i>
+            Interpretação Física
+          </div>
+<ul class="microcanonical-right-interpretation-list">
+<li class="microcanonical-right-interpretation-list-item">
+<strong>Distribuição uniforme:</strong> todos os \(\Omega\) microestados com energia \(E\) são igualmente acessíveis ao sistema em equilíbrio.
+            </li>
+<li class="microcanonical-right-interpretation-list-item">
+<strong>Máxima ignorância:</strong> sem vínculos adicionais, a entropia é máxima quando não privilegiamos nenhum estado — princípio de Jaynes.
+            </li>
+<li class="microcanonical-right-interpretation-list-item">
+<strong>Conexão com Boltzmann:</strong> substituindo \(p_i = 1/\Omega\) em \(S = -k_B\sum p_i \ln p_i\) recupera-se \(S = k_B \ln \Omega\).
+            </li>
+</ul>
+</div>
+
+<div class="microcanonical-right-exercise-card">
+<div class="microcanonical-right-exercise-card-heading">
+<i class="fa-solid fa-pen-to-square"></i>
+            Exercício Integrado — Ex. 4.14
+          </div>
+<div class="microcanonical-right-exercise-card-text">
+            Sistema de 2 partículas <em>distinguíveis</em> com 2 níveis (energias \(0\) e \(\varepsilon\)): liste todos os microestados, calcule \(\Omega\) e verifique que \(p_i = 1/\Omega\) maximiza \(S\).
+          </div>
+<div class="microcanonical-right-exercise-card-hint">
+<i class="fa-solid fa-circle-question"></i>
+            Dica: há 4 configurações possíveis — \((0,0)\), \((0,\varepsilon)\), \((\varepsilon,0)\), \((\varepsilon,\varepsilon)\). Para energia total \(E = \varepsilon\), apenas 2 são acessíveis; logo \(\Omega = 2\) e \(p_i = 1/2\).
+          </div>
+</div>
+</div>
+</div>
+</div>
+    </div>
+  </section>
+
+  <section class="source-fragment">
+    <style>.source-embed.page-6 *{
+    box-sizing: border-box;
+    margin: 0 0;
+    padding: 0 0
+    }.source-embed.page-6{width: 100%; height: auto; overflow: visible; background-color: #F8F9FA;
+    font-family: "Inter", sans-serif;
+    color: #1E293B}.source-embed.page-6 .stat-thermo-slide-root{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 0 0;
+    background-color: #F8F9FA
+    }.source-embed.page-6 .title-region-wrapper{
+    display: flex;
+    flex-direction: column;
+    padding: 24px 48px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    margin-left: 48px;
+    margin-right: 48px;
+    border-left: 6px solid #E07820;
+    background-color: rgba(26, 60, 92, 0.03)
+    }.source-embed.page-6 .title-section-label{
+    color: #E07820;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 4px
+    }.source-embed.page-6 .title-main-heading{
+    color: #1A3C5C;
+    font-family: "Lora", serif;
+    font-size: 32px;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1.2
+    }.source-embed.page-6 .main-content-flex-container{
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    padding: 0 48px 10px 48px;
+    gap: 7px 24px;
+    flex: 1
+    }.source-embed.page-6 .left-derivation-column{
+    display: flex;
+    flex-direction: column;
+    flex: 3;
+    gap: 5px 16px
+    }.source-embed.page-6 .right-insight-column{
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+    gap: 5px 16px
+    }.source-embed.page-6 .boltzmann-explanation-block{
+    font-size: 14px;
+    line-height: 1.6;
+    color: #475569;
+    margin-bottom: 2px
+    }.source-embed.page-6 .math-step-card-item{
+    background-color: #FFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 4px;
+    padding: 6px 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column
+    }.source-embed.page-6 .card-step-title{
+    font-family: "Lora", serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #1A3C5C;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px
+    }.source-embed.page-6 .card-step-title i{
+    color: #E07820;
+    font-size: 16px
+    }.source-embed.page-6 .math-derivation-text{
+    font-size: 13px;
+    line-height: 1.5;
+    color: #1E293B
+    }.source-embed.page-6 .theoretical-provocation-box{
+    background-color: #1A3C5C;
+    color: #FFF;
+    padding: 7px 24px;
+    border-radius: 4px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center
+    }.source-embed.page-6 .provocation-title{
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #E07820;
+    margin-bottom: 2px
+    }.source-embed.page-6 .provocation-content{
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.5;
+    font-style: italic
+    }.source-embed.page-6 .didactic-analogy-box{
+    border: 2px dashed #E07820;
+    padding: 6px 20px;
+    border-radius: 4px;
+    background-color: rgba(224, 120, 32, 0.05);
+    flex: 1;
+    display: flex;
+    flex-direction: column
+    }.source-embed.page-6 .analogy-header{
+    font-weight: 700;
+    color: #E07820;
+    font-size: 12px;
+    margin-bottom: 2px
+    }.source-embed.page-6 .analogy-body{
+    font-size: 13px;
+    color: #475569;
+    line-height: 1.4
+    }.source-embed.page-6 .latex-display-container{
+    margin: 4px 0;
+    text-align: center
+    }.source-embed.page-6{ overflow: visible; }
+
+
+.source-embed.page-6{
+  display:block !important;
+  width:100% !important;
+  max-width:100% !important;
+  margin:0 !important;
+  padding:0 !important;
+  background:transparent !important;
+  overflow:visible !important;
+}
+.source-embed.page-6 > div{
+  width:100% !important;
+  max-width:100% !important;
+  height:auto !important;
+  min-height:0 !important;
+  margin:0 !important;
+  overflow:visible !important;
+}
+.source-embed.page-6 [class*="title-region"],
+.source-embed.page-6 [class*="title-section"],
+.source-embed.page-6 [class*="title-header"]{
+  display:none !important;
+}
+.source-embed.page-6 img,
+.source-embed.page-6 svg,
+.source-embed.page-6 canvas,
+.source-embed.page-6 video{
+  max-width:100% !important;
+  height:auto !important;
+}
+.source-embed.page-6 mjx-container,
+.source-embed.page-6 .MathJax,
+.source-embed.page-6 .mjx-chtml{
+  max-width:100% !important;
+  overflow-x:auto !important;
+  overflow-y:hidden !important;
+}
+@media (max-width:980px){
+  .source-embed.page-6 [class*="columns-wrapper"],
+  .source-embed.page-6 [class*="content-layout"],
+  .source-embed.page-6 [class*="content-area"],
+  .source-embed.page-6 [class*="layout-row"],
+  .source-embed.page-6 [class*="main-content"],
+  .source-embed.page-6 [class*="interaction-wrapper"]{
+    display:flex !important;
+    flex-direction:column !important;
+    gap:16px !important;
+  }
+  .source-embed.page-6 [class*="left-"],
+  .source-embed.page-6 [class*="right-"],
+  .source-embed.page-6 [class*="-column"]{
+    width:100% !important;
+    max-width:100% !important;
+    flex:1 1 auto !important;
+  }
+  .source-embed.page-6 [class*="grid"]{
+    grid-template-columns:1fr !important;
+  }
+}
+@media (max-width:700px){
+  .source-embed.page-6 [class*="columns-wrapper"],
+  .source-embed.page-6 [class*="content-layout"],
+  .source-embed.page-6 [class*="content-area"],
+  .source-embed.page-6 [class*="layout-row"],
+  .source-embed.page-6 [class*="main-content"],
+  .source-embed.page-6 [class*="interaction-wrapper"]{
+    padding-left:16px !important;
+    padding-right:16px !important;
+  }
+  .source-embed.page-6 [class*="title-main-heading"]{
+    font-size:clamp(1.7rem, 6vw, 2.25rem) !important;
+    line-height:1.12 !important;
+  }
+}
+</style>
+    <div class="source-embed page-6">
+      <div class="stat-thermo-slide-root">
+
+
+
+<div class="main-content-flex-container">
+
+<div class="left-derivation-column">
+<div class="boltzmann-explanation-block">
+          A transição da formulação de Gibbs para a de Boltzmann é o ponto de união entre a estatística de probabilidades e a termodinâmica clássica. Para um sistema isolado, onde a incerteza sobre o microestado é máxima, a distribuição uniforme é a única que satisfaz o Princípio da Máxima Entropia.
+        </div>
+<div class="math-step-card-item">
+<div class="card-step-title">
+<i class="fas fa-microscope"></i>
+            A Ponte Micro-Macro
+          </div>
+<div class="math-derivation-text">
+            Partimos da definição de entropia de Gibbs para uma distribuição de probabilidade \( p_i \):
+            <div class="latex-display-container">
+              \[ S = -k_B \sum_{i=1}^{\Omega} p_i \ln p_i \]
+            </div>
+            Como demonstrado anteriormente pelo Princípio de Jaynes, para um sistema isolado com vínculo apenas de normalização, a probabilidade é uniforme: \( p_i = 1/\Omega \). Substituindo este valor na soma:
+            <div class="latex-display-container">
+              \[ S = -k_B \sum_{i=1}^{\Omega} \frac{1}{\Omega} \ln\left(\frac{1}{\Omega}\right) \]
+            </div>
+            Sendo o termo \( \frac{1}{\Omega} \ln(1/\Omega) \) independente do índice \( i \), a soma resulta em:
+            <div class="latex-display-container">
+              \[ S = -k_B \cdot \Omega \cdot \left[ \frac{1}{\Omega} \ln\left(\frac{1}{\Omega}\right) \right] = -k_B \ln\left(\frac{1}{\Omega}\right) \]
+            </div>
+            Utilizando a propriedade do logaritmo \( \ln(1/x) = -\ln x \), recuperamos a equação gravada na lápide de Boltzmann:
+            <div class="latex-display-container">
+<span style="font-size: 24px;color: #1A3C5C;font-weight: 800;">\[ \boxed{S = k_B \ln \Omega} \]</span>
+</div>
+</div>
+</div>
+</div>
+
+<div class="right-insight-column">
+<div class="theoretical-provocation-box">
+<div class="provocation-title">Provocação Teórica</div>
+<div class="provocation-content">
+            "Se o sistema for restrito a um único microestado possível (\(\Omega = 1\)), a entropia torna-se nula. O que isso nos diz sobre o ordenamento perfeito e a Terceira Lei da Termodinâmica?"
+          </div>
+</div>
+<div class="didactic-analogy-box">
+<div class="analogy-header">
+<i class="fas fa-dice"></i> Analogia do Dado Justo
+          </div>
+<div class="analogy-body">
+            Imagine um dado de 6 faces. No ensemble micro-canônico, não temos preferência por nenhuma face. Assim, \(\Omega = 6\) e a probabilidade de cada estado é \(1/6\). A entropia é o "grau de surpresa" ou falta de informação. Se soubéssemos que o dado é viciado (\(p_1 = 1\)), a entropia seria zero, pois não haveria incerteza estatística.
+          </div>
+</div>
+<div class="math-step-card-item" style="flex: 0 1 auto;">
+<div class="card-step-title" style="font-size: 16px;">
+<i class="fas fa-lightbulb"></i> Interpretação Física
+          </div>
+<div class="math-derivation-text" style="font-size: 12px;">
+            A constante \(k_B\) atua como um fator de conversão de unidades entre a escala de informação (adimensional) e a escala térmica (J/K). \(\Omega\) representa o volume ocupado pelo sistema no espaço de fase acessível.
+          </div>
+</div>
+</div>
+</div>
+</div>
+    </div>
+  </section>
+  </div>
+
+  <section data-termo-ai-exercise data-exercise-theme="purple"></section>
+</div>
+<script src="../../assets/chapter-embedded-slide.js"></script>
+</body>
+</html>

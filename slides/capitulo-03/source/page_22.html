@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Termodinâmica Estatística - Aula Prof. Mario Reis</title>
+<!-- Typography and Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Lora:ital,wght@0,400;0,700;1,400;1,800&amp;display=swap" rel="stylesheet"/>
+<!-- MathJax for LaTeX Rendering -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><style>:root {
+    --background: #F8F9FA;
+    --title-text: #1A3C5C;
+    --body-text: #1E293B;
+    --secondary-text: #475569;
+    --muted-text: #64748B;
+    --accent: #E07820;
+    --secondary-accent: #0F172A;
+    --border: #E2E8F0;
+    --card-bg-light: rgba(26, 60, 92, 0.03)
+    }
+* {
+    box-sizing: border-box;
+    margin: 0 0;
+    padding: 0 0
+    }
+body {width: 1280px; height: 720px; overflow: hidden; background-color: #CCC;
+    /* Visual boundary */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Inter", sans-serif}
+.presentation-slide-root {
+    width: 1280px;
+    height: 720px;
+    background-color: var(--background);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 0 0;
+    border: none
+    }
+/* 7. Região do Título (Páginas de Conteúdo) */
+.title-region-container {
+    display: flex;
+    flex-direction: column;
+    padding: 30px 60px 20px 60px;
+    margin-bottom: 0;
+    border-left: 8px solid var(--accent);
+    background-color: var(--card-bg-light)
+    }
+.title-section-label {
+    color: var(--accent);
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 6px
+    }
+.title-main-heading {
+    color: var(--title-text);
+    font-family: "Lora", serif;
+    font-size: 34px;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1.2
+    }
+/* Main Content Layout */
+.main-content-layout-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 8px 60px 15px 60px;
+    gap: 10px 25px
+    }
+.intro-explanatory-text-block {
+    font-family: "Inter", sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--body-text);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 6px
+    }
+.comparison-columns-container {
+    display: flex;
+    flex-direction: row;
+    gap: 11px 30px;
+    flex: 1;
+    align-items: stretch
+    }
+.left-classical-failure-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: white;
+    border-radius: 8px;
+    padding: 10px 25px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05)
+    }
+.right-quantum-resolution-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: white;
+    border-radius: 8px;
+    padding: 10px 25px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    border-right: 4px solid var(--title-text)
+    }
+.column-header-title {
+    font-family: "Lora", serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--title-text);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 12px
+    }
+.column-header-title i {
+    color: var(--accent);
+    font-size: 18px
+    }
+.math-derivation-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 14px;
+    color: var(--secondary-text)
+    }
+.math-derivation-area p {
+    margin-bottom: 4px
+    }
+.equation-highlight-box {
+    background-color: var(--card-bg-light);
+    padding: 6px 15px;
+    border-radius: 6px;
+    margin: 4px 0;
+    text-align: center;
+    border-left: 3px solid var(--accent)
+    }
+.theoretical-insight-accent-box {
+    background-color: var(--secondary-accent);
+    color: white;
+    padding: 8px 30px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px 20px
+    }
+.theoretical-insight-accent-box i {
+    font-size: 24px;
+    color: var(--accent)
+    }
+.insight-content-text {
+    font-size: 15px;
+    line-height: 1.5
+    }
+.insight-content-text b {
+    color: var(--accent);
+    font-family: "Lora", serif
+    }
+ul.bullet-points-list {
+    list-style: none;
+    margin-top: 4px
+    }
+ul.bullet-points-list li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 3px;
+    font-size: 13px
+    }
+ul.bullet-points-list li::before {
+    content: "•";
+    color: var(--accent);
+    font-weight: bold;
+    position: absolute;
+    left: 0
+    }
+html { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="presentation-slide-root" style="overflow: hidden;">
+<!-- Title Region -->
+<div class="title-region-container">
+<span class="title-section-label">Capítulo 4: Termodinâmica Estatística</span>
+<h1 class="title-main-heading">A Falha do Modelo Clássico no Zero Absoluto</h1>
+</div>
+<!-- Main Content Area -->
+<div class="main-content-layout-wrapper">
+<!-- Narrative/Explanatory Text -->
+<div class="intro-explanatory-text-block">
+        O tratamento clássico da entropia baseia-se na partição contínua do espaço de fase. No entanto, ao aproximarmos do zero absoluto, essa abordagem revela uma inconsistência fundamental: a entropia clássica diverge negativamente, violando o Postulado de Nernst. Esta falha demonstra que a Termodinâmica não pode ser puramente clássica em baixas energias.
+      </div>
+<!-- Comparison Columns -->
+<div class="comparison-columns-container">
+<!-- Classical Failure Column -->
+<div class="left-classical-failure-column">
+<div class="column-header-title">
+<i class="fa-solid fa-triangle-exclamation"></i>
+            A Divergência Clássica
+          </div>
+<div class="math-derivation-area">
+<p>No limite clássico, o número de estados acessíveis \(\Omega\) é proporcional ao volume do espaço de fase. Para um paramagneto clássico (Langevin):</p>
+<div class="equation-highlight-box">
+              \[ S_{cl} \sim N k_B \left[ \ln \left( 4\pi \frac{\sinh x}{x} \right) - x L(x) \right] \]
+            </div>
+<p>Quando \( T \to 0 \) (\(x \to \infty\)), o termo logarítmico domina o comportamento assintótico da função:</p>
+<div class="equation-highlight-box">
+              \[ \lim_{T \to 0} S_{cl} = -\infty \]
+            </div>
+<ul class="bullet-points-list">
+<li>O espaço contínuo de orientações gera um volume infinitesimal de estados.</li>
+<li>Violação direta da Terceira Lei (Entropia deve tender a uma constante ou zero).</li>
+</ul>
+</div>
+</div>
+<!-- Quantum Resolution Column -->
+<div class="right-quantum-resolution-column">
+<div class="column-header-title">
+<i class="fa-solid fa-circle-check"></i>
+            Resolução Quântica
+          </div>
+<div class="math-derivation-area">
+<p>A mecânica quântica discretiza os níveis de energia. Para um sistema de spin \(s\), o número de estados é finito e contável (\(2s+1\)):</p>
+<div class="equation-highlight-box">
+              \[ S_{q} = N k_B \left\{ \ln \left[ \frac{\sinh(ax)}{\sinh(bx)} \right] - x B_s(x) \right\} \]
+            </div>
+<p>No estado fundamental (\(T \to 0\)), o campo magnético alinha todos os spins perfeitamente em um único microestado (\(\Omega = 1\)):</p>
+<div class="equation-highlight-box">
+              \[ \lim_{T \to 0} S_{q} = k_B \ln(1) = 0 \]
+            </div>
+<ul class="bullet-points-list">
+<li>A quantização impõe um "piso" para o número de microestados acessíveis.</li>
+<li>A entropia residual é sempre nula ou finita (degenerescência do fundamental).</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Theoretical Insight Box -->
+<div class="theoretical-insight-accent-box">
+<i class="fas fa-lightbulb"></i>
+<div class="insight-content-text">
+<b>Provocação Teórica:</b> Por que o fator de quantização \(h^3\) no espaço de fase é essencial mesmo para o gás ideal clássico? Sem ele, a constante aditiva da entropia (Sackur-Tetrode) seria indeterminada, impossibilitando a conexão absoluta entre a estatística e a Terceira Lei. 
+          <span style="color: var(--accent);margin-left: 10px;font-weight: 700;">A quantização é a salvaguarda da Termodinâmica.</span>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

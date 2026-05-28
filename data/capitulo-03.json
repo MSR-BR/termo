@@ -1,0 +1,82 @@
+{
+  "description": "Capítulo 3 — Termodinâmica Estatística. Índice organizado por blocos conceituais maiores para facilitar a navegação no app, tomando como base o conjunto de 26 HTMLs do material original. Nesta fase, cada tópico aponta para a primeira página do bloco correspondente; depois ajustamos os HTMLs com a mesma linguagem visual e responsividade dos capítulos já publicados.",
+  "topics": [
+    {
+      "id": "3.1",
+      "title": "Entropia, Gibbs e a Visão por Ensembles",
+      "note": "Panorama histórico da entropia, formulação de Gibbs e Jaynes e introdução ao conceito de ensemble estatístico.",
+      "url": "slides/capitulo-03/page_2.html",
+      "aiExercise": true
+    },
+    {
+      "id": "3.2",
+      "title": "Ensemble Micro-Canônico e Fórmula de Boltzmann",
+      "note": "Sistema isolado, postulado da equiprobabilidade e derivação da relação de Boltzmann.",
+      "url": "slides/capitulo-03/page_5.html",
+      "aiExercise": true
+    },
+    {
+      "id": "3.3",
+      "title": "Ensemble Canônico, Distribuição de Boltzmann e Parâmetro Beta",
+      "note": "Contato com reservatório térmico, distribuição de Boltzmann, função de partição e significado físico do parâmetro beta.",
+      "url": "slides/capitulo-03/page_7.html",
+      "aiExercise": true
+    },
+    {
+      "id": "3.4",
+      "title": "Energia Livre de Helmholtz e Energia Interna Estatística",
+      "note": "Relação entre função de partição, energia livre de Helmholtz e energia interna como média estatística.",
+      "url": "slides/capitulo-03/page_10.html",
+      "aiExercise": true
+    },
+    {
+      "id": "3.5",
+      "title": "Partículas Distinguíveis, Indistinguíveis e Paradoxo de Gibbs",
+      "note": "Contagem de microestados, extensividade e correção por N fatorial para partículas indistinguíveis.",
+      "url": "slides/capitulo-03/page_12.html",
+      "aiExercise": true
+    },
+    {
+      "id": "3.6",
+      "title": "Exemplo I: Gás Ideal Monoatômico — Função de Partição",
+      "note": "Construção da função de partição do gás ideal e papel do comprimento de onda térmico de de Broglie.",
+      "url": "slides/capitulo-03/page_14.html",
+      "aiExercise": true
+    },
+    {
+      "id": "3.7",
+      "title": "Exemplo I: Gás Ideal Monoatômico — Energia Livre e Sackur-Tetrode",
+      "note": "Energia livre, equação de estado, energia interna e entropia do gás ideal na formulação de Sackur-Tetrode.",
+      "url": "slides/capitulo-03/page_16.html",
+      "aiExercise": true
+    },
+    {
+      "id": "3.8",
+      "title": "Exemplo II: Paramagnetismo Quântico",
+      "note": "Modelo de spin, magnetização estatística e função de Brillouin.",
+      "url": "slides/capitulo-03/page_18.html",
+      "aiExercise": true
+    },
+    {
+      "id": "3.9",
+      "title": "Exemplo III: Paramagnetismo Clássico",
+      "note": "Limite clássico dos momentos magnéticos e interpretação via função de Langevin.",
+      "url": "slides/capitulo-03/page_20.html",
+      "aiExercise": true
+    },
+    {
+      "id": "3.10",
+      "title": "Terceira Lei e Limites do Modelo Clássico",
+      "note": "Postulado de Nernst, zero absoluto, entropia residual e falha do tratamento clássico em baixas temperaturas.",
+      "url": "slides/capitulo-03/page_21.html",
+      "aiExercise": true
+    },
+    {
+      "id": "3.11",
+      "title": "Exemplo IV: Capacidade Calorífica em Sólidos",
+      "note": "Dulong-Petit, sólido de Einstein, quantização da vibração e calor específico em diferentes regimes.",
+      "url": "slides/capitulo-03/page_23.html",
+      "aiExercise": true
+    }
+  ]
+}

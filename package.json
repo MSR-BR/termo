@@ -1,6 +1,8 @@
 {
   "scripts": {
-    "dev": "vercel dev",
+    "dev": "node dev-server.mjs",
+    "dev:vercel": "vercel dev",
+    "check": "node scripts/check-content.mjs",
     "deploy": "vercel --prod"
   }
 }

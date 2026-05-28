@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ensemble Micro-Canônico e o Postulado da Equiprobabilidade</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Font Awesome -->
+<!-- KaTeX -->
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" rel="stylesheet"/>
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer="" onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '\\[', right: '\\]', display: true},
+        {left: '\\(', right: '\\)', display: false}
+      ]
+    });" src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js">
+</script>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><style>* {
+    box-sizing: border-box;
+    margin: 0 0;
+    padding: 0 0
+    }
+body {width: 1280px; height: 720px; overflow: hidden; background: #d0d0d0;
+    display: block;
+    font-family: "Inter", sans-serif}
+.slide-root {
+    width: 1280px;
+    height: 720px;
+    background-color: #F8F9FA;
+    display: flex;
+    flex-direction: column
+    }
+/* ── Title Region ── */
+.title-region {
+    display: flex;
+    flex-direction: column;
+    padding: 18px 40px 14px 40px;
+    border-left: 6px solid #E07820;
+    background-color: rgba(26, 60, 92, 0.03);
+    flex-shrink: 0
+    }
+.title-section-label {
+    color: #E07820;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 4px
+    }
+.title-main-heading {
+    color: #1A3C5C;
+    font-family: "Lora", serif;
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin: 0
+    }
+/* ── Main Content Area ── */
+.microcanonical-content-area {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    gap: 16px 20px;
+    padding: 11px 40px 13px 40px
+    }
+/* ── LEFT COLUMN ── */
+.microcanonical-left-column {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 10px 12px
+    }
+.microcanonical-left-motivation-card {
+    background-color: #fff;
+    border-left: 4px solid #1A3C5C;
+    border-radius: 4px;
+    padding: 10px 16px;
+    flex: 1 1 0
+    }
+.microcanonical-left-motivation-card-heading {
+    color: #1A3C5C;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 6px 7px
+    }
+.microcanonical-left-motivation-card-heading i {
+    color: #1A3C5C;
+    font-size: 13px
+    }
+.microcanonical-left-motivation-card-body {
+    color: #1E293B;
+    font-family: "Inter", sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.6
+    }
+.microcanonical-left-derivation-card {
+    background-color: #fff;
+    border-left: 4px solid #E07820;
+    border-radius: 4px;
+    padding: 10px 16px;
+    flex: 2 1 0
+    }
+.microcanonical-left-derivation-card-heading {
+    color: #E07820;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px 7px
+    }
+.microcanonical-left-derivation-card-heading i {
+    color: #E07820;
+    font-size: 13px
+    }
+.microcanonical-left-derivation-step-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px 6px
+    }
+.microcanonical-left-derivation-step-item {
+    color: #1E293B;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.55;
+    padding-left: 14px;
+    border-left: 2px solid #E2E8F0
+    }
+.microcanonical-left-derivation-step-label {
+    color: #E07820;
+    font-weight: 700;
+    margin-right: 4px
+    }
+.microcanonical-left-result-box {
+    background-color: rgba(26, 60, 92, 0.05);
+    border: 1.5px solid #1A3C5C;
+    border-radius: 6px;
+    padding: 8px 16px;
+    margin-top: 8px;
+    text-align: center
+    }
+.microcanonical-left-result-box-label {
+    color: #1A3C5C;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 3px
+    }
+/* ── RIGHT COLUMN ── */
+.microcanonical-right-column {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 10px 12px
+    }
+.microcanonical-right-analogy-card {
+    background-color: #fff;
+    border-left: 4px solid #E07820;
+    border-radius: 4px;
+    padding: 10px 16px;
+    flex: 1 1 0
+    }
+.microcanonical-right-analogy-card-heading {
+    color: #E07820;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px 7px
+    }
+.microcanonical-right-analogy-card-heading i {
+    color: #E07820;
+    font-size: 13px
+    }
+.microcanonical-right-dice-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px 6px;
+    margin-bottom: 6px
+    }
+.microcanonical-right-dice-face {
+    background-color: #F8F9FA;
+    border: 1.5px solid #E2E8F0;
+    border-radius: 6px;
+    padding: 6px 4px;
+    text-align: center
+    }
+.microcanonical-right-dice-face-number {
+    color: #1A3C5C;
+    font-family: "Lora", serif;
+    font-size: 18px;
+    font-weight: 700;
+    display: block
+    }
+.microcanonical-right-dice-face-prob {
+    color: #E07820;
+    font-family: "Inter", sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    display: block;
+    margin-top: 2px
+    }
+.microcanonical-right-analogy-text {
+    color: #475569;
+    font-family: "Inter", sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.55
+    }
+.microcanonical-right-interpretation-card {
+    background-color: #fff;
+    border-left: 4px solid #1A3C5C;
+    border-radius: 4px;
+    padding: 10px 16px;
+    flex: 1 1 0
+    }
+.microcanonical-right-interpretation-card-heading {
+    color: #1A3C5C;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px 7px
+    }
+.microcanonical-right-interpretation-card-heading i {
+    color: #1A3C5C;
+    font-size: 13px
+    }
+.microcanonical-right-interpretation-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px 7px
+    }
+.microcanonical-right-interpretation-list-item {
+    color: #1E293B;
+    font-family: "Inter", sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.55;
+    padding-left: 14px;
+    border-left: 2px solid #E2E8F0
+    }
+.microcanonical-right-interpretation-list-item strong {
+    color: #1A3C5C;
+    font-weight: 600
+    }
+.microcanonical-right-exercise-card {
+    background-color: rgba(224, 120, 32, 0.06);
+    border: 1.5px solid #E07820;
+    border-radius: 6px;
+    padding: 8px 14px;
+    flex: 0 0 auto
+    }
+.microcanonical-right-exercise-card-heading {
+    color: #E07820;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 5px 6px
+    }
+.microcanonical-right-exercise-card-heading i {
+    font-size: 12px
+    }
+.microcanonical-right-exercise-card-text {
+    color: #1E293B;
+    font-family: "Inter", sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.55
+    }
+.microcanonical-right-exercise-card-hint {
+    color: #475569;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5;
+    margin-top: 4px;
+    font-style: italic
+    }
+/* KaTeX display overrides */
+.katex-display {
+    margin: 5px 0 !important;
+    overflow: visible !important
+    }
+html { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="slide-root" style="overflow: hidden;">
+<!-- Title Region -->
+<div class="title-region">
+<span class="title-section-label">Seção 4.2 — Ensemble Micro-Canônico</span>
+<h1 class="title-main-heading">Ensemble Micro-Canônico e o Postulado da Equiprobabilidade</h1>
+</div>
+<!-- Main Content -->
+<div class="microcanonical-content-area">
+<!-- LEFT COLUMN -->
+<div class="microcanonical-left-column">
+<!-- Motivation Card -->
+<div class="microcanonical-left-motivation-card">
+<div class="microcanonical-left-motivation-card-heading">
+<i class="fa-solid fa-circle-info"></i>
+            Definição e Contexto
+          </div>
+<div class="microcanonical-left-motivation-card-body">
+            O ensemble micro-canônico descreve um <strong>sistema completamente isolado</strong>: energia total \(E\), volume \(V\) e número de partículas \(N\) são todos fixos. Não há troca de calor nem de matéria com o exterior. O único vínculo matemático disponível para a maximização da entropia de Gibbs é a <em>condição de normalização</em> das probabilidades. A pergunta central é: qual a distribuição \(\{p_i\}\) que maximiza \(S\) com esse único vínculo?
+          </div>
+</div>
+<!-- Derivation Card -->
+<div class="microcanonical-left-derivation-card">
+<div class="microcanonical-left-derivation-card-heading">
+<i class="fa-solid fa-square-root-variable"></i>
+            Derivação via Multiplicadores de Lagrange
+          </div>
+<ul class="microcanonical-left-derivation-step-list">
+<li class="microcanonical-left-derivation-step-item">
+<span class="microcanonical-left-derivation-step-label">Passo 1 — Vínculo:</span>
+              Normalização das probabilidades: \(\displaystyle\sum_i p_i = 1\)
+            </li>
+<li class="microcanonical-left-derivation-step-item">
+<span class="microcanonical-left-derivation-step-label">Passo 2 — Funcional a maximizar:</span>
+              Introduz-se o multiplicador \(\lambda\) para incorporar o vínculo:
+              \[\mathcal{L} = -k_B\sum_i p_i \ln p_i + \lambda\!\left(1 - \sum_i p_i\right)\]
+            </li>
+<li class="microcanonical-left-derivation-step-item">
+<span class="microcanonical-left-derivation-step-label">Passo 3 — Condição de estacionaridade:</span>
+              Aplicando \(\partial\mathcal{L}/\partial p_i = 0\) para cada \(i\):
+              \[-k_B(\ln p_i + 1) - \lambda = 0 \;\Longrightarrow\; p_i = e^{-(1+\lambda/k_B)} = \mathcal{C}\]
+              Todas as probabilidades são iguais a uma constante \(\mathcal{C}\)!
+            </li>
+<li class="microcanonical-left-derivation-step-item">
+<span class="microcanonical-left-derivation-step-label">Passo 4 — Normalização:</span>
+              Somando sobre os \(\Omega\) estados acessíveis: \(\displaystyle\sum_{i=1}^{\Omega} \mathcal{C} = 1 \Rightarrow \mathcal{C} = \frac{1}{\Omega}\)
+            </li>
+</ul>
+<div class="microcanonical-left-result-box">
+<div class="microcanonical-left-result-box-label">Resultado: Postulado da Equiprobabilidade</div>
+            \[\boxed{p_i = \frac{1}{\Omega}}\]
+          </div>
+</div>
+</div>
+<!-- RIGHT COLUMN -->
+<div class="microcanonical-right-column">
+<!-- Analogy Card -->
+<div class="microcanonical-right-analogy-card">
+<div class="microcanonical-right-analogy-card-heading">
+<i class="fa-solid fa-dice"></i>
+            Analogia: Dado Justo
+          </div>
+<div class="microcanonical-right-dice-grid">
+<div class="microcanonical-right-dice-face">
+<span class="microcanonical-right-dice-face-number">1</span>
+<span class="microcanonical-right-dice-face-prob">\(p = \tfrac{1}{6}\)</span>
+</div>
+<div class="microcanonical-right-dice-face">
+<span class="microcanonical-right-dice-face-number">2</span>
+<span class="microcanonical-right-dice-face-prob">\(p = \tfrac{1}{6}\)</span>
+</div>
+<div class="microcanonical-right-dice-face">
+<span class="microcanonical-right-dice-face-number">3</span>
+<span class="microcanonical-right-dice-face-prob">\(p = \tfrac{1}{6}\)</span>
+</div>
+<div class="microcanonical-right-dice-face">
+<span class="microcanonical-right-dice-face-number">4</span>
+<span class="microcanonical-right-dice-face-prob">\(p = \tfrac{1}{6}\)</span>
+</div>
+<div class="microcanonical-right-dice-face">
+<span class="microcanonical-right-dice-face-number">5</span>
+<span class="microcanonical-right-dice-face-prob">\(p = \tfrac{1}{6}\)</span>
+</div>
+<div class="microcanonical-right-dice-face">
+<span class="microcanonical-right-dice-face-number">6</span>
+<span class="microcanonical-right-dice-face-prob">\(p = \tfrac{1}{6}\)</span>
+</div>
+</div>
+<div class="microcanonical-right-analogy-text">
+            Um dado justo com \(\Omega = 6\) faces é o análogo perfeito: sem informação extra, a única distribuição que maximiza a incerteza (entropia) atribui probabilidade \(1/6\) a cada face — exatamente o que a derivação formal nos diz.
+          </div>
+</div>
+<!-- Interpretation Card -->
+<div class="microcanonical-right-interpretation-card">
+<div class="microcanonical-right-interpretation-card-heading">
+<i class="fa-solid fa-lightbulb"></i>
+            Interpretação Física
+          </div>
+<ul class="microcanonical-right-interpretation-list">
+<li class="microcanonical-right-interpretation-list-item">
+<strong>Distribuição uniforme:</strong> todos os \(\Omega\) microestados com energia \(E\) são igualmente acessíveis ao sistema em equilíbrio.
+            </li>
+<li class="microcanonical-right-interpretation-list-item">
+<strong>Máxima ignorância:</strong> sem vínculos adicionais, a entropia é máxima quando não privilegiamos nenhum estado — princípio de Jaynes.
+            </li>
+<li class="microcanonical-right-interpretation-list-item">
+<strong>Conexão com Boltzmann:</strong> substituindo \(p_i = 1/\Omega\) em \(S = -k_B\sum p_i \ln p_i\) recupera-se \(S = k_B \ln \Omega\).
+            </li>
+</ul>
+</div>
+<!-- Exercise Card -->
+<div class="microcanonical-right-exercise-card">
+<div class="microcanonical-right-exercise-card-heading">
+<i class="fa-solid fa-pen-to-square"></i>
+            Exercício Integrado — Ex. 4.14
+          </div>
+<div class="microcanonical-right-exercise-card-text">
+            Sistema de 2 partículas <em>distinguíveis</em> com 2 níveis (energias \(0\) e \(\varepsilon\)): liste todos os microestados, calcule \(\Omega\) e verifique que \(p_i = 1/\Omega\) maximiza \(S\).
+          </div>
+<div class="microcanonical-right-exercise-card-hint">
+<i class="fa-solid fa-circle-question"></i>
+            Dica: há 4 configurações possíveis — \((0,0)\), \((0,\varepsilon)\), \((\varepsilon,0)\), \((\varepsilon,\varepsilon)\). Para energia total \(E = \varepsilon\), apenas 2 são acessíveis; logo \(\Omega = 2\) e \(p_i = 1/2\).
+          </div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

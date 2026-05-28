@@ -94,16 +94,19 @@ body{
 }
 
 .chapter-label{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  background:var(--blue-soft);
-  color:var(--blue);
-  border-radius:999px;
-  padding:8px 14px;
-  font-size:.84rem;
-  font-weight:800;
-  margin-bottom:18px;
+  display:inline-flex!important;
+  align-items:center!important;
+  align-self:flex-start!important;
+  width:fit-content!important;
+  gap:8px!important;
+  background:var(--blue-soft)!important;
+  color:var(--blue)!important;
+  border-radius:999px!important;
+  padding:8px 14px!important;
+  font-family:"Inter",sans-serif!important;
+  font-size:.84rem!important;
+  font-weight:800!important;
+  margin-bottom:18px!important;
 }
 
 .chapter-title{
@@ -205,6 +208,21 @@ body{
   .chapter-title{line-height:1.1}
 }
 </style>
+<script>
+(function () {
+  if (window.__termoPreviewRedirect) return;
+  window.__termoPreviewRedirect = true;
+  if (location.protocol !== "file:") return;
+
+  const marker = "/termo/";
+  const markerIndex = location.pathname.lastIndexOf(marker);
+  if (markerIndex === -1) return;
+
+  const relativePath = location.pathname.slice(markerIndex + marker.length);
+  const target = `http://127.0.0.1:4173/${relativePath}${location.search}${location.hash}`;
+  location.replace(target);
+})();
+</script>
 </head>
 
 <body>
@@ -214,7 +232,7 @@ body{
 <section class="hero">
 <div class="hero-inner">
 
-<a href="../../index.html" class="index-back-button">
+<a href="../../index.html?chapter=02" class="index-back-button">
 <i class="fa-solid fa-arrow-left"></i>
 Índice
 </a>

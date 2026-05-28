@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Termodinâmica Estatística - Partículas Distinguíveis vs Indistinguíveis</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Lora:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet"/>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><style>:root {
+    --background: #F8F9FA;
+    --title-text: #1A3C5C;
+    --body-text: #1E293B;
+    --secondary-text: #475569;
+    --muted-text: #64748B;
+    --accent: #E07820;
+    --secondary-accent: #0F172A;
+    --border: #E2E8F0
+    }
+* {
+    box-sizing: border-box;
+    margin: 0 0;
+    padding: 0 0
+    }
+body {width: 1280px; height: 720px; overflow: hidden; background-color: #CCC;
+    font-family: "Inter", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center}
+.slide-root-canvas {
+    width: 1280px;
+    height: 720px;
+    background-color: var(--background);
+    display: flex;
+    flex-direction: column;
+    position: relative
+    }
+.title-region-header-container {
+    display: flex;
+    flex-direction: column;
+    padding: 30px 50px;
+    margin-bottom: 4px;
+    border-left: 6px solid var(--accent);
+    background-color: rgba(26, 60, 92, 0.03)
+    }
+.title-label-section-tag {
+    color: var(--accent);
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 6px
+    }
+.title-main-slide-heading {
+    color: var(--title-text);
+    font-family: "Lora", serif;
+    font-size: 32px;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1.2
+    }
+.main-content-wrapper-layout {
+    display: flex;
+    flex-direction: column;
+    padding: 0 50px 11px 50px;
+    gap: 8px 20px
+    }
+.intro-text-explanation-block {
+    color: var(--body-text);
+    font-size: 16px;
+    line-height: 1.6;
+    text-align: justify;
+    margin-bottom: 2px
+    }
+.comparison-columns-container-wrapper {
+    display: flex;
+    gap: 11px 30px;
+    align-items: stretch
+    }
+.left-distinguishable-particle-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 7px 15px;
+    background-color: white;
+    padding: 12px 25px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    border-top: 4px solid var(--title-text);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02)
+    }
+.right-indistinguishable-particle-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px 15px;
+    background-color: white;
+    padding: 10px 25px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    border-top: 4px solid var(--accent);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02)
+    }
+.column-subheading-title-item {
+    color: var(--title-text);
+    font-family: "Lora", serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    gap: 12px
+    }
+.column-subheading-title-item i {
+    color: var(--accent);
+    font-size: 18px
+    }
+.particle-logic-description-text {
+    font-size: 15px;
+    color: var(--secondary-text);
+    line-height: 1.5
+    }
+.equation-display-card-box {
+    background-color: rgba(26, 60, 92, 0.04);
+    padding: 7px 15px;
+    border-radius: 6px;
+    text-align: center;
+    margin: 5px 0
+    }
+.combinatorial-example-table-container {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 5px
+    }
+.combinatorial-example-table-container th {
+    background-color: rgba(226, 232, 240, 0.5);
+    color: var(--title-text);
+    font-size: 13px;
+    font-weight: 700;
+    padding: 4px 8px;
+    text-align: center;
+    border: 1px solid var(--border)
+    }
+.combinatorial-example-table-container td {
+    padding: 4px 8px;
+    font-size: 13px;
+    border: 1px solid var(--border);
+    text-align: center;
+    color: var(--body-text)
+    }
+.statistical-mechanics-exercise-tip-box {
+    margin-top: 2px;
+    padding: 6px 20px;
+    background-color: rgba(224, 120, 32, 0.08);
+    border-left: 4px solid var(--accent);
+    border-radius: 4px
+    }
+.exercise-tip-header-label {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 2px;
+    display: block;
+    text-transform: uppercase
+    }
+.exercise-tip-body-content {
+    font-size: 14px;
+    color: var(--body-text);
+    line-height: 1.5;
+    font-style: italic
+    }
+.highlight-accent-text-span {
+    color: var(--accent);
+    font-weight: 600
+    }
+html { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="slide-root-canvas" style="overflow: hidden;">
+<!-- Title Region -->
+<div class="title-region-header-container">
+<span class="title-label-section-tag">Seção 4.4 | Fundamentos da Contagem</span>
+<h1 class="title-main-slide-heading">Partículas Distinguíveis versus Indistinguíveis</h1>
+</div>
+<!-- Main Content -->
+<div class="main-content-wrapper-layout">
+<!-- Intro Text -->
+<div class="intro-text-explanation-block">
+        A identidade das partículas é um divisor de águas na Termodinâmica Estatística. Enquanto na mecânica clássica podemos, em princípio, rotular e rastrear cada trajetória, a mecânica quântica impõe a <span class="highlight-accent-text-span">indistinguibilidade intrínseca</span> para partículas idênticas cujas funções de onda se sobrepõem. Essa distinção altera drasticamente a contagem do número de microestados acessíveis \(\Omega\) e, consequentemente, a forma da Função de Partição \(Z(N)\).
+      </div>
+<!-- Comparison Grid -->
+<div class="comparison-columns-container-wrapper">
+<!-- Left Column: Distinguishable -->
+<div class="left-distinguishable-particle-column">
+<h2 class="column-subheading-title-item">
+<i class="fa-solid fa-circle-info"></i> Distinguíveis
+          </h2>
+<p class="particle-logic-description-text">
+            Ocorrem quando as partículas ocupam posições fixas e identificáveis no espaço, como átomos em uma <span class="highlight-accent-text-span">rede cristalina</span>. Cada sítio da rede "rotula" a partícula.
+          </p>
+<div class="equation-display-card-box">
+            \[ Z(N) = [Z(1)]^N \]
+          </div>
+<table class="combinatorial-example-table-container">
+<thead>
+<tr>
+<th colspan="2">Exemplo: 2 Partículas (A,B), 2 Níveis (\(\varepsilon_1, \varepsilon_2\))</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>Estado 1: (A na \(\varepsilon_1\), B na \(\varepsilon_1\))</td><td>Estado 2: (A na \(\varepsilon_2\), B na \(\varepsilon_2\))</td></tr>
+<tr><td>Estado 3: (A na \(\varepsilon_1\), B na \(\varepsilon_2\))</td><td>Estado 4: (A na \(\varepsilon_2\), B na \(\varepsilon_1\))</td></tr>
+<tr><td colspan="2" style="font-weight: 600;">Total: 4 Microestados (\(2^2\))</td></tr>
+</tbody>
+</table>
+</div>
+<!-- Right Column: Indistinguishable -->
+<div class="right-indistinguishable-particle-column">
+<h2 class="column-subheading-title-item">
+<i class="fas fa-wind"></i> Indistinguíveis
+          </h2>
+<p class="particle-logic-description-text">
+            Típico de <span class="highlight-accent-text-span">gases ideais</span>, onde as partículas se movem livremente. Não há como distinguir qual molécula ocupa qual estado de momento ou posição.
+          </p>
+<div class="equation-display-card-box">
+            \[ Z(N) \approx \frac{[Z(1)]^N}{N!} \]
+          </div>
+<table class="combinatorial-example-table-container">
+<thead>
+<tr>
+<th colspan="2">Exemplo: 2 Partículas Idênticas, 2 Níveis (\(\varepsilon_1, \varepsilon_2\))</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>Config 1: (Ambas na \(\varepsilon_1\))</td><td>Config 2: (Ambas na \(\varepsilon_2\))</td></tr>
+<tr><td colspan="2">Config 3: (Uma na \(\varepsilon_1\), outra na \(\varepsilon_2\))</td></tr>
+<tr><td colspan="2" style="font-weight: 600;">Total: 3 Microestados (Bosons)</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Footer Highlight / Exercise Tip -->
+<div class="statistical-mechanics-exercise-tip-box">
+<span class="exercise-tip-header-label"><i class="fas fa-lightbulb"></i> Insight Físico &amp; O Paradoxo de Gibbs</span>
+<p class="exercise-tip-body-content">
+          O fator de correção \(1/N!\) é fundamental para restaurar a <strong>extensividade</strong> da entropia. Sem ele, ao misturar dois volumes iguais de um mesmo gás, a entropia calculada aumentaria de forma espúria (Paradoxo de Gibbs). Este fator remove a supercontagem das \(N!\) permutações de partículas entre estados já ocupados no regime clássico de baixa densidade.
+        </p>
+</div>
+</div>
+</div>
+</body>
+</html>

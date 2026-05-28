@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Termodinâmica Estatística - Formulação de Gibbs e Jaynes</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Lora:ital,wght@0,400;0,700;0,800;1,400&amp;display=swap" rel="stylesheet"/>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><style>body {width: 1280px; height: 720px; overflow: hidden; background-color: #F8F9FA;
+    color: #1E293B;
+    font-family: "Inter", sans-serif}
+.gibbs-jaynes-slide-root {
+    width: 1280px;
+    height: 720px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    background-color: #F8F9FA;
+    padding: 0 0
+    }
+.title-region-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 40px;
+    margin-top: 8px;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-bottom: 6px;
+    border-left: 6px solid #E07820;
+    background-color: rgba(26, 60, 92, 0.03)
+    }
+.title-section-label {
+    color: #E07820;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 4px
+    }
+.title-main-heading {
+    color: #1A3C5C;
+    font-family: "Lora", serif;
+    font-size: 32px;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1.2
+    }
+.gibbs-jaynes-intro-text {
+    padding: 0 40px;
+    margin-bottom: 8px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #1E293B;
+    max-width: 1100px
+    }
+.gibbs-jaynes-content-layout {
+    display: flex;
+    flex-direction: row;
+    padding: 0 40px;
+    gap: 9px 24px;
+    align-items: stretch;
+    flex: 1;
+    margin-bottom: 11px
+    }
+.gibbs-jaynes-left-column {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 10px 20px
+    }
+.gibbs-jaynes-right-column {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 8px 20px
+    }
+.gibbs-jaynes-info-card {
+    background-color: #FFF;
+    border: 1px solid #E2E8F0;
+    border-left: 4px solid #1A3C5C;
+    border-radius: 4px;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    flex: 1
+    }
+.gibbs-jaynes-accent-card {
+    background-color: #FFF;
+    border: 1px solid #E2E8F0;
+    border-left: 4px solid #E07820;
+    border-radius: 4px;
+    padding: 8px 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    flex: 1
+    }
+.gibbs-jaynes-card-title {
+    color: #1A3C5C;
+    font-family: "Lora", serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px
+    }
+.gibbs-jaynes-card-title i {
+    color: #E07820;
+    font-size: 18px
+    }
+.gibbs-jaynes-math-block {
+    background-color: #F1F5F9;
+    padding: 7px 15px;
+    border-radius: 4px;
+    margin: 5px 0;
+    text-align: center;
+    font-size: 1.1em
+    }
+.gibbs-jaynes-body-paragraph {
+    font-size: 15px;
+    line-height: 1.5;
+    color: #334155;
+    margin-bottom: 5px
+    }
+.gibbs-jaynes-exercise-box {
+    margin-top: auto;
+    background-color: rgba(224, 120, 32, 0.05);
+    border: 1px dashed #E07820;
+    padding: 5px 12px;
+    border-radius: 4px
+    }
+.gibbs-jaynes-exercise-label {
+    color: #E07820;
+    font-weight: 700;
+    font-size: 12px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 2px
+    }
+.gibbs-jaynes-list-item {
+    display: block;
+    margin-bottom: 4px;
+    padding-left: 15px;
+    position: relative;
+    font-size: 14px
+    }
+.gibbs-jaynes-list-item::before {
+    content: "•";
+    color: #E07820;
+    position: absolute;
+    left: 0;
+    font-weight: bold
+    }
+.gibbs-jaynes-analogy-footer {
+    margin: 0 40px 11px 40px;
+    padding: 6px 15px;
+    background-color: #0F172A;
+    color: #F8F9FA;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px 20px
+    }
+.gibbs-jaynes-analogy-icon {
+    font-size: 24px;
+    color: #E07820
+    }
+.gibbs-jaynes-analogy-text {
+    font-size: 14px;
+    font-style: italic;
+    line-height: 1.4
+    }
+html { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="gibbs-jaynes-slide-root" style="overflow: hidden;">
+<!-- Cabeçalho de Título -->
+<div class="title-region-wrapper">
+<span class="title-section-label">Capítulo 4: Termodinâmica Estatística</span>
+<h1 class="title-main-heading">Formulação de Gibbs e o Princípio de Jaynes</h1>
+</div>
+<!-- Texto Explicativo Introdutório -->
+<div class="gibbs-jaynes-intro-text">
+            Enquanto Boltzmann focou em sistemas isolados com microestados equiprováveis, Josiah Willard Gibbs (1902) generalizou o conceito de entropia para distribuições de probabilidade arbitrárias. Mais tarde, em 1957, Edwin Jaynes unificou a termodinâmica com a Teoria da Informação de Shannon, estabelecendo que a física estatística é uma forma de inferência lógica baseada na maximização da nossa incerteza (entropia) sob restrições físicas conhecidas.
+        </div>
+<!-- Layout de Conteúdo em Colunas -->
+<div class="gibbs-jaynes-content-layout">
+<!-- Coluna Esquerda: Gibbs e Médias -->
+<div class="gibbs-jaynes-left-column">
+<div class="gibbs-jaynes-info-card">
+<h2 class="gibbs-jaynes-card-title">
+<i class="fas fa-layer-group"></i> Entropia de Gibbs
+                    </h2>
+<p class="gibbs-jaynes-body-paragraph">
+                        A formulação de Gibbs é aplicável a qualquer ensemble estatístico, tratando \(p_i\) como a probabilidade do sistema estar no estado \(i\):
+                    </p>
+<div class="gibbs-jaynes-math-block">
+                        \[ S = -k_B \sum_{i} p_i \ln p_i \]
+                    </div>
+<p class="gibbs-jaynes-body-paragraph">
+                        Esta expressão é idêntica à Entropia de Shannon na teoria da informação. Através dela, definimos valores médios de observáveis físicos:
+                    </p>
+<div class="gibbs-jaynes-math-block">
+                        \[ \langle\hat{O}\rangle = \sum_i \hat{O}_i\, p_i \]
+                    </div>
+<div class="gibbs-jaynes-list-item">Recupera Boltzmann se \(p_i = 1/\Omega\).</div>
+<div class="gibbs-jaynes-list-item">Funciona para sistemas abertos e fechados.</div>
+</div>
+</div>
+<!-- Coluna Direita: Jaynes e Maximização -->
+<div class="gibbs-jaynes-right-column">
+<div class="gibbs-jaynes-accent-card">
+<h2 class="gibbs-jaynes-card-title">
+<i class="fas fa-arrow-up-wide-short"></i> Princípio da Máxima Entropia
+                    </h2>
+<p class="gibbs-jaynes-body-paragraph">
+                        Jaynes postulou que a distribuição \(p_i\) de equilíbrio é aquela que <strong>maximiza S</strong> sujeita aos vínculos (constraints) do sistema (ex: energia ou número de partículas fixos):
+                    </p>
+<div class="gibbs-jaynes-math-block">
+                        \[ \frac{dS}{dp_i} = 0 \quad \text{sujeito a} \quad \sum p_i = 1 \]
+                    </div>
+<p class="gibbs-jaynes-body-paragraph">
+                        Utilizamos a técnica dos <strong>Multiplicadores de Lagrange</strong> para encontrar o estado mais provável, que corresponde à configuração de maior desordem ou maior "falta de informação".
+                    </p>
+<div class="gibbs-jaynes-exercise-box">
+<span class="gibbs-jaynes-exercise-label">Provocação Teórica</span>
+<div class="gibbs-jaynes-body-paragraph" style="font-size: 13px;margin: 0 0;">
+                            Se não houvesse nenhum vínculo físico (além da normalização), qual seria a distribuição \(p_i\) resultante? 
+                            <strong>Dica:</strong> Pense em um sistema totalmente isolado e sem restrições de energia.
+                        </div>
+</div>
+</div>
+</div>
+</div>
+<!-- Analogia Didática no Rodapé -->
+<div class="gibbs-jaynes-analogy-footer">
+<div class="gibbs-jaynes-analogy-icon">
+<i class="fas fa-lightbulb"></i>
+</div>
+<div class="gibbs-jaynes-analogy-text" style="visibility: hidden;">
+<strong>Analogia do Dado Justo:</strong> Se você sabe apenas que um dado tem 6 faces, a distribuição de máxima entropia atribui 1/6 para cada face. Adicionar um "vínculo" (como saber que a média dos lançamentos é 4.5) altera a distribuição para uma forma não-uniforme que ainda assim maximiza a incerteza sobre os outros detalhes ocultos.
+            </div>
+</div>
+</div>
+</body>
+</html>

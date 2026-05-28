@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+<head>
+<meta charset="utf-8"/>
+<title>Termodinâmica Estatística - Entropia de Sackur-Tetrode</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Lora:ital,wght@0,400;0,700;0,800;1,400&amp;display=swap" rel="stylesheet"/>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><style>:root {
+    --background: #F8F9FA;
+    --title-text: #1A3C5C;
+    --body-text: #1E293B;
+    --secondary-text: #475569;
+    --muted-text: #64748B;
+    --accent: #E07820;
+    --border: #E2E8F0;
+    --card-bg: #FFF
+    }
+* {
+    box-sizing: border-box;
+    margin: 0 0;
+    padding: 0 0
+    }
+body {width: 1280px; height: 720px; overflow: hidden; background-color: #CCC;
+    font-family: "Inter", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center}
+.thermo-slide-root-canvas {
+    width: 1280px;
+    height: 720px;
+    background-color: var(--background);
+    position: relative;
+    display: flex;
+    flex-direction: column
+    }
+.title-section-container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 40px;
+    margin-bottom: 8px;
+    border-left: 6px solid var(--accent);
+    background-color: rgba(26, 60, 92, 0.03)
+    }
+.section-label-amber {
+    color: var(--accent);
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 4px
+    }
+.slide-main-heading {
+    color: var(--title-text);
+    font-family: "Lora", serif;
+    font-size: 32px;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1.2
+    }
+.thermo-content-grid-wrapper {
+    display: flex;
+    flex: 1;
+    padding: 0 40px 11px 40px;
+    gap: 9px 24px;
+    align-items: stretch
+    }
+.left-derivation-content-column {
+    flex: 1.1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px 20px
+    }
+.right-interpretation-content-column {
+    flex: 0.9;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px 20px
+    }
+.thermo-academic-card-item {
+    background-color: var(--card-bg);
+    border-left: 4px solid var(--title-text);
+    border-radius: 4px;
+    padding: 8px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column
+    }
+.thermo-card-proportional-fill {
+    flex: 1 1 0
+    }
+.thermo-card-secondary-fill {
+    flex: 1.2 1 0
+    }
+.thermo-card-header-title {
+    color: var(--title-text);
+    font-family: "Lora", serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px
+    }
+.thermo-card-header-title i {
+    color: var(--accent);
+    font-size: 18px
+    }
+.thermo-explanatory-text-para {
+    color: var(--body-text);
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 5px
+    }
+.thermo-math-display-box {
+    background-color: rgba(26, 60, 92, 0.02);
+    border-radius: 4px;
+    padding: 4px 10px;
+    margin: 3px 0;
+    text-align: center
+    }
+.thermo-exercise-highlight-box {
+    background-color: rgba(224, 120, 32, 0.08);
+    border: 1px dashed var(--accent);
+    border-radius: 6px;
+    padding: 6px 15px;
+    margin-top: auto
+    }
+.thermo-exercise-label {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+    display: block
+    }
+.thermo-exercise-text {
+    font-size: 13px;
+    color: var(--body-text);
+    font-style: italic
+    }
+.thermo-list-no-bullet {
+    list-style: none
+    }
+.thermo-list-item-flow {
+    margin-bottom: 3px;
+    font-size: 14px;
+    color: var(--body-text);
+    display: block
+    }
+.thermo-accent-bold {
+    color: var(--accent);
+    font-weight: 600
+    }
+html { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="thermo-slide-root-canvas" style="overflow: hidden;">
+<!-- Região do Título -->
+<div class="title-section-container">
+<span class="section-label-amber">
+        Exemplo I: Gás Ideal Monoatômico
+      </span>
+<h1 class="slide-main-heading">
+        Entropia de Sackur-Tetrode e Energia Interna
+      </h1>
+</div>
+<!-- Conteúdo Principal -->
+<div class="thermo-content-grid-wrapper">
+<!-- Coluna Esquerda: Derivações Matemáticas -->
+<div class="left-derivation-content-column">
+<div class="thermo-academic-card-item thermo-card-proportional-fill">
+<div class="thermo-card-header-title">
+<i class="fas fa-microchip"></i> Derivação da Energia Interna \(U\)
+          </div>
+<p class="thermo-explanatory-text-para">
+            A energia interna é obtida como a média estatística das energias dos microestados, o que no ensemble canônico traduz-se na derivada da função de partição em relação a \(\beta\):
+          </p>
+<div class="thermo-math-display-box">
+            \[ U = -\frac{\partial \ln Z_N}{\partial \beta} = k_B T^2 \frac{\partial \ln Z_N}{\partial T} \]
+          </div>
+<p class="thermo-explanatory-text-para">
+            Sendo \(\ln Z_N \propto \ln(T^{3/2})\), a derivada resulta em:
+          </p>
+<div class="thermo-math-display-box">
+            \[ \boxed{U = \frac{3}{2}Nk_B T} \]
+          </div>
+</div>
+<div class="thermo-academic-card-item thermo-card-secondary-fill">
+<div class="thermo-card-header-title">
+<i class="fas fa-infinity"></i> A Equação de Sackur-Tetrode
+          </div>
+<p class="thermo-explanatory-text-para">
+            Utilizando a relação \(S = \frac{U - F}{T}\) e inserindo a expressão para a energia livre de Helmholtz \(F\), chegamos à formulação estatística da entropia para o gás ideal:
+          </p>
+<div class="thermo-math-display-box">
+            \[ S = Nk_B \left[ \ln\left( \frac{V}{N\lambda^3} \right) + \frac{5}{2} \right] \]
+          </div>
+<p class="thermo-explanatory-text-para">
+            O termo \(\frac{V}{N\lambda^3}\) compara o volume disponível por partícula com o cubo do comprimento de onda térmico, definindo o regime de validade clássica.
+          </p>
+</div>
+</div>
+<!-- Coluna Direita: Interpretação e Exercício -->
+<div class="right-interpretation-content-column">
+<div class="thermo-academic-card-item thermo-card-proportional-fill">
+<div class="thermo-card-header-title">
+<i class="fa-solid fa-weight-scale"></i> Teorema da Equipartição
+          </div>
+<p class="thermo-explanatory-text-para">
+            O resultado \(U = \frac{3}{2}Nk_BT\) confirma o <span class="thermo-accent-bold">Teorema da Equipartição da Energia</span> para sistemas clássicos:
+          </p>
+<ul class="thermo-list-no-bullet">
+<li class="thermo-list-item-flow">• Cada partícula possui 3 graus de liberdade translacionais (\(x, y, z\)).</li>
+<li class="thermo-list-item-flow">• Cada termo quadrático na Hamiltonian contribui com \(\frac{1}{2}k_BT\) para a média.</li>
+<li class="thermo-list-item-flow">• Para \(N\) partículas: \(3N \times \frac{1}{2}k_BT = \frac{3}{2}Nk_BT\).</li>
+</ul>
+</div>
+<div class="thermo-academic-card-item thermo-card-secondary-fill">
+<div class="thermo-card-header-title">
+<i class="fas fa-lightbulb"></i> Interpretação Física
+          </div>
+<p class="thermo-explanatory-text-para">
+            A entropia de Sackur-Tetrode é <span class="thermo-accent-bold">extensiva</span>, o que significa que se dobrarmos \(V\) e \(N\), a entropia também dobra. Isso só foi possível devido à inclusão do fator de correção de Gibbs (\(1/N!\)).
+          </p>
+<p class="thermo-explanatory-text-para">
+            Note que quando \(T \to 0\), \(\lambda \to \infty\) e a entropia diverge negativamente, indicando que o gás ideal clássico falha em baixas temperaturas (violação da 3ª Lei).
+          </p>
+<div class="thermo-exercise-highlight-box">
+<span class="thermo-exercise-label">Provocação Teórica</span>
+<p class="thermo-exercise-text">
+              "O que aconteceria com a extensividade da entropia se tratássemos as moléculas do gás como partículas distinguíveis (sem o fator \(N!\))?"
+            </p>
+<p style="font-size: 12px;margin-top: 3px;color: var(--muted-text);">
+              Dica: Reavalie o argumento do Paradoxo de Gibbs no Capítulo 4.4.
+            </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

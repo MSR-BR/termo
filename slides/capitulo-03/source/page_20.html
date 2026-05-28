@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+<head>
+<meta charset="utf-8"/>
+<title>Termodinâmica Estatística - Paramagnetismo Clássico</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Lora:ital,wght@0,400;0,700;0,800;1,400&amp;display=swap" rel="stylesheet"/>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><style>:root {
+    --background: #F8F9FA;
+    --title-text: #1A3C5C;
+    --body-text: #1E293B;
+    --secondary-text: #475569;
+    --muted-text: #64748B;
+    --accent: #E07820;
+    --border: #E2E8F0
+    }
+* {
+    box-sizing: border-box;
+    margin: 0 0;
+    padding: 0 0
+    }
+body {width: 1280px; height: 720px; overflow: hidden; background-color: #CCC;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Inter", sans-serif}
+.slide-root-container {
+    width: 1280px;
+    height: 720px;
+    background-color: var(--background);
+    position: relative;
+    display: flex;
+    flex-direction: column
+    }
+/* Title Region */
+.title-section-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 40px;
+    margin-top: 8px;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-bottom: 6px;
+    border-left: 6px solid var(--accent);
+    background-color: rgba(26, 60, 92, 0.03)
+    }
+.title-section-label {
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 4px
+    }
+.title-section-heading {
+    color: var(--title-text);
+    font-family: "Lora", serif;
+    font-size: 32px;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1.2
+    }
+/* Content Layout */
+.langevin-main-content-layout {
+    display: flex;
+    flex: 1;
+    padding: 0 40px 11px 40px;
+    gap: 9px 24px;
+    align-items: stretch
+    }
+.langevin-left-column-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center
+    }
+.langevin-right-column-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center
+    }
+/* Cards */
+.langevin-info-card-block {
+    background: white;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    padding: 10px 20px;
+    border-radius: 0 8px 8px 0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    flex: 1;
+    display: flex;
+    flex-direction: column
+    }
+.langevin-text-paragraph {
+    color: var(--body-text);
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 6px
+    }
+.langevin-equation-box {
+    background-color: #F1F5F9;
+    padding: 6px 12px;
+    border-radius: 6px;
+    margin: 5px 0;
+    text-align: center
+    }
+.langevin-sub-heading {
+    color: var(--title-text);
+    font-family: "Lora", serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 5px 10px
+    }
+.langevin-sub-heading i {
+    color: var(--accent);
+    font-size: 18px
+    }
+/* Image Styling */
+.langevin-chart-image-container {
+    height: 233px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background-color: white;
+    margin-top: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center
+    }
+.langevin-chart-image-container img {
+    height: 100%;
+    width: auto;
+    object-fit: contain
+    }
+.langevin-image-caption {
+    font-size: 11px;
+    color: var(--muted-text);
+    text-align: center;
+    margin-top: 3px;
+    font-style: italic
+    }
+/* Exercises / Tips */
+.langevin-exercise-tip-box {
+    margin-top: auto;
+    background-color: rgba(224, 120, 32, 0.1);
+    border: 1px dashed var(--accent);
+    padding: 5px 12px;
+    border-radius: 8px
+    }
+.langevin-exercise-tip-title {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 2px;
+    text-transform: uppercase
+    }
+.langevin-exercise-tip-text {
+    color: var(--body-text);
+    font-size: 13px;
+    line-height: 1.4
+    }
+html { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="slide-root-container" style="overflow: hidden;">
+<!-- Header -->
+<div class="title-section-wrapper">
+<span class="title-section-label">Exemplo III: Paramagnetismo Clássico</span>
+<h1 class="title-section-heading">O Limite Clássico e a Função de Langevin</h1>
+</div>
+<!-- Main Content -->
+<div class="langevin-main-content-layout">
+<!-- Left Column: Theory and Derivation -->
+<div class="langevin-left-column-wrapper">
+<div class="langevin-info-card-block">
+<h2 class="langevin-sub-heading">
+<i class="fa-solid fa-infinity"></i> O Modelo Contínuo
+          </h2>
+<p class="langevin-text-paragraph">
+            No limite clássico, tratamos os momentos magnéticos \(\vec{\mu}\) como vetores contínuos de módulo fixo \(\mu\), capazes de assumir qualquer orientação \(\theta\) em relação ao campo \(B_z\). A energia de interação é dada por:
+          </p>
+<div class="langevin-equation-box">
+            \[ E(\theta) = -\mu B_z \cos \theta \]
+          </div>
+<p class="langevin-text-paragraph">
+            Para calcular a função de partição de uma partícula (\(Z_1\)), devemos integrar o fator de Boltzmann sobre todo o ângulo sólido \(d\Omega = \sin\theta d\theta d\phi\):
+          </p>
+<div class="langevin-equation-box">
+            \[ Z_1 = \int e^{-\beta E(\theta)} d\Omega = \int_0^{2\pi} d\phi \int_0^\pi e^{\beta \mu B_z \cos \theta} \sin \theta d\theta \]
+          </div>
+<p class="langevin-text-paragraph">
+            Definindo a variável adimensional \(x = \mu B_z / k_B T\), a integração resulta na expressão analítica:
+          </p>
+<div class="langevin-equation-box">
+            \[ Z_1 = 4\pi \frac{\sinh x}{x} \]
+          </div>
+</div>
+</div>
+<!-- Right Column: Magnetization and Chart -->
+<div class="langevin-right-column-wrapper">
+<div class="langevin-info-card-block">
+<h2 class="langevin-sub-heading">
+<i class="fa-solid fa-chart-line"></i> Magnetização e a Função \(L(x)\)
+          </h2>
+<p class="langevin-text-paragraph">
+            A magnetização macroscópica \(M\) é obtida via derivada da energia livre de Helmholtz (\(F = -N k_B T \ln Z_1\)) em relação ao campo \(B_z\):
+          </p>
+<div class="langevin-equation-box">
+            \[ M = N\mu \left( \coth x - \frac{1}{x} \right) = N\mu L(x) \]
+          </div>
+<div class="langevin-chart-image-container">
+<img alt="Comparação Brillouin vs Langevin" src="https://static-us-img.skywork.ai/prod/nexus/1779576094/cropped_image_2_1779576094214287220.jpg"/>
+</div>
+<p class="langevin-image-caption">
+            Comparação: A Função de Langevin (tracejada) representa o limite \(s \to \infty\) da Função de Brillouin.
+          </p>
+<div class="langevin-exercise-tip-box">
+<div class="langevin-exercise-tip-title">Provocação Teórica</div>
+<div class="langevin-exercise-tip-text">
+              Note que para \(x \to 0\) (altas temperaturas), recuperamos a Lei de Curie clássica: \(M \approx N\mu x/3\). Mas o que ocorre com a entropia \(S\) quando \(T \to 0\)? O modelo clássico prevê uma divergência negativa (\(S \to -\infty\)), violando a 3ª Lei.
+            </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

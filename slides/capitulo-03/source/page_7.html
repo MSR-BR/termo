@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ensemble Canônico: Equilíbrio com Reservatório Térmico</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Lora:ital,wght@0,400;0,700;0,800;1,400&amp;display=swap" rel="stylesheet"/>
+<!-- Font Awesome -->
+<!-- MathJax for LaTeX Rendering -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><style>/* Base Reset */
+* {
+    margin: 0 0;
+    padding: 0 0;
+    box-sizing: border-box
+    }
+body {width: 1280px; height: 720px; overflow: hidden; background-color: #F8F9FA;
+    font-family: "Inter", sans-serif;
+    color: #1E293B}
+/* Slide Root */
+.slide-root-container {
+    width: 1280px;
+    height: 720px;
+    padding: 12px 40px;
+    display: flex;
+    flex-direction: column;
+    background-color: #F8F9FA
+    }
+/* Title Region */
+.title-region-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 40px;
+    margin-bottom: 7px;
+    border-left: 6px solid #E07820;
+    background-color: rgba(26, 60, 92, 0.03)
+    }
+.title-section-label {
+    color: #E07820;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 4px
+    }
+.title-main-heading {
+    color: #1A3C5C;
+    font-family: "Lora", serif;
+    font-size: 32px;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1.2
+    }
+/* Content Layout */
+.content-main-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 7px 24px;
+    flex: 1
+    }
+.intro-text-block {
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #475569;
+    margin-bottom: 2px;
+    text-align: justify
+    }
+.columns-wrapper-container {
+    display: flex;
+    align-items: stretch;
+    gap: 7px 24px;
+    flex: 1
+    }
+/* Column Specifics */
+.left-column-theoretical-basis {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1 1 0
+    }
+.right-column-mathematical-derivation {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1 1 0
+    }
+/* Cards/Blocks */
+.academic-info-card {
+    background-color: #FFF;
+    padding: 7px 24px;
+    border-left: 4px solid #1A3C5C;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    flex: 1;
+    display: flex;
+    flex-direction: column
+    }
+.card-header-group {
+    display: flex;
+    align-items: center;
+    gap: 4px 12px;
+    margin-bottom: 5px
+    }
+.card-header-icon {
+    color: #E07820;
+    font-size: 18px
+    }
+.card-header-title {
+    color: #1A3C5C;
+    font-family: "Inter", sans-serif;
+    font-size: 20px;
+    font-weight: 700
+    }
+.card-body-content {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #1E293B
+    }
+.math-block-display {
+    background-color: #F1F5F9;
+    padding: 5px 16px;
+    border-radius: 4px;
+    margin: 4px 0;
+    text-align: center;
+    font-size: 16px
+    }
+.accent-note-box {
+    background-color: rgba(224, 120, 32, 0.08);
+    border: 1px dashed #E07820;
+    padding: 4px 16px;
+    margin-top: 5px
+    }
+.accent-note-text {
+    color: #E07820;
+    font-size: 12px;
+    font-weight: 600;
+    font-style: italic
+    }
+.list-unstyled-items {
+    list-style: none;
+    margin-top: 2px
+    }
+.list-item-bullet {
+    margin-bottom: 2px;
+    padding-left: 20px;
+    position: relative
+    }
+.list-item-bullet::before {
+    content: "";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: absolute;
+    left: 0;
+    color: #E07820
+    }
+/* Footer Info */
+.footer-provocation-bar {
+    margin-top: 7px;
+    padding-top: 5px;
+    border-top: 1px solid #E2E8F0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center
+    }
+.provocation-text {
+    font-family: "Lora", serif;
+    font-size: 15px;
+    font-style: italic;
+    color: #64748B
+    }
+.author-tag {
+    font-size: 12px;
+    font-weight: 700;
+    color: #94A3B8;
+    text-transform: uppercase
+    }
+html { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="slide-root-container" style="overflow: hidden;">
+<!-- Title Section -->
+<div class="title-region-wrapper">
+<span class="title-section-label">Seção 4.3: Ensemble Canônico</span>
+<h1 class="title-main-heading">Equilíbrio com Reservatório Térmico</h1>
+</div>
+<!-- Main Content -->
+<div class="content-main-layout">
+<p class="intro-text-block">
+                Diferentemente do ensemble micro-canônico, onde o sistema é completamente isolado, o <strong>Ensemble Canônico</strong> descreve sistemas fechados em contato térmico com um reservatório de calor (banho térmico) a uma temperatura \(T\) constante. Neste cenário, a energia do sistema não é mais fixa e pode flutuar através de trocas microscópicas com o ambiente, embora o número de partículas \(N\) e o volume \(V\) permaneçam constantes.
+            </p>
+<div class="columns-wrapper-container">
+<!-- Left Column: Theoretical Context -->
+<div class="left-column-theoretical-basis">
+<div class="academic-info-card">
+<div class="card-header-group">
+<i class="fa-solid fa-flask-vial card-header-icon"></i>
+<h2 class="card-header-title">Contexto Físico e Vínculos</h2>
+</div>
+<div class="card-body-content">
+<p>Para determinar o estado de equilíbrio, aplicamos o <strong>Princípio da Máxima Entropia</strong> sob dois vínculos fundamentais que representam nosso conhecimento macroscópico do sistema:</p>
+<ul class="list-unstyled-items">
+<li class="list-item-bullet">
+<strong>Normalização:</strong> A soma de todas as probabilidades de ocupação dos estados \(i\) deve ser unitária.
+                                    <div class="math-block-display">\[ \sum_i p_i = 1 \]</div>
+</li>
+<li class="list-item-bullet">
+<strong>Energia Média (U):</strong> O reservatório fixa a energia interna média do sistema, permitindo flutuações locais.
+                                    <div class="math-block-display">\[ \langle E \rangle = \sum_i p_i \varepsilon_i = U \]</div>
+</li>
+</ul>
+<div class="accent-note-box">
+<span class="accent-note-text">Analogia: Um termostato mantém a temperatura média de uma sala, embora a energia cinética das moléculas de ar varie continuamente.</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Mathematical Derivation -->
+<div class="right-column-mathematical-derivation">
+<div class="academic-info-card" style="border-left-color: #E07820;">
+<div class="card-header-group">
+<i class="fa-solid fa-calculator card-header-icon"></i>
+<h2 class="card-header-title">Maximização de Gibbs-Jaynes</h2>
+</div>
+<div class="card-body-content">
+<p>Utilizamos a técnica dos <strong>Multiplicadores de Lagrange</strong> para maximizar a entropia de Gibbs sujeita aos vínculos de normalização (\(\lambda\)) e energia (\(\beta\)):</p>
+<div class="math-block-display" style="font-size: 14px;">
+                                \[ S = -k_B \sum_i p_i \ln p_i + \lambda\left(1 - \sum_i p_i\right) + \beta\left(U - \sum_i p_i \varepsilon_i\right) \]
+                            </div>
+<p>Aplicando a condição de extremante \(\frac{\partial S}{\partial p_i} = 0\):</p>
+<div class="math-block-display">
+                                \[ -k_B(\ln p_i + 1) - \lambda - \beta \varepsilon_i = 0 \]
+                            </div>
+<p>Isolando \(p_i\), obtemos a forma funcional da distribuição:</p>
+<div class="math-block-display">
+                                \[ p_i = e^{-(1 + \frac{\lambda}{k_B})} e^{-\frac{\beta}{k_B} \varepsilon_i} \]
+                            </div>
+<p>Esta derivação revela que a probabilidade de um estado ser ocupado decai exponencialmente com sua energia \(\varepsilon_i\).</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<div class="footer-provocation-bar">
+<span class="provocation-text">Provocação Teórica: Por que a energia interna \(U\) é tratada como um vínculo e não como um valor fixo \(\Omega(E)\)?</span>
+<span class="author-tag">Prof. Mario Reis | UFF 2026</span>
+</div>
+</div>
+</body>
+</html>

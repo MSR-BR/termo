@@ -332,6 +332,8 @@ body{
   .rectangle-box{grid-template-columns:1fr}
 }
 </style>
+<link rel="stylesheet" href="../../assets/ai-exercises.css">
+<script defer src="../../assets/ai-exercises.js"></script>
 </head>
 
 <body>
@@ -808,135 +810,9 @@ Abrir simulador
 </div>
 </section>
 
-<section class="card ai-exercise-card" id="aiExerciseBox">
-
-<div class="ai-exercise-top">
-<div class="ai-exercise-title">
-<i class="fa-solid fa-wand-magic-sparkles"></i>
-Exercício
-</div>
-
-<div class="ai-controls">
-<select class="ai-select" id="difficultySelect">
-<option value="facil">Fácil</option>
-<option selected value="medio">Médio</option>
-<option value="dificil">Difícil</option>
-</select>
-
-<button class="ai-btn" id="newExerciseBtn" type="button">Novo exercício</button>
-<button class="ai-btn secondary" id="showSolutionBtn" type="button" disabled>Ver solução</button>
-</div>
-</div>
-
-<div class="ai-disclaimer">
-<strong>Aviso importante:</strong> todo o conteúdo didático das páginas e do livro associado foi criado pelo Prof. Mario Reis. O aplicativo de criação de exercícios é um experimento didático; os exercícios e soluções serão gerados automaticamente por IA e <strong>podem conter erros conceituais, matemáticos ou pedagógicos</strong>. Erros detectados devem ser comunicados para <a href="mailto:marioreis@id.uff.br">marioreis@id.uff.br</a>.
-</div>
-
-<div class="ai-output" id="exerciseOutput">
-Escolha o nível e clique em <strong>Novo exercício</strong>.
-</div>
-
-<div class="ai-solution" id="solutionOutput"></div>
-
-</section>
+<section data-termo-ai-exercise data-exercise-theme="purple"></section>
 
 </div>
-
-<script>
-document.addEventListener("DOMContentLoaded", function(){
-
-const novo = document.getElementById("newExerciseBtn");
-const show = document.getElementById("showSolutionBtn");
-const output = document.getElementById("exerciseOutput");
-const solution = document.getElementById("solutionOutput");
-const difficulty = document.getElementById("difficultySelect");
-
-let currentSolution = "";
-
-function escapeHtml(value){
-  return String(value || "").replace(/[&<>"']/g,function(s){
-    return ({
-      "&":"&amp;",
-      "<":"&lt;",
-      ">":"&gt;",
-      '"':"&quot;",
-      "'":"&#039;"
-    })[s];
-  });
-}
-
-function getPageContext(){
-  const title = document.querySelector(".chapter-title")?.innerText || document.title;
-  const cards = Array.from(document.querySelectorAll(".card:not(.ai-exercise-card)"))
-    .map(card => card.innerText.trim())
-    .filter(Boolean)
-    .join("\\n\\n");
-  return { title, content: cards };
-}
-
-async function gerarExercicio(){
-
-  novo.disabled = true;
-  show.disabled = true;
-  output.innerHTML = "Gerando exercício...";
-  solution.style.display = "none";
-  solution.innerHTML = "";
-
-  const ctx = getPageContext();
-
-  try{
-
-    const response = await fetch("/api/exercicio",{
-      method:"POST",
-      headers:{ "Content-Type":"application/json" },
-      body:JSON.stringify({
-        pageTitle:ctx.title,
-        pageContent:ctx.content,
-        difficulty:difficulty.value,
-        language:"pt-BR",
-        level:"graduação em Física"
-      })
-    });
-
-    const data = await response.json();
-
-    if(!response.ok){
-      throw new Error(data.error || "Erro na API.");
-    }
-
-    currentSolution = data.solution || "";
-
-    output.innerHTML = `
-      <strong>${escapeHtml(data.title || "Exercício")}</strong><br><br>
-      ${escapeHtml(data.statement || "A API não retornou um enunciado.")}
-    `;
-
-    solution.innerHTML = `
-      <strong>Solução</strong><br><br>
-      ${escapeHtml(currentSolution || "A API não retornou uma solução.")}
-    `;
-
-    show.disabled = !currentSolution;
-
-  }catch(error){
-
-    output.innerHTML = `
-      Não foi possível gerar o exercício. Verifique se o projeto está publicado no Vercel, se o arquivo <strong>api/exercicio.js</strong> existe e se a variável <strong>GEMINI_API_KEY</strong> foi configurada.
-    `;
-
-  }finally{
-    novo.disabled = false;
-  }
-}
-
-novo.addEventListener("click", gerarExercicio);
-
-show.addEventListener("click", function(){
-  solution.style.display = solution.style.display === "block" ? "none" : "block";
-});
-
-});
-</script>
 
 </body>
 </html>

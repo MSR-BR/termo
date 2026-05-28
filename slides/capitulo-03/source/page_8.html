@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Termodinâmica Estatística - Distribuição de Boltzmann</title>
+<!-- Fontes -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Lora:ital,wght@0,400;0,700;0,800;1,400&amp;display=swap" rel="stylesheet"/>
+<!-- Font Awesome -->
+<!-- MathJax -->
+<script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+  </script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><style>:root {
+    --background: #F8F9FA;
+    --title-text: #1A3C5C;
+    --body-text: #1E293B;
+    --secondary-text: #475569;
+    --muted-text: #64748B;
+    --accent: #E07820;
+    --secondary-accent: #0F172A;
+    --border: #E2E8F0;
+    --card-bg: #FFF
+    }
+* {
+    box-sizing: border-box;
+    margin: 0 0;
+    padding: 0 0
+    }
+body {width: 1280px; height: 720px; overflow: hidden; background-color: #E5E5E5;
+    font-family: "Inter", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center}
+.slide-root-container {
+    width: 1280px;
+    height: 720px;
+    background-color: var(--background);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 0 0
+    }
+/* Title Region */
+.title-region-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 24px 40px;
+    margin-top: 8px;
+    margin-left: 40px;
+    margin-right: 40px;
+    border-left: 6px solid var(--accent);
+    background-color: rgba(26, 60, 92, 0.03)
+    }
+.title-label-section {
+    color: var(--accent);
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 4px
+    }
+.title-main-heading {
+    color: var(--title-text);
+    font-family: "Lora", serif;
+    font-size: 32px;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1.2
+    }
+/* Content Layout */
+.main-content-layout-row {
+    display: flex;
+    flex-direction: row;
+    gap: 9px 24px;
+    padding: 0 40px;
+    margin-top: 6px;
+    align-items: stretch;
+    flex: 1
+    }
+.left-derivation-column {
+    display: flex;
+    flex-direction: column;
+    flex: 1.2;
+    gap: 8px 16px
+    }
+.right-interpretation-column {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 6px 16px
+    }
+/* Components */
+.content-card-module {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    flex: 1
+    }
+.card-heading-group {
+    display: flex;
+    align-items: center;
+    gap: 5px 10px;
+    margin-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 4px
+    }
+.card-heading-icon {
+    color: var(--accent);
+    font-size: 18px
+    }
+.card-heading-text {
+    color: var(--title-text);
+    font-family: "Lora", serif;
+    font-size: 20px;
+    font-weight: 700
+    }
+.body-paragraph-text {
+    color: var(--body-text);
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 6px;
+    text-align: justify
+    }
+.equation-display-block {
+    background-color: #F1F5F9;
+    padding: 6px 12px;
+    border-radius: 4px;
+    margin: 4px 0;
+    text-align: center;
+    border-left: 3px solid var(--title-text)
+    }
+.accent-box-note {
+    background-color: rgba(224, 120, 32, 0.08);
+    border-left: 4px solid var(--accent);
+    padding: 5px 16px;
+    margin-top: auto
+    }
+.accent-box-title {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    gap: 8px
+    }
+.accent-box-content {
+    color: var(--body-text);
+    font-size: 13px;
+    line-height: 1.5;
+    font-style: italic
+    }
+.list-container-wrapper {
+    list-style: none;
+    padding: 0 0;
+    margin: 0 0
+    }
+.list-item-entry {
+    display: block;
+    margin-bottom: 3px;
+    padding-left: 20px;
+    position: relative;
+    font-size: 13px;
+    color: var(--secondary-text)
+    }
+.list-item-entry::before {
+    content: "•";
+    color: var(--accent);
+    position: absolute;
+    left: 0;
+    font-weight: bold
+    }
+.footer-summary-container {
+    margin: 6px 40px 9px 40px;
+    padding: 5px 20px;
+    background-color: var(--secondary-accent);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px 15px
+    }
+.footer-icon-badge {
+    color: #FFF;
+    background-color: var(--accent);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0
+    }
+.footer-text-content {
+    color: #E2E8F0;
+    font-size: 14px;
+    line-height: 1.4
+    }
+/* Math size adjustment */
+.mjx-chtml {overflow: hidden; font-size: 110% !important}</style>
+</head>
+<body>
+<div class="slide-root-container" style="overflow: hidden;">
+<!-- Title Section -->
+<div class="title-region-wrapper">
+<span class="title-label-section">Ensemble Canônico</span>
+<h1 class="title-main-heading">Distribuição de Boltzmann e a Função de Partição</h1>
+</div>
+<!-- Main Content Area -->
+<div class="main-content-layout-row">
+<!-- Left Column: Formal Derivation -->
+<div class="left-derivation-column">
+<div class="content-card-module">
+<div class="card-heading-group">
+<i class="fa-solid fa-square-root-variable card-heading-icon"></i>
+<h2 class="card-heading-text">Derivação via Multiplicadores</h2>
+</div>
+<p class="body-paragraph-text">
+            Para um sistema em contato com um reservatório térmico, a energia pode flutuar, mas a energia interna média $U$ é mantida constante. Maximizamos a entropia de Gibbs sob dois vínculos: normalização e energia média.
+          </p>
+<div class="equation-display-block">
+            \[ \mathcal{L} = -\sum_i p_i \ln p_i + \lambda\left(1 - \sum_i p_i\right) + \beta\left(U - \sum_i p_i \varepsilon_i\right) \]
+          </div>
+<p class="body-paragraph-text">
+            Aplicando a condição de extremo $\partial \mathcal{L} / \partial p_i = 0$, obtemos:
+          </p>
+<div class="equation-display-block">
+            \[ -\ln p_i - 1 - \lambda - \beta\varepsilon_i = 0 \implies p_i = e^{-(1+\lambda)} e^{-\beta\varepsilon_i} \]
+          </div>
+<p class="body-paragraph-text">
+            Impondo a normalização $\sum p_i = 1$, definimos o fator de normalização como a <strong>Função de Partição $Z$</strong>:
+          </p>
+<div class="equation-display-block">
+            \[ \boxed{p_i = \frac{e^{-\beta\varepsilon_i}}{Z}} \quad \text{com} \quad \boxed{Z = \sum_i e^{-\beta\varepsilon_i}} \]
+          </div>
+</div>
+</div>
+<!-- Right Column: Significance and Partition Function -->
+<div class="right-interpretation-column">
+<div class="content-card-module">
+<div class="card-heading-group">
+<i class="fa-solid fa-diagram-project card-heading-icon"></i>
+<h2 class="card-heading-text">Significado da Função de Partição</h2>
+</div>
+<p class="body-paragraph-text">
+            A função de partição $Z$ (do alemão <i>Zustandssumme</i>, "soma sobre estados") é a grandeza central da mecânica estatística. Ela atua como uma ponte entre o micro e o macro:
+          </p>
+<div class="list-container-wrapper">
+<div class="list-item-entry"><strong>Normalizador:</strong> Garante que a soma das probabilidades seja unitária.</div>
+<div class="list-item-entry"><strong>Peso Estatístico:</strong> Estados com energia $\varepsilon_i \gg k_B T$ são exponencialmente suprimidos.</div>
+<div class="list-item-entry"><strong>Geradora de Potenciais:</strong> A partir de $Z$, derivamos todas as propriedades termodinâmicas (F, S, U, P).</div>
+</div>
+<div class="accent-box-note">
+<div class="accent-box-title">
+<i class="fa-solid fa-lightbulb"></i>
+              Provocação Teórica
+            </div>
+<div class="accent-box-content">
+              Se um sistema possui apenas dois níveis de energia, $0$ e $\Delta$, como a probabilidade de ocupação do estado excitado se comporta quando a temperatura $T \to \infty$? E quando $T \to 0$?
+            </div>
+</div>
+</div>
+<div class="content-card-module" style="flex: 0.6;">
+<div class="card-heading-group">
+<i class="fa-solid fa-scale-balanced card-heading-icon"></i>
+<h2 class="card-heading-text">Analogia Didática</h2>
+</div>
+<p class="body-paragraph-text" style="font-size: 14px;">
+            Imagine uma prateleira de livros onde os mais altos (alta energia) são mais difíceis de alcançar. Se você tiver "energia térmica" (escada), pode alcançá-los. Se a escada for curta (baixa temperatura), você só acessa os livros da base.
+          </p>
+</div>
+</div>
+</div>
+<!-- Footer Summary -->
+<div class="footer-summary-container">
+<div class="footer-icon-badge">
+<i class="fa-solid fa-key"></i>
+</div>
+<div class="footer-text-content">
+<strong>Conceito Chave:</strong> A distribuição de Boltzmann mostra que a probabilidade de um microestado decai exponencialmente com sua energia. O parâmetro $\beta$ controla a "largura" dessa distribuição, vinculando a estatística à temperatura macroscópica.
+      </div>
+</div>
+</div>
+</body>
+</html>

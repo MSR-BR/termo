@@ -246,11 +246,29 @@
       background: var(--blue-soft);
     }
 
+    .topic-card.ai-exercise {
+      background: linear-gradient(180deg, #FCF8FF 0%, #F7F0FF 100%);
+      border-color: #E5D4FA;
+      border-left-color: #6D28D9;
+    }
+
+    .topic-card.ai-exercise:hover {
+      background: #F3E8FF;
+      box-shadow: 0 8px 20px rgba(109, 40, 217, 0.14);
+    }
+
+    .topic-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
     .topic-id {
       color: var(--red);
       font-size: 12px;
       font-weight: 700;
-      margin-bottom: 5px;
     }
 
     .topic-title {
@@ -266,6 +284,23 @@
       font-family: "Lora", Georgia, serif;
       font-size: 13.5px;
       line-height: 1.4;
+    }
+
+    .topic-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      font-family: "Inter", sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .topic-badge.ai-exercise {
+      background: #E9D5FF;
+      color: #5B21B6;
     }
 
     .empty-state {
@@ -314,6 +349,21 @@
       .main-title { font-size: 28px; }
     }
   </style>
+<script>
+(function () {
+  if (window.__termoPreviewRedirect) return;
+  window.__termoPreviewRedirect = true;
+  if (location.protocol !== "file:") return;
+
+  const marker = "/termo/";
+  const markerIndex = location.pathname.lastIndexOf(marker);
+  if (markerIndex === -1) return;
+
+  const relativePath = location.pathname.slice(markerIndex + marker.length);
+  const target = `http://127.0.0.1:4173/${relativePath}${location.search}${location.hash}`;
+  location.replace(target);
+})();
+</script>
 </head>
 
 <body>
@@ -325,7 +375,7 @@
         <div class="metadata">
           <span><i class="fa-solid fa-user-tie"></i> Prof. Mario Reis</span>
           <span><i class="fa-solid fa-building-columns"></i> Instituto de Física — Universidade Federal Fluminense</span>
-          <span><i class="fa-solid fa-calendar-days"></i> Última atualização: <time id="lastUpdated">26/04/2026</time></span>
+          <span><i class="fa-solid fa-calendar-days"></i> Última atualização: <time id="lastUpdated">23/05/2026</time></span>
         </div>
       </div>
     </header>
@@ -394,6 +444,13 @@
     const panelTitle = document.getElementById("panelTitle");
     const panelDescription = document.getElementById("panelDescription");
     const topicContainer = document.getElementById("topicContainer");
+    const chapterParam = new URLSearchParams(window.location.search).get("chapter");
+
+    function updateChapterParam(id) {
+      const url = new URL(window.location.href);
+      url.searchParams.set("chapter", id);
+      window.history.replaceState({}, "", url);
+    }
 
     function renderChapterMenu() {
       chapterList.innerHTML = "";
@@ -422,6 +479,7 @@
 
     async function loadChapter(chapter) {
       setActiveChapter(chapter.id);
+      updateChapterParam(chapter.id);
       panelKicker.textContent = `Capítulo ${chapter.id}`;
       panelTitle.textContent = chapter.title;
       panelDescription.textContent = "Carregando tópicos do capítulo...";
@@ -451,10 +509,13 @@
 
         topics.forEach((topic) => {
           const link = document.createElement("a");
-          link.className = "topic-card";
+          link.className = `topic-card${topic.aiExercise ? " ai-exercise" : ""}`;
           link.href = topic.url || "#";
           link.innerHTML = `
-            <div class="topic-id">${topic.id || ""}</div>
+            <div class="topic-card-top">
+              <div class="topic-id">${topic.id || ""}</div>
+              ${topic.aiExercise ? `<div class="topic-badge ai-exercise"><i class="fa-solid fa-wand-magic-sparkles"></i> Exercício IA</div>` : ""}
+            </div>
             <div class="topic-title">${topic.title || "Tópico sem título"}</div>
             <div class="topic-note">${topic.note || "Abrir página HTML deste tópico."}</div>
           `;
@@ -476,7 +537,9 @@
 
     renderChapterMenu();
 
-    const defaultChapter = chapters.find((chapter) => chapter.id === "01") || chapters[0];
+    const defaultChapter = chapters.find((chapter) => chapter.id === chapterParam)
+      || chapters.find((chapter) => chapter.id === "01")
+      || chapters[0];
     loadChapter(defaultChapter);
   </script>
 </body>

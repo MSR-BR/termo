@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Significado Físico do Parâmetro Beta</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        tags: 'none'
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea']
+      },
+      startup: {
+        typeset: true
+      }
+    };
+  </script>
+<script async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><style>* {
+    margin: 0 0;
+    padding: 0 0;
+    box-sizing: border-box
+    }
+body {width: 1280px; height: 720px; overflow: hidden; background: #d0d0d0;
+    display: block}
+.beta-slide-root {
+    width: 1280px;
+    height: 720px;
+    background-color: #F8F9FA;
+    font-family: "Inter", sans-serif;
+    color: #1E293B;
+    display: flex;
+    flex-direction: column;
+    padding: 0 0
+    }
+/* ── TITLE REGION ── */
+.beta-title-region {
+    display: flex;
+    flex-direction: column;
+    padding: 18px 40px 14px 40px;
+    border-left: 6px solid #E07820;
+    background-color: rgba(26, 60, 92, 0.03);
+    margin: 16px 36px 0 36px;
+    flex-shrink: 0
+    }
+.beta-title-section-label {
+    color: #E07820;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 4px
+    }
+.beta-title-heading {
+    color: #1A3C5C;
+    font-family: "Lora", serif;
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin: 0
+    }
+/* ── MAIN CONTENT AREA ── */
+.beta-main-content {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    flex: 1;
+    gap: 13px 16px;
+    padding: 11px 36px 13px 36px;
+    min-height: 0
+    }
+/* ── LEFT COLUMN ── */
+.beta-left-column {
+    display: flex;
+    flex-direction: column;
+    flex: 1.1;
+    gap: 12px
+    }
+.beta-left-context-card {
+    background-color: #fff;
+    border: 1px solid #E2E8F0;
+    border-left: 4px solid #1A3C5C;
+    border-radius: 6px;
+    padding: 12px 16px;
+    flex: 1 1 0
+    }
+.beta-left-context-card-heading {
+    color: #1A3C5C;
+    font-family: "Lora", serif;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 7px
+    }
+.beta-left-context-card-heading i {
+    color: #E07820;
+    font-size: 13px
+    }
+.beta-left-context-card-body {
+    color: #1E293B;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.6
+    }
+.beta-left-derivation-card {
+    background-color: #fff;
+    border: 1px solid #E2E8F0;
+    border-left: 4px solid #E07820;
+    border-radius: 6px;
+    padding: 12px 16px;
+    flex: 2 1 0
+    }
+.beta-left-derivation-heading {
+    color: #E07820;
+    font-family: "Inter", sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 7px
+    }
+.beta-left-derivation-heading i {
+    font-size: 12px
+    }
+.beta-derivation-steps-list {
+    list-style: none;
+    display: block
+    }
+.beta-derivation-step-item {
+    display: block;
+    padding: 5px 0;
+    border-bottom: 1px dashed #E2E8F0;
+    color: #1E293B;
+    font-size: 14px;
+    line-height: 1.55
+    }
+.beta-derivation-step-item:last-child {
+    border-bottom: none
+    }
+.beta-step-label {
+    color: #E07820;
+    font-weight: 700;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-right: 4px
+    }
+/* ── RIGHT COLUMN ── */
+.beta-right-column {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 10px 12px
+    }
+.beta-right-result-card {
+    background-color: rgba(26, 60, 92, 0.04);
+    border: 1.5px solid #1A3C5C;
+    border-radius: 6px;
+    padding: 11px 16px;
+    flex: 1.2 1 0
+    }
+.beta-right-result-heading {
+    color: #1A3C5C;
+    font-family: "Lora", serif;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px 7px
+    }
+.beta-right-result-heading i {
+    color: #E07820;
+    font-size: 13px
+    }
+.beta-result-equation-block {
+    background-color: #fff;
+    border: 1px solid #E2E8F0;
+    border-radius: 4px;
+    padding: 6px 12px;
+    margin-bottom: 6px;
+    text-align: center;
+    font-size: 15px
+    }
+.beta-result-interpretation-text {
+    color: #334155;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.6
+    }
+.beta-right-analogy-card {
+    background-color: #fff;
+    border: 1px solid #E2E8F0;
+    border-left: 4px solid #E07820;
+    border-radius: 6px;
+    padding: 10px 16px;
+    flex: 1 1 0
+    }
+.beta-right-analogy-heading {
+    color: #E07820;
+    font-family: "Inter", sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px 7px
+    }
+.beta-right-analogy-heading i {
+    font-size: 12px
+    }
+.beta-analogy-comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 8px
+    }
+.beta-analogy-comparison-col {
+    border-radius: 4px;
+    padding: 8px 10px
+    }
+.beta-analogy-comparison-col-left {
+    background-color: rgba(26, 60, 92, 0.06)
+    }
+.beta-analogy-comparison-col-right {
+    background-color: rgba(224, 120, 32, 0.07)
+    }
+.beta-analogy-col-title {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 5px
+    }
+.beta-analogy-col-title-navy {
+    color: #1A3C5C
+    }
+.beta-analogy-col-title-amber {
+    color: #E07820
+    }
+.beta-analogy-col-body {
+    color: #334155;
+    font-size: 13px;
+    line-height: 1.55
+    }
+.beta-right-exercise-card {
+    background-color: rgba(224, 120, 32, 0.06);
+    border: 1.5px solid #E07820;
+    border-radius: 6px;
+    padding: 8px 14px;
+    flex: 0.8 1 0
+    }
+.beta-exercise-heading {
+    color: #E07820;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 5px 6px
+    }
+.beta-exercise-heading i {
+    font-size: 11px
+    }
+.beta-exercise-body-text {
+    color: #1E293B;
+    font-size: 13px;
+    line-height: 1.55
+    }
+.beta-exercise-hint-text {
+    color: #475569;
+    font-size: 12px;
+    line-height: 1.5;
+    margin-top: 3px;
+    font-style: italic
+    }
+/* Inline math adjustments */
+.beta-inline-highlight {
+    color: #1A3C5C;
+    font-weight: 600
+    }
+html { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="beta-slide-root" style="overflow: hidden;">
+<!-- TITLE REGION -->
+<div class="beta-title-region">
+<span class="beta-title-section-label">Ensemble Canônico — Seção 4.3</span>
+<h1 class="beta-title-heading">Significado Físico do Parâmetro \(\beta\)</h1>
+</div>
+<!-- MAIN CONTENT -->
+<div class="beta-main-content">
+<!-- LEFT COLUMN -->
+<div class="beta-left-column">
+<!-- Context Card -->
+<div class="beta-left-context-card">
+<div class="beta-left-context-card-heading">
+<i class="fa-solid fa-circle-info"></i>
+            Contexto: de onde vem \(\beta\)?
+          </div>
+<div class="beta-left-context-card-body">
+            Na maximização da entropia de Gibbs com dois vínculos — normalização e energia média \(U\) — surgem naturalmente <span class="beta-inline-highlight">dois multiplicadores de Lagrange</span>: \(\lambda\) (associado à normalização) e \(\beta\) (associado à restrição de energia). A distribuição de Boltzmann \(p_i = e^{-\beta\varepsilon_i}/Z\) contém \(\beta\) como parâmetro livre. Para identificar seu significado físico, comparamos com a termodinâmica clássica, onde a temperatura \(T\) é a variável que governa o equilíbrio térmico.
+          </div>
+</div>
+<!-- Derivation Card -->
+<div class="beta-left-derivation-card">
+<div class="beta-left-derivation-heading">
+<i class="fa-solid fa-calculator"></i>
+            Derivação: identificação de \(\beta\) via termodinâmica
+          </div>
+<ul class="beta-derivation-steps-list">
+<li class="beta-derivation-step-item">
+<span class="beta-step-label">Passo 1</span>
+              A entropia de equilíbrio do ensemble canônico é \(S = k_B(\beta U + \ln Z)\), obtida inserindo \(p_i\) na fórmula de Gibbs.
+            </li>
+<li class="beta-derivation-step-item">
+<span class="beta-step-label">Passo 2</span>
+              Da termodinâmica clássica, a relação fundamental é \(dU = T\,dS - P\,dV\), portanto \(\left(\frac{\partial S}{\partial U}\right)_V = \frac{1}{T}\).
+            </li>
+<li class="beta-derivation-step-item">
+<span class="beta-step-label">Passo 3</span>
+              Diferenciando a expressão estatística de \(S\) em relação a \(U\) a volume fixo: \(\left(\frac{\partial S}{\partial U}\right)_V = k_B\beta\).
+            </li>
+<li class="beta-derivation-step-item">
+<span class="beta-step-label">Resultado</span>
+              Igualando os dois resultados: \(k_B \beta = \dfrac{1}{T}\), logo \[\beta = \dfrac{1}{k_B T}\].
+            </li>
+</ul>
+</div>
+</div>
+<!-- RIGHT COLUMN -->
+<div class="beta-right-column">
+<!-- Result Card -->
+<div class="beta-right-result-card">
+<div class="beta-right-result-heading">
+<i class="fa-solid fa-star"></i>
+            Resultado Central e Interpretação Física
+          </div>
+<div class="beta-result-equation-block">
+            \[\beta = \frac{1}{k_B T} \qquad \Longrightarrow \qquad p_i = \frac{e^{-\varepsilon_i/k_BT}}{Z}\]
+          </div>
+<div class="beta-result-interpretation-text">
+            \(\beta\) é o <strong>multiplicador de Lagrange da energia</strong>: quanto maior \(\beta\) (menor \(T\)), a distribuição se concentra nos estados de menor energia. Quanto menor \(\beta\) (maior \(T\)), os estados tornam-se progressivamente equiprováveis. Fisicamente, \(\beta\) <em>controla a largura da distribuição</em> de energias ocupadas pelo sistema — é a medida inversa da agitação térmica disponível.
+          </div>
+</div>
+<!-- Analogy Card -->
+<div class="beta-right-analogy-card">
+<div class="beta-right-analogy-heading">
+<i class="fa-solid fa-arrows-left-right"></i>
+            Analogia: Limites de \(\beta\)
+          </div>
+<div class="beta-analogy-comparison-grid">
+<div class="beta-analogy-comparison-col beta-analogy-comparison-col-left">
+<div class="beta-analogy-col-title beta-analogy-col-title-navy">
+                \(\beta \to \infty\)  (\(T \to 0\))
+              </div>
+<div class="beta-analogy-col-body">
+                Apenas o estado fundamental \(\varepsilon_0\) é ocupado. A distribuição colapsa: \(p_0 \to 1\), \(p_{i&gt;0} \to 0\). O sistema "congela" no nível mais baixo.
+              </div>
+</div>
+<div class="beta-analogy-comparison-col beta-analogy-comparison-col-right">
+<div class="beta-analogy-col-title beta-analogy-col-title-amber">
+                \(\beta \to 0\)  (\(T \to \infty\))
+              </div>
+<div class="beta-analogy-col-body">
+                Todos os estados tornam-se equiprováveis: \(p_i \to 1/\Omega\). Recupera-se o ensemble micro-canônico. A agitação térmica apaga as preferências energéticas.
+              </div>
+</div>
+</div>
+</div>
+<!-- Exercise Card -->
+<div class="beta-right-exercise-card">
+<div class="beta-exercise-heading">
+<i class="fa-solid fa-pencil"></i>
+            Provocação Teórica &amp; Exercício
+          </div>
+<div class="beta-exercise-body-text">
+            Se \(\beta\) controla as flutuações, como se comporta a <strong>energia interna</strong> \(U = -\partial \ln Z/\partial\beta\) quando \(\beta \to 0\)? Verifique para o sistema de 2 níveis (energias \(0\) e \(\varepsilon\)).
+          </div>
+<div class="beta-exercise-hint-text">
+<i class="fa-solid fa-lightbulb" style="color: #E07820;margin-right: 4px;"></i>
+            Dica: calcule \(Z = 1 + e^{-\beta\varepsilon}\) e expanda para \(\beta \to 0\). Você deve obter \(U \to \varepsilon/2\) — equipartição entre os dois estados.
+          </div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

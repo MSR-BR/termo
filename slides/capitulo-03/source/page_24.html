@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sólido de Einstein: Quantização da Vibração</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Lora:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><style>:root {
+    --background: #F8F9FA;
+    --title-text: #1A3C5C;
+    --body-text: #1E293B;
+    --secondary-text: #475569;
+    --muted-text: #64748B;
+    --accent: #E07820;
+    --secondary-accent: #0F172A;
+    --border: #E2E8F0
+    }
+* {
+    box-sizing: border-box;
+    margin: 0 0;
+    padding: 0 0
+    }
+body {width: 1280px; height: 720px; overflow: hidden; background-color: #CCC;
+    font-family: "Inter", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center}
+.einstein-solid-slide-root {
+    width: 1280px;
+    height: 720px;
+    background-color: var(--background);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 0 0
+    }
+.einstein-solid-title-region {
+    display: flex;
+    flex-direction: column;
+    padding: 30px 60px;
+    margin-bottom: 5px;
+    border-left: 8px solid var(--accent);
+    background-color: rgba(26, 60, 92, 0.03)
+    }
+.einstein-solid-section-label {
+    color: var(--accent);
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 6px
+    }
+.einstein-solid-main-title {
+    color: var(--title-text);
+    font-family: "Lora", serif;
+    font-size: 32px;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1.2
+    }
+.einstein-solid-content-layout {
+    display: flex;
+    flex: 1;
+    padding: 0 60px 19px 60px;
+    gap: 14px 30px;
+    align-items: stretch
+    }
+.einstein-solid-left-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px 20px;
+    justify-content: center
+    }
+.einstein-solid-right-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px 20px;
+    justify-content: center
+    }
+.einstein-solid-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 11px 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    flex: 1
+    }
+.einstein-solid-card-header {
+    display: flex;
+    align-items: center;
+    gap: 6px 12px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 5px
+    }
+.einstein-solid-card-icon {
+    color: var(--accent);
+    font-size: 20px
+    }
+.einstein-solid-card-title {
+    color: var(--title-text);
+    font-family: "Lora", serif;
+    font-size: 20px;
+    font-weight: 700
+    }
+.einstein-solid-text-block {
+    color: var(--body-text);
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 8px;
+    text-align: justify
+    }
+.einstein-solid-equation-box {
+    background-color: rgba(26, 60, 92, 0.02);
+    border-radius: 4px;
+    padding: 7px 15px;
+    margin: 5px 0;
+    border: 1px dashed var(--border);
+    display: flex;
+    justify-content: center;
+    align-items: center
+    }
+.einstein-solid-insight-badge {
+    display: inline-block;
+    background-color: var(--accent);
+    color: white;
+    padding: 2px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-top: auto;
+    align-self: flex-start
+    }
+.einstein-solid-provo-box {
+    margin-top: 7px;
+    padding: 6px 12px;
+    background-color: rgba(224, 120, 32, 0.08);
+    border-left: 4px solid var(--accent);
+    font-style: italic;
+    color: var(--secondary-text);
+    font-size: 14px
+    }
+ul.einstein-solid-list {
+    list-style: none;
+    padding-left: 0
+    }
+li.einstein-solid-list-item {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 4px;
+    color: var(--body-text);
+    font-size: 14px;
+    line-height: 1.4
+    }
+li.einstein-solid-list-item::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: bold
+    }
+html { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="einstein-solid-slide-root" style="overflow: hidden;">
+<!-- Title Region -->
+<div class="einstein-solid-title-region">
+<span class="einstein-solid-section-label">Capacidade Calorífica em Sólidos</span>
+<h1 class="einstein-solid-main-title">Sólido de Einstein: Quantização da Vibração</h1>
+</div>
+<!-- Main Content -->
+<div class="einstein-solid-content-layout">
+<!-- Left Column: Model and Partition Function -->
+<div class="einstein-solid-left-column">
+<div class="einstein-solid-card">
+<div class="einstein-solid-card-header">
+<i class="fa-solid fa-atom einstein-solid-card-icon"></i>
+<h2 class="einstein-solid-card-title">Fundamentos do Modelo (1907)</h2>
+</div>
+<p class="einstein-solid-text-block">
+            Einstein propôs que um sólido pode ser modelado como um conjunto de \(N\) átomos vibrando de forma independente. Diferente do modelo clássico, cada átomo é tratado como um oscilador harmônico quântico 3D com a mesma frequência angular \(\omega\). Esta simplificação ignora o acoplamento entre átomos, mas introduz a quantização essencial da energia.
+          </p>
+<div class="einstein-solid-equation-box">
+            \[ E_n = \hbar\omega\left(n + \frac{1}{2}\right), \quad n = 0, 1, 2, \dots \]
+          </div>
+<p class="einstein-solid-text-block">
+            Para um único oscilador unidimensional, a função de partição é obtida pela soma da série geométrica dos estados excitados sob o potencial harmônico:
+          </p>
+<div class="einstein-solid-equation-box">
+            \[ Z_{1D} = \sum_{n=0}^{\infty} e^{-\beta E_n} = \frac{e^{-\beta\hbar\omega/2}}{1 - e^{-\beta\hbar\omega}} \]
+          </div>
+<div class="einstein-solid-insight-badge">ESTATÍSTICA QUÂNTICA</div>
+</div>
+</div>
+<!-- Right Column: Internal Energy -->
+<div class="einstein-solid-right-column">
+<div class="einstein-solid-card">
+<div class="einstein-solid-card-header">
+<i class="fa-solid fa-bolt einstein-solid-card-icon"></i>
+<h2 class="einstein-solid-card-title">Energia Interna e Ponto Zero</h2>
+</div>
+<p class="einstein-solid-text-block">
+            Considerando \(N\) átomos em 3 dimensões, temos \(3N\) graus de liberdade independentes. Como os osciladores são distinguíveis por estarem em posições fixas na rede cristalina, a função de partição total é o produto das funções individuais:
+          </p>
+<div class="einstein-solid-equation-box">
+            \[ Z(N) = [Z_{1D}]^{3N} \]
+          </div>
+<p class="einstein-solid-text-block">
+            A energia interna \(U\) é derivada via \(\langle E \rangle = -\frac{\partial}{\partial \beta} \ln Z\). O resultado revela dois termos fundamentais: a energia térmica e a energia de ponto zero.
+          </p>
+<div class="einstein-solid-equation-box" style="background-color: rgba(224, 120, 32, 0.05);border-color: var(--accent);">
+            \[ \boxed{U = 3N\left( \frac{\hbar\omega}{2} + \frac{\hbar\omega}{e^{\beta\hbar\omega}-1} \right)} \]
+          </div>
+<ul class="einstein-solid-list">
+<li class="einstein-solid-list-item"><strong>Energia de Ponto Zero:</strong> \(3N\hbar\omega/2\) persiste mesmo em \(T=0\).</li>
+<li class="einstein-solid-list-item"><strong>Ocupação Térmica:</strong> O segundo termo segue a distribuição de Bose-Einstein para fônons.</li>
+</ul>
+<div class="einstein-solid-provo-box">
+<i class="fa-solid fa-lightbulb" style="margin-right: 8px;"></i>
+            Provocação: Como a existência da energia de ponto zero altera nossa percepção do vácuo térmico no limite \(T \to 0\)?
+          </div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

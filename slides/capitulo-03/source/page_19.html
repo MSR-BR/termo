@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+<head>
+<meta charset="utf-8"/>
+<title>Magnetização e a Função de Brillouin</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Lora:ital,wght@0,400;0,700;0,800;1,400&amp;display=swap" rel="stylesheet"/>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/dist/mathjax.js"></script>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><style>body {width: 1280px; height: 720px; overflow: hidden; background-color: #F8F9FA;
+    font-family: "Inter", sans-serif}
+.slide-root-container {
+    width: 1280px;
+    height: 720px;
+    background-color: #F8F9FA;
+    display: flex;
+    flex-direction: column;
+    position: relative
+    }
+.title-region-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 40px;
+    margin-top: 10px;
+    margin-left: 40px;
+    margin-right: 40px;
+    border-left: 6px solid #E07820;
+    background-color: rgba(26, 60, 92, 0.03)
+    }
+.title-region-label {
+    color: #E07820;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 4px
+    }
+.title-region-heading {
+    color: #1A3C5C;
+    font-family: "Lora", serif;
+    font-size: 32px;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1.2
+    }
+.main-content-grid {
+    display: flex;
+    flex: 1;
+    padding: 0 40px 14px 40px;
+    gap: 11px 24px;
+    align-items: stretch
+    }
+.left-column-derivation-wrapper {
+    flex: 1.2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px 20px
+    }
+.right-column-visuals-wrapper {
+    flex: 0.8;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px 20px
+    }
+.content-card-module {
+    background: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    border-left: 4px solid #1A3C5C;
+    flex: 1;
+    display: flex;
+    flex-direction: column
+    }
+.accent-card-module {
+    background: #1A3C5C;
+    padding: 8px 16px;
+    border-radius: 8px;
+    color: white;
+    border-left: 4px solid #E07820
+    }
+.card-heading-text {
+    color: #1A3C5C;
+    font-family: "Lora", serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 5px 10px
+    }
+.accent-card-heading {
+    color: #E07820;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    text-transform: uppercase
+    }
+.body-text-description {
+    color: #1E293B;
+    font-size: 15px;
+    line-height: 1.5;
+    margin-bottom: 6px
+    }
+.equation-block-display {
+    background: rgba(26, 60, 92, 0.05);
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin: 4px 0;
+    text-align: center
+    }
+.brillouin-image-container {
+    height: 258px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center
+    }
+.brillouin-image-container img {
+    height: 100%;
+    width: auto;
+    object-fit: contain
+    }
+.exercise-box-container {
+    background: rgba(224, 120, 32, 0.1);
+    border: 1px dashed #E07820;
+    padding: 7px 15px;
+    border-radius: 8px
+    }
+.exercise-label-tag {
+    background: #E07820;
+    color: white;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    display: inline-block
+    }
+.list-item-bullet {
+    margin-bottom: 3px;
+    padding-left: 20px;
+    position: relative;
+    font-size: 14px;
+    color: #475569
+    }
+.list-item-bullet::before {
+    content: "•";
+    color: #E07820;
+    position: absolute;
+    left: 0;
+    font-weight: bold
+    }
+html { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="slide-root-container" style="overflow: hidden;">
+<!-- Title Region -->
+<div class="title-region-wrapper">
+<span class="title-region-label">Exemplo II: Paramagnetismo Quântico</span>
+<h1 class="title-region-heading">Magnetização e a Função de Brillouin</h1>
+</div>
+<!-- Main Content -->
+<div class="main-content-grid">
+<!-- Left Column: Derivation and Physics -->
+<div class="left-column-derivation-wrapper">
+<div class="content-card-module">
+<div class="card-heading-text">
+<i class="fas fa-calculator" style="color: #E07820;"></i>
+                        Derivação da Magnetização
+                    </div>
+<div class="body-text-description">
+                        A magnetização $M$ representa a resposta macroscópica do sistema ao campo externo $B_z$. Estatisticamente, ela é definida como o valor médio dos momentos magnéticos, obtido pela derivada da Energia Livre de Helmholtz:
+                    </div>
+<div class="equation-block-display">
+                        \[ M = -\left( \frac{\partial F}{\partial B_z} \right)_T = N k_B T \frac{\partial \ln Z_1}{\partial B_z} \]
+                    </div>
+<div class="body-text-description">
+                        Substituindo a função de partição de uma partícula $Z_1(x) = \frac{\sinh(ax)}{\sinh(bx)}$, onde $a = (2s+1)/2s$ e $b = 1/2s$, chegamos à equação de estado:
+                    </div>
+<div class="equation-block-display">
+                        \[ M = N g s \mu_B B_s(x), \quad x = \frac{g s \mu_B B_z}{k_B T} \]
+                    </div>
+</div>
+<div class="content-card-module">
+<div class="card-heading-text">
+<i class="fas fa-microscope" style="color: #E07820;"></i>
+                        A Função de Brillouin $B_s(x)$
+                    </div>
+<div class="body-text-description">
+                        A função $B_s(x)$ descreve como o alinhamento dos spins evolui com a temperatura e o campo. Ela é dada por:
+                    </div>
+<div class="equation-block-display">
+                        \[ B_s(x) = \frac{2s+1}{2s} \coth \left( \frac{2s+1}{2s} x \right) - \frac{1}{2s} \coth \left( \frac{1}{2s} x \right) \]
+                    </div>
+<div class="body-text-description">
+<strong>Limites Físicos:</strong>
+<div class="list-item-bullet"><strong>Saturação ($x \to \infty$):</strong> $B_s(x) \to 1$. Todos os spins alinhados ao campo: $M_{sat} = Ngs\mu_B$.</div>
+<div class="list-item-bullet"><strong>Lei de Curie ($x \to 0$):</strong> Para altas temperaturas, a magnetização é linear com o campo: $M \approx \frac{C B_z}{T}$.</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Visuals and Exercise -->
+<div class="right-column-visuals-wrapper">
+<div class="brillouin-image-container">
+<img alt="Magnetização Normalizada vs 1/x" src="https://static-us-img.skywork.ai/prod/nexus/1779576094/cropped_image_7_1779576094235293151.jpg"/>
+</div>
+<div class="accent-card-module">
+<div class="accent-card-heading">Interpretação Física</div>
+<div style="font-size: 14px;line-height: 1.4;">
+                        O gráfico mostra a magnetização normalizada $m = M/M_{sat}$ em função de $1/x$ (proporcional a $T$). Observe que para spins maiores ($s$), o sistema atinge a saturação mais rapidamente. A curva tracejada (Langevin) representa o limite clássico ($s \to \infty$).
+                    </div>
+</div>
+<div class="exercise-box-container">
+<span class="exercise-label-tag">Dica de Exercício</span>
+<div style="font-size: 13px;color: #1A3C5C;font-weight: 600;margin-bottom: 2px;">
+                        Constante de Curie ($C$)
+                    </div>
+<div style="font-size: 13px;color: #475569;">
+                        Expanda $B_s(x)$ para $x \ll 1$ usando $\coth z \approx \frac{1}{z} + \frac{z}{3}$ para mostrar que:
+                        <div style="text-align: center;margin: 4px 0;font-weight: bold;color: #1A3C5C;">
+                            \[ C = \frac{N g^2 \mu_B^2 s(s+1)}{3 k_B} \]
+                        </div>
+                        Pense: Por que a constante depende de $s(s+1)$ e não apenas de $s^2$?
+                    </div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

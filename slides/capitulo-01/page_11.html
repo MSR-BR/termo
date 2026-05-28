@@ -329,6 +329,8 @@ img,svg,video{max-width:100%!important;height:auto!important;}
 </script>
 
 <script defer src="/_vercel/insights/script.js"></script>
+<link rel="stylesheet" href="../../assets/ai-exercises.css">
+<script defer src="../../assets/ai-exercises.js"></script>
 </head>
 <body>
 <div class="slide">
@@ -417,175 +419,9 @@ img,svg,video{max-width:100%!important;height:auto!important;}
 </div>
 
 <!-- Card extra: Exercício gerado por IA -->
-<section class="card purple ai-exercise-card" id="aiExerciseBox">
-  <div class="ai-exercise-top">
-    <div class="ai-exercise-title">
-      <i class="fa-solid fa-wand-magic-sparkles"></i>
-      Exercício
-    </div>
-
-    <div class="ai-exercise-controls">
-      <div class="ai-level-group">
-        <label for="difficultySelect">Nível</label>
-        <select class="ai-select" id="difficultySelect">
-          <option value="facil">Fácil</option>
-          <option selected value="medio">Médio</option>
-          <option value="dificil">Difícil</option>
-        </select>
-      </div>
-
-      <button class="ai-btn ai-btn-primary" id="newExerciseBtn" type="button">Novo exercício</button>
-      <button class="ai-btn ai-btn-secondary" id="showSolutionBtn" disabled type="button">Ver solução</button>
-    </div>
-  </div>
-
-  <div class="ai-disclaimer">
-    <strong>Aviso importante:</strong> todo o conteúdo didático das páginas e do livro associado foi criado pelo Prof. Mario Reis.
-    O aplicativo de criação de exercícios é um experimento didático; os exercícios e soluções serão gerados automaticamente por IA e
-    <strong>podem conter erros conceituais, matemáticos ou pedagógicos</strong>. Erros detectados devem ser comunicados para
-    <a href="mailto:marioreis@id.uff.br">marioreis@id.uff.br</a>.
-  </div>
-
-  <div class="ai-workspace">
-    <div class="ai-output" id="exerciseOutput">
-      <div class="ai-output-title">
-        <i class="fa-solid fa-circle-question"></i>
-        Enunciado
-      </div>
-      <p class="ai-placeholder">Escolha o nível e clique em <strong>Novo exercício</strong>.</p>
-    </div>
-
-    <div class="ai-solution" id="solutionOutput">
-      <div class="ai-solution-title">
-        <i class="fa-solid fa-check"></i>
-        Solução
-      </div>
-      <p class="ai-placeholder">A solução aparecerá aqui após a geração do exercício.</p>
-    </div>
-  </div>
-</section>
+<section data-termo-ai-exercise data-exercise-theme="purple"></section>
 
 </div>
 </div>
-
-<script>
-document.addEventListener("DOMContentLoaded", function(){
-  const show = document.getElementById("showSolutionBtn");
-  const solution = document.getElementById("solutionOutput");
-  const novo = document.getElementById("newExerciseBtn");
-  const output = document.getElementById("exerciseOutput");
-  const difficulty = document.getElementById("difficultySelect");
-
-  let currentSolution = "";
-
-  function escapeHtml(value){
-    return String(value || "").replace(/[&<>"']/g, function(s){
-      return ({
-        "&":"&amp;",
-        "<":"&lt;",
-        ">":"&gt;",
-        '"':"&quot;",
-        "'":"&#039;"
-      })[s];
-    });
-  }
-
-  function setLoading(){
-    output.innerHTML = `
-      <div class="ai-output-title">
-        <i class="fa-solid fa-spinner fa-spin"></i>
-        Gerando exercício
-      </div>
-      <p class="ai-placeholder">Aguarde alguns segundos...</p>
-    `;
-    solution.style.display = "none";
-    solution.innerHTML = "";
-    currentSolution = "";
-    if(show) show.disabled = true;
-  }
-
-  function getPageContext(){
-    const title = document.querySelector(".hdr-title")?.innerText || document.title || "";
-    const subtitle = document.querySelector(".hdr-sub")?.innerText || "";
-    const cards = Array.from(document.querySelectorAll(".card:not(.ai-exercise-card)"))
-      .map(function(card){ return card.innerText.trim(); })
-      .filter(Boolean)
-      .join("\n\n");
-    return { title, subtitle, content: cards };
-  }
-
-  async function gerarExercicio(){
-    if(!novo || !output) return;
-
-    const ctx = getPageContext();
-
-    novo.disabled = true;
-    if(show) show.disabled = true;
-    setLoading();
-
-    try{
-      const response = await fetch("/api/exercicio", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          pageTitle: ctx.title,
-          pageSubtitle: ctx.subtitle,
-          pageContent: ctx.content,
-          difficulty: difficulty ? difficulty.value : "medio",
-          language: "pt-BR",
-          level: "graduação em Física"
-        })
-      });
-
-      const data = await response.json();
-
-      if(!response.ok){
-        throw new Error(data.error || "Erro ao chamar a API.");
-      }
-
-      currentSolution = data.solution || "";
-
-      output.innerHTML = `
-        <div class="ai-output-title">
-          <i class="fa-solid fa-circle-question"></i>
-          ${escapeHtml(data.title || "Exercício")}
-        </div>
-        <p>${escapeHtml(data.statement || "A API não retornou um enunciado.")}</p>
-      `;
-
-      solution.innerHTML = `
-        <div class="ai-solution-title">
-          <i class="fa-solid fa-check"></i>
-          Solução
-        </div>
-        <p>${escapeHtml(currentSolution || "A API não retornou uma solução.")}</p>
-      `;
-      solution.style.display = "none";
-
-      if(show) show.disabled = !currentSolution;
-    }catch(error){
-      output.innerHTML = `
-        <div class="ai-output-title">
-          <i class="fa-solid fa-triangle-exclamation"></i>
-          Não foi possível gerar o exercício
-        </div>
-        <p class="ai-placeholder">Verifique se o projeto está publicado no Vercel, se o arquivo <strong>api/exercicio.js</strong> existe e se a variável <strong>GEMINI_API_KEY</strong> foi configurada.</p>
-      `;
-    }finally{
-      novo.disabled = false;
-    }
-  }
-
-  if(novo){
-    novo.addEventListener("click", gerarExercicio);
-  }
-
-  if(show && solution){
-    show.addEventListener("click", function(){
-      solution.style.display = solution.style.display === "block" ? "none" : "block";
-    });
-  }
-});
-</script>
 
 </body></html>

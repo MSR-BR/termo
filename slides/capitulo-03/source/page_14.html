@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Termodinâmica Estatística - Gás Ideal Monoatômico</title>
+<!-- Importação de Fontes -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Lora:ital,wght@0,400;0,800;1,400&amp;display=swap" rel="stylesheet"/>
+<!-- Font Awesome -->
+<!-- MathJax para renderização de equações -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><style>/* Configurações Globais do Canvas */
+* {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased
+    }
+body {width: 1280px; height: 720px; overflow: hidden; background-color: #F8F9FA;
+    display: flex;
+    justify-content: center;
+    align-items: center}
+.gas-ideal-slide-root {
+    width: 1280px;
+    height: 720px;
+    background-color: #F8F9FA;
+    color: #1E293B;
+    font-family: "Inter", sans-serif;
+    padding: 0 0;
+    display: flex;
+    flex-direction: column;
+    position: relative
+    }
+/* Região do Título */
+.title-region-container {
+    display: flex;
+    flex-direction: column;
+    padding: 30px 60px;
+    margin-bottom: 10px;
+    border-left: 8px solid #E07820;
+    background-color: rgba(26, 60, 92, 0.04)
+    }
+.title-region-label {
+    color: #E07820;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 6px
+    }
+.title-region-heading {
+    color: #1A3C5C;
+    font-family: "Lora", serif;
+    font-size: 36px;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1.2
+    }
+/* Layout de Conteúdo */
+.gas-ideal-content-grid {
+    display: flex;
+    flex-direction: row;
+    gap: 15px 30px;
+    padding: 0 60px 21px 60px;
+    flex: 1;
+    align-items: stretch
+    }
+/* Colunas */
+.gas-ideal-left-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px 20px;
+    justify-content: center
+    }
+.gas-ideal-right-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px 20px;
+    justify-content: center
+    }
+/* Blocos de Texto e Cards */
+.gas-ideal-explanation-block {
+    background-color: transparent
+    }
+.gas-ideal-explanation-text {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #1E293B;
+    margin-bottom: 5px
+    }
+.gas-ideal-derivation-card {
+    background-color: #FFF;
+    border-left: 4px solid #1A3C5C;
+    padding: 10px 25px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    flex: 1
+    }
+.gas-ideal-card-title {
+    font-family: "Lora", serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: #1A3C5C;
+    margin-top: 0;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px
+    }
+.gas-ideal-math-display {
+    font-size: 17px;
+    margin: 8px 0;
+    color: #0F172A
+    }
+/* Destaques e Dicas */
+.gas-ideal-accent-box {
+    background-color: rgba(224, 120, 32, 0.08);
+    border: 1px dashed #E07820;
+    padding: 8px 15px;
+    border-radius: 4px
+    }
+.gas-ideal-accent-title {
+    color: #E07820;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    gap: 8px
+    }
+.gas-ideal-accent-content {
+    font-size: 13px;
+    color: #475569;
+    line-height: 1.5;
+    font-style: italic
+    }
+/* Listas */
+.gas-ideal-step-list {
+    margin: 0 0;
+    padding: 0 0;
+    list-style: none
+    }
+.gas-ideal-step-item {
+    font-size: 14px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: flex-start;
+    gap: 5px 10px
+    }
+.gas-ideal-step-icon {
+    color: #E07820;
+    margin-top: 2px;
+    font-size: 11px
+    }
+.gas-ideal-math-inline {
+    font-family: "Times New Roman", serif;
+    font-style: italic
+    }
+html { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="gas-ideal-slide-root" style="overflow: hidden;">
+<!-- Região do Título -->
+<div class="title-region-container">
+<span class="title-region-label">Capítulo 4: Termodinâmica Estatística</span>
+<h1 class="title-region-heading">Exemplo I: Gás Ideal Monoatômico – Função de Partição</h1>
+</div>
+<!-- Conteúdo Principal -->
+<div class="gas-ideal-content-grid">
+<!-- Coluna Esquerda: Definição e Partícula Única -->
+<div class="gas-ideal-left-column">
+<div class="gas-ideal-explanation-block">
+<p class="gas-ideal-explanation-text">
+            O gás ideal monoatômico é o sistema modelo fundamental. Consideramos \(N\) partículas de massa \(m\) em um volume \(V\), sem interações (\(U_{int} = 0\)). O desafio estatístico reside na transição do espaço de fase contínuo para a contagem discreta de estados.
+          </p>
+</div>
+<div class="gas-ideal-derivation-card">
+<h2 class="gas-ideal-card-title">
+<i class="fas fa-atom"></i> Função de Partição de 1 Partícula
+          </h2>
+<div class="gas-ideal-explanation-text">
+            Utilizamos a Hamiltoniana puramente cinética \(H = \frac{p^2}{2m}\). A quantização semi-clássica introduz o fator \(1/h^3\) para cada partícula:
+          </div>
+<div class="gas-ideal-math-display">
+            \[ Z(1) = \frac{1}{h^3} \int e^{-\beta \frac{p^2}{2m}} d^3q d^3p \]
+          </div>
+<div class="gas-ideal-step-list">
+<div class="gas-ideal-step-item">
+<i class="fas fa-chevron-right gas-ideal-step-icon"></i>
+<span>A integral espacial \(\int d^3q\) resulta no volume \(V\).</span>
+</div>
+<div class="gas-ideal-step-item">
+<i class="fas fa-chevron-right gas-ideal-step-icon"></i>
+<span>A integral de momento é uma Gaussiana em 3D.</span>
+</div>
+</div>
+<div class="gas-ideal-math-display">
+            \[ Z(1) = \frac{V}{h^3} (2\pi m k_B T)^{3/2} = \frac{V}{\lambda^3} \]
+          </div>
+</div>
+</div>
+<!-- Coluna Direita: Sistema de N Partículas e Analogia -->
+<div class="gas-ideal-right-column">
+<div class="gas-ideal-derivation-card">
+<h2 class="gas-ideal-card-title">
+<i class="fas fa-users-viewfinder"></i> Extensão para N Partículas
+          </h2>
+<p class="gas-ideal-explanation-text">
+            Para um gás, as partículas são <strong>indistinguíveis</strong>. Devemos corrigir a supercontagem de estados dividindo por \(N!\):
+          </p>
+<div class="gas-ideal-math-display">
+            \[ Z(N) = \frac{[Z(1)]^N}{N!} = \frac{1}{N!} \left( \frac{V}{\lambda^3} \right)^N \]
+          </div>
+<div class="gas-ideal-explanation-text" style="font-size: 13px;color: #64748B;">
+            Onde \(\lambda = \sqrt{h^2 / 2\pi m k_B T}\) é o comprimento de onda térmico de de Broglie.
+          </div>
+</div>
+<div class="gas-ideal-derivation-card">
+<h2 class="gas-ideal-card-title">
+<i class="fas fa-lightbulb"></i> Analogia do Espaço de Fase
+          </h2>
+<p class="gas-ideal-explanation-text">
+            Imagine o espaço de fase como um "armazém" contínuo. A constante de Planck \(h\) define o tamanho da menor "caixa" (célula) que podemos distinguir. Sem esse volume finito \(h^3\), a função de partição seria dimensionalmente incorreta e a entropia divergiria.
+          </p>
+<div class="gas-ideal-accent-box">
+<div class="gas-ideal-accent-title">
+<i class="fa-solid fa-pencil"></i> Dica de Exercício
+            </div>
+<div class="gas-ideal-accent-content">
+              Prove que em 2D, a função de partição escala com \(V/\lambda^2\). O expoente do volume sempre acompanha a dimensão do sistema, enquanto \(\lambda\) retém a informação térmica e quântica.
+            </div>
+</div>
+</div>
+</div>
+</div>
+<!-- Nota de Rodapé Opcional / Provocação -->
+<div style="padding: 5px 60px 10px;font-size: 14px;color: #94A3B8;text-align: center;">
+<i class="fa-solid fa-circle-question"></i> Provocação: O que aconteceria com \(Z(N)\) se ignorássemos o fator \(N!\) ao calcular propriedades extensivas?
+    </div>
+</div>
+</body>
+</html>

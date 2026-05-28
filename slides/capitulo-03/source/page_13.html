@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=1280, height=720, initial-scale=1.0" name="viewport"/>
+<title>Termodinâmica Estatística - O Paradoxo de Gibbs</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Lora:ital,wght@0,400;0,700;0,800;1,400&amp;display=swap" rel="stylesheet"/>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><style>body {width: 1280px; height: 720px; overflow: hidden; background-color: #F8F9FA;
+    font-family: "Inter", sans-serif;
+    color: #1E293B}
+.gibbs-paradox-slide-root {
+    width: 1280px;
+    height: 720px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 0 0
+    }
+.title-region-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 30px 60px;
+    margin-bottom: 8px;
+    border-left: 6px solid #E07820;
+    background-color: rgba(26, 60, 92, 0.03)
+    }
+.title-section-label {
+    color: #E07820;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 6px
+    }
+.title-main-heading {
+    color: #1A3C5C;
+    font-family: "Lora", serif;
+    font-size: 32px;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1.2
+    }
+.content-layout-container {
+    display: flex;
+    flex-direction: row;
+    gap: 11px 30px;
+    padding: 0 60px;
+    align-items: stretch;
+    flex: 1
+    }
+.left-conceptual-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px 20px
+    }
+.right-mathematical-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px 20px
+    }
+.gibbs-card-explanation {
+    background-color: #FFF;
+    border: 1px solid #E2E8F0;
+    border-left: 4px solid #1A3C5C;
+    padding: 11px 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    flex: 1;
+    display: flex;
+    flex-direction: column
+    }
+.gibbs-card-math {
+    background-color: #FFF;
+    border: 1px solid #E2E8F0;
+    border-left: 4px solid #E07820;
+    padding: 9px 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    flex: 1;
+    display: flex;
+    flex-direction: column
+    }
+.section-sub-heading {
+    color: #1A3C5C;
+    font-family: "Lora", serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 5px 10px
+    }
+.body-text-paragraph {
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0 0 6px 0;
+    color: #1E293B;
+    text-align: justify
+    }
+.math-derivation-block {
+    background-color: #F1F5F9;
+    padding: 6px 15px;
+    border-radius: 6px;
+    margin: 4px 0;
+    font-size: 17px
+    }
+.exercise-tip-box {
+    margin-top: 8px;
+    padding: 6px 20px;
+    background-color: rgba(224, 120, 32, 0.1);
+    border: 1px dashed #E07820;
+    border-radius: 8px
+    }
+.accent-highlight-text {
+    color: #E07820;
+    font-weight: 700
+    }
+.footer-note-wrapper {
+    padding: 8px 60px 11px 60px;
+    display: flex;
+    align-items: center;
+    gap: 6px 15px
+    }
+.footer-icon-marker {
+    color: #1A3C5C;
+    font-size: 20px
+    }
+.footer-caption-text {
+    font-size: 14px;
+    color: #475569;
+    font-style: italic
+    }
+ul.custom-bullet-list {
+    list-style: none;
+    padding: 0 0;
+    margin: 0 0
+    }
+ul.custom-bullet-list li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 4px;
+    font-size: 15px
+    }
+ul.custom-bullet-list li::before {
+    content: "•";
+    color: #E07820;
+    font-weight: bold;
+    position: absolute;
+    left: 0
+    }
+html { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="gibbs-paradox-slide-root" style="overflow: hidden;">
+<!-- Região do Título -->
+<div class="title-region-wrapper">
+<span class="title-section-label">Partículas Indistinguíveis</span>
+<h1 class="title-main-heading">O Paradoxo de Gibbs e a Correção de N Fatorial</h1>
+</div>
+<!-- Layout de Conteúdo -->
+<div class="content-layout-container">
+<!-- Coluna Esquerda: Conceitual -->
+<div class="left-conceptual-column">
+<div class="gibbs-card-explanation">
+<div class="section-sub-heading">
+<i class="fa-solid fa-triangle-exclamation"></i> O Problema da Extensividade
+          </div>
+<p class="body-text-paragraph">
+            Ao tratar partículas de um gás como <span class="accent-highlight-text">distinguíveis</span>, a função de partição $Z_N = [Z_1]^N$ leva a uma entropia que não é uma grandeza extensiva. Isso gera o famoso <strong>Paradoxo de Gibbs</strong>: a entropia de mistura de dois volumes iguais do mesmo gás a mesma $P$ e $T$ resultaria em um valor positivo, contradizendo a termodinâmica clássica.
+          </p>
+<ul class="custom-bullet-list">
+<li><strong>Supercontagem:</strong> No formalismo clássico, permutar partículas idênticas gera um novo microestado matemático, mas fisicamente o estado do sistema é o mesmo.</li>
+<li><strong>Requisito Físico:</strong> A entropia deve satisfazer $S(\lambda N, \lambda V) = \lambda S(N, V)$.</li>
+<li><strong>Consequência:</strong> Sem a correção, o potencial químico $\mu$ dependeria do tamanho do sistema, o que é fisicamente inconsistente.</li>
+</ul>
+</div>
+</div>
+<!-- Coluna Direita: Matemática -->
+<div class="right-mathematical-column">
+<div class="gibbs-card-math">
+<div class="section-sub-heading">
+<i class="fas fa-calculator"></i> A Solução Estatística
+          </div>
+<p class="body-text-paragraph">
+            Para remover a supercontagem das $N!$ permutações de partículas indistinguíveis no regime de baixa ocupação (clássico), introduzimos o fator de correção:
+          </p>
+<div class="math-derivation-block">
+            \[ Z_N = \frac{1}{N!} [Z_1(V, T)]^N \]
+          </div>
+<p class="body-text-paragraph">
+            Utilizando a <strong>Aproximação de Stirling</strong> ($\ln N! \approx N \ln N - N$) para grandes valores de $N$, a energia livre de Helmholtz torna-se:
+          </p>
+<div class="math-derivation-block">
+            \[ F = -k_B T \left[ N \ln Z_1 - (N \ln N - N) \right] \]
+          </div>
+<div class="exercise-tip-box">
+<span class="accent-highlight-text">Dica de Exercício:</span> Tente demonstrar que, com esta correção, a entropia $S = -(\partial F/\partial T)_{V,N}$ agora escala linearmente com $N$, resolvendo o paradoxo.
+          </div>
+</div>
+</div>
+</div>
+<!-- Nota de Rodapé e Analogia -->
+<div class="footer-note-wrapper">
+<i class="fas fa-lightbulb footer-icon-marker"></i>
+<div class="footer-caption-text">
+<strong>Analogia Didática:</strong> Imagine $N$ pessoas em cadeiras numeradas (distinguíveis) vs. $N$ elétrons em um poço (indistinguíveis). No caso do gás ideal, as partículas não "carregam etiquetas", portanto, trocar a partícula A pela B não altera o estado macroscópico observado.
+      </div>
+</div>
+</div>
+</body>
+</html>

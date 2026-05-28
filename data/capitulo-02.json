@@ -17,19 +17,22 @@
       "id": "2.3",
       "title": "Energia Livre de Helmholtz",
       "note": "Definição, diferencial, variáveis naturais e interpretação física. Inclui exercícios automáticos por IA.",
-      "url": "slides/capitulo-02/page_3.html"
+      "url": "slides/capitulo-02/page_3.html",
+      "aiExercise": true
     },
     {
       "id": "2.4",
       "title": "Entalpia e Calor Isobárico",
       "note": "Definição de entalpia, calor a pressão constante, aquecimento isobárico e processos endotérmicos/exotérmicos. Inclui exercícios automáticos por IA.",
-      "url": "slides/capitulo-02/page_4.html"
+      "url": "slides/capitulo-02/page_4.html",
+      "aiExercise": true
     },
     {
       "id": "2.5",
       "title": "Energia Livre de Gibbs e Espontaneidade",
       "note": "Definição de Gibbs, critério de espontaneidade, equilíbrio e exemplo da sublimação do CO₂. Inclui exercícios automáticos por IA.",
-      "url": "slides/capitulo-02/page_5.html"
+      "url": "slides/capitulo-02/page_5.html",
+      "aiExercise": true
     },
     {
       "id": "2.6",
@@ -47,7 +50,8 @@
       "id": "2.8",
       "title": "Relações de Maxwell e Retângulo Termodinâmico",
       "note": "Fundamentos matemáticos, relações principais, aplicação ao gás ideal, retângulo termodinâmico e simulador interativo. Inclui exercícios automáticos por IA.",
-      "url": "slides/capitulo-02/page_8.html"
+      "url": "slides/capitulo-02/page_8.html",
+      "aiExercise": true
     },
     {
       "id": "2.9",

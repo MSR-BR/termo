@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<title>Energia Interna como Média Estatística</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Lora:ital,wght@0,400;0,700;0,800;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" rel="stylesheet"/>
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+<script defer="" onload="renderMathInElement(document.body);" src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><style>* {
+    box-sizing: border-box;
+    margin: 0 0;
+    padding: 0 0
+    }
+body {width: 1280px; height: 720px; overflow: hidden; background-color: #F8F9FA;
+    font-family: "Inter", sans-serif;
+    color: #1E293B}
+.slide-root-container {
+    width: 1280px;
+    height: 720px;
+    padding: 19px 40px;
+    display: flex;
+    flex-direction: column
+    }
+.title-region-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 40px;
+    margin-bottom: 11px;
+    border-left: 6px solid #E07820;
+    background-color: rgba(26, 60, 92, 0.03)
+    }
+.title-section-label {
+    color: #E07820;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 4px
+    }
+.title-main-heading {
+    color: #1A3C5C;
+    font-family: "Lora", serif;
+    font-size: 32px;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1.2
+    }
+.main-content-columns-wrapper {
+    display: flex;
+    align-items: stretch;
+    gap: 15px 32px;
+    flex: 1
+    }
+.left-column-derivation-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1.2;
+    gap: 10px 20px
+    }
+.right-column-insight-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 10px 20px
+    }
+.academic-card-module {
+    background-color: #FFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 4px;
+    padding: 11px 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column
+    }
+.card-accent-border {
+    border-left: 4px solid #1A3C5C
+    }
+.card-header-text {
+    color: #1A3C5C;
+    font-family: "Lora", serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px 12px
+    }
+.body-text-standard {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #1E293B;
+    margin-bottom: 8px
+    }
+.math-display-block {
+    background-color: rgba(26, 60, 92, 0.02);
+    padding: 8px 16px;
+    border-radius: 4px;
+    margin: 4px 0;
+    text-align: center
+    }
+.equation-highlight-box {
+    background-color: #1A3C5C;
+    color: #FFF;
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-align: center;
+    margin-top: 6px
+    }
+.exercise-tip-box {
+    background-color: rgba(224, 120, 32, 0.1);
+    border: 1px dashed #E07820;
+    padding: 8px 16px;
+    border-radius: 4px
+    }
+.exercise-label {
+    color: #E07820;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    display: block
+    }
+.theory-provocation-text {
+    font-style: italic;
+    color: #475569;
+    font-size: 15px;
+    margin-top: 6px;
+    padding-left: 12px;
+    border-left: 2px solid #94A3B8
+    }
+.list-item-container {
+    list-style: none;
+    margin-bottom: 4px;
+    font-size: 15px
+    }
+.list-item-container i {
+    color: #E07820;
+    margin-right: 8px;
+    font-size: 12px
+    }
+.flex-fill {
+    flex: 1
+    }
+html { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="slide-root-container" style="overflow: hidden;">
+<!-- Title Region -->
+<div class="title-region-wrapper">
+<span class="title-section-label">Ensemble Canônico</span>
+<h1 class="title-main-heading">Energia Interna como Média Estatística</h1>
+</div>
+<!-- Main Content -->
+<div class="main-content-columns-wrapper">
+<!-- Left Column: Derivation -->
+<div class="left-column-derivation-container">
+<div class="academic-card-module card-accent-border flex-fill">
+<div class="card-header-text">
+<i class="fas fa-calculator"></i>
+                        A Derivação de U via Função de Partição
+                    </div>
+<p class="body-text-standard">
+                        No Ensemble Canônico, a energia interna \( U \) é definida como a média estatística das energias dos microestados acessíveis. Partindo da probabilidade de Boltzmann \( p_i = e^{-\beta\varepsilon_i}/Z \), temos:
+                    </p>
+<div class="math-display-block">
+                        \[ U = \langle\hat{H}\rangle = \sum_i p_i \varepsilon_i = \frac{1}{Z} \sum_i \varepsilon_i e^{-\beta\varepsilon_i} \]
+                    </div>
+<p class="body-text-standard">
+                        Observe que o termo \( \varepsilon_i e^{-\beta\varepsilon_i} \) pode ser expresso como uma derivada parcial em relação ao parâmetro \( \beta \):
+                    </p>
+<div class="math-display-block">
+                        \[ \frac{\partial e^{-\beta\varepsilon_i}}{\partial \beta} = -\varepsilon_i e^{-\beta\varepsilon_i} \implies \sum_i \varepsilon_i e^{-\beta\varepsilon_i} = -\frac{\partial Z}{\partial \beta} \]
+                    </div>
+<div class="equation-highlight-box">
+<span style="font-size: 22px;font-weight: 700;">
+                            \[ \boxed{U = -\frac{1}{Z} \frac{\partial Z}{\partial \beta} = -\frac{\partial \ln Z}{\partial \beta}} \]
+                        </span>
+</div>
+</div>
+</div>
+<!-- Right Column: Insights and Applications -->
+<div class="right-column-insight-container">
+<div class="academic-card-module flex-fill">
+<div class="card-header-text">
+<i class="fas fa-microscope"></i>
+                        Interpretação e Conexões
+                    </div>
+<p class="body-text-standard">
+                        Esta relação demonstra que a Função de Partição \( Z \) atua como uma <strong>função geratriz</strong>: todas as informações macroscópicas estão codificadas em suas derivadas.
+                    </p>
+<div class="list-item-container">
+<i class="fas fa-chevron-right"></i> <strong>Dependência da Temperatura:</strong> Utilizando a regra da cadeia para \( \beta = (k_B T)^{-1} \), obtemos a forma alternativa:
+                    </div>
+<div class="math-display-block" style="font-size: 18px;">
+                        \[ U = k_B T^2 \frac{\partial \ln Z}{\partial T} \]
+                    </div>
+<div class="list-item-container">
+<i class="fas fa-chevron-right"></i> <strong>Flutuações:</strong> A segunda derivada de \( \ln Z \) está relacionada à variância da energia (Capacidade Calorífica).
+                    </div>
+<div class="theory-provocation-text">
+                        "Por que a energia interna depende apenas de derivadas de Z e não de seu valor absoluto?"
+                    </div>
+<div class="exercise-tip-box" style="margin-top: 10px;">
+<span class="exercise-label">Dica de Exercício 4.11</span>
+<p class="body-text-standard" style="font-size: 14px;margin-bottom: 0;">
+                            Ao calcular \( U \) para sistemas de dois níveis, prefira derivar em relação a \( \beta \). Isso simplifica o tratamento de exponenciais e evita o carregamento excessivo de constantes físicas durante os passos intermediários.
+                        </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

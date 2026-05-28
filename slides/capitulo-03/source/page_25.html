@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Termodinâmica Estatística - Calor Específico de Einstein</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Lora:ital,wght@0,400;0,700;0,800;1,400&amp;display=swap" rel="stylesheet"/>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><style>:root {
+    --background: #F8F9FA;
+    --title-text: #1A3C5C;
+    --body-text: #1E293B;
+    --secondary-text: #475569;
+    --muted-text: #64748B;
+    --accent: #E07820;
+    --secondary-accent: #0F172A;
+    --border: #E2E8F0;
+    --card-bg: #FFF
+    }
+* {
+    box-sizing: border-box;
+    margin: 0 0;
+    padding: 0 0
+    }
+body {width: 1280px; height: 720px; overflow: hidden; background-color: #CCC;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Inter", sans-serif}
+.slide-canvas-root {
+    width: 1280px;
+    height: 720px;
+    background-color: var(--background);
+    position: relative;
+    display: flex;
+    flex-direction: column
+    }
+.title-region-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 24px 48px;
+    margin-bottom: 4px;
+    border-left: 8px solid var(--accent);
+    background-color: rgba(26, 60, 92, 0.03)
+    }
+.title-section-label {
+    color: var(--accent);
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 6px
+    }
+.title-main-heading {
+    color: var(--title-text);
+    font-family: "Lora", serif;
+    font-size: 36px;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1.2
+    }
+.einstein-content-layout {
+    display: flex;
+    flex: 1;
+    padding: 0 48px 17px 48px;
+    gap: 17px 32px;
+    align-items: stretch
+    }
+.left-einstein-theory-column {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 13px 20px
+    }
+.right-einstein-visual-column {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 10px 20px
+    }
+.einstein-analysis-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--title-text);
+    padding: 15px 24px;
+    border-radius: 4px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+    flex: 1;
+    display: flex;
+    flex-direction: column
+    }
+.einstein-card-header {
+    display: flex;
+    align-items: center;
+    gap: 8px 12px;
+    margin-bottom: 10px
+    }
+.einstein-card-header i {
+    color: var(--accent);
+    font-size: 20px
+    }
+.einstein-card-title {
+    color: var(--title-text);
+    font-family: "Lora", serif;
+    font-size: 22px;
+    font-weight: 700
+    }
+.einstein-card-text {
+    color: var(--body-text);
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 8px
+    }
+.einstein-math-block {
+    background-color: #F1F5F9;
+    padding: 10px 16px;
+    border-radius: 6px;
+    margin: 5px 0;
+    font-size: 17px;
+    text-align: center
+    }
+.einstein-graph-image-container {
+    height: 260px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1)
+    }
+.einstein-graph-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: #FFF
+    }
+.einstein-provocation-card {
+    background-color: var(--secondary-accent);
+    color: #FFF;
+    padding: 12px 24px;
+    border-radius: 4px;
+    border-left: 4px solid var(--accent);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center
+    }
+.einstein-provocation-title {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    letter-spacing: 1px
+    }
+.einstein-provocation-content {
+    font-size: 15px;
+    line-height: 1.5;
+    font-style: italic
+    }
+.einstein-limit-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px 4px;
+    margin-top: 8px;
+    padding-left: 16px;
+    border-left: 2px dashed var(--border)
+    }
+.einstein-limit-label {
+    font-weight: 700;
+    color: var(--title-text);
+    font-size: 14px
+    }
+.einstein-highlight-box {
+    color: var(--accent);
+    font-weight: 700
+    }
+html { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="slide-canvas-root" style="overflow: hidden;">
+<!-- Title Region -->
+<div class="title-region-wrapper">
+<span class="title-section-label">Capacidade Calorífica em Sólidos</span>
+<h1 class="title-main-heading">Calor Específico de Einstein e Limites Físicos</h1>
+</div>
+<!-- Main Content Layout -->
+<div class="einstein-content-layout">
+<!-- Left Column: Theoretical Analysis and Derivations -->
+<div class="left-einstein-theory-column">
+<div class="einstein-analysis-card">
+<div class="einstein-card-header">
+<i class="fa-solid fa-square-root-variable"></i>
+<h2 class="einstein-card-title">A Expressão de Einstein (1907)</h2>
+</div>
+<p class="einstein-card-text">
+                    Ao tratar os átomos como osciladores quânticos independentes, Einstein derivou a primeira explicação teórica para a falha da Lei de Dulong-Petit em baixas temperaturas:
+                </p>
+<div class="einstein-math-block">
+                    \[ c_V^{\rm molar} = 3R \frac{x^2 e^x}{(e^x-1)^2}, \quad x = \frac{T_E}{T} = \frac{\hbar\omega}{k_B T} \]
+                </div>
+<p class="einstein-card-text">
+                    A variável reduzida \(x\) quantifica a relação entre a energia do quanta vibracional (\(\hbar\omega\)) e a energia térmica disponível (\(k_BT\)).
+                </p>
+</div>
+<div class="einstein-analysis-card">
+<div class="einstein-card-header">
+<i class="fa-solid fa-arrows-left-right"></i>
+<h2 class="einstein-card-title">Análise dos Limites Assintóticos</h2>
+</div>
+<div class="einstein-limit-item">
+<span class="einstein-limit-label">Limite de Alta Temperatura (\(T \gg T_E \Rightarrow x \to 0\))</span>
+<p class="einstein-card-text">
+                        Expandindo \(e^x \approx 1 + x\), temos \(\frac{x^2(1+x)}{(1+x-1)^2} \to 1\). O modelo recupera o limite clássico de <span class="einstein-highlight-box">Dulong-Petit (\(3R\))</span>, onde a energia térmica é suficiente para excitar todos os modos.
+                    </p>
+</div>
+<div class="einstein-limit-item">
+<span class="einstein-limit-label">Limite de Baixa Temperatura (\(T \to 0 \Rightarrow x \to \infty\))</span>
+<p class="einstein-card-text">
+                        Para \(x \gg 1\), a expressão torna-se proporcional a \(x^2 e^{-x}\). O calor específico decai <span class="einstein-highlight-box">exponencialmente para zero</span>, satisfazendo a Terceira Lei da Termodinâmica.
+                    </p>
+</div>
+</div>
+</div>
+<!-- Right Column: Visual and Interpretation -->
+<div class="right-einstein-visual-column">
+<!-- Image Container -->
+<div class="einstein-graph-image-container">
+<img alt="Gráfico do Calor Específico de Einstein" src="https://static-us-img.skywork.ai/prod/nexus/1779576094/cropped_image_2_1779576094293610637.jpg"/>
+</div>
+<!-- Provocation/Context Card -->
+<div class="einstein-provocation-card">
+<span class="einstein-provocation-title">Provocação Teórica</span>
+<p class="einstein-provocation-content">
+                    "O modelo de Einstein supõe que todos os osciladores possuem a mesma frequência \(\omega\). No entanto, o decaimento experimental em sólidos reais (como metais) costuma ser proporcional a \(T^3\) em vez de exponencial. Por que o modelo de Einstein falha em capturar essa dependência exata em temperaturas muito baixas?"
+                </p>
+<p class="einstein-card-text" style="color: rgba(255,255,255,0.7);margin-top: 10px;font-size: 13px;">
+<i class="fa-solid fa-lightbulb" style="margin-right: 8px;"></i>
+                    Dica: Pense em modos coletivos de vibração (fonons) de baixa frequência.
+                </p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
