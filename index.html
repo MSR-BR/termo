@@ -114,75 +114,230 @@
       gap: 7px;
     }
 
-    .layout {
+    .menu-launcher-row {
       width: 100%;
       max-width: 1280px;
       margin: 0 auto;
-      flex: 1;
-      display: grid;
-      grid-template-columns: 330px 1fr;
-      gap: 24px;
-      padding: 26px 42px 36px 42px;
-      min-height: 0;
-    }
-
-    .sidebar {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      box-shadow: var(--shadow);
-      padding: 18px;
-      align-self: start;
-      position: sticky;
-      top: 24px;
-      max-height: calc(100vh - 48px);
-      overflow-y: auto;
-    }
-
-    .sidebar-title {
-      color: var(--blue);
-      font-size: 15px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 14px;
+      padding: 18px 42px 0 42px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 14px;
     }
 
-    .sidebar-stack {
+    .menu-toggle-button {
+      appearance: none;
+      -webkit-appearance: none;
+      border: 1px solid rgba(0, 75, 135, 0.18);
+      background: #FFFFFF;
+      color: var(--blue);
+      border-radius: 999px;
+      padding: 10px 16px;
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      white-space: nowrap;
+    }
+
+    .menu-toggle-button:hover {
+      transform: translateY(-1px);
+    }
+
+    .menu-launcher-note {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .drawer-overlay {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      justify-content: flex-start;
+      background: rgba(17, 24, 39, 0.44);
+      backdrop-filter: blur(4px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.22s ease;
+      z-index: 1250;
+    }
+
+    .drawer-overlay[hidden] {
+      display: none;
+    }
+
+    .drawer-overlay.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .drawer-shell {
+      width: min(92vw, 390px);
+      height: 100%;
+      background: var(--panel);
+      border-right: 1px solid var(--border);
+      box-shadow: 0 24px 48px rgba(15, 23, 42, 0.16);
+      transform: translateX(-104%);
+      transition: transform 0.26s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .drawer-overlay.is-open .drawer-shell {
+      transform: translateX(0);
+    }
+
+    .drawer-header {
+      padding: 20px 20px 18px;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, #F8FBFF 0%, #FFFFFF 100%);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .drawer-kicker {
+      color: var(--red);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 5px;
+    }
+
+    .drawer-title {
+      color: var(--blue);
+      font-size: 22px;
+      line-height: 1.18;
+      font-weight: 700;
+    }
+
+    .drawer-close-button {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(0, 75, 135, 0.12);
+      border-radius: 999px;
+      background: #F8FBFF;
+      color: #0B5EA8;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex: 0 0 auto;
+    }
+
+    .drawer-scroll {
+      padding: 16px 18px 28px;
+      overflow-y: auto;
       display: grid;
       gap: 14px;
     }
 
-    .sidebar-section {
+    .drawer-stack {
+      display: grid;
+      gap: 14px;
+    }
+
+    .drawer-group {
       border: 1px solid #E8EDF3;
       background: #F8F9FA;
-      border-radius: 12px;
-      padding: 14px;
+      border-radius: 16px;
+      padding: 12px;
     }
 
-    .sidebar-section .sidebar-title {
-      margin-bottom: 12px;
+    .drawer-group-trigger {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 100%;
+      border: 0;
+      background: transparent;
+      padding: 4px 2px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      cursor: pointer;
+      text-align: left;
+      color: var(--blue);
+      font-family: "Inter", sans-serif;
     }
 
-    .extras-list {
+    .drawer-group-title {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: inherit;
+      font-size: 15px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .drawer-group-indicator {
+      color: var(--muted);
+      transition: transform 0.18s ease, color 0.18s ease;
+    }
+
+    .drawer-group-trigger.is-open .drawer-group-indicator {
+      transform: rotate(180deg);
+      color: var(--blue);
+    }
+
+    .drawer-group-panel {
+      display: none;
+      padding-top: 12px;
+    }
+
+    .drawer-group-panel.is-open {
       display: grid;
-      gap: 8px;
+      gap: 10px;
     }
 
+    .extras-list,
     .personal-list {
       display: grid;
       gap: 8px;
     }
 
     .sidebar-helper {
-      margin-top: 12px;
+      margin-top: 2px;
       color: var(--muted);
       font-size: 12.5px;
       line-height: 1.45;
       font-weight: 500;
+    }
+
+    .personal-drawer-actions {
+      display: grid;
+      gap: 8px;
+      margin-top: 2px;
+    }
+
+    .drawer-inline-action {
+      appearance: none;
+      -webkit-appearance: none;
+      border: 1px solid #C7D8F3;
+      background: #FFFFFF;
+      color: var(--blue);
+      border-radius: 999px;
+      padding: 10px 14px;
+      text-decoration: none;
+      font-family: "Inter", sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      white-space: nowrap;
     }
 
     .extras-button {
@@ -280,8 +435,7 @@
 
     .chapter-list {
       list-style: none;
-      display: flex;
-      flex-direction: column;
+      display: grid;
       gap: 8px;
     }
 
@@ -325,6 +479,15 @@
       font-size: 13.5px;
       font-weight: 600;
       line-height: 1.25;
+    }
+
+    .layout {
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      flex: 1;
+      padding: 22px 42px 36px 42px;
+      min-height: 0;
     }
 
     .content-area {
@@ -1021,8 +1184,12 @@
         justify-content: flex-start;
         padding-top: 8px;
       }
+      .menu-launcher-row {
+        padding: 14px 20px 0 20px;
+        flex-direction: column;
+        align-items: flex-start;
+      }
       .layout {
-        grid-template-columns: 1fr;
         padding: 20px;
       }
       .panel-header {
@@ -1031,14 +1198,13 @@
       .panel-actions {
         justify-content: flex-start;
       }
-      .sidebar {
-        position: static;
-        max-height: none;
-      }
       .saved-card__top {
         flex-direction: column;
       }
       .main-title { font-size: 28px; }
+      .drawer-shell {
+        width: min(94vw, 360px);
+      }
     }
   </style>
 <script>
@@ -1080,27 +1246,74 @@
       </div>
     </header>
 
-    <main class="layout">
-      <nav class="sidebar" aria-label="Índice de capítulos">
-        <div class="sidebar-stack">
-          <section class="sidebar-section" aria-labelledby="sidebarPersonalTitle">
-            <div class="sidebar-title" id="sidebarPersonalTitle"><i class="fa-solid fa-circle-user"></i> Área pessoal</div>
-            <div class="personal-list" id="personalList"></div>
-            <div class="sidebar-helper" id="personalHint">Entre com Google para habilitar sua área pessoal.</div>
-          </section>
+    <div class="menu-launcher-row">
+      <button
+        type="button"
+        class="menu-toggle-button"
+        id="menuToggleButton"
+        aria-haspopup="dialog"
+        aria-expanded="false"
+        aria-controls="menuDrawerOverlay"
+      >
+        <i class="fa-solid fa-bars"></i>
+        <span>Menu</span>
+      </button>
+      <div class="menu-launcher-note">
+        Abra Área pessoal, Extras e Capítulos para navegar pelo livro sem tirar o foco do conteúdo.
+      </div>
+    </div>
 
-          <section class="sidebar-section" aria-labelledby="sidebarExtrasTitle">
-            <div class="sidebar-title" id="sidebarExtrasTitle"><i class="fa-solid fa-sparkles"></i> Extras</div>
-            <div class="extras-list" id="extrasList"></div>
-          </section>
-
-          <section class="sidebar-section" aria-labelledby="sidebarChaptersTitle">
-            <div class="sidebar-title" id="sidebarChaptersTitle"><i class="fa-solid fa-list-ul"></i> Capítulos</div>
-            <ul class="chapter-list" id="chapterList"></ul>
-          </section>
+    <div class="drawer-overlay" id="menuDrawerOverlay" hidden>
+      <aside class="drawer-shell" role="dialog" aria-modal="true" aria-labelledby="menuDrawerTitle">
+        <div class="drawer-header">
+          <div>
+            <div class="drawer-kicker">Menu</div>
+            <h2 class="drawer-title" id="menuDrawerTitle">Navegação do livro</h2>
+          </div>
+          <button type="button" class="drawer-close-button" id="menuDrawerClose" aria-label="Fechar menu">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
         </div>
-      </nav>
 
+        <div class="drawer-scroll">
+          <div class="drawer-stack">
+            <section class="drawer-group" data-drawer-group="personal">
+              <button type="button" class="drawer-group-trigger" data-drawer-trigger="personal" aria-expanded="false" aria-controls="drawerPanelPersonal">
+                <span class="drawer-group-title"><i class="fa-solid fa-circle-user"></i> Área pessoal</span>
+                <i class="fa-solid fa-chevron-down drawer-group-indicator" aria-hidden="true"></i>
+              </button>
+              <div class="drawer-group-panel" id="drawerPanelPersonal">
+                <div class="personal-list" id="personalList"></div>
+                <div class="sidebar-helper" id="personalHint">Entre com Google para habilitar sua área pessoal.</div>
+                <div class="personal-drawer-actions" id="personalDrawerActions"></div>
+              </div>
+            </section>
+
+            <section class="drawer-group" data-drawer-group="extras">
+              <button type="button" class="drawer-group-trigger" data-drawer-trigger="extras" aria-expanded="false" aria-controls="drawerPanelExtras">
+                <span class="drawer-group-title"><i class="fa-solid fa-sparkles"></i> Extras</span>
+                <i class="fa-solid fa-chevron-down drawer-group-indicator" aria-hidden="true"></i>
+              </button>
+              <div class="drawer-group-panel" id="drawerPanelExtras">
+                <div class="extras-list" id="extrasList"></div>
+              </div>
+            </section>
+
+            <section class="drawer-group" data-drawer-group="chapters">
+              <button type="button" class="drawer-group-trigger" data-drawer-trigger="chapters" aria-expanded="false" aria-controls="drawerPanelChapters">
+                <span class="drawer-group-title"><i class="fa-solid fa-list-ul"></i> Capítulos</span>
+                <i class="fa-solid fa-chevron-down drawer-group-indicator" aria-hidden="true"></i>
+              </button>
+              <div class="drawer-group-panel" id="drawerPanelChapters">
+                <ul class="chapter-list" id="chapterList"></ul>
+              </div>
+            </section>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <main class="layout">
       <section class="content-area" aria-live="polite">
         <article class="chapter-panel">
           <div class="panel-header">
@@ -1108,7 +1321,7 @@
               <div class="panel-kicker" id="panelKicker">Selecione um capítulo</div>
               <h2 class="panel-title" id="panelTitle">Índice dos tópicos</h2>
               <p class="panel-description" id="panelDescription">
-                Clique em um capítulo no menu à esquerda. Os tópicos correspondentes serão carregados à direita a partir de arquivos externos.
+                Abra o menu para escolher um capítulo. Os tópicos correspondentes serão carregados nesta área a partir de arquivos externos.
               </p>
             </div>
             <div class="panel-actions" id="panelActions"></div>
@@ -1192,7 +1405,11 @@
     const chapterList = document.getElementById("chapterList");
     const personalList = document.getElementById("personalList");
     const personalHint = document.getElementById("personalHint");
+    const personalDrawerActions = document.getElementById("personalDrawerActions");
     const extrasList = document.getElementById("extrasList");
+    const menuToggleButton = document.getElementById("menuToggleButton");
+    const menuDrawerOverlay = document.getElementById("menuDrawerOverlay");
+    const menuDrawerClose = document.getElementById("menuDrawerClose");
     const panelKicker = document.getElementById("panelKicker");
     const panelTitle = document.getElementById("panelTitle");
     const panelDescription = document.getElementById("panelDescription");
@@ -1210,8 +1427,17 @@
       savedExercises: [],
       exerciseModal: null,
       selectedExerciseId: null,
-      jsPdfPromise: null
+      jsPdfPromise: null,
+      drawerSection: "chapters"
     };
+
+    function getDrawerSectionForView(viewId) {
+      if (viewId === "saved" || viewId === "favorites") return "personal";
+      if (viewId === "simulators") return "extras";
+      return "chapters";
+    }
+
+    state.drawerSection = getDrawerSectionForView(state.view);
 
     const savedPanelCopy = {
       title: "Meus exercícios",
@@ -1316,6 +1542,44 @@
       return chapters.find((chapter) => chapter.id === id) || chapters[0];
     }
 
+    function setDrawerSection(sectionId) {
+      const normalizedSection = sectionId || "";
+      state.drawerSection = normalizedSection;
+
+      document.querySelectorAll("[data-drawer-trigger]").forEach((button) => {
+        const isActive = button.dataset.drawerTrigger === normalizedSection;
+        button.classList.toggle("is-open", isActive);
+        button.setAttribute("aria-expanded", String(isActive));
+      });
+
+      document.querySelectorAll(".drawer-group-panel").forEach((panel) => {
+        const expectedId = normalizedSection
+          ? `drawerPanel${normalizedSection.charAt(0).toUpperCase()}${normalizedSection.slice(1)}`
+          : "";
+        panel.classList.toggle("is-open", panel.id === expectedId);
+      });
+    }
+
+    function openDrawer(sectionId) {
+      state.drawerSection = sectionId || state.drawerSection || getDrawerSectionForView(state.view);
+      menuDrawerOverlay.hidden = false;
+      window.requestAnimationFrame(() => {
+        menuDrawerOverlay.classList.add("is-open");
+      });
+      menuToggleButton.setAttribute("aria-expanded", "true");
+      setDrawerSection(state.drawerSection);
+    }
+
+    function closeDrawer() {
+      menuDrawerOverlay.classList.remove("is-open");
+      menuToggleButton.setAttribute("aria-expanded", "false");
+      window.setTimeout(() => {
+        if (!menuDrawerOverlay.classList.contains("is-open")) {
+          menuDrawerOverlay.hidden = true;
+        }
+      }, 220);
+    }
+
     function syncUrl() {
       const url = new URL(window.location.href);
       url.searchParams.set("view", state.view);
@@ -1339,6 +1603,7 @@
           <span class="chapter-name">${chapter.title}</span>
         `;
         button.addEventListener("click", function () {
+          closeDrawer();
           void activateView("chapters", chapter.id);
         });
         li.appendChild(button);
@@ -1348,13 +1613,14 @@
 
     function renderPersonalMenu() {
       personalList.innerHTML = "";
+      personalDrawerActions.innerHTML = "";
 
       personalViews.forEach((view) => {
         const button = document.createElement("button");
         button.type = "button";
         button.className = `personal-button${state.view === view.id ? " active" : ""}`;
         button.dataset.viewId = view.id;
-        button.disabled = !state.loggedIn;
+        button.setAttribute("aria-disabled", String(!state.loggedIn));
         button.innerHTML = `
           <span class="extras-icon"><i class="fa-solid ${view.icon}"></i></span>
           <span class="extras-text">
@@ -1363,7 +1629,14 @@
           </span>
         `;
         button.addEventListener("click", function () {
-          if (!state.loggedIn) return;
+          if (!state.loggedIn) {
+            closeDrawer();
+            if (window.TermoAuth && typeof window.TermoAuth.openModal === "function") {
+              window.TermoAuth.openModal();
+            }
+            return;
+          }
+          closeDrawer();
           void activateView(view.id);
         });
         personalList.appendChild(button);
@@ -1372,6 +1645,20 @@
       personalHint.textContent = state.loggedIn
         ? "Sua área pessoal está ativa. Os subtópicos acima abrem seu histórico e seus atalhos salvos."
         : "Entre com Google para habilitar Meus exercícios e Itens favoritos.";
+
+      if (!state.loggedIn) {
+        const loginButton = document.createElement("button");
+        loginButton.type = "button";
+        loginButton.className = "drawer-inline-action";
+        loginButton.innerHTML = `<i class="fa-brands fa-google"></i><span>Entrar com Google</span>`;
+        loginButton.addEventListener("click", function () {
+          closeDrawer();
+          if (window.TermoAuth && typeof window.TermoAuth.openModal === "function") {
+            window.TermoAuth.openModal();
+          }
+        });
+        personalDrawerActions.appendChild(loginButton);
+      }
     }
 
     function renderExtrasMenu() {
@@ -1390,6 +1677,7 @@
           </span>
         `;
         button.addEventListener("click", function () {
+          closeDrawer();
           void activateView(view.id);
         });
         extrasList.appendChild(button);
@@ -1400,18 +1688,27 @@
       document.querySelectorAll(".chapter-button").forEach((button) => {
         button.classList.toggle("active", state.view === "chapters" && button.dataset.chapterId === id);
       });
+      if (state.view === "chapters") {
+        setDrawerSection("chapters");
+      }
     }
 
     function setActivePersonal(viewId) {
       document.querySelectorAll(".personal-button").forEach((button) => {
         button.classList.toggle("active", button.dataset.viewId === viewId);
       });
+      if (viewId) {
+        setDrawerSection("personal");
+      }
     }
 
     function setActiveExtra(viewId) {
       document.querySelectorAll(".extras-button").forEach((button) => {
         button.classList.toggle("active", button.dataset.viewId === viewId);
       });
+      if (viewId) {
+        setDrawerSection("extras");
+      }
     }
 
     function renderTopicGrid(topics) {
@@ -2167,6 +2464,7 @@
 
     async function activateView(viewId, chapterId) {
       state.view = viewId;
+      state.drawerSection = getDrawerSectionForView(viewId);
       if (chapterId) {
         state.chapterId = chapterId;
       }
@@ -2194,6 +2492,36 @@
     window.addEventListener("termo-open-personal-area", function () {
       if (!state.loggedIn) return;
       void activateView("saved");
+    });
+
+    menuToggleButton.addEventListener("click", function () {
+      if (menuDrawerOverlay.hidden || !menuDrawerOverlay.classList.contains("is-open")) {
+        openDrawer(getDrawerSectionForView(state.view));
+        return;
+      }
+      closeDrawer();
+    });
+
+    menuDrawerClose.addEventListener("click", closeDrawer);
+    menuDrawerOverlay.addEventListener("click", function (event) {
+      if (event.target === menuDrawerOverlay) {
+        closeDrawer();
+      }
+    });
+
+    document.querySelectorAll("[data-drawer-trigger]").forEach((button) => {
+      button.addEventListener("click", function () {
+        const targetSection = button.dataset.drawerTrigger;
+        const isOpen = button.getAttribute("aria-expanded") === "true";
+        const nextSection = isOpen ? "" : targetSection;
+        setDrawerSection(nextSection);
+      });
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") {
+        closeDrawer();
+      }
     });
 
     function bindAuthStateListener() {
@@ -2224,6 +2552,7 @@
       renderChapterMenu();
       renderPersonalMenu();
       renderExtrasMenu();
+      setDrawerSection(state.drawerSection);
       bindAuthStateListener();
       await refreshUserState();
       await activateView(state.view, state.chapterId);

@@ -903,20 +903,12 @@
     if (!anchor) return null;
 
     if (isIndexPage() && anchor === getToolbarHost()) {
-      let button = anchor.querySelector("[data-termo-auth-button]");
-      if (!button) {
-        button = createTriggerButton();
-        const shareButton = anchor.querySelector("[data-termo-share-button]");
-        if (shareButton) {
-          anchor.insertBefore(button, shareButton);
-        } else {
-          anchor.appendChild(button);
-        }
+      const existingButton = anchor.querySelector("[data-termo-auth-button]");
+      if (existingButton) {
+        existingButton.remove();
       }
-
-      state.triggerButton = button;
-      updateTriggerButton();
-      return button;
+      state.triggerButton = null;
+      return null;
     }
 
     const host = ensureHost(anchor, referenceButton);
