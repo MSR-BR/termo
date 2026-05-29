@@ -592,6 +592,271 @@
       gap: 14px;
     }
 
+    .chapter-panel--landing .panel-header {
+      display: none;
+    }
+
+    .chapter-panel--landing .topic-container {
+      padding-top: 8px;
+    }
+
+    .discovery-shell {
+      display: grid;
+      gap: 20px;
+    }
+
+    .discovery-hero {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #DDE7F5;
+      border-radius: 16px;
+      background:
+        radial-gradient(circle at top right, rgba(232, 240, 254, 0.95), transparent 34%),
+        linear-gradient(135deg, #F8FBFF 0%, #FFFFFF 58%, #F8F4FF 100%);
+      padding: 24px;
+    }
+
+    .discovery-hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -40px -50px auto;
+      width: 180px;
+      height: 180px;
+      border-radius: 999px;
+      background: rgba(0, 75, 135, 0.05);
+      filter: blur(6px);
+      pointer-events: none;
+    }
+
+    .discovery-kicker {
+      color: var(--red);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+
+    .discovery-title {
+      color: var(--blue);
+      font-size: clamp(24px, 3vw, 34px);
+      line-height: 1.1;
+      font-weight: 700;
+      max-width: 780px;
+    }
+
+    .discovery-copy {
+      margin-top: 12px;
+      max-width: 760px;
+      color: var(--text);
+      font-family: "Lora", Georgia, serif;
+      font-size: 17px;
+      line-height: 1.65;
+    }
+
+    .discovery-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .discovery-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid #D7E3F4;
+      background: rgba(255, 255, 255, 0.92);
+      border-radius: 999px;
+      padding: 8px 12px;
+      color: var(--blue);
+      font-size: 12.5px;
+      font-weight: 700;
+    }
+
+    .discovery-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .discovery-action {
+      appearance: none;
+      -webkit-appearance: none;
+      border: 1px solid #C7D8F3;
+      background: #FFFFFF;
+      color: var(--blue);
+      border-radius: 999px;
+      padding: 10px 15px;
+      text-decoration: none;
+      font-family: "Inter", sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .discovery-action--primary {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: #FFFFFF;
+    }
+
+    .discovery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .discovery-card {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 100%;
+      border: 1px solid #E8EDF3;
+      border-radius: 14px;
+      background: #FFFFFF;
+      padding: 18px;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04);
+      text-align: left;
+      cursor: pointer;
+      transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .discovery-card:hover,
+    .discovery-card:focus-visible {
+      border-color: #C6D7F2;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .discovery-card__title {
+      color: var(--blue);
+      font-size: 16px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 10px;
+    }
+
+    .discovery-card__text {
+      color: var(--muted);
+      font-family: "Lora", Georgia, serif;
+      font-size: 14.5px;
+      line-height: 1.55;
+      margin-bottom: 14px;
+    }
+
+    .discovery-card__meta {
+      color: var(--blue);
+      font-size: 12.5px;
+      font-weight: 700;
+    }
+
+    .chapter-showcase {
+      display: grid;
+      gap: 12px;
+    }
+
+    .chapter-showcase__header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .chapter-showcase__title {
+      color: var(--blue);
+      font-size: 18px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .chapter-showcase__copy {
+      color: var(--muted);
+      font-family: "Lora", Georgia, serif;
+      font-size: 14px;
+      line-height: 1.5;
+      max-width: 760px;
+    }
+
+    .chapter-showcase__grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .chapter-showcase__card {
+      width: 100%;
+      border: 1px solid #E8EDF3;
+      background: #F8F9FA;
+      border-radius: 14px;
+      padding: 16px;
+      text-align: left;
+      cursor: pointer;
+      transition: 0.18s ease;
+      color: var(--text);
+      font-family: "Inter", sans-serif;
+    }
+
+    .chapter-showcase__card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 75, 135, 0.10);
+      background: #FFFFFF;
+      border-color: #C5D8F5;
+    }
+
+    .chapter-showcase__card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .chapter-showcase__id {
+      color: var(--red);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .chapter-showcase__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 8px;
+      border-radius: 999px;
+      background: #EAF2FD;
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .chapter-showcase__name {
+      color: var(--blue);
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+
+    .chapter-showcase__note {
+      color: var(--muted);
+      font-family: "Lora", Georgia, serif;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
     .topic-card {
       display: block;
       background: #F8F9FA;
@@ -1192,11 +1457,28 @@
       .layout {
         padding: 20px;
       }
+      .topic-container {
+        padding: 20px;
+      }
       .panel-header {
         flex-direction: column;
       }
       .panel-actions {
         justify-content: flex-start;
+      }
+      .discovery-hero {
+        padding: 20px;
+      }
+      .discovery-grid,
+      .chapter-showcase__grid {
+        grid-template-columns: 1fr;
+      }
+      .discovery-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .discovery-action {
+        justify-content: center;
       }
       .saved-card__top {
         flex-direction: column;
@@ -1319,9 +1601,9 @@
           <div class="panel-header">
             <div class="panel-headline">
               <div class="panel-kicker" id="panelKicker">Selecione um capítulo</div>
-              <h2 class="panel-title" id="panelTitle">Índice dos tópicos</h2>
+              <h2 class="panel-title" id="panelTitle">Explore o app inteiro</h2>
               <p class="panel-description" id="panelDescription">
-                Abra o menu para escolher um capítulo. Os tópicos correspondentes serão carregados nesta área a partir de arquivos externos.
+                Entre pelos capítulos, pela área pessoal ou pelos simuladores. Esta página central foi pensada para mostrar que o app vai muito além de um único capítulo.
               </p>
             </div>
             <div class="panel-actions" id="panelActions"></div>
@@ -1362,12 +1644,12 @@
     */
 
     const chapters = [
-      { id: "01", title: "Conceitos Fundamentais", data: "data/capitulo-01.json" },
-      { id: "02", title: "Potenciais Termodinâmicos e Aplicações", data: "data/capitulo-02.json" },
-      { id: "03", title: "Termodinâmica Estatística", data: "data/capitulo-03.json" },
-      { id: "04", title: "Transições de Fase", data: "data/capitulo-04.json" },
-      { id: "05", title: "Processos Termodinâmicos", data: "data/capitulo-05.json" },
-      { id: "06", title: "Ciclos Termodinâmicos", data: "data/capitulo-06.json" }
+      { id: "01", title: "Conceitos Fundamentais", summary: "Equilíbrio térmico, temperatura, escalas e a base conceitual do curso.", data: "data/capitulo-01.json" },
+      { id: "02", title: "Potenciais Termodinâmicos e Aplicações", summary: "Energia livre, entalpia, transformações de Legendre e respostas físicas.", data: "data/capitulo-02.json" },
+      { id: "03", title: "Termodinâmica Estatística", summary: "Entropia, ensembles, gases ideais e exemplos clássicos e quânticos.", data: "data/capitulo-03.json" },
+      { id: "04", title: "Transições de Fase", summary: "Mudanças de fase, estabilidade, coexistência e comportamento crítico.", data: "data/capitulo-04.json" },
+      { id: "05", title: "Processos Termodinâmicos", summary: "Caminhos entre estados, trocas de calor e trabalho em processos variados.", data: "data/capitulo-05.json" },
+      { id: "06", title: "Ciclos Termodinâmicos", summary: "Máquinas térmicas, eficiência, refrigeradores e ciclos clássicos.", data: "data/capitulo-06.json" }
     ];
 
     const JSPDF_CDN_URL = "https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js";
@@ -1410,6 +1692,7 @@
     const menuToggleButton = document.getElementById("menuToggleButton");
     const menuDrawerOverlay = document.getElementById("menuDrawerOverlay");
     const menuDrawerClose = document.getElementById("menuDrawerClose");
+    const chapterPanel = document.querySelector(".chapter-panel");
     const panelKicker = document.getElementById("panelKicker");
     const panelTitle = document.getElementById("panelTitle");
     const panelDescription = document.getElementById("panelDescription");
@@ -1420,7 +1703,7 @@
 
     const state = {
       view: viewIds.has(requestedView) ? requestedView : "chapters",
-      chapterId: params.get("chapter") || "01",
+      chapterId: params.get("chapter") || "",
       loggedIn: false,
       favoriteItems: [],
       favoriteExercises: [],
@@ -1435,6 +1718,11 @@
       if (viewId === "saved" || viewId === "favorites") return "personal";
       if (viewId === "simulators") return "extras";
       return "chapters";
+    }
+
+    function setLandingMode(isLanding) {
+      if (!chapterPanel) return;
+      chapterPanel.classList.toggle("chapter-panel--landing", Boolean(isLanding));
     }
 
     state.drawerSection = getDrawerSectionForView(state.view);
@@ -1585,6 +1873,8 @@
       url.searchParams.set("view", state.view);
       if (state.chapterId) {
         url.searchParams.set("chapter", state.chapterId);
+      } else {
+        url.searchParams.delete("chapter");
       }
       window.history.replaceState({}, "", url);
     }
@@ -1712,6 +2002,7 @@
     }
 
     function renderTopicGrid(topics) {
+      setLandingMode(false);
       const grid = document.createElement("div");
       grid.className = "topic-grid";
 
@@ -1732,6 +2023,58 @@
 
       topicContainer.innerHTML = "";
       topicContainer.appendChild(grid);
+    }
+
+    function renderDiscoveryLanding() {
+      setLandingMode(true);
+      panelKicker.textContent = "Livro ativo";
+      panelTitle.textContent = "Use o menu para navegar";
+      panelDescription.textContent = "Abra Capítulos, Área pessoal ou Extras pelo menu lateral, ou use os atalhos abaixo para ir direto ao que interessa.";
+      setActiveChapter("");
+      setActivePersonal("");
+      setActiveExtra("");
+      panelActions.innerHTML = "";
+
+      topicContainer.innerHTML = `
+        <div class="discovery-shell">
+          <section class="discovery-grid">
+            <button class="discovery-card" type="button" data-role="open-drawer-section" data-section-id="chapters">
+              <div class="discovery-card__title"><i class="fa-solid fa-list-ul"></i> Capítulos</div>
+              <div class="discovery-card__text">Abra a estrutura completa do livro e entre nos itens de cada capítulo pelo menu deslizante.</div>
+              <div class="discovery-card__meta">Explorar conteúdo</div>
+            </button>
+            <button class="discovery-card" type="button" data-role="open-view" data-view-id="saved">
+              <div class="discovery-card__title"><i class="fa-solid fa-circle-user"></i> Área pessoal</div>
+              <div class="discovery-card__text">Veja seus exercícios salvos e os itens favoritos quando estiver com login ativo.</div>
+              <div class="discovery-card__meta">Login Google opcional</div>
+            </button>
+            <button class="discovery-card" type="button" data-role="open-view" data-view-id="simulators">
+              <div class="discovery-card__title"><i class="fa-solid fa-flask-vial"></i> Extras</div>
+              <div class="discovery-card__text">Acesse os simuladores e outros recursos complementares do app em uma área separada.</div>
+              <div class="discovery-card__meta">Explorar recursos</div>
+            </button>
+          </section>
+        </div>
+      `;
+
+      topicContainer.querySelectorAll('[data-role="open-view"]').forEach((button) => {
+        button.addEventListener("click", function () {
+          const viewId = button.dataset.viewId || "chapters";
+          if ((viewId === "saved" || viewId === "favorites") && !state.loggedIn) {
+            if (window.TermoAuth?.openModal) {
+              window.TermoAuth.openModal();
+            }
+            return;
+          }
+          void activateView(viewId);
+        });
+      });
+
+      topicContainer.querySelectorAll('[data-role="open-drawer-section"]').forEach((button) => {
+        button.addEventListener("click", function () {
+          openDrawer(button.dataset.sectionId || "chapters");
+        });
+      });
     }
 
     function buildExercisePlainText(exercise) {
@@ -2288,6 +2631,7 @@
     }
 
     async function loadChapter(chapterId) {
+      setLandingMode(false);
       const chapter = findChapterById(chapterId);
       state.chapterId = chapter.id;
       setActiveChapter(chapter.id);
@@ -2333,6 +2677,7 @@
     }
 
     async function renderSavedExercises() {
+      setLandingMode(false);
       panelKicker.textContent = "Área pessoal";
       panelTitle.textContent = savedPanelCopy.title;
       panelDescription.textContent = savedPanelCopy.description;
@@ -2408,6 +2753,7 @@
     }
 
     async function renderFavorites() {
+      setLandingMode(false);
       await refreshFavoriteCollections();
 
       panelKicker.textContent = "Área pessoal";
@@ -2447,6 +2793,7 @@
     }
 
     function renderSimulators() {
+      setLandingMode(false);
       panelKicker.textContent = "Recursos interativos";
       panelTitle.textContent = simulatorsPanelCopy.title;
       panelDescription.textContent = simulatorsPanelCopy.description;
@@ -2465,8 +2812,8 @@
     async function activateView(viewId, chapterId) {
       state.view = viewId;
       state.drawerSection = getDrawerSectionForView(viewId);
-      if (chapterId) {
-        state.chapterId = chapterId;
+      if (typeof chapterId !== "undefined") {
+        state.chapterId = chapterId || "";
       }
 
       syncUrl();
@@ -2483,6 +2830,11 @@
 
       if (viewId === "simulators") {
         renderSimulators();
+        return;
+      }
+
+      if (!state.chapterId) {
+        renderDiscoveryLanding();
         return;
       }
 
