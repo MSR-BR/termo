@@ -3,6 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { readFile, stat } from "node:fs/promises";
 import { handleExerciseRequest } from "./lib/exercicio-handler.mjs";
+import { handlePublicConfigRequest } from "./lib/public-config-handler.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -176,6 +177,16 @@ const server = http.createServer(async (req, res) => {
         details: String(error)
       });
     }
+    return;
+  }
+
+  if (requestUrl === "/api/public-config") {
+    const response = await handlePublicConfigRequest({
+      method: req.method,
+      env: process.env
+    });
+
+    sendJson(res, response.status, response.body);
     return;
   }
 

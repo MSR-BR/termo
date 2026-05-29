@@ -9,6 +9,15 @@
   <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@400;600&display=swap" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet" />
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['\\(','\\)'], ['$', '$']], displayMath: [['\\[','\\]']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+  <link rel="stylesheet" href="assets/ai-exercises.css">
+  <script defer src="assets/ai-exercises.js"></script>
 
   <style>
     :root {
@@ -54,6 +63,24 @@
       padding-left: 22px;
       max-width: 1280px;
       margin: 0 auto;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .header-main {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .header-tools {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding-top: 2px;
     }
 
     .course-label {
@@ -124,6 +151,133 @@
       gap: 8px;
     }
 
+    .sidebar-stack {
+      display: grid;
+      gap: 14px;
+    }
+
+    .sidebar-section {
+      border: 1px solid #E8EDF3;
+      background: #F8F9FA;
+      border-radius: 12px;
+      padding: 14px;
+    }
+
+    .sidebar-section .sidebar-title {
+      margin-bottom: 12px;
+    }
+
+    .extras-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .personal-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .sidebar-helper {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height: 1.45;
+      font-weight: 500;
+    }
+
+    .extras-button {
+      width: 100%;
+      border: 1px solid #E8EDF3;
+      background: #FFFFFF;
+      border-radius: 10px;
+      padding: 10px 11px;
+      display: grid;
+      grid-template-columns: 18px 1fr;
+      gap: 9px;
+      align-items: center;
+      cursor: pointer;
+      text-align: left;
+      transition: 0.18s ease;
+      color: var(--text);
+      font-family: "Inter", sans-serif;
+    }
+
+    .extras-button:hover {
+      background: var(--blue-soft);
+      border-color: #C5D8F5;
+    }
+
+    .extras-button.active {
+      background: var(--blue-soft);
+      border-color: #C5D8F5;
+      border-left: 5px solid var(--blue);
+      padding-left: 7px;
+    }
+
+    .extras-button:disabled,
+    .personal-button:disabled {
+      cursor: not-allowed;
+      opacity: 0.56;
+      background: #F3F5F8;
+      border-color: #E1E7EF;
+    }
+
+    .personal-button {
+      width: 100%;
+      border: 1px solid #E8EDF3;
+      background: #FFFFFF;
+      border-radius: 10px;
+      padding: 10px 11px;
+      display: grid;
+      grid-template-columns: 18px 1fr;
+      gap: 9px;
+      align-items: center;
+      cursor: pointer;
+      text-align: left;
+      transition: 0.18s ease;
+      color: var(--text);
+      font-family: "Inter", sans-serif;
+    }
+
+    .personal-button:hover:not(:disabled) {
+      background: var(--blue-soft);
+      border-color: #C5D8F5;
+    }
+
+    .personal-button.active {
+      background: var(--blue-soft);
+      border-color: #C5D8F5;
+      border-left: 5px solid var(--blue);
+      padding-left: 7px;
+    }
+
+    .extras-icon {
+      color: var(--blue);
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .extras-text {
+      min-width: 0;
+    }
+
+    .extras-label {
+      display: block;
+      font-size: 13.5px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: inherit;
+    }
+
+    .extras-note {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+      font-weight: 500;
+    }
+
     .chapter-list {
       list-style: none;
       display: flex;
@@ -190,6 +344,54 @@
       background: linear-gradient(90deg, var(--blue-soft), #FFFFFF);
       border-bottom: 1px solid var(--border);
       padding: 22px 26px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .panel-headline {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .panel-actions {
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-end;
+      gap: 10px;
+      flex-wrap: wrap;
+      min-height: 42px;
+    }
+
+    .panel-action-button {
+      appearance: none;
+      -webkit-appearance: none;
+      border: 1px solid #C7D8F3;
+      background: #FFFFFF;
+      color: var(--blue);
+      border-radius: 999px;
+      padding: 9px 14px;
+      text-decoration: none;
+      font-family: "Inter", sans-serif;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+
+    .panel-action-button.is-active {
+      background: #FFF7ED;
+      border-color: #F2C38E;
+      color: #B45309;
+    }
+
+    .panel-action-button:disabled {
+      opacity: 0.56;
+      cursor: not-allowed;
     }
 
     .panel-kicker {
@@ -319,6 +521,479 @@
       font-family: "Inter", sans-serif;
     }
 
+    .saved-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .saved-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .saved-item {
+      width: 100%;
+      border: 1px solid #E2E8F0;
+      border-left: 4px solid var(--blue);
+      background: #F8F9FA;
+      border-radius: 12px;
+      padding: 14px 15px;
+      text-align: left;
+      cursor: pointer;
+      transition: 0.18s ease;
+      font-family: "Inter", sans-serif;
+      color: var(--text);
+    }
+
+    .saved-item:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(0, 75, 135, 0.10);
+      background: #FFFFFF;
+    }
+
+    .saved-item__top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .saved-item__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .saved-item__favorite {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 38px;
+      height: 38px;
+      border: 1px solid #D5E1F2;
+      border-radius: 999px;
+      background: #FFFFFF;
+      color: #9AA9BC;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;
+      flex: 0 0 auto;
+    }
+
+    .saved-item__favorite:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(0, 75, 135, 0.10);
+    }
+
+    .saved-item__favorite.is-active {
+      color: #B45309;
+      border-color: rgba(180, 83, 9, 0.24);
+      background: #FFF7E8;
+    }
+
+    .saved-item__favorite:disabled {
+      cursor: wait;
+      opacity: 0.72;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .saved-item__title {
+      color: var(--blue);
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 6px;
+    }
+
+    .saved-item__source {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+
+    .saved-item__preview {
+      color: var(--text);
+      font-family: "Lora", Georgia, serif;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .favorite-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .favorite-section {
+      display: grid;
+      gap: 12px;
+    }
+
+    .favorite-section + .favorite-section {
+      margin-top: 20px;
+    }
+
+    .favorite-section__title {
+      color: var(--blue);
+      font-size: 15px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .favorite-item {
+      width: 100%;
+      border: 1px solid #E2E8F0;
+      border-left: 4px solid #F59E0B;
+      background: #FFFBEB;
+      border-radius: 12px;
+      padding: 14px 15px;
+      text-align: left;
+      cursor: pointer;
+      transition: 0.18s ease;
+      font-family: "Inter", sans-serif;
+      color: var(--text);
+    }
+
+    .favorite-item:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(180, 83, 9, 0.10);
+    }
+
+    .favorite-item__top {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #B45309;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+    }
+
+    .favorite-item__title {
+      color: var(--blue);
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 6px;
+    }
+
+    .favorite-item__note {
+      color: var(--muted);
+      font-family: "Lora", Georgia, serif;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .exercise-modal-overlay {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(17, 24, 39, 0.54);
+      backdrop-filter: blur(6px);
+      z-index: 1300;
+    }
+
+    .exercise-modal-overlay.is-open {
+      display: flex;
+    }
+
+    .exercise-modal {
+      width: min(100%, 860px);
+      max-height: min(88vh, 920px);
+      overflow: auto;
+      background: #FFFFFF;
+      border: 1px solid rgba(0, 75, 135, 0.10);
+      border-radius: 24px;
+      box-shadow: 0 22px 56px rgba(15, 23, 42, 0.18);
+    }
+
+    .exercise-modal__header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 24px 24px 0;
+    }
+
+    .exercise-modal__header-actions {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      flex: 0 0 auto;
+    }
+
+    .exercise-modal__kicker {
+      color: var(--red);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+
+    .exercise-modal__title {
+      color: var(--blue);
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .exercise-modal__close {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(0, 75, 135, 0.12);
+      border-radius: 999px;
+      background: #F8FBFF;
+      color: #0B5EA8;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex: 0 0 auto;
+    }
+
+    .exercise-modal__favorite {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(0, 75, 135, 0.12);
+      border-radius: 999px;
+      background: #FFFFFF;
+      color: #B45309;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex: 0 0 auto;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;
+    }
+
+    .exercise-modal__favorite:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(180, 83, 9, 0.14);
+    }
+
+    .exercise-modal__favorite.is-active {
+      background: #FFF7E8;
+      border-color: rgba(180, 83, 9, 0.24);
+      color: #7C2D12;
+    }
+
+    .exercise-modal__favorite:disabled {
+      cursor: wait;
+      opacity: 0.72;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .exercise-modal__body {
+      padding: 18px 24px 24px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .exercise-modal__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .exercise-modal__section {
+      border: 1px solid #E2E8F0;
+      border-radius: 14px;
+      padding: 16px 18px;
+      background: #F8F9FA;
+    }
+
+    .exercise-modal__section--solution {
+      background: #ECFDF3;
+      border-color: #B7E2C6;
+    }
+
+    .exercise-modal__section-title {
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 10px;
+    }
+
+    .exercise-modal__content {
+      color: var(--text);
+      font-family: "Lora", Georgia, serif;
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    .exercise-modal__content mjx-container {
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+
+    .exercise-modal__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .exercise-modal__status {
+      min-height: 20px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+      font-weight: 600;
+    }
+
+    .exercise-modal__status.is-error {
+      color: var(--red);
+    }
+
+    .saved-card {
+      background: #F8F9FA;
+      border: 1px solid #E2E8F0;
+      border-left: 4px solid var(--blue);
+      border-radius: 14px;
+      padding: 18px;
+    }
+
+    .saved-card__top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .saved-card__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .saved-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: #EAF2FD;
+      color: var(--blue);
+      font-family: "Inter", sans-serif;
+      font-size: 11.5px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .saved-chip--difficulty {
+      background: #F3E8FF;
+      color: #6D28D9;
+    }
+
+    .saved-card__title {
+      color: var(--blue);
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+
+    .saved-card__source {
+      color: var(--muted);
+      font-family: "Inter", sans-serif;
+      font-size: 13.5px;
+      margin-bottom: 12px;
+    }
+
+    .saved-card__section-title {
+      color: var(--text);
+      font-family: "Inter", sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 8px;
+    }
+
+    .saved-card__statement,
+    .saved-card__solution {
+      color: var(--text);
+      font-family: "Lora", Georgia, serif;
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    .saved-card__statement mjx-container,
+    .saved-card__solution mjx-container {
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+
+    .saved-card__solution {
+      display: none;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid #DDE3ED;
+    }
+
+    .saved-card__solution.is-open {
+      display: block;
+    }
+
+    .saved-card__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .saved-card__button {
+      appearance: none;
+      -webkit-appearance: none;
+      border: 1px solid #C7D8F3;
+      background: #FFFFFF;
+      color: var(--blue);
+      border-radius: 999px;
+      padding: 9px 14px;
+      text-decoration: none;
+      font-family: "Inter", sans-serif;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .saved-card__button--primary {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: #FFFFFF;
+    }
+
+    .saved-card__button:hover {
+      transform: translateY(-1px);
+    }
+
     .footer {
       max-width: 1280px;
       width: 100%;
@@ -338,13 +1013,30 @@
 
     @media (max-width: 900px) {
       .top-header { padding: 18px 20px; }
+      .header-box {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .header-tools {
+        justify-content: flex-start;
+        padding-top: 8px;
+      }
       .layout {
         grid-template-columns: 1fr;
         padding: 20px;
       }
+      .panel-header {
+        flex-direction: column;
+      }
+      .panel-actions {
+        justify-content: flex-start;
+      }
       .sidebar {
         position: static;
         max-height: none;
+      }
+      .saved-card__top {
+        flex-direction: column;
       }
       .main-title { font-size: 28px; }
     }
@@ -366,36 +1058,60 @@
 </script>
 <link rel="stylesheet" href="assets/termo-share.css">
 <script defer src="assets/termo-share.js"></script>
+<link rel="stylesheet" href="assets/termo-auth.css">
+<script defer src="assets/termo-auth.js"></script>
+<script defer src="assets/termo-user-data.js"></script>
 </head>
 
 <body>
   <div class="page">
     <header class="top-header">
       <div class="header-box">
-        <div class="course-label">Resumo do Livro</div>
-        <h1 class="main-title">Termodinâmica para Estudantes de Física</h1>
-        <div class="metadata">
-          <span><i class="fa-solid fa-user-tie"></i> Prof. Mario Reis</span>
-          <span><i class="fa-solid fa-building-columns"></i> Instituto de Física — Universidade Federal Fluminense</span>
-          <span><i class="fa-solid fa-calendar-days"></i> Última atualização: <time id="lastUpdated">23/05/2026</time></span>
+        <div class="header-main">
+          <div class="course-label">Resumo do Livro</div>
+          <h1 class="main-title">Termodinâmica para Estudantes de Física</h1>
+          <div class="metadata">
+            <span><i class="fa-solid fa-user-tie"></i> Prof. Mario Reis</span>
+            <span><i class="fa-solid fa-building-columns"></i> Instituto de Física — Universidade Federal Fluminense</span>
+            <span><i class="fa-solid fa-calendar-days"></i> Última atualização: <time id="lastUpdated">23/05/2026</time></span>
+          </div>
         </div>
+        <div class="header-tools" data-termo-header-tools aria-label="Ações principais"></div>
       </div>
     </header>
 
     <main class="layout">
       <nav class="sidebar" aria-label="Índice de capítulos">
-        <div class="sidebar-title"><i class="fa-solid fa-list-ul"></i> Capítulos</div>
-        <ul class="chapter-list" id="chapterList"></ul>
+        <div class="sidebar-stack">
+          <section class="sidebar-section" aria-labelledby="sidebarPersonalTitle">
+            <div class="sidebar-title" id="sidebarPersonalTitle"><i class="fa-solid fa-circle-user"></i> Área pessoal</div>
+            <div class="personal-list" id="personalList"></div>
+            <div class="sidebar-helper" id="personalHint">Entre com Google para habilitar sua área pessoal.</div>
+          </section>
+
+          <section class="sidebar-section" aria-labelledby="sidebarExtrasTitle">
+            <div class="sidebar-title" id="sidebarExtrasTitle"><i class="fa-solid fa-sparkles"></i> Extras</div>
+            <div class="extras-list" id="extrasList"></div>
+          </section>
+
+          <section class="sidebar-section" aria-labelledby="sidebarChaptersTitle">
+            <div class="sidebar-title" id="sidebarChaptersTitle"><i class="fa-solid fa-list-ul"></i> Capítulos</div>
+            <ul class="chapter-list" id="chapterList"></ul>
+          </section>
+        </div>
       </nav>
 
       <section class="content-area" aria-live="polite">
         <article class="chapter-panel">
           <div class="panel-header">
-            <div class="panel-kicker" id="panelKicker">Selecione um capítulo</div>
-            <h2 class="panel-title" id="panelTitle">Índice dos tópicos</h2>
-            <p class="panel-description" id="panelDescription">
-              Clique em um capítulo no menu à esquerda. Os tópicos correspondentes serão carregados à direita a partir de arquivos externos.
-            </p>
+            <div class="panel-headline">
+              <div class="panel-kicker" id="panelKicker">Selecione um capítulo</div>
+              <h2 class="panel-title" id="panelTitle">Índice dos tópicos</h2>
+              <p class="panel-description" id="panelDescription">
+                Clique em um capítulo no menu à esquerda. Os tópicos correspondentes serão carregados à direita a partir de arquivos externos.
+              </p>
+            </div>
+            <div class="panel-actions" id="panelActions"></div>
           </div>
 
           <div class="topic-container" id="topicContainer">
@@ -441,16 +1157,171 @@
       { id: "06", title: "Ciclos Termodinâmicos", data: "data/capitulo-06.json" }
     ];
 
+    const JSPDF_CDN_URL = "https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js";
+
+    const personalViews = [
+      {
+        id: "saved",
+        label: "Meus exercícios",
+        icon: "fa-book-bookmark",
+        note: "Abra sua lista pessoal de exercícios gerados."
+      },
+      {
+        id: "favorites",
+        label: "Itens favoritos",
+        icon: "fa-star",
+        note: "Atalhos rápidos para os itens do curso que você marcou com estrela."
+      }
+    ];
+
+    const extraViews = [
+      {
+        id: "simulators",
+        label: "Simuladores",
+        icon: "fa-flask-vial",
+        note: "Área reservada para os exploradores interativos."
+      }
+    ];
+
+    const viewIds = new Set([
+      "chapters",
+      ...personalViews.map((view) => view.id),
+      ...extraViews.map((view) => view.id)
+    ]);
+
     const chapterList = document.getElementById("chapterList");
+    const personalList = document.getElementById("personalList");
+    const personalHint = document.getElementById("personalHint");
+    const extrasList = document.getElementById("extrasList");
     const panelKicker = document.getElementById("panelKicker");
     const panelTitle = document.getElementById("panelTitle");
     const panelDescription = document.getElementById("panelDescription");
+    const panelActions = document.getElementById("panelActions");
     const topicContainer = document.getElementById("topicContainer");
-    const chapterParam = new URLSearchParams(window.location.search).get("chapter");
+    const params = new URLSearchParams(window.location.search);
+    const requestedView = params.get("view");
 
-    function updateChapterParam(id) {
+    const state = {
+      view: viewIds.has(requestedView) ? requestedView : "chapters",
+      chapterId: params.get("chapter") || "01",
+      loggedIn: false,
+      favoriteItems: [],
+      favoriteExercises: [],
+      savedExercises: [],
+      exerciseModal: null,
+      selectedExerciseId: null,
+      jsPdfPromise: null
+    };
+
+    const savedPanelCopy = {
+      title: "Meus exercícios",
+      description: "Todos os exercícios automáticos que você gerou ficam organizados aqui. Clique em um item para abrir o enunciado e a solução completos."
+    };
+
+    const favoritesPanelCopy = {
+      title: "Itens favoritos",
+      description: "Guarde aqui tanto páginas do curso quanto exercícios salvos que você marcou com estrela."
+    };
+
+    const simulatorsPanelCopy = {
+      title: "Simuladores",
+      description: "Em breve, esta área vai organizar os simuladores externos e atividades exploratórias do curso."
+    };
+
+    function escapeHtml(value) {
+      return String(value || "").replace(/[&<>"']/g, function (char) {
+        return ({
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          "\"": "&quot;",
+          "'": "&#039;"
+        })[char];
+      });
+    }
+
+    function truncate(value, maxLength) {
+      const text = String(value || "").trim();
+      if (text.length <= maxLength) return text;
+      return `${text.slice(0, maxLength - 1).trimEnd()}...`;
+    }
+
+    function difficultyLabel(value) {
+      return ({
+        facil: "Fácil",
+        medio: "Médio",
+        dificil: "Difícil"
+      })[value] || "Médio";
+    }
+
+    function formatDate(value) {
+      if (!value) return "";
+
+      try {
+        return new Intl.DateTimeFormat("pt-BR", {
+          dateStyle: "short",
+          timeStyle: "short"
+        }).format(new Date(value));
+      } catch {
+        return value;
+      }
+    }
+
+    async function ensureJsPdf() {
+      if (window.jspdf && window.jspdf.jsPDF) {
+        return window.jspdf.jsPDF;
+      }
+
+      if (!state.jsPdfPromise) {
+        state.jsPdfPromise = new Promise(function (resolve, reject) {
+          const existing = document.querySelector('script[data-termo-jspdf="true"]');
+          if (existing) {
+            existing.addEventListener("load", function () {
+              if (window.jspdf && window.jspdf.jsPDF) {
+                resolve(window.jspdf.jsPDF);
+              } else {
+                reject(new Error("jsPDF não disponível após o carregamento."));
+              }
+            }, { once: true });
+            existing.addEventListener("error", function () {
+              reject(new Error("Não foi possível carregar jsPDF."));
+            }, { once: true });
+            return;
+          }
+
+          const script = document.createElement("script");
+          script.src = JSPDF_CDN_URL;
+          script.async = true;
+          script.setAttribute("data-termo-jspdf", "true");
+          script.onload = function () {
+            if (window.jspdf && window.jspdf.jsPDF) {
+              resolve(window.jspdf.jsPDF);
+              return;
+            }
+            reject(new Error("jsPDF não disponível após o carregamento."));
+          };
+          script.onerror = function () {
+            reject(new Error("Não foi possível carregar jsPDF."));
+          };
+          document.head.appendChild(script);
+        }).finally(function () {
+          state.jsPdfPromise = null;
+        });
+      }
+
+      return state.jsPdfPromise;
+    }
+
+    function findChapterById(id) {
+      return chapters.find((chapter) => chapter.id === id) || chapters[0];
+    }
+
+    function syncUrl() {
       const url = new URL(window.location.href);
-      url.searchParams.set("chapter", id);
+      url.searchParams.set("view", state.view);
+      if (state.chapterId) {
+        url.searchParams.set("chapter", state.chapterId);
+      }
       window.history.replaceState({}, "", url);
     }
 
@@ -467,25 +1338,671 @@
           <span class="chapter-number">${chapter.id}</span>
           <span class="chapter-name">${chapter.title}</span>
         `;
-        button.addEventListener("click", () => loadChapter(chapter));
+        button.addEventListener("click", function () {
+          void activateView("chapters", chapter.id);
+        });
         li.appendChild(button);
         chapterList.appendChild(li);
       });
     }
 
-    function setActiveChapter(id) {
-      document.querySelectorAll(".chapter-button").forEach((button) => {
-        button.classList.toggle("active", button.dataset.chapterId === id);
+    function renderPersonalMenu() {
+      personalList.innerHTML = "";
+
+      personalViews.forEach((view) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = `personal-button${state.view === view.id ? " active" : ""}`;
+        button.dataset.viewId = view.id;
+        button.disabled = !state.loggedIn;
+        button.innerHTML = `
+          <span class="extras-icon"><i class="fa-solid ${view.icon}"></i></span>
+          <span class="extras-text">
+            <span class="extras-label">${view.label}</span>
+            <span class="extras-note">${view.note}</span>
+          </span>
+        `;
+        button.addEventListener("click", function () {
+          if (!state.loggedIn) return;
+          void activateView(view.id);
+        });
+        personalList.appendChild(button);
+      });
+
+      personalHint.textContent = state.loggedIn
+        ? "Sua área pessoal está ativa. Os subtópicos acima abrem seu histórico e seus atalhos salvos."
+        : "Entre com Google para habilitar Meus exercícios e Itens favoritos.";
+    }
+
+    function renderExtrasMenu() {
+      extrasList.innerHTML = "";
+
+      extraViews.forEach((view) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = `extras-button${state.view === view.id ? " active" : ""}`;
+        button.dataset.viewId = view.id;
+        button.innerHTML = `
+          <span class="extras-icon"><i class="fa-solid ${view.icon}"></i></span>
+          <span class="extras-text">
+            <span class="extras-label">${view.label}</span>
+            <span class="extras-note">${view.note}</span>
+          </span>
+        `;
+        button.addEventListener("click", function () {
+          void activateView(view.id);
+        });
+        extrasList.appendChild(button);
       });
     }
 
-    async function loadChapter(chapter) {
+    function setActiveChapter(id) {
+      document.querySelectorAll(".chapter-button").forEach((button) => {
+        button.classList.toggle("active", state.view === "chapters" && button.dataset.chapterId === id);
+      });
+    }
+
+    function setActivePersonal(viewId) {
+      document.querySelectorAll(".personal-button").forEach((button) => {
+        button.classList.toggle("active", button.dataset.viewId === viewId);
+      });
+    }
+
+    function setActiveExtra(viewId) {
+      document.querySelectorAll(".extras-button").forEach((button) => {
+        button.classList.toggle("active", button.dataset.viewId === viewId);
+      });
+    }
+
+    function renderTopicGrid(topics) {
+      const grid = document.createElement("div");
+      grid.className = "topic-grid";
+
+      topics.forEach((topic) => {
+        const link = document.createElement("a");
+        link.className = `topic-card${topic.aiExercise ? " ai-exercise" : ""}`;
+        link.href = topic.url || "#";
+        link.innerHTML = `
+          <div class="topic-card-top">
+            <div class="topic-id">${escapeHtml(topic.id || "")}</div>
+            ${topic.aiExercise ? `<div class="topic-badge ai-exercise"><i class="fa-solid fa-wand-magic-sparkles"></i> Exercício IA</div>` : ""}
+          </div>
+          <div class="topic-title">${escapeHtml(topic.title || "Tópico sem título")}</div>
+          <div class="topic-note">${escapeHtml(topic.note || "Abrir página HTML deste tópico.")}</div>
+        `;
+        grid.appendChild(link);
+      });
+
+      topicContainer.innerHTML = "";
+      topicContainer.appendChild(grid);
+    }
+
+    function buildExercisePlainText(exercise) {
+      const pageUrl = exercise.page_url || exercise.page_path || window.location.href;
+      const itemLabel = exercise.item_id || exercise.chapter_id || "Curso";
+
+      return [
+        "Termodinâmica para Estudantes de Física",
+        "",
+        exercise.exercise_title || "Exercício",
+        "",
+        `Página: ${exercise.page_title || "Página do curso"}`,
+        `Capítulo/Item: ${itemLabel}`,
+        `Nível: ${difficultyLabel(exercise.difficulty)}`,
+        `Link da página: ${pageUrl}`,
+        "",
+        "Créditos",
+        "Todo o conteúdo didático das páginas e do livro associado foi criado pelo Prof. Mario Reis.",
+        "Instituto de Física — Universidade Federal Fluminense.",
+        "",
+        "Aviso sobre IA experimental",
+        "O aplicativo de criação de exercícios é um experimento didático; os exercícios e soluções foram gerados automaticamente por um agente de IA experimental e podem conter erros conceituais, matemáticos ou pedagógicos.",
+        "",
+        "Enunciado",
+        exercise.statement || "",
+        "",
+        "Solução",
+        exercise.solution || "",
+      ].join("\n");
+    }
+
+    async function copyTextFallback(text) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        try {
+          await navigator.clipboard.writeText(text);
+          return true;
+        } catch (_error) {
+          // cai para o método legado
+        }
+      }
+
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.setAttribute("readonly", "true");
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      textarea.style.pointerEvents = "none";
+      textarea.style.top = "-9999px";
+      document.body.appendChild(textarea);
+      textarea.focus();
+      textarea.select();
+
+      let copied = false;
+      try {
+        copied = document.execCommand("copy");
+      } catch (_error) {
+        copied = false;
+      }
+
+      textarea.remove();
+      return copied;
+    }
+
+    function updateExerciseModalFavoriteButton(exercise) {
+      const modal = state.exerciseModal;
+      if (!modal) return;
+
+      const button = modal.querySelector('[data-role="exercise-favorite"]');
+      if (!button) return;
+
+      const isFavorite = Boolean(exercise?.is_favorite);
+      button.classList.toggle("is-active", isFavorite);
+      button.innerHTML = `<i class="fa-${isFavorite ? "solid" : "regular"} fa-star"></i>`;
+      button.setAttribute("aria-label", isFavorite ? "Remover exercício dos preferidos" : "Salvar exercício como preferido");
+      button.setAttribute("title", isFavorite ? "Remover dos preferidos" : "Salvar como preferido");
+    }
+
+    function setExerciseModalStatus(message, isError) {
+      const modal = state.exerciseModal;
+      if (!modal) return;
+
+      const status = modal.querySelector('[data-role="exercise-status"]');
+      if (!status) return;
+
+      status.textContent = message || "";
+      status.classList.toggle("is-error", Boolean(isError));
+    }
+
+    function ensureExerciseModal() {
+      if (state.exerciseModal) return state.exerciseModal;
+
+      const overlay = document.createElement("div");
+      overlay.className = "exercise-modal-overlay";
+      overlay.innerHTML = `
+        <div class="exercise-modal" role="dialog" aria-modal="true" aria-labelledby="exerciseModalTitle">
+          <div class="exercise-modal__header">
+            <div>
+              <div class="exercise-modal__kicker" id="exerciseModalKicker">Meu exercício</div>
+              <div class="exercise-modal__title" id="exerciseModalTitle">Exercício</div>
+            </div>
+            <div class="exercise-modal__header-actions">
+              <button class="exercise-modal__favorite" data-role="exercise-favorite" type="button" aria-label="Salvar exercício como preferido" title="Salvar como preferido">
+                <i class="fa-regular fa-star"></i>
+              </button>
+              <button class="exercise-modal__close" type="button" aria-label="Fechar exercício">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+          </div>
+          <div class="exercise-modal__body">
+            <div class="exercise-modal__meta" data-role="exercise-meta"></div>
+            <div class="exercise-modal__section">
+              <div class="exercise-modal__section-title">Enunciado</div>
+              <div class="exercise-modal__content" data-role="exercise-statement"></div>
+            </div>
+            <div class="exercise-modal__section exercise-modal__section--solution">
+              <div class="exercise-modal__section-title">Solução</div>
+              <div class="exercise-modal__content" data-role="exercise-solution"></div>
+            </div>
+            <div class="exercise-modal__actions">
+              <button class="saved-card__button saved-card__button--primary" data-role="exercise-open-page" type="button">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                Abrir página
+              </button>
+              <button class="saved-card__button" data-role="exercise-share" type="button">
+                <i class="fa-solid fa-paper-plane"></i>
+                Enviar
+              </button>
+              <button class="saved-card__button" data-role="exercise-export" type="button">
+                <i class="fa-solid fa-file-export"></i>
+                Exportar
+              </button>
+            </div>
+            <div class="exercise-modal__status" data-role="exercise-status" aria-live="polite"></div>
+          </div>
+        </div>
+      `;
+
+      overlay.addEventListener("click", function (event) {
+        if (event.target === overlay) {
+          closeExerciseModal();
+        }
+      });
+
+      overlay.querySelector(".exercise-modal__close").addEventListener("click", closeExerciseModal);
+      document.body.appendChild(overlay);
+      state.exerciseModal = overlay;
+      return overlay;
+    }
+
+    function closeExerciseModal() {
+      if (!state.exerciseModal) return;
+      state.exerciseModal.classList.remove("is-open");
+    }
+
+    async function typesetExerciseModal(modal) {
+      if (!window.MathJax || typeof window.MathJax.typesetPromise !== "function") return;
+
+      const elements = Array.from(modal.querySelectorAll(".exercise-modal__content"));
+      if (!elements.length) return;
+
+      try {
+        if (typeof window.MathJax.typesetClear === "function") {
+          window.MathJax.typesetClear(elements);
+        }
+        await window.MathJax.typesetPromise(elements);
+      } catch (error) {
+        console.warn("Nao foi possivel compor as equacoes no modal do exercicio.", error);
+      }
+    }
+
+    async function shareExercise(exercise) {
+      const title = `Exercício salvo · ${exercise.exercise_title || "Exercício"}`;
+      const text = buildExercisePlainText(exercise);
+      const url = exercise.page_url || window.location.href;
+
+      if (navigator.share) {
+        try {
+          await navigator.share({ title, text, url });
+          return "shared";
+        } catch (error) {
+          if (error && error.name === "AbortError") {
+            return "cancelled";
+          }
+        }
+      }
+
+      if (await copyTextFallback(`${text}\n\n${url}`)) {
+        return "copied";
+      }
+
+      const mailLink = document.createElement("a");
+      mailLink.href = `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(`${text}\n\n${url}`)}`;
+      document.body.appendChild(mailLink);
+      mailLink.click();
+      mailLink.remove();
+      return "mail";
+    }
+
+    async function exportExercise(exercise) {
+      const jsPDF = await ensureJsPdf();
+      const doc = new jsPDF({
+        orientation: "portrait",
+        unit: "pt",
+        format: "a4"
+      });
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const pageHeight = doc.internal.pageSize.getHeight();
+      const margin = 48;
+      const contentWidth = pageWidth - (margin * 2);
+      const lineHeight = 16;
+      const filename = `exercicio-${String(exercise.item_id || exercise.chapter_id || "curso").replace(/[^a-z0-9.-]+/gi, "-").toLowerCase()}.pdf`;
+
+      const bodyText = buildExercisePlainText(exercise);
+      let cursorY = margin;
+
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(18);
+      doc.text("Termodinâmica para Estudantes de Física", margin, cursorY);
+      cursorY += 26;
+
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(14);
+      const titleLines = doc.splitTextToSize(exercise.exercise_title || "Exercício", contentWidth);
+      doc.text(titleLines, margin, cursorY);
+      cursorY += (titleLines.length * 18) + 10;
+
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(11);
+      const lines = doc.splitTextToSize(bodyText, contentWidth);
+
+      for (const line of lines) {
+        if (cursorY > pageHeight - margin) {
+          doc.addPage();
+          cursorY = margin;
+          doc.setFont("helvetica", "normal");
+          doc.setFontSize(11);
+        }
+        doc.text(String(line), margin, cursorY);
+        cursorY += lineHeight;
+      }
+
+      const pdfArrayBuffer = doc.output("arraybuffer");
+
+      if (window.showSaveFilePicker) {
+        try {
+          const handle = await window.showSaveFilePicker({
+            suggestedName: filename,
+            types: [{
+              description: "Arquivo PDF",
+              accept: {
+                "application/pdf": [".pdf"]
+              }
+            }]
+          });
+          const writable = await handle.createWritable();
+          await writable.write(pdfArrayBuffer);
+          await writable.close();
+          return "saved";
+        } catch (error) {
+          if (error && error.name === "AbortError") {
+            return "cancelled";
+          }
+        }
+      }
+
+      const blob = new Blob([pdfArrayBuffer], { type: "application/pdf" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.setTimeout(function () {
+        URL.revokeObjectURL(link.href);
+      }, 1000);
+      return "pdf";
+    }
+
+    async function openExerciseModal(exerciseId) {
+      const exercise = state.savedExercises.find((entry) => String(entry.id) === String(exerciseId));
+      if (!exercise) return;
+
+      state.selectedExerciseId = exercise.id;
+      const modal = ensureExerciseModal();
+      modal.querySelector("#exerciseModalKicker").textContent = exercise.page_title || "Meu exercício";
+      modal.querySelector("#exerciseModalTitle").textContent = exercise.exercise_title || "Exercício";
+      modal.querySelector('[data-role="exercise-meta"]').innerHTML = `
+        <span class="saved-chip"><i class="fa-solid fa-layer-group"></i>${escapeHtml(exercise.item_id || exercise.chapter_id || "Curso")}</span>
+        <span class="saved-chip saved-chip--difficulty"><i class="fa-solid fa-signal"></i>${escapeHtml(difficultyLabel(exercise.difficulty))}</span>
+        <span class="saved-chip"><i class="fa-solid fa-clock-rotate-left"></i>${escapeHtml(formatDate(exercise.created_at))}</span>
+      `;
+      modal.querySelector('[data-role="exercise-statement"]').innerHTML = window.TermoAIExercise?.formatGeneratedText
+        ? window.TermoAIExercise.formatGeneratedText(exercise.statement || "")
+        : `<p>${escapeHtml(exercise.statement || "")}</p>`;
+      modal.querySelector('[data-role="exercise-solution"]').innerHTML = window.TermoAIExercise?.formatGeneratedText
+        ? window.TermoAIExercise.formatGeneratedText(exercise.solution || "")
+        : `<p>${escapeHtml(exercise.solution || "")}</p>`;
+      setExerciseModalStatus("");
+      updateExerciseModalFavoriteButton(exercise);
+
+      modal.querySelector('[data-role="exercise-open-page"]').onclick = function () {
+        window.location.href = exercise.page_url || exercise.page_path || "#";
+      };
+      modal.querySelector('[data-role="exercise-favorite"]').onclick = async function () {
+        const button = modal.querySelector('[data-role="exercise-favorite"]');
+        if (!window.TermoUserData?.updateFavorite) return;
+
+        try {
+          button.disabled = true;
+          const result = await window.TermoUserData.updateFavorite(exercise.id, !exercise.is_favorite).catch(function (error) {
+            return { ok: false, error };
+          });
+          if (!result.ok) {
+            setExerciseModalStatus("Não foi possível atualizar o favorito deste exercício agora.", true);
+            return;
+          }
+          exercise.is_favorite = Boolean(result.record?.is_favorite);
+          updateExerciseModalFavoriteButton(exercise);
+          const listStar = document.querySelector(`[data-role="toggle-exercise-favorite"][data-exercise-id="${String(exercise.id)}"]`);
+          if (listStar) {
+            listStar.classList.toggle("is-active", exercise.is_favorite);
+            listStar.setAttribute("aria-label", exercise.is_favorite ? "Remover exercício dos preferidos" : "Salvar exercício como preferido");
+            listStar.setAttribute("title", exercise.is_favorite ? "Remover dos preferidos" : "Salvar como preferido");
+            listStar.innerHTML = `<i class="fa-${exercise.is_favorite ? "solid" : "regular"} fa-star"></i>`;
+          }
+          setExerciseModalStatus(exercise.is_favorite ? "Exercício adicionado aos favoritos." : "Exercício removido dos favoritos.");
+          if (state.view === "favorites") {
+            await refreshUserState();
+            await renderFavorites();
+          }
+        } finally {
+          button.disabled = false;
+        }
+      };
+      modal.querySelector('[data-role="exercise-share"]').onclick = async function () {
+        const button = modal.querySelector('[data-role="exercise-share"]');
+        try {
+          button.disabled = true;
+          setExerciseModalStatus("Preparando o envio...");
+          const method = await shareExercise(exercise);
+          if (method === "cancelled") {
+            setExerciseModalStatus("");
+            return;
+          }
+          setExerciseModalStatus(
+            method === "shared"
+              ? "Exercício enviado."
+              : method === "copied"
+                ? "Texto copiado para você compartilhar no app que preferir."
+                : "Tentando abrir seu aplicativo de e-mail.",
+            false
+          );
+        } catch (error) {
+          console.warn("Nao foi possivel compartilhar o exercicio.", error);
+          setExerciseModalStatus("Não foi possível enviar este exercício agora.", true);
+        } finally {
+          button.disabled = false;
+        }
+      };
+      modal.querySelector('[data-role="exercise-export"]').onclick = async function () {
+        const button = modal.querySelector('[data-role="exercise-export"]');
+        try {
+          button.disabled = true;
+          setExerciseModalStatus("Preparando a exportação...");
+          const method = await exportExercise(exercise);
+          if (method === "cancelled") {
+            setExerciseModalStatus("");
+            return;
+          }
+          setExerciseModalStatus("Arquivo exportado.");
+        } catch (error) {
+          console.warn("Nao foi possivel exportar o exercicio.", error);
+          setExerciseModalStatus("Não foi possível exportar este exercício agora.", true);
+        } finally {
+          button.disabled = false;
+        }
+      };
+
+      modal.classList.add("is-open");
+      await typesetExerciseModal(modal);
+    }
+
+    function renderSavedExerciseListItem(exercise) {
+      return `
+        <article
+          class="saved-item"
+          data-exercise-id="${escapeHtml(exercise.id)}"
+          role="button"
+          tabindex="0"
+          aria-label="Abrir exercício ${escapeHtml(exercise.exercise_title || "Exercício")}"
+        >
+          <div class="saved-item__top">
+            <div class="saved-item__meta">
+              <span class="saved-chip"><i class="fa-solid fa-layer-group"></i>${escapeHtml(exercise.item_id || exercise.chapter_id || "Curso")}</span>
+              <span class="saved-chip saved-chip--difficulty"><i class="fa-solid fa-signal"></i>${escapeHtml(difficultyLabel(exercise.difficulty))}</span>
+              <span class="saved-chip"><i class="fa-solid fa-clock-rotate-left"></i>${escapeHtml(formatDate(exercise.created_at))}</span>
+            </div>
+            <button
+              class="saved-item__favorite${exercise.is_favorite ? " is-active" : ""}"
+              data-role="toggle-exercise-favorite"
+              data-exercise-id="${escapeHtml(exercise.id)}"
+              type="button"
+              aria-label="${exercise.is_favorite ? "Remover exercício dos preferidos" : "Salvar exercício como preferido"}"
+              title="${exercise.is_favorite ? "Remover dos preferidos" : "Salvar como preferido"}"
+            >
+              <i class="fa-${exercise.is_favorite ? "solid" : "regular"} fa-star"></i>
+            </button>
+          </div>
+          <div class="saved-item__title">${escapeHtml(exercise.exercise_title || "Exercício")}</div>
+          <div class="saved-item__source">${escapeHtml(exercise.page_title || "Página do curso")}</div>
+          <div class="saved-item__preview">${escapeHtml(truncate(exercise.statement || "", 190))}</div>
+        </article>
+      `;
+    }
+
+    function attachCommonHandlers(scope) {
+      scope.querySelectorAll('[data-role="open-login"]').forEach((button) => {
+        button.addEventListener("click", function () {
+          if (window.TermoAuth && typeof window.TermoAuth.openModal === "function") {
+            window.TermoAuth.openModal();
+          }
+        });
+      });
+    }
+
+    function attachSavedListHandlers(scope) {
+      scope.querySelectorAll('[data-role="toggle-exercise-favorite"]').forEach((button) => {
+        button.addEventListener("click", async function (event) {
+          event.preventDefault();
+          event.stopPropagation();
+
+          if (!window.TermoUserData?.updateFavorite) return;
+
+          const exerciseId = button.dataset.exerciseId;
+          const exercise = state.savedExercises.find((entry) => String(entry.id) === String(exerciseId));
+          if (!exercise) return;
+
+          button.disabled = true;
+
+          const result = await window.TermoUserData.updateFavorite(exercise.id, !exercise.is_favorite).catch(function (error) {
+            return { ok: false, error };
+          });
+
+          button.disabled = false;
+
+          if (!result.ok) return;
+
+          exercise.is_favorite = Boolean(result.record?.is_favorite);
+          button.classList.toggle("is-active", exercise.is_favorite);
+          button.setAttribute("aria-label", exercise.is_favorite ? "Remover exercício dos preferidos" : "Salvar exercício como preferido");
+          button.setAttribute("title", exercise.is_favorite ? "Remover dos preferidos" : "Salvar como preferido");
+          button.innerHTML = `<i class="fa-${exercise.is_favorite ? "solid" : "regular"} fa-star"></i>`;
+          await refreshFavoriteCollections();
+
+          if (state.selectedExerciseId && String(state.selectedExerciseId) === String(exercise.id)) {
+            updateExerciseModalFavoriteButton(exercise);
+          }
+
+          if (state.view === "favorites") {
+            await refreshUserState();
+            await renderFavorites();
+          }
+        });
+      });
+
+      scope.querySelectorAll("[data-exercise-id]").forEach((button) => {
+        button.addEventListener("click", function () {
+          void openExerciseModal(button.dataset.exerciseId);
+        });
+        button.addEventListener("keydown", function (event) {
+          if (event.key !== "Enter" && event.key !== " ") return;
+          event.preventDefault();
+          void openExerciseModal(button.dataset.exerciseId);
+        });
+      });
+    }
+
+    function renderFavoriteList(items, favoriteExercises) {
+      const favorites = Array.isArray(items) ? items : [];
+      const exercises = Array.isArray(favoriteExercises) ? favoriteExercises : [];
+      const favoriteMarkup = favorites.map(function (item) {
+        return `
+          <button class="favorite-item" data-favorite-url="${escapeHtml(item.url || item.pagePath || "#")}" type="button">
+            <div class="favorite-item__top"><i class="fa-solid fa-star"></i> Página favorita</div>
+            <div class="favorite-item__title">${escapeHtml(item.label || `Item ${item.itemId || ""}`)} · ${escapeHtml(item.title || "Página do curso")}</div>
+            <div class="favorite-item__note">${escapeHtml(item.note || "Abrir diretamente este item e retomar a leitura.")}</div>
+          </button>
+        `;
+      }).join("");
+      const exerciseMarkup = exercises.map(renderSavedExerciseListItem).join("");
+
+      topicContainer.innerHTML = `
+        <div class="favorite-section">
+          <div class="favorite-section__title"><i class="fa-solid fa-star"></i> Páginas favoritas</div>
+          <div class="favorite-list">${favoriteMarkup || `<div class="empty-state"><strong>Nenhuma página favorita ainda.</strong><br />Abra um item do curso e use a estrela no topo superior direito.</div>`}</div>
+        </div>
+        <div class="favorite-section">
+          <div class="favorite-section__title"><i class="fa-solid fa-file-lines"></i> Exercícios favoritos</div>
+          <div class="saved-list">${exerciseMarkup || `<div class="empty-state"><strong>Nenhum exercício favorito ainda.</strong><br />Use a estrela na lista ou dentro do exercício salvo para guardá-lo aqui.</div>`}</div>
+        </div>
+      `;
+
+      topicContainer.querySelectorAll("[data-favorite-url]").forEach((button) => {
+        button.addEventListener("click", function () {
+          window.location.href = button.dataset.favoriteUrl || "#";
+        });
+      });
+
+      attachSavedListHandlers(topicContainer);
+    }
+
+    async function refreshFavoriteCollections() {
+      if (!state.loggedIn) {
+        state.favoriteItems = [];
+        state.favoriteExercises = [];
+        return;
+      }
+
+      if (window.TermoUserData?.listFavoriteItems) {
+        const favoriteItemsResult = await window.TermoUserData.listFavoriteItems().catch(function () {
+          return { ok: false, items: [] };
+        });
+        state.favoriteItems = favoriteItemsResult.ok ? favoriteItemsResult.items : [];
+      } else {
+        state.favoriteItems = [];
+      }
+
+      if (window.TermoUserData?.listExercises) {
+        const favoriteExercisesResult = await window.TermoUserData.listExercises({ limit: 120, favoritesOnly: true }).catch(function () {
+          return { ok: false, exercises: [] };
+        });
+        state.favoriteExercises = favoriteExercisesResult.ok ? (favoriteExercisesResult.exercises || []) : [];
+      } else {
+        state.favoriteExercises = [];
+      }
+    }
+
+    async function refreshUserState() {
+      const session = await window.TermoAuth?.getSession?.().catch(function () {
+        return null;
+      });
+
+      state.loggedIn = Boolean(session?.user);
+      await refreshFavoriteCollections();
+
+      renderPersonalMenu();
+      renderExtrasMenu();
+      await renderPanelActions();
+    }
+
+    async function renderPanelActions() {
+      panelActions.innerHTML = "";
+    }
+
+    async function loadChapter(chapterId) {
+      const chapter = findChapterById(chapterId);
+      state.chapterId = chapter.id;
       setActiveChapter(chapter.id);
-      updateChapterParam(chapter.id);
+      setActivePersonal("");
+      setActiveExtra("");
+      syncUrl();
+
       panelKicker.textContent = `Capítulo ${chapter.id}`;
       panelTitle.textContent = chapter.title;
       panelDescription.textContent = "Carregando tópicos do capítulo...";
       topicContainer.innerHTML = `<div class="empty-state"><strong>Aguarde:</strong> buscando o arquivo externo <code>${chapter.data}</code>.</div>`;
+      await renderPanelActions();
 
       try {
         const response = await fetch(chapter.data, { cache: "no-store" });
@@ -506,43 +2023,219 @@
           return;
         }
 
-        const grid = document.createElement("div");
-        grid.className = "topic-grid";
-
-        topics.forEach((topic) => {
-          const link = document.createElement("a");
-          link.className = `topic-card${topic.aiExercise ? " ai-exercise" : ""}`;
-          link.href = topic.url || "#";
-          link.innerHTML = `
-            <div class="topic-card-top">
-              <div class="topic-id">${topic.id || ""}</div>
-              ${topic.aiExercise ? `<div class="topic-badge ai-exercise"><i class="fa-solid fa-wand-magic-sparkles"></i> Exercício IA</div>` : ""}
-            </div>
-            <div class="topic-title">${topic.title || "Tópico sem título"}</div>
-            <div class="topic-note">${topic.note || "Abrir página HTML deste tópico."}</div>
-          `;
-          grid.appendChild(link);
-        });
-
-        topicContainer.innerHTML = "";
-        topicContainer.appendChild(grid);
+        renderTopicGrid(topics);
       } catch (error) {
         panelDescription.textContent = "Este capítulo ainda não possui uma ramificação cadastrada.";
         topicContainer.innerHTML = `
           <div class="empty-state">
             <strong>Ramificação ainda não criada.</strong><br />
-            
+            Este espaço está pronto para receber os tópicos quando o arquivo <code>${chapter.data}</code> for preenchido.
           </div>
         `;
       }
     }
 
-    renderChapterMenu();
+    async function renderSavedExercises() {
+      panelKicker.textContent = "Área pessoal";
+      panelTitle.textContent = savedPanelCopy.title;
+      panelDescription.textContent = savedPanelCopy.description;
+      setActiveChapter(state.chapterId);
+      setActivePersonal("saved");
+      setActiveExtra("");
+      panelActions.innerHTML = "";
 
-    const defaultChapter = chapters.find((chapter) => chapter.id === chapterParam)
-      || chapters.find((chapter) => chapter.id === "01")
-      || chapters[0];
-    loadChapter(defaultChapter);
+      if (!window.TermoAuth || typeof window.TermoAuth.isConfigured !== "function") {
+        topicContainer.innerHTML = `<div class="empty-state"><strong>Auth não carregado.</strong><br />Recarregue a página para montar a área pessoal.</div>`;
+        return;
+      }
+
+      const configured = await window.TermoAuth.isConfigured().catch(function () {
+        return false;
+      });
+
+      if (!configured) {
+        topicContainer.innerHTML = `
+          <div class="empty-state">
+            <strong>Meus exercícios está pronto para ser ativado.</strong><br />
+            Falta configurar as variáveis públicas do Supabase e do Google para o login opcional entrar em funcionamento.
+          </div>
+        `;
+        return;
+      }
+
+      if (!state.loggedIn) {
+        topicContainer.innerHTML = `
+          <div class="empty-state">
+            <strong>Entre com Google para ver seus exercícios.</strong><br />
+            Assim que você entrar, esta aba passa a mostrar em lista tudo o que já foi gerado no seu estudo.<br /><br />
+            <button class="saved-card__button saved-card__button--primary" data-role="open-login" type="button">
+              <i class="fa-solid fa-bookmark"></i>
+              Entrar para habilitar a área pessoal
+            </button>
+          </div>
+        `;
+        attachCommonHandlers(topicContainer);
+        return;
+      }
+
+      topicContainer.innerHTML = `<div class="empty-state"><strong>Carregando seu histórico...</strong><br />Buscando os exercícios salvos na sua conta.</div>`;
+
+      const result = await window.TermoUserData.listExercises({ limit: 80 }).catch(function (error) {
+        return { ok: false, reason: "query_failed", error, exercises: [] };
+      });
+
+      if (!result.ok) {
+        topicContainer.innerHTML = `
+          <div class="empty-state">
+            <strong>Não foi possível carregar seus exercícios.</strong><br />
+            Verifique se a tabela <code>saved_exercises</code> foi criada no Supabase e se as políticas RLS foram aplicadas.
+          </div>
+        `;
+        return;
+      }
+
+      state.savedExercises = result.exercises || [];
+
+      if (!state.savedExercises.length) {
+        topicContainer.innerHTML = `
+          <div class="empty-state">
+            <strong>Ainda não há exercícios salvos.</strong><br />
+            Gere um exercício em qualquer página do curso e ele aparecerá aqui automaticamente.
+          </div>
+        `;
+        return;
+      }
+
+      topicContainer.innerHTML = `<div class="saved-list">${state.savedExercises.map(renderSavedExerciseListItem).join("")}</div>`;
+      attachSavedListHandlers(topicContainer);
+    }
+
+    async function renderFavorites() {
+      await refreshFavoriteCollections();
+
+      panelKicker.textContent = "Área pessoal";
+      panelTitle.textContent = favoritesPanelCopy.title;
+      panelDescription.textContent = favoritesPanelCopy.description;
+      setActiveChapter(state.chapterId);
+      setActivePersonal("favorites");
+      setActiveExtra("");
+      panelActions.innerHTML = "";
+
+      if (!state.loggedIn) {
+        topicContainer.innerHTML = `
+          <div class="empty-state">
+            <strong>Entre com Google para habilitar seus favoritos.</strong><br />
+            Depois do login, você poderá guardar itens específicos do curso e voltar para eles diretamente daqui.<br /><br />
+            <button class="saved-card__button saved-card__button--primary" data-role="open-login" type="button">
+              <i class="fa-solid fa-star"></i>
+              Entrar para ativar favoritos
+            </button>
+          </div>
+        `;
+        attachCommonHandlers(topicContainer);
+        return;
+      }
+
+      if (!state.favoriteItems.length && !state.favoriteExercises.length) {
+        topicContainer.innerHTML = `
+          <div class="empty-state">
+            <strong>Ainda não há favoritos.</strong><br />
+            Você pode favoritar tanto um item do curso quanto um exercício salvo usando a <strong>estrela</strong>.
+          </div>
+        `;
+        return;
+      }
+
+      renderFavoriteList(state.favoriteItems, state.favoriteExercises);
+    }
+
+    function renderSimulators() {
+      panelKicker.textContent = "Recursos interativos";
+      panelTitle.textContent = simulatorsPanelCopy.title;
+      panelDescription.textContent = simulatorsPanelCopy.description;
+      setActiveChapter(state.chapterId);
+      setActivePersonal("");
+      setActiveExtra("simulators");
+      panelActions.innerHTML = "";
+      topicContainer.innerHTML = `
+        <div class="empty-state">
+          <strong>Simuladores em breve.</strong><br />
+          Esta aba já está reservada para receber os simuladores do livro e das páginas de apoio.
+        </div>
+      `;
+    }
+
+    async function activateView(viewId, chapterId) {
+      state.view = viewId;
+      if (chapterId) {
+        state.chapterId = chapterId;
+      }
+
+      syncUrl();
+
+      if (viewId === "saved") {
+        await renderSavedExercises();
+        return;
+      }
+
+      if (viewId === "favorites") {
+        await renderFavorites();
+        return;
+      }
+
+      if (viewId === "simulators") {
+        renderSimulators();
+        return;
+      }
+
+      await loadChapter(state.chapterId);
+    }
+
+    window.addEventListener("termo-open-personal-area", function () {
+      if (!state.loggedIn) return;
+      void activateView("saved");
+    });
+
+    function bindAuthStateListener() {
+      if (!(window.TermoUserData && typeof window.TermoUserData.onAuthStateChange === "function")) {
+        return;
+      }
+
+      window.TermoUserData.onAuthStateChange(async function () {
+        await refreshUserState();
+
+        if (state.view === "saved") {
+          await renderSavedExercises();
+          return;
+        }
+
+        if (state.view === "favorites") {
+          await renderFavorites();
+          return;
+        }
+
+        if (state.view === "chapters") {
+          await renderPanelActions();
+        }
+      });
+    }
+
+    async function bootIndexPage() {
+      renderChapterMenu();
+      renderPersonalMenu();
+      renderExtrasMenu();
+      bindAuthStateListener();
+      await refreshUserState();
+      await activateView(state.view, state.chapterId);
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", function () {
+        void bootIndexPage();
+      }, { once: true });
+    } else {
+      void bootIndexPage();
+    }
   </script>
 </body>
 </html>

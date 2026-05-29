@@ -141,6 +141,34 @@
   color:var(--exercise-text);
 }
 
+.termo-exercise__save-status{
+  margin-bottom:16px;
+  border-radius:12px;
+  padding:10px 14px;
+  font-family:"Inter",sans-serif;
+  font-size:.92rem;
+  font-weight:600;
+  line-height:1.45;
+}
+
+.termo-exercise__save-status.is-success{
+  background:#EAF7EF;
+  color:#1E8449;
+  border:1px solid #CBE8D7;
+}
+
+.termo-exercise__save-status.is-warning{
+  background:#FFF7E8;
+  color:#A15C07;
+  border:1px solid #F4D3B5;
+}
+
+.termo-exercise__save-status.is-error{
+  background:#FFF2F0;
+  color:#B03A2E;
+  border:1px solid #F2C9C3;
+}
+
 .termo-exercise__body{
   display:flex;
   flex-direction:column;

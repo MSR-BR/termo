@@ -98,16 +98,6 @@
     return { title, text, url };
   }
 
-  function getMountTarget() {
-    return (
-      document.querySelector(".header-box") ||
-      document.querySelector(".hero-inner") ||
-      document.querySelector(".hdr-inner") ||
-      document.querySelector("main") ||
-      document.body
-    );
-  }
-
   function setButtonFeedback(button, text) {
     if (!button) return;
 
@@ -156,56 +146,140 @@
     }
   }
 
-  function render(target) {
-    if (!target) return null;
+  function syncButtonMetrics(button, reference) {
+    if (!button) return;
 
-    let host = target.querySelector("[data-termo-share-mounted]");
-    if (!host) {
-      host = document.createElement("div");
-      host.className = "termo-share";
-      host.setAttribute("data-termo-share-mounted", "true");
-      host.innerHTML = `
-        <div class="termo-share__copy">
-          <div class="termo-share__label">
-            <i class="fa-solid fa-paper-plane"></i>
-            Compartilhe esta página
-          </div>
-          <p class="termo-share__text"></p>
-        </div>
-        <button class="termo-share__button" type="button" aria-label="Enviar esta página para outra pessoa">
-          <i class="fa-solid fa-paper-plane"></i>
-          <span>Enviar</span>
-        </button>
-      `;
-
-      const preferredAnchor = target.querySelector(".metadata, .chapter-text, .hdr-sub");
-      if (preferredAnchor && preferredAnchor.parentNode === target) {
-        preferredAnchor.insertAdjacentElement("afterend", host);
-      } else {
-        target.appendChild(host);
-      }
-
-      const button = host.querySelector(".termo-share__button");
-      if (button) {
-        button.addEventListener("click", function () {
-          shareCurrentPage(button);
-        });
-      }
+    if (!reference) {
+      button.style.removeProperty("padding");
+      button.style.removeProperty("border-radius");
+      button.style.removeProperty("font-size");
+      button.style.removeProperty("line-height");
+      button.style.removeProperty("min-height");
+      button.style.removeProperty("font-family");
+      button.style.removeProperty("font-weight");
+      button.style.removeProperty("color");
+      button.style.removeProperty("background-color");
+      button.style.removeProperty("border-color");
+      button.style.removeProperty("border-style");
+      button.style.removeProperty("border-width");
+      button.style.removeProperty("box-shadow");
+      return;
     }
 
-    const textNode = host.querySelector(".termo-share__text");
-    if (textNode) {
-      const nextText = getSharePayload().text;
-      if (textNode.textContent !== nextText) {
-        textNode.textContent = nextText;
-      }
-    }
+    const styles = window.getComputedStyle(reference);
+    button.style.paddingTop = styles.paddingTop;
+    button.style.paddingRight = styles.paddingRight;
+    button.style.paddingBottom = styles.paddingBottom;
+    button.style.paddingLeft = styles.paddingLeft;
+    button.style.borderRadius = styles.borderRadius;
+    button.style.fontSize = styles.fontSize;
+    button.style.lineHeight = styles.lineHeight;
+    button.style.minHeight = styles.minHeight !== "0px" ? styles.minHeight : styles.height;
+    button.style.fontFamily = styles.fontFamily;
+    button.style.fontWeight = styles.fontWeight;
+    button.style.color = styles.color;
+    button.style.backgroundColor = styles.backgroundColor;
+    button.style.borderColor = styles.borderColor;
+    button.style.borderStyle = styles.borderStyle;
+    button.style.borderWidth = styles.borderWidth;
+    button.style.boxShadow = "none";
+  }
 
+  function createButton(isIndex) {
+    const button = document.createElement("button");
+    button.className = `termo-share-button${isIndex ? " termo-share-button--index" : ""} index-back-button`;
+    button.type = "button";
+    button.setAttribute("data-termo-share-button", "true");
+    button.setAttribute("aria-label", "Enviar esta página para outra pessoa");
+    button.innerHTML = `
+      <i class="fa-solid fa-paper-plane"></i>
+      <span>Enviar</span>
+    `;
+    button.addEventListener("click", function () {
+      shareCurrentPage(button);
+    });
+    return button;
+  }
+
+  function createHost() {
+    const host = document.createElement("div");
+    host.className = "termo-share-inline";
+    host.setAttribute("data-termo-share-inline", "true");
     return host;
   }
 
+  function getToolbarHost() {
+    return document.querySelector("[data-termo-header-tools]");
+  }
+
+  function ensureGroupedHost(anchor, isIndex, referenceButton) {
+    if (!anchor || !anchor.parentNode) return null;
+
+    let host;
+    if (anchor.parentElement && anchor.parentElement.classList.contains("termo-share-inline")) {
+      host = anchor.parentElement;
+    } else {
+      host = createHost();
+      const insertionPoint = referenceButton || anchor;
+      insertionPoint.insertAdjacentElement("beforebegin", host);
+      if (referenceButton && referenceButton.parentNode) {
+        host.appendChild(referenceButton);
+      }
+      host.appendChild(anchor);
+    }
+
+    let button = host.querySelector("[data-termo-share-button]");
+    if (!button) {
+      button = createButton(isIndex);
+      host.appendChild(button);
+    }
+
+    syncButtonMetrics(button, referenceButton || host.querySelector(".index-back-button"));
+    return button;
+  }
+
+  function getSlideElements() {
+    if (isIndexPage()) {
+      const toolbarHost = getToolbarHost();
+      return {
+        anchor: toolbarHost,
+        referenceButton: null,
+        isIndex: true
+      };
+    }
+
+    const chapterLabel = document.querySelector(".chapter-label");
+    const referenceButton = document.querySelector(".index-back-button");
+
+    return {
+      anchor:
+        chapterLabel ||
+        referenceButton ||
+        document.querySelector(".hdr-title") ||
+        document.querySelector(".chapter-title"),
+      referenceButton: chapterLabel ? referenceButton : null,
+      isIndex: false
+    };
+  }
+
+  function render() {
+    const { anchor, referenceButton, isIndex } = getSlideElements();
+    if (!anchor) return null;
+
+    if (isIndex && anchor === getToolbarHost()) {
+      let button = anchor.querySelector("[data-termo-share-button]");
+      if (!button) {
+        button = createButton(true);
+        anchor.appendChild(button);
+      }
+      return button;
+    }
+
+    return ensureGroupedHost(anchor, isIndex, referenceButton);
+  }
+
   function refresh() {
-    render(getMountTarget());
+    render();
   }
 
   function scheduleRefresh() {
@@ -218,14 +292,14 @@
     observer = new MutationObserver(scheduleRefresh);
     observer.observe(document.body, {
       childList: true,
-      subtree: true,
-      characterData: true
+      subtree: true
     });
   }
 
   function autoMount() {
     refresh();
     watchForChanges();
+    window.addEventListener("resize", scheduleRefresh);
   }
 
   window.TermoShare = {

@@ -100,8 +100,11 @@ window.MathJax = {
 <link href="../../assets/chapter-embedded-slide.css" rel="stylesheet"/>
 <link href="../../assets/ai-exercises.css" rel="stylesheet"/>
 <link href="../../assets/termo-share.css" rel="stylesheet"/>
+<link href="../../assets/termo-auth.css" rel="stylesheet"/>
 <script defer src="../../assets/ai-exercises.js"></script>
 <script defer src="../../assets/termo-share.js"></script>
+<script defer src="../../assets/termo-auth.js"></script>
+<script defer src="../../assets/termo-user-data.js"></script>
 </head>
 <body>
 <div class="page">

@@ -310,6 +310,54 @@
     return "";
   }
 
+  function collapseText(value) {
+    return String(value || "")
+      .replace(/\u00a0/g, " ")
+      .replace(/[ \t]+/g, " ")
+      .replace(/\n{3,}/g, "\n\n")
+      .trim();
+  }
+
+  function collectRelevantText(root) {
+    const selectors = [
+      ".chapter-title",
+      ".chapter-text",
+      ".hdr-title",
+      ".hdr-sub",
+      ".title-main-heading",
+      ".title-main-slide-heading",
+      ".title-main-header",
+      ".main-title",
+      ".ch",
+      ".card-heading",
+      ".section-heading",
+      ".body-t",
+      ".body-text",
+      ".content-paragraph-block",
+      ".concept-text-block",
+      ".text-paragraph",
+      ".theory-text-block",
+      ".theory-card-text",
+      ".thermo-theory-card-text",
+      ".thermo-provocation-body",
+      ".topic-note",
+      "p",
+      "li"
+    ];
+
+    const fragments = [];
+    const seen = new Set();
+
+    root.querySelectorAll(selectors.join(",")).forEach(function (node) {
+      const text = collapseText(node.innerText || node.textContent || "");
+      if (!text || seen.has(text)) return;
+      seen.add(text);
+      fragments.push(text);
+    });
+
+    return collapseText(fragments.join("\n\n"));
+  }
+
   function getPageContext(host){
     const title = firstText([
       ".chapter-title",
@@ -334,20 +382,111 @@
     const sourceSelector = host.dataset.exerciseContextSelector;
     const sourceNode =
       (sourceSelector && document.querySelector(sourceSelector)) ||
+      document.querySelector(".slide, .content-root, .body, .page, main, .slide-root, .slide-root-container, .slide-root-canvas") ||
       document.querySelector(".content-root, .page, main, .slide-root, .slide-root-container, .slide-root-canvas, body") ||
       document.body;
 
     const clone = sourceNode.cloneNode(true);
-    clone.querySelectorAll("[data-termo-ai-exercise], .termo-exercise, #aiExerciseBox, .ai-exercise-card, script, style, noscript").forEach(function (node) {
+    clone.querySelectorAll([
+      "[data-termo-ai-exercise]",
+      ".termo-exercise",
+      "#aiExerciseBox",
+      ".ai-exercise-card",
+      ".termo-auth-trigger",
+      ".termo-auth-overlay",
+      ".termo-share-button",
+      ".index-back-button",
+      "script",
+      "style",
+      "noscript"
+    ].join(", ")).forEach(function (node) {
       node.remove();
     });
 
-    const content = (clone.innerText || "")
-      .replace(/\n{3,}/g, "\n\n")
-      .trim()
-      .slice(0, 22000);
+    const relevantContent = collectRelevantText(clone);
+    const fallbackContent = collapseText(clone.innerText || clone.textContent || "");
+    const content = (relevantContent || fallbackContent).slice(0, 9000);
 
     return { title, subtitle, content };
+  }
+
+  function getChapterMeta() {
+    const label = firstText([".chapter-label"]);
+    const match = label.match(/Capítulo\s+(\d+)\s*·\s*Item\s+([0-9.]+)/i);
+
+    return {
+      chapterId: match ? match[1].padStart(2, "0") : "",
+      itemId: match ? match[2] : "",
+      label
+    };
+  }
+
+  function setSaveStatus(host, message, tone) {
+    const node = host.querySelector('[data-role="save-status"]');
+    if (!node) return;
+
+    if (!message) {
+      node.hidden = true;
+      node.textContent = "";
+      node.classList.remove("is-success", "is-warning", "is-error");
+      return;
+    }
+
+    node.hidden = false;
+    node.textContent = message;
+    node.classList.remove("is-success", "is-warning", "is-error");
+    if (tone) {
+      node.classList.add(`is-${tone}`);
+    }
+  }
+
+  function buildExerciseRecord(ctx, data, difficultyValue) {
+    const chapter = getChapterMeta();
+
+    return {
+      chapterId: chapter.chapterId,
+      itemId: chapter.itemId,
+      pagePath: window.location.pathname,
+      pageUrl: window.location.href,
+      pageTitle: ctx.title || document.title || "Página do curso",
+      difficulty: difficultyValue,
+      exerciseTitle: data.title || "Exercício",
+      statement: data.statement || "",
+      solution: data.solution || "",
+      sourceModel: data.model || null
+    };
+  }
+
+  async function persistExercise(host, record) {
+    if (!window.TermoUserData || typeof window.TermoUserData.saveExercise !== "function") {
+      setSaveStatus(host, "", "");
+      return;
+    }
+
+    try {
+      const result = await window.TermoUserData.saveExercise(record);
+
+      if (result.saved) {
+        setSaveStatus(host, "Exercício salvo em Meus exercícios.", "success");
+        return;
+      }
+
+      if (result.reason === "not_authenticated") {
+        setSaveStatus(host, "Entre com Google para guardar este exercício em Meus exercícios.", "warning");
+        return;
+      }
+
+      if (result.reason === "auth_not_configured") {
+        setSaveStatus(host, "", "");
+        return;
+      }
+
+      console.warn("Nao foi possivel salvar o exercicio.", result.error || result.reason);
+      setSaveStatus(host, "Nao foi possivel salvar este exercício agora.", "error");
+    } catch (error) {
+      console.warn("Falha ao salvar o exercicio gerado.", error);
+      setSaveStatus(host, "Nao foi possivel salvar este exercício agora.", "error");
+    }
   }
 
   function renderShell(host) {
@@ -387,6 +526,8 @@
         <strong>podem conter erros conceituais, matemáticos ou pedagógicos</strong>. Erros detectados devem ser comunicados para
         <a href="mailto:marioreis@id.uff.br">marioreis@id.uff.br</a>.
       </div>
+
+      <div class="termo-exercise__save-status" data-role="save-status" hidden></div>
 
       <div class="termo-exercise__body">
         <div class="termo-exercise__panel termo-exercise__output" data-role="output">
@@ -437,6 +578,7 @@
     output.innerHTML = "<p>Aguarde alguns segundos...</p>";
     solution.classList.add("termo-exercise__placeholder");
     solution.innerHTML = "<p>A solução aparecerá aqui após a geração do exercício.</p>";
+    setSaveStatus(host, "", "");
 
     try {
       const response = await fetch("/api/exercicio", {
@@ -455,9 +597,10 @@
       const data = await readApiPayload(response);
       if (!response.ok) {
         throw new Error(
-          data?.error ||
+          data?.details?.error?.message ||
           data?.details?.error ||
           data?.details?.message ||
+          data?.error ||
           `Erro HTTP ${response.status}`
         );
       }
@@ -474,6 +617,7 @@
 
       await typesetMath([output, solution]);
       toggleBtn.disabled = !(data.solution || "").trim();
+      await persistExercise(host, buildExerciseRecord(ctx, data, difficulty.value));
     } catch (error) {
       outputTitle.innerHTML = `
         <i class="fa-solid fa-triangle-exclamation"></i>
@@ -484,6 +628,7 @@
         <p><strong>Erro retornado:</strong> ${escapeHtml(error && error.message ? error.message : "Falha ao chamar a API de exercícios.")}</p>
         <p>Verifique se o projeto está publicado no Vercel, se o arquivo <strong>api/exercicio.js</strong> existe e se a variável <strong>GEMINI_API_KEY</strong> foi configurada.</p>
       `;
+      setSaveStatus(host, "", "");
     } finally {
       generateBtn.disabled = false;
     }

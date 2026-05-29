@@ -1,0 +1,388 @@
+.termo-auth-trigger{
+  appearance:none;
+  -webkit-appearance:none;
+  min-height:40px;
+  padding:9px 14px;
+  border:1px solid rgba(0, 75, 135, 0.18);
+  border-radius:999px;
+  background:#FFFFFF;
+  color:#004B87;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  font-family:"Inter",sans-serif;
+  font-size:.84rem;
+  font-weight:800;
+  cursor:pointer;
+  box-shadow:none;
+  white-space:nowrap;
+}
+
+.termo-auth-trigger .auth-avatar{
+  width:1.45rem;
+  height:1.45rem;
+  border-radius:999px;
+  object-fit:cover;
+  border:1px solid rgba(0, 75, 135, 0.14);
+}
+
+.termo-favorite-trigger{
+  appearance:none;
+  -webkit-appearance:none;
+  min-height:40px;
+  min-width:40px;
+  width:40px;
+  padding:0;
+  border:1px solid rgba(0, 75, 135, 0.18);
+  border-radius:999px;
+  background:#FFFFFF;
+  color:#7A8CA3;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1rem;
+  cursor:pointer;
+  box-shadow:none;
+  transition:transform .18s ease, box-shadow .18s ease, color .18s ease, border-color .18s ease, background-color .18s ease, opacity .18s ease;
+  flex:0 0 auto;
+}
+
+.termo-favorite-trigger:hover{
+  transform:translateY(-1px);
+  box-shadow:0 10px 18px rgba(15, 23, 42, 0.08);
+}
+
+.termo-favorite-trigger.is-active{
+  color:#B45309;
+  border-color:rgba(180, 83, 9, 0.24);
+  background:#FFF7E8;
+}
+
+.termo-favorite-trigger:disabled{
+  opacity:.72;
+  cursor:wait;
+  transform:none;
+  box-shadow:none;
+}
+
+.termo-auth-overlay{
+  position:fixed;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  background:rgba(17, 24, 39, 0.52);
+  backdrop-filter:blur(6px);
+  z-index:1200;
+}
+
+.termo-auth-overlay.is-open{
+  display:flex;
+}
+
+.termo-auth-modal{
+  width:min(100%, 560px);
+  background:#FFFFFF;
+  border:1px solid rgba(0, 75, 135, 0.10);
+  border-radius:24px;
+  box-shadow:0 22px 56px rgba(15, 23, 42, 0.18);
+  overflow:hidden;
+}
+
+.termo-auth-modal-header{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:18px;
+  padding:24px 24px 0;
+}
+
+.termo-auth-kicker{
+  color:#0B5EA8;
+  font-family:"Inter",sans-serif;
+  font-size:.78rem;
+  font-weight:800;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  margin-bottom:8px;
+}
+
+.termo-auth-title{
+  color:#123A63;
+  font-family:"Inter",sans-serif;
+  font-size:clamp(1.4rem, 3vw, 1.95rem);
+  line-height:1.12;
+  font-weight:800;
+}
+
+.termo-auth-close{
+  appearance:none;
+  -webkit-appearance:none;
+  width:42px;
+  height:42px;
+  border:1px solid rgba(0, 75, 135, 0.12);
+  border-radius:999px;
+  background:#F8FBFF;
+  color:#0B5EA8;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  flex:0 0 auto;
+}
+
+.termo-auth-body{
+  padding:18px 24px 24px;
+}
+
+.termo-auth-copy{
+  color:#415466;
+  font-family:"Lora", Georgia, serif;
+  font-size:1.04rem;
+  line-height:1.72;
+}
+
+.termo-auth-benefits{
+  margin:18px 0 0;
+  padding:0;
+  list-style:none;
+  display:grid;
+  gap:10px;
+}
+
+.termo-auth-benefits li{
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+  color:#214567;
+  font-family:"Inter",sans-serif;
+  font-size:.98rem;
+  line-height:1.5;
+}
+
+.termo-auth-benefits i{
+  color:#0B5EA8;
+  margin-top:2px;
+}
+
+.termo-auth-panel{
+  margin-top:22px;
+  padding:18px;
+  border:1px solid rgba(0, 75, 135, 0.10);
+  border-radius:18px;
+  background:linear-gradient(180deg, #F8FBFF 0%, #FFFFFF 100%);
+}
+
+.termo-auth-panel-title{
+  color:#123A63;
+  font-family:"Inter",sans-serif;
+  font-size:1rem;
+  font-weight:800;
+  margin-bottom:8px;
+}
+
+.termo-auth-panel-copy{
+  color:#526476;
+  font-family:"Inter",sans-serif;
+  font-size:.95rem;
+  line-height:1.55;
+}
+
+.termo-auth-google-slot{
+  margin-top:16px;
+  min-height:42px;
+}
+
+.termo-auth-google-slot > div{
+  width:100%;
+}
+
+.termo-auth-google-slot iframe{
+  max-width:100%;
+}
+
+.termo-auth-muted{
+  margin-top:14px;
+  color:#6B7A8B;
+  font-family:"Inter",sans-serif;
+  font-size:.88rem;
+  line-height:1.5;
+}
+
+.termo-auth-status{
+  margin-top:16px;
+  min-height:1.4rem;
+  color:#0B5EA8;
+  font-family:"Inter",sans-serif;
+  font-size:.9rem;
+  font-weight:600;
+}
+
+.termo-auth-status.is-error{
+  color:#B42318;
+}
+
+.termo-auth-account{
+  display:flex;
+  gap:14px;
+  align-items:center;
+}
+
+.termo-auth-account-avatar{
+  width:52px;
+  height:52px;
+  border-radius:999px;
+  object-fit:cover;
+  background:#EAF2FD;
+  border:1px solid rgba(0, 75, 135, 0.12);
+}
+
+.termo-auth-account-name{
+  color:#123A63;
+  font-family:"Inter",sans-serif;
+  font-size:1rem;
+  font-weight:800;
+}
+
+.termo-auth-account-email{
+  color:#526476;
+  font-family:"Inter",sans-serif;
+  font-size:.92rem;
+  line-height:1.5;
+}
+
+.termo-auth-actions{
+  margin-top:18px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.termo-auth-google-button{
+  appearance:none;
+  -webkit-appearance:none;
+  width:100%;
+  border:1px solid rgba(15, 23, 42, 0.14);
+  border-radius:999px;
+  background:#FFFFFF;
+  color:#334155;
+  padding:12px 18px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  font-family:"Inter",sans-serif;
+  font-size:1rem;
+  font-weight:500;
+  cursor:pointer;
+  transition:transform .18s ease, box-shadow .18s ease, opacity .18s ease;
+}
+
+.termo-auth-google-button:hover{
+  transform:translateY(-1px);
+  box-shadow:0 10px 18px rgba(15, 23, 42, 0.08);
+}
+
+.termo-auth-google-button:disabled{
+  opacity:.72;
+  cursor:wait;
+  transform:none;
+  box-shadow:none;
+}
+
+.termo-auth-google-icon{
+  width:30px;
+  height:30px;
+  border-radius:999px;
+  background:#FFFFFF;
+  border:1px solid rgba(15, 23, 42, 0.08);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-family:"Inter",sans-serif;
+  font-size:1.2rem;
+  font-weight:800;
+  color:#EA4335;
+  flex:0 0 auto;
+}
+
+.termo-auth-shortcuts{
+  margin-top:18px;
+  display:grid;
+  gap:10px;
+}
+
+.termo-auth-shortcut{
+  display:grid;
+  grid-template-columns:18px 1fr;
+  gap:12px;
+  align-items:flex-start;
+  padding:12px 14px;
+  border:1px solid rgba(0, 75, 135, 0.10);
+  border-radius:14px;
+  background:#FFFFFF;
+  color:#123A63;
+  text-decoration:none;
+}
+
+.termo-auth-shortcut i{
+  color:#0B5EA8;
+  margin-top:2px;
+}
+
+.termo-auth-shortcut strong{
+  display:block;
+  font-family:"Inter",sans-serif;
+  font-size:.94rem;
+  font-weight:800;
+  margin-bottom:4px;
+}
+
+.termo-auth-shortcut small{
+  display:block;
+  color:#607286;
+  font-family:"Inter",sans-serif;
+  font-size:.84rem;
+  line-height:1.45;
+}
+
+.termo-auth-shortcut--disabled{
+  background:#F8FBFF;
+  border-style:dashed;
+}
+
+.termo-auth-secondary{
+  appearance:none;
+  -webkit-appearance:none;
+  border:1px solid #C7D8F3;
+  background:#FFFFFF;
+  color:#0B5EA8;
+  border-radius:999px;
+  padding:10px 16px;
+  font-family:"Inter",sans-serif;
+  font-size:.92rem;
+  font-weight:700;
+  cursor:pointer;
+}
+
+@media (max-width:700px){
+  .termo-auth-overlay{
+    padding:16px;
+  }
+
+  .termo-auth-modal-header,
+  .termo-auth-body{
+    padding-left:18px;
+    padding-right:18px;
+  }
+
+  .termo-auth-title{
+    font-size:1.38rem;
+  }
+
+  .termo-auth-panel{
+    padding:16px;
+  }
+}
