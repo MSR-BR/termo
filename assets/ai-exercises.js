@@ -4,7 +4,7 @@
   const inlineMathPattern = /\\\(([\s\S]+?)\\\)/g;
   const mathSegmentPattern = /\\\[[\s\S]+?\\\]|\\\([\s\S]+?\\\)/g;
   const mathLikePattern =
-    /(?:\\[A-Za-z]+|[A-Za-z]_[A-Za-z0-9]+|[A-Za-z]\^[A-Za-z0-9]+|\b(?:sum|ln|exp|lim|frac|partial)\b|[=+\-*/^_]|[Σ∑∂ΔΩβλμ→≤≥±≠∞])/;
+    /(?:\\[A-Za-z]+|[A-Za-z]_[A-Za-z0-9]+|[A-Za-z]\^[A-Za-z0-9]+|\b(?:sum|ln|exp|lim|frac|partial|sin|cos|tan|sinh|cosh)\b|[=+\-*/^_]|[Σ∑∂ΔΩβλμ→≤≥±≠∞])/;
 
   function escapeHtml(value){
     return String(value || "").replace(/[&<>"']/g, function (s) {
@@ -64,6 +64,25 @@
     return density > 0.18 && words <= 8;
   }
 
+  function hasProseCue(value) {
+    return /\b(?:onde|para|considere|suponha|mostre|calcule|determine|sistema|estado|temperatura|press[aã]o|energia|entropia|fun[cç][aã]o|equa[cç][aã]o|probabilidade|limite|portanto|assim|logo)\b/i.test(String(value || ""));
+  }
+
+  function convertStandaloneMathLine(line) {
+    const trimmed = String(line || "").trim();
+    if (!trimmed || /\\\(|\\\[/.test(trimmed)) return trimmed;
+
+    const enumeratedMatch = trimmed.match(/^((?:\d+|[a-z])[\).:]\s+)(.+)$/i);
+    const prefix = enumeratedMatch ? enumeratedMatch[1] : "";
+    const content = enumeratedMatch ? enumeratedMatch[2].trim() : trimmed;
+
+    if (!hasProseCue(content) && (shouldDisplayEquation(content) || (isMathy(content) && countWords(content) <= 4 && mathDensity(content) > 0.18))) {
+      return `${prefix}\\[${latexifySnippet(content)}\\]`;
+    }
+
+    return trimmed;
+  }
+
   function normalizeMathLine(rawLine) {
     const line = String(rawLine || "").trim();
     if (!line) return "";
@@ -118,7 +137,7 @@
       })
       .split("\n")
       .map(function (line) {
-        return normalizeMathLine(line.trimEnd());
+        return normalizeMathLine(convertStandaloneMathLine(line.trimEnd()));
       })
       .join("\n")
       .replace(/\n{3,}/g, "\n\n")
@@ -128,8 +147,10 @@
   function latexifySnippet(snippet) {
     return snippet
       .replace(/([A-Za-z])_([A-Za-z0-9]+)/g, "$1_{$2}")
+      .replace(/([A-Za-z0-9}])\^([A-Za-z0-9]+)/g, "$1^{$2}")
       .replace(/³/g, "^{3}")
       .replace(/²/g, "^{2}")
+      .replace(/->/g, "\\to ")
       .replace(/∂/g, "\\partial ")
       .replace(/Δ/g, "\\Delta ")
       .replace(/λ/g, "\\lambda ")
@@ -142,6 +163,12 @@
       .replace(/≥/g, "\\ge ")
       .replace(/≠/g, "\\neq ")
       .replace(/∞/g, "\\infty ")
+      .replace(/\bd\s*\/\s*d\s*([A-Za-z])/g, "\\frac{d}{d $1}")
+      .replace(/\\partial\s*\/\s*\\partial\s*([A-Za-z])/g, "\\frac{\\partial}{\\partial $1}")
+      .replace(/\bpartial\b/g, "\\partial ")
+      .replace(/(\\[A-Za-z]+)\s*_([A-Za-z0-9]+)/g, "$1_{$2}")
+      .replace(/\bsum_([A-Za-z0-9{}]+)/g, "\\sum_{$1}")
+      .replace(/\blim_([A-Za-z0-9{}]+)/g, "\\lim_{$1}")
       .replace(/\bsum\s*\(/g, "\\sum(")
       .replace(/\bln\s*\(/g, "\\ln(")
       .replace(/\bexp\s*\(/g, "\\exp(")
@@ -156,6 +183,14 @@
     }
 
     let formatted = paragraph;
+
+    formatted = formatted.replace(
+      /\[\s*([^[\]\n]{3,180})\s*\]/g,
+      function (match, snippet) {
+        if (!isMathy(snippet)) return match;
+        return `\\(${latexifySnippet(snippet)}\\)`;
+      }
+    );
 
     formatted = formatted.replace(
       /([A-Za-z][A-Za-z0-9']*(?:_[A-Za-z0-9]+)?\s*=\s*[^.,;\n]+)(?=[.,;\n]|$)/g,
@@ -405,7 +440,7 @@
 
     const relevantContent = collectRelevantText(clone);
     const fallbackContent = collapseText(clone.innerText || clone.textContent || "");
-    const content = (relevantContent || fallbackContent).slice(0, 9000);
+    const content = (relevantContent || fallbackContent).slice(0, 4500);
 
     return { title, subtitle, content };
   }

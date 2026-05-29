@@ -21,6 +21,7 @@ body{
   font-family:"Inter",sans-serif;
   min-height:100vh;
   padding:24px;
+  overflow-x:hidden;
 }
 
 .page{
@@ -30,6 +31,7 @@ body{
   display:flex;
   flex-direction:column;
   gap:20px;
+  min-width:0;
 }
 
 .hero,.card{
@@ -96,10 +98,12 @@ body{
   display:flex;
   flex-direction:column;
   gap:24px;
+  min-width:0;
 }
 
 .source-fragment{
   display:block;
+  min-width:0;
 }
 
 .source-fragment + .source-fragment{
@@ -111,6 +115,11 @@ body{
   width:100%;
   max-width:100%;
   overflow:hidden;
+  min-width:0;
+}
+
+.source-embed > div{
+  min-width:0;
 }
 
 .grid{
@@ -234,6 +243,7 @@ body{
 .comparison-table-wrap{
   overflow-x:auto;
   margin-top:18px;
+  -webkit-overflow-scrolling:touch;
 }
 
 .comparison-table{
@@ -327,6 +337,7 @@ body{
   min-height:140px;
   font-family:"Lora",serif;
   line-height:1.7;
+  overflow-wrap:anywhere;
 }
 
 .ai-solution{
@@ -337,6 +348,48 @@ body{
 
 @media (max-width:1100px){
   .grid-3{grid-template-columns:1fr}
+}
+
+@media (max-width:700px){
+  body{
+    padding:0;
+  }
+
+  .page{
+    max-width:none;
+    gap:14px;
+  }
+
+  .hero,
+  .card{
+    border-radius:18px;
+  }
+
+  .hero-inner,
+  .card{
+    padding:16px;
+  }
+
+  .source-embed,
+  .source-fragment,
+  .content-root{
+    width:100%;
+    max-width:100%;
+  }
+
+  .comparison-table{
+    min-width:560px;
+  }
+
+  .source-embed mjx-container,
+  .source-embed .MathJax,
+  .source-embed .mjx-chtml{
+    display:block;
+    max-width:100%;
+    overflow-x:auto !important;
+    overflow-y:hidden;
+    -webkit-overflow-scrolling:touch;
+  }
 }
 
 @media (max-width:980px){

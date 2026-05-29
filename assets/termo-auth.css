@@ -396,3 +396,104 @@
     font-size:.89rem;
   }
 }
+
+html,
+body{
+  max-width:100%;
+  overflow-x:hidden;
+}
+
+body > .page,
+.page,
+.content-root,
+.source-fragment,
+.source-embed,
+.source-embed > div,
+.grid,
+.grid-3,
+.stack{
+  min-width:0;
+}
+
+img,
+svg,
+canvas,
+video,
+iframe{
+  max-width:100%;
+}
+
+mjx-container,
+.MathJax,
+.mjx-chtml{
+  max-width:100%;
+}
+
+@media (max-width:700px){
+  body{
+    padding:0 !important;
+  }
+
+  body > .page,
+  .page{
+    width:100% !important;
+    max-width:none !important;
+    gap:14px !important;
+  }
+
+  .hero,
+  .card{
+    border-radius:18px !important;
+  }
+
+  .hero-inner,
+  .card{
+    padding:16px !important;
+  }
+
+  .chapter-title,
+  .title-main-heading,
+  .title-main-slide-heading,
+  .title-main-header,
+  .main-title,
+  .hdr-title{
+    line-height:1.08 !important;
+    word-break:break-word;
+  }
+
+  .chapter-text,
+  .body-text,
+  .content-root,
+  .source-fragment{
+    width:100%;
+    max-width:100%;
+  }
+
+  .grid,
+  .grid-3{
+    grid-template-columns:1fr !important;
+  }
+
+  .math-box,
+  .highlight,
+  .warning,
+  .insight,
+  .mini-card,
+  .definition-item{
+    padding:14px !important;
+  }
+
+  .comparison-table-wrap,
+  .table-data-wrapper{
+    margin-left:-4px;
+    margin-right:-4px;
+    padding-bottom:2px;
+    overflow-x:auto !important;
+    -webkit-overflow-scrolling:touch;
+  }
+
+  .comparison-table,
+  .ensemble-summary-table{
+    min-width:560px;
+  }
+}
