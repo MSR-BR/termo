@@ -21,6 +21,8 @@
     ".topic-note"
   ];
 
+  const SHARE_SITE_URL = "https://termo-theta.vercel.app";
+
   let refreshTimer = null;
   let observer = null;
 
@@ -66,26 +68,37 @@
     return Boolean(document.getElementById("chapterList")) || /(^|\/)index\.html$/.test(window.location.pathname);
   }
 
-  function buildIndexBlurb() {
-    const panelTitle = firstText(["#panelTitle"]);
-    const panelDescription = sanitizeSummary(firstText(["#panelDescription"]), panelTitle);
+  function getShareUrl() {
+    const currentUrl = new URL(window.location.href);
+    const isLocalOrigin = /^(localhost|127\.0\.0\.1)$/i.test(currentUrl.hostname);
 
-    if (panelTitle && panelTitle !== "Índice dos tópicos") {
-      return `Achei este índice interativo sobre ${panelTitle}. Vale a pena explorar este material de Termodinâmica e compartilhar com quem gosta de Física.${panelDescription ? ` ${panelDescription}.` : ""}`;
+    if (!isLocalOrigin) {
+      return currentUrl.toString();
     }
 
-    return "Achei este guia interativo de Termodinâmica para Estudantes de Física. Vale muito a pena explorar os capítulos e compartilhar com quem se interessa por Física.";
+    const shareUrl = new URL(SHARE_SITE_URL);
+    shareUrl.pathname = currentUrl.pathname === "/index.html" ? "/" : currentUrl.pathname;
+    shareUrl.search = currentUrl.search;
+    shareUrl.hash = currentUrl.hash;
+    return shareUrl.toString();
+  }
+
+  function buildIndexBlurb() {
+    const panelTitle = firstText(["#panelTitle"]);
+    const topic = panelTitle && panelTitle !== "Índice dos tópicos"
+      ? panelTitle
+      : "Termodinâmica para Estudantes de Física";
+
+    if (topic) {
+      return `Achei este índice interativo sobre ${topic}. Possui exercícios automáticos, simuladores e outros recursos inovadores.`;
+    }
+
+    return "Achei este índice interativo de Termodinâmica para Estudantes de Física. Possui exercícios automáticos, simuladores e outros recursos inovadores.";
   }
 
   function buildPageBlurb() {
     const title = sanitizeTitle(firstText(TITLE_SELECTORS) || document.title || "este material");
-    const summary = sanitizeSummary(firstText(SUMMARY_SELECTORS), title);
-
-    if (summary) {
-      return `Achei este material sobre ${title}. Vale a pena ver esta explicação envolvente sobre ${summary}.`;
-    }
-
-    return `Achei este material sobre ${title}. Vale a pena conferir esta página e compartilhar com quem também se interessa por Física.`;
+    return `Achei este material interativo sobre ${title}. Possui exercícios automáticos, simuladores e outros recursos inovadores.`;
   }
 
   function getSharePayload() {
@@ -93,7 +106,7 @@
     const pageTitle = sanitizeTitle(firstText(TITLE_SELECTORS) || document.title || baseTitle);
     const title = pageTitle && pageTitle !== baseTitle ? `${baseTitle} — ${pageTitle}` : baseTitle;
     const text = isIndexPage() ? buildIndexBlurb() : buildPageBlurb();
-    const url = window.location.href;
+    const url = getShareUrl();
 
     return { title, text, url };
   }

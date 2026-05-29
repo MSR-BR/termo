@@ -83,12 +83,13 @@
 }
 
 .termo-auth-modal{
-  width:min(100%, 560px);
+  width:min(100%, 500px);
+  max-height:min(88vh, 680px);
   background:#FFFFFF;
   border:1px solid rgba(0, 75, 135, 0.10);
-  border-radius:24px;
+  border-radius:22px;
   box-shadow:0 22px 56px rgba(15, 23, 42, 0.18);
-  overflow:hidden;
+  overflow:auto;
 }
 
 .termo-auth-modal-header{
@@ -96,7 +97,7 @@
   align-items:flex-start;
   justify-content:space-between;
   gap:18px;
-  padding:24px 24px 0;
+  padding:20px 20px 0;
 }
 
 .termo-auth-kicker{
@@ -112,8 +113,8 @@
 .termo-auth-title{
   color:#123A63;
   font-family:"Inter",sans-serif;
-  font-size:clamp(1.4rem, 3vw, 1.95rem);
-  line-height:1.12;
+  font-size:clamp(1.25rem, 2.7vw, 1.75rem);
+  line-height:1.08;
   font-weight:800;
 }
 
@@ -134,32 +135,32 @@
 }
 
 .termo-auth-body{
-  padding:18px 24px 24px;
+  padding:14px 20px 20px;
 }
 
 .termo-auth-copy{
   color:#415466;
   font-family:"Lora", Georgia, serif;
-  font-size:1.04rem;
-  line-height:1.72;
+  font-size:.98rem;
+  line-height:1.55;
 }
 
 .termo-auth-benefits{
-  margin:18px 0 0;
+  margin:14px 0 0;
   padding:0;
   list-style:none;
   display:grid;
-  gap:10px;
+  gap:8px;
 }
 
 .termo-auth-benefits li{
   display:flex;
-  gap:12px;
+  gap:10px;
   align-items:flex-start;
   color:#214567;
   font-family:"Inter",sans-serif;
-  font-size:.98rem;
-  line-height:1.5;
+  font-size:.93rem;
+  line-height:1.42;
 }
 
 .termo-auth-benefits i{
@@ -168,8 +169,8 @@
 }
 
 .termo-auth-panel{
-  margin-top:22px;
-  padding:18px;
+  margin-top:16px;
+  padding:16px;
   border:1px solid rgba(0, 75, 135, 0.10);
   border-radius:18px;
   background:linear-gradient(180deg, #F8FBFF 0%, #FFFFFF 100%);
@@ -369,20 +370,29 @@
 
 @media (max-width:700px){
   .termo-auth-overlay{
-    padding:16px;
+    padding:12px;
   }
 
   .termo-auth-modal-header,
   .termo-auth-body{
-    padding-left:18px;
-    padding-right:18px;
+    padding-left:16px;
+    padding-right:16px;
   }
 
   .termo-auth-title{
-    font-size:1.38rem;
+    font-size:1.16rem;
   }
 
   .termo-auth-panel{
-    padding:16px;
+    padding:14px;
+  }
+
+  .termo-auth-copy{
+    font-size:.92rem;
+    line-height:1.45;
+  }
+
+  .termo-auth-benefits li{
+    font-size:.89rem;
   }
 }

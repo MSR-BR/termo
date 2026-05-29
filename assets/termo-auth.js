@@ -31,8 +31,15 @@
     chapterTopicsCache: Object.create(null),
     itemContextCacheKey: "",
     itemContext: undefined,
-    itemContextPromise: null
+    itemContextPromise: null,
+    bootPromise: null,
+    readyPromise: null,
+    resolveReady: null
   };
+
+  state.readyPromise = new Promise(function (resolve) {
+    state.resolveReady = resolve;
+  });
 
   function textContent(node) {
     return node && node.textContent ? node.textContent.replace(/\s+/g, " ").trim() : "";
@@ -196,15 +203,15 @@
     if (isIndexPage()) {
       return {
         kicker: "Acesso opcional",
-        title: "Salve seu progresso sem interromper a leitura",
-        copy: "Você pode continuar explorando todo o material normalmente. Entrar com Google serve apenas para guardar seu caminho, retomar depois e personalizar a experiência."
+        title: "Salve seu progresso",
+        copy: "Entre com Google para guardar seu caminho, seus favoritos e seus exercícios sem bloquear o conteúdo."
       };
     }
 
     return {
       kicker: "Acesso opcional",
-      title: "Continue este estudo quando quiser",
-      copy: `Se este conteúdo sobre ${title} está te ajudando, você pode entrar com Google para salvar seu progresso e retomar exatamente daqui depois.`
+      title: "Continue este estudo depois",
+      copy: `Entre com Google para salvar este ponto sobre ${title} e retomar exatamente daqui quando quiser.`
     };
   }
 
@@ -329,9 +336,8 @@
         <div class="termo-auth-body">
           <div class="termo-auth-copy">${context.copy}</div>
           <ul class="termo-auth-benefits">
-            <li><i class="fa-solid fa-bookmark"></i><span>Salvar o ponto em que você parou e voltar depois sem procurar de novo.</span></li>
-            <li><i class="fa-solid fa-wand-magic-sparkles"></i><span>Guardar o histórico dos exercícios automáticos que mais ajudaram no estudo.</span></li>
-            <li><i class="fa-solid fa-mobile-screen"></i><span>Continuar a leitura em outro dispositivo sem perder o contexto.</span></li>
+            <li><i class="fa-solid fa-bookmark"></i><span>Salvar onde você parou.</span></li>
+            <li><i class="fa-solid fa-star"></i><span>Guardar exercícios e favoritos.</span></li>
           </ul>
           <div class="termo-auth-panel" data-termo-auth-panel></div>
           <div class="termo-auth-status" data-termo-auth-status></div>
@@ -388,6 +394,21 @@
     window.history.replaceState({}, "", url.toString());
   }
 
+  function buildCleanRedirectUrl() {
+    const url = new URL(window.location.href);
+    ["code", "state", "error", "error_code", "error_description"].forEach(function (key) {
+      url.searchParams.delete(key);
+    });
+
+    const hashParams = new URLSearchParams(url.hash.startsWith("#") ? url.hash.slice(1) : "");
+    ["code", "state", "error", "error_code", "error_description", "access_token", "refresh_token", "expires_in", "token_type", "provider_token", "provider_refresh_token"].forEach(function (key) {
+      hashParams.delete(key);
+    });
+    const cleanHash = hashParams.toString();
+    url.hash = cleanHash ? `#${cleanHash}` : "";
+    return url.toString();
+  }
+
   function getProfileLinks() {
     const params = new URLSearchParams(window.location.search);
     const chapterId = params.get("chapter") || "01";
@@ -425,10 +446,6 @@
 
   function buildSignedOutPanel() {
     return `
-      <div class="termo-auth-panel-title">Entrar só quando fizer sentido para você</div>
-      <div class="termo-auth-panel-copy">
-        O login com Google abre em um fluxo curto e volta para esta mesma página. Nada do conteúdo é bloqueado.
-      </div>
       <div class="termo-auth-actions">
         <button type="button" class="termo-auth-google-button" data-termo-auth-google-button>
           <span class="termo-auth-google-icon" aria-hidden="true">G</span>
@@ -494,7 +511,7 @@
     const result = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: window.location.href,
+        redirectTo: buildCleanRedirectUrl(),
         queryParams: {
           prompt: "select_account"
         }
@@ -503,10 +520,6 @@
 
     if (result.error) {
       throw result.error;
-    }
-
-    if (result.data && result.data.url) {
-      window.location.assign(result.data.url);
     }
   }
 
@@ -727,6 +740,11 @@
   }
 
   async function bootAuthState() {
+    if (state.bootPromise) {
+      return state.bootPromise;
+    }
+
+    state.bootPromise = (async function () {
     const config = await fetchConfig();
     if (!config.authEnabled) {
       updateTriggerButton();
@@ -758,6 +776,40 @@
     if (state.session?.user) {
       void syncProgress(false);
     }
+    })()
+      .catch(function () {
+        state.session = null;
+        state.progressSignature = "";
+        updateTriggerButton();
+        emitAuthState();
+      })
+      .finally(function () {
+        if (state.resolveReady) {
+          state.resolveReady(state.session);
+          state.resolveReady = null;
+        }
+      });
+
+    return state.bootPromise;
+  }
+
+  async function waitUntilReady(timeoutMs) {
+    const pendingBoot = state.bootPromise || bootAuthState();
+
+    if (typeof timeoutMs === "number" && timeoutMs > 0) {
+      await Promise.race([
+        pendingBoot.catch(function () {
+          return null;
+        }),
+        new Promise(function (resolve) {
+          window.setTimeout(resolve, timeoutMs);
+        })
+      ]);
+    } else {
+      await pendingBoot;
+    }
+
+    return state.session;
   }
 
   function syncButtonMetrics(button, reference) {
@@ -934,11 +986,16 @@
     refresh: scheduleRefresh,
     fetchConfig,
     ensureSupabase,
+    whenReady: waitUntilReady,
     isConfigured: async function () {
       const config = await fetchConfig();
       return Boolean(config?.authEnabled);
     },
     getSession: async function () {
+      await waitUntilReady(1800);
+      if (state.resolveReady) {
+        return state.session;
+      }
       if (!state.session) {
         await refreshSession();
       }
