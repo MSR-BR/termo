@@ -1422,6 +1422,163 @@
       transform: translateY(-1px);
     }
 
+    .validation-review-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .validation-review-card {
+      border: 1px solid #E2E8F0;
+      border-left: 4px solid #6D28D9;
+      border-radius: 12px;
+      background: #FFFFFF;
+      padding: 16px;
+      font-family: "Inter", sans-serif;
+      color: var(--text);
+    }
+
+    .validation-review-card.is-reviewed {
+      opacity: .62;
+    }
+
+    .validation-review-card__top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .validation-review-card__title {
+      margin-top: 8px;
+      color: var(--blue);
+      font-size: 17px;
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    .validation-review-card__source {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .validation-review-card__notice,
+    .validation-review-card__note {
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-top: 10px;
+      font-size: 13.5px;
+      line-height: 1.45;
+    }
+
+    .validation-review-card__notice {
+      background: #F3E8FF;
+      color: #5B21B6;
+      font-weight: 800;
+    }
+
+    .validation-review-card__choices {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .validation-review-card__choice {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      border-radius: 999px;
+      background: #F5F8FC;
+      border: 1px solid #D8E3F2;
+      color: var(--text);
+      padding: 7px 10px;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .validation-review-card__choice strong {
+      color: var(--blue);
+    }
+
+    .validation-review-card__decision-help {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .validation-review-card__note {
+      background: #FFF7ED;
+      color: #8A3B12;
+    }
+
+    .validation-review-card__details {
+      margin-top: 12px;
+      color: var(--text);
+    }
+
+    .validation-review-card__details summary {
+      cursor: pointer;
+      color: var(--blue);
+      font-weight: 800;
+    }
+
+    .validation-review-card__section {
+      margin-top: 10px;
+      font-family: "Lora", Georgia, serif;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .validation-review-card__content {
+      margin-top: 6px;
+      max-width: 100%;
+      overflow-x: auto;
+    }
+
+    .validation-review-card__content p {
+      margin: 8px 0 0;
+    }
+
+    .validation-review-card__content .termo-exercise__math-block {
+      margin: 10px 0;
+      font-size: 1em;
+    }
+
+    .validation-review-card__content mjx-container {
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+
+    .validation-review-card__admin-note {
+      display: grid;
+      gap: 7px;
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .validation-review-card__admin-note textarea {
+      width: 100%;
+      resize: vertical;
+      border: 1px solid #D7E0ED;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    .validation-review-card__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
     .footer {
       max-width: 1280px;
       width: 100%;
@@ -1666,6 +1823,13 @@
         label: "Itens favoritos",
         icon: "fa-star",
         note: "Atalhos rápidos para os itens do curso que você marcou com estrela."
+      },
+      {
+        id: "validation-review",
+        label: "Validações pendentes",
+        icon: "fa-clipboard-check",
+        note: "Revisar relatos enviados pelos usuários.",
+        requiresValidator: true
       }
     ];
 
@@ -1705,9 +1869,11 @@
       view: viewIds.has(requestedView) ? requestedView : "chapters",
       chapterId: params.get("chapter") || "",
       loggedIn: false,
+      canReviewValidations: false,
       favoriteItems: [],
       favoriteExercises: [],
       savedExercises: [],
+      validationReports: [],
       exerciseModal: null,
       selectedExerciseId: null,
       jsPdfPromise: null,
@@ -1715,7 +1881,7 @@
     };
 
     function getDrawerSectionForView(viewId) {
-      if (viewId === "saved" || viewId === "favorites") return "personal";
+      if (viewId === "saved" || viewId === "favorites" || viewId === "validation-review") return "personal";
       if (viewId === "simulators") return "extras";
       return "chapters";
     }
@@ -1906,6 +2072,8 @@
       personalDrawerActions.innerHTML = "";
 
       personalViews.forEach((view) => {
+        if (view.requiresValidator && !state.canReviewValidations) return;
+
         const button = document.createElement("button");
         button.type = "button";
         button.className = `personal-button${state.view === view.id ? " active" : ""}`;
@@ -2080,6 +2248,7 @@
     function buildExercisePlainText(exercise) {
       const pageUrl = exercise.page_url || exercise.page_path || window.location.href;
       const itemLabel = exercise.item_id || exercise.chapter_id || "Curso";
+      const exerciseCodeLine = exercise.exercise_code ? [`ID do exercício: ${exercise.exercise_code}`] : [];
 
       return [
         "Termodinâmica para Estudantes de Física",
@@ -2088,6 +2257,7 @@
         "",
         `Página: ${exercise.page_title || "Página do curso"}`,
         `Capítulo/Item: ${itemLabel}`,
+        ...exerciseCodeLine,
         `Nível: ${difficultyLabel(exercise.difficulty)}`,
         `Link da página: ${pageUrl}`,
         "",
@@ -2246,6 +2416,28 @@
       }
     }
 
+    async function typesetValidationReview(root, attempts = 0) {
+      const elements = Array.from((root || document).querySelectorAll(".validation-review-card__content"));
+      if (!elements.length) return;
+
+      if (!window.MathJax || typeof window.MathJax.typesetPromise !== "function") {
+        if (attempts >= 8) return;
+        window.setTimeout(function () {
+          void typesetValidationReview(root, attempts + 1);
+        }, 300);
+        return;
+      }
+
+      try {
+        if (typeof window.MathJax.typesetClear === "function") {
+          window.MathJax.typesetClear(elements);
+        }
+        await window.MathJax.typesetPromise(elements);
+      } catch (error) {
+        console.warn("Nao foi possivel compor as equacoes na revisao de validacoes.", error);
+      }
+    }
+
     async function shareExercise(exercise) {
       const title = `Exercício salvo · ${exercise.exercise_title || "Exercício"}`;
       const text = buildExercisePlainText(exercise);
@@ -2363,6 +2555,7 @@
       modal.querySelector("#exerciseModalKicker").textContent = exercise.page_title || "Meu exercício";
       modal.querySelector("#exerciseModalTitle").textContent = exercise.exercise_title || "Exercício";
       modal.querySelector('[data-role="exercise-meta"]').innerHTML = `
+        ${exercise.exercise_code ? `<span class="saved-chip"><i class="fa-solid fa-fingerprint"></i>${escapeHtml(exercise.exercise_code)}</span>` : ""}
         <span class="saved-chip"><i class="fa-solid fa-layer-group"></i>${escapeHtml(exercise.item_id || exercise.chapter_id || "Curso")}</span>
         <span class="saved-chip saved-chip--difficulty"><i class="fa-solid fa-signal"></i>${escapeHtml(difficultyLabel(exercise.difficulty))}</span>
         <span class="saved-chip"><i class="fa-solid fa-clock-rotate-left"></i>${escapeHtml(formatDate(exercise.created_at))}</span>
@@ -2469,6 +2662,7 @@
         >
           <div class="saved-item__top">
             <div class="saved-item__meta">
+              ${exercise.exercise_code ? `<span class="saved-chip"><i class="fa-solid fa-fingerprint"></i>${escapeHtml(exercise.exercise_code)}</span>` : ""}
               <span class="saved-chip"><i class="fa-solid fa-layer-group"></i>${escapeHtml(exercise.item_id || exercise.chapter_id || "Curso")}</span>
               <span class="saved-chip saved-chip--difficulty"><i class="fa-solid fa-signal"></i>${escapeHtml(difficultyLabel(exercise.difficulty))}</span>
               <span class="saved-chip"><i class="fa-solid fa-clock-rotate-left"></i>${escapeHtml(formatDate(exercise.created_at))}</span>
@@ -2587,6 +2781,144 @@
       attachSavedListHandlers(topicContainer);
     }
 
+    function validationChoiceLabel(value) {
+      const labels = {
+        sim: "Sim",
+        nao: "Não",
+        nao_sei: "Não sei"
+      };
+      return labels[value] || "Não informado";
+    }
+
+    function renderValidationChoicePill(label, value) {
+      return `
+        <span class="validation-review-card__choice">
+          ${escapeHtml(label)}: <strong>${escapeHtml(validationChoiceLabel(value))}</strong>
+        </span>
+      `;
+    }
+
+    function renderValidationReviewText(value) {
+      const text = String(value || "").trim();
+      if (!text) return "<p>Não informado.</p>";
+      if (window.TermoAIExercise && typeof window.TermoAIExercise.formatGeneratedText === "function") {
+        return window.TermoAIExercise.formatGeneratedText(text);
+      }
+      return `<p>${escapeHtml(text)}</p>`;
+    }
+
+    function renderValidationReportItem(report) {
+      const issueLabels = [
+        report.statement_status === "sim" ? "Enunciado com possível erro" : "",
+        report.solution_status === "sim" ? "Solução com possível erro" : ""
+      ].filter(Boolean);
+      const notes = [report.statement_note, report.solution_note].filter(Boolean).join(" / ");
+
+      return `
+        <article class="validation-review-card" data-report-id="${escapeHtml(report.id)}">
+          <div class="validation-review-card__top">
+            <div>
+              <div class="saved-card__meta">
+                <span class="saved-chip"><i class="fa-solid fa-fingerprint"></i>${escapeHtml(report.exercise_id || "Sem ID")}</span>
+                <span class="saved-chip"><i class="fa-solid fa-layer-group"></i>${escapeHtml(report.item_id || report.chapter_id || "Curso")}</span>
+                <span class="saved-chip"><i class="fa-solid fa-clock-rotate-left"></i>${escapeHtml(formatDate(report.created_at))}</span>
+              </div>
+              <div class="validation-review-card__title">${escapeHtml(report.exercise_title || "Exercício")}</div>
+              <div class="validation-review-card__source">${escapeHtml(report.page_title || "Página do curso")}</div>
+            </div>
+          </div>
+          <div class="validation-review-card__notice">${escapeHtml(issueLabels.join(" · ") || "Relato sem erro marcado")}</div>
+          <div class="validation-review-card__choices">
+            ${renderValidationChoicePill("Enunciado", report.statement_status)}
+            ${renderValidationChoicePill("Solução", report.solution_status)}
+          </div>
+          ${notes ? `<div class="validation-review-card__note">${escapeHtml(notes)}</div>` : ""}
+          <div class="validation-review-card__decision-help">Aprovar ou rejeitar aqui avalia o relato enviado pelo usuário. Não é uma certificação pública do exercício inteiro.</div>
+          <details class="validation-review-card__details">
+            <summary>Ver enunciado e solução</summary>
+            <div class="validation-review-card__section">
+              <strong>Enunciado</strong>
+              <div class="validation-review-card__content">${renderValidationReviewText(report.statement_excerpt || "")}</div>
+            </div>
+            <div class="validation-review-card__section">
+              <strong>Solução</strong>
+              <div class="validation-review-card__content">${renderValidationReviewText(report.solution_excerpt || "")}</div>
+            </div>
+          </details>
+          <label class="validation-review-card__admin-note">
+            Nota do professor
+            <textarea data-role="review-admin-note" rows="2" maxlength="280" placeholder="Opcional: registre uma orientação curta para a IA."></textarea>
+          </label>
+          <div class="validation-review-card__actions">
+            <button class="saved-card__button saved-card__button--primary" data-role="review-validation" data-decision="approved" type="button">
+              <i class="fa-solid fa-check"></i>
+              Aprovar relato
+            </button>
+            <button class="saved-card__button" data-role="review-validation" data-decision="rejected" type="button">
+              <i class="fa-solid fa-xmark"></i>
+              Rejeitar relato
+            </button>
+            <a class="saved-card__button" href="${escapeHtml(report.page_url || report.page_path || "#")}" target="_blank" rel="noopener noreferrer">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              Abrir página
+            </a>
+          </div>
+          <div class="exercise-modal__status" data-role="review-status" aria-live="polite"></div>
+        </article>
+      `;
+    }
+
+    function attachValidationReviewHandlers(scope) {
+      scope.querySelectorAll(".validation-review-card__details").forEach((details) => {
+        details.addEventListener("toggle", function () {
+          if (details.open) {
+            void typesetValidationReview(details);
+          }
+        });
+      });
+
+      scope.querySelectorAll('[data-role="review-validation"]').forEach((button) => {
+        button.addEventListener("click", async function () {
+          const card = button.closest("[data-report-id]");
+          const reportId = card?.dataset.reportId || "";
+          const decision = button.dataset.decision || "";
+          const note = card?.querySelector('[data-role="review-admin-note"]')?.value || "";
+          const status = card?.querySelector('[data-role="review-status"]');
+
+          if (!window.TermoUserData?.reviewValidationReport || !reportId || !decision) return;
+
+          button.disabled = true;
+          if (status) {
+            status.textContent = "Salvando revisão...";
+            status.classList.remove("is-error");
+          }
+
+          const result = await window.TermoUserData.reviewValidationReport(reportId, decision, note).catch(function (error) {
+            return { ok: false, error };
+          });
+
+          button.disabled = false;
+
+          if (!result.ok) {
+            if (status) {
+              status.textContent = result.error?.error || result.error?.message || "Não foi possível salvar a revisão.";
+              status.classList.add("is-error");
+            }
+            return;
+          }
+
+          if (status) {
+            status.textContent = result.message || "Revisão salva.";
+            status.classList.remove("is-error");
+          }
+          card?.classList.add("is-reviewed");
+          window.setTimeout(function () {
+            void renderValidationReview();
+          }, 650);
+        });
+      });
+    }
+
     async function refreshFavoriteCollections() {
       if (!state.loggedIn) {
         state.favoriteItems = [];
@@ -2613,12 +2945,29 @@
       }
     }
 
+    async function canCurrentUserReviewValidations(session) {
+      const email = String(session?.user?.email || "").trim().toLowerCase();
+      if (!email || !window.TermoAuth?.fetchConfig) return false;
+
+      const config = await window.TermoAuth.fetchConfig().catch(function () {
+        return null;
+      });
+      const validatorEmails = Array.isArray(config?.validatorEmails)
+        ? config.validatorEmails.map(function (value) {
+            return String(value || "").trim().toLowerCase();
+          }).filter(Boolean)
+        : [];
+
+      return validatorEmails.includes(email);
+    }
+
     async function refreshUserState() {
       const session = await window.TermoAuth?.getSession?.().catch(function () {
         return null;
       });
 
       state.loggedIn = Boolean(session?.user);
+      state.canReviewValidations = await canCurrentUserReviewValidations(session);
       await refreshFavoriteCollections();
 
       renderPersonalMenu();
@@ -2792,6 +3141,69 @@
       renderFavoriteList(state.favoriteItems, state.favoriteExercises);
     }
 
+    async function renderValidationReview() {
+      setLandingMode(false);
+      panelKicker.textContent = "Área pessoal";
+      panelTitle.textContent = "Validações pendentes";
+      panelDescription.textContent = "Revise os relatos enviados pelos usuários e decida quais comentários devem ser aproveitados na melhoria das próximas gerações.";
+      setActiveChapter(state.chapterId);
+      setActivePersonal("validation-review");
+      setActiveExtra("");
+      panelActions.innerHTML = "";
+
+      if (!state.loggedIn) {
+        topicContainer.innerHTML = `
+          <div class="empty-state">
+            <strong>Entre com Google para revisar validações.</strong><br />
+            Esta área é restrita ao professor responsável pelo material.
+          </div>
+        `;
+        return;
+      }
+
+      if (!state.canReviewValidations) {
+        topicContainer.innerHTML = `
+          <div class="empty-state">
+            <strong>Área restrita.</strong><br />
+            A revisão de validações está disponível apenas para o professor responsável.
+          </div>
+        `;
+        return;
+      }
+
+      topicContainer.innerHTML = `<div class="empty-state"><strong>Carregando relatos pendentes...</strong><br />Buscando validações enviadas pelos usuários.</div>`;
+
+      const result = await window.TermoUserData.listValidationReports({ status: "pending" }).catch(function (error) {
+        return { ok: false, error, reports: [] };
+      });
+
+      if (!result.ok) {
+        topicContainer.innerHTML = `
+          <div class="empty-state">
+            <strong>Não foi possível carregar as validações.</strong><br />
+            Verifique as políticas RLS da tabela <code>exercise_validation_reports</code>.
+          </div>
+        `;
+        return;
+      }
+
+      state.validationReports = result.reports || [];
+
+      if (!state.validationReports.length) {
+        topicContainer.innerHTML = `
+          <div class="empty-state">
+            <strong>Nenhuma validação pendente.</strong><br />
+            Novos relatos enviados pelos usuários aparecerão aqui.
+          </div>
+        `;
+        return;
+      }
+
+      topicContainer.innerHTML = `<div class="validation-review-list">${state.validationReports.map(renderValidationReportItem).join("")}</div>`;
+      attachValidationReviewHandlers(topicContainer);
+      await typesetValidationReview(topicContainer);
+    }
+
     function renderSimulators() {
       setLandingMode(false);
       panelKicker.textContent = "Recursos interativos";
@@ -2825,6 +3237,11 @@
 
       if (viewId === "favorites") {
         await renderFavorites();
+        return;
+      }
+
+      if (viewId === "validation-review") {
+        await renderValidationReview();
         return;
       }
 
@@ -2891,6 +3308,11 @@
 
         if (state.view === "favorites") {
           await renderFavorites();
+          return;
+        }
+
+        if (state.view === "validation-review") {
+          await renderValidationReview();
           return;
         }
 

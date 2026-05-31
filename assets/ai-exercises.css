@@ -136,6 +136,24 @@
   background:#EADAFE;
 }
 
+.termo-exercise__btn--validation{
+  background:#FFFFFF;
+  color:var(--exercise-accent);
+  border-color:var(--exercise-accent-border);
+}
+
+.termo-exercise__btn--validation:hover:not(:disabled){
+  background:var(--exercise-accent-soft);
+}
+
+.termo-exercise__btn--validation-submit{
+  background:var(--exercise-accent);
+}
+
+.termo-exercise__btn--validation-submit:hover:not(:disabled){
+  background:#532B69;
+}
+
 .termo-exercise__disclaimer{
   background:#FFF8F6;
   border-left:4px solid var(--exercise-danger);
@@ -175,6 +193,157 @@
   border:1px solid #F2C9C3;
 }
 
+.termo-exercise__memory-status{
+  margin-bottom:16px;
+  border-radius:12px;
+  padding:10px 14px;
+  font-family:"Inter",sans-serif;
+  font-size:.9rem;
+  font-weight:600;
+  line-height:1.45;
+}
+
+.termo-exercise__memory-status.is-success{
+  background:#EEF6FF;
+  color:#0F5A9B;
+  border:1px solid #C7D8F3;
+}
+
+.termo-exercise__memory-status.is-warning{
+  background:#FFF7E8;
+  color:#A15C07;
+  border:1px solid #F4D3B5;
+}
+
+.termo-exercise__validation-tools{
+  margin-top:16px;
+}
+
+.termo-exercise__validation-panel{
+  margin-top:14px;
+  border:1px solid var(--exercise-accent-border);
+  background:linear-gradient(180deg, #FCFBFF 0%, #FFFFFF 100%);
+  border-radius:18px;
+  padding:18px;
+}
+
+.termo-exercise__validation-header{
+  display:grid;
+  gap:8px;
+  margin-bottom:16px;
+}
+
+.termo-exercise__validation-title{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-family:"Inter",sans-serif;
+  font-size:1rem;
+  font-weight:800;
+  color:var(--exercise-accent);
+}
+
+.termo-exercise__validation-copy{
+  font-family:"Lora",serif;
+  font-size:.98rem;
+  line-height:1.6;
+  color:var(--exercise-text);
+}
+
+.termo-exercise__validation-grid{
+  display:grid;
+  gap:14px;
+}
+
+.termo-exercise__validation-group{
+  border:1px solid #E8EDF5;
+  border-radius:14px;
+  padding:14px;
+  background:#FFFFFF;
+}
+
+.termo-exercise__validation-label{
+  font-family:"Inter",sans-serif;
+  font-size:.94rem;
+  font-weight:800;
+  color:var(--exercise-text);
+  margin-bottom:10px;
+}
+
+.termo-exercise__validation-options{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.termo-exercise__validation-option{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  min-height:38px;
+  padding:8px 12px;
+  border:1px solid #D7E3F4;
+  border-radius:999px;
+  font-family:"Inter",sans-serif;
+  font-size:.92rem;
+  font-weight:700;
+  color:var(--exercise-text);
+  background:#F8FBFF;
+}
+
+.termo-exercise__validation-option input{
+  margin:0;
+}
+
+.termo-exercise__validation-note-box{
+  margin-top:12px;
+}
+
+.termo-exercise__validation-note{
+  width:100%;
+  border:1px solid #D7E3F4;
+  border-radius:12px;
+  padding:10px 12px;
+  font-family:"Inter",sans-serif;
+  font-size:.92rem;
+  line-height:1.45;
+  color:var(--exercise-text);
+  resize:vertical;
+  min-height:78px;
+}
+
+.termo-exercise__validation-actions{
+  margin-top:14px;
+}
+
+.termo-exercise__validation-status{
+  margin-top:14px;
+  border-radius:12px;
+  padding:10px 14px;
+  font-family:"Inter",sans-serif;
+  font-size:.92rem;
+  font-weight:600;
+  line-height:1.45;
+}
+
+.termo-exercise__validation-status.is-success{
+  background:#EAF7EF;
+  color:#1E8449;
+  border:1px solid #CBE8D7;
+}
+
+.termo-exercise__validation-status.is-warning{
+  background:#FFF7E8;
+  color:#A15C07;
+  border:1px solid #F4D3B5;
+}
+
+.termo-exercise__validation-status.is-error{
+  background:#FFF2F0;
+  color:#B03A2E;
+  border:1px solid #F2C9C3;
+}
+
 .termo-exercise__body{
   display:flex;
   flex-direction:column;
@@ -195,12 +364,32 @@
 .termo-exercise__panel-title{
   display:flex;
   align-items:center;
+  flex-wrap:wrap;
   gap:8px;
   margin-bottom:12px;
   font-family:"Inter",sans-serif;
   font-size:1rem;
   font-weight:800;
   color:var(--exercise-accent);
+}
+
+.termo-exercise__generated-title{
+  min-width:0;
+}
+
+.termo-exercise__id-chip{
+  display:inline-flex;
+  align-items:center;
+  border:1px solid color-mix(in srgb, var(--exercise-accent) 26%, #FFFFFF);
+  border-radius:999px;
+  background:#FFFFFF;
+  color:var(--exercise-accent);
+  font-family:"Inter",sans-serif;
+  font-size:.72rem;
+  font-weight:900;
+  line-height:1;
+  padding:6px 9px;
+  letter-spacing:.02em;
 }
 
 .termo-exercise__panel-title--solution{
@@ -317,5 +506,15 @@
 
   .termo-exercise__math-block{
     margin:12px 0 16px;
+  }
+
+  .termo-exercise__validation-panel{
+    padding:16px 14px;
+    border-radius:16px;
+  }
+
+  .termo-exercise__validation-option{
+    width:100%;
+    justify-content:flex-start;
   }
 }

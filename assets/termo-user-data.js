@@ -15,6 +15,7 @@
       page_url: record.pageUrl || window.location.href,
       page_title: record.pageTitle || document.title || "Página do curso",
       difficulty: record.difficulty || "medio",
+      exercise_code: record.exerciseCode || record.exercise_id || null,
       exercise_title: record.exerciseTitle || "Exercício",
       statement: record.statement || "",
       solution: record.solution || "",
@@ -94,7 +95,7 @@
 
     let query = supabase
       .from(TABLE_NAME)
-      .select("id, chapter_id, item_id, page_path, page_url, page_title, difficulty, exercise_title, statement, solution, created_at, is_favorite")
+      .select("id, exercise_code, chapter_id, item_id, page_path, page_url, page_title, difficulty, exercise_title, statement, solution, created_at, is_favorite")
       .order("created_at", { ascending: false })
       .limit(limit);
 
@@ -143,6 +144,93 @@
     }
 
     return { ok: true, record: data };
+  }
+
+  async function readApiPayload(response) {
+    const contentType = (response.headers.get("content-type") || "").toLowerCase();
+
+    if (contentType.includes("application/json")) {
+      return response.json();
+    }
+
+    const text = await response.text();
+    return {
+      error: text || `HTTP ${response.status}`
+    };
+  }
+
+  async function getAccessToken() {
+    const session = await getSession();
+    return session?.access_token || "";
+  }
+
+  async function listValidationReports(options) {
+    const config = options || {};
+    const token = await getAccessToken();
+
+    if (!token) {
+      return { ok: false, reason: "not_authenticated", reports: [] };
+    }
+
+    const params = new URLSearchParams();
+    params.set("status", config.status || "pending");
+
+    const response = await fetch(`/api/exercicio-validacao-admin?${params.toString()}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    const payload = await readApiPayload(response);
+
+    if (!response.ok) {
+      return {
+        ok: false,
+        reason: "query_failed",
+        error: payload,
+        reports: []
+      };
+    }
+
+    return {
+      ok: true,
+      reports: Array.isArray(payload.reports) ? payload.reports : []
+    };
+  }
+
+  async function reviewValidationReport(reportId, decision, adminNote) {
+    const token = await getAccessToken();
+
+    if (!token) {
+      return { ok: false, reason: "not_authenticated" };
+    }
+
+    const response = await fetch("/api/exercicio-validacao-admin", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        reportId,
+        decision,
+        adminNote: adminNote || ""
+      })
+    });
+    const payload = await readApiPayload(response);
+
+    if (!response.ok) {
+      return {
+        ok: false,
+        reason: "update_failed",
+        error: payload
+      };
+    }
+
+    return {
+      ok: true,
+      report: payload.report,
+      message: payload.message || ""
+    };
   }
 
   function buildFavoriteItemKey(chapterId, itemId) {
@@ -349,6 +437,8 @@
     saveExercise,
     listExercises,
     updateFavorite,
+    listValidationReports,
+    reviewValidationReport,
     listFavoriteItems,
     toggleFavoriteItem,
     listFavoriteChapters,

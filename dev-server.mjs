@@ -2,7 +2,11 @@ import http from "node:http";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { readFile, stat } from "node:fs/promises";
-import { handleExerciseRequest } from "./lib/exercicio-handler.mjs";
+import {
+  handleExerciseRequest,
+  handleExerciseValidationAdminRequest,
+  handleExerciseValidationRequest
+} from "./lib/exercicio-handler.mjs";
 import { handlePublicConfigRequest } from "./lib/public-config-handler.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -174,6 +178,48 @@ const server = http.createServer(async (req, res) => {
     } catch (error) {
       sendJson(res, 400, {
         error: "Nao foi possivel ler o corpo da requisicao.",
+        details: String(error)
+      });
+    }
+    return;
+  }
+
+  if (requestUrl === "/api/exercicio-validacao") {
+    try {
+      const body = req.method === "POST" ? await readJsonBody(req) : undefined;
+      const response = await handleExerciseValidationRequest({
+        method: req.method,
+        body,
+        headers: req.headers,
+        env: process.env
+      });
+
+      sendJson(res, response.status, response.body);
+    } catch (error) {
+      sendJson(res, 400, {
+        error: "Nao foi possivel ler o corpo da requisicao.",
+        details: String(error)
+      });
+    }
+    return;
+  }
+
+  if (requestUrl.startsWith("/api/exercicio-validacao-admin")) {
+    try {
+      const url = new URL(requestUrl, `http://${host}:${port}`);
+      const body = req.method === "POST" ? await readJsonBody(req) : undefined;
+      const response = await handleExerciseValidationAdminRequest({
+        method: req.method,
+        body,
+        headers: req.headers,
+        query: Object.fromEntries(url.searchParams.entries()),
+        env: process.env
+      });
+
+      sendJson(res, response.status, response.body);
+    } catch (error) {
+      sendJson(res, 400, {
+        error: "Nao foi possivel ler a requisicao de revisao.",
         details: String(error)
       });
     }

@@ -5,6 +5,18 @@
   const mathSegmentPattern = /\\\[[\s\S]+?\\\]|\\\([\s\S]+?\\\)/g;
   const mathLikePattern =
     /(?:\\[A-Za-z]+|[A-Za-z]_[A-Za-z0-9]+|[A-Za-z]\^[A-Za-z0-9]+|\b(?:sum|ln|exp|lim|frac|partial|sin|cos|tan|sinh|cosh)\b|[=+\-*/^_]|[Σ∑∂ΔΩβλμ→≤≥±≠∞])/;
+  const DEFAULT_VALIDATOR_EMAILS = ["marioreis@id.uff.br"];
+
+  function getHostState(host) {
+    if (!host.__termoExerciseState) {
+      host.__termoExerciseState = {
+        exercise: null,
+        saveResult: null,
+        canValidate: false
+      };
+    }
+    return host.__termoExerciseState;
+  }
 
   function escapeHtml(value){
     return String(value || "").replace(/[&<>"']/g, function (s) {
@@ -64,6 +76,14 @@
     return density > 0.18 && words <= 8;
   }
 
+  function isSimpleInlineMath(value) {
+    const text = cleanupEquation(value).replace(/[{}]/g, "").trim();
+    if (!text || text.length > 36) return false;
+    if (/[=+\-*/]|[→≤≥≠∑∂]|\\(?:frac|sum|lim|int|partial|sqrt|to|rightarrow|le|ge|neq|cdot|ln|exp)\b/.test(text)) return false;
+    if (isMathy(text)) return true;
+    return /^(?:[A-Za-z]|\\[A-Za-z]+)(?:[_^][A-Za-z0-9]+)?'?$/u.test(text);
+  }
+
   function hasProseCue(value) {
     return /\b(?:onde|para|considere|suponha|mostre|calcule|determine|sistema|estado|temperatura|press[aã]o|energia|entropia|fun[cç][aã]o|equa[cç][aã]o|probabilidade|limite|portanto|assim|logo)\b/i.test(String(value || ""));
   }
@@ -75,6 +95,10 @@
     const enumeratedMatch = trimmed.match(/^((?:\d+|[a-z])[\).:]\s+)(.+)$/i);
     const prefix = enumeratedMatch ? enumeratedMatch[1] : "";
     const content = enumeratedMatch ? enumeratedMatch[2].trim() : trimmed;
+
+    if (!hasProseCue(content) && isSimpleInlineMath(content)) {
+      return `${prefix}\\(${latexifySnippet(cleanupEquation(content))}\\)`;
+    }
 
     if (!hasProseCue(content) && (shouldDisplayEquation(content) || (isMathy(content) && countWords(content) <= 4 && mathDensity(content) > 0.18))) {
       return `${prefix}\\[${latexifySnippet(content)}\\]`;
@@ -89,12 +113,14 @@
 
     const bracketInlineMatch = line.match(/^\[\s*\\\(([\s\S]+?)\\\)\s*\]$/);
     if (bracketInlineMatch) {
-      return `\\[${cleanupEquation(bracketInlineMatch[1])}\\]`;
+      const cleaned = cleanupEquation(bracketInlineMatch[1]);
+      return isSimpleInlineMath(cleaned) ? `\\(${latexifySnippet(cleaned)}\\)` : `\\[${cleaned}\\]`;
     }
 
     const bracketMathMatch = line.match(/^\[\s*([\s\S]+?)\s*\]$/);
     if (bracketMathMatch && shouldDisplayEquation(bracketMathMatch[1])) {
-      return `\\[${cleanupEquation(bracketMathMatch[1])}\\]`;
+      const cleaned = cleanupEquation(bracketMathMatch[1]);
+      return isSimpleInlineMath(cleaned) ? `\\(${latexifySnippet(cleaned)}\\)` : `\\[${cleaned}\\]`;
     }
 
     const displayMatch = line.match(/^\\\[\s*([\s\S]+?)\s*\\\]$/);
@@ -105,13 +131,14 @@
     const inlineMatch = line.match(/^\\\(\s*([\s\S]+?)\s*\\\)$/);
     if (inlineMatch) {
       const cleaned = cleanupEquation(inlineMatch[1]);
-      return shouldDisplayEquation(cleaned)
+      return shouldDisplayEquation(cleaned) && !isSimpleInlineMath(cleaned)
         ? `\\[${cleaned}\\]`
         : `\\(${cleaned}\\)`;
     }
 
     if (countWords(line) <= 2 && shouldDisplayEquation(line)) {
-      return `\\[${cleanupEquation(line)}\\]`;
+      const cleaned = cleanupEquation(line);
+      return isSimpleInlineMath(cleaned) ? `\\(${latexifySnippet(cleaned)}\\)` : `\\[${cleaned}\\]`;
     }
 
     return line;
@@ -456,6 +483,27 @@
     };
   }
 
+  async function canProfessorValidate() {
+    if (!window.TermoAuth?.getSession) return false;
+
+    try {
+      const [session, config] = await Promise.all([
+        window.TermoAuth.getSession(),
+        window.TermoAuth.fetchConfig ? window.TermoAuth.fetchConfig().catch(function () { return null; }) : Promise.resolve(null)
+      ]);
+      const email = String(session?.user?.email || "").trim().toLowerCase();
+      const validatorEmails = Array.isArray(config?.validatorEmails) && config.validatorEmails.length
+        ? config.validatorEmails.map(function (value) {
+            return String(value || "").trim().toLowerCase();
+          }).filter(Boolean)
+        : DEFAULT_VALIDATOR_EMAILS;
+
+      return Boolean(email && validatorEmails.includes(email));
+    } catch (_error) {
+      return false;
+    }
+  }
+
   function setSaveStatus(host, message, tone) {
     const node = host.querySelector('[data-role="save-status"]');
     if (!node) return;
@@ -475,6 +523,44 @@
     }
   }
 
+  function setValidationStatus(host, message, tone) {
+    const node = host.querySelector('[data-role="validation-status"]');
+    if (!node) return;
+
+    if (!message) {
+      node.hidden = true;
+      node.textContent = "";
+      node.classList.remove("is-success", "is-warning", "is-error");
+      return;
+    }
+
+    node.hidden = false;
+    node.textContent = message;
+    node.classList.remove("is-success", "is-warning", "is-error");
+    if (tone) {
+      node.classList.add(`is-${tone}`);
+    }
+  }
+
+  function setMemoryStatus(host, message, tone) {
+    const node = host.querySelector('[data-role="memory-status"]');
+    if (!node) return;
+
+    if (!message) {
+      node.hidden = true;
+      node.textContent = "";
+      node.classList.remove("is-success", "is-warning");
+      return;
+    }
+
+    node.hidden = false;
+    node.textContent = message;
+    node.classList.remove("is-success", "is-warning");
+    if (tone) {
+      node.classList.add(`is-${tone}`);
+    }
+  }
+
   function buildExerciseRecord(ctx, data, difficultyValue) {
     const chapter = getChapterMeta();
 
@@ -485,6 +571,7 @@
       pageUrl: window.location.href,
       pageTitle: ctx.title || document.title || "Página do curso",
       difficulty: difficultyValue,
+      exerciseCode: data.exerciseId || "",
       exerciseTitle: data.title || "Exercício",
       statement: data.statement || "",
       solution: data.solution || "",
@@ -495,7 +582,7 @@
   async function persistExercise(host, record) {
     if (!window.TermoUserData || typeof window.TermoUserData.saveExercise !== "function") {
       setSaveStatus(host, "", "");
-      return;
+      return { saved: false, reason: "user_data_not_available" };
     }
 
     try {
@@ -503,34 +590,175 @@
 
       if (result.saved) {
         setSaveStatus(host, "Exercício salvo em Meus exercícios.", "success");
-        return;
+        return result;
       }
 
       if (result.reason === "not_authenticated") {
         setSaveStatus(host, "Entre com Google para guardar este exercício em Meus exercícios.", "warning");
-        return;
+        return result;
       }
 
       if (result.reason === "auth_not_configured") {
         setSaveStatus(host, "", "");
-        return;
+        return result;
       }
 
       console.warn("Nao foi possivel salvar o exercicio.", result.error || result.reason);
       setSaveStatus(host, "Nao foi possivel salvar este exercício agora.", "error");
+      return result;
     } catch (error) {
       console.warn("Falha ao salvar o exercicio gerado.", error);
       setSaveStatus(host, "Nao foi possivel salvar este exercício agora.", "error");
+      return { saved: false, reason: "unexpected_error", error };
+    }
+  }
+
+  function syncValidationNoteVisibility(host) {
+    ["statement", "solution"].forEach(function (scope) {
+      const checked = host.querySelector(`input[name="${scope}-validation-${host.dataset.exerciseIdSuffix}"]:checked`);
+      const noteBox = host.querySelector(`[data-role="${scope}-note-box"]`);
+      if (!noteBox) return;
+      const shouldOpen = checked && checked.value === "sim";
+      noteBox.hidden = !shouldOpen;
+    });
+  }
+
+  function resetValidationForm(host) {
+    host.querySelectorAll('[data-role="validation-choice"]').forEach(function (input) {
+      input.checked = false;
+    });
+    host.querySelectorAll('[data-role="validation-note"]').forEach(function (input) {
+      input.value = "";
+    });
+    host.querySelectorAll(".termo-exercise__validation-note-box").forEach(function (box) {
+      box.hidden = true;
+    });
+    setValidationStatus(host, "", "");
+  }
+
+  async function refreshValidationVisibility(host) {
+    const toggle = host.querySelector('[data-role="toggle-validation"]');
+    const panel = host.querySelector('[data-role="validation-panel"]');
+    if (!toggle || !panel) return;
+
+    const state = getHostState(host);
+    const ready = Boolean(state.exercise && state.exercise.statement && state.exercise.solution);
+    state.canValidate = ready;
+    const visible = ready;
+
+    toggle.hidden = !visible;
+    panel.hidden = !visible || panel.hidden;
+    if (!visible) {
+      panel.hidden = true;
+      setValidationStatus(host, "", "");
+    }
+  }
+
+  async function submitValidation(host) {
+    const state = getHostState(host);
+    if (!state.exercise) {
+      setValidationStatus(host, "Gere um exercício antes de validar.", "warning");
+      return;
+    }
+
+    const session = await window.TermoAuth?.getSession?.().catch(function () {
+      return null;
+    });
+    const accessToken = session?.access_token;
+    if (!accessToken) {
+      setValidationStatus(host, "Entre com Google para enviar a validação.", "warning");
+      return;
+    }
+
+    const statementStatus = host.querySelector(`input[name="statement-validation-${host.dataset.exerciseIdSuffix}"]:checked`)?.value || "";
+    const solutionStatus = host.querySelector(`input[name="solution-validation-${host.dataset.exerciseIdSuffix}"]:checked`)?.value || "";
+    const statementNote = (host.querySelector('[data-role="statement-note"]')?.value || "").trim();
+    const solutionNote = (host.querySelector('[data-role="solution-note"]')?.value || "").trim();
+
+    if (!statementStatus || !solutionStatus) {
+      setValidationStatus(host, "Preencha a avaliação do enunciado e da solução.", "warning");
+      return;
+    }
+
+    if (statementStatus === "sim" && !statementNote) {
+      setValidationStatus(host, "Descreva em uma frase o problema do enunciado.", "warning");
+      return;
+    }
+
+    if (solutionStatus === "sim" && !solutionNote) {
+      setValidationStatus(host, "Descreva em uma frase o problema da solução.", "warning");
+      return;
+    }
+
+    const button = host.querySelector('[data-role="submit-validation"]');
+    const ctx = state.exercise.context || getPageContext(host);
+    const chapter = getChapterMeta();
+
+    try {
+      if (button) button.disabled = true;
+      setValidationStatus(host, "Enviando para revisão do professor...", "warning");
+
+      const response = await fetch("/api/exercicio-validacao", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`
+        },
+        body: JSON.stringify({
+          chapterId: chapter.chapterId,
+          itemId: chapter.itemId,
+          exerciseId: state.exercise.exerciseId || "",
+          pagePath: window.location.pathname,
+          pageUrl: window.location.href,
+          pageTitle: ctx.title || document.title || "Página do curso",
+          pageSubtitle: ctx.subtitle || "",
+          pageContent: ctx.content || "",
+          difficulty: state.exercise.difficulty || "medio",
+          savedExerciseId: state.saveResult?.record?.id || "",
+          exerciseTitle: state.exercise.title || "Exercício",
+          statement: state.exercise.statement || "",
+          solution: state.exercise.solution || "",
+          statementStatus,
+          solutionStatus,
+          statementNote,
+          solutionNote,
+          language: "pt-BR"
+        })
+      });
+
+      const payload = await readApiPayload(response);
+      if (!response.ok) {
+        throw new Error(
+          payload?.details?.message ||
+          payload?.details?.error_description ||
+          payload?.details?.error ||
+          payload?.error ||
+          `Erro HTTP ${response.status}`
+        );
+      }
+
+      setValidationStatus(
+        host,
+        payload.summary || "Relato enviado para análise do professor.",
+        "success"
+      );
+    } catch (error) {
+      console.warn("Nao foi possivel enviar a validacao do exercicio.", error);
+      setValidationStatus(host, error && error.message ? error.message : "Nao foi possivel registrar a validação agora.", "error");
+    } finally {
+      if (button) button.disabled = false;
     }
   }
 
   function renderShell(host) {
     const selectId = `termo-exercise-select-${Math.random().toString(36).slice(2, 10)}`;
+    const validationSuffix = Math.random().toString(36).slice(2, 10);
     const title = host.dataset.exerciseTitle || "Exercício";
     const theme = host.dataset.exerciseTheme || "purple";
     const levelLabel = host.dataset.exerciseLevelLabel || "Nível";
 
     host.dataset.exerciseMounted = "true";
+    host.dataset.exerciseIdSuffix = validationSuffix;
     host.classList.add("termo-exercise");
     host.setAttribute("data-exercise-theme", theme);
     host.innerHTML = `
@@ -563,6 +791,7 @@
       </div>
 
       <div class="termo-exercise__save-status" data-role="save-status" hidden></div>
+      <div class="termo-exercise__memory-status" data-role="memory-status" hidden></div>
 
       <div class="termo-exercise__body">
         <div class="termo-exercise__panel termo-exercise__output" data-role="output">
@@ -585,6 +814,75 @@
           </div>
         </div>
       </div>
+
+      <div class="termo-exercise__validation-tools">
+        <button class="termo-exercise__btn termo-exercise__btn--validation" data-role="toggle-validation" type="button" hidden>
+          <i class="fa-solid fa-shield-check"></i>
+          Validação do exercício
+        </button>
+      </div>
+
+      <div class="termo-exercise__validation-panel" data-role="validation-panel" hidden>
+        <div class="termo-exercise__validation-header">
+          <div class="termo-exercise__validation-title">
+            <i class="fa-solid fa-graduation-cap"></i>
+            Relato de validação do exercício
+          </div>
+          <div class="termo-exercise__validation-copy">Marque se o enunciado ou a solução contêm erros. Se marcar <strong>sim</strong>, descreva o problema em uma única frase.</div>
+        </div>
+
+        <div class="termo-exercise__validation-grid">
+          <div class="termo-exercise__validation-group">
+            <div class="termo-exercise__validation-label">Enunciado contém erros?</div>
+            <div class="termo-exercise__validation-options">
+              <label class="termo-exercise__validation-option">
+                <input type="radio" name="statement-validation-${validationSuffix}" value="sim" data-role="validation-choice">
+                <span>Sim</span>
+              </label>
+              <label class="termo-exercise__validation-option">
+                <input type="radio" name="statement-validation-${validationSuffix}" value="nao" data-role="validation-choice">
+                <span>Não</span>
+              </label>
+              <label class="termo-exercise__validation-option">
+                <input type="radio" name="statement-validation-${validationSuffix}" value="nao_sei" data-role="validation-choice">
+                <span>Não sei</span>
+              </label>
+            </div>
+            <div class="termo-exercise__validation-note-box" data-role="statement-note-box" hidden>
+              <textarea class="termo-exercise__validation-note" data-role="statement-note" rows="2" maxlength="220" placeholder="Descreva o erro do enunciado em uma frase."></textarea>
+            </div>
+          </div>
+
+          <div class="termo-exercise__validation-group">
+            <div class="termo-exercise__validation-label">Solução contém erros?</div>
+            <div class="termo-exercise__validation-options">
+              <label class="termo-exercise__validation-option">
+                <input type="radio" name="solution-validation-${validationSuffix}" value="sim" data-role="validation-choice">
+                <span>Sim</span>
+              </label>
+              <label class="termo-exercise__validation-option">
+                <input type="radio" name="solution-validation-${validationSuffix}" value="nao" data-role="validation-choice">
+                <span>Não</span>
+              </label>
+              <label class="termo-exercise__validation-option">
+                <input type="radio" name="solution-validation-${validationSuffix}" value="nao_sei" data-role="validation-choice">
+                <span>Não sei</span>
+              </label>
+            </div>
+            <div class="termo-exercise__validation-note-box" data-role="solution-note-box" hidden>
+              <textarea class="termo-exercise__validation-note" data-role="solution-note" rows="2" maxlength="220" placeholder="Descreva o erro da solução em uma frase."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="termo-exercise__validation-actions">
+          <button class="termo-exercise__btn termo-exercise__btn--validation-submit" data-role="submit-validation" type="button">
+            Enviar validação
+          </button>
+        </div>
+
+        <div class="termo-exercise__validation-status" data-role="validation-status" hidden></div>
+      </div>
     `;
   }
 
@@ -597,13 +895,20 @@
     const solutionPanel = host.querySelector('[data-role="solution-panel"]');
     const outputTitle = host.querySelector('[data-role="output"] .termo-exercise__panel-title');
     const level = host.dataset.exerciseLevel || "graduação em Física";
+    const hostState = getHostState(host);
 
     if (!generateBtn || !toggleBtn || !difficulty || !output || !solution || !solutionPanel || !outputTitle) return;
 
     const ctx = getPageContext(host);
+    const chapter = getChapterMeta();
     generateBtn.disabled = true;
     toggleBtn.disabled = true;
     solutionPanel.style.display = "none";
+    hostState.exercise = null;
+    hostState.saveResult = null;
+    resetValidationForm(host);
+    setMemoryStatus(host, "", "");
+    await refreshValidationVisibility(host);
 
     outputTitle.innerHTML = `
       <i class="fa-solid fa-spinner fa-spin"></i>
@@ -620,6 +925,9 @@
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          chapterId: chapter.chapterId,
+          itemId: chapter.itemId,
+          pagePath: window.location.pathname,
           pageTitle: ctx.title,
           pageSubtitle: ctx.subtitle,
           pageContent: ctx.content,
@@ -642,7 +950,8 @@
 
       outputTitle.innerHTML = `
         <i class="fa-solid fa-circle-question"></i>
-        ${escapeHtml(data.title || "Exercício")}
+        <span class="termo-exercise__generated-title">${escapeHtml(data.title || "Exercício")}</span>
+        ${data.exerciseId ? `<span class="termo-exercise__id-chip">${escapeHtml(data.exerciseId)}</span>` : ""}
       `;
       output.classList.remove("termo-exercise__placeholder");
       output.innerHTML = formatGeneratedText(data.statement || "A API não retornou um enunciado.");
@@ -652,7 +961,26 @@
 
       await typesetMath([output, solution]);
       toggleBtn.disabled = !(data.solution || "").trim();
-      await persistExercise(host, buildExerciseRecord(ctx, data, difficulty.value));
+      hostState.exercise = {
+        title: data.title || "Exercício",
+        exerciseId: data.exerciseId || "",
+        statement: data.statement || "",
+        solution: data.solution || "",
+        difficulty: difficulty.value,
+        context: ctx
+      };
+      hostState.saveResult = await persistExercise(host, buildExerciseRecord(ctx, data, difficulty.value));
+      if (hostState.canValidate && Number(data.validationMemoryCount || 0) > 0) {
+        setMemoryStatus(
+          host,
+          `Esta geração considerou ${Number(data.validationMemoryCount)} correção(ões) já confirmada(s) para este item.`,
+          "success"
+        );
+      } else {
+        setMemoryStatus(host, "", "");
+      }
+      resetValidationForm(host);
+      await refreshValidationVisibility(host);
     } catch (error) {
       outputTitle.innerHTML = `
         <i class="fa-solid fa-triangle-exclamation"></i>
@@ -664,6 +992,11 @@
         <p>Verifique se o projeto está publicado no Vercel, se o arquivo <strong>api/exercicio.js</strong> existe e se a variável <strong>GEMINI_API_KEY</strong> foi configurada.</p>
       `;
       setSaveStatus(host, "", "");
+      setMemoryStatus(host, "", "");
+      hostState.exercise = null;
+      hostState.saveResult = null;
+      resetValidationForm(host);
+      await refreshValidationVisibility(host);
     } finally {
       generateBtn.disabled = false;
     }
@@ -676,6 +1009,9 @@
     const generateBtn = host.querySelector('[data-role="generate"]');
     const toggleBtn = host.querySelector('[data-role="toggle-solution"]');
     const solutionPanel = host.querySelector('[data-role="solution-panel"]');
+    const validationToggle = host.querySelector('[data-role="toggle-validation"]');
+    const validationPanel = host.querySelector('[data-role="validation-panel"]');
+    const validationSubmit = host.querySelector('[data-role="submit-validation"]');
 
     if (generateBtn) {
       generateBtn.addEventListener("click", function () {
@@ -688,6 +1024,32 @@
         solutionPanel.style.display = solutionPanel.style.display === "block" ? "none" : "block";
       });
     }
+
+    host.querySelectorAll('[data-role="validation-choice"]').forEach(function (input) {
+      input.addEventListener("change", function () {
+        syncValidationNoteVisibility(host);
+      });
+    });
+
+    if (validationToggle && validationPanel) {
+      validationToggle.addEventListener("click", function () {
+        validationPanel.hidden = !validationPanel.hidden;
+      });
+    }
+
+    if (validationSubmit) {
+      validationSubmit.addEventListener("click", function () {
+        submitValidation(host);
+      });
+    }
+
+    if (window.TermoUserData?.onAuthStateChange) {
+      window.TermoUserData.onAuthStateChange(function () {
+        void refreshValidationVisibility(host);
+      });
+    }
+
+    void refreshValidationVisibility(host);
   }
 
   function autoMount(root) {
