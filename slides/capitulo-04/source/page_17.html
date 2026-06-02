@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Transições de Fase: Calor Latente e Clausius-Clapeyron</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><style>/* Base Reset */
+* {
+    margin: 0 0;
+    padding: 0 0;
+    box-sizing: border-box
+    }
+body {width: 1280px; height: 720px; overflow: hidden; background-color: #F3F4F6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Inter", sans-serif}
+/* Slide Root */
+.van-der-waals-slide-root {
+    width: 1280px;
+    height: 720px;
+    background-color: #FFF;
+    position: relative;
+    display: flex;
+    flex-direction: column
+    }
+/* Top Navigation Bar */
+.van-der-waals-top-nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 40px;
+    border-bottom: 1px solid #E5E7EB;
+    font-size: 12px;
+    color: #64748B;
+    background-color: #FFF
+    }
+.van-der-waals-nav-left {
+    display: flex;
+    gap: 15px
+    }
+.van-der-waals-nav-right {
+    display: flex;
+    gap: 12px 15px;
+    align-items: center
+    }
+.van-der-waals-page-counter {
+    font-weight: 700;
+    color: #002147
+    }
+/* Title Region */
+.van-der-waals-title-region-container {
+    display: flex;
+    flex-direction: column;
+    margin: 24px 60px 12px 60px;
+    border-left: 6px solid #0056B3;
+    padding-left: 20px
+    }
+.van-der-waals-main-page-title {
+    font-family: "Inter", sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: #002147;
+    margin: 0;
+    text-transform: none;
+    line-height: 1.2
+    }
+.van-der-waals-page-subtitle-breadcrumbs {
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-variant: small-caps;
+    color: #64748B;
+    margin-top: 4px;
+    letter-spacing: 1px
+    }
+/* Main Content Grid */
+.van-der-waals-content-columns-wrapper {
+    display: flex;
+    flex: 1;
+    padding: 0 60px;
+    gap: 16px 20px;
+    align-items: stretch;
+    margin-bottom: 16px
+    }
+/* Card Styles */
+.van-der-waals-info-card-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-color: #FFF;
+    border-radius: 4px;
+    padding: 16px 20px;
+    border-left: 4px solid #002147;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1)
+    }
+.van-der-waals-card-navy {
+    border-left-color: #002147
+    }
+.van-der-waals-card-teal {
+    border-left-color: #0D9488
+    }
+.van-der-waals-card-orange {
+    border-left-color: #EA580C
+    }
+.van-der-waals-card-header-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #002147;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px
+    }
+.van-der-waals-card-body-text {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #1F2937;
+    margin-bottom: 10px
+    }
+.van-der-waals-term-highlight-navy {
+    color: #002147;
+    font-weight: 700
+    }
+.van-der-waals-term-highlight-teal {
+    color: #0D9488;
+    font-weight: 700
+    }
+.van-der-waals-term-highlight-orange {
+    color: #EA580C;
+    font-weight: 700
+    }
+/* Equation Box */
+.van-der-waals-equation-display-box {
+    background-color: #F9FAFB;
+    border: 1px solid #E5E7EB;
+    padding: 10px 12px;
+    margin: 8px 0;
+    text-align: center;
+    border-radius: 4px
+    }
+/* Footer Boxes */
+.van-der-waals-footer-region-container {
+    padding: 0 60px 24px 60px
+    }
+.van-der-waals-reflection-footer-box {
+    background-color: #F0FDFA;
+    border-left: 4px solid #0D9488;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px 15px;
+    border-radius: 4px
+    }
+.van-der-waals-reflection-icon {
+    font-size: 24px
+    }
+.van-der-waals-reflection-text {
+    font-size: 13px;
+    color: #0F766E;
+    line-height: 1.4
+    }
+/* List Items */
+.van-der-waals-bullet-list-container {
+    list-style: none;
+    margin-top: 6px
+    }
+.van-der-waals-bullet-list-item {
+    font-size: 13px;
+    color: #4B5563;
+    margin-bottom: 5px;
+    padding-left: 15px;
+    position: relative
+    }
+.van-der-waals-bullet-list-item::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #0056B3;
+    font-weight: bold
+    }
+html { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="van-der-waals-slide-root" style="overflow: hidden;">
+<!-- Top Navigation Bar -->
+<nav class="van-der-waals-top-nav-bar">
+<div class="van-der-waals-nav-left">
+<span>← Índice</span>
+<span>|</span>
+<span>Capítulo 5 · Item 5.1.7</span>
+</div>
+<div class="van-der-waals-nav-right">
+<span>Salvar progresso</span>
+<span>|</span>
+<span>Enviar</span>
+<span>|</span>
+<span>☆</span>
+<span class="van-der-waals-page-counter">17 / 22</span>
+</div>
+</nav>
+<!-- Title Region -->
+<div class="van-der-waals-title-region-container">
+<h1 class="van-der-waals-main-page-title">Calor Latente e Equação de Clausius-Clapeyron</h1>
+<p class="van-der-waals-page-subtitle-breadcrumbs">
+                Equilíbrio de Fases · Coexistência Líquido-Vapor · Relações de Maxwell
+            </p>
+</div>
+<!-- Main Content -->
+<div class="van-der-waals-content-columns-wrapper">
+<!-- Column 1: Equilibrium Conditions -->
+<div class="van-der-waals-info-card-column van-der-waals-card-navy">
+<div class="van-der-waals-card-header-title">⚖️ Condição de Equilíbrio</div>
+<p class="van-der-waals-card-body-text">
+                    Na linha de coexistência, as energias livres de Gibbs reduzidas devem ser iguais: <span class="van-der-waals-term-highlight-navy">g<sub>g</sub> = g<sub>ℓ</sub></span>. Para variações infinitesimais ao longo da curva:
+                </p>
+<div class="van-der-waals-equation-display-box">
+                    \[ dg_{\ell} = dg_{g} \]
+                </div>
+<p class="van-der-waals-card-body-text">
+                    Utilizando a diferencial <span class="van-der-waals-term-highlight-navy">dg = -s dt + Z_c v dp</span>, obtemos a relação fundamental entre entropia e volume:
+                </p>
+<div class="van-der-waals-equation-display-box">
+                    \[ (s_g - s_\ell) dt = Z_c (v_g - v_\ell) dp \]
+                </div>
+</div>
+<!-- Column 2: Latent Heat Definition -->
+<div class="van-der-waals-info-card-column van-der-waals-card-teal">
+<div class="van-der-waals-card-header-title">🌡️ Calor Latente Molar</div>
+<p class="van-der-waals-card-body-text">
+                    O <span class="van-der-waals-term-highlight-teal">calor latente reduzido</span> é a energia absorvida ou liberada durante a mudança de fase a temperatura constante:
+                </p>
+<div class="van-der-waals-equation-display-box">
+                    \[ \Delta\bar{\ell}^{molar} = t(s_g - s_\ell) \]
+                </div>
+<p class="van-der-waals-card-body-text">
+                    Esta grandeza adimensional relaciona-se ao calor latente molar real (\(\Delta L^{molar}\)) através da temperatura crítica:
+                </p>
+<div class="van-der-waals-equation-display-box">
+                    \[ \Delta\bar{\ell}^{molar} = \frac{\Delta L^{molar}}{RT_c} \]
+                </div>
+</div>
+<!-- Column 3: Clausius-Clapeyron Relation -->
+<div class="van-der-waals-info-card-column van-der-waals-card-orange">
+<div class="van-der-waals-card-header-title">📐 Clausius-Clapeyron</div>
+<p class="van-der-waals-card-body-text">
+                    Combinando as expressões anteriores, derivamos a <span class="van-der-waals-term-highlight-orange">equação de Clausius-Clapeyron</span> em variáveis reduzidas:
+                </p>
+<div class="van-der-waals-equation-display-box">
+                    \[ \frac{dp}{dt} = \frac{\Delta\bar{\ell}^{molar}}{Z_c t (v_g - v_\ell)} \]
+                </div>
+<ul class="van-der-waals-bullet-list-container">
+<li class="van-der-waals-bullet-list-item"><b>dp/dt</b>: Inclinação da curva de coexistência.</li>
+<li class="van-der-waals-bullet-list-item"><b>Numerador</b>: Energia de reorganização.</li>
+<li class="van-der-waals-bullet-list-item"><b>Denominador</b>: Diferença de volume molar.</li>
+</ul>
+</div>
+</div>
+<!-- Footer Reflection Box -->
+<div class="van-der-waals-footer-region-container">
+<div class="van-der-waals-reflection-footer-box">
+<div class="van-der-waals-reflection-icon">💡</div>
+<div class="van-der-waals-reflection-text">
+<strong>Para Reflexão:</strong> O que ocorre com a transição de fase quando nos aproximamos do <strong>ponto crítico</strong>? Observe que conforme \(t \to 1\), os volumes \(v_g\) e \(v_\ell\) convergem e o calor latente \(\Delta L\) tende a zero, fazendo com que a descontinuidade da transição desapareça continuamente.
+                </div>
+</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Energia Livre de Helmholtz e Gibbs</title>
+
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/>
+
+<script>
+window.va = window.va || function () {
+  (window.vaq = window.vaq || []).push(arguments);
+};
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)'], ['$', '$']], displayMath: [['\\[','\\]']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<link href="../../assets/chapter-embedded-slide.css" rel="stylesheet"/>
+<style id="cap4-flatten-slide-boxes">
+.page--capitulo-04 .content-root {
+  gap: 18px !important;
+}
+
+.page--capitulo-04 .source-fragment {
+  padding: 0 !important;
+  border-top: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.page--capitulo-04 .source-embed {
+  display: block !important;
+  justify-content: initial !important;
+  align-items: stretch !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: visible !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.page--capitulo-04 .source-embed > div,
+.page--capitulo-04 .source-embed [class*="slide-root"],
+.page--capitulo-04 .source-embed [class*="root-container"],
+.page--capitulo-04 .source-embed [class*="slide-container"],
+.page--capitulo-04 .source-embed [class*="slide-canvas"],
+.page--capitulo-04 .source-embed [class*="slide-main"] {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  overflow: visible !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.page--capitulo-04 .source-embed > div[style*="overflow: hidden"],
+.page--capitulo-04 .source-embed [style*="overflow: hidden"] {
+  overflow: visible !important;
+}
+
+.page--capitulo-04 .source-embed [class*="content-columns"],
+.page--capitulo-04 .source-embed [class*="content-grid"],
+.page--capitulo-04 .source-embed [class*="content-layout"],
+.page--capitulo-04 .source-embed [class*="main-content"],
+.page--capitulo-04 .source-embed [class*="columns-container"] {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.page--capitulo-04 .source-embed [class*="info-card"],
+.page--capitulo-04 .source-embed [class*="card-block"],
+.page--capitulo-04 .source-embed [class*="card-item"],
+.page--capitulo-04 .source-embed [class*="column-card"],
+.page--capitulo-04 .source-embed [class*="reflection"],
+.page--capitulo-04 .source-embed [class*="equation"] {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 760px) {
+  .page--capitulo-04 .source-embed [class*="content-columns"],
+  .page--capitulo-04 .source-embed [class*="content-grid"],
+  .page--capitulo-04 .source-embed [class*="content-layout"],
+  .page--capitulo-04 .source-embed [class*="columns-container"],
+  .page--capitulo-04 .source-embed [class*="main-content"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+</style>
+<link href="../../assets/ai-exercises.css" rel="stylesheet"/>
+<script defer src="../../assets/ai-exercises.js"></script>
+<link rel="stylesheet" href="../../assets/termo-share.css">
+<script defer src="../../assets/termo-share.js"></script>
+<link rel="stylesheet" href="../../assets/termo-auth.css">
+<script defer src="../../assets/termo-auth.js"></script>
+<script defer src="../../assets/termo-user-data.js"></script>
+</head>
+<body>
+<div class="page page--capitulo-04">
+  <section class="hero">
+    <div class="hero-inner">
+      <a href="../../index.html?chapter=04" class="index-back-button">
+        <i class="fa-solid fa-arrow-left"></i>
+        Índice
+      </a>
+      <div class="chapter-label">
+        <i class="fa-solid fa-layer-group"></i>
+        Capítulo 4 · Item 4.6
+      </div>
+      <h1 class="chapter-title">Energia Livre de Helmholtz e Gibbs</h1>
+      <div class="chapter-text">
+        <p>Critérios de estabilidade e coexistência de fases a partir das energias livres de Helmholtz e Gibbs.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="content-root">
+    
+  <section class="source-fragment" data-source-page="page_11.html">
+    <style>.source-embed.page-11 *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box
+    }.source-embed.page-11{width: 1280px; height: 720px; overflow: hidden; font-family: "Inter", sans-serif;
+    background-color: #FFF;
+    color: #1F2937}.source-embed.page-11 .slide-root-container{
+    width: 1280px;
+    height: 720px;
+    display: flex;
+    flex-direction: column;
+    position: relative
+    }.source-embed.page-11 /* Top Navigation Bar */
+.top-nav-bar-wrapper{
+    width: 100%;
+    padding: 12px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #E5E7EB;
+    font-size: 12px;
+    color: #64748B
+    }.source-embed.page-11 .nav-left-section{
+    display: flex;
+    gap: 20px
+    }.source-embed.page-11 .nav-right-section{
+    display: flex;
+    gap: 20px;
+    align-items: center
+    }.source-embed.page-11 .page-counter-display{
+    font-weight: 700;
+    color: #002147
+    }.source-embed.page-11 /* Title Region */
+.title-region-container{
+    display: flex;
+    flex-direction: column;
+    margin: 40px 60px 20px 60px;
+    border-left: 6px solid #0056B3;
+    padding-left: 20px
+    }.source-embed.page-11 .title-main-heading{
+    font-size: 32px;
+    font-weight: 800;
+    color: #002147;
+    margin: 0;
+    text-transform: none;
+    line-height: 1.2
+    }.source-embed.page-11 .title-subtitle-breadcrumbs{
+    font-size: 14px;
+    font-variant: small-caps;
+    color: #64748B;
+    margin-top: 4px;
+    letter-spacing: 1px
+    }.source-embed.page-11 /* Main Content Layout - 3 Columns */
+.main-content-columns-wrapper{
+    display: flex;
+    flex: 1;
+    padding: 0 60px 20px 60px;
+    gap: 20px;
+    align-items: stretch
+    }.source-embed.page-11 .content-column-item{
+    flex: 1;
+    display: flex;
+    flex-direction: column
+    }.source-embed.page-11 .card-module-container{
+    flex: 1;
+    background-color: #FFF;
+    padding: 20px;
+    border-left: 4px solid;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column
+    }.source-embed.page-11 .card-title-header{
+    font-size: 18px;
+    font-weight: 700;
+    color: #002147;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px
+    }.source-embed.page-11 .card-body-text{
+    font-size: 14px;
+    line-height: 1.6;
+    color: #1F2937
+    }.source-embed.page-11 .equation-box-display{
+    background-color: #F5F5F5;
+    border: 1px solid #E5E7EB;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center
+    }.source-embed.page-11 .term-highlight-navy{
+    color: #002147;
+    font-weight: 700
+    }.source-embed.page-11 .term-highlight-teal{
+    color: #0D9488;
+    font-weight: 700
+    }.source-embed.page-11 .term-highlight-purple{
+    color: #6A0DAD;
+    font-weight: 700
+    }.source-embed.page-11 /* Footer Boxes */
+.footer-boxes-row-wrapper{
+    padding: 0 60px 30px 60px;
+    display: flex;
+    gap: 20px
+    }.source-embed.page-11 .reflection-box-container{
+    flex: 1;
+    background-color: #F0F9FF;
+    border-left: 4px solid #0056B3;
+    padding: 15px 20px;
+    border-radius: 0 4px 4px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px
+    }.source-embed.page-11 .reflection-icon{
+    color: #0056B3;
+    font-size: 20px;
+    margin-top: 2px
+    }.source-embed.page-11 .reflection-content{
+    font-size: 13px;
+    line-height: 1.4;
+    color: #1E40AF
+    }.source-embed.page-11 .reflection-content strong{
+    display: block;
+    margin-bottom: 4px;
+    font-size: 14px
+    }.source-embed.page-11 /* Specific Column Border Colors */
+.column-left-navy{
+    border-left-color: #002147
+    }.source-embed.page-11 .column-middle-teal{
+    border-left-color: #0D9488
+    }.source-embed.page-11 .column-right-purple{
+    border-left-color: #6A0DAD
+    }.source-embed.page-11 ul.card-list-bullets{
+    list-style: none;
+    margin-top: 10px
+    }.source-embed.page-11 ul.card-list-bullets li{
+    margin-bottom: 8px;
+    padding-left: 15px;
+    position: relative
+    }.source-embed.page-11 ul.card-list-bullets li::before{
+    content: "•";
+    color: #0056B3;
+    font-weight: bold;
+    position: absolute;
+    left: 0
+    }.source-embed.page-11{ overflow: hidden; }
+
+
+.source-embed.page-11,
+.source-embed.page-11 > div,
+.source-embed.page-11 [class$="slide-root"],
+.source-embed.page-11 [class*="slide-root"],
+.source-embed.page-11 [class*="slide-container"],
+.source-embed.page-11 [class*="slide-canvas"] {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+  box-sizing: border-box !important;
+}
+.source-embed.page-11 {
+  display: block !important;
+  background: transparent !important;
+}
+.source-embed.page-11 [class*="top-nav"],
+.source-embed.page-11 [class*="top-navigation"],
+.source-embed.page-11 [class*="navbar"],
+.source-embed.page-11 [class*="nav-bar"],
+.source-embed.page-11 [class*="navigation-bar"],
+.source-embed.page-11 [class*="page-counter"],
+.source-embed.page-11 [class*="slide-counter"],
+.source-embed.page-11 [class*="progress"] {
+  display: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+}
+.source-embed.page-11 [class*="title-region"],
+.source-embed.page-11 [class*="title-section"],
+.source-embed.page-11 [class*="title-header"] {
+  display: none !important;
+}
+.source-embed.page-11 img,
+.source-embed.page-11 svg,
+.source-embed.page-11 canvas,
+.source-embed.page-11 video {
+  max-width: 100% !important;
+  height: auto !important;
+}
+.source-embed.page-11 table {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+.source-embed.page-11 mjx-container[jax="SVG"] svg {
+  max-width: 100% !important;
+}
+@media (max-width: 980px) {
+  .source-embed.page-11 [class*="content-layout"],
+  .source-embed.page-11 [class*="content-area"],
+  .source-embed.page-11 [class*="content-grid"],
+  .source-embed.page-11 [class*="main-content"],
+  .source-embed.page-11 [class*="two-column"],
+  .source-embed.page-11 [class*="columns"],
+  .source-embed.page-11 [class*="column-layout"],
+  .source-embed.page-11 [class*="comparison"],
+  .source-embed.page-11 [class*="cards-row"],
+  .source-embed.page-11 [class*="card-row"] {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .source-embed.page-11 [class*="left-column"],
+  .source-embed.page-11 [class*="right-column"],
+  .source-embed.page-11 [class*="column"],
+  .source-embed.page-11 [class*="panel"],
+  .source-embed.page-11 [class*="card"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 1 1 auto !important;
+  }
+}
+@media (max-width: 700px) {
+  .source-embed.page-11 > div,
+  .source-embed.page-11 [class*="slide-root"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  .source-embed.page-11 [class*="content-layout"],
+  .source-embed.page-11 [class*="content-area"],
+  .source-embed.page-11 [class*="content-grid"],
+  .source-embed.page-11 [class*="main-content"] {
+    padding: 0 !important;
+    gap: 14px !important;
+  }
+  .source-embed.page-11 [class*="formula"],
+  .source-embed.page-11 [class*="equation"],
+  .source-embed.page-11 [class*="math"],
+  .source-embed.page-11 [class*="table"] {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+  }
+}</style>
+    <div class="source-embed page-11">
+<div class="slide-root-container" style="overflow: hidden;">
+
+
+<!-- Title Section -->
+
+<!-- Main Content Columns -->
+<div class="main-content-columns-wrapper">
+<!-- Column 1: Derivação -->
+<div class="content-column-item">
+<div class="card-module-container column-left-navy">
+
+<div class="card-body-text">
+                        A energia livre de Helmholtz é o <span class="term-highlight-navy">potencial termodinâmico</span> natural para o conjunto canônico. Partindo da relação diferencial fundamental:
+                        
+                        <div class="equation-box-display">
+                            \[ df = -s\,dt - p\,dv \]
+                        </div>
+                        
+                        Para uma isoterma (\(dt = 0\)), a função é obtida integrando a pressão em relação ao volume reduzido:
+                        
+                        <div class="equation-box-display">
+                            \[ f(t,v) = -\int p(t,v) \, dv + c(t) \]
+                        </div>
+                        
+                        Onde \(c(t)\) é uma constante de integração que depende apenas da temperatura.
+                    </div>
+</div>
+</div>
+<!-- Column 2: Expressão de Van der Waals -->
+<div class="content-column-item">
+<div class="card-module-container column-middle-teal">
+
+<div class="card-body-text">
+                        Substituindo a equação de estado de van der Waals em variáveis reduzidas, obtemos a <span class="term-highlight-teal">forma integrada</span>:
+                        
+                        <div class="equation-box-display">
+                            \[ f(t,v) = -t\ln\left(v - \frac{1}{3}\right) - \frac{3Z_c}{v} + c(t) \]
+                        </div>
+                        
+                        Onde o fator de compressibilidade crítico é:
+                        
+                        <div class="equation-box-display">
+                            \[ Z_c = \frac{P_c V_c}{nRT_c} = \frac{3}{8} \]
+                        </div>
+                        
+                        O primeiro termo representa a <span class="term-highlight-teal">entropia configuracional</span> (volume excluído) e o segundo a energia de <span class="term-highlight-teal">atração intermolecular</span>.
+                    </div>
+</div>
+</div>
+<!-- Column 3: Estabilidade e Pressão -->
+<div class="content-column-item">
+<div class="card-module-container column-right-purple">
+
+<div class="card-body-text">
+                        A função \(f(t,v)\) é essencial para descrever a <span class="term-highlight-purple">estabilidade mecânica</span> do sistema. A pressão é recuperada via:
+                        
+                        <div class="equation-box-display">
+                            \[ p = -\left.\frac{\partial f}{\partial v}\right|_t \]
+                        </div>
+<ul class="card-list-bullets">
+<li><strong>Convexiade:</strong> Para estabilidade global, \(f\) deve ser uma função convexa de \(v\).</li>
+<li><strong>Instabilidade:</strong> Regiões onde \(\partial^2 f / \partial v^2 &lt; 0\) correspondem a estados mecanicamente instáveis (\(\kappa_T &lt; 0\)).</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Reflection Box -->
+<div class="footer-boxes-row-wrapper">
+<div class="reflection-box-container" style="visibility: hidden;">
+<i class="fa-solid fa-lightbulb reflection-icon"></i>
+<div class="reflection-content">
+<strong>Para Reflexão: Divergência no Volume Excluído</strong>
+                    Por que o termo logarítmico \(-t \ln(v - 1/3)\) diverge quando o volume reduzido se aproxima do limite \(v = 1/3\)? O que essa barreira assintótica nos diz sobre a compressibilidade física de um líquido real em comparação ao modelo de gás ideal?
+                </div>
+</div>
+</div>
+</div>
+    </div>
+  </section>
+
+  <section class="source-fragment" data-source-page="page_12.html">
+    <style>.source-embed.page-12{width: 1280px; height: 720px; overflow: hidden; background-color: #F3F4F6;
+    font-family: "Inter", sans-serif}.source-embed.page-12 .gibbs-slide-root-container{
+    width: 1280px;
+    height: 720px;
+    background-color: #FFF;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-sizing: border-box
+    }.source-embed.page-12 /* Top Navigation Bar */
+.gibbs-top-navigation-bar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 60px;
+    border-bottom: 1px solid #E5E7EB;
+    font-size: 12px;
+    color: #64748B;
+    font-weight: 500
+    }.source-embed.page-12 .gibbs-nav-left-links{
+    display: flex;
+    gap: 20px
+    }.source-embed.page-12 .gibbs-page-counter-display{
+    font-weight: 700;
+    color: #002147
+    }.source-embed.page-12 /* Title Region */
+.gibbs-title-region-wrapper{
+    display: flex;
+    flex-direction: column;
+    margin: 40px 60px 20px 60px;
+    border-left: 6px solid #0056B3;
+    padding-left: 20px
+    }.source-embed.page-12 .gibbs-main-title-text{
+    font-size: 32px;
+    font-weight: 800;
+    color: #002147;
+    margin: 0;
+    text-transform: none
+    }.source-embed.page-12 .gibbs-subtitle-breadcrumb-text{
+    font-size: 14px;
+    font-variant: small-caps;
+    color: #64748B;
+    margin-top: 4px;
+    letter-spacing: 1px
+    }.source-embed.page-12 /* Main Content Grid */
+.gibbs-content-columns-wrapper{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    padding: 0 60px;
+    flex: 1;
+    align-items: stretch;
+    margin-bottom: 20px
+    }.source-embed.page-12 .gibbs-column-container{
+    flex: 1;
+    display: flex;
+    flex-direction: column
+    }.source-embed.page-12 .gibbs-card-item-box{
+    flex: 1;
+    background-color: #FFF;
+    border-left: 4px solid #002147;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1)
+    }.source-embed.page-12 .gibbs-card-title-header{
+    font-size: 18px;
+    font-weight: 700;
+    color: #002147;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px
+    }.source-embed.page-12 .gibbs-card-body-text{
+    font-size: 14px;
+    line-height: 1.5;
+    color: #1F2937;
+    margin: 0
+    }.source-embed.page-12 .gibbs-card-body-text strong{
+    font-weight: 700
+    }.source-embed.page-12 .gibbs-card-body-text .highlight-navy{
+    color: #002147
+    }.source-embed.page-12 .gibbs-card-body-text .highlight-teal{
+    color: #0D9488
+    }.source-embed.page-12 .gibbs-card-body-text .highlight-orange{
+    color: #EA580C
+    }.source-embed.page-12 /* Equation Box */
+.gibbs-equation-display-box{
+    background-color: #F5F5F5;
+    border: 1px solid #E5E7EB;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center
+    }.source-embed.page-12 /* Footer Boxes */
+.gibbs-footer-reflection-container{
+    margin: 0 60px 40px 60px;
+    background-color: #F0FDFA;
+    border: 1px solid #CCFBF1;
+    padding: 15px 25px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 20px
+    }.source-embed.page-12 .gibbs-reflection-icon-circle{
+    background-color: #0D9488;
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0
+    }.source-embed.page-12 .gibbs-reflection-text-content{
+    font-size: 13px;
+    color: #0F766E;
+    line-height: 1.4;
+    margin: 0
+    }.source-embed.page-12 /* Specific Card Border Colors */
+.border-navy{
+    border-left-color: #002147
+    }.source-embed.page-12 .border-teal{
+    border-left-color: #0D9488
+    }.source-embed.page-12 .border-orange{
+    border-left-color: #EA580C
+    }.source-embed.page-12 .gibbs-bullet-list{
+    padding-left: 0;
+    margin: 10px 0;
+    list-style: none
+    }.source-embed.page-12 .gibbs-bullet-item{
+    margin-bottom: 8px;
+    position: relative;
+    padding-left: 15px
+    }.source-embed.page-12 .gibbs-bullet-item::before{
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #9CA3AF
+    }.source-embed.page-12{ overflow: hidden; }
+
+
+.source-embed.page-12,
+.source-embed.page-12 > div,
+.source-embed.page-12 [class$="slide-root"],
+.source-embed.page-12 [class*="slide-root"],
+.source-embed.page-12 [class*="slide-container"],
+.source-embed.page-12 [class*="slide-canvas"] {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+  box-sizing: border-box !important;
+}
+.source-embed.page-12 {
+  display: block !important;
+  background: transparent !important;
+}
+.source-embed.page-12 [class*="top-nav"],
+.source-embed.page-12 [class*="top-navigation"],
+.source-embed.page-12 [class*="navbar"],
+.source-embed.page-12 [class*="nav-bar"],
+.source-embed.page-12 [class*="navigation-bar"],
+.source-embed.page-12 [class*="page-counter"],
+.source-embed.page-12 [class*="slide-counter"],
+.source-embed.page-12 [class*="progress"] {
+  display: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+}
+.source-embed.page-12 [class*="title-region"],
+.source-embed.page-12 [class*="title-section"],
+.source-embed.page-12 [class*="title-header"] {
+  display: none !important;
+}
+.source-embed.page-12 img,
+.source-embed.page-12 svg,
+.source-embed.page-12 canvas,
+.source-embed.page-12 video {
+  max-width: 100% !important;
+  height: auto !important;
+}
+.source-embed.page-12 table {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+.source-embed.page-12 mjx-container[jax="SVG"] svg {
+  max-width: 100% !important;
+}
+@media (max-width: 980px) {
+  .source-embed.page-12 [class*="content-layout"],
+  .source-embed.page-12 [class*="content-area"],
+  .source-embed.page-12 [class*="content-grid"],
+  .source-embed.page-12 [class*="main-content"],
+  .source-embed.page-12 [class*="two-column"],
+  .source-embed.page-12 [class*="columns"],
+  .source-embed.page-12 [class*="column-layout"],
+  .source-embed.page-12 [class*="comparison"],
+  .source-embed.page-12 [class*="cards-row"],
+  .source-embed.page-12 [class*="card-row"] {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .source-embed.page-12 [class*="left-column"],
+  .source-embed.page-12 [class*="right-column"],
+  .source-embed.page-12 [class*="column"],
+  .source-embed.page-12 [class*="panel"],
+  .source-embed.page-12 [class*="card"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 1 1 auto !important;
+  }
+}
+@media (max-width: 700px) {
+  .source-embed.page-12 > div,
+  .source-embed.page-12 [class*="slide-root"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  .source-embed.page-12 [class*="content-layout"],
+  .source-embed.page-12 [class*="content-area"],
+  .source-embed.page-12 [class*="content-grid"],
+  .source-embed.page-12 [class*="main-content"] {
+    padding: 0 !important;
+    gap: 14px !important;
+  }
+  .source-embed.page-12 [class*="formula"],
+  .source-embed.page-12 [class*="equation"],
+  .source-embed.page-12 [class*="math"],
+  .source-embed.page-12 [class*="table"] {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+  }
+}</style>
+    <div class="source-embed page-12">
+<div class="gibbs-slide-root-container" style="overflow: hidden;">
+<!-- Top Navigation -->
+
+<!-- Title Region -->
+
+<!-- Main Content Layout -->
+<main class="gibbs-content-columns-wrapper">
+<!-- Column 1: A Função de Gibbs Reduzida -->
+<div class="gibbs-column-container">
+<section class="gibbs-card-item-box border-navy">
+<h2 class="gibbs-card-title-header"><i class="fa-solid fa-bolt"></i> ⚡ Potencial de Gibbs</h2>
+<div class="gibbs-card-body-text">
+                        A energia livre de Gibbs reduzida \( g(t,p) \) é obtida a partir da energia de Helmholtz \( f(t,v) \) através da transformada de Legendre:
+                        <div class="gibbs-equation-display-box">
+                            \[ g(t,p) = -t\ln\left(v - \frac{1}{3}\right) + Z_c\left(pv - \frac{3}{v}\right) + c(t) \]
+                        </div>
+                        Onde o volume reduzido \( v \) é determinado implicitamente pela pressão \( p \) e temperatura \( t \) via <strong>equação de estado</strong>.
+                    </div>
+</section>
+</div>
+<!-- Column 2: Critério de Estabilidade -->
+<div class="gibbs-column-container">
+<section class="gibbs-card-item-box border-teal">
+<h2 class="gibbs-card-title-header"><i class="fa-solid fa-weight-scale"></i> ⚖️ Estabilidade Global</h2>
+<div class="gibbs-card-body-text">
+                        Para um sistema em contato com reservatórios de <span class="highlight-teal"><strong>temperatura</strong></span> e <span class="highlight-teal"><strong>pressão</strong></span>, o estado de equilíbrio estável é o que minimiza a energia livre de Gibbs:
+                        <ul class="gibbs-bullet-list">
+<li class="gibbs-bullet-item"><strong>Fase Gasosa:</strong> Único mínimo em volumes grandes para baixas pressões.</li>
+<li class="gibbs-bullet-item"><strong>Fase Líquida:</strong> Único mínimo em volumes pequenos para altas pressões.</li>
+<li class="gibbs-bullet-item"><strong>Metaestabilidade:</strong> Surgimento de mínimos secundários locais.</li>
+</ul>
+</div>
+</section>
+</div>
+<!-- Column 3: Equilíbrio e Coexistência -->
+<div class="gibbs-column-container">
+<section class="gibbs-card-item-box border-orange">
+<h2 class="gibbs-card-title-header"><i class="fa-solid fa-star"></i> 🔄 Ponto de Coexistência</h2>
+<div class="gibbs-card-body-text">
+                        A transição de fase ocorre na pressão de equilíbrio <span class="highlight-orange"><strong>\( p_{eq} \)</strong></span>, onde os dois mínimos da energia de Gibbs tornam-se <strong>degenerados</strong>:
+                        <div class="gibbs-equation-display-box">
+                            \[ g(t, v_\ell) = g(t, v_g) \]
+                        </div>
+                        Neste ponto, as fases líquida (\( v_\ell \)) e gasosa (\( v_g \)) possuem o mesmo potencial químico e podem coexistir em equilíbrio térmico, mecânico e químico.
+                    </div>
+</section>
+</div>
+</main>
+<!-- Footer Reflection Box -->
+<footer class="gibbs-footer-reflection-container">
+<div class="gibbs-reflection-icon-circle">
+<i class="fa-solid fa-lightbulb"></i>
+</div>
+<p class="gibbs-reflection-text-content">
+<strong>Para Reflexão:</strong> Observe que a transição de fase é um processo de <strong>primeira ordem</strong>, caracterizado por uma descontinuidade na primeira derivada da energia de Gibbs (o volume \( v \)) em relação à pressão no ponto de equilíbrio. Como isso se relaciona com a conservação da energia livre total?
+            </p>
+</footer>
+</div>
+    </div>
+  </section>
+  </div>
+
+  <section data-termo-ai-exercise data-exercise-theme="purple"></section>
+</div>
+<script src="../../assets/chapter-embedded-slide.js"></script>
+</body>
+</html>

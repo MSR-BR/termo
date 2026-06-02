@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Capítulo 5 — Transições de Fase: Gás de Van der Waals</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><style>/* Base Reset */
+* {
+    margin: 0 0;
+    padding: 0 0;
+    box-sizing: border-box
+    }
+body {width: 1280px; height: 720px; overflow: hidden; background-color: #F3F4F6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Inter", sans-serif}
+/* Slide Root */
+.termodinamica-presentation-slide-root {
+    width: 1280px;
+    height: 720px;
+    background-color: #FFF;
+    display: flex;
+    flex-direction: column;
+    position: relative
+    }
+/* Top Navigation Bar */
+.termodinamica-top-navigation-bar-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    height: 48px;
+    border-bottom: 1px solid #E5E7EB;
+    color: #4B5563;
+    font-size: 13px
+    }
+.termodinamica-nav-links-left {
+    display: flex;
+    gap: 16px 20px
+    }
+.termodinamica-nav-links-right {
+    display: flex;
+    gap: 16px 20px;
+    font-weight: 600
+    }
+.termodinamica-page-counter-indicator {
+    color: #9CA3AF
+    }
+/* Main Content Layout */
+.termodinamica-cover-content-layout-container {
+    flex: 1;
+    display: flex;
+    padding: 38px 80px;
+    gap: 38px 60px;
+    align-items: center
+    }
+/* Left Content Section */
+.termodinamica-left-text-content-column {
+    flex: 3;
+    display: flex;
+    flex-direction: column
+    }
+.termodinamica-title-section-container {
+    border-left: 8px solid #0056B3;
+    padding-left: 32px;
+    margin-bottom: 32px
+    }
+.termodinamica-main-cover-title {
+    font-size: 56px;
+    font-weight: 800;
+    line-height: 1.1;
+    color: #002147;
+    margin-bottom: 16px
+    }
+.termodinamica-breadcrumb-subtitle-text {
+    font-size: 16px;
+    font-variant: small-caps;
+    color: #64748B;
+    letter-spacing: 2px;
+    font-weight: 600
+    }
+.termodinamica-course-info-description {
+    font-size: 18px;
+    color: #4B5563;
+    line-height: 1.6;
+    margin-bottom: 38px;
+    max-width: 600px
+    }
+.termodinamica-academic-metadata-box {
+    display: flex;
+    flex-direction: column;
+    gap: 6px 8px
+    }
+.termodinamica-metadata-item-label {
+    font-size: 14px;
+    color: #9CA3AF;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600
+    }
+.termodinamica-metadata-item-value {
+    font-size: 16px;
+    color: #002147;
+    font-weight: 700
+    }
+/* Right Image Section */
+.termodinamica-right-image-display-column {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center
+    }
+.termodinamica-cover-image-frame-container {
+    width: 100%;
+    height: 456px;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    border: 1px solid #E5E7EB
+    }
+.termodinamica-cover-image-frame-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover
+    }
+/* Bottom Footer Bar */
+.termodinamica-bottom-footer-bar-container {
+    height: 60px;
+    margin: 0 80px 26px 80px;
+    background-color: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    padding: 0 24px
+    }
+.termodinamica-footer-reflection-label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #0D9488;
+    margin-right: 16px;
+    text-transform: uppercase
+    }
+.termodinamica-footer-reflection-content {
+    font-size: 14px;
+    color: #475569;
+    font-weight: 400
+    }
+html { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="termodinamica-presentation-slide-root" style="overflow: hidden;">
+<!-- Barra de Navegação Superior -->
+<nav class="termodinamica-top-navigation-bar-wrapper">
+<div class="termodinamica-nav-links-left">
+<span>← Índice</span>
+<span>|</span>
+<span>Capítulo 5 · Transições de Fase</span>
+</div>
+<div class="termodinamica-nav-links-right">
+<span>Salvar progresso</span>
+<span>Enviar</span>
+<span>☆</span>
+<span class="termodinamica-page-counter-indicator">1 / 22</span>
+</div>
+</nav>
+<!-- Conteúdo Principal da Capa -->
+<main class="termodinamica-cover-content-layout-container">
+<!-- Coluna de Texto -->
+<section class="termodinamica-left-text-content-column">
+<div class="termodinamica-title-section-container">
+<h1 class="termodinamica-main-cover-title">
+                        Capítulo 5 — Transições de Fase: Gás de Van der Waals
+                    </h1>
+<p class="termodinamica-breadcrumb-subtitle-text">
+                        Equação de Estado · Ponto Crítico · Construção de Maxwell · Relações de Coexistência
+                    </p>
+</div>
+<p class="termodinamica-course-info-description">
+                    Uma análise rigorosa das limitações do gás ideal e da física das transições líquido-gás através do modelo fenomenológico de Van der Waals.
+                </p>
+<div class="termodinamica-academic-metadata-box">
+<span class="termodinamica-metadata-item-label">Disciplina</span>
+<span class="termodinamica-metadata-item-value">Termodinâmica e Física Estatística</span>
+<div style="height: 16px;"></div>
+<span class="termodinamica-metadata-item-label">Nível</span>
+<span class="termodinamica-metadata-item-value">Bacharelado em Física</span>
+</div>
+</section>
+<!-- Coluna de Imagem -->
+<section class="termodinamica-right-image-display-column">
+<div class="termodinamica-cover-image-frame-container">
+<img alt="Célula científica no ponto crítico" src="https://agents-download.skywork.ai/image/ppt/7466201713444298753/edf143d51e13449c8f9ec8f4fee3bff7.png"/>
+</div>
+</section>
+</main>
+<!-- Rodapé para Reflexão -->
+<footer class="termodinamica-bottom-footer-bar-container">
+<span class="termodinamica-footer-reflection-label">Para Reflexão:</span>
+<p class="termodinamica-footer-reflection-content">
+                Como as interações microscópicas atrativas e o volume finito das moléculas alteram a estabilidade macroscópica de um fluido?
+            </p>
+</footer>
+</div>
+</body>
+</html>

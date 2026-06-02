@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Compressibilidade Isotérmica</title>
+
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/>
+
+<script>
+window.va = window.va || function () {
+  (window.vaq = window.vaq || []).push(arguments);
+};
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)'], ['$', '$']], displayMath: [['\\[','\\]']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<link href="../../assets/chapter-embedded-slide.css" rel="stylesheet"/>
+<style id="cap4-flatten-slide-boxes">
+.page--capitulo-04 .content-root {
+  gap: 18px !important;
+}
+
+.page--capitulo-04 .source-fragment {
+  padding: 0 !important;
+  border-top: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.page--capitulo-04 .source-embed {
+  display: block !important;
+  justify-content: initial !important;
+  align-items: stretch !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: visible !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.page--capitulo-04 .source-embed > div,
+.page--capitulo-04 .source-embed [class*="slide-root"],
+.page--capitulo-04 .source-embed [class*="root-container"],
+.page--capitulo-04 .source-embed [class*="slide-container"],
+.page--capitulo-04 .source-embed [class*="slide-canvas"],
+.page--capitulo-04 .source-embed [class*="slide-main"] {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  overflow: visible !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.page--capitulo-04 .source-embed > div[style*="overflow: hidden"],
+.page--capitulo-04 .source-embed [style*="overflow: hidden"] {
+  overflow: visible !important;
+}
+
+.page--capitulo-04 .source-embed [class*="content-columns"],
+.page--capitulo-04 .source-embed [class*="content-grid"],
+.page--capitulo-04 .source-embed [class*="content-layout"],
+.page--capitulo-04 .source-embed [class*="main-content"],
+.page--capitulo-04 .source-embed [class*="columns-container"] {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.page--capitulo-04 .source-embed [class*="info-card"],
+.page--capitulo-04 .source-embed [class*="card-block"],
+.page--capitulo-04 .source-embed [class*="card-item"],
+.page--capitulo-04 .source-embed [class*="column-card"],
+.page--capitulo-04 .source-embed [class*="reflection"],
+.page--capitulo-04 .source-embed [class*="equation"] {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 760px) {
+  .page--capitulo-04 .source-embed [class*="content-columns"],
+  .page--capitulo-04 .source-embed [class*="content-grid"],
+  .page--capitulo-04 .source-embed [class*="content-layout"],
+  .page--capitulo-04 .source-embed [class*="columns-container"],
+  .page--capitulo-04 .source-embed [class*="main-content"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+</style>
+<link href="../../assets/ai-exercises.css" rel="stylesheet"/>
+<script defer src="../../assets/ai-exercises.js"></script>
+<link rel="stylesheet" href="../../assets/termo-share.css">
+<script defer src="../../assets/termo-share.js"></script>
+<link rel="stylesheet" href="../../assets/termo-auth.css">
+<script defer src="../../assets/termo-auth.js"></script>
+<script defer src="../../assets/termo-user-data.js"></script>
+</head>
+<body>
+<div class="page page--capitulo-04">
+  <section class="hero">
+    <div class="hero-inner">
+      <a href="../../index.html?chapter=04" class="index-back-button">
+        <i class="fa-solid fa-arrow-left"></i>
+        Índice
+      </a>
+      <div class="chapter-label">
+        <i class="fa-solid fa-layer-group"></i>
+        Capítulo 4 · Item 4.10
+      </div>
+      <h1 class="chapter-title">Compressibilidade Isotérmica</h1>
+      <div class="chapter-text">
+        <p>Resposta volumétrica à pressão, divergência no ponto crítico e interpretação da compressibilidade isotérmica.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="content-root">
+    
+  <section class="source-fragment" data-source-page="page_20.html">
+    <style>.source-embed.page-20{
+    --background: #FFF;
+    --title-text: #002147;
+    --body-text: #1F2937;
+    --secondary-text: #4B5563;
+    --muted-text: #9CA3AF;
+    --accent: #0056B3;
+    --secondary-accent: #0D9488;
+    --border: #E5E7EB;
+    --card-navy: #002147;
+    --card-teal: #0D9488;
+    --card-orange: #EA580C;
+    --equation-bg: #F5F5F5;
+    --reflection-bg: #F0F9FF
+    }.source-embed.page-20 *{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0
+    }.source-embed.page-20{width: 1280px; height: 720px; overflow: hidden; font-family: "Inter", sans-serif;
+    background-color: #F3F4F6;
+    display: flex;
+    justify-content: center;
+    align-items: center}.source-embed.page-20 .slide-root-container{
+    width: 1280px;
+    height: 720px;
+    background-color: var(--background);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1)
+    }.source-embed.page-20 /* Top Navigation Bar */
+.top-nav-bar-container{
+    width: 100%;
+    height: 40px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    font-size: 12px;
+    color: var(--secondary-text)
+    }.source-embed.page-20 .nav-left-links-wrapper{
+    display: flex;
+    gap: 20px
+    }.source-embed.page-20 .nav-right-actions-wrapper{
+    display: flex;
+    gap: 20px;
+    align-items: center
+    }.source-embed.page-20 .page-counter-display{
+    font-weight: 600;
+    color: var(--title-text);
+    margin-right: 10px
+    }.source-embed.page-20 /* Title Region */
+.title-section-wrapper{
+    display: flex;
+    flex-direction: column;
+    margin: 30px 60px 20px 60px;
+    border-left: 6px solid var(--accent);
+    padding-left: 20px
+    }.source-embed.page-20 .title-main-heading{
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--title-text);
+    margin: 0;
+    line-height: 1.2
+    }.source-embed.page-20 .title-sub-breadcrumbs{
+    font-size: 14px;
+    font-variant: small-caps;
+    color: #64748B;
+    margin-top: 4px;
+    letter-spacing: 1px;
+    font-weight: 600
+    }.source-embed.page-20 /* Main Content Grid */
+.content-layout-columns-grid{
+    display: flex;
+    flex: 1;
+    padding: 0 60px;
+    gap: 25px;
+    align-items: stretch;
+    margin-bottom: 20px
+    }.source-embed.page-20 .content-column-card-item{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border-left: 4px solid var(--border);
+    padding-left: 15px;
+    background: #FAFAFA;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    border-radius: 4px
+    }.source-embed.page-20 .card-header-title-wrapper{
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--title-text);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px
+    }.source-embed.page-20 .card-body-paragraph-text{
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--body-text);
+    margin-bottom: 10px
+    }.source-embed.page-20 .keyword-highlight-navy{
+    color: var(--card-navy);
+    font-weight: 700
+    }.source-embed.page-20 .keyword-highlight-teal{
+    color: var(--card-teal);
+    font-weight: 700
+    }.source-embed.page-20 .keyword-highlight-orange{
+    color: var(--card-orange);
+    font-weight: 700
+    }.source-embed.page-20 /* Equation Box */
+.equation-box-container{
+    background-color: var(--equation-bg);
+    border: 1px solid var(--border);
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 6px;
+    text-align: center
+    }.source-embed.page-20 /* Image Styling */
+.vdw-chart-image-container{
+    width: 100%;
+    height: 240px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center
+    }.source-embed.page-20 .vdw-chart-image-element{
+    height: 100%;
+    width: auto;
+    object-fit: contain
+    }.source-embed.page-20 .image-caption-text{
+    font-size: 11px;
+    color: var(--muted-text);
+    margin-top: 6px;
+    text-align: center;
+    font-style: italic
+    }.source-embed.page-20 /* Footer Reflection Box */
+.reflection-footer-box{
+    margin: 0 60px 30px 60px;
+    background-color: var(--reflection-bg);
+    border-left: 4px solid var(--secondary-accent);
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-radius: 0 8px 8px 0
+    }.source-embed.page-20 .reflection-icon-circle{
+    background-color: var(--secondary-accent);
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0
+    }.source-embed.page-20 .reflection-content-text{
+    font-size: 14px;
+    color: var(--title-text);
+    font-weight: 500;
+    line-height: 1.4
+    }.source-embed.page-20 /* Specific Card Borders */
+.border-navy{
+    border-left-color: var(--card-navy)
+    }.source-embed.page-20 .border-teal{
+    border-left-color: var(--card-teal)
+    }.source-embed.page-20 .border-orange{
+    border-left-color: var(--card-orange)
+    }.source-embed.page-20 .list-unstyled-items{
+    list-style: none;
+    margin-top: 5px
+    }.source-embed.page-20 .list-unstyled-items li{
+    font-size: 13px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px
+    }.source-embed.page-20 .list-unstyled-items li::before{
+    content: "•";
+    color: var(--secondary-accent);
+    font-weight: bold
+    }.source-embed.page-20{ overflow: hidden; }
+
+
+.source-embed.page-20,
+.source-embed.page-20 > div,
+.source-embed.page-20 [class$="slide-root"],
+.source-embed.page-20 [class*="slide-root"],
+.source-embed.page-20 [class*="slide-container"],
+.source-embed.page-20 [class*="slide-canvas"] {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+  box-sizing: border-box !important;
+}
+.source-embed.page-20 {
+  display: block !important;
+  background: transparent !important;
+}
+.source-embed.page-20 [class*="top-nav"],
+.source-embed.page-20 [class*="top-navigation"],
+.source-embed.page-20 [class*="navbar"],
+.source-embed.page-20 [class*="nav-bar"],
+.source-embed.page-20 [class*="navigation-bar"],
+.source-embed.page-20 [class*="page-counter"],
+.source-embed.page-20 [class*="slide-counter"],
+.source-embed.page-20 [class*="progress"] {
+  display: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+}
+.source-embed.page-20 [class*="title-region"],
+.source-embed.page-20 [class*="title-section"],
+.source-embed.page-20 [class*="title-header"] {
+  display: none !important;
+}
+.source-embed.page-20 img,
+.source-embed.page-20 svg,
+.source-embed.page-20 canvas,
+.source-embed.page-20 video {
+  max-width: 100% !important;
+  height: auto !important;
+}
+.source-embed.page-20 table {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+.source-embed.page-20 mjx-container[jax="SVG"] svg {
+  max-width: 100% !important;
+}
+@media (max-width: 980px) {
+  .source-embed.page-20 [class*="content-layout"],
+  .source-embed.page-20 [class*="content-area"],
+  .source-embed.page-20 [class*="content-grid"],
+  .source-embed.page-20 [class*="main-content"],
+  .source-embed.page-20 [class*="two-column"],
+  .source-embed.page-20 [class*="columns"],
+  .source-embed.page-20 [class*="column-layout"],
+  .source-embed.page-20 [class*="comparison"],
+  .source-embed.page-20 [class*="cards-row"],
+  .source-embed.page-20 [class*="card-row"] {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .source-embed.page-20 [class*="left-column"],
+  .source-embed.page-20 [class*="right-column"],
+  .source-embed.page-20 [class*="column"],
+  .source-embed.page-20 [class*="panel"],
+  .source-embed.page-20 [class*="card"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 1 1 auto !important;
+  }
+}
+@media (max-width: 700px) {
+  .source-embed.page-20 > div,
+  .source-embed.page-20 [class*="slide-root"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  .source-embed.page-20 [class*="content-layout"],
+  .source-embed.page-20 [class*="content-area"],
+  .source-embed.page-20 [class*="content-grid"],
+  .source-embed.page-20 [class*="main-content"] {
+    padding: 0 !important;
+    gap: 14px !important;
+  }
+  .source-embed.page-20 [class*="formula"],
+  .source-embed.page-20 [class*="equation"],
+  .source-embed.page-20 [class*="math"],
+  .source-embed.page-20 [class*="table"] {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+  }
+}</style>
+    <div class="source-embed page-20">
+<div class="slide-root-container" style="overflow: hidden;">
+<!-- Top Navigation -->
+
+<!-- Title Section -->
+
+<!-- Content Columns -->
+<main class="content-layout-columns-grid">
+<!-- Column 1: Formalism -->
+<section class="content-column-card-item border-navy">
+<div class="card-header-title-wrapper">📐 Definição e Formalismo</div>
+<p class="card-body-paragraph-text">
+                    A <span class="keyword-highlight-navy">compressibilidade isotérmica</span> (\(\kappa_T\)) quantifica a resposta relativa do volume frente a variações de pressão a temperatura constante.
+                </p>
+<div class="equation-box-container">
+                    \[ \kappa_T = -\frac{1}{V}\left.\frac{\partial V}{\partial P}\right|_T \]
+                </div>
+<p class="card-body-paragraph-text">Na forma <span class="keyword-highlight-navy">adimensional</span> reduzida (\(\bar{\kappa}_t\)):</p>
+<div class="equation-box-container">
+                    \[ \bar{\kappa}_t = \frac{Z_c v^2(3v-1)^2}{3\left[3tv^3 - 2Z_c(3v-1)^2\right]} \]
+                </div>
+</section>
+<!-- Column 2: Physical Behavior -->
+<section class="content-column-card-item border-teal">
+<div class="card-header-title-wrapper">📈 Comportamento Físico</div>
+<p class="card-body-paragraph-text">
+                    A função apresenta uma <span class="keyword-highlight-teal">descontinuidade abrupta</span> na temperatura de equilíbrio \( t_{eq}(p) \), refletindo a transição de fase:
+                </p>
+<ul class="list-unstyled-items">
+<li><strong>Ramo Líquido (\(t &lt; t_{eq}\)):</strong> Volumes reduzidos resultam em uma estrutura rígida e <span class="keyword-highlight-teal">baixa compressibilidade</span>.</li>
+<li><strong>Ramo Gasoso (\(t &gt; t_{eq}\)):</strong> Grandes volumes e interações esparsas permitem <span class="keyword-highlight-teal">alta compressibilidade</span>.</li>
+<li><strong>Divergência:</strong> O denominador anula-se exatamente na condição da <span class="keyword-highlight-teal">curva espinodal</span>.</li>
+</ul>
+</section>
+<!-- Column 3: Visualization -->
+<section class="content-column-card-item border-orange">
+<div class="card-header-title-wrapper">⚡ Flutuações Críticas</div>
+<p class="card-body-paragraph-text">
+                    A divergência de \(\bar{\kappa}_t\) sinaliza que o sistema torna-se infinitamente sensível a perturbações de pressão.
+                </p>
+<div class="vdw-chart-image-container">
+<img alt="Gráfico de Compressibilidade" class="vdw-chart-image-element" src="https://static-us-img.skywork.ai/prod/nexus/1780078533/cropped_image_2_1780078533196179460.jpg"/>
+</div>
+<p class="image-caption-text">Figura 15: Compressibilidade adimensional \(\bar{\kappa}_t\) vs temperatura reduzida \(t\).</p>
+</section>
+</main>
+<!-- Footer Reflection Box -->
+<footer class="reflection-footer-box">
+<div class="reflection-icon-circle">
+<i class="fa-solid fa-lightbulb"></i>
+</div>
+<div class="reflection-content-text">
+<strong>Para Reflexão:</strong> Por que a compressibilidade diverge no ponto crítico? Fisicamente, isso implica que o "custo energético" para criar flutuações de densidade tende a zero, permitindo a coexistência de fases.
+            </div>
+</footer>
+</div>
+    </div>
+  </section>
+  </div>
+
+  <section data-termo-ai-exercise data-exercise-theme="purple"></section>
+</div>
+<script src="../../assets/chapter-embedded-slide.js"></script>
+</body>
+</html>

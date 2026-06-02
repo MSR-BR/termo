@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Equação de Estado Reduzida</title>
+
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/>
+
+<script>
+window.va = window.va || function () {
+  (window.vaq = window.vaq || []).push(arguments);
+};
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)'], ['$', '$']], displayMath: [['\\[','\\]']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<link href="../../assets/chapter-embedded-slide.css" rel="stylesheet"/>
+<style id="cap4-flatten-slide-boxes">
+.page--capitulo-04 .content-root {
+  gap: 18px !important;
+}
+
+.page--capitulo-04 .source-fragment {
+  padding: 0 !important;
+  border-top: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.page--capitulo-04 .source-embed {
+  display: block !important;
+  justify-content: initial !important;
+  align-items: stretch !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: visible !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.page--capitulo-04 .source-embed > div,
+.page--capitulo-04 .source-embed [class*="slide-root"],
+.page--capitulo-04 .source-embed [class*="root-container"],
+.page--capitulo-04 .source-embed [class*="slide-container"],
+.page--capitulo-04 .source-embed [class*="slide-canvas"],
+.page--capitulo-04 .source-embed [class*="slide-main"] {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  overflow: visible !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.page--capitulo-04 .source-embed > div[style*="overflow: hidden"],
+.page--capitulo-04 .source-embed [style*="overflow: hidden"] {
+  overflow: visible !important;
+}
+
+.page--capitulo-04 .source-embed [class*="content-columns"],
+.page--capitulo-04 .source-embed [class*="content-grid"],
+.page--capitulo-04 .source-embed [class*="content-layout"],
+.page--capitulo-04 .source-embed [class*="main-content"],
+.page--capitulo-04 .source-embed [class*="columns-container"] {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.page--capitulo-04 .source-embed [class*="info-card"],
+.page--capitulo-04 .source-embed [class*="card-block"],
+.page--capitulo-04 .source-embed [class*="card-item"],
+.page--capitulo-04 .source-embed [class*="column-card"],
+.page--capitulo-04 .source-embed [class*="reflection"],
+.page--capitulo-04 .source-embed [class*="equation"] {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 760px) {
+  .page--capitulo-04 .source-embed [class*="content-columns"],
+  .page--capitulo-04 .source-embed [class*="content-grid"],
+  .page--capitulo-04 .source-embed [class*="content-layout"],
+  .page--capitulo-04 .source-embed [class*="columns-container"],
+  .page--capitulo-04 .source-embed [class*="main-content"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+</style>
+<link href="../../assets/ai-exercises.css" rel="stylesheet"/>
+<script defer src="../../assets/ai-exercises.js"></script>
+<link rel="stylesheet" href="../../assets/termo-share.css">
+<script defer src="../../assets/termo-share.js"></script>
+<link rel="stylesheet" href="../../assets/termo-auth.css">
+<script defer src="../../assets/termo-auth.js"></script>
+<script defer src="../../assets/termo-user-data.js"></script>
+</head>
+<body>
+<div class="page page--capitulo-04">
+  <section class="hero">
+    <div class="hero-inner">
+      <a href="../../index.html?chapter=04" class="index-back-button">
+        <i class="fa-solid fa-arrow-left"></i>
+        Índice
+      </a>
+      <div class="chapter-label">
+        <i class="fa-solid fa-layer-group"></i>
+        Capítulo 4 · Item 4.4
+      </div>
+      <h1 class="chapter-title">Equação de Estado Reduzida</h1>
+      <div class="chapter-text">
+        <p>Variáveis reduzidas, universalidade da equação de Van der Waals e fator de compressibilidade crítico.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="content-root">
+    
+  <section class="source-fragment" data-source-page="page_7.html">
+    <style>.source-embed.page-7 *{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0
+    }.source-embed.page-7{width: 1280px; height: 720px; overflow: hidden; background-color: #FFF;
+    font-family: "Inter", sans-serif;
+    color: #1F2937;
+    display: flex;
+    justify-content: center;
+    align-items: center}.source-embed.page-7 .slide-root-container{
+    width: 1280px;
+    height: 720px;
+    background-color: #FFF;
+    position: relative;
+    display: flex;
+    flex-direction: column
+    }.source-embed.page-7 .top-navigation-bar{
+    width: 100%;
+    height: 40px;
+    padding: 0 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #E5E7EB;
+    font-size: 12px;
+    color: #64748B
+    }.source-embed.page-7 .nav-left-items{
+    display: flex;
+    gap: 20px
+    }.source-embed.page-7 .nav-right-items{
+    display: flex;
+    gap: 20px
+    }.source-embed.page-7 .title-region-wrapper{
+    display: flex;
+    flex-direction: column;
+    margin: 40px 60px 20px 60px;
+    border-left: 6px solid #0056B3;
+    padding-left: 20px
+    }.source-embed.page-7 .title-main-heading{
+    font-size: 32px;
+    font-weight: 800;
+    color: #002147;
+    margin: 0;
+    text-transform: none;
+    line-height: 1.2
+    }.source-embed.page-7 .subtitle-breadcrumb-text{
+    font-size: 14px;
+    font-variant: small-caps;
+    color: #64748B;
+    margin-top: 4px;
+    letter-spacing: 1px;
+    line-height: 1.3
+    }.source-embed.page-7 .main-content-layout{
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+    padding: 0 60px;
+    flex: 1;
+    align-items: stretch;
+    margin-bottom: 20px
+    }.source-embed.page-7 .content-card-module{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-left: 4px solid;
+    background-color: #FFF;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    border-top: 1px solid #F3F4F6;
+    border-right: 1px solid #F3F4F6;
+    border-bottom: 1px solid #F3F4F6;
+    border-radius: 0 8px 8px 0
+    }.source-embed.page-7 .card-navy-border{
+    border-left-color: #002147
+    }.source-embed.page-7 .card-teal-border{
+    border-left-color: #0D9488
+    }.source-embed.page-7 .card-orange-border{
+    border-left-color: #EA580C
+    }.source-embed.page-7 .card-header-title{
+    font-size: 18px;
+    font-weight: 700;
+    color: #1F2937;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px
+    }.source-embed.page-7 .card-body-paragraph{
+    font-size: 14px;
+    line-height: 1.5;
+    color: #374151;
+    margin-bottom: 12px
+    }.source-embed.page-7 .equation-box-container{
+    background-color: #F5F5F5;
+    border: 1px solid #E5E7EB;
+    padding: 15px 10px;
+    margin: 10px 0;
+    text-align: center;
+    border-radius: 4px
+    }.source-embed.page-7 .bold-navy-highlight{
+    color: #002147;
+    font-weight: 700
+    }.source-embed.page-7 .bold-teal-highlight{
+    color: #0D9488;
+    font-weight: 700
+    }.source-embed.page-7 .bold-orange-highlight{
+    color: #EA580C;
+    font-weight: 700
+    }.source-embed.page-7 .reflection-footer-wrapper{
+    margin: 0 60px 40px 60px;
+    padding: 15px 25px;
+    background-color: #F0FDFA;
+    border: 1px solid #CCFBF1;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 15px
+    }.source-embed.page-7 .reflection-text-content{
+    font-size: 14px;
+    font-weight: 500;
+    color: #0D9488
+    }.source-embed.page-7 .icon-symbol{
+    font-size: 18px
+    }.source-embed.page-7{ overflow: hidden; }
+
+
+.source-embed.page-7,
+.source-embed.page-7 > div,
+.source-embed.page-7 [class$="slide-root"],
+.source-embed.page-7 [class*="slide-root"],
+.source-embed.page-7 [class*="slide-container"],
+.source-embed.page-7 [class*="slide-canvas"] {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+  box-sizing: border-box !important;
+}
+.source-embed.page-7 {
+  display: block !important;
+  background: transparent !important;
+}
+.source-embed.page-7 [class*="top-nav"],
+.source-embed.page-7 [class*="top-navigation"],
+.source-embed.page-7 [class*="navbar"],
+.source-embed.page-7 [class*="nav-bar"],
+.source-embed.page-7 [class*="navigation-bar"],
+.source-embed.page-7 [class*="page-counter"],
+.source-embed.page-7 [class*="slide-counter"],
+.source-embed.page-7 [class*="progress"] {
+  display: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+}
+.source-embed.page-7 [class*="title-region"],
+.source-embed.page-7 [class*="title-section"],
+.source-embed.page-7 [class*="title-header"] {
+  display: none !important;
+}
+.source-embed.page-7 img,
+.source-embed.page-7 svg,
+.source-embed.page-7 canvas,
+.source-embed.page-7 video {
+  max-width: 100% !important;
+  height: auto !important;
+}
+.source-embed.page-7 table {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+.source-embed.page-7 mjx-container[jax="SVG"] svg {
+  max-width: 100% !important;
+}
+@media (max-width: 980px) {
+  .source-embed.page-7 [class*="content-layout"],
+  .source-embed.page-7 [class*="content-area"],
+  .source-embed.page-7 [class*="content-grid"],
+  .source-embed.page-7 [class*="main-content"],
+  .source-embed.page-7 [class*="two-column"],
+  .source-embed.page-7 [class*="columns"],
+  .source-embed.page-7 [class*="column-layout"],
+  .source-embed.page-7 [class*="comparison"],
+  .source-embed.page-7 [class*="cards-row"],
+  .source-embed.page-7 [class*="card-row"] {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .source-embed.page-7 [class*="left-column"],
+  .source-embed.page-7 [class*="right-column"],
+  .source-embed.page-7 [class*="column"],
+  .source-embed.page-7 [class*="panel"],
+  .source-embed.page-7 [class*="card"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 1 1 auto !important;
+  }
+}
+@media (max-width: 700px) {
+  .source-embed.page-7 > div,
+  .source-embed.page-7 [class*="slide-root"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  .source-embed.page-7 [class*="content-layout"],
+  .source-embed.page-7 [class*="content-area"],
+  .source-embed.page-7 [class*="content-grid"],
+  .source-embed.page-7 [class*="main-content"] {
+    padding: 0 !important;
+    gap: 14px !important;
+  }
+  .source-embed.page-7 [class*="formula"],
+  .source-embed.page-7 [class*="equation"],
+  .source-embed.page-7 [class*="math"],
+  .source-embed.page-7 [class*="table"] {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+  }
+}</style>
+    <div class="source-embed page-7">
+<div class="slide-root-container" style="overflow: hidden;">
+<!-- Top Navigation Bar -->
+
+<!-- Title Region -->
+
+<!-- Main Content Layout -->
+<div class="main-content-layout">
+<!-- Column 1: Definições -->
+<div class="content-card-module card-navy-border">
+<h2 class="card-header-title">📏 Definições Reduzidas</h2>
+<p class="card-body-paragraph">
+                    Normalizamos as variáveis de estado em relação aos seus valores no <span class="bold-navy-highlight">ponto crítico</span> para remover a dependência de parâmetros específicos.
+                </p>
+<div class="equation-box-container">
+                    \[ p = \frac{P}{P_c}, \quad v = \frac{V}{V_c}, \quad t = \frac{T}{T_c} \]
+                </div>
+<p class="card-body-paragraph">
+                    Essas variáveis adimensionais permitem que substâncias com diferentes parâmetros \(a\) e \(b\) sejam comparadas na mesma escala.
+                </p>
+</div>
+<!-- Column 2: Equação Universal -->
+<div class="content-card-module card-teal-border">
+<h2 class="card-header-title">🧪 Equação Universal</h2>
+<p class="card-body-paragraph">
+                    Ao substituir as definições na equação de van der Waals, os parâmetros específicos desaparecem, resultando na <span class="bold-teal-highlight">forma reduzida universal</span>:
+                </p>
+<div class="equation-box-container">
+                    \[ \left(p + \frac{3}{v^2}\right)\left(v - \frac{1}{3}\right) = \frac{8t}{3} \]
+                </div>
+<p class="card-body-paragraph">
+                    Esta equação é válida para qualquer fluido que siga o modelo, independentemente de sua natureza química, desde que escalonado por \(P_c, V_c, T_c\).
+                </p>
+</div>
+<!-- Column 3: Estados Correspondentes -->
+<div class="content-card-module card-orange-border">
+<h2 class="card-header-title">🌐 Estados Correspondentes</h2>
+<p class="card-body-paragraph">
+                    O <span class="bold-orange-highlight">Princípio dos Estados Correspondentes</span> afirma que fluidos em mesmos (p, v, t) exibem propriedades similares.
+                </p>
+<p class="card-body-paragraph">
+                    O fator de compressibilidade crítico é uma previsão fixa do modelo:
+                </p>
+<div class="equation-box-container">
+                    \[ Z_c = \frac{P_c V_c}{nRT_c} = \frac{3}{8} = 0.375 \]
+                </div>
+<p class="card-body-paragraph">
+                    Desvios experimentais de \(Z_c\) indicam as limitações do modelo em capturar a geometria molecular real.
+                </p>
+</div>
+</div>
+<!-- Footer: Para Reflexão -->
+<div class="reflection-footer-wrapper">
+<i class="fa-solid fa-lightbulb icon-symbol" style="color: #0D9488;"></i>
+<p class="reflection-text-content">
+<strong>Para Reflexão:</strong> Como a existência de uma equação universal simplifica o projeto de sistemas industriais que operam com misturas de gases reais sob condições críticas?
+            </p>
+</div>
+</div>
+    </div>
+  </section>
+
+  <section class="source-fragment" data-source-page="page_8.html">
+    <style>.source-embed.page-8{
+    --background: #FFF;
+    --title-text: #002147;
+    --body-text: #1F2937;
+    --secondary-text: #4B5563;
+    --muted-text: #9CA3AF;
+    --accent: #0056B3;
+    --secondary-accent: #0D9488;
+    --border: #E5E7EB;
+    --card-navy: #002147;
+    --card-teal: #0D9488;
+    --card-orange: #EA580C;
+    --card-purple: #6A0DAD;
+    --equation-bg: #F5F5F5
+    }.source-embed.page-8 *{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0
+    }.source-embed.page-8{width: 1280px; height: 720px; overflow: hidden; background-color: #F3F4F6;
+    font-family: "Inter", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center}.source-embed.page-8 .slide-root-container{
+    width: 1280px;
+    height: 720px;
+    background-color: var(--background);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1)
+    }.source-embed.page-8 /* Top Navigation Bar */
+.zc-top-navigation-bar{
+    height: 40px;
+    padding: 0 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--secondary-text)
+    }.source-embed.page-8 .zc-nav-links-wrapper{
+    display: flex;
+    gap: 20px
+    }.source-embed.page-8 .zc-page-counter-label{
+    font-weight: 600;
+    color: var(--title-text)
+    }.source-embed.page-8 /* Title Region */
+.zc-title-region-wrapper{
+    display: flex;
+    flex-direction: column;
+    margin: 40px 60px 20px 60px;
+    border-left: 6px solid var(--accent);
+    padding-left: 20px
+    }.source-embed.page-8 .zc-main-title-text{
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--title-text);
+    margin: 0
+    }.source-embed.page-8 .zc-subtitle-breadcrumb-text{
+    font-size: 14px;
+    font-variant: small-caps;
+    color: #64748B;
+    margin-top: 4px;
+    letter-spacing: 1px
+    }.source-embed.page-8 /* Main Content Grid */
+.zc-content-columns-container{
+    flex: 1;
+    display: flex;
+    gap: 20px;
+    padding: 0 60px 20px 60px;
+    align-items: stretch
+    }.source-embed.page-8 .zc-column-item-wrapper{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center
+    }.source-embed.page-8 .zc-info-card-block{
+    flex: 1;
+    padding: 20px;
+    background-color: transparent;
+    border-left: 4px solid var(--card-navy);
+    display: flex;
+    flex-direction: column;
+    gap: 15px
+    }.source-embed.page-8 .zc-info-card-block.teal-border{
+    border-left-color: var(--card-teal)
+    }.source-embed.page-8 .zc-info-card-block.orange-border{
+    border-left-color: var(--card-orange)
+    }.source-embed.page-8 .zc-card-header-group{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--title-text)
+    }.source-embed.page-8 .zc-card-header-icon{
+    font-size: 16px;
+    color: var(--accent)
+    }.source-embed.page-8 .zc-card-body-text{
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--body-text)
+    }.source-embed.page-8 .zc-highlight-term{
+    font-weight: 700;
+    color: var(--accent)
+    }.source-embed.page-8 /* Equation Box */
+.zc-equation-display-box{
+    background-color: var(--equation-bg);
+    border: 1px solid var(--border);
+    padding: 12px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px 0
+    }.source-embed.page-8 /* Footer Boxes */
+.zc-footer-section-container{
+    padding: 0 60px 30px 60px;
+    display: flex;
+    gap: 20px
+    }.source-embed.page-8 .zc-reflection-footer-box{
+    flex: 1;
+    background-color: #F0FDFA;
+    border: 1px solid #CCFBF1;
+    border-radius: 8px;
+    padding: 15px 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px
+    }.source-embed.page-8 .zc-reflection-icon-wrapper{
+    color: var(--secondary-accent);
+    font-size: 20px;
+    margin-top: 2px
+    }.source-embed.page-8 .zc-reflection-content-text{
+    font-size: 13px;
+    color: #0F766E;
+    line-height: 1.4
+    }.source-embed.page-8 .zc-reflection-title{
+    font-weight: 700;
+    margin-bottom: 4px;
+    display: block
+    }.source-embed.page-8 ul.zc-list-items-container{
+    list-style: none;
+    padding: 0;
+    margin: 0
+    }.source-embed.page-8 li.zc-list-item-element{
+    font-size: 13px;
+    margin-bottom: 8px;
+    position: relative;
+    padding-left: 15px;
+    color: var(--body-text)
+    }.source-embed.page-8 li.zc-list-item-element::before{
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: bold
+    }.source-embed.page-8{ overflow: hidden; }
+
+
+.source-embed.page-8,
+.source-embed.page-8 > div,
+.source-embed.page-8 [class$="slide-root"],
+.source-embed.page-8 [class*="slide-root"],
+.source-embed.page-8 [class*="slide-container"],
+.source-embed.page-8 [class*="slide-canvas"] {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+  box-sizing: border-box !important;
+}
+.source-embed.page-8 {
+  display: block !important;
+  background: transparent !important;
+}
+.source-embed.page-8 [class*="top-nav"],
+.source-embed.page-8 [class*="top-navigation"],
+.source-embed.page-8 [class*="navbar"],
+.source-embed.page-8 [class*="nav-bar"],
+.source-embed.page-8 [class*="navigation-bar"],
+.source-embed.page-8 [class*="page-counter"],
+.source-embed.page-8 [class*="slide-counter"],
+.source-embed.page-8 [class*="progress"] {
+  display: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+}
+.source-embed.page-8 [class*="title-region"],
+.source-embed.page-8 [class*="title-section"],
+.source-embed.page-8 [class*="title-header"] {
+  display: none !important;
+}
+.source-embed.page-8 img,
+.source-embed.page-8 svg,
+.source-embed.page-8 canvas,
+.source-embed.page-8 video {
+  max-width: 100% !important;
+  height: auto !important;
+}
+.source-embed.page-8 table {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+.source-embed.page-8 mjx-container[jax="SVG"] svg {
+  max-width: 100% !important;
+}
+@media (max-width: 980px) {
+  .source-embed.page-8 [class*="content-layout"],
+  .source-embed.page-8 [class*="content-area"],
+  .source-embed.page-8 [class*="content-grid"],
+  .source-embed.page-8 [class*="main-content"],
+  .source-embed.page-8 [class*="two-column"],
+  .source-embed.page-8 [class*="columns"],
+  .source-embed.page-8 [class*="column-layout"],
+  .source-embed.page-8 [class*="comparison"],
+  .source-embed.page-8 [class*="cards-row"],
+  .source-embed.page-8 [class*="card-row"] {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .source-embed.page-8 [class*="left-column"],
+  .source-embed.page-8 [class*="right-column"],
+  .source-embed.page-8 [class*="column"],
+  .source-embed.page-8 [class*="panel"],
+  .source-embed.page-8 [class*="card"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 1 1 auto !important;
+  }
+}
+@media (max-width: 700px) {
+  .source-embed.page-8 > div,
+  .source-embed.page-8 [class*="slide-root"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  .source-embed.page-8 [class*="content-layout"],
+  .source-embed.page-8 [class*="content-area"],
+  .source-embed.page-8 [class*="content-grid"],
+  .source-embed.page-8 [class*="main-content"] {
+    padding: 0 !important;
+    gap: 14px !important;
+  }
+  .source-embed.page-8 [class*="formula"],
+  .source-embed.page-8 [class*="equation"],
+  .source-embed.page-8 [class*="math"],
+  .source-embed.page-8 [class*="table"] {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+  }
+}</style>
+    <div class="source-embed page-8">
+<div class="slide-root-container" style="overflow: hidden;">
+
+
+<!-- Title Region -->
+
+<!-- Main Content Grid -->
+<div class="zc-content-columns-container">
+<!-- Column 1: Definição -->
+<div class="zc-column-item-wrapper">
+<div class="zc-info-card-block">
+<div class="zc-card-header-group">
+<i class="fa-solid fa-scale-balanced zc-card-header-icon"></i>
+<span>Definição de Zc</span>
+</div>
+<p class="zc-card-body-text">
+                        O <span class="zc-highlight-term">fator de compressibilidade (Z)</span> quantifica o desvio de um gás real em relação ao comportamento ideal. No <span class="zc-highlight-term">ponto crítico</span>, este parâmetro assume um valor específico:
+                    </p>
+<div class="zc-equation-display-box">
+                        \[ Z_c = \frac{P_c V_c}{nRT_c} \]
+                    </div>
+<p class="zc-card-body-text">
+                        Para um gás ideal, \( Z = 1 \) em qualquer estado. Para fluidos reais, \( Z_c \) reflete as <span class="zc-highlight-term">proporções geométricas</span> das variáveis de estado críticas.
+                    </p>
+</div>
+</div>
+<!-- Column 2: Previsão Universal -->
+<div class="zc-column-item-wrapper">
+<div class="zc-info-card-block teal-border">
+<div class="zc-card-header-group">
+<i class="fa-solid fa-ruler-combined zc-card-header-icon" style="color: var(--card-teal);"></i>
+<span>Previsão de Van der Waals</span>
+</div>
+<p class="zc-card-body-text">
+                        Substituindo os valores teóricos derivados da equação de estado (\( V_c = 3nb \), \( P_c = a/27b^2 \), \( T_c = 8a/27bR \)):
+                    </p>
+<div class="zc-equation-display-box">
+                        \[ Z_c = \frac{(a/27b^2)(3nb)}{nR(8a/27bR)} = \frac{3}{8} \]
+                    </div>
+<p class="zc-card-body-text">
+                        O valor <span class="zc-highlight-term" style="color: var(--card-teal);">Zc = 0.375</span> é uma <span class="zc-highlight-term" style="color: var(--card-teal);">previsão universal</span>: independe da natureza química do gás (parâmetros \(a\) e \(b\)).
+                    </p>
+</div>
+</div>
+<!-- Column 3: Confronto Experimental -->
+<div class="zc-column-item-wrapper">
+<div class="zc-info-card-block orange-border">
+<div class="zc-card-header-group">
+<i class="fa-solid fa-flask-vial zc-card-header-icon" style="color: var(--card-orange);"></i>
+<span>Realidade Experimental</span>
+</div>
+<ul class="zc-list-items-container">
+<li class="zc-list-item-element">
+                            Gases reais apresentam consistentemente <span class="zc-highlight-term" style="color: var(--card-orange);">Zc &lt; 0.375</span>.
+                        </li>
+<li class="zc-list-item-element">
+                            Exemplos: CO₂ (\( \approx 0.274 \)), H₂O (\( \approx 0.229 \)), Argônio (\( \approx 0.291 \)).
+                        </li>
+<li class="zc-list-item-element">
+                            A <span class="zc-highlight-term" style="color: var(--card-orange);">não-universalidade</span> de \( Z_c \) indica que o modelo de Van der Waals é uma aproximação de campo médio.
+                        </li>
+</ul>
+<p class="zc-card-body-text" style="font-size: 12px; font-style: italic; border-top: 1px solid var(--border); padding-top: 10px;">
+                        A falha quantitativa decorre da simplificação das forças intermoleculares e da forma esférica das moléculas.
+                    </p>
+</div>
+</div>
+</div>
+<!-- Footer Section -->
+<div class="zc-footer-section-container">
+<div class="zc-reflection-footer-box">
+<div class="zc-reflection-icon-wrapper">
+<i class="fa-solid fa-lightbulb"></i>
+</div>
+<div class="zc-reflection-content-text">
+<span class="zc-reflection-title">Para Reflexão: O Princípio dos Estados Correspondentes</span>
+                    Se todos os fluidos obedecessem estritamente à equação de Van der Waals, todos teriam o mesmo \( Z_c \). O fato de \( Z_c \) variar experimentalmente sugere que a "geometria" das interações moleculares (como a polaridade ou acentricidade) quebra essa universalidade prevista pelo modelo.
+                </div>
+</div>
+</div>
+</div>
+    </div>
+  </section>
+  </div>
+
+  <section data-termo-ai-exercise data-exercise-theme="purple"></section>
+</div>
+<script src="../../assets/chapter-embedded-slide.js"></script>
+</body>
+</html>

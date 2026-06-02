@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Construção de Maxwell</title>
+
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/>
+
+<script>
+window.va = window.va || function () {
+  (window.vaq = window.vaq || []).push(arguments);
+};
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)'], ['$', '$']], displayMath: [['\\[','\\]']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<link href="../../assets/chapter-embedded-slide.css" rel="stylesheet"/>
+<style id="cap4-flatten-slide-boxes">
+.page--capitulo-04 .content-root {
+  gap: 18px !important;
+}
+
+.page--capitulo-04 .source-fragment {
+  padding: 0 !important;
+  border-top: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.page--capitulo-04 .source-embed {
+  display: block !important;
+  justify-content: initial !important;
+  align-items: stretch !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: visible !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.page--capitulo-04 .source-embed > div,
+.page--capitulo-04 .source-embed [class*="slide-root"],
+.page--capitulo-04 .source-embed [class*="root-container"],
+.page--capitulo-04 .source-embed [class*="slide-container"],
+.page--capitulo-04 .source-embed [class*="slide-canvas"],
+.page--capitulo-04 .source-embed [class*="slide-main"] {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  overflow: visible !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.page--capitulo-04 .source-embed > div[style*="overflow: hidden"],
+.page--capitulo-04 .source-embed [style*="overflow: hidden"] {
+  overflow: visible !important;
+}
+
+.page--capitulo-04 .source-embed [class*="content-columns"],
+.page--capitulo-04 .source-embed [class*="content-grid"],
+.page--capitulo-04 .source-embed [class*="content-layout"],
+.page--capitulo-04 .source-embed [class*="main-content"],
+.page--capitulo-04 .source-embed [class*="columns-container"] {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.page--capitulo-04 .source-embed [class*="info-card"],
+.page--capitulo-04 .source-embed [class*="card-block"],
+.page--capitulo-04 .source-embed [class*="card-item"],
+.page--capitulo-04 .source-embed [class*="column-card"],
+.page--capitulo-04 .source-embed [class*="reflection"],
+.page--capitulo-04 .source-embed [class*="equation"] {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 760px) {
+  .page--capitulo-04 .source-embed [class*="content-columns"],
+  .page--capitulo-04 .source-embed [class*="content-grid"],
+  .page--capitulo-04 .source-embed [class*="content-layout"],
+  .page--capitulo-04 .source-embed [class*="columns-container"],
+  .page--capitulo-04 .source-embed [class*="main-content"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+</style>
+<link href="../../assets/ai-exercises.css" rel="stylesheet"/>
+<script defer src="../../assets/ai-exercises.js"></script>
+<link rel="stylesheet" href="../../assets/termo-share.css">
+<script defer src="../../assets/termo-share.js"></script>
+<link rel="stylesheet" href="../../assets/termo-auth.css">
+<script defer src="../../assets/termo-auth.js"></script>
+<script defer src="../../assets/termo-user-data.js"></script>
+</head>
+<body>
+<div class="page page--capitulo-04">
+  <section class="hero">
+    <div class="hero-inner">
+      <a href="../../index.html?chapter=04" class="index-back-button">
+        <i class="fa-solid fa-arrow-left"></i>
+        Índice
+      </a>
+      <div class="chapter-label">
+        <i class="fa-solid fa-layer-group"></i>
+        Capítulo 4 · Item 4.7
+      </div>
+      <h1 class="chapter-title">Construção de Maxwell</h1>
+      <div class="chapter-text">
+        <p>Regra das áreas iguais, coexistência líquido-vapor, regra da alavanca e aplicação ao dióxido de carbono.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="content-root">
+    
+  <section class="source-fragment" data-source-page="page_13.html">
+    <style>.source-embed.page-13{width: 1280px; height: 720px; overflow: hidden; background-color: #F3F4F6;
+    font-family: "Inter", sans-serif}.source-embed.page-13 .maxwell-construction-slide-root{
+    width: 1280px;
+    height: 720px;
+    background-color: #FFF;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin: 0 auto;
+    box-sizing: border-box
+    }.source-embed.page-13 /* Barra de Navegação Superior */
+.maxwell-navigation-top-bar{
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    border-bottom: 1px solid #E5E7EB;
+    box-sizing: border-box;
+    font-size: 12px;
+    color: #4B5563
+    }.source-embed.page-13 .maxwell-navigation-left-links{
+    display: flex;
+    gap: 20px
+    }.source-embed.page-13 .maxwell-page-counter-display{
+    font-weight: 600;
+    color: #1F2937
+    }.source-embed.page-13 /* Título da Página */
+.maxwell-title-section-wrapper{
+    display: flex;
+    flex-direction: column;
+    margin: 30px 60px 20px 60px;
+    border-left: 6px solid #0056B3;
+    padding-left: 20px
+    }.source-embed.page-13 .maxwell-main-title-text{
+    font-size: 32px;
+    font-weight: 800;
+    color: #002147;
+    margin: 0;
+    line-height: 1.2
+    }.source-embed.page-13 .maxwell-subtitle-small-caps{
+    font-size: 14px;
+    font-variant: small-caps;
+    color: #64748B;
+    margin-top: 4px;
+    letter-spacing: 1px
+    }.source-embed.page-13 /* Layout de 3 Colunas */
+.maxwell-content-columns-container{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    padding: 0 60px;
+    flex: 1;
+    align-items: stretch
+    }.source-embed.page-13 .maxwell-column-item-wrapper{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start
+    }.source-embed.page-13 /* Cards de Informação */
+.maxwell-info-card-block{
+    flex: 1;
+    background-color: #FFF;
+    border-left: 4px solid #002147;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column
+    }.source-embed.page-13 .maxwell-card-header-title{
+    font-size: 18px;
+    font-weight: 700;
+    color: #002147;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px
+    }.source-embed.page-13 .maxwell-card-body-paragraph{
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: #1F2937;
+    margin-bottom: 15px
+    }.source-embed.page-13 .maxwell-highlight-navy{
+    color: #002147;
+    font-weight: 700
+    }.source-embed.page-13 .maxwell-highlight-teal{
+    color: #0D9488;
+    font-weight: 700
+    }.source-embed.page-13 .maxwell-highlight-orange{
+    color: #EA580C;
+    font-weight: 700
+    }.source-embed.page-13 /* Box de Equações */
+.maxwell-latex-equation-box{
+    background-color: #F5F5F5;
+    border: 1px solid #E5E7EB;
+    padding: 12px;
+    border-radius: 4px;
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center
+    }.source-embed.page-13 /* Imagem */
+.maxwell-illustration-image-container{
+    height: 200px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #E5E7EB;
+    margin-top: 10px
+    }.source-embed.page-13 .maxwell-illustration-image-container img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: #FFF
+    }.source-embed.page-13 .maxwell-image-caption-text{
+    font-size: 11px;
+    color: #9CA3AF;
+    margin-top: 6px;
+    text-align: center;
+    font-style: italic
+    }.source-embed.page-13 /* Rodapé de Reflexão */
+.maxwell-reflection-footer-box{
+    margin: 20px 60px 30px 60px;
+    background-color: #F0FDFA;
+    border: 1px solid #CCFBF1;
+    padding: 15px 20px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 15px
+    }.source-embed.page-13 .maxwell-reflection-icon-circle{
+    background-color: #0D9488;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0
+    }.source-embed.page-13 .maxwell-reflection-content-text{
+    font-size: 13px;
+    color: #0F766E;
+    line-height: 1.4
+    }.source-embed.page-13 /* Cores Alternativas para Cards */
+.maxwell-border-teal{
+    border-left-color: #0D9488
+    }.source-embed.page-13 .maxwell-border-orange{
+    border-left-color: #EA580C
+    }.source-embed.page-13 .maxwell-text-teal{
+    color: #0D9488
+    }.source-embed.page-13 .maxwell-text-orange{
+    color: #EA580C
+    }.source-embed.page-13{ overflow: hidden; }
+
+
+.source-embed.page-13,
+.source-embed.page-13 > div,
+.source-embed.page-13 [class$="slide-root"],
+.source-embed.page-13 [class*="slide-root"],
+.source-embed.page-13 [class*="slide-container"],
+.source-embed.page-13 [class*="slide-canvas"] {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+  box-sizing: border-box !important;
+}
+.source-embed.page-13 {
+  display: block !important;
+  background: transparent !important;
+}
+.source-embed.page-13 [class*="top-nav"],
+.source-embed.page-13 [class*="top-navigation"],
+.source-embed.page-13 [class*="navbar"],
+.source-embed.page-13 [class*="nav-bar"],
+.source-embed.page-13 [class*="navigation-bar"],
+.source-embed.page-13 [class*="page-counter"],
+.source-embed.page-13 [class*="slide-counter"],
+.source-embed.page-13 [class*="progress"] {
+  display: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+}
+.source-embed.page-13 [class*="title-region"],
+.source-embed.page-13 [class*="title-section"],
+.source-embed.page-13 [class*="title-header"] {
+  display: none !important;
+}
+.source-embed.page-13 img,
+.source-embed.page-13 svg,
+.source-embed.page-13 canvas,
+.source-embed.page-13 video {
+  max-width: 100% !important;
+  height: auto !important;
+}
+.source-embed.page-13 table {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+.source-embed.page-13 mjx-container[jax="SVG"] svg {
+  max-width: 100% !important;
+}
+@media (max-width: 980px) {
+  .source-embed.page-13 [class*="content-layout"],
+  .source-embed.page-13 [class*="content-area"],
+  .source-embed.page-13 [class*="content-grid"],
+  .source-embed.page-13 [class*="main-content"],
+  .source-embed.page-13 [class*="two-column"],
+  .source-embed.page-13 [class*="columns"],
+  .source-embed.page-13 [class*="column-layout"],
+  .source-embed.page-13 [class*="comparison"],
+  .source-embed.page-13 [class*="cards-row"],
+  .source-embed.page-13 [class*="card-row"] {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .source-embed.page-13 [class*="left-column"],
+  .source-embed.page-13 [class*="right-column"],
+  .source-embed.page-13 [class*="column"],
+  .source-embed.page-13 [class*="panel"],
+  .source-embed.page-13 [class*="card"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 1 1 auto !important;
+  }
+}
+@media (max-width: 700px) {
+  .source-embed.page-13 > div,
+  .source-embed.page-13 [class*="slide-root"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  .source-embed.page-13 [class*="content-layout"],
+  .source-embed.page-13 [class*="content-area"],
+  .source-embed.page-13 [class*="content-grid"],
+  .source-embed.page-13 [class*="main-content"] {
+    padding: 0 !important;
+    gap: 14px !important;
+  }
+  .source-embed.page-13 [class*="formula"],
+  .source-embed.page-13 [class*="equation"],
+  .source-embed.page-13 [class*="math"],
+  .source-embed.page-13 [class*="table"] {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+  }
+}</style>
+    <div class="source-embed page-13">
+<div class="maxwell-construction-slide-root" style="overflow: hidden;">
+
+
+<!-- Título -->
+
+<!-- Conteúdo Principal -->
+<div class="maxwell-content-columns-container">
+<!-- Coluna 1: Problema -->
+<div class="maxwell-column-item-wrapper">
+<div class="maxwell-info-card-block">
+<div class="maxwell-card-header-title">
+<i class="fa-solid fa-weight-scale"></i> Instabilidade Física
+                    </div>
+<p class="maxwell-card-body-paragraph">
+                        A isoterma de van der Waals apresenta um trecho onde a derivada da pressão em relação ao volume é positiva (\(\partial P/\partial V &gt; 0\)).
+                    </p>
+<p class="maxwell-card-body-paragraph">
+                        Isso implica em uma <span class="maxwell-highlight-navy">compressibilidade isotérmica negativa</span> (\(\kappa_T &lt; 0\)), o que é fisicamente inadmissível para um sistema em equilíbrio estável.
+                    </p>
+<p class="maxwell-card-body-paragraph">
+                        A <span class="maxwell-highlight-navy">Construção de Maxwell</span> resolve esse paradoxo substituindo a oscilação instável por uma reta de pressão constante.
+                    </p>
+</div>
+</div>
+<!-- Coluna 2: Regra das Áreas -->
+<div class="maxwell-column-item-wrapper">
+<div class="maxwell-info-card-block maxwell-border-teal">
+<div class="maxwell-card-header-title maxwell-text-teal">
+<i class="fas fa-ruler-combined"></i> Regra das Áreas
+                    </div>
+<p class="maxwell-card-body-paragraph">
+                        A condição fundamental de equilíbrio exige que o <span class="maxwell-highlight-teal">potencial químico</span> (energia de Gibbs molar) seja igual em ambas as fases: \(g_g = g_\ell\).
+                    </p>
+<div class="maxwell-latex-equation-box">
+                        \[ \int_{p_\ell}^{p_g} v\,dp = 0 \]
+                    </div>
+<p class="maxwell-card-body-paragraph">
+                        Integrando por partes, chegamos à <span class="maxwell-highlight-teal">Regra das Áreas Iguais</span>, onde o trabalho excedente acima e abaixo da reta de coexistência se anula:
+                    </p>
+<div class="maxwell-latex-equation-box">
+                        \[ \int_{v_\ell}^{v_g} \left[p(v) - p_{eq}\right] dv = 0 \]
+                    </div>
+</div>
+</div>
+<!-- Coluna 3: Evidência Visual -->
+<div class="maxwell-column-item-wrapper">
+<div class="maxwell-info-card-block maxwell-border-orange">
+<div class="maxwell-card-header-title maxwell-text-orange">
+<i class="fas fa-chart-line"></i> Equilíbrio de Gibbs
+                    </div>
+<p class="maxwell-card-body-paragraph">
+                        A pressão de equilíbrio \(p_{eq}\) é o valor onde a energia livre de Gibbs apresenta <span class="maxwell-highlight-orange">dois mínimos de mesma profundidade</span>.
+                    </p>
+<div class="maxwell-illustration-image-container">
+<img alt="Gráfico de Energia Livre de Gibbs" src="https://static-us-img.skywork.ai/prod/nexus/1780078532/cropped_image_3_1780078532542617175.jpg"/>
+</div>
+<p class="maxwell-image-caption-text">
+                        Figura: Energia livre \(g(v)\) para \(t=0.9\). A linha verde (\(p_{eq}\)) mostra a coexistência.
+                    </p>
+<p class="maxwell-card-body-paragraph" style="margin-top: 10px;">
+                        Neste ponto, o sistema pode transitar entre as fases sem variação na energia livre total.
+                    </p>
+</div>
+</div>
+</div>
+<!-- Rodapé Reflexão -->
+<div class="maxwell-reflection-footer-box">
+<div class="maxwell-reflection-icon-circle">
+<i class="fas fa-lightbulb"></i>
+</div>
+<div class="maxwell-reflection-content-text">
+<strong>Para Reflexão:</strong> Por que a igualdade das áreas no diagrama \(P-V\) garante mecanicamente que o potencial químico seja o mesmo em ambas as extremidades da reta de coexistência? Considere a relação fundamental \(dG = VdP - SdT\).
+            </div>
+</div>
+</div>
+    </div>
+  </section>
+
+  <section class="source-fragment" data-source-page="page_14.html">
+    <style>.source-embed.page-14{width: 1280px; height: 720px; overflow: hidden; background-color: #F3F4F6;
+    font-family: "Inter", sans-serif}.source-embed.page-14 .lever-rule-slide-root{
+    width: 1280px;
+    height: 720px;
+    background-color: #FFF;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box
+    }.source-embed.page-14 /* Top Navigation Bar */
+.lever-rule-nav-bar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+    border-bottom: 1px solid #E5E7EB;
+    font-size: 12px;
+    color: #6B7280
+    }.source-embed.page-14 .lever-rule-nav-links{
+    display: flex;
+    gap: 20px
+    }.source-embed.page-14 .lever-rule-page-counter{
+    font-weight: 600;
+    color: #002147
+    }.source-embed.page-14 /* Title Region */
+.lever-rule-title-section{
+    display: flex;
+    flex-direction: column;
+    margin: 30px 60px 15px 60px;
+    border-left: 6px solid #0056B3;
+    padding-left: 20px
+    }.source-embed.page-14 .lever-rule-main-title{
+    font-size: 32px;
+    font-weight: 800;
+    color: #002147;
+    margin: 0;
+    text-transform: none;
+    line-height: 1.2
+    }.source-embed.page-14 .lever-rule-subtitle{
+    font-size: 14px;
+    font-variant: small-caps;
+    color: #64748B;
+    margin: 4px 0 0 0;
+    letter-spacing: 1px
+    }.source-embed.page-14 /* Main Content Layout */
+.lever-rule-content-grid{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    padding: 0 60px;
+    flex: 1;
+    align-items: stretch
+    }.source-embed.page-14 .lever-rule-column-wrapper{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center
+    }.source-embed.page-14 .lever-rule-card-container{
+    flex: 1;
+    padding: 20px;
+    border-left: 4px solid #002147;
+    background-color: #FFF;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column
+    }.source-embed.page-14 .lever-rule-card-title{
+    font-size: 18px;
+    font-weight: 700;
+    color: #002147;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px
+    }.source-embed.page-14 .lever-rule-card-body{
+    font-size: 14px;
+    line-height: 1.5;
+    color: #1F2937
+    }.source-embed.page-14 .lever-rule-card-body p{
+    margin: 8px 0
+    }.source-embed.page-14 .lever-rule-highlight-navy{
+    color: #002147;
+    font-weight: 700
+    }.source-embed.page-14 .lever-rule-highlight-teal{
+    color: #0D9488;
+    font-weight: 700
+    }.source-embed.page-14 .lever-rule-highlight-orange{
+    color: #EA580C;
+    font-weight: 700
+    }.source-embed.page-14 /* Equation Box */
+.lever-rule-equation-box{
+    background-color: #F5F5F5;
+    border: 1px solid #E5E7EB;
+    padding: 12px;
+    margin: 12px 0;
+    text-align: center;
+    border-radius: 4px
+    }.source-embed.page-14 /* Footer Boxes */
+.lever-rule-footer-region{
+    padding: 20px 60px 30px 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px
+    }.source-embed.page-14 .lever-rule-reflection-box{
+    background-color: #F0FDFA;
+    border: 1px solid #CCFBF1;
+    padding: 15px 20px;
+    border-radius: 6px;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px
+    }.source-embed.page-14 .lever-rule-reflection-icon{
+    color: #0D9488;
+    font-size: 20px;
+    margin-top: 2px
+    }.source-embed.page-14 .lever-rule-reflection-text{
+    font-size: 13px;
+    color: #0F766E;
+    line-height: 1.4
+    }.source-embed.page-14 .lever-rule-reflection-text b{
+    font-weight: 700
+    }.source-embed.page-14 /* Column Specific Colors */
+.lever-rule-card-navy{
+    border-left-color: #002147
+    }.source-embed.page-14 .lever-rule-card-teal{
+    border-left-color: #0D9488
+    }.source-embed.page-14 .lever-rule-card-orange{
+    border-left-color: #EA580C
+    }.source-embed.page-14{ overflow: hidden; }
+
+
+.source-embed.page-14,
+.source-embed.page-14 > div,
+.source-embed.page-14 [class$="slide-root"],
+.source-embed.page-14 [class*="slide-root"],
+.source-embed.page-14 [class*="slide-container"],
+.source-embed.page-14 [class*="slide-canvas"] {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+  box-sizing: border-box !important;
+}
+.source-embed.page-14 {
+  display: block !important;
+  background: transparent !important;
+}
+.source-embed.page-14 [class*="top-nav"],
+.source-embed.page-14 [class*="top-navigation"],
+.source-embed.page-14 [class*="navbar"],
+.source-embed.page-14 [class*="nav-bar"],
+.source-embed.page-14 [class*="navigation-bar"],
+.source-embed.page-14 [class*="page-counter"],
+.source-embed.page-14 [class*="slide-counter"],
+.source-embed.page-14 [class*="progress"] {
+  display: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+}
+.source-embed.page-14 [class*="title-region"],
+.source-embed.page-14 [class*="title-section"],
+.source-embed.page-14 [class*="title-header"] {
+  display: none !important;
+}
+.source-embed.page-14 img,
+.source-embed.page-14 svg,
+.source-embed.page-14 canvas,
+.source-embed.page-14 video {
+  max-width: 100% !important;
+  height: auto !important;
+}
+.source-embed.page-14 table {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+.source-embed.page-14 mjx-container[jax="SVG"] svg {
+  max-width: 100% !important;
+}
+@media (max-width: 980px) {
+  .source-embed.page-14 [class*="content-layout"],
+  .source-embed.page-14 [class*="content-area"],
+  .source-embed.page-14 [class*="content-grid"],
+  .source-embed.page-14 [class*="main-content"],
+  .source-embed.page-14 [class*="two-column"],
+  .source-embed.page-14 [class*="columns"],
+  .source-embed.page-14 [class*="column-layout"],
+  .source-embed.page-14 [class*="comparison"],
+  .source-embed.page-14 [class*="cards-row"],
+  .source-embed.page-14 [class*="card-row"] {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .source-embed.page-14 [class*="left-column"],
+  .source-embed.page-14 [class*="right-column"],
+  .source-embed.page-14 [class*="column"],
+  .source-embed.page-14 [class*="panel"],
+  .source-embed.page-14 [class*="card"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 1 1 auto !important;
+  }
+}
+@media (max-width: 700px) {
+  .source-embed.page-14 > div,
+  .source-embed.page-14 [class*="slide-root"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  .source-embed.page-14 [class*="content-layout"],
+  .source-embed.page-14 [class*="content-area"],
+  .source-embed.page-14 [class*="content-grid"],
+  .source-embed.page-14 [class*="main-content"] {
+    padding: 0 !important;
+    gap: 14px !important;
+  }
+  .source-embed.page-14 [class*="formula"],
+  .source-embed.page-14 [class*="equation"],
+  .source-embed.page-14 [class*="math"],
+  .source-embed.page-14 [class*="table"] {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+  }
+}</style>
+    <div class="source-embed page-14">
+<div class="lever-rule-slide-root" style="overflow: hidden;">
+
+
+<!-- Title Section -->
+
+<!-- Main Content -->
+<main class="lever-rule-content-grid">
+<!-- Column 1 -->
+<div class="lever-rule-column-wrapper">
+<section class="lever-rule-card-container lever-rule-card-navy">
+<div class="lever-rule-card-title">⚖️ O Patamar de Maxwell</div>
+<div class="lever-rule-card-body">
+<p>Dentro da região de <span class="lever-rule-highlight-navy">coexistência líquido-gás</span>, o sistema não segue a isoterma teórica de Van der Waals, mas sim a reta horizontal de Maxwell.</p>
+<p>O volume molar total \( v \) é a média ponderada dos volumes das fases em equilíbrio:</p>
+<div class="lever-rule-equation-box">
+                            \[ v = x_g v_g + x_\ell v_\ell \]
+                        </div>
+<p>Onde \( v_\ell \) e \( v_g \) são os volumes molares do líquido e do gás saturados.</p>
+</div>
+</section>
+</div>
+<!-- Column 2 -->
+<div class="lever-rule-column-wrapper">
+<section class="lever-rule-card-container lever-rule-card-teal">
+<div class="lever-rule-card-title">📐 Frações de Fase</div>
+<div class="lever-rule-card-body">
+<p>Considerando a <span class="lever-rule-highlight-teal">conservação do número de partículas</span>, as frações molares devem satisfazer:</p>
+<div class="lever-rule-equation-box">
+                            \[ x_g + x_\ell = 1 \]
+                        </div>
+<p>Isolando a <span class="lever-rule-highlight-teal">fração gasosa</span> \( x_g \) em termos do volume observado \( v \):</p>
+<div class="lever-rule-equation-box">
+                            \[ x_g = \frac{v - v_\ell}{v_g - v_\ell} \]
+                        </div>
+<p>Esta relação define a proporção de vapor presente no sistema bifásico.</p>
+</div>
+</section>
+</div>
+<!-- Column 3 -->
+<div class="lever-rule-column-wrapper">
+<section class="lever-rule-card-container lever-rule-card-orange">
+<div class="lever-rule-card-title">🔄 Interpretação Geométrica</div>
+<div class="lever-rule-card-body">
+<p>A <span class="lever-rule-highlight-orange">Regra da Alavanca</span> afirma que a fração de uma fase é proporcional ao comprimento do segmento oposto no diagrama \( p(v) \):</p>
+<ul style="padding-left: 20px; margin: 10px 0;">
+<li>Próximo a \( v_\ell \): Predomínio de líquido (\( x_g \to 0 \)).</li>
+<li>Próximo a \( v_g \): Predomínio de gás (\( x_g \to 1 \)).</li>
+<li>No centro: Mistura equimolar.</li>
+</ul>
+<p>O braço de alavanca é a distância relativa entre o estado atual e os limites de saturação.</p>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer Region -->
+<footer class="lever-rule-footer-region">
+<div class="lever-rule-reflection-box">
+<div class="lever-rule-reflection-icon">
+<i class="fa-solid fa-lightbulb"></i>
+</div>
+<div class="lever-rule-reflection-text">
+<b>Para Reflexão:</b> Como a regra da alavanca se relaciona com a conservação da massa total em um sistema fechado? Note que a variação de \( v \) no patamar de Maxwell implica apenas na redistribuição de matéria entre as fases, mantendo a pressão constante.
+                </div>
+</div>
+</footer>
+</div>
+    </div>
+  </section>
+
+  <section class="source-fragment" data-source-page="page_15.html">
+    <style>.source-embed.page-15{
+    --background: #FFF;
+    --title-text: #002147;
+    --body-text: #1F2937;
+    --secondary-text: #4B5563;
+    --muted-text: #9CA3AF;
+    --accent: #0056B3;
+    --secondary-accent: #0D9488;
+    --border: #E5E7EB;
+    --card-navy: #002147;
+    --card-teal: #0D9488;
+    --card-orange: #EA580C;
+    --card-purple: #6A0DAD;
+    --equation-bg: #F5F5F5;
+    --reflection-bg: #F0FDFA;
+    --exercise-bg: #FAF5FF
+    }.source-embed.page-15 *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box
+    }.source-embed.page-15{width: 1280px; height: 720px; overflow: hidden; font-family: "Inter", sans-serif;
+    background-color: var(--background);
+    color: var(--body-text)}.source-embed.page-15 .co2-slide-root-container{
+    width: 1280px;
+    height: 720px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-bottom: 20px
+    }.source-embed.page-15 /* Top Navigation Bar */
+.co2-top-navigation-bar{
+    width: 100%;
+    height: 40px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    font-size: 12px;
+    color: var(--secondary-text)
+    }.source-embed.page-15 .co2-nav-left-links{
+    display: flex;
+    gap: 15px
+    }.source-embed.page-15 .co2-page-counter-display{
+    font-weight: 600;
+    color: var(--title-text)
+    }.source-embed.page-15 /* Title Region */
+.co2-title-region-wrapper{
+    display: flex;
+    flex-direction: column;
+    margin: 30px 60px 20px 60px;
+    border-left: 6px solid var(--accent);
+    padding-left: 20px
+    }.source-embed.page-15 .co2-main-title-text{
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--title-text);
+    margin: 0
+    }.source-embed.page-15 .co2-subtitle-breadcrumb-text{
+    font-size: 14px;
+    font-variant: small-caps;
+    color: #64748B;
+    margin-top: 4px;
+    letter-spacing: 1px
+    }.source-embed.page-15 /* Main Content Grid */
+.co2-content-columns-wrapper{
+    display: flex;
+    flex: 1;
+    gap: 24px;
+    padding: 0 60px;
+    align-items: stretch
+    }.source-embed.page-15 .co2-column-container{
+    flex: 1;
+    display: flex;
+    flex-direction: column
+    }.source-embed.page-15 /* Cards */
+.co2-info-card-module{
+    flex: 1;
+    border-left: 4px solid var(--card-navy);
+    background: #FFF;
+    padding: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column
+    }.source-embed.page-15 .co2-card-header-group{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px
+    }.source-embed.page-15 .co2-card-icon-emoji{
+    font-size: 18px
+    }.source-embed.page-15 .co2-card-title-text{
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--title-text)
+    }.source-embed.page-15 .co2-card-body-paragraph{
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--body-text);
+    margin-bottom: 12px
+    }.source-embed.page-15 .co2-highlight-term-navy{
+    color: var(--card-navy);
+    font-weight: 700
+    }.source-embed.page-15 .co2-highlight-term-teal{
+    color: var(--card-teal);
+    font-weight: 700
+    }.source-embed.page-15 .co2-highlight-term-orange{
+    color: var(--card-orange);
+    font-weight: 700
+    }.source-embed.page-15 /* Equation Box */
+.co2-equation-display-box{
+    background-color: var(--equation-bg);
+    border: 1px solid var(--border);
+    padding: 12px;
+    border-radius: 4px;
+    margin: 8px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px
+    }.source-embed.page-15 /* Footer Boxes */
+.co2-footer-region-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px 60px 10px 60px
+    }.source-embed.page-15 .co2-reflection-footer-box{
+    background-color: var(--reflection-bg);
+    border: 1px solid rgba(13, 148, 136, 0.2);
+    padding: 12px 20px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 15px
+    }.source-embed.page-15 .co2-exercise-footer-box{
+    background-color: var(--exercise-bg);
+    border: 1px solid rgba(106, 13, 173, 0.2);
+    padding: 12px 20px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 15px
+    }.source-embed.page-15 .co2-footer-icon{
+    font-size: 20px
+    }.source-embed.page-15 .co2-reflection-icon{
+    color: var(--card-teal)
+    }.source-embed.page-15 .co2-exercise-icon{
+    color: var(--card-purple)
+    }.source-embed.page-15 .co2-footer-text-content{
+    font-size: 13px;
+    line-height: 1.4
+    }.source-embed.page-15 /* Specific card colors */
+.co2-card-border-teal{
+    border-left-color: var(--card-teal)
+    }.source-embed.page-15 .co2-card-border-orange{
+    border-left-color: var(--card-orange)
+    }.source-embed.page-15{ overflow: hidden; }
+
+
+.source-embed.page-15,
+.source-embed.page-15 > div,
+.source-embed.page-15 [class$="slide-root"],
+.source-embed.page-15 [class*="slide-root"],
+.source-embed.page-15 [class*="slide-container"],
+.source-embed.page-15 [class*="slide-canvas"] {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+  box-sizing: border-box !important;
+}
+.source-embed.page-15 {
+  display: block !important;
+  background: transparent !important;
+}
+.source-embed.page-15 [class*="top-nav"],
+.source-embed.page-15 [class*="top-navigation"],
+.source-embed.page-15 [class*="navbar"],
+.source-embed.page-15 [class*="nav-bar"],
+.source-embed.page-15 [class*="navigation-bar"],
+.source-embed.page-15 [class*="page-counter"],
+.source-embed.page-15 [class*="slide-counter"],
+.source-embed.page-15 [class*="progress"] {
+  display: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+}
+.source-embed.page-15 [class*="title-region"],
+.source-embed.page-15 [class*="title-section"],
+.source-embed.page-15 [class*="title-header"] {
+  display: none !important;
+}
+.source-embed.page-15 img,
+.source-embed.page-15 svg,
+.source-embed.page-15 canvas,
+.source-embed.page-15 video {
+  max-width: 100% !important;
+  height: auto !important;
+}
+.source-embed.page-15 table {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+.source-embed.page-15 mjx-container[jax="SVG"] svg {
+  max-width: 100% !important;
+}
+@media (max-width: 980px) {
+  .source-embed.page-15 [class*="content-layout"],
+  .source-embed.page-15 [class*="content-area"],
+  .source-embed.page-15 [class*="content-grid"],
+  .source-embed.page-15 [class*="main-content"],
+  .source-embed.page-15 [class*="two-column"],
+  .source-embed.page-15 [class*="columns"],
+  .source-embed.page-15 [class*="column-layout"],
+  .source-embed.page-15 [class*="comparison"],
+  .source-embed.page-15 [class*="cards-row"],
+  .source-embed.page-15 [class*="card-row"] {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .source-embed.page-15 [class*="left-column"],
+  .source-embed.page-15 [class*="right-column"],
+  .source-embed.page-15 [class*="column"],
+  .source-embed.page-15 [class*="panel"],
+  .source-embed.page-15 [class*="card"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 1 1 auto !important;
+  }
+}
+@media (max-width: 700px) {
+  .source-embed.page-15 > div,
+  .source-embed.page-15 [class*="slide-root"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  .source-embed.page-15 [class*="content-layout"],
+  .source-embed.page-15 [class*="content-area"],
+  .source-embed.page-15 [class*="content-grid"],
+  .source-embed.page-15 [class*="main-content"] {
+    padding: 0 !important;
+    gap: 14px !important;
+  }
+  .source-embed.page-15 [class*="formula"],
+  .source-embed.page-15 [class*="equation"],
+  .source-embed.page-15 [class*="math"],
+  .source-embed.page-15 [class*="table"] {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+  }
+}</style>
+    <div class="source-embed page-15">
+<div class="co2-slide-root-container" style="overflow: hidden;">
+<!-- Navigation -->
+
+<!-- Title Section -->
+
+<!-- Content Columns -->
+<main class="co2-content-columns-wrapper">
+<!-- Column 1: Equilibrium -->
+<section class="co2-column-container">
+<div class="co2-info-card-module">
+<div class="co2-card-header-group">
+<span class="co2-card-icon-emoji">⚖️</span>
+<h2 class="co2-card-title-text">Equilíbrio de Fases</h2>
+</div>
+<p class="co2-card-body-paragraph">
+                        Um cilindro comercial de CO₂ armazena o fluido em um estado de <span class="co2-highlight-term-navy">coexistência líquido-gás</span>. Segundo a construção de Maxwell, o sistema reside na reta horizontal do diagrama \(p(v)\).
+                    </p>
+<div class="co2-equation-display-box">
+                        \[ P_{cil} = P_{eq}(T) = \text{const.} \]
+                    </div>
+<p class="co2-card-body-paragraph">
+                        Enquanto houver as duas fases presentes, a pressão interna depende <span class="co2-highlight-term-navy">unicamente da temperatura</span>, não do volume total ou da quantidade de massa.
+                    </p>
+</div>
+</section>
+<!-- Column 2: Exhaust Process -->
+<section class="co2-column-container">
+<div class="co2-info-card-module co2-card-border-teal">
+<div class="co2-card-header-group">
+<span class="co2-card-icon-emoji">🔄</span>
+<h2 class="co2-card-title-text">Processo de Exaustão</h2>
+</div>
+<p class="co2-card-body-paragraph">
+                        Ao liberar gás pela válvula, a densidade média diminui. Para manter o <span class="co2-highlight-term-teal">equilíbrio termodinâmico</span> (\(g_l = g_g\)), parte do líquido evapora instantaneamente.
+                    </p>
+<div class="co2-equation-display-box">
+                        \[ v = x_g v_g + (1 - x_g) v_\ell \]
+                    </div>
+<p class="co2-card-body-paragraph">
+                        A <span class="co2-highlight-term-teal">fração gasosa \(x_g\)</span> aumenta gradualmente. O sistema percorre a reta de Maxwell da esquerda para a direita, mantendo a pressão \(P_{eq}\) constante.
+                    </p>
+</div>
+</section>
+<!-- Column 3: Depletion -->
+<section class="co2-column-container">
+<div class="co2-info-card-module co2-card-border-orange">
+<div class="co2-card-header-group">
+<span class="co2-card-icon-emoji">📐</span>
+<h2 class="co2-card-title-text">Esgotamento do Líquido</h2>
+</div>
+<p class="co2-card-body-paragraph">
+                        A pressão só começa a cair quando <span class="co2-highlight-term-orange">todo o líquido se esgota</span> (\(x_g \to 1\)). Nesse ponto, o sistema sai da região de coexistência.
+                    </p>
+<div class="co2-equation-display-box">
+                        \[ P \approx \frac{nRT}{V - nb} - a\frac{n^2}{V^2} \]
+                    </div>
+<p class="co2-card-body-paragraph">
+                        O fluido entra na fase de <span class="co2-highlight-term-orange">vapor superaquecido</span> (gás puro). A partir daqui, qualquer expansão adicional resulta em uma queda brusca de pressão seguindo a isoterma de Van der Waals estável.
+                    </p>
+</div>
+</section>
+</main>
+<!-- Footer Region -->
+<footer class="co2-footer-region-wrapper">
+<div class="co2-reflection-footer-box">
+<i class="fa-solid fa-lightbulb co2-footer-icon co2-reflection-icon"></i>
+<div class="co2-footer-text-content">
+<strong>Para Reflexão:</strong> Por que a temperatura do cilindro cai drasticamente se o gás for liberado muito rapidamente? Considere o <span class="co2-highlight-term-teal">calor latente de vaporização</span> necessário para transformar o líquido em gás.
+                </div>
+</div>
+<div class="co2-exercise-footer-box">
+<i class="fa-solid fa-pen-to-square co2-footer-icon co2-exercise-icon"></i>
+<div class="co2-footer-text-content">
+<strong>Exercício Rápido:</strong> Estime a massa de CO₂ líquido em um cilindro de 10L a 20°C sabendo que a pressão de vapor é ~57 atm. Use os parâmetros de Van der Waals: \(a = 3,64\) L²·atm/mol² e \(b = 0,0427\) L/mol.
+                </div>
+</div>
+</footer>
+</div>
+    </div>
+  </section>
+  </div>
+
+  <section data-termo-ai-exercise data-exercise-theme="purple"></section>
+</div>
+<script src="../../assets/chapter-embedded-slide.js"></script>
+</body>
+</html>

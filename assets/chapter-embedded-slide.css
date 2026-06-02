@@ -403,3 +403,159 @@ body{
   .ai-controls{flex-direction:column;width:100%}
   .ai-select,.ai-btn{width:100%}
 }
+
+/* Ajustes editoriais do Capítulo 04: os HTMLs vieram de slides fixos.
+   Mantemos o conteúdo, mas removemos layouts de três colunas que prejudicam a leitura. */
+.page--capitulo-04 .source-embed p,
+.page--capitulo-04 .source-embed li,
+.page--capitulo-04 .source-embed div{
+  text-align:left !important;
+}
+
+.page--capitulo-04 .source-embed [class*="equation"],
+.page--capitulo-04 .source-embed [class*="formula"],
+.page--capitulo-04 .source-embed [class*="math"]{
+  max-width:100% !important;
+  overflow-x:auto !important;
+  overflow-y:hidden !important;
+  -webkit-overflow-scrolling:touch;
+}
+
+.page--capitulo-04 .source-embed.page-5 .vdw-main-columns-wrapper,
+.page--capitulo-04 .source-embed.page-10 .van-der-waals-content-grid,
+.page--capitulo-04 .source-embed.page-17 .van-der-waals-content-columns-wrapper,
+.page--capitulo-04 .source-embed.page-19 .water-vapor-content-wrapper{
+  display:grid !important;
+  grid-template-columns:minmax(0,1fr) !important;
+  gap:18px !important;
+  align-items:stretch !important;
+  width:100% !important;
+  max-width:100% !important;
+  padding:0 !important;
+  margin:0 !important;
+}
+
+.page--capitulo-04 .source-embed.page-5 .vdw-column-content-block,
+.page--capitulo-04 .source-embed.page-10 .van-der-waals-column-item,
+.page--capitulo-04 .source-embed.page-17 .van-der-waals-info-card-column,
+.page--capitulo-04 .source-embed.page-19 .water-vapor-column{
+  width:100% !important;
+  max-width:100% !important;
+  min-width:0 !important;
+  flex:1 1 auto !important;
+}
+
+.page--capitulo-04 .source-embed.page-5 .vdw-card-item-container,
+.page--capitulo-04 .source-embed.page-10 .van-der-waals-info-card,
+.page--capitulo-04 .source-embed.page-17 .van-der-waals-info-card-column,
+.page--capitulo-04 .source-embed.page-19 .water-vapor-card{
+  height:auto !important;
+  min-height:0 !important;
+  width:100% !important;
+  max-width:100% !important;
+  background:#fff !important;
+  border-radius:18px !important;
+  border-top:1px solid #d9e2ec !important;
+  border-right:1px solid #d9e2ec !important;
+  border-bottom:1px solid #d9e2ec !important;
+  box-shadow:0 8px 22px rgba(15,48,86,.055) !important;
+  padding:clamp(16px,2.5vw,24px) !important;
+}
+
+.page--capitulo-04 .source-embed.page-5 .vdw-card-section-header,
+.page--capitulo-04 .source-embed.page-10 .van-der-waals-card-header,
+.page--capitulo-04 .source-embed.page-17 .van-der-waals-card-header-title,
+.page--capitulo-04 .source-embed.page-19 .water-vapor-card-header{
+  justify-content:flex-start !important;
+  text-align:left !important;
+  line-height:1.25 !important;
+  margin-bottom:12px !important;
+}
+
+.page--capitulo-04 .source-embed.page-5 .vdw-equation-display-box,
+.page--capitulo-04 .source-embed.page-10 .van-der-waals-equation-wrapper,
+.page--capitulo-04 .source-embed.page-17 .van-der-waals-equation-display-box,
+.page--capitulo-04 .source-embed.page-19 .water-vapor-equation-container{
+  text-align:center !important;
+  border-radius:14px !important;
+  padding:12px 14px !important;
+  margin:10px 0 !important;
+}
+
+.page--capitulo-04 .source-embed.page-5 .vdw-footer-region-wrapper,
+.page--capitulo-04 .source-embed.page-10 .van-der-waals-footer-section,
+.page--capitulo-04 .source-embed.page-17 .van-der-waals-footer-region-container,
+.page--capitulo-04 .source-embed.page-19 .water-vapor-footer-region{
+  width:100% !important;
+  max-width:100% !important;
+  margin:18px 0 0 !important;
+  padding:0 !important;
+}
+
+.page--capitulo-04 .source-embed.page-8 .zc-content-columns-container{
+  display:grid !important;
+  grid-template-columns:minmax(0,1fr) !important;
+  gap:18px !important;
+  align-items:stretch !important;
+  width:100% !important;
+  max-width:100% !important;
+  padding:0 !important;
+  margin:0 !important;
+}
+
+.page--capitulo-04 .source-embed.page-8 .zc-column-item-wrapper,
+.page--capitulo-04 .source-embed.page-8 .zc-info-card-block{
+  width:100% !important;
+  max-width:100% !important;
+  min-width:0 !important;
+  justify-content:flex-start !important;
+  align-items:stretch !important;
+  text-align:left !important;
+}
+
+.page--capitulo-04 .source-embed.page-8 .zc-info-card-block{
+  height:auto !important;
+  min-height:0 !important;
+  border-radius:18px !important;
+  border-top:1px solid #d9e2ec !important;
+  border-right:1px solid #d9e2ec !important;
+  border-bottom:1px solid #d9e2ec !important;
+  box-shadow:0 8px 22px rgba(15,48,86,.055) !important;
+  padding:clamp(16px,2.5vw,24px) !important;
+}
+
+.page--capitulo-04 .source-embed.page-8 .zc-card-header-group,
+.page--capitulo-04 .source-embed.page-8 .zc-card-body-text,
+.page--capitulo-04 .source-embed.page-8 .zc-list-item-element,
+.page--capitulo-04 .source-embed.page-8 .zc-reflection-content-text{
+  justify-content:flex-start !important;
+  text-align:left !important;
+}
+
+.page--capitulo-04 .source-embed.page-8 .zc-equation-display-box{
+  text-align:center !important;
+  border-radius:14px !important;
+  padding:12px 14px !important;
+  margin:10px 0 !important;
+}
+
+.page--capitulo-04 .source-embed.page-10 .van-der-waals-image-box{
+  width:100% !important;
+  max-width:680px !important;
+  margin:0 auto 10px !important;
+}
+
+.page--capitulo-04 .source-embed.page-17 .van-der-waals-bullet-list-container{
+  margin-top:10px !important;
+  padding-left:0 !important;
+}
+
+@media (min-width:1000px){
+  .page--capitulo-04 .source-embed.page-5 .vdw-main-columns-wrapper,
+  .page--capitulo-04 .source-embed.page-8 .zc-content-columns-container,
+  .page--capitulo-04 .source-embed.page-10 .van-der-waals-content-grid,
+  .page--capitulo-04 .source-embed.page-17 .van-der-waals-content-columns-wrapper,
+  .page--capitulo-04 .source-embed.page-19 .water-vapor-content-wrapper{
+    grid-template-columns:minmax(0,1fr) !important;
+  }
+}

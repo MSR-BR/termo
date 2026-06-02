@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Exemplo 5.2: Aproximação de Gás Ideal</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><style>body {width: 1280px; height: 720px; overflow: hidden; background-color: #F3F4F6;
+    font-family: "Inter", sans-serif}
+.clausius-slide-root-container {
+    width: 1280px;
+    height: 720px;
+    background-color: #FFF;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin: 0 auto
+    }
+/* Barra de Navegação Superior */
+.clausius-top-nav-bar-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+    border-bottom: 1px solid #E5E7EB;
+    font-size: 12px;
+    color: #4B5563
+    }
+.clausius-nav-links-group {
+    display: flex;
+    gap: 15px
+    }
+.clausius-page-counter-display {
+    font-weight: 600;
+    color: #1F2937
+    }
+/* Região do Título */
+.clausius-title-region-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 30px 60px 15px 60px;
+    border-left: 6px solid #0056B3;
+    padding-left: 20px
+    }
+.clausius-main-title-text {
+    font-size: 32px;
+    font-weight: 800;
+    color: #002147;
+    margin: 0;
+    text-transform: none
+    }
+.clausius-subtitle-small-caps {
+    font-size: 14px;
+    font-variant: small-caps;
+    color: #64748B;
+    margin-top: 4px;
+    letter-spacing: 1px
+    }
+/* Layout de 3 Colunas */
+.clausius-three-column-layout-container {
+    display: flex;
+    flex: 1;
+    padding: 0 60px;
+    gap: 20px;
+    align-items: stretch
+    }
+.clausius-column-item-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center
+    }
+.clausius-content-card-module {
+    flex: 1;
+    padding: 20px;
+    background-color: #FFF;
+    border-left: 4px solid #002147;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column
+    }
+.clausius-card-header-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px
+    }
+.clausius-card-title-text {
+    font-size: 18px;
+    font-weight: 700;
+    color: #002147
+    }
+.clausius-card-body-paragraph {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #1F2937;
+    margin: 0 0 12px 0
+    }
+.clausius-emphasized-term-span {
+    font-weight: 700;
+    color: #0056B3
+    }
+/* Boxes de Equação */
+.clausius-equation-box-container {
+    background-color: #F5F5F5;
+    border: 1px solid #E5E7EB;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center
+    }
+/* Cores das Bordas dos Cards */
+.clausius-border-navy {
+    border-left-color: #002147
+    }
+.clausius-border-teal {
+    border-left-color: #0D9488
+    }
+.clausius-border-orange {
+    border-left-color: #EA580C
+    }
+/* Rodapé: Box Exercício */
+.clausius-footer-exercise-wrapper {
+    margin: 20px 60px 30px 60px;
+    padding: 15px 20px;
+    background-color: #F5F3FF;
+    border: 1px solid #DDD6FE;
+    border-radius: 8px;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px
+    }
+.clausius-exercise-icon-box {
+    color: #7C3AED;
+    font-size: 20px;
+    padding-top: 2px
+    }
+.clausius-exercise-text-content {
+    font-size: 13px;
+    color: #4C1D95;
+    line-height: 1.4
+    }
+.clausius-exercise-label-bold {
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-right: 8px
+    }
+.clausius-card-list-group {
+    margin: 0;
+    padding: 0;
+    list-style: none
+    }
+.clausius-card-list-item {
+    font-size: 13px;
+    color: #374151;
+    margin-bottom: 8px;
+    padding-left: 15px;
+    position: relative
+    }
+.clausius-card-list-item::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #0056B3;
+    font-weight: bold
+    }
+html { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="clausius-slide-root-container" style="overflow: hidden;">
+<!-- Barra de Navegação -->
+<div class="clausius-top-nav-bar-wrapper">
+<div class="clausius-nav-links-group">
+<span>← Índice</span>
+<span>|</span>
+<span>Capítulo 5 · Item 5.1.7</span>
+<span>|</span>
+<span>Salvar progresso</span>
+<span>|</span>
+<span>Enviar</span>
+</div>
+<div class="clausius-page-counter-display">18 / 22</div>
+</div>
+<!-- Título -->
+<div class="clausius-title-region-wrapper">
+<h1 class="clausius-main-title-text">Exemplo 5.2: Aproximação de Gás Ideal</h1>
+<p class="clausius-subtitle-small-caps">GÁS IDEAL · INTEGRAÇÃO · COMPORTAMENTO EXPONENCIAL</p>
+</div>
+<!-- Conteúdo Principal -->
+<div class="clausius-three-column-layout-container">
+<!-- Coluna 1: Hipóteses -->
+<div class="clausius-column-item-wrapper">
+<div class="clausius-content-card-module clausius-border-navy">
+<div class="clausius-card-header-group">
+<i class="fas fa-ruler-combined" style="color: #002147;"></i>
+<span class="clausius-card-title-text">Hipóteses Fundamentais</span>
+</div>
+<p class="clausius-card-body-paragraph">
+                        Para situações <span class="clausius-emphasized-term-span">distantes do ponto crítico</span>, o volume da fase gasosa domina o sistema:
+                    </p>
+<ul class="clausius-card-list-group">
+<li class="clausius-card-list-item">\( v_g \gg v_\ell \): O volume líquido torna-se desprezível.</li>
+<li class="clausius-card-list-item">Tratamento do vapor como <span class="clausius-emphasized-term-span">gás ideal</span>.</li>
+</ul>
+<div class="clausius-equation-box-container">
+                        \[ v_g \approx \frac{t}{Z_c p} \]
+                    </div>
+</div>
+</div>
+<!-- Coluna 2: Derivação -->
+<div class="clausius-column-item-wrapper">
+<div class="clausius-content-card-module clausius-border-teal">
+<div class="clausius-card-header-group">
+<i class="fas fa-bolt" style="color: #0D9488;"></i>
+<span class="clausius-card-title-text">Derivação Matemática</span>
+</div>
+<p class="clausius-card-body-paragraph">
+                        Substituindo \( v_g \) na equação de <span class="clausius-emphasized-term-span">Clausius-Clapeyron</span> reduzida:
+                    </p>
+<div class="clausius-equation-box-container">
+                        \[ \frac{dp}{p} = \Delta\bar{\ell}^{molar} \frac{dt}{t^2} \]
+                    </div>
+<p class="clausius-card-body-paragraph" style="font-size: 13px; margin-top: 10px;">
+                        Integrando ambos os lados entre um estado de referência \( (t_i, p_i) \) e um estado genérico \( (t, p) \).
+                    </p>
+</div>
+</div>
+<!-- Coluna 3: Resultado -->
+<div class="clausius-column-item-wrapper">
+<div class="clausius-content-card-module clausius-border-orange">
+<div class="clausius-card-header-group">
+<i class="fas fa-chart-line" style="color: #EA580C;"></i>
+<span class="clausius-card-title-text">Resultado e Validade</span>
+</div>
+<p class="clausius-card-body-paragraph">
+                        A pressão de vapor exibe um <span class="clausius-emphasized-term-span">crescimento exponencial</span> com o inverso da temperatura:
+                    </p>
+<div class="clausius-equation-box-container">
+                        \[ p(t) = p_i \exp\left[-\Delta\bar{\ell}^{molar}\left(\frac{1}{t} - \frac{1}{t_i}\right)\right] \]
+                    </div>
+<p class="clausius-card-body-paragraph" style="font-size: 13px;">
+<i class="fa-solid fa-triangle-exclamation" style="color: #EA580C; margin-right: 5px;"></i>
+                        Esta aproximação <span class="clausius-emphasized-term-span">falha próximo ao ponto crítico</span>, onde \( v_g \to v_\ell \).
+                    </p>
+</div>
+</div>
+</div>
+<!-- Rodapé: Box Exercício -->
+<div class="clausius-footer-exercise-wrapper">
+<div class="clausius-exercise-icon-box">
+<i class="fa-solid fa-bookmark"></i>
+</div>
+<div class="clausius-exercise-text-content">
+<span class="clausius-exercise-label-bold">Destaque Teórico:</span>
+                Observe que a inclinação da curva de coexistência no plano \( \ln(p) \times 1/t \) é governada diretamente pelo calor latente molar \( \Delta\bar{\ell}^{molar} \). Este comportamento é a base para a determinação experimental de entalpias de vaporização em laboratórios de físico-química através de medidas de pressão de vapor.
+            </div>
+</div>
+</div>
+</body>
+</html>

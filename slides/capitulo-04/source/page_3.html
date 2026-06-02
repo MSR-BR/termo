@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Termodinâmica - Gás de Van der Waals</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><style>:root {
+    --background: #FFF;
+    --title-text: #002147;
+    --body-text: #1F2937;
+    --secondary-text: #4B5563;
+    --muted-text: #9CA3AF;
+    --accent: #0056B3;
+    --secondary-accent: #0D9488;
+    --border: #E5E7EB;
+    --card-navy: #002147;
+    --card-teal: #0D9488;
+    --card-orange: #EA580C;
+    --card-purple: #6A0DAD;
+    --equation-bg: #F5F5F5
+    }
+* {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased
+    }
+body {width: 1280px; height: 720px; overflow: hidden; font-family: "Inter", sans-serif;
+    background-color: #F3F4F6;
+    display: flex;
+    justify-content: center;
+    align-items: center}
+.slide-root-container {
+    width: 1280px;
+    height: 720px;
+    background-color: var(--background);
+    position: relative;
+    display: flex;
+    flex-direction: column
+    }
+.nav-header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 40px;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--secondary-text);
+    font-weight: 600
+    }
+.nav-left-links {
+    display: flex;
+    gap: 15px
+    }
+.nav-right-status {
+    display: flex;
+    gap: 20px;
+    align-items: center
+    }
+.page-counter-badge {
+    color: var(--muted-text)
+    }
+.title-region-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 40px 60px 20px 60px;
+    border-left: 6px solid var(--accent);
+    padding-left: 20px
+    }
+.title-main-text {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--title-text);
+    margin: 0;
+    line-height: 1.2
+    }
+.title-subtitle-breadcrumbs {
+    font-size: 14px;
+    font-variant: small-caps;
+    color: #64748B;
+    margin-top: 4px;
+    letter-spacing: 1px;
+    font-weight: 600
+    }
+.content-grid-three-columns {
+    display: flex;
+    flex: 1;
+    padding: 0 60px;
+    gap: 24px;
+    align-items: stretch;
+    margin-bottom: 20px
+    }
+.correction-column-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column
+    }
+.correction-info-card {
+    flex: 1;
+    background: white;
+    border-left: 4px solid var(--card-navy);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05)
+    }
+.correction-card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--title-text)
+    }
+.correction-card-header i {
+    color: var(--accent)
+    }
+.correction-card-body {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--body-text)
+    }
+.correction-card-body p {
+    margin: 0 0 12px 0
+    }
+.equation-box-container {
+    background-color: var(--equation-bg);
+    border: 1px solid var(--border);
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center
+    }
+.text-highlight-navy {
+    color: var(--card-navy);
+    font-weight: 700
+    }
+.text-highlight-teal {
+    color: var(--card-teal);
+    font-weight: 700
+    }
+.text-highlight-orange {
+    color: var(--card-orange);
+    font-weight: 700
+    }
+.footer-reflection-wrapper {
+    margin: 0 60px 40px 60px;
+    padding: 15px 20px;
+    background-color: #F0F9FF;
+    border-radius: 8px;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px
+    }
+.reflection-icon {
+    color: var(--secondary-accent);
+    font-size: 20px;
+    margin-top: 2px
+    }
+.reflection-text {
+    font-size: 14px;
+    color: var(--body-text);
+    line-height: 1.4
+    }
+.reflection-text strong {
+    color: var(--secondary-accent)
+    }
+html { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="slide-root-container" style="overflow: hidden;">
+<!-- Barra de Navegação Superior -->
+<div class="nav-header-wrapper">
+<div class="nav-left-links">
+<span>← Índice</span>
+<span style="color: var(--muted-text);">|</span>
+<span>Capítulo 5 · Item 5.1.1</span>
+</div>
+<div class="nav-right-status">
+<span>Salvar progresso</span>
+<span>Enviar</span>
+<span>☆</span>
+<span class="page-counter-badge">3 / 22</span>
+</div>
+</div>
+<!-- Região do Título -->
+<div class="title-region-wrapper">
+<h1 class="title-main-text">Correção de Volume: O Parâmetro b</h1>
+<p class="title-subtitle-breadcrumbs">Volume Excluído · Covolume · Movimento Molecular</p>
+</div>
+<!-- Layout Principal de 3 Colunas -->
+<div class="content-grid-three-columns">
+<!-- Coluna 1: Motivação -->
+<div class="correction-column-container">
+<div class="correction-info-card" style="border-left-color: var(--card-navy);">
+<div class="correction-card-header">
+<i class="fas fa-ruler-combined"></i>
+<span>Limitações do Modelo</span>
+</div>
+<div class="correction-card-body">
+<p>No modelo de gás ideal, as moléculas são tratadas como <strong class="text-highlight-navy">pontos materiais</strong> sem volume intrínseco ($b'=0$).</p>
+<p>Em gases reais, especialmente sob <strong class="text-highlight-navy">altas pressões</strong>, o volume próprio das partículas torna-se comparável ao volume total do recipiente.</p>
+<p>O afastamento médio entre as moléculas diminui drasticamente, tornando o modelo pontual fisicamente inconsistente com a realidade experimental.</p>
+</div>
+</div>
+</div>
+<!-- Coluna 2: Definição de b -->
+<div class="correction-column-container">
+<div class="correction-info-card" style="border-left-color: var(--card-teal);">
+<div class="correction-card-header">
+<i class="fas fa-cubes"></i>
+<span>Volume Excluído (b)</span>
+</div>
+<div class="correction-card-body">
+<p>Cada molécula ocupa um <strong class="text-highlight-teal">volume excluído</strong> $b'$, impedindo que outras partículas ocupem o mesmo espaço central.</p>
+<p>Para $n$ mols, definimos o <strong class="text-highlight-teal">covolume molar</strong> $b$:</p>
+<div class="equation-box-container">
+                            \[ b = N_A \cdot b' \]
+                        </div>
+<p>O volume disponível para o movimento térmico é reduzido:</p>
+<div class="equation-box-container">
+                            \[ V_{disponível} = V - nb \]
+                        </div>
+</div>
+</div>
+</div>
+<!-- Coluna 3: Consequências -->
+<div class="correction-column-container">
+<div class="correction-info-card" style="border-left-color: var(--card-orange);">
+<div class="correction-card-header">
+<i class="fas fa-chart-line"></i>
+<span>Efeito no Diagrama P(V)</span>
+</div>
+<div class="correction-card-body">
+<p>A assíntota vertical do gás ideal em $V=0$ desloca-se para a direita, ocorrendo em <strong class="text-highlight-orange">$V = nb$</strong>.</p>
+<p>Isso estabelece um <strong class="text-highlight-orange">limite físico inferior</strong> para a compressão: é impossível comprimir o fluido além do volume de seus próprios núcleos rígidos.</p>
+<p><strong>Analogia:</strong> Imagine um salão de dança lotado. Quanto mais pessoas, menos espaço livre para circulação; o volume dos corpos é o volume excluído.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Box Para Reflexão -->
+<div class="footer-reflection-wrapper">
+<div class="reflection-icon">
+<i class="fas fa-lightbulb"></i>
+</div>
+<div class="reflection-text">
+<strong>Para Reflexão:</strong> O parâmetro $b$ é puramente geométrico ou depende da temperatura? Como a energia cinética das colisões pode afetar a percepção do "tamanho efetivo" de uma molécula em condições extremas de temperatura?
+            </div>
+</div>
+</div>
+</body>
+</html>

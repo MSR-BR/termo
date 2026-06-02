@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Termodinâmica — A Construção de Maxwell</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><style>body {width: 1280px; height: 720px; overflow: hidden; background-color: #F3F4F6;
+    font-family: "Inter", sans-serif}
+.maxwell-construction-slide-root {
+    width: 1280px;
+    height: 720px;
+    background-color: #FFF;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin: 0 auto;
+    box-sizing: border-box
+    }
+/* Barra de Navegação Superior */
+.maxwell-navigation-top-bar {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    border-bottom: 1px solid #E5E7EB;
+    box-sizing: border-box;
+    font-size: 12px;
+    color: #4B5563
+    }
+.maxwell-navigation-left-links {
+    display: flex;
+    gap: 20px
+    }
+.maxwell-page-counter-display {
+    font-weight: 600;
+    color: #1F2937
+    }
+/* Título da Página */
+.maxwell-title-section-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 30px 60px 20px 60px;
+    border-left: 6px solid #0056B3;
+    padding-left: 20px
+    }
+.maxwell-main-title-text {
+    font-size: 32px;
+    font-weight: 800;
+    color: #002147;
+    margin: 0;
+    line-height: 1.2
+    }
+.maxwell-subtitle-small-caps {
+    font-size: 14px;
+    font-variant: small-caps;
+    color: #64748B;
+    margin-top: 4px;
+    letter-spacing: 1px
+    }
+/* Layout de 3 Colunas */
+.maxwell-content-columns-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    padding: 0 60px;
+    flex: 1;
+    align-items: stretch
+    }
+.maxwell-column-item-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start
+    }
+/* Cards de Informação */
+.maxwell-info-card-block {
+    flex: 1;
+    background-color: #FFF;
+    border-left: 4px solid #002147;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column
+    }
+.maxwell-card-header-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #002147;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px
+    }
+.maxwell-card-body-paragraph {
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: #1F2937;
+    margin-bottom: 15px
+    }
+.maxwell-highlight-navy {
+    color: #002147;
+    font-weight: 700
+    }
+.maxwell-highlight-teal {
+    color: #0D9488;
+    font-weight: 700
+    }
+.maxwell-highlight-orange {
+    color: #EA580C;
+    font-weight: 700
+    }
+/* Box de Equações */
+.maxwell-latex-equation-box {
+    background-color: #F5F5F5;
+    border: 1px solid #E5E7EB;
+    padding: 12px;
+    border-radius: 4px;
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center
+    }
+/* Imagem */
+.maxwell-illustration-image-container {
+    height: 200px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #E5E7EB;
+    margin-top: 10px
+    }
+.maxwell-illustration-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: #FFF
+    }
+.maxwell-image-caption-text {
+    font-size: 11px;
+    color: #9CA3AF;
+    margin-top: 6px;
+    text-align: center;
+    font-style: italic
+    }
+/* Rodapé de Reflexão */
+.maxwell-reflection-footer-box {
+    margin: 20px 60px 30px 60px;
+    background-color: #F0FDFA;
+    border: 1px solid #CCFBF1;
+    padding: 15px 20px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 15px
+    }
+.maxwell-reflection-icon-circle {
+    background-color: #0D9488;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0
+    }
+.maxwell-reflection-content-text {
+    font-size: 13px;
+    color: #0F766E;
+    line-height: 1.4
+    }
+/* Cores Alternativas para Cards */
+.maxwell-border-teal {
+    border-left-color: #0D9488
+    }
+.maxwell-border-orange {
+    border-left-color: #EA580C
+    }
+.maxwell-text-teal {
+    color: #0D9488
+    }
+.maxwell-text-orange {
+    color: #EA580C
+    }
+html { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="maxwell-construction-slide-root" style="overflow: hidden;">
+<!-- Barra de Navegação -->
+<div class="maxwell-navigation-top-bar">
+<div class="maxwell-navigation-left-links">
+<span>← Índice</span>
+<span>|</span>
+<span>Capítulo 5 · Item 5.1.5</span>
+<span>|</span>
+<span>Salvar progresso</span>
+<span>|</span>
+<span>Enviar</span>
+</div>
+<div class="maxwell-page-counter-display">
+                13 / 22 <span style="margin-left: 10px;">☆</span>
+</div>
+</div>
+<!-- Título -->
+<div class="maxwell-title-section-wrapper">
+<h1 class="maxwell-main-title-text">A Construção de Maxwell</h1>
+<p class="maxwell-subtitle-small-caps">Regra das Áreas Iguais · Coexistência Líquido-Gás · Equilíbrio Termodinâmico</p>
+</div>
+<!-- Conteúdo Principal -->
+<div class="maxwell-content-columns-container">
+<!-- Coluna 1: Problema -->
+<div class="maxwell-column-item-wrapper">
+<div class="maxwell-info-card-block">
+<div class="maxwell-card-header-title">
+<i class="fa-solid fa-weight-scale"></i> Instabilidade Física
+                    </div>
+<p class="maxwell-card-body-paragraph">
+                        A isoterma de van der Waals apresenta um trecho onde a derivada da pressão em relação ao volume é positiva (\(\partial P/\partial V &gt; 0\)).
+                    </p>
+<p class="maxwell-card-body-paragraph">
+                        Isso implica em uma <span class="maxwell-highlight-navy">compressibilidade isotérmica negativa</span> (\(\kappa_T &lt; 0\)), o que é fisicamente inadmissível para um sistema em equilíbrio estável.
+                    </p>
+<p class="maxwell-card-body-paragraph">
+                        A <span class="maxwell-highlight-navy">Construção de Maxwell</span> resolve esse paradoxo substituindo a oscilação instável por uma reta de pressão constante.
+                    </p>
+</div>
+</div>
+<!-- Coluna 2: Regra das Áreas -->
+<div class="maxwell-column-item-wrapper">
+<div class="maxwell-info-card-block maxwell-border-teal">
+<div class="maxwell-card-header-title maxwell-text-teal">
+<i class="fas fa-ruler-combined"></i> Regra das Áreas
+                    </div>
+<p class="maxwell-card-body-paragraph">
+                        A condição fundamental de equilíbrio exige que o <span class="maxwell-highlight-teal">potencial químico</span> (energia de Gibbs molar) seja igual em ambas as fases: \(g_g = g_\ell\).
+                    </p>
+<div class="maxwell-latex-equation-box">
+                        \[ \int_{p_\ell}^{p_g} v\,dp = 0 \]
+                    </div>
+<p class="maxwell-card-body-paragraph">
+                        Integrando por partes, chegamos à <span class="maxwell-highlight-teal">Regra das Áreas Iguais</span>, onde o trabalho excedente acima e abaixo da reta de coexistência se anula:
+                    </p>
+<div class="maxwell-latex-equation-box">
+                        \[ \int_{v_\ell}^{v_g} \left[p(v) - p_{eq}\right] dv = 0 \]
+                    </div>
+</div>
+</div>
+<!-- Coluna 3: Evidência Visual -->
+<div class="maxwell-column-item-wrapper">
+<div class="maxwell-info-card-block maxwell-border-orange">
+<div class="maxwell-card-header-title maxwell-text-orange">
+<i class="fas fa-chart-line"></i> Equilíbrio de Gibbs
+                    </div>
+<p class="maxwell-card-body-paragraph">
+                        A pressão de equilíbrio \(p_{eq}\) é o valor onde a energia livre de Gibbs apresenta <span class="maxwell-highlight-orange">dois mínimos de mesma profundidade</span>.
+                    </p>
+<div class="maxwell-illustration-image-container">
+<img alt="Gráfico de Energia Livre de Gibbs" src="https://static-us-img.skywork.ai/prod/nexus/1780078532/cropped_image_3_1780078532542617175.jpg"/>
+</div>
+<p class="maxwell-image-caption-text">
+                        Figura: Energia livre \(g(v)\) para \(t=0.9\). A linha verde (\(p_{eq}\)) mostra a coexistência.
+                    </p>
+<p class="maxwell-card-body-paragraph" style="margin-top: 10px;">
+                        Neste ponto, o sistema pode transitar entre as fases sem variação na energia livre total.
+                    </p>
+</div>
+</div>
+</div>
+<!-- Rodapé Reflexão -->
+<div class="maxwell-reflection-footer-box">
+<div class="maxwell-reflection-icon-circle">
+<i class="fas fa-lightbulb"></i>
+</div>
+<div class="maxwell-reflection-content-text">
+<strong>Para Reflexão:</strong> Por que a igualdade das áreas no diagrama \(P-V\) garante mecanicamente que o potencial químico seja o mesmo em ambas as extremidades da reta de coexistência? Considere a relação fundamental \(dG = VdP - SdT\).
+            </div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Termodinâmica - Gás de Van der Waals</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><style>body {width: 1280px; height: 720px; overflow: hidden; background-color: #F3F4F6;
+    font-family: "Inter", sans-serif}
+.vdw-presentation-slide-root {
+    width: 1280px;
+    height: 720px;
+    background-color: #FFF;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box
+    }
+/* Barra de Navegação Superior */
+.vdw-top-nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+    background-color: #FFF;
+    border-bottom: 1px solid #E5E7EB;
+    font-size: 14px;
+    color: #4B5563
+    }
+.vdw-nav-left-group {
+    display: flex;
+    gap: 20px
+    }
+.vdw-nav-right-group {
+    display: flex;
+    gap: 20px;
+    align-items: center
+    }
+.vdw-page-counter-badge {
+    font-weight: 600;
+    color: #1F2937
+    }
+/* Região do Título */
+.vdw-title-region-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 40px 60px 20px 60px;
+    border-left: 6px solid #0056B3;
+    padding-left: 20px
+    }
+.vdw-main-slide-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: #002147;
+    margin: 0;
+    text-transform: none
+    }
+.vdw-sub-topic-breadcrumb {
+    font-size: 14px;
+    font-variant: small-caps;
+    color: #64748B;
+    margin-top: 4px;
+    letter-spacing: 1px
+    }
+/* Layout de Colunas */
+.vdw-content-columns-grid {
+    display: flex;
+    flex: 1;
+    padding: 0 60px;
+    gap: 25px;
+    align-items: stretch
+    }
+.vdw-column-card-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #FFF;
+    border-radius: 4px;
+    padding-bottom: 20px
+    }
+.vdw-card-header-line {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    padding-left: 15px
+    }
+/* Cores das Bordas dos Cards */
+.vdw-border-navy {
+    border-left: 4px solid #002147;
+    color: #002147
+    }
+.vdw-border-teal {
+    border-left: 4px solid #0D9488;
+    color: #0D9488
+    }
+.vdw-border-orange {
+    border-left: 4px solid #EA580C;
+    color: #EA580C
+    }
+.vdw-card-text-body {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #1F2937;
+    padding: 0 15px
+    }
+.vdw-card-text-body p {
+    margin: 0 0 12px 0
+    }
+.vdw-highlight-navy {
+    color: #002147;
+    font-weight: 700
+    }
+.vdw-highlight-teal {
+    color: #0D9488;
+    font-weight: 700
+    }
+.vdw-highlight-orange {
+    color: #EA580C;
+    font-weight: 700
+    }
+/* Box de Equação */
+.vdw-equation-display-box {
+    background-color: #F9FAFB;
+    border: 1px solid #E5E7EB;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 10px 0;
+    text-align: center
+    }
+/* Rodapé - Para Reflexão */
+.vdw-footer-reflection-container {
+    margin: 20px 60px 40px 60px;
+    background-color: #F0FDFA;
+    border: 1px solid #CCFBF1;
+    border-radius: 8px;
+    padding: 15px 25px;
+    display: flex;
+    align-items: center;
+    gap: 20px
+    }
+.vdw-reflection-icon-wrapper {
+    font-size: 24px;
+    color: #0D9488
+    }
+.vdw-reflection-content-text {
+    font-size: 14px;
+    color: #0F766E;
+    line-height: 1.4
+    }
+.vdw-reflection-content-text strong {
+    color: #0D9488
+    }
+ul.vdw-bullet-list-content {
+    margin: 0;
+    padding-left: 18px;
+    list-style: disc
+    }
+ul.vdw-bullet-list-content li {
+    margin-bottom: 6px
+    }
+html { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="vdw-presentation-slide-root" style="overflow: hidden;">
+<!-- Barra de Navegação -->
+<nav class="vdw-top-nav-bar">
+<div class="vdw-nav-left-group">
+<span>← Índice</span>
+<span>|</span>
+<span>Capítulo 5 · Item 5.1.6</span>
+</div>
+<div class="vdw-nav-right-group">
+<span>Salvar progresso</span>
+<span>Enviar</span>
+<span>☆</span>
+<span class="vdw-page-counter-badge">16 / 22</span>
+</div>
+</nav>
+<!-- Título da Página -->
+<header class="vdw-title-region-wrapper">
+<h1 class="vdw-main-slide-title">Superaquecimento e Super-resfriamento</h1>
+<p class="vdw-sub-topic-breadcrumb">Estados Metaestáveis · Curva Espinodal · Nucleação e Instabilidade</p>
+</header>
+<!-- Conteúdo Principal -->
+<main class="vdw-content-columns-grid">
+<!-- Coluna 1: Metaestabilidade -->
+<section class="vdw-column-card-item vdw-border-navy">
+<div class="vdw-card-header-line">🌀 Natureza da Metaestabilidade</div>
+<div class="vdw-card-text-body">
+<p>Estados localizados entre a <strong>curva de coexistência</strong> (Maxwell) e a <strong>curva espinodal</strong> são termodinamicamente <span class="vdw-highlight-navy">metaestáveis</span>.</p>
+<ul class="vdw-bullet-list-content">
+<li>O sistema é estável frente a pequenas flutuações locais (\(\kappa_T &gt; 0\)).</li>
+<li>O equilíbrio global exige a separação de fases para minimizar a energia livre.</li>
+<li>A transição é impedida pela barreira energética de <strong>nucleação</strong>.</li>
+</ul>
+<div class="vdw-equation-display-box">
+            \[ \Delta G_{\text{global}} &lt; 0 \quad \text{mas} \quad \delta^2 G &gt; 0 \]
+          </div>
+</div>
+</section>
+<!-- Coluna 2: Superaquecimento -->
+<section class="vdw-column-card-item vdw-border-teal">
+<div class="vdw-card-header-line">🌡️ Superaquecimento do Líquido</div>
+<div class="vdw-card-text-body">
+<p>Ocorre quando um líquido é aquecido acima de sua <span class="vdw-highlight-teal">temperatura de ebulição</span> sem que a fase vapor se forme.</p>
+<ul class="vdw-bullet-list-content">
+<li>Ausência de superfícies rugosas ou impurezas impede a formação de bolhas.</li>
+<li>O sistema segue o ramo líquido da isoterma de Van der Waals além da reta de Maxwell.</li>
+<li>Fenômeno comum em laboratório conhecido como <strong>"bumping"</strong>.</li>
+</ul>
+<div class="vdw-equation-display-box">
+             \( T &gt; T_{eq}(P) \quad \text{em fase líquida} \)
+          </div>
+</div>
+</section>
+<!-- Coluna 3: Super-resfriamento -->
+<section class="vdw-column-card-item vdw-border-orange">
+<div class="vdw-card-header-line">❄️ Super-resfriamento do Vapor</div>
+<div class="vdw-card-text-body">
+<p>O vapor permanece em fase única mesmo abaixo da <span class="vdw-highlight-orange">temperatura de condensação</span>, mantendo-se como gás metaestável.</p>
+<ul class="vdw-bullet-list-content">
+<li>Fundamental para a formação de gotículas em nuvens sub-resfriadas.</li>
+<li>Base do funcionamento da <strong>Câmara de Wilson</strong> para detecção de partículas ionizantes.</li>
+<li>Ao atingir a <strong>curva espinodal</strong>, a instabilidade torna-se absoluta e a fase colapsa.</li>
+</ul>
+<div class="vdw-equation-display-box">
+            \[ p_{\text{espinodal}} = \frac{3v - 2}{v^3} \]
+          </div>
+</div>
+</section>
+</main>
+<!-- Rodapé Reflexivo -->
+<footer class="vdw-footer-reflection-container">
+<div class="vdw-reflection-icon-wrapper">
+<i class="fas fa-lightbulb"></i>
+</div>
+<div class="vdw-reflection-content-text">
+<strong>Para Reflexão:</strong> A transição de fase real requer a formação de um <strong>núcleo crítico</strong>. Como a ausência de sítios de nucleação permite que o sistema explore estados de maior energia livre antes de transitar para o equilíbrio global?
+      </div>
+</footer>
+</div>
+</body>
+</html>

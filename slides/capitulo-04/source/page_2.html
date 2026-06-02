@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Termodinâmica - Capítulo 5: Gás de Van der Waals</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><style>:root {
+    --background: #FFF;
+    --title-text: #002147;
+    --body-text: #1F2937;
+    --secondary-text: #4B5563;
+    --muted-text: #9CA3AF;
+    --accent: #0056B3;
+    --secondary-accent: #0D9488;
+    --border: #E5E7EB;
+    --card-navy: #002147;
+    --card-teal: #0D9488;
+    --card-orange: #EA580C;
+    --card-purple: #6A0DAD;
+    --equation-bg: #F5F5F5;
+    --reflection-bg: #F0F9FF;
+    --reflection-border: #BAE6FD
+    }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0
+    }
+body {width: 1280px; height: 720px; overflow: hidden; font-family: "Inter", sans-serif;
+    background-color: #F3F4F6;
+    display: flex;
+    justify-content: center;
+    align-items: center}
+.real-gas-slide-root {
+    width: 1280px;
+    height: 720px;
+    background-color: var(--background);
+    position: relative;
+    display: flex;
+    flex-direction: column
+    }
+/* Top Navigation Bar */
+.real-gas-top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--secondary-text)
+    }
+.real-gas-nav-links span {
+    margin: 0 10px;
+    cursor: pointer
+    }
+.real-gas-page-counter {
+    font-weight: 600;
+    color: var(--title-text)
+    }
+/* Title Region */
+.real-gas-title-section {
+    display: flex;
+    flex-direction: column;
+    margin: 30px 60px 20px 60px;
+    border-left: 6px solid var(--accent);
+    padding-left: 20px
+    }
+.real-gas-main-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--title-text);
+    margin: 0;
+    line-height: 1.2
+    }
+.real-gas-subtitle {
+    font-size: 14px;
+    font-variant: small-caps;
+    color: #64748B;
+    margin-top: 4px;
+    letter-spacing: 1px;
+    font-weight: 600
+    }
+/* Main Content Layout - 3 Columns */
+.real-gas-content-grid {
+    display: flex;
+    flex: 1;
+    gap: 20px;
+    padding: 0 60px;
+    margin-bottom: 20px;
+    align-items: stretch
+    }
+.real-gas-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px
+    }
+.real-gas-card {
+    background: #FFF;
+    padding: 20px;
+    border-left: 4px solid var(--card-navy);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    flex: 1;
+    display: flex;
+    flex-direction: column
+    }
+.real-gas-card-navy {
+    border-color: var(--card-navy)
+    }
+.real-gas-card-teal {
+    border-color: var(--card-teal)
+    }
+.real-gas-card-orange {
+    border-color: var(--card-orange)
+    }
+.real-gas-card-header {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--title-text);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px
+    }
+.real-gas-card-body {
+    font-size: 14px;
+    color: var(--body-text);
+    line-height: 1.5
+    }
+.real-gas-card-body p {
+    margin-bottom: 10px
+    }
+.real-gas-list {
+    list-style: none;
+    margin-top: 5px
+    }
+.real-gas-list-item {
+    margin-bottom: 8px;
+    padding-left: 15px;
+    position: relative
+    }
+.real-gas-list-item::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: bold
+    }
+.real-gas-highlight-navy {
+    color: var(--card-navy);
+    font-weight: 700
+    }
+.real-gas-highlight-teal {
+    color: var(--card-teal);
+    font-weight: 700
+    }
+.real-gas-highlight-orange {
+    color: var(--card-orange);
+    font-weight: 700
+    }
+/* Equation Box */
+.real-gas-equation-box {
+    background-color: var(--equation-bg);
+    border: 1px solid var(--border);
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 4px;
+    text-align: center
+    }
+/* Footer Box */
+.real-gas-footer-reflection {
+    margin: 0 60px 30px 60px;
+    background-color: var(--reflection-bg);
+    border: 1px solid var(--reflection-border);
+    padding: 15px 25px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 15px
+    }
+.real-gas-reflection-icon {
+    font-size: 24px;
+    color: var(--secondary-accent)
+    }
+.real-gas-reflection-text {
+    font-size: 13px;
+    color: var(--title-text);
+    font-style: italic;
+    line-height: 1.4
+    }
+html { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="real-gas-slide-root" style="overflow: hidden;">
+<!-- Navigation Bar -->
+<div class="real-gas-top-nav">
+<div class="real-gas-nav-links">
+<span>← Índice</span> | 
+                <span>Capítulo 5 · Item 5.1</span> | 
+                <span>Salvar progresso</span> | 
+                <span>Enviar</span> | 
+                <span><i class="fa-regular fa-star"></i></span>
+</div>
+<div class="real-gas-page-counter">2 / 22</div>
+</div>
+<!-- Title Section -->
+<div class="real-gas-title-section">
+<h1 class="real-gas-main-title">Por que estudar gases reais?</h1>
+<p class="real-gas-subtitle">LIMITAÇÕES DO GÁS IDEAL · TRANSIÇÕES DE FASE · APLICAÇÕES INDUSTRIAIS</p>
+</div>
+<!-- Content Grid -->
+<div class="real-gas-content-grid">
+<!-- Column 1: Limites do Modelo -->
+<div class="real-gas-column">
+<div class="real-gas-card real-gas-card-navy">
+<div class="real-gas-card-header">🧪 Limites de Validade</div>
+<div class="real-gas-card-body">
+<p>O modelo de gás ideal descreve bem vapores diluídos, mas perde validade física em dois regimes fundamentais:</p>
+<ul class="real-gas-list">
+<li class="real-gas-list-item"><span class="real-gas-highlight-navy">Pressões Elevadas:</span> Quando o afastamento médio entre moléculas é comparável ao seu tamanho efetivo.</li>
+<li class="real-gas-list-item"><span class="real-gas-highlight-navy">Baixas Temperaturas:</span> Quando o comprimento de onda térmico se aproxima da distância média entre as partículas.</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Column 2: Transições de Fase -->
+<div class="real-gas-column">
+<div class="real-gas-card real-gas-card-teal">
+<div class="real-gas-card-header">🔄 Transições de Fase</div>
+<div class="real-gas-card-body">
+<p>Em gases reais, as interações intermoleculares levam a fenômenos coletivos que o modelo ideal não prevê:</p>
+<ul class="real-gas-list">
+<li class="real-gas-list-item"><span class="real-gas-highlight-teal">Liquefação:</span> A transição abrupta da fase gasosa para a líquida sob compressão ou resfriamento.</li>
+<li class="real-gas-list-item"><span class="real-gas-highlight-teal">Instabilidade:</span> Regiões onde o sistema não consegue manter a homogeneidade mecânica.</li>
+</ul>
+<div class="real-gas-equation-box">
+                            \[ U_{total} = U_{cin} + U_{interação} \]
+                        </div>
+</div>
+</div>
+</div>
+<!-- Column 3: Relevância Técnica -->
+<div class="real-gas-column">
+<div class="real-gas-card real-gas-card-orange">
+<div class="real-gas-card-header">⚙️ Relevância Técnica</div>
+<div class="real-gas-card-body">
+<p>A descrição precisa de fluidos reais é o pilar para diversas áreas da engenharia e ciência:</p>
+<ul class="real-gas-list">
+<li class="real-gas-list-item"><span class="real-gas-highlight-orange">Ciclos Industriais:</span> Otimização de processos de refrigeração e separação de gases.</li>
+<li class="real-gas-list-item"><span class="real-gas-highlight-orange">Atmosfera:</span> Interpretação de fenômenos climáticos e condensação de nuvens.</li>
+<li class="real-gas-list-item"><span class="real-gas-highlight-orange">Fluidos Supercríticos:</span> Uso industrial de substâncias além do ponto crítico.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Reflection Box -->
+<div class="real-gas-footer-reflection">
+<div class="real-gas-reflection-icon">
+<i class="fa-regular fa-lightbulb"></i>
+</div>
+<div class="real-gas-reflection-text">
+                "Por que as forças atrativas tornam-se mais relevantes à medida que a temperatura do sistema diminui, mesmo que a densidade permaneça constante?"
+            </div>
+</div>
+</div>
+</body>
+</html>

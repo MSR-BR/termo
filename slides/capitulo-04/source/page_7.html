@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Variáveis Reduzidas e Equação Universal</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><style>* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0
+    }
+body {width: 1280px; height: 720px; overflow: hidden; background-color: #FFF;
+    font-family: "Inter", sans-serif;
+    color: #1F2937;
+    display: flex;
+    justify-content: center;
+    align-items: center}
+.slide-root-container {
+    width: 1280px;
+    height: 720px;
+    background-color: #FFF;
+    position: relative;
+    display: flex;
+    flex-direction: column
+    }
+.top-navigation-bar {
+    width: 100%;
+    height: 40px;
+    padding: 0 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #E5E7EB;
+    font-size: 12px;
+    color: #64748B
+    }
+.nav-left-items {
+    display: flex;
+    gap: 20px
+    }
+.nav-right-items {
+    display: flex;
+    gap: 20px
+    }
+.title-region-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 40px 60px 20px 60px;
+    border-left: 6px solid #0056B3;
+    padding-left: 20px
+    }
+.title-main-heading {
+    font-size: 32px;
+    font-weight: 800;
+    color: #002147;
+    margin: 0;
+    text-transform: none;
+    line-height: 1.2
+    }
+.subtitle-breadcrumb-text {
+    font-size: 14px;
+    font-variant: small-caps;
+    color: #64748B;
+    margin-top: 4px;
+    letter-spacing: 1px;
+    line-height: 1.3
+    }
+.main-content-layout {
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+    padding: 0 60px;
+    flex: 1;
+    align-items: stretch;
+    margin-bottom: 20px
+    }
+.content-card-module {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-left: 4px solid;
+    background-color: #FFF;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    border-top: 1px solid #F3F4F6;
+    border-right: 1px solid #F3F4F6;
+    border-bottom: 1px solid #F3F4F6;
+    border-radius: 0 8px 8px 0
+    }
+.card-navy-border {
+    border-left-color: #002147
+    }
+.card-teal-border {
+    border-left-color: #0D9488
+    }
+.card-orange-border {
+    border-left-color: #EA580C
+    }
+.card-header-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1F2937;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px
+    }
+.card-body-paragraph {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #374151;
+    margin-bottom: 12px
+    }
+.equation-box-container {
+    background-color: #F5F5F5;
+    border: 1px solid #E5E7EB;
+    padding: 15px 10px;
+    margin: 10px 0;
+    text-align: center;
+    border-radius: 4px
+    }
+.bold-navy-highlight {
+    color: #002147;
+    font-weight: 700
+    }
+.bold-teal-highlight {
+    color: #0D9488;
+    font-weight: 700
+    }
+.bold-orange-highlight {
+    color: #EA580C;
+    font-weight: 700
+    }
+.reflection-footer-wrapper {
+    margin: 0 60px 40px 60px;
+    padding: 15px 25px;
+    background-color: #F0FDFA;
+    border: 1px solid #CCFBF1;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 15px
+    }
+.reflection-text-content {
+    font-size: 14px;
+    font-weight: 500;
+    color: #0D9488
+    }
+.icon-symbol {
+    font-size: 18px
+    }
+html { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="slide-root-container" style="overflow: hidden;">
+<!-- Top Navigation Bar -->
+<div class="top-navigation-bar">
+<div class="nav-left-items">
+<span>← Índice | Capítulo 5 · Item 5.1.2</span>
+</div>
+<div class="nav-right-items">
+<span>Salvar progresso | Enviar | ☆</span>
+</div>
+</div>
+<!-- Title Region -->
+<div class="title-region-wrapper">
+<h1 class="title-main-heading">Variáveis Reduzidas e Equação Universal</h1>
+<p class="subtitle-breadcrumb-text">ADIMENSIONALIZAÇÃO · LEI DOS ESTADOS CORRESPONDENTES · UNIVERSALIDADE</p>
+</div>
+<!-- Main Content Layout -->
+<div class="main-content-layout">
+<!-- Column 1: Definições -->
+<div class="content-card-module card-navy-border">
+<h2 class="card-header-title">📏 Definições Reduzidas</h2>
+<p class="card-body-paragraph">
+                    Normalizamos as variáveis de estado em relação aos seus valores no <span class="bold-navy-highlight">ponto crítico</span> para remover a dependência de parâmetros específicos.
+                </p>
+<div class="equation-box-container">
+                    \[ p = \frac{P}{P_c}, \quad v = \frac{V}{V_c}, \quad t = \frac{T}{T_c} \]
+                </div>
+<p class="card-body-paragraph">
+                    Essas variáveis adimensionais permitem que substâncias com diferentes parâmetros <b>a</b> e <b>b</b> sejam comparadas na mesma escala.
+                </p>
+</div>
+<!-- Column 2: Equação Universal -->
+<div class="content-card-module card-teal-border">
+<h2 class="card-header-title">🧪 Equação Universal</h2>
+<p class="card-body-paragraph">
+                    Ao substituir as definições na equação de van der Waals, os parâmetros específicos desaparecem, resultando na <span class="bold-teal-highlight">forma reduzida universal</span>:
+                </p>
+<div class="equation-box-container">
+                    \[ \left(p + \frac{3}{v^2}\right)\left(v - \frac{1}{3}\right) = \frac{8t}{3} \]
+                </div>
+<p class="card-body-paragraph">
+                    Esta equação é válida para qualquer fluido que siga o modelo, independentemente de sua natureza química, desde que escalonado por \(P_c, V_c, T_c\).
+                </p>
+</div>
+<!-- Column 3: Estados Correspondentes -->
+<div class="content-card-module card-orange-border">
+<h2 class="card-header-title">🌐 Estados Correspondentes</h2>
+<p class="card-body-paragraph">
+                    O <span class="bold-orange-highlight">Princípio dos Estados Correspondentes</span> afirma que fluidos em mesmos (p, v, t) exibem propriedades similares.
+                </p>
+<p class="card-body-paragraph">
+                    O fator de compressibilidade crítico é uma previsão fixa do modelo:
+                </p>
+<div class="equation-box-container">
+                    \[ Z_c = \frac{P_c V_c}{nRT_c} = \frac{3}{8} = 0.375 \]
+                </div>
+<p class="card-body-paragraph">
+                    Desvios experimentais de \(Z_c\) indicam as limitações do modelo em capturar a geometria molecular real.
+                </p>
+</div>
+</div>
+<!-- Footer: Para Reflexão -->
+<div class="reflection-footer-wrapper">
+<i class="fa-solid fa-lightbulb icon-symbol" style="color: #0D9488;"></i>
+<p class="reflection-text-content">
+<strong>Para Reflexão:</strong> Como a existência de uma equação universal simplifica o projeto de sistemas industriais que operam com misturas de gases reais sob condições críticas?
+            </p>
+</div>
+</div>
+</body>
+</html>

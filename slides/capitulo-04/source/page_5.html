@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Termodinâmica - Gás de Van der Waals</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><style>body {width: 1280px; height: 720px; overflow: hidden; background-color: #F3F4F6;
+    font-family: "Inter", sans-serif}
+.vdw-slide-root-container {
+    width: 1280px;
+    height: 720px;
+    background-color: #FFF;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box
+    }
+/* Top Navigation Bar */
+.vdw-top-navbar-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 60px;
+    border-bottom: 1px solid #E5E7EB;
+    font-size: 12px;
+    color: #64748B
+    }
+.vdw-navbar-left-section {
+    display: flex;
+    gap: 20px
+    }
+.vdw-navbar-right-section {
+    display: flex;
+    gap: 20px;
+    align-items: center
+    }
+.vdw-page-counter-badge {
+    font-weight: 700;
+    color: #1F2937
+    }
+/* Title Region */
+.title-region-container {
+    display: flex;
+    flex-direction: column;
+    margin: 30px 60px 15px 60px;
+    border-left: 6px solid #0056B3;
+    padding-left: 20px
+    }
+.title-main-heading-text {
+    font-family: "Inter", sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: #002147;
+    margin: 0;
+    text-transform: none
+    }
+.title-subtitle-breadcrumb-text {
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-variant: small-caps;
+    color: #64748B;
+    margin-top: 4px;
+    letter-spacing: 1px
+    }
+/* Main Content Layout - 3 Columns */
+.vdw-main-columns-wrapper {
+    display: flex;
+    align-items: stretch;
+    gap: 20px;
+    margin: 0 60px;
+    flex: 1
+    }
+.vdw-column-content-block {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px
+    }
+.vdw-card-item-container {
+    flex: 1;
+    background-color: #FFF;
+    border-left: 4px solid #002147;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border-radius: 4px
+    }
+.vdw-card-item-container.teal-border {
+    border-left-color: #0D9488
+    }
+.vdw-card-item-container.orange-border {
+    border-left-color: #EA580C
+    }
+.vdw-card-section-header {
+    font-size: 18px;
+    font-weight: 700;
+    color: #002147;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px
+    }
+.vdw-card-body-text {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #1F2937;
+    margin: 0
+    }
+.vdw-highlight-navy-text {
+    color: #002147;
+    font-weight: 700
+    }
+.vdw-highlight-teal-text {
+    color: #0D9488;
+    font-weight: 700
+    }
+.vdw-highlight-orange-text {
+    color: #EA580C;
+    font-weight: 700
+    }
+/* Equation Box */
+.vdw-equation-display-box {
+    background-color: #F5F5F5;
+    border: 1px solid #E5E7EB;
+    padding: 12px 5px;
+    margin: 10px 0;
+    border-radius: 6px;
+    text-align: center
+    }
+/* Footer Boxes */
+.vdw-footer-region-wrapper {
+    margin: 20px 60px 30px 60px
+    }
+.vdw-reflection-box-item {
+    background-color: #F0FDFA;
+    border: 1px solid #CCFBF1;
+    padding: 12px 20px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 15px
+    }
+.vdw-reflection-icon-circle {
+    color: #0D9488;
+    font-size: 20px
+    }
+.vdw-reflection-content-text {
+    font-size: 13px;
+    color: #0F766E;
+    margin: 0;
+    font-style: italic
+    }
+ul.vdw-bullet-list-group {
+    padding-left: 18px;
+    margin: 10px 0;
+    list-style: none
+    }
+ul.vdw-bullet-list-group li {
+    position: relative;
+    margin-bottom: 6px;
+    font-size: 13px;
+    line-height: 1.4
+    }
+ul.vdw-bullet-list-group li::before {
+    content: "•";
+    color: #0056B3;
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em
+    }
+html { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="vdw-slide-root-container" style="overflow: hidden;">
+<!-- Navigation Bar -->
+<div class="vdw-top-navbar-wrapper">
+<div class="vdw-navbar-left-section">
+<span>← Índice</span>
+<span>|</span>
+<span>Capítulo 5 · Item 5.1.1</span>
+</div>
+<div class="vdw-navbar-right-section">
+<span>Salvar progresso</span>
+<span>Enviar</span>
+<span>☆</span>
+<span class="vdw-page-counter-badge">5 / 22</span>
+</div>
+</div>
+<!-- Title Region -->
+<div class="title-region-container">
+<h1 class="title-main-heading-text">A Equação de Estado de Van der Waals</h1>
+<p class="title-subtitle-breadcrumb-text">Forma Canônica · Integração de Correções · Parâmetros Experimentais</p>
+</div>
+<!-- Main Content (3 Columns) -->
+<div class="vdw-main-columns-wrapper">
+<!-- Column 1: Canonical Form -->
+<div class="vdw-column-content-block">
+<div class="vdw-card-item-container">
+<div class="vdw-card-section-header">
+<i class="fa-solid fa-ruler-combined"></i> 📐 Forma Canônica
+                    </div>
+<p class="vdw-card-body-text">
+                        A união das correções de volume e pressão resulta na <span class="vdw-highlight-navy-text">Equação de Van der Waals</span>, que descreve a fase fluida global:
+                    </p>
+<div class="vdw-equation-display-box">
+                        \[ \left(P + a\frac{n^2}{V^2}\right)(V - nb) = nRT \]
+                    </div>
+<p class="vdw-card-body-text">
+                        Esta expressão substitui o modelo ideal ao considerar que moléculas <span class="vdw-highlight-navy-text">interagem</span> e <span class="vdw-highlight-navy-text">ocupam espaço</span>.
+                    </p>
+</div>
+</div>
+<!-- Column 2: Physical Integration -->
+<div class="vdw-column-content-block">
+<div class="vdw-card-item-container teal-border">
+<div class="vdw-card-section-header">
+<i class="fa-solid fa-bolt"></i> ⚡ Integração de Efeitos
+                    </div>
+<ul class="vdw-bullet-list-group">
+<li><span class="vdw-highlight-teal-text">Pressão Interna:</span> O termo \(a(n/V)^2\) representa a coesão molecular que reduz a pressão contra as paredes.</li>
+<li><span class="vdw-highlight-teal-text">Volume Efetivo:</span> O termo \((V - nb)\) restringe o movimento ao volume realmente disponível no recipiente.</li>
+</ul>
+<p class="vdw-card-body-text">
+                        Para <span class="vdw-highlight-teal-text">V → ∞</span> ou <span class="vdw-highlight-teal-text">T → ∞</span>, a equação recupera o comportamento de gás ideal, conforme as interações tornam-se desprezíveis.
+                    </p>
+</div>
+</div>
+<!-- Column 3: Experimental Parameters -->
+<div class="vdw-column-content-block">
+<div class="vdw-card-item-container orange-border">
+<div class="vdw-card-section-header">
+<i class="fa-solid fa-flask"></i> 🧪 Parâmetros Reais
+                    </div>
+<p class="vdw-card-body-text">
+                        Os parâmetros <span class="vdw-highlight-orange-text">a</span> e <span class="vdw-highlight-orange-text">b</span> são específicos para cada substância e determinados experimentalmente.
+                    </p>
+<div class="vdw-equation-display-box" style="text-align: left; padding-left: 20px;">
+<span style="font-size: 13px; color: #4B5563;">Exemplo: <b>Dióxido de Carbono (CO₂)</b></span>
+<div style="margin-top: 8px;">
+                            \[ a = 3,640 \text{ L}^2\cdot\text{atm/mol}^2 \]
+                            \[ b = 0,04267 \text{ L/mol} \]
+                        </div>
+</div>
+<p class="vdw-card-body-text" style="font-size: 12px; color: #6B7280;">
+                        Nota: \(a\) reflete a <span class="vdw-highlight-orange-text">intensidade atrativa</span> e \(b\) o <span class="vdw-highlight-orange-text">tamanho molecular</span>.
+                    </p>
+</div>
+</div>
+</div>
+<!-- Footer Region -->
+<div class="vdw-footer-region-wrapper">
+<div class="vdw-reflection-box-item">
+<div class="vdw-reflection-icon-circle">
+<i class="fa-solid fa-lightbulb"></i>
+</div>
+<div class="vdw-reflection-content-text">
+<strong>Para Reflexão:</strong> Como você espera que os valores de \(a\) e \(b\) variem em uma série homóloga de gases nobres (do He ao Xe)? Qual deles terá a maior pressão interna?
+                </div>
+</div>
+</div>
+</div>
+</body>
+</html>

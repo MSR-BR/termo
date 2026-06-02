@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=1280, height=720" name="viewport"/>
+<title>Energia Livre de Helmholtz Reduzida</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><style>* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box
+    }
+body {width: 1280px; height: 720px; overflow: hidden; font-family: "Inter", sans-serif;
+    background-color: #FFF;
+    color: #1F2937}
+.slide-root-container {
+    width: 1280px;
+    height: 720px;
+    display: flex;
+    flex-direction: column;
+    position: relative
+    }
+/* Top Navigation Bar */
+.top-nav-bar-wrapper {
+    width: 100%;
+    padding: 12px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #E5E7EB;
+    font-size: 12px;
+    color: #64748B
+    }
+.nav-left-section {
+    display: flex;
+    gap: 20px
+    }
+.nav-right-section {
+    display: flex;
+    gap: 20px;
+    align-items: center
+    }
+.page-counter-display {
+    font-weight: 700;
+    color: #002147
+    }
+/* Title Region */
+.title-region-container {
+    display: flex;
+    flex-direction: column;
+    margin: 40px 60px 20px 60px;
+    border-left: 6px solid #0056B3;
+    padding-left: 20px
+    }
+.title-main-heading {
+    font-size: 32px;
+    font-weight: 800;
+    color: #002147;
+    margin: 0;
+    text-transform: none;
+    line-height: 1.2
+    }
+.title-subtitle-breadcrumbs {
+    font-size: 14px;
+    font-variant: small-caps;
+    color: #64748B;
+    margin-top: 4px;
+    letter-spacing: 1px
+    }
+/* Main Content Layout - 3 Columns */
+.main-content-columns-wrapper {
+    display: flex;
+    flex: 1;
+    padding: 0 60px 20px 60px;
+    gap: 20px;
+    align-items: stretch
+    }
+.content-column-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column
+    }
+.card-module-container {
+    flex: 1;
+    background-color: #FFF;
+    padding: 20px;
+    border-left: 4px solid;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column
+    }
+.card-title-header {
+    font-size: 18px;
+    font-weight: 700;
+    color: #002147;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px
+    }
+.card-body-text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #1F2937
+    }
+.equation-box-display {
+    background-color: #F5F5F5;
+    border: 1px solid #E5E7EB;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center
+    }
+.term-highlight-navy {
+    color: #002147;
+    font-weight: 700
+    }
+.term-highlight-teal {
+    color: #0D9488;
+    font-weight: 700
+    }
+.term-highlight-purple {
+    color: #6A0DAD;
+    font-weight: 700
+    }
+/* Footer Boxes */
+.footer-boxes-row-wrapper {
+    padding: 0 60px 30px 60px;
+    display: flex;
+    gap: 20px
+    }
+.reflection-box-container {
+    flex: 1;
+    background-color: #F0F9FF;
+    border-left: 4px solid #0056B3;
+    padding: 15px 20px;
+    border-radius: 0 4px 4px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px
+    }
+.reflection-icon {
+    color: #0056B3;
+    font-size: 20px;
+    margin-top: 2px
+    }
+.reflection-content {
+    font-size: 13px;
+    line-height: 1.4;
+    color: #1E40AF
+    }
+.reflection-content strong {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 14px
+    }
+/* Specific Column Border Colors */
+.column-left-navy {
+    border-left-color: #002147
+    }
+.column-middle-teal {
+    border-left-color: #0D9488
+    }
+.column-right-purple {
+    border-left-color: #6A0DAD
+    }
+ul.card-list-bullets {
+    list-style: none;
+    margin-top: 10px
+    }
+ul.card-list-bullets li {
+    margin-bottom: 8px;
+    padding-left: 15px;
+    position: relative
+    }
+ul.card-list-bullets li::before {
+    content: "•";
+    color: #0056B3;
+    font-weight: bold;
+    position: absolute;
+    left: 0
+    }
+html { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="slide-root-container" style="overflow: hidden;">
+<!-- Navigation Bar -->
+<div class="top-nav-bar-wrapper">
+<div class="nav-left-section">
+<span>← Índice</span>
+<span>|</span>
+<span>Capítulo 5 · Item 5.1.4</span>
+</div>
+<div class="nav-right-section">
+<span>Salvar progresso</span>
+<span>|</span>
+<span>Enviar</span>
+<span>|</span>
+<span>☆</span>
+<span class="page-counter-display">11 / 22</span>
+</div>
+</div>
+<!-- Title Section -->
+<div class="title-region-container">
+<h1 class="title-main-heading">Energia Livre de Helmholtz Reduzida</h1>
+<p class="title-subtitle-breadcrumbs">Derivação de f(t,v) · Potencial Termodinâmico · Estabilidade e Concavidade</p>
+</div>
+<!-- Main Content Columns -->
+<div class="main-content-columns-wrapper">
+<!-- Column 1: Derivação -->
+<div class="content-column-item">
+<div class="card-module-container column-left-navy">
+<div class="card-title-header">⚡ Derivação de f(t,v)</div>
+<div class="card-body-text">
+                        A energia livre de Helmholtz é o <span class="term-highlight-navy">potencial termodinâmico</span> natural para o conjunto canônico. Partindo da relação diferencial fundamental:
+                        
+                        <div class="equation-box-display">
+                            \[ df = -s\,dt - p\,dv \]
+                        </div>
+                        
+                        Para uma isoterma (\(dt = 0\)), a função é obtida integrando a pressão em relação ao volume reduzido:
+                        
+                        <div class="equation-box-display">
+                            \[ f(t,v) = -\int p(t,v) \, dv + c(t) \]
+                        </div>
+                        
+                        Onde \(c(t)\) é uma constante de integração que depende apenas da temperatura.
+                    </div>
+</div>
+</div>
+<!-- Column 2: Expressão de Van der Waals -->
+<div class="content-column-item">
+<div class="card-module-container column-middle-teal">
+<div class="card-title-header">📐 Expressão Analítica</div>
+<div class="card-body-text">
+                        Substituindo a equação de estado de van der Waals em variáveis reduzidas, obtemos a <span class="term-highlight-teal">forma integrada</span>:
+                        
+                        <div class="equation-box-display">
+                            \[ f(t,v) = -t\ln\left(v - \frac{1}{3}\right) - \frac{3Z_c}{v} + c(t) \]
+                        </div>
+                        
+                        Onde o fator de compressibilidade crítico é:
+                        
+                        <div class="equation-box-display">
+                            \[ Z_c = \frac{P_c V_c}{nRT_c} = \frac{3}{8} \]
+                        </div>
+                        
+                        O primeiro termo representa a <span class="term-highlight-teal">entropia configuracional</span> (volume excluído) e o segundo a energia de <span class="term-highlight-teal">atração intermolecular</span>.
+                    </div>
+</div>
+</div>
+<!-- Column 3: Estabilidade e Pressão -->
+<div class="content-column-item">
+<div class="card-module-container column-right-purple">
+<div class="card-title-header">⚖️ Estabilidade Física</div>
+<div class="card-body-text">
+                        A função \(f(t,v)\) é essencial para descrever a <span class="term-highlight-purple">estabilidade mecânica</span> do sistema. A pressão é recuperada via:
+                        
+                        <div class="equation-box-display">
+                            \[ p = -\left.\frac{\partial f}{\partial v}\right|_t \]
+                        </div>
+<ul class="card-list-bullets">
+<li><strong>Convexiade:</strong> Para estabilidade global, \(f\) deve ser uma função convexa de \(v\).</li>
+<li><strong>Instabilidade:</strong> Regiões onde \(\partial^2 f / \partial v^2 &lt; 0\) correspondem a estados mecanicamente instáveis (\(\kappa_T &lt; 0\)).</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Reflection Box -->
+<div class="footer-boxes-row-wrapper">
+<div class="reflection-box-container" style="visibility: hidden;">
+<i class="fa-solid fa-lightbulb reflection-icon"></i>
+<div class="reflection-content">
+<strong>Para Reflexão: Divergência no Volume Excluído</strong>
+                    Por que o termo logarítmico \(-t \ln(v - 1/3)\) diverge quando o volume reduzido se aproxima do limite \(v = 1/3\)? O que essa barreira assintótica nos diz sobre a compressibilidade física de um líquido real em comparação ao modelo de gás ideal?
+                </div>
+</div>
+</div>
+</div>
+</body>
+</html>

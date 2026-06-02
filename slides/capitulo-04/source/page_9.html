@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Termodinâmica - Capítulo 5: Gás de Van der Waals</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><style>:root {
+    --van-der-waals-background: #FFF;
+    --van-der-waals-title-text: #002147;
+    --van-der-waals-body-text: #1F2937;
+    --van-der-waals-secondary-text: #4B5563;
+    --van-der-waals-muted-text: #9CA3AF;
+    --van-der-waals-accent: #0056B3;
+    --van-der-waals-secondary-accent: #0D9488;
+    --van-der-waals-border: #E5E7EB;
+    --van-der-waals-equation-bg: #F5F5F5;
+    --van-der-waals-navy: #002147;
+    --van-der-waals-teal: #0D9488;
+    --van-der-waals-orange: #EA580C;
+    --van-der-waals-purple: #6A0DAD
+    }
+* {
+    box-sizing: border-box;
+    margin: 0 0;
+    padding: 0 0
+    }
+body {width: 1280px; height: 720px; overflow: hidden; font-family: "Inter", sans-serif;
+    background-color: #F3F4F6;
+    display: flex;
+    justify-content: center;
+    align-items: center}
+.van-der-waals-slide-root {
+    width: 1280px;
+    height: 720px;
+    background-color: var(--van-der-waals-background);
+    display: flex;
+    flex-direction: column;
+    position: relative
+    }
+/* Top Navigation Bar */
+.van-der-waals-top-nav-bar {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 60px;
+    border-bottom: 1px solid var(--van-der-waals-border);
+    font-size: 12px;
+    color: var(--van-der-waals-secondary-text)
+    }
+.van-der-waals-nav-left {
+    display: flex;
+    gap: 20px
+    }
+.van-der-waals-nav-right {
+    display: flex;
+    gap: 16px 20px;
+    align-items: center
+    }
+.van-der-waals-page-counter {
+    font-weight: 700;
+    color: var(--van-der-waals-navy)
+    }
+/* Title Region */
+.van-der-waals-title-region-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 24px 60px 16px 60px;
+    border-left: 6px solid var(--van-der-waals-accent);
+    padding-left: 20px
+    }
+.van-der-waals-title-main {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--van-der-waals-title-text);
+    margin: 0;
+    line-height: 1.2
+    }
+.van-der-waals-title-subtitle {
+    font-size: 14px;
+    font-variant: small-caps;
+    color: #64748B;
+    margin-top: 4px;
+    letter-spacing: 1px;
+    font-weight: 600
+    }
+/* Main Content Layout - 3 Columns */
+.van-der-waals-content-columns-container {
+    flex: 1;
+    display: flex;
+    padding: 0 60px 16px 60px;
+    gap: 19px 24px;
+    align-items: stretch
+    }
+.van-der-waals-column-stack-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center
+    }
+.van-der-waals-column-left {
+    flex: 1
+    }
+.van-der-waals-column-middle {
+    flex: 1
+    }
+.van-der-waals-column-right {
+    flex: 1.2
+    }
+/* Card Component */
+.van-der-waals-info-card-block {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    background-color: #FFF;
+    border-left: 4px solid var(--van-der-waals-border);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    height: 100%
+    }
+.van-der-waals-card-header {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--van-der-waals-navy);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px
+    }
+.van-der-waals-card-text {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--van-der-waals-body-text);
+    margin-bottom: 12px
+    }
+.van-der-waals-card-text strong {
+    font-weight: 700
+    }
+.van-der-waals-highlight-navy {
+    color: var(--van-der-waals-navy)
+    }
+.van-der-waals-highlight-teal {
+    color: var(--van-der-waals-teal)
+    }
+.van-der-waals-highlight-orange {
+    color: var(--van-der-waals-orange)
+    }
+/* Equation Box */
+.van-der-waals-equation-display-box {
+    background-color: var(--van-der-waals-equation-bg);
+    border: 1px solid var(--van-der-waals-border);
+    padding: 10px 12px;
+    margin: 6px 0;
+    border-radius: 4px;
+    text-align: center
+    }
+/* Image Styling */
+.van-der-waals-isotherm-image-container {
+    width: 100%;
+    height: 266px;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    border: 1px solid var(--van-der-waals-border)
+    }
+.van-der-waals-isotherm-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: #fff
+    }
+.van-der-waals-image-caption {
+    font-size: 11px;
+    color: var(--van-der-waals-secondary-text);
+    text-align: center;
+    line-height: 1.3
+    }
+/* Footer Box */
+.van-der-waals-reflection-footer-box {
+    margin: 0 60px 24px 60px;
+    padding: 12px 20px;
+    background-color: #F0FDFA;
+    border: 1px solid #CCFBF1;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px 15px
+    }
+.van-der-waals-reflection-icon {
+    font-size: 20px;
+    color: var(--van-der-waals-teal)
+    }
+.van-der-waals-reflection-content {
+    font-size: 13px;
+    color: #0F766E;
+    line-height: 1.4
+    }
+.van-der-waals-reflection-content strong {
+    font-weight: 700
+    }
+/* List styling */
+.van-der-waals-bullet-list {
+    list-style: none;
+    padding: 0;
+    margin: 0
+    }
+.van-der-waals-bullet-item {
+    padding-left: 15px;
+    position: relative;
+    margin-bottom: 6px;
+    font-size: 13px;
+    line-height: 1.4
+    }
+.van-der-waals-bullet-item::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--van-der-waals-accent);
+    font-weight: bold
+    }
+html { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="van-der-waals-slide-root" style="overflow: hidden;">
+<!-- Top Navigation -->
+<nav class="van-der-waals-top-nav-bar">
+<div class="van-der-waals-nav-left">
+<span>← Índice</span>
+<span>|</span>
+<span>Capítulo 5 · Item 5.1.3</span>
+</div>
+<div class="van-der-waals-nav-right">
+<span>Salvar progresso</span>
+<span>|</span>
+<span>Enviar</span>
+<span>|</span>
+<span>☆</span>
+<span class="van-der-waals-page-counter">9 / 22</span>
+</div>
+</nav>
+<!-- Title -->
+<header class="van-der-waals-title-region-wrapper">
+<h1 class="van-der-waals-title-main">Isotermas Reduzidas e Instabilidade Mecânica</h1>
+<p class="van-der-waals-title-subtitle">Comportamento de p(v) · Critério de Estabilidade · Regiões Proibidas</p>
+</header>
+<!-- Main Content -->
+<main class="van-der-waals-content-columns-container">
+<!-- Column 1: Behavior -->
+<div class="van-der-waals-column-stack-item van-der-waals-column-left">
+<section class="van-der-waals-info-card-block" style="border-left-color: var(--van-der-waals-navy);">
+<h2 class="van-der-waals-card-header">🌡️ Transição Térmica</h2>
+<div class="van-der-waals-card-text">
+                        O comportamento das isotermas no plano reduzido \( p \times v \) depende criticamente do parâmetro <strong class="van-der-waals-highlight-navy">t = T/T_c</strong>:
+                    </div>
+<ul class="van-der-waals-bullet-list">
+<li class="van-der-waals-bullet-item">
+<strong class="van-der-waals-highlight-navy">t &gt; 1:</strong> As isotermas são monotonicamente decrescentes, assemelhando-se ao gás ideal.
+                        </li>
+<li class="van-der-waals-bullet-item">
+<strong class="van-der-waals-highlight-navy">t = 1:</strong> Ponto crítico com inflexão horizontal em \((v, p) = (1, 1)\).
+                        </li>
+<li class="van-der-waals-bullet-item">
+<strong class="van-der-waals-highlight-navy">t &lt; 1:</strong> Surgem oscilações com um máximo e um mínimo locais (laços de Van der Waals).
+                        </li>
+</ul>
+<div class="van-der-waals-card-text" style="margin-top: 10px;">
+                        A presença de inclinação positiva indica uma <strong class="van-der-waals-highlight-navy">falha física</strong> do modelo em descrever estados homogêneos.
+                    </div>
+</section>
+</div>
+<!-- Column 2: Stability -->
+<div class="van-der-waals-column-stack-item van-der-waals-column-middle">
+<section class="van-der-waals-info-card-block" style="border-left-color: var(--van-der-waals-teal);">
+<h2 class="van-der-waals-card-header">⚖️ Estabilidade Mecânica</h2>
+<div class="van-der-waals-card-text">
+                        A <strong class="van-der-waals-highlight-teal">compressibilidade isotérmica</strong> define a resposta do volume a variações de pressão:
+                    </div>
+<div class="van-der-waals-equation-display-box">
+                        \[ \kappa_T = -\frac{1}{V}\left.\frac{\partial V}{\partial P}\right|_T \]
+                    </div>
+<div class="van-der-waals-card-text">
+                        Para estabilidade mecânica, deve-se ter <strong class="van-der-waals-highlight-teal">\(\kappa_T &gt; 0\)</strong>. Isso implica que a pressão deve diminuir com o aumento do volume:
+                    </div>
+<div class="van-der-waals-equation-display-box">
+                        \[ \left(\frac{\partial P}{\partial V}\right)_T &lt; 0 \]
+                    </div>
+<div class="van-der-waals-card-text">
+                        Entre o máximo e o mínimo da isoterma (\(t &lt; 1\)), tem-se \(\kappa_T &lt; 0\), caracterizando uma <strong class="van-der-waals-highlight-teal">região de instabilidade absoluta</strong>.
+                    </div>
+</section>
+</div>
+<!-- Column 3: Graph -->
+<div class="van-der-waals-column-stack-item van-der-waals-column-right">
+<section class="van-der-waals-info-card-block" style="border-left-color: var(--van-der-waals-orange);">
+<h2 class="van-der-waals-card-header">📉 Isotermas Reduzidas</h2>
+<div class="van-der-waals-isotherm-image-container">
+<img alt="Isotermas de Van der Waals" src="https://static-us-img.skywork.ai/prod/nexus/1780078532/cropped_image_2_1780078532158132037.jpg"/>
+</div>
+<p class="van-der-waals-image-caption">
+<strong>Figura 11:</strong> Isotermas para \(t=0.85\) a \(1.10\). A <strong class="van-der-waals-highlight-orange">curva espinodal</strong> (tracejada) delimita a região onde \(\partial p / \partial v &gt; 0\). O ponto crítico está marcado em \((1,1)\).
+                    </p>
+<div class="van-der-waals-card-text" style="margin-top: 8px; font-size: 12px;">
+                        Note que abaixo da crítica, as curvas cruzam a região espinodal, onde o sistema não pode existir como uma fase homogênea estável.
+                    </div>
+</section>
+</div>
+</main>
+<!-- Footer: Reflection -->
+<footer class="van-der-waals-reflection-footer-box">
+<div class="van-der-waals-reflection-icon">
+<i class="fas fa-lightbulb"></i>
+</div>
+<div class="van-der-waals-reflection-content">
+<strong>Para Reflexão:</strong> Por que a natureza proíbe estados onde \(\kappa_T &lt; 0\)? Imagine um fluido que se expande ao ser comprimido; qualquer flutuação mínima de densidade cresceria indefinidamente, levando ao colapso do estado homogêneo. Isso é o motor da <strong>separação de fases</strong>.
+            </div>
+</footer>
+</div>
+</body>
+</html>

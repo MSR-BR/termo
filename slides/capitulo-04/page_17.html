@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Calor Latente e Equação de Clausius-Clapeyron</title>
+
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/>
+
+<script>
+window.va = window.va || function () {
+  (window.vaq = window.vaq || []).push(arguments);
+};
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)'], ['$', '$']], displayMath: [['\\[','\\]']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<link href="../../assets/chapter-embedded-slide.css" rel="stylesheet"/>
+<style id="cap4-flatten-slide-boxes">
+.page--capitulo-04 .content-root {
+  gap: 18px !important;
+}
+
+.page--capitulo-04 .source-fragment {
+  padding: 0 !important;
+  border-top: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.page--capitulo-04 .source-embed {
+  display: block !important;
+  justify-content: initial !important;
+  align-items: stretch !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: visible !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.page--capitulo-04 .source-embed > div,
+.page--capitulo-04 .source-embed [class*="slide-root"],
+.page--capitulo-04 .source-embed [class*="root-container"],
+.page--capitulo-04 .source-embed [class*="slide-container"],
+.page--capitulo-04 .source-embed [class*="slide-canvas"],
+.page--capitulo-04 .source-embed [class*="slide-main"] {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  overflow: visible !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.page--capitulo-04 .source-embed > div[style*="overflow: hidden"],
+.page--capitulo-04 .source-embed [style*="overflow: hidden"] {
+  overflow: visible !important;
+}
+
+.page--capitulo-04 .source-embed [class*="content-columns"],
+.page--capitulo-04 .source-embed [class*="content-grid"],
+.page--capitulo-04 .source-embed [class*="content-layout"],
+.page--capitulo-04 .source-embed [class*="main-content"],
+.page--capitulo-04 .source-embed [class*="columns-container"] {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.page--capitulo-04 .source-embed [class*="info-card"],
+.page--capitulo-04 .source-embed [class*="card-block"],
+.page--capitulo-04 .source-embed [class*="card-item"],
+.page--capitulo-04 .source-embed [class*="column-card"],
+.page--capitulo-04 .source-embed [class*="reflection"],
+.page--capitulo-04 .source-embed [class*="equation"] {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 760px) {
+  .page--capitulo-04 .source-embed [class*="content-columns"],
+  .page--capitulo-04 .source-embed [class*="content-grid"],
+  .page--capitulo-04 .source-embed [class*="content-layout"],
+  .page--capitulo-04 .source-embed [class*="columns-container"],
+  .page--capitulo-04 .source-embed [class*="main-content"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+</style>
+<link href="../../assets/ai-exercises.css" rel="stylesheet"/>
+<script defer src="../../assets/ai-exercises.js"></script>
+<link rel="stylesheet" href="../../assets/termo-share.css">
+<script defer src="../../assets/termo-share.js"></script>
+<link rel="stylesheet" href="../../assets/termo-auth.css">
+<script defer src="../../assets/termo-auth.js"></script>
+<script defer src="../../assets/termo-user-data.js"></script>
+</head>
+<body>
+<div class="page page--capitulo-04">
+  <section class="hero">
+    <div class="hero-inner">
+      <a href="../../index.html?chapter=04" class="index-back-button">
+        <i class="fa-solid fa-arrow-left"></i>
+        Índice
+      </a>
+      <div class="chapter-label">
+        <i class="fa-solid fa-layer-group"></i>
+        Capítulo 4 · Item 4.9
+      </div>
+      <h1 class="chapter-title">Calor Latente e Equação de Clausius-Clapeyron</h1>
+      <div class="chapter-text">
+        <p>Calor latente, inclinação da curva de coexistência e aplicações da equação de Clausius-Clapeyron.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="content-root">
+    
+  <section class="source-fragment" data-source-page="page_17.html">
+    <style>.source-embed.page-17 /* Base Reset */
+*{
+    margin: 0 0;
+    padding: 0 0;
+    box-sizing: border-box
+    }.source-embed.page-17{width: 1280px; height: 720px; overflow: hidden; background-color: #F3F4F6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Inter", sans-serif}.source-embed.page-17 /* Slide Root */
+.van-der-waals-slide-root{
+    width: 1280px;
+    height: 720px;
+    background-color: #FFF;
+    position: relative;
+    display: flex;
+    flex-direction: column
+    }.source-embed.page-17 /* Top Navigation Bar */
+.van-der-waals-top-nav-bar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 40px;
+    border-bottom: 1px solid #E5E7EB;
+    font-size: 12px;
+    color: #64748B;
+    background-color: #FFF
+    }.source-embed.page-17 .van-der-waals-nav-left{
+    display: flex;
+    gap: 15px
+    }.source-embed.page-17 .van-der-waals-nav-right{
+    display: flex;
+    gap: 12px 15px;
+    align-items: center
+    }.source-embed.page-17 .van-der-waals-page-counter{
+    font-weight: 700;
+    color: #002147
+    }.source-embed.page-17 /* Title Region */
+.van-der-waals-title-region-container{
+    display: flex;
+    flex-direction: column;
+    margin: 24px 60px 12px 60px;
+    border-left: 6px solid #0056B3;
+    padding-left: 20px
+    }.source-embed.page-17 .van-der-waals-main-page-title{
+    font-family: "Inter", sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: #002147;
+    margin: 0;
+    text-transform: none;
+    line-height: 1.2
+    }.source-embed.page-17 .van-der-waals-page-subtitle-breadcrumbs{
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-variant: small-caps;
+    color: #64748B;
+    margin-top: 4px;
+    letter-spacing: 1px
+    }.source-embed.page-17 /* Main Content Grid */
+.van-der-waals-content-columns-wrapper{
+    display: flex;
+    flex: 1;
+    padding: 0 60px;
+    gap: 16px 20px;
+    align-items: stretch;
+    margin-bottom: 16px
+    }.source-embed.page-17 /* Card Styles */
+.van-der-waals-info-card-column{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-color: #FFF;
+    border-radius: 4px;
+    padding: 16px 20px;
+    border-left: 4px solid #002147;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1)
+    }.source-embed.page-17 .van-der-waals-card-navy{
+    border-left-color: #002147
+    }.source-embed.page-17 .van-der-waals-card-teal{
+    border-left-color: #0D9488
+    }.source-embed.page-17 .van-der-waals-card-orange{
+    border-left-color: #EA580C
+    }.source-embed.page-17 .van-der-waals-card-header-title{
+    font-size: 18px;
+    font-weight: 700;
+    color: #002147;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px
+    }.source-embed.page-17 .van-der-waals-card-body-text{
+    font-size: 14px;
+    line-height: 1.5;
+    color: #1F2937;
+    margin-bottom: 10px
+    }.source-embed.page-17 .van-der-waals-term-highlight-navy{
+    color: #002147;
+    font-weight: 700
+    }.source-embed.page-17 .van-der-waals-term-highlight-teal{
+    color: #0D9488;
+    font-weight: 700
+    }.source-embed.page-17 .van-der-waals-term-highlight-orange{
+    color: #EA580C;
+    font-weight: 700
+    }.source-embed.page-17 /* Equation Box */
+.van-der-waals-equation-display-box{
+    background-color: #F9FAFB;
+    border: 1px solid #E5E7EB;
+    padding: 10px 12px;
+    margin: 8px 0;
+    text-align: center;
+    border-radius: 4px
+    }.source-embed.page-17 /* Footer Boxes */
+.van-der-waals-footer-region-container{
+    padding: 0 60px 24px 60px
+    }.source-embed.page-17 .van-der-waals-reflection-footer-box{
+    background-color: #F0FDFA;
+    border-left: 4px solid #0D9488;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px 15px;
+    border-radius: 4px
+    }.source-embed.page-17 .van-der-waals-reflection-icon{
+    font-size: 24px
+    }.source-embed.page-17 .van-der-waals-reflection-text{
+    font-size: 13px;
+    color: #0F766E;
+    line-height: 1.4
+    }.source-embed.page-17 /* List Items */
+.van-der-waals-bullet-list-container{
+    list-style: none;
+    margin-top: 6px
+    }.source-embed.page-17 .van-der-waals-bullet-list-item{
+    font-size: 13px;
+    color: #4B5563;
+    margin-bottom: 5px;
+    padding-left: 15px;
+    position: relative
+    }.source-embed.page-17 .van-der-waals-bullet-list-item::before{
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #0056B3;
+    font-weight: bold
+    }.source-embed.page-17{ overflow: hidden; }
+
+
+.source-embed.page-17,
+.source-embed.page-17 > div,
+.source-embed.page-17 [class$="slide-root"],
+.source-embed.page-17 [class*="slide-root"],
+.source-embed.page-17 [class*="slide-container"],
+.source-embed.page-17 [class*="slide-canvas"] {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+  box-sizing: border-box !important;
+}
+.source-embed.page-17 {
+  display: block !important;
+  background: transparent !important;
+}
+.source-embed.page-17 [class*="top-nav"],
+.source-embed.page-17 [class*="top-navigation"],
+.source-embed.page-17 [class*="navbar"],
+.source-embed.page-17 [class*="nav-bar"],
+.source-embed.page-17 [class*="navigation-bar"],
+.source-embed.page-17 [class*="page-counter"],
+.source-embed.page-17 [class*="slide-counter"],
+.source-embed.page-17 [class*="progress"] {
+  display: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+}
+.source-embed.page-17 [class*="title-region"],
+.source-embed.page-17 [class*="title-section"],
+.source-embed.page-17 [class*="title-header"] {
+  display: none !important;
+}
+.source-embed.page-17 img,
+.source-embed.page-17 svg,
+.source-embed.page-17 canvas,
+.source-embed.page-17 video {
+  max-width: 100% !important;
+  height: auto !important;
+}
+.source-embed.page-17 table {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+.source-embed.page-17 mjx-container[jax="SVG"] svg {
+  max-width: 100% !important;
+}
+@media (max-width: 980px) {
+  .source-embed.page-17 [class*="content-layout"],
+  .source-embed.page-17 [class*="content-area"],
+  .source-embed.page-17 [class*="content-grid"],
+  .source-embed.page-17 [class*="main-content"],
+  .source-embed.page-17 [class*="two-column"],
+  .source-embed.page-17 [class*="columns"],
+  .source-embed.page-17 [class*="column-layout"],
+  .source-embed.page-17 [class*="comparison"],
+  .source-embed.page-17 [class*="cards-row"],
+  .source-embed.page-17 [class*="card-row"] {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .source-embed.page-17 [class*="left-column"],
+  .source-embed.page-17 [class*="right-column"],
+  .source-embed.page-17 [class*="column"],
+  .source-embed.page-17 [class*="panel"],
+  .source-embed.page-17 [class*="card"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 1 1 auto !important;
+  }
+}
+@media (max-width: 700px) {
+  .source-embed.page-17 > div,
+  .source-embed.page-17 [class*="slide-root"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  .source-embed.page-17 [class*="content-layout"],
+  .source-embed.page-17 [class*="content-area"],
+  .source-embed.page-17 [class*="content-grid"],
+  .source-embed.page-17 [class*="main-content"] {
+    padding: 0 !important;
+    gap: 14px !important;
+  }
+  .source-embed.page-17 [class*="formula"],
+  .source-embed.page-17 [class*="equation"],
+  .source-embed.page-17 [class*="math"],
+  .source-embed.page-17 [class*="table"] {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+  }
+}</style>
+    <div class="source-embed page-17">
+<div class="van-der-waals-slide-root" style="overflow: hidden;">
+<!-- Top Navigation Bar -->
+
+<!-- Title Region -->
+
+<!-- Main Content -->
+<div class="van-der-waals-content-columns-wrapper">
+<!-- Column 1: Equilibrium Conditions -->
+<div class="van-der-waals-info-card-column van-der-waals-card-navy">
+<div class="van-der-waals-card-header-title">⚖️ Condição de Equilíbrio</div>
+<p class="van-der-waals-card-body-text">
+                    Na linha de coexistência, as energias livres de Gibbs reduzidas devem ser iguais: <span class="van-der-waals-term-highlight-navy">g<sub>g</sub> = g<sub>ℓ</sub></span>. Para variações infinitesimais ao longo da curva:
+                </p>
+<div class="van-der-waals-equation-display-box">
+                    \[ dg_{\ell} = dg_{g} \]
+                </div>
+<p class="van-der-waals-card-body-text">
+                    Utilizando a diferencial <span class="van-der-waals-term-highlight-navy">dg = -s dt + Z_c v dp</span>, obtemos a relação fundamental entre entropia e volume:
+                </p>
+<div class="van-der-waals-equation-display-box">
+                    \[ (s_g - s_\ell) dt = Z_c (v_g - v_\ell) dp \]
+                </div>
+</div>
+<!-- Column 2: Latent Heat Definition -->
+<div class="van-der-waals-info-card-column van-der-waals-card-teal">
+<div class="van-der-waals-card-header-title">🌡️ Calor Latente Molar</div>
+<p class="van-der-waals-card-body-text">
+                    O <span class="van-der-waals-term-highlight-teal">calor latente reduzido</span> é a energia absorvida ou liberada durante a mudança de fase a temperatura constante:
+                </p>
+<div class="van-der-waals-equation-display-box">
+                    \[ \Delta\bar{\ell}^{molar} = t(s_g - s_\ell) \]
+                </div>
+<p class="van-der-waals-card-body-text">
+                    Esta grandeza adimensional relaciona-se ao calor latente molar real (\(\Delta L^{molar}\)) através da temperatura crítica:
+                </p>
+<div class="van-der-waals-equation-display-box">
+                    \[ \Delta\bar{\ell}^{molar} = \frac{\Delta L^{molar}}{RT_c} \]
+                </div>
+</div>
+<!-- Column 3: Clausius-Clapeyron Relation -->
+<div class="van-der-waals-info-card-column van-der-waals-card-orange">
+<div class="van-der-waals-card-header-title">📐 Clausius-Clapeyron</div>
+<p class="van-der-waals-card-body-text">
+                    Combinando as expressões anteriores, derivamos a <span class="van-der-waals-term-highlight-orange">equação de Clausius-Clapeyron</span> em variáveis reduzidas:
+                </p>
+<div class="van-der-waals-equation-display-box">
+                    \[ \frac{dp}{dt} = \frac{\Delta\bar{\ell}^{molar}}{Z_c t (v_g - v_\ell)} \]
+                </div>
+<ul class="van-der-waals-bullet-list-container">
+<li class="van-der-waals-bullet-list-item"><b>dp/dt</b>: Inclinação da curva de coexistência.</li>
+<li class="van-der-waals-bullet-list-item"><b>Numerador</b>: Energia de reorganização.</li>
+<li class="van-der-waals-bullet-list-item"><b>Denominador</b>: Diferença de volume molar.</li>
+</ul>
+</div>
+</div>
+<!-- Footer Reflection Box -->
+<div class="van-der-waals-footer-region-container">
+<div class="van-der-waals-reflection-footer-box">
+<div class="van-der-waals-reflection-icon">💡</div>
+<div class="van-der-waals-reflection-text">
+<strong>Para Reflexão:</strong> O que ocorre com a transição de fase quando nos aproximamos do <strong>ponto crítico</strong>? Observe que conforme \(t \to 1\), os volumes \(v_g\) e \(v_\ell\) convergem e o calor latente \(\Delta L\) tende a zero, fazendo com que a descontinuidade da transição desapareça continuamente.
+                </div>
+</div>
+</div>
+</div>
+    </div>
+  </section>
+
+  <section class="source-fragment" data-source-page="page_18.html">
+    <style>.source-embed.page-18{width: 1280px; height: 720px; overflow: hidden; background-color: #F3F4F6;
+    font-family: "Inter", sans-serif}.source-embed.page-18 .clausius-slide-root-container{
+    width: 1280px;
+    height: 720px;
+    background-color: #FFF;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin: 0 auto
+    }.source-embed.page-18 /* Barra de Navegação Superior */
+.clausius-top-nav-bar-wrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+    border-bottom: 1px solid #E5E7EB;
+    font-size: 12px;
+    color: #4B5563
+    }.source-embed.page-18 .clausius-nav-links-group{
+    display: flex;
+    gap: 15px
+    }.source-embed.page-18 .clausius-page-counter-display{
+    font-weight: 600;
+    color: #1F2937
+    }.source-embed.page-18 /* Região do Título */
+.clausius-title-region-wrapper{
+    display: flex;
+    flex-direction: column;
+    margin: 30px 60px 15px 60px;
+    border-left: 6px solid #0056B3;
+    padding-left: 20px
+    }.source-embed.page-18 .clausius-main-title-text{
+    font-size: 32px;
+    font-weight: 800;
+    color: #002147;
+    margin: 0;
+    text-transform: none
+    }.source-embed.page-18 .clausius-subtitle-small-caps{
+    font-size: 14px;
+    font-variant: small-caps;
+    color: #64748B;
+    margin-top: 4px;
+    letter-spacing: 1px
+    }.source-embed.page-18 /* Layout de 3 Colunas */
+.clausius-three-column-layout-container{
+    display: flex;
+    flex: 1;
+    padding: 0 60px;
+    gap: 20px;
+    align-items: stretch
+    }.source-embed.page-18 .clausius-column-item-wrapper{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center
+    }.source-embed.page-18 .clausius-content-card-module{
+    flex: 1;
+    padding: 20px;
+    background-color: #FFF;
+    border-left: 4px solid #002147;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column
+    }.source-embed.page-18 .clausius-card-header-group{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px
+    }.source-embed.page-18 .clausius-card-title-text{
+    font-size: 18px;
+    font-weight: 700;
+    color: #002147
+    }.source-embed.page-18 .clausius-card-body-paragraph{
+    font-size: 14px;
+    line-height: 1.5;
+    color: #1F2937;
+    margin: 0 0 12px 0
+    }.source-embed.page-18 .clausius-emphasized-term-span{
+    font-weight: 700;
+    color: #0056B3
+    }.source-embed.page-18 /* Boxes de Equação */
+.clausius-equation-box-container{
+    background-color: #F5F5F5;
+    border: 1px solid #E5E7EB;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center
+    }.source-embed.page-18 /* Cores das Bordas dos Cards */
+.clausius-border-navy{
+    border-left-color: #002147
+    }.source-embed.page-18 .clausius-border-teal{
+    border-left-color: #0D9488
+    }.source-embed.page-18 .clausius-border-orange{
+    border-left-color: #EA580C
+    }.source-embed.page-18 /* Rodapé: Box Exercício */
+.clausius-footer-exercise-wrapper{
+    margin: 20px 60px 30px 60px;
+    padding: 15px 20px;
+    background-color: #F5F3FF;
+    border: 1px solid #DDD6FE;
+    border-radius: 8px;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px
+    }.source-embed.page-18 .clausius-exercise-icon-box{
+    color: #7C3AED;
+    font-size: 20px;
+    padding-top: 2px
+    }.source-embed.page-18 .clausius-exercise-text-content{
+    font-size: 13px;
+    color: #4C1D95;
+    line-height: 1.4
+    }.source-embed.page-18 .clausius-exercise-label-bold{
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-right: 8px
+    }.source-embed.page-18 .clausius-card-list-group{
+    margin: 0;
+    padding: 0;
+    list-style: none
+    }.source-embed.page-18 .clausius-card-list-item{
+    font-size: 13px;
+    color: #374151;
+    margin-bottom: 8px;
+    padding-left: 15px;
+    position: relative
+    }.source-embed.page-18 .clausius-card-list-item::before{
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #0056B3;
+    font-weight: bold
+    }.source-embed.page-18{ overflow: hidden; }
+
+
+.source-embed.page-18,
+.source-embed.page-18 > div,
+.source-embed.page-18 [class$="slide-root"],
+.source-embed.page-18 [class*="slide-root"],
+.source-embed.page-18 [class*="slide-container"],
+.source-embed.page-18 [class*="slide-canvas"] {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+  box-sizing: border-box !important;
+}
+.source-embed.page-18 {
+  display: block !important;
+  background: transparent !important;
+}
+.source-embed.page-18 [class*="top-nav"],
+.source-embed.page-18 [class*="top-navigation"],
+.source-embed.page-18 [class*="navbar"],
+.source-embed.page-18 [class*="nav-bar"],
+.source-embed.page-18 [class*="navigation-bar"],
+.source-embed.page-18 [class*="page-counter"],
+.source-embed.page-18 [class*="slide-counter"],
+.source-embed.page-18 [class*="progress"] {
+  display: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+}
+.source-embed.page-18 [class*="title-region"],
+.source-embed.page-18 [class*="title-section"],
+.source-embed.page-18 [class*="title-header"] {
+  display: none !important;
+}
+.source-embed.page-18 img,
+.source-embed.page-18 svg,
+.source-embed.page-18 canvas,
+.source-embed.page-18 video {
+  max-width: 100% !important;
+  height: auto !important;
+}
+.source-embed.page-18 table {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+.source-embed.page-18 mjx-container[jax="SVG"] svg {
+  max-width: 100% !important;
+}
+@media (max-width: 980px) {
+  .source-embed.page-18 [class*="content-layout"],
+  .source-embed.page-18 [class*="content-area"],
+  .source-embed.page-18 [class*="content-grid"],
+  .source-embed.page-18 [class*="main-content"],
+  .source-embed.page-18 [class*="two-column"],
+  .source-embed.page-18 [class*="columns"],
+  .source-embed.page-18 [class*="column-layout"],
+  .source-embed.page-18 [class*="comparison"],
+  .source-embed.page-18 [class*="cards-row"],
+  .source-embed.page-18 [class*="card-row"] {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .source-embed.page-18 [class*="left-column"],
+  .source-embed.page-18 [class*="right-column"],
+  .source-embed.page-18 [class*="column"],
+  .source-embed.page-18 [class*="panel"],
+  .source-embed.page-18 [class*="card"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 1 1 auto !important;
+  }
+}
+@media (max-width: 700px) {
+  .source-embed.page-18 > div,
+  .source-embed.page-18 [class*="slide-root"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  .source-embed.page-18 [class*="content-layout"],
+  .source-embed.page-18 [class*="content-area"],
+  .source-embed.page-18 [class*="content-grid"],
+  .source-embed.page-18 [class*="main-content"] {
+    padding: 0 !important;
+    gap: 14px !important;
+  }
+  .source-embed.page-18 [class*="formula"],
+  .source-embed.page-18 [class*="equation"],
+  .source-embed.page-18 [class*="math"],
+  .source-embed.page-18 [class*="table"] {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+  }
+}</style>
+    <div class="source-embed page-18">
+<div class="clausius-slide-root-container" style="overflow: hidden;">
+
+
+<!-- Título -->
+
+<!-- Conteúdo Principal -->
+<div class="clausius-three-column-layout-container">
+<!-- Coluna 1: Hipóteses -->
+<div class="clausius-column-item-wrapper">
+<div class="clausius-content-card-module clausius-border-navy">
+<div class="clausius-card-header-group">
+<i class="fas fa-ruler-combined" style="color: #002147;"></i>
+<span class="clausius-card-title-text">Hipóteses Fundamentais</span>
+</div>
+<p class="clausius-card-body-paragraph">
+                        Para situações <span class="clausius-emphasized-term-span">distantes do ponto crítico</span>, o volume da fase gasosa domina o sistema:
+                    </p>
+<ul class="clausius-card-list-group">
+<li class="clausius-card-list-item">\( v_g \gg v_\ell \): O volume líquido torna-se desprezível.</li>
+<li class="clausius-card-list-item">Tratamento do vapor como <span class="clausius-emphasized-term-span">gás ideal</span>.</li>
+</ul>
+<div class="clausius-equation-box-container">
+                        \[ v_g \approx \frac{t}{Z_c p} \]
+                    </div>
+</div>
+</div>
+<!-- Coluna 2: Derivação -->
+<div class="clausius-column-item-wrapper">
+<div class="clausius-content-card-module clausius-border-teal">
+<div class="clausius-card-header-group">
+<i class="fas fa-bolt" style="color: #0D9488;"></i>
+<span class="clausius-card-title-text">Derivação Matemática</span>
+</div>
+<p class="clausius-card-body-paragraph">
+                        Substituindo \( v_g \) na equação de <span class="clausius-emphasized-term-span">Clausius-Clapeyron</span> reduzida:
+                    </p>
+<div class="clausius-equation-box-container">
+                        \[ \frac{dp}{p} = \Delta\bar{\ell}^{molar} \frac{dt}{t^2} \]
+                    </div>
+<p class="clausius-card-body-paragraph" style="font-size: 13px; margin-top: 10px;">
+                        Integrando ambos os lados entre um estado de referência \( (t_i, p_i) \) e um estado genérico \( (t, p) \).
+                    </p>
+</div>
+</div>
+<!-- Coluna 3: Resultado -->
+<div class="clausius-column-item-wrapper">
+<div class="clausius-content-card-module clausius-border-orange">
+<div class="clausius-card-header-group">
+<i class="fas fa-chart-line" style="color: #EA580C;"></i>
+<span class="clausius-card-title-text">Resultado e Validade</span>
+</div>
+<p class="clausius-card-body-paragraph">
+                        A pressão de vapor exibe um <span class="clausius-emphasized-term-span">crescimento exponencial</span> com o inverso da temperatura:
+                    </p>
+<div class="clausius-equation-box-container">
+                        \[ p(t) = p_i \exp\left[-\Delta\bar{\ell}^{molar}\left(\frac{1}{t} - \frac{1}{t_i}\right)\right] \]
+                    </div>
+<p class="clausius-card-body-paragraph" style="font-size: 13px;">
+<i class="fa-solid fa-triangle-exclamation" style="color: #EA580C; margin-right: 5px;"></i>
+                        Esta aproximação <span class="clausius-emphasized-term-span">falha próximo ao ponto crítico</span>, onde \( v_g \to v_\ell \).
+                    </p>
+</div>
+</div>
+</div>
+<!-- Rodapé: Box Exercício -->
+<div class="clausius-footer-exercise-wrapper">
+<div class="clausius-exercise-icon-box">
+<i class="fa-solid fa-bookmark"></i>
+</div>
+<div class="clausius-exercise-text-content">
+<span class="clausius-exercise-label-bold">Destaque Teórico:</span>
+                Observe que a inclinação da curva de coexistência no plano \( \ln(p) \times 1/t \) é governada diretamente pelo calor latente molar \( \Delta\bar{\ell}^{molar} \). Este comportamento é a base para a determinação experimental de entalpias de vaporização em laboratórios de físico-química através de medidas de pressão de vapor.
+            </div>
+</div>
+</div>
+    </div>
+  </section>
+
+  <section class="source-fragment" data-source-page="page_19.html">
+    <style>.source-embed.page-19{width: 1280px; height: 720px; overflow: hidden; background-color: #FFF;
+    font-family: "Inter", sans-serif}.source-embed.page-19 .water-vapor-slide-root{
+    width: 1280px;
+    height: 720px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background-color: #FFF
+    }.source-embed.page-19 /* Top Navigation Bar */
+.water-vapor-nav-bar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+    border-bottom: 1px solid #E5E7EB;
+    font-size: 12px;
+    color: #4B5563
+    }.source-embed.page-19 .water-vapor-nav-left{
+    display: flex;
+    gap: 20px
+    }.source-embed.page-19 .water-vapor-nav-right{
+    display: flex;
+    gap: 20px;
+    font-weight: 600
+    }.source-embed.page-19 /* Title Region */
+.water-vapor-title-region{
+    display: flex;
+    flex-direction: column;
+    margin: 30px 60px 20px 60px;
+    border-left: 6px solid #0056B3;
+    padding-left: 20px
+    }.source-embed.page-19 .water-vapor-main-title{
+    font-size: 32px;
+    font-weight: 800;
+    color: #002147;
+    margin: 0;
+    text-transform: none
+    }.source-embed.page-19 .water-vapor-sub-title{
+    font-size: 14px;
+    font-variant: small-caps;
+    color: #64748B;
+    margin-top: 4px;
+    letter-spacing: 1px
+    }.source-embed.page-19 /* Main Content Layout */
+.water-vapor-content-wrapper{
+    display: flex;
+    flex: 1;
+    padding: 0 60px;
+    gap: 20px;
+    align-items: stretch;
+    margin-bottom: 20px
+    }.source-embed.page-19 .water-vapor-column{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px
+    }.source-embed.page-19 /* Card Styles */
+.water-vapor-card{
+    background-color: #FFF;
+    padding: 20px;
+    border-left: 4px solid #002147;
+    display: flex;
+    flex-direction: column;
+    flex: 1
+    }.source-embed.page-19 .water-vapor-card-header{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #002147;
+    margin-bottom: 15px
+    }.source-embed.page-19 .water-vapor-card-header i{
+    font-size: 16px
+    }.source-embed.page-19 .water-vapor-card-body{
+    font-size: 14px;
+    line-height: 1.5;
+    color: #1F2937
+    }.source-embed.page-19 .water-vapor-card-list{
+    margin: 0;
+    padding: 0;
+    list-style: none
+    }.source-embed.page-19 .water-vapor-card-list-item{
+    margin-bottom: 10px;
+    padding-left: 0
+    }.source-embed.page-19 .water-vapor-highlight-blue{
+    color: #002147;
+    font-weight: 700
+    }.source-embed.page-19 .water-vapor-highlight-teal{
+    color: #0D9488;
+    font-weight: 700
+    }.source-embed.page-19 .water-vapor-highlight-orange{
+    color: #EA580C;
+    font-weight: 700
+    }.source-embed.page-19 /* Equation Box */
+.water-vapor-equation-container{
+    background-color: #F5F5F5;
+    border: 1px solid #E5E7EB;
+    padding: 15px;
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center
+    }.source-embed.page-19 /* Footer Boxes */
+.water-vapor-footer-region{
+    padding: 0 60px 30px 60px
+    }.source-embed.page-19 .water-vapor-reflection-box{
+    background-color: rgba(13, 148, 136, 0.05);
+    border: 1px solid #0D9488;
+    padding: 15px 20px;
+    border-radius: 4px;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px
+    }.source-embed.page-19 .water-vapor-reflection-icon{
+    color: #0D9488;
+    font-size: 20px;
+    margin-top: 2px
+    }.source-embed.page-19 .water-vapor-reflection-text{
+    font-size: 13px;
+    color: #1F2937;
+    line-height: 1.4
+    }.source-embed.page-19 .water-vapor-reflection-title{
+    font-weight: 700;
+    color: #0D9488;
+    margin-bottom: 4px;
+    display: block
+    }.source-embed.page-19 /* Specific Column Colors */
+.water-vapor-col-1{
+    border-left-color: #002147
+    }.source-embed.page-19 .water-vapor-col-2{
+    border-left-color: #0D9488
+    }.source-embed.page-19 .water-vapor-col-3{
+    border-left-color: #EA580C
+    }.source-embed.page-19{ overflow: hidden; }
+
+
+.source-embed.page-19,
+.source-embed.page-19 > div,
+.source-embed.page-19 [class$="slide-root"],
+.source-embed.page-19 [class*="slide-root"],
+.source-embed.page-19 [class*="slide-container"],
+.source-embed.page-19 [class*="slide-canvas"] {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+  box-sizing: border-box !important;
+}
+.source-embed.page-19 {
+  display: block !important;
+  background: transparent !important;
+}
+.source-embed.page-19 [class*="top-nav"],
+.source-embed.page-19 [class*="top-navigation"],
+.source-embed.page-19 [class*="navbar"],
+.source-embed.page-19 [class*="nav-bar"],
+.source-embed.page-19 [class*="navigation-bar"],
+.source-embed.page-19 [class*="page-counter"],
+.source-embed.page-19 [class*="slide-counter"],
+.source-embed.page-19 [class*="progress"] {
+  display: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+}
+.source-embed.page-19 [class*="title-region"],
+.source-embed.page-19 [class*="title-section"],
+.source-embed.page-19 [class*="title-header"] {
+  display: none !important;
+}
+.source-embed.page-19 img,
+.source-embed.page-19 svg,
+.source-embed.page-19 canvas,
+.source-embed.page-19 video {
+  max-width: 100% !important;
+  height: auto !important;
+}
+.source-embed.page-19 table {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+.source-embed.page-19 mjx-container[jax="SVG"] svg {
+  max-width: 100% !important;
+}
+@media (max-width: 980px) {
+  .source-embed.page-19 [class*="content-layout"],
+  .source-embed.page-19 [class*="content-area"],
+  .source-embed.page-19 [class*="content-grid"],
+  .source-embed.page-19 [class*="main-content"],
+  .source-embed.page-19 [class*="two-column"],
+  .source-embed.page-19 [class*="columns"],
+  .source-embed.page-19 [class*="column-layout"],
+  .source-embed.page-19 [class*="comparison"],
+  .source-embed.page-19 [class*="cards-row"],
+  .source-embed.page-19 [class*="card-row"] {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .source-embed.page-19 [class*="left-column"],
+  .source-embed.page-19 [class*="right-column"],
+  .source-embed.page-19 [class*="column"],
+  .source-embed.page-19 [class*="panel"],
+  .source-embed.page-19 [class*="card"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 1 1 auto !important;
+  }
+}
+@media (max-width: 700px) {
+  .source-embed.page-19 > div,
+  .source-embed.page-19 [class*="slide-root"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  .source-embed.page-19 [class*="content-layout"],
+  .source-embed.page-19 [class*="content-area"],
+  .source-embed.page-19 [class*="content-grid"],
+  .source-embed.page-19 [class*="main-content"] {
+    padding: 0 !important;
+    gap: 14px !important;
+  }
+  .source-embed.page-19 [class*="formula"],
+  .source-embed.page-19 [class*="equation"],
+  .source-embed.page-19 [class*="math"],
+  .source-embed.page-19 [class*="table"] {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+  }
+}</style>
+    <div class="source-embed page-19">
+<div class="water-vapor-slide-root" style="overflow: hidden;">
+
+
+<!-- Title Region -->
+
+<!-- Main Content -->
+<div class="water-vapor-content-wrapper">
+<!-- Column 1: Parâmetros -->
+<div class="water-vapor-column">
+<div class="water-vapor-card water-vapor-col-1">
+<div class="water-vapor-card-header">
+<i class="fa-solid fa-thermometer"></i>
+<span>Dados do Sistema</span>
+</div>
+<div class="water-vapor-card-body">
+<ul class="water-vapor-card-list">
+<li class="water-vapor-card-list-item">
+                                Considere a água ao nível do mar: <br/>
+<span class="water-vapor-highlight-blue">T<sub>i</sub> = 373 K (100°C)</span><br/>
+<span class="water-vapor-highlight-blue">P<sub>i</sub> = 1 atm</span>
+</li>
+<li class="water-vapor-card-list-item">
+                                Calor latente molar de vaporização:<br/>
+<span class="water-vapor-highlight-blue">ΔL<sup>molar</sup> = 40.7 kJ/mol</span>
+</li>
+<li class="water-vapor-card-list-item">
+                                Objetivo: Calcular a pressão de vapor <span class="water-vapor-highlight-blue">P</span> para a temperatura de <span class="water-vapor-highlight-blue">T = 353 K (80°C)</span>.
+                            </li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Column 2: Formulação -->
+<div class="water-vapor-column">
+<div class="water-vapor-card water-vapor-col-2">
+<div class="water-vapor-card-header">
+<i class="fa-solid fa-calculator"></i>
+<span>Modelo Matemático</span>
+</div>
+<div class="water-vapor-card-body">
+<p>Utilizamos a <span class="water-vapor-highlight-teal">Equação de Clausius-Clapeyron</span> integrada sob a aproximação de gás ideal para a fase vapor:</p>
+<div class="water-vapor-equation-container">
+                            \[ \ln\left(\frac{P}{P_i}\right) = -\frac{\Delta L^{molar}}{R}\left(\frac{1}{T} - \frac{1}{T_i}\right) \]
+                        </div>
+<p>Onde <span class="water-vapor-highlight-teal">R = 8.314 J/(mol·K)</span>. Esta relação descreve a dependência exponencial da pressão de equilíbrio com a temperatura.</p>
+</div>
+</div>
+</div>
+<!-- Column 3: Resultados -->
+<div class="water-vapor-column">
+<div class="water-vapor-card water-vapor-col-3">
+<div class="water-vapor-card-header">
+<i class="fa-solid fa-chart-line"></i>
+<span>Análise e Resultado</span>
+</div>
+<div class="water-vapor-card-body">
+<p>Substituindo os valores numéricos:</p>
+<div class="water-vapor-equation-container" style="padding: 10px;">
+                            \[ \ln(P) = -4895.8 \times (1.52 \times 10^{-4}) \]
+                        </div>
+<ul class="water-vapor-card-list">
+<li class="water-vapor-card-list-item">
+<span class="water-vapor-highlight-orange">ln(P/1 atm) ≈ -0.744</span>
+</li>
+<li class="water-vapor-card-list-item">
+<span class="water-vapor-highlight-orange">P ≈ e^{-0.744} ≈ 0.48 atm</span>
+</li>
+<li class="water-vapor-card-list-item">
+<span class="water-vapor-highlight-orange">Conclusão:</span> Uma queda de apenas 20°C reduz a pressão de vapor a menos da metade do valor nominal.
+                            </li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Region -->
+<div class="water-vapor-footer-region">
+<div class="water-vapor-reflection-box">
+<div class="water-vapor-reflection-icon">
+<i class="fa-solid fa-lightbulb"></i>
+</div>
+<div class="water-vapor-reflection-text">
+<span class="water-vapor-reflection-title">Para Reflexão: Ebulição em Altitude</span>
+                    Em cidades de altitude elevada, como La Paz (P ≈ 0.6 atm), a água ferve a temperaturas significativamente inferiores a 100°C. Como isso afeta o tempo de cozimento dos alimentos? Lembre-se que o cozimento depende da temperatura do fluido, não da agitação da ebulição em si.
+                </div>
+</div>
+</div>
+</div>
+    </div>
+  </section>
+  </div>
+
+  <section data-termo-ai-exercise data-exercise-theme="purple"></section>
+</div>
+<script src="../../assets/chapter-embedded-slide.js"></script>
+</body>
+</html>

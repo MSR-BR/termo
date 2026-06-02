@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Termodinâmica - Compressibilidade Isotérmica</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><style>:root {
+    --background: #FFF;
+    --title-text: #002147;
+    --body-text: #1F2937;
+    --secondary-text: #4B5563;
+    --muted-text: #9CA3AF;
+    --accent: #0056B3;
+    --secondary-accent: #0D9488;
+    --border: #E5E7EB;
+    --card-navy: #002147;
+    --card-teal: #0D9488;
+    --card-orange: #EA580C;
+    --equation-bg: #F5F5F5;
+    --reflection-bg: #F0F9FF
+    }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0
+    }
+body {width: 1280px; height: 720px; overflow: hidden; font-family: "Inter", sans-serif;
+    background-color: #F3F4F6;
+    display: flex;
+    justify-content: center;
+    align-items: center}
+.slide-root-container {
+    width: 1280px;
+    height: 720px;
+    background-color: var(--background);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1)
+    }
+/* Top Navigation Bar */
+.top-nav-bar-container {
+    width: 100%;
+    height: 40px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    font-size: 12px;
+    color: var(--secondary-text)
+    }
+.nav-left-links-wrapper {
+    display: flex;
+    gap: 20px
+    }
+.nav-right-actions-wrapper {
+    display: flex;
+    gap: 20px;
+    align-items: center
+    }
+.page-counter-display {
+    font-weight: 600;
+    color: var(--title-text);
+    margin-right: 10px
+    }
+/* Title Region */
+.title-section-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 30px 60px 20px 60px;
+    border-left: 6px solid var(--accent);
+    padding-left: 20px
+    }
+.title-main-heading {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--title-text);
+    margin: 0;
+    line-height: 1.2
+    }
+.title-sub-breadcrumbs {
+    font-size: 14px;
+    font-variant: small-caps;
+    color: #64748B;
+    margin-top: 4px;
+    letter-spacing: 1px;
+    font-weight: 600
+    }
+/* Main Content Grid */
+.content-layout-columns-grid {
+    display: flex;
+    flex: 1;
+    padding: 0 60px;
+    gap: 25px;
+    align-items: stretch;
+    margin-bottom: 20px
+    }
+.content-column-card-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border-left: 4px solid var(--border);
+    padding-left: 15px;
+    background: #FAFAFA;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    border-radius: 4px
+    }
+.card-header-title-wrapper {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--title-text);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px
+    }
+.card-body-paragraph-text {
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--body-text);
+    margin-bottom: 10px
+    }
+.keyword-highlight-navy {
+    color: var(--card-navy);
+    font-weight: 700
+    }
+.keyword-highlight-teal {
+    color: var(--card-teal);
+    font-weight: 700
+    }
+.keyword-highlight-orange {
+    color: var(--card-orange);
+    font-weight: 700
+    }
+/* Equation Box */
+.equation-box-container {
+    background-color: var(--equation-bg);
+    border: 1px solid var(--border);
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 6px;
+    text-align: center
+    }
+/* Image Styling */
+.vdw-chart-image-container {
+    width: 100%;
+    height: 240px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center
+    }
+.vdw-chart-image-element {
+    height: 100%;
+    width: auto;
+    object-fit: contain
+    }
+.image-caption-text {
+    font-size: 11px;
+    color: var(--muted-text);
+    margin-top: 6px;
+    text-align: center;
+    font-style: italic
+    }
+/* Footer Reflection Box */
+.reflection-footer-box {
+    margin: 0 60px 30px 60px;
+    background-color: var(--reflection-bg);
+    border-left: 4px solid var(--secondary-accent);
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-radius: 0 8px 8px 0
+    }
+.reflection-icon-circle {
+    background-color: var(--secondary-accent);
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0
+    }
+.reflection-content-text {
+    font-size: 14px;
+    color: var(--title-text);
+    font-weight: 500;
+    line-height: 1.4
+    }
+/* Specific Card Borders */
+.border-navy {
+    border-left-color: var(--card-navy)
+    }
+.border-teal {
+    border-left-color: var(--card-teal)
+    }
+.border-orange {
+    border-left-color: var(--card-orange)
+    }
+.list-unstyled-items {
+    list-style: none;
+    margin-top: 5px
+    }
+.list-unstyled-items li {
+    font-size: 13px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px
+    }
+.list-unstyled-items li::before {
+    content: "•";
+    color: var(--secondary-accent);
+    font-weight: bold
+    }
+html { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="slide-root-container" style="overflow: hidden;">
+<!-- Top Navigation -->
+<nav class="top-nav-bar-container">
+<div class="nav-left-links-wrapper">
+<span>← Índice</span>
+<span>Capítulo 5 · Item 5.1.8</span>
+</div>
+<div class="nav-right-actions-wrapper">
+<span class="page-counter-display">20 / 22</span>
+<span>Salvar progresso | Enviar | <i class="fa-regular fa-star"></i></span>
+</div>
+</nav>
+<!-- Title Section -->
+<header class="title-section-wrapper">
+<h1 class="title-main-heading">Compressibilidade Isotérmica</h1>
+<p class="title-sub-breadcrumbs">RESPOSTA VOLUMÉTRICA · FORMA ADIMENSIONAL · DIVERGÊNCIA NA ESPINODAL</p>
+</header>
+<!-- Content Columns -->
+<main class="content-layout-columns-grid">
+<!-- Column 1: Formalism -->
+<section class="content-column-card-item border-navy">
+<div class="card-header-title-wrapper">📐 Definição e Formalismo</div>
+<p class="card-body-paragraph-text">
+                    A <span class="keyword-highlight-navy">compressibilidade isotérmica</span> (\(\kappa_T\)) quantifica a resposta relativa do volume frente a variações de pressão a temperatura constante.
+                </p>
+<div class="equation-box-container">
+                    \[ \kappa_T = -\frac{1}{V}\left.\frac{\partial V}{\partial P}\right|_T \]
+                </div>
+<p class="card-body-paragraph-text">Na forma <span class="keyword-highlight-navy">adimensional</span> reduzida (\(\bar{\kappa}_t\)):</p>
+<div class="equation-box-container">
+                    \[ \bar{\kappa}_t = \frac{Z_c v^2(3v-1)^2}{3\left[3tv^3 - 2Z_c(3v-1)^2\right]} \]
+                </div>
+</section>
+<!-- Column 2: Physical Behavior -->
+<section class="content-column-card-item border-teal">
+<div class="card-header-title-wrapper">📈 Comportamento Físico</div>
+<p class="card-body-paragraph-text">
+                    A função apresenta uma <span class="keyword-highlight-teal">descontinuidade abrupta</span> na temperatura de equilíbrio \( t_{eq}(p) \), refletindo a transição de fase:
+                </p>
+<ul class="list-unstyled-items">
+<li><strong>Ramo Líquido (\(t &lt; t_{eq}\)):</strong> Volumes reduzidos resultam em uma estrutura rígida e <span class="keyword-highlight-teal">baixa compressibilidade</span>.</li>
+<li><strong>Ramo Gasoso (\(t &gt; t_{eq}\)):</strong> Grandes volumes e interações esparsas permitem <span class="keyword-highlight-teal">alta compressibilidade</span>.</li>
+<li><strong>Divergência:</strong> O denominador anula-se exatamente na condição da <span class="keyword-highlight-teal">curva espinodal</span>.</li>
+</ul>
+</section>
+<!-- Column 3: Visualization -->
+<section class="content-column-card-item border-orange">
+<div class="card-header-title-wrapper">⚡ Flutuações Críticas</div>
+<p class="card-body-paragraph-text">
+                    A divergência de \(\bar{\kappa}_t\) sinaliza que o sistema torna-se infinitamente sensível a perturbações de pressão.
+                </p>
+<div class="vdw-chart-image-container">
+<img alt="Gráfico de Compressibilidade" class="vdw-chart-image-element" src="https://static-us-img.skywork.ai/prod/nexus/1780078533/cropped_image_2_1780078533196179460.jpg"/>
+</div>
+<p class="image-caption-text">Figura 15: Compressibilidade adimensional \(\bar{\kappa}_t\) vs temperatura reduzida \(t\).</p>
+</section>
+</main>
+<!-- Footer Reflection Box -->
+<footer class="reflection-footer-box">
+<div class="reflection-icon-circle">
+<i class="fa-solid fa-lightbulb"></i>
+</div>
+<div class="reflection-content-text">
+<strong>Para Reflexão:</strong> Por que a compressibilidade diverge no ponto crítico? Fisicamente, isso implica que o "custo energético" para criar flutuações de densidade tende a zero, permitindo a coexistência de fases.
+            </div>
+</footer>
+</div>
+</body>
+</html>

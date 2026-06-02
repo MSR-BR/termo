@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<title>Exemplo 5.3: Pressão de Vapor da Água a 80°C</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><style>body {width: 1280px; height: 720px; overflow: hidden; background-color: #FFF;
+    font-family: "Inter", sans-serif}
+.water-vapor-slide-root {
+    width: 1280px;
+    height: 720px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background-color: #FFF
+    }
+/* Top Navigation Bar */
+.water-vapor-nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+    border-bottom: 1px solid #E5E7EB;
+    font-size: 12px;
+    color: #4B5563
+    }
+.water-vapor-nav-left {
+    display: flex;
+    gap: 20px
+    }
+.water-vapor-nav-right {
+    display: flex;
+    gap: 20px;
+    font-weight: 600
+    }
+/* Title Region */
+.water-vapor-title-region {
+    display: flex;
+    flex-direction: column;
+    margin: 30px 60px 20px 60px;
+    border-left: 6px solid #0056B3;
+    padding-left: 20px
+    }
+.water-vapor-main-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: #002147;
+    margin: 0;
+    text-transform: none
+    }
+.water-vapor-sub-title {
+    font-size: 14px;
+    font-variant: small-caps;
+    color: #64748B;
+    margin-top: 4px;
+    letter-spacing: 1px
+    }
+/* Main Content Layout */
+.water-vapor-content-wrapper {
+    display: flex;
+    flex: 1;
+    padding: 0 60px;
+    gap: 20px;
+    align-items: stretch;
+    margin-bottom: 20px
+    }
+.water-vapor-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px
+    }
+/* Card Styles */
+.water-vapor-card {
+    background-color: #FFF;
+    padding: 20px;
+    border-left: 4px solid #002147;
+    display: flex;
+    flex-direction: column;
+    flex: 1
+    }
+.water-vapor-card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #002147;
+    margin-bottom: 15px
+    }
+.water-vapor-card-header i {
+    font-size: 16px
+    }
+.water-vapor-card-body {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #1F2937
+    }
+.water-vapor-card-list {
+    margin: 0;
+    padding: 0;
+    list-style: none
+    }
+.water-vapor-card-list-item {
+    margin-bottom: 10px;
+    padding-left: 0
+    }
+.water-vapor-highlight-blue {
+    color: #002147;
+    font-weight: 700
+    }
+.water-vapor-highlight-teal {
+    color: #0D9488;
+    font-weight: 700
+    }
+.water-vapor-highlight-orange {
+    color: #EA580C;
+    font-weight: 700
+    }
+/* Equation Box */
+.water-vapor-equation-container {
+    background-color: #F5F5F5;
+    border: 1px solid #E5E7EB;
+    padding: 15px;
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center
+    }
+/* Footer Boxes */
+.water-vapor-footer-region {
+    padding: 0 60px 30px 60px
+    }
+.water-vapor-reflection-box {
+    background-color: rgba(13, 148, 136, 0.05);
+    border: 1px solid #0D9488;
+    padding: 15px 20px;
+    border-radius: 4px;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px
+    }
+.water-vapor-reflection-icon {
+    color: #0D9488;
+    font-size: 20px;
+    margin-top: 2px
+    }
+.water-vapor-reflection-text {
+    font-size: 13px;
+    color: #1F2937;
+    line-height: 1.4
+    }
+.water-vapor-reflection-title {
+    font-weight: 700;
+    color: #0D9488;
+    margin-bottom: 4px;
+    display: block
+    }
+/* Specific Column Colors */
+.water-vapor-col-1 {
+    border-left-color: #002147
+    }
+.water-vapor-col-2 {
+    border-left-color: #0D9488
+    }
+.water-vapor-col-3 {
+    border-left-color: #EA580C
+    }
+html { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="water-vapor-slide-root" style="overflow: hidden;">
+<!-- Navigation Bar -->
+<div class="water-vapor-nav-bar">
+<div class="water-vapor-nav-left">
+<span>← Índice</span>
+<span>Capítulo 5 · Item 5.1.7</span>
+</div>
+<div class="water-vapor-nav-right">
+<span>Salvar progresso</span>
+<span>Enviar</span>
+<span><i class="fa-regular fa-star"></i></span>
+<span style="margin-left: 10px;">19 / 22</span>
+</div>
+</div>
+<!-- Title Region -->
+<div class="water-vapor-title-region">
+<h1 class="water-vapor-main-title">Exemplo 5.3: Pressão de Vapor da Água a 80 °C</h1>
+<p class="water-vapor-sub-title">Equação de Clausius-Clapeyron · Ebulição em Altitude · Calor Latente</p>
+</div>
+<!-- Main Content -->
+<div class="water-vapor-content-wrapper">
+<!-- Column 1: Parâmetros -->
+<div class="water-vapor-column">
+<div class="water-vapor-card water-vapor-col-1">
+<div class="water-vapor-card-header">
+<i class="fa-solid fa-thermometer"></i>
+<span>Dados do Sistema</span>
+</div>
+<div class="water-vapor-card-body">
+<ul class="water-vapor-card-list">
+<li class="water-vapor-card-list-item">
+                                Considere a água ao nível do mar: <br/>
+<span class="water-vapor-highlight-blue">T<sub>i</sub> = 373 K (100°C)</span><br/>
+<span class="water-vapor-highlight-blue">P<sub>i</sub> = 1 atm</span>
+</li>
+<li class="water-vapor-card-list-item">
+                                Calor latente molar de vaporização:<br/>
+<span class="water-vapor-highlight-blue">ΔL<sup>molar</sup> = 40.7 kJ/mol</span>
+</li>
+<li class="water-vapor-card-list-item">
+                                Objetivo: Calcular a pressão de vapor <span class="water-vapor-highlight-blue">P</span> para a temperatura de <span class="water-vapor-highlight-blue">T = 353 K (80°C)</span>.
+                            </li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Column 2: Formulação -->
+<div class="water-vapor-column">
+<div class="water-vapor-card water-vapor-col-2">
+<div class="water-vapor-card-header">
+<i class="fa-solid fa-calculator"></i>
+<span>Modelo Matemático</span>
+</div>
+<div class="water-vapor-card-body">
+<p>Utilizamos a <span class="water-vapor-highlight-teal">Equação de Clausius-Clapeyron</span> integrada sob a aproximação de gás ideal para a fase vapor:</p>
+<div class="water-vapor-equation-container">
+                            \[ \ln\left(\frac{P}{P_i}\right) = -\frac{\Delta L^{molar}}{R}\left(\frac{1}{T} - \frac{1}{T_i}\right) \]
+                        </div>
+<p>Onde <span class="water-vapor-highlight-teal">R = 8.314 J/(mol·K)</span>. Esta relação descreve a dependência exponencial da pressão de equilíbrio com a temperatura.</p>
+</div>
+</div>
+</div>
+<!-- Column 3: Resultados -->
+<div class="water-vapor-column">
+<div class="water-vapor-card water-vapor-col-3">
+<div class="water-vapor-card-header">
+<i class="fa-solid fa-chart-line"></i>
+<span>Análise e Resultado</span>
+</div>
+<div class="water-vapor-card-body">
+<p>Substituindo os valores numéricos:</p>
+<div class="water-vapor-equation-container" style="padding: 10px;">
+                            \[ \ln(P) = -4895.8 \times (1.52 \times 10^{-4}) \]
+                        </div>
+<ul class="water-vapor-card-list">
+<li class="water-vapor-card-list-item">
+<span class="water-vapor-highlight-orange">ln(P/1 atm) ≈ -0.744</span>
+</li>
+<li class="water-vapor-card-list-item">
+<span class="water-vapor-highlight-orange">P ≈ e^{-0.744} ≈ 0.48 atm</span>
+</li>
+<li class="water-vapor-card-list-item">
+<span class="water-vapor-highlight-orange">Conclusão:</span> Uma queda de apenas 20°C reduz a pressão de vapor a menos da metade do valor nominal.
+                            </li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Region -->
+<div class="water-vapor-footer-region">
+<div class="water-vapor-reflection-box">
+<div class="water-vapor-reflection-icon">
+<i class="fa-solid fa-lightbulb"></i>
+</div>
+<div class="water-vapor-reflection-text">
+<span class="water-vapor-reflection-title">Para Reflexão: Ebulição em Altitude</span>
+                    Em cidades de altitude elevada, como La Paz (P ≈ 0.6 atm), a água ferve a temperaturas significativamente inferiores a 100°C. Como isso afeta o tempo de cozimento dos alimentos? Lembre-se que o cozimento depende da temperatura do fluido, não da agitação da ebulição em si.
+                </div>
+</div>
+</div>
+</div>
+</body>
+</html>

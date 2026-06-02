@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Equação de Estado de Van der Waals</title>
+
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/>
+
+<script>
+window.va = window.va || function () {
+  (window.vaq = window.vaq || []).push(arguments);
+};
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)'], ['$', '$']], displayMath: [['\\[','\\]']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<link href="../../assets/chapter-embedded-slide.css" rel="stylesheet"/>
+<style id="cap4-flatten-slide-boxes">
+.page--capitulo-04 .content-root {
+  gap: 18px !important;
+}
+
+.page--capitulo-04 .source-fragment {
+  padding: 0 !important;
+  border-top: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.page--capitulo-04 .source-embed {
+  display: block !important;
+  justify-content: initial !important;
+  align-items: stretch !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: visible !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.page--capitulo-04 .source-embed > div,
+.page--capitulo-04 .source-embed [class*="slide-root"],
+.page--capitulo-04 .source-embed [class*="root-container"],
+.page--capitulo-04 .source-embed [class*="slide-container"],
+.page--capitulo-04 .source-embed [class*="slide-canvas"],
+.page--capitulo-04 .source-embed [class*="slide-main"] {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  overflow: visible !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.page--capitulo-04 .source-embed > div[style*="overflow: hidden"],
+.page--capitulo-04 .source-embed [style*="overflow: hidden"] {
+  overflow: visible !important;
+}
+
+.page--capitulo-04 .source-embed [class*="content-columns"],
+.page--capitulo-04 .source-embed [class*="content-grid"],
+.page--capitulo-04 .source-embed [class*="content-layout"],
+.page--capitulo-04 .source-embed [class*="main-content"],
+.page--capitulo-04 .source-embed [class*="columns-container"] {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.page--capitulo-04 .source-embed [class*="info-card"],
+.page--capitulo-04 .source-embed [class*="card-block"],
+.page--capitulo-04 .source-embed [class*="card-item"],
+.page--capitulo-04 .source-embed [class*="column-card"],
+.page--capitulo-04 .source-embed [class*="reflection"],
+.page--capitulo-04 .source-embed [class*="equation"] {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 760px) {
+  .page--capitulo-04 .source-embed [class*="content-columns"],
+  .page--capitulo-04 .source-embed [class*="content-grid"],
+  .page--capitulo-04 .source-embed [class*="content-layout"],
+  .page--capitulo-04 .source-embed [class*="columns-container"],
+  .page--capitulo-04 .source-embed [class*="main-content"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+</style>
+<link href="../../assets/ai-exercises.css" rel="stylesheet"/>
+<script defer src="../../assets/ai-exercises.js"></script>
+<link rel="stylesheet" href="../../assets/termo-share.css">
+<script defer src="../../assets/termo-share.js"></script>
+<link rel="stylesheet" href="../../assets/termo-auth.css">
+<script defer src="../../assets/termo-auth.js"></script>
+<script defer src="../../assets/termo-user-data.js"></script>
+</head>
+<body>
+<div class="page page--capitulo-04">
+  <section class="hero">
+    <div class="hero-inner">
+      <a href="../../index.html?chapter=04" class="index-back-button">
+        <i class="fa-solid fa-arrow-left"></i>
+        Índice
+      </a>
+      <div class="chapter-label">
+        <i class="fa-solid fa-layer-group"></i>
+        Capítulo 4 · Item 4.2
+      </div>
+      <h1 class="chapter-title">Equação de Estado de Van der Waals</h1>
+      <div class="chapter-text">
+        <p>Motivação para gases reais, correções de volume e pressão, e forma final da equação de estado.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="content-root">
+    
+  <section class="source-fragment" data-source-page="page_2.html">
+    <style>.source-embed.page-2{
+    --background: #FFF;
+    --title-text: #002147;
+    --body-text: #1F2937;
+    --secondary-text: #4B5563;
+    --muted-text: #9CA3AF;
+    --accent: #0056B3;
+    --secondary-accent: #0D9488;
+    --border: #E5E7EB;
+    --card-navy: #002147;
+    --card-teal: #0D9488;
+    --card-orange: #EA580C;
+    --card-purple: #6A0DAD;
+    --equation-bg: #F5F5F5;
+    --reflection-bg: #F0F9FF;
+    --reflection-border: #BAE6FD
+    }.source-embed.page-2 *{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0
+    }.source-embed.page-2{width: 1280px; height: 720px; overflow: hidden; font-family: "Inter", sans-serif;
+    background-color: #F3F4F6;
+    display: flex;
+    justify-content: center;
+    align-items: center}.source-embed.page-2 .real-gas-slide-root{
+    width: 1280px;
+    height: 720px;
+    background-color: var(--background);
+    position: relative;
+    display: flex;
+    flex-direction: column
+    }.source-embed.page-2 /* Top Navigation Bar */
+.real-gas-top-nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--secondary-text)
+    }.source-embed.page-2 .real-gas-nav-links span{
+    margin: 0 10px;
+    cursor: pointer
+    }.source-embed.page-2 .real-gas-page-counter{
+    font-weight: 600;
+    color: var(--title-text)
+    }.source-embed.page-2 /* Title Region */
+.real-gas-title-section{
+    display: flex;
+    flex-direction: column;
+    margin: 30px 60px 20px 60px;
+    border-left: 6px solid var(--accent);
+    padding-left: 20px
+    }.source-embed.page-2 .real-gas-main-title{
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--title-text);
+    margin: 0;
+    line-height: 1.2
+    }.source-embed.page-2 .real-gas-subtitle{
+    font-size: 14px;
+    font-variant: small-caps;
+    color: #64748B;
+    margin-top: 4px;
+    letter-spacing: 1px;
+    font-weight: 600
+    }.source-embed.page-2 /* Main Content Layout - 3 Columns */
+.real-gas-content-grid{
+    display: flex;
+    flex: 1;
+    gap: 20px;
+    padding: 0 60px;
+    margin-bottom: 20px;
+    align-items: stretch
+    }.source-embed.page-2 .real-gas-column{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px
+    }.source-embed.page-2 .real-gas-card{
+    background: #FFF;
+    padding: 20px;
+    border-left: 4px solid var(--card-navy);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    flex: 1;
+    display: flex;
+    flex-direction: column
+    }.source-embed.page-2 .real-gas-card-navy{
+    border-color: var(--card-navy)
+    }.source-embed.page-2 .real-gas-card-teal{
+    border-color: var(--card-teal)
+    }.source-embed.page-2 .real-gas-card-orange{
+    border-color: var(--card-orange)
+    }.source-embed.page-2 .real-gas-card-header{
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--title-text);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px
+    }.source-embed.page-2 .real-gas-card-body{
+    font-size: 14px;
+    color: var(--body-text);
+    line-height: 1.5
+    }.source-embed.page-2 .real-gas-card-body p{
+    margin-bottom: 10px
+    }.source-embed.page-2 .real-gas-list{
+    list-style: none;
+    margin-top: 5px
+    }.source-embed.page-2 .real-gas-list-item{
+    margin-bottom: 8px;
+    padding-left: 15px;
+    position: relative
+    }.source-embed.page-2 .real-gas-list-item::before{
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: bold
+    }.source-embed.page-2 .real-gas-highlight-navy{
+    color: var(--card-navy);
+    font-weight: 700
+    }.source-embed.page-2 .real-gas-highlight-teal{
+    color: var(--card-teal);
+    font-weight: 700
+    }.source-embed.page-2 .real-gas-highlight-orange{
+    color: var(--card-orange);
+    font-weight: 700
+    }.source-embed.page-2 /* Equation Box */
+.real-gas-equation-box{
+    background-color: var(--equation-bg);
+    border: 1px solid var(--border);
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 4px;
+    text-align: center
+    }.source-embed.page-2 /* Footer Box */
+.real-gas-footer-reflection{
+    margin: 0 60px 30px 60px;
+    background-color: var(--reflection-bg);
+    border: 1px solid var(--reflection-border);
+    padding: 15px 25px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 15px
+    }.source-embed.page-2 .real-gas-reflection-icon{
+    font-size: 24px;
+    color: var(--secondary-accent)
+    }.source-embed.page-2 .real-gas-reflection-text{
+    font-size: 13px;
+    color: var(--title-text);
+    font-style: italic;
+    line-height: 1.4
+    }.source-embed.page-2{ overflow: hidden; }
+
+
+.source-embed.page-2,
+.source-embed.page-2 > div,
+.source-embed.page-2 [class$="slide-root"],
+.source-embed.page-2 [class*="slide-root"],
+.source-embed.page-2 [class*="slide-container"],
+.source-embed.page-2 [class*="slide-canvas"] {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+  box-sizing: border-box !important;
+}
+.source-embed.page-2 {
+  display: block !important;
+  background: transparent !important;
+}
+.source-embed.page-2 [class*="top-nav"],
+.source-embed.page-2 [class*="top-navigation"],
+.source-embed.page-2 [class*="navbar"],
+.source-embed.page-2 [class*="nav-bar"],
+.source-embed.page-2 [class*="navigation-bar"],
+.source-embed.page-2 [class*="page-counter"],
+.source-embed.page-2 [class*="slide-counter"],
+.source-embed.page-2 [class*="progress"] {
+  display: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+}
+.source-embed.page-2 [class*="title-region"],
+.source-embed.page-2 [class*="title-section"],
+.source-embed.page-2 [class*="title-header"] {
+  display: none !important;
+}
+.source-embed.page-2 img,
+.source-embed.page-2 svg,
+.source-embed.page-2 canvas,
+.source-embed.page-2 video {
+  max-width: 100% !important;
+  height: auto !important;
+}
+.source-embed.page-2 table {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+.source-embed.page-2 mjx-container[jax="SVG"] svg {
+  max-width: 100% !important;
+}
+@media (max-width: 980px) {
+  .source-embed.page-2 [class*="content-layout"],
+  .source-embed.page-2 [class*="content-area"],
+  .source-embed.page-2 [class*="content-grid"],
+  .source-embed.page-2 [class*="main-content"],
+  .source-embed.page-2 [class*="two-column"],
+  .source-embed.page-2 [class*="columns"],
+  .source-embed.page-2 [class*="column-layout"],
+  .source-embed.page-2 [class*="comparison"],
+  .source-embed.page-2 [class*="cards-row"],
+  .source-embed.page-2 [class*="card-row"] {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .source-embed.page-2 [class*="left-column"],
+  .source-embed.page-2 [class*="right-column"],
+  .source-embed.page-2 [class*="column"],
+  .source-embed.page-2 [class*="panel"],
+  .source-embed.page-2 [class*="card"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 1 1 auto !important;
+  }
+}
+@media (max-width: 700px) {
+  .source-embed.page-2 > div,
+  .source-embed.page-2 [class*="slide-root"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  .source-embed.page-2 [class*="content-layout"],
+  .source-embed.page-2 [class*="content-area"],
+  .source-embed.page-2 [class*="content-grid"],
+  .source-embed.page-2 [class*="main-content"] {
+    padding: 0 !important;
+    gap: 14px !important;
+  }
+  .source-embed.page-2 [class*="formula"],
+  .source-embed.page-2 [class*="equation"],
+  .source-embed.page-2 [class*="math"],
+  .source-embed.page-2 [class*="table"] {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+  }
+}</style>
+    <div class="source-embed page-2">
+<div class="real-gas-slide-root" style="overflow: hidden;">
+
+
+<!-- Title Section -->
+
+<!-- Content Grid -->
+<div class="real-gas-content-grid">
+<!-- Column 1: Limites do Modelo -->
+<div class="real-gas-column">
+<div class="real-gas-card real-gas-card-navy">
+<div class="real-gas-card-header">🧪 Limites de Validade</div>
+<div class="real-gas-card-body">
+<p>O modelo de gás ideal descreve bem vapores diluídos, mas perde validade física em dois regimes fundamentais:</p>
+<ul class="real-gas-list">
+<li class="real-gas-list-item"><span class="real-gas-highlight-navy">Pressões Elevadas:</span> Quando o afastamento médio entre moléculas é comparável ao seu tamanho efetivo.</li>
+<li class="real-gas-list-item"><span class="real-gas-highlight-navy">Baixas Temperaturas:</span> Quando o comprimento de onda térmico se aproxima da distância média entre as partículas.</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Column 2: Transições de Fase -->
+<div class="real-gas-column">
+<div class="real-gas-card real-gas-card-teal">
+<div class="real-gas-card-header">🔄 Transições de Fase</div>
+<div class="real-gas-card-body">
+<p>Em gases reais, as interações intermoleculares levam a fenômenos coletivos que o modelo ideal não prevê:</p>
+<ul class="real-gas-list">
+<li class="real-gas-list-item"><span class="real-gas-highlight-teal">Liquefação:</span> A transição abrupta da fase gasosa para a líquida sob compressão ou resfriamento.</li>
+<li class="real-gas-list-item"><span class="real-gas-highlight-teal">Instabilidade:</span> Regiões onde o sistema não consegue manter a homogeneidade mecânica.</li>
+</ul>
+<div class="real-gas-equation-box">
+                            \[ U_{\text{total}} = U_{\text{cin}} + U_{\text{interação}} \]
+                        </div>
+</div>
+</div>
+</div>
+<!-- Column 3: Relevância Técnica -->
+<div class="real-gas-column">
+<div class="real-gas-card real-gas-card-orange">
+<div class="real-gas-card-header">⚙️ Relevância Técnica</div>
+<div class="real-gas-card-body">
+<p>A descrição precisa de fluidos reais é o pilar para diversas áreas da engenharia e ciência:</p>
+<ul class="real-gas-list">
+<li class="real-gas-list-item"><span class="real-gas-highlight-orange">Ciclos Industriais:</span> Otimização de processos de refrigeração e separação de gases.</li>
+<li class="real-gas-list-item"><span class="real-gas-highlight-orange">Atmosfera:</span> Interpretação de fenômenos climáticos e condensação de nuvens.</li>
+<li class="real-gas-list-item"><span class="real-gas-highlight-orange">Fluidos Supercríticos:</span> Uso industrial de substâncias além do ponto crítico.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Reflection Box -->
+<div class="real-gas-footer-reflection">
+<div class="real-gas-reflection-icon">
+<i class="fa-regular fa-lightbulb"></i>
+</div>
+<div class="real-gas-reflection-text">
+                "Por que as forças atrativas tornam-se mais relevantes à medida que a temperatura do sistema diminui, mesmo que a densidade permaneça constante?"
+            </div>
+</div>
+</div>
+    </div>
+  </section>
+
+  <section class="source-fragment" data-source-page="page_3.html">
+    <style>.source-embed.page-3{
+    --background: #FFF;
+    --title-text: #002147;
+    --body-text: #1F2937;
+    --secondary-text: #4B5563;
+    --muted-text: #9CA3AF;
+    --accent: #0056B3;
+    --secondary-accent: #0D9488;
+    --border: #E5E7EB;
+    --card-navy: #002147;
+    --card-teal: #0D9488;
+    --card-orange: #EA580C;
+    --card-purple: #6A0DAD;
+    --equation-bg: #F5F5F5
+    }.source-embed.page-3 *{
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased
+    }.source-embed.page-3{width: 1280px; height: 720px; overflow: hidden; font-family: "Inter", sans-serif;
+    background-color: #F3F4F6;
+    display: flex;
+    justify-content: center;
+    align-items: center}.source-embed.page-3 .slide-root-container{
+    width: 1280px;
+    height: 720px;
+    background-color: var(--background);
+    position: relative;
+    display: flex;
+    flex-direction: column
+    }.source-embed.page-3 .nav-header-wrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 40px;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--secondary-text);
+    font-weight: 600
+    }.source-embed.page-3 .nav-left-links{
+    display: flex;
+    gap: 15px
+    }.source-embed.page-3 .nav-right-status{
+    display: flex;
+    gap: 20px;
+    align-items: center
+    }.source-embed.page-3 .page-counter-badge{
+    color: var(--muted-text)
+    }.source-embed.page-3 .title-region-wrapper{
+    display: flex;
+    flex-direction: column;
+    margin: 40px 60px 20px 60px;
+    border-left: 6px solid var(--accent);
+    padding-left: 20px
+    }.source-embed.page-3 .title-main-text{
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--title-text);
+    margin: 0;
+    line-height: 1.2
+    }.source-embed.page-3 .title-subtitle-breadcrumbs{
+    font-size: 14px;
+    font-variant: small-caps;
+    color: #64748B;
+    margin-top: 4px;
+    letter-spacing: 1px;
+    font-weight: 600
+    }.source-embed.page-3 .content-grid-three-columns{
+    display: flex;
+    flex: 1;
+    padding: 0 60px;
+    gap: 24px;
+    align-items: stretch;
+    margin-bottom: 20px
+    }.source-embed.page-3 .correction-column-container{
+    flex: 1;
+    display: flex;
+    flex-direction: column
+    }.source-embed.page-3 .correction-info-card{
+    flex: 1;
+    background: white;
+    border-left: 4px solid var(--card-navy);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05)
+    }.source-embed.page-3 .correction-card-header{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--title-text)
+    }.source-embed.page-3 .correction-card-header i{
+    color: var(--accent)
+    }.source-embed.page-3 .correction-card-body{
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--body-text)
+    }.source-embed.page-3 .correction-card-body p{
+    margin: 0 0 12px 0
+    }.source-embed.page-3 .equation-box-container{
+    background-color: var(--equation-bg);
+    border: 1px solid var(--border);
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center
+    }.source-embed.page-3 .text-highlight-navy{
+    color: var(--card-navy);
+    font-weight: 700
+    }.source-embed.page-3 .text-highlight-teal{
+    color: var(--card-teal);
+    font-weight: 700
+    }.source-embed.page-3 .text-highlight-orange{
+    color: var(--card-orange);
+    font-weight: 700
+    }.source-embed.page-3 .footer-reflection-wrapper{
+    margin: 0 60px 40px 60px;
+    padding: 15px 20px;
+    background-color: #F0F9FF;
+    border-radius: 8px;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px
+    }.source-embed.page-3 .reflection-icon{
+    color: var(--secondary-accent);
+    font-size: 20px;
+    margin-top: 2px
+    }.source-embed.page-3 .reflection-text{
+    font-size: 14px;
+    color: var(--body-text);
+    line-height: 1.4
+    }.source-embed.page-3 .reflection-text strong{
+    color: var(--secondary-accent)
+    }.source-embed.page-3{ overflow: hidden; }
+
+
+.source-embed.page-3,
+.source-embed.page-3 > div,
+.source-embed.page-3 [class$="slide-root"],
+.source-embed.page-3 [class*="slide-root"],
+.source-embed.page-3 [class*="slide-container"],
+.source-embed.page-3 [class*="slide-canvas"] {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+  box-sizing: border-box !important;
+}
+.source-embed.page-3 {
+  display: block !important;
+  background: transparent !important;
+}
+.source-embed.page-3 [class*="top-nav"],
+.source-embed.page-3 [class*="top-navigation"],
+.source-embed.page-3 [class*="navbar"],
+.source-embed.page-3 [class*="nav-bar"],
+.source-embed.page-3 [class*="navigation-bar"],
+.source-embed.page-3 [class*="page-counter"],
+.source-embed.page-3 [class*="slide-counter"],
+.source-embed.page-3 [class*="progress"] {
+  display: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+}
+.source-embed.page-3 [class*="title-region"],
+.source-embed.page-3 [class*="title-section"],
+.source-embed.page-3 [class*="title-header"] {
+  display: none !important;
+}
+.source-embed.page-3 img,
+.source-embed.page-3 svg,
+.source-embed.page-3 canvas,
+.source-embed.page-3 video {
+  max-width: 100% !important;
+  height: auto !important;
+}
+.source-embed.page-3 table {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+.source-embed.page-3 mjx-container[jax="SVG"] svg {
+  max-width: 100% !important;
+}
+@media (max-width: 980px) {
+  .source-embed.page-3 [class*="content-layout"],
+  .source-embed.page-3 [class*="content-area"],
+  .source-embed.page-3 [class*="content-grid"],
+  .source-embed.page-3 [class*="main-content"],
+  .source-embed.page-3 [class*="two-column"],
+  .source-embed.page-3 [class*="columns"],
+  .source-embed.page-3 [class*="column-layout"],
+  .source-embed.page-3 [class*="comparison"],
+  .source-embed.page-3 [class*="cards-row"],
+  .source-embed.page-3 [class*="card-row"] {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .source-embed.page-3 [class*="left-column"],
+  .source-embed.page-3 [class*="right-column"],
+  .source-embed.page-3 [class*="column"],
+  .source-embed.page-3 [class*="panel"],
+  .source-embed.page-3 [class*="card"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 1 1 auto !important;
+  }
+}
+@media (max-width: 700px) {
+  .source-embed.page-3 > div,
+  .source-embed.page-3 [class*="slide-root"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  .source-embed.page-3 [class*="content-layout"],
+  .source-embed.page-3 [class*="content-area"],
+  .source-embed.page-3 [class*="content-grid"],
+  .source-embed.page-3 [class*="main-content"] {
+    padding: 0 !important;
+    gap: 14px !important;
+  }
+  .source-embed.page-3 [class*="formula"],
+  .source-embed.page-3 [class*="equation"],
+  .source-embed.page-3 [class*="math"],
+  .source-embed.page-3 [class*="table"] {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+  }
+}</style>
+    <div class="source-embed page-3">
+<div class="slide-root-container" style="overflow: hidden;">
+
+
+<!-- Região do Título -->
+
+<!-- Layout Principal de 3 Colunas -->
+<div class="content-grid-three-columns">
+<!-- Coluna 1: Motivação -->
+<div class="correction-column-container">
+<div class="correction-info-card" style="border-left-color: var(--card-navy);">
+<div class="correction-card-header">
+<i class="fas fa-ruler-combined"></i>
+<span>Limitações do Modelo</span>
+</div>
+<div class="correction-card-body">
+<p>No modelo de gás ideal, as moléculas são tratadas como <strong class="text-highlight-navy">pontos materiais</strong> sem volume intrínseco \((b'=0)\).</p>
+<p>Em gases reais, especialmente sob <strong class="text-highlight-navy">altas pressões</strong>, o volume próprio das partículas torna-se comparável ao volume total do recipiente.</p>
+<p>O afastamento médio entre as moléculas diminui drasticamente, tornando o modelo pontual fisicamente inconsistente com a realidade experimental.</p>
+</div>
+</div>
+</div>
+<!-- Coluna 2: Definição de b -->
+<div class="correction-column-container">
+<div class="correction-info-card" style="border-left-color: var(--card-teal);">
+<div class="correction-card-header">
+<i class="fas fa-cubes"></i>
+<span>Volume Excluído (b)</span>
+</div>
+<div class="correction-card-body">
+<p>Cada molécula ocupa um <strong class="text-highlight-teal">volume excluído</strong> \(b'\), impedindo que outras partículas ocupem o mesmo espaço central.</p>
+<p>Para \(n\) moles, definimos o <strong class="text-highlight-teal">covolume molar</strong> \(b\):</p>
+<div class="equation-box-container">
+                            \[ b = N_A \cdot b' \]
+                        </div>
+<p>O volume disponível para o movimento térmico é reduzido:</p>
+<div class="equation-box-container">
+                            \[ V_{\text{disp}} = V - nb \]
+                        </div>
+</div>
+</div>
+</div>
+<!-- Coluna 3: Consequências -->
+<div class="correction-column-container">
+<div class="correction-info-card" style="border-left-color: var(--card-orange);">
+<div class="correction-card-header">
+<i class="fas fa-chart-line"></i>
+<span>Efeito no Diagrama P(V)</span>
+</div>
+<div class="correction-card-body">
+<p>A assíntota vertical do gás ideal em $V=0$ desloca-se para a direita, ocorrendo em <strong class="text-highlight-orange">$V = nb$</strong>.</p>
+<p>Isso estabelece um <strong class="text-highlight-orange">limite físico inferior</strong> para a compressão: é impossível comprimir o fluido além do volume ocupado por suas próprias moléculas.</p>
+<p><strong>Analogia:</strong> Imagine um salão de dança lotado. Quanto mais pessoas, menos espaço livre para circulação; o volume dos corpos é o volume excluído.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Box Para Reflexão -->
+<div class="footer-reflection-wrapper">
+<div class="reflection-icon">
+<i class="fas fa-lightbulb"></i>
+</div>
+<div class="reflection-text">
+<strong>Para Reflexão:</strong> O parâmetro $b$ é puramente geométrico ou depende da temperatura? Como a energia cinética das colisões pode afetar a percepção do "tamanho efetivo" de uma molécula em condições extremas de temperatura?
+            </div>
+</div>
+</div>
+    </div>
+  </section>
+
+  <section class="source-fragment" data-source-page="page_4.html">
+    <style>.source-embed.page-4{
+    --background: #FFF;
+    --title-text: #002147;
+    --body-text: #1F2937;
+    --secondary-text: #4B5563;
+    --muted-text: #9CA3AF;
+    --accent: #0056B3;
+    --secondary-accent: #0D9488;
+    --border: #E5E7EB;
+    --navy: #002147;
+    --teal: #0D9488;
+    --purple: #6A0DAD;
+    --orange: #EA580C;
+    --equation-bg: #F5F5F5
+    }.source-embed.page-4 *{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0
+    }.source-embed.page-4{width: 1280px; height: 720px; overflow: hidden; background-color: #F3F4F6;
+    font-family: "Inter", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center}.source-embed.page-4 .slide-root-container{
+    width: 1280px;
+    height: 720px;
+    background-color: var(--background);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1)
+    }.source-embed.page-4 /* Top Navigation Bar */
+.top-navigation-nav-bar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--secondary-text);
+    font-weight: 500
+    }.source-embed.page-4 .nav-left-index-link{
+    color: var(--accent);
+    text-decoration: none
+    }.source-embed.page-4 .nav-center-chapter-info{
+    font-weight: 600;
+    color: var(--body-text)
+    }.source-embed.page-4 .nav-right-actions-group{
+    display: flex;
+    gap: 20px;
+    align-items: center
+    }.source-embed.page-4 .page-counter-display{
+    position: absolute;
+    top: 50px;
+    right: 60px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--muted-text)
+    }.source-embed.page-4 /* Title Section */
+.slide-title-header-region{
+    display: flex;
+    flex-direction: column;
+    margin: 40px 60px 20px 60px;
+    border-left: 6px solid var(--accent);
+    padding-left: 20px
+    }.source-embed.page-4 .main-title-text-heading{
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--title-text);
+    margin: 0;
+    line-height: 1.2
+    }.source-embed.page-4 .subtitle-breadcrumbs-small-caps{
+    font-size: 14px;
+    font-variant: small-caps;
+    color: #64748B;
+    margin-top: 4px;
+    letter-spacing: 1px;
+    font-weight: 600
+    }.source-embed.page-4 /* 3-Column Layout */
+.main-content-three-column-wrapper{
+    display: flex;
+    flex: 1;
+    gap: 20px;
+    padding: 0 60px 20px 60px;
+    align-items: stretch
+    }.source-embed.page-4 .content-card-module-item{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background: #FFF;
+    border-radius: 4px;
+    border-left: 4px solid var(--navy);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05)
+    }.source-embed.page-4 .card-title-with-icon{
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--title-text);
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px
+    }.source-embed.page-4 .card-body-text-content{
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--body-text)
+    }.source-embed.page-4 .highlight-navy{
+    color: var(--navy);
+    font-weight: 700
+    }.source-embed.page-4 .highlight-teal{
+    color: var(--teal);
+    font-weight: 700
+    }.source-embed.page-4 .highlight-purple{
+    color: var(--purple);
+    font-weight: 700
+    }.source-embed.page-4 /* Equation Boxes */
+.equation-container-gray-box{
+    background-color: var(--equation-bg);
+    border: 1px solid var(--border);
+    padding: 12px;
+    margin: 12px 0;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center
+    }.source-embed.page-4 /* Footer Boxes */
+.footer-reflection-purple-box{
+    margin: 0 60px 30px 60px;
+    padding: 15px 20px;
+    background-color: #F5F3FF;
+    border: 1px solid #DDD6FE;
+    border-left: 4px solid var(--purple);
+    border-radius: 4px;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px
+    }.source-embed.page-4 .footer-reflection-icon{
+    font-size: 20px;
+    color: var(--purple);
+    margin-top: 2px
+    }.source-embed.page-4 .footer-reflection-text{
+    font-size: 13px;
+    line-height: 1.4;
+    color: #4C1D95
+    }.source-embed.page-4 .list-item-bullet-point{
+    margin-bottom: 8px;
+    list-style: none;
+    position: relative;
+    padding-left: 15px
+    }.source-embed.page-4 .list-item-bullet-point::before{
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: bold
+    }.source-embed.page-4{ overflow: hidden; }
+
+
+.source-embed.page-4,
+.source-embed.page-4 > div,
+.source-embed.page-4 [class$="slide-root"],
+.source-embed.page-4 [class*="slide-root"],
+.source-embed.page-4 [class*="slide-container"],
+.source-embed.page-4 [class*="slide-canvas"] {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+  box-sizing: border-box !important;
+}
+.source-embed.page-4 {
+  display: block !important;
+  background: transparent !important;
+}
+.source-embed.page-4 [class*="top-nav"],
+.source-embed.page-4 [class*="top-navigation"],
+.source-embed.page-4 [class*="navbar"],
+.source-embed.page-4 [class*="nav-bar"],
+.source-embed.page-4 [class*="navigation-bar"],
+.source-embed.page-4 [class*="page-counter"],
+.source-embed.page-4 [class*="slide-counter"],
+.source-embed.page-4 [class*="progress"] {
+  display: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+}
+.source-embed.page-4 [class*="title-region"],
+.source-embed.page-4 [class*="title-section"],
+.source-embed.page-4 [class*="title-header"] {
+  display: none !important;
+}
+.source-embed.page-4 img,
+.source-embed.page-4 svg,
+.source-embed.page-4 canvas,
+.source-embed.page-4 video {
+  max-width: 100% !important;
+  height: auto !important;
+}
+.source-embed.page-4 table {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+.source-embed.page-4 mjx-container[jax="SVG"] svg {
+  max-width: 100% !important;
+}
+@media (max-width: 980px) {
+  .source-embed.page-4 [class*="content-layout"],
+  .source-embed.page-4 [class*="content-area"],
+  .source-embed.page-4 [class*="content-grid"],
+  .source-embed.page-4 [class*="main-content"],
+  .source-embed.page-4 [class*="two-column"],
+  .source-embed.page-4 [class*="columns"],
+  .source-embed.page-4 [class*="column-layout"],
+  .source-embed.page-4 [class*="comparison"],
+  .source-embed.page-4 [class*="cards-row"],
+  .source-embed.page-4 [class*="card-row"] {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .source-embed.page-4 [class*="left-column"],
+  .source-embed.page-4 [class*="right-column"],
+  .source-embed.page-4 [class*="column"],
+  .source-embed.page-4 [class*="panel"],
+  .source-embed.page-4 [class*="card"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 1 1 auto !important;
+  }
+}
+@media (max-width: 700px) {
+  .source-embed.page-4 > div,
+  .source-embed.page-4 [class*="slide-root"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  .source-embed.page-4 [class*="content-layout"],
+  .source-embed.page-4 [class*="content-area"],
+  .source-embed.page-4 [class*="content-grid"],
+  .source-embed.page-4 [class*="main-content"] {
+    padding: 0 !important;
+    gap: 14px !important;
+  }
+  .source-embed.page-4 [class*="formula"],
+  .source-embed.page-4 [class*="equation"],
+  .source-embed.page-4 [class*="math"],
+  .source-embed.page-4 [class*="table"] {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+  }
+}</style>
+    <div class="source-embed page-4">
+<div class="slide-root-container" style="overflow: hidden;">
+<!-- Top Nav -->
+
+
+<!-- Title Area -->
+
+<!-- 3 Columns -->
+<div class="main-content-three-column-wrapper">
+<!-- Card 1: Motivação -->
+<div class="content-card-module-item" style="border-left-color: var(--navy);">
+<h3 class="card-title-with-icon"><i class="fas fa-magnet" style="color: var(--navy);"></i> Forças Atrativas</h3>
+<div class="card-body-text-content">
+<p style="margin-bottom: 10px;">No gás ideal, as moléculas são independentes. Em <span class="highlight-navy">gases reais</span>, forças atrativas de curto alcance atuam entre partículas.</p>
+<ul style="list-style: none;">
+<li class="list-item-bullet-point">Moléculas no interior são atraídas em todas as direções (força resultante nula).</li>
+<li class="list-item-bullet-point">Moléculas próximas às paredes sofrem uma <span class="highlight-navy">força resultante para o interior</span>.</li>
+<li class="list-item-bullet-point">Isso reduz a transferência de momento linear para a parede.</li>
+</ul>
+</div>
+</div>
+<!-- Card 2: Dependência N²/V² -->
+<div class="content-card-module-item" style="border-left-color: var(--teal);">
+<h3 class="card-title-with-icon"><i class="fas fa-chart-line" style="color: var(--teal);"></i> Densidade de Pares</h3>
+<div class="card-body-text-content">
+<p>A força total de atração depende da probabilidade de encontrar duas moléculas próximas. O número de <span class="highlight-teal">pares interagentes</span> cresce com \( N^2 \).</p>
+<div class="equation-container-gray-box">
+            \[ P_{atr} = -a \frac{n^2}{V^2} \]
+          </div>
+<p>Onde \(a\) é uma constante fenomenológica que mede a intensidade da atração intermolecular para cada substância específica.</p>
+</div>
+</div>
+<!-- Card 3: Pressão Corrigida -->
+<div class="content-card-module-item" style="border-left-color: var(--purple);">
+<h3 class="card-title-with-icon"><i class="fas fa-bolt" style="color: var(--purple);"></i> Energia e Coesão</h3>
+<div class="card-body-text-content">
+<p>A energia potencial atrativa total do fluido é inversamente proporcional ao volume:</p>
+<div class="equation-container-gray-box">
+            \[ U_{\text{atr}} \approx -a \frac{n^2}{V} \]
+          </div>
+<p>A pressão medida experimentalmente (\( P \)) é a pressão ideal (\( P_{id} \)) subtraída da <span class="highlight-purple">pressão interna de coesão</span>:</p>
+<div class="equation-container-gray-box">
+            \[ P = P_{id} - a \frac{n^2}{V^2} \]
+          </div>
+</div>
+</div>
+</div>
+<!-- Reflection Box -->
+<div class="footer-reflection-purple-box">
+<div class="footer-reflection-icon"><i class="fas fa-lightbulb"></i></div>
+<div class="footer-reflection-text">
+<strong>Para Reflexão:</strong> Por que a correção de pressão é proporcional ao quadrado da densidade molar \((n/V)^2\)? Pense na probabilidade estatística de colisão entre duas partículas em um volume finito. Como isso se relaciona com a formação de gotas líquidas?
+      </div>
+</div>
+</div>
+    </div>
+  </section>
+
+  <section class="source-fragment" data-source-page="page_5.html">
+    <style>.source-embed.page-5{width: 1280px; height: 720px; overflow: hidden; background-color: #F3F4F6;
+    font-family: "Inter", sans-serif}.source-embed.page-5 .vdw-slide-root-container{
+    width: 1280px;
+    height: 720px;
+    background-color: #FFF;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box
+    }.source-embed.page-5 /* Top Navigation Bar */
+.vdw-top-navbar-wrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 60px;
+    border-bottom: 1px solid #E5E7EB;
+    font-size: 12px;
+    color: #64748B
+    }.source-embed.page-5 .vdw-navbar-left-section{
+    display: flex;
+    gap: 20px
+    }.source-embed.page-5 .vdw-navbar-right-section{
+    display: flex;
+    gap: 20px;
+    align-items: center
+    }.source-embed.page-5 .vdw-page-counter-badge{
+    font-weight: 700;
+    color: #1F2937
+    }.source-embed.page-5 /* Title Region */
+.title-region-container{
+    display: flex;
+    flex-direction: column;
+    margin: 30px 60px 15px 60px;
+    border-left: 6px solid #0056B3;
+    padding-left: 20px
+    }.source-embed.page-5 .title-main-heading-text{
+    font-family: "Inter", sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: #002147;
+    margin: 0;
+    text-transform: none
+    }.source-embed.page-5 .title-subtitle-breadcrumb-text{
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-variant: small-caps;
+    color: #64748B;
+    margin-top: 4px;
+    letter-spacing: 1px
+    }.source-embed.page-5 /* Main Content Layout - 3 Columns */
+.vdw-main-columns-wrapper{
+    display: flex;
+    align-items: stretch;
+    gap: 20px;
+    margin: 0 60px;
+    flex: 1
+    }.source-embed.page-5 .vdw-column-content-block{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px
+    }.source-embed.page-5 .vdw-card-item-container{
+    flex: 1;
+    background-color: #FFF;
+    border-left: 4px solid #002147;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border-radius: 4px
+    }.source-embed.page-5 .vdw-card-item-container.teal-border{
+    border-left-color: #0D9488
+    }.source-embed.page-5 .vdw-card-item-container.orange-border{
+    border-left-color: #EA580C
+    }.source-embed.page-5 .vdw-card-section-header{
+    font-size: 18px;
+    font-weight: 700;
+    color: #002147;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px
+    }.source-embed.page-5 .vdw-card-body-text{
+    font-size: 14px;
+    line-height: 1.5;
+    color: #1F2937;
+    margin: 0
+    }.source-embed.page-5 .vdw-highlight-navy-text{
+    color: #002147;
+    font-weight: 700
+    }.source-embed.page-5 .vdw-highlight-teal-text{
+    color: #0D9488;
+    font-weight: 700
+    }.source-embed.page-5 .vdw-highlight-orange-text{
+    color: #EA580C;
+    font-weight: 700
+    }.source-embed.page-5 /* Equation Box */
+.vdw-equation-display-box{
+    background-color: #F5F5F5;
+    border: 1px solid #E5E7EB;
+    padding: 12px 5px;
+    margin: 10px 0;
+    border-radius: 6px;
+    text-align: center
+    }.source-embed.page-5 /* Footer Boxes */
+.vdw-footer-region-wrapper{
+    margin: 20px 60px 30px 60px
+    }.source-embed.page-5 .vdw-reflection-box-item{
+    background-color: #F0FDFA;
+    border: 1px solid #CCFBF1;
+    padding: 12px 20px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 15px
+    }.source-embed.page-5 .vdw-reflection-icon-circle{
+    color: #0D9488;
+    font-size: 20px
+    }.source-embed.page-5 .vdw-reflection-content-text{
+    font-size: 13px;
+    color: #0F766E;
+    margin: 0;
+    font-style: italic
+    }.source-embed.page-5 ul.vdw-bullet-list-group{
+    padding-left: 18px;
+    margin: 10px 0;
+    list-style: none
+    }.source-embed.page-5 ul.vdw-bullet-list-group li{
+    position: relative;
+    margin-bottom: 6px;
+    font-size: 13px;
+    line-height: 1.4
+    }.source-embed.page-5 ul.vdw-bullet-list-group li::before{
+    content: "•";
+    color: #0056B3;
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em
+    }.source-embed.page-5{ overflow: hidden; }
+
+
+.source-embed.page-5,
+.source-embed.page-5 > div,
+.source-embed.page-5 [class$="slide-root"],
+.source-embed.page-5 [class*="slide-root"],
+.source-embed.page-5 [class*="slide-container"],
+.source-embed.page-5 [class*="slide-canvas"] {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+  box-sizing: border-box !important;
+}
+.source-embed.page-5 {
+  display: block !important;
+  background: transparent !important;
+}
+.source-embed.page-5 [class*="top-nav"],
+.source-embed.page-5 [class*="top-navigation"],
+.source-embed.page-5 [class*="navbar"],
+.source-embed.page-5 [class*="nav-bar"],
+.source-embed.page-5 [class*="navigation-bar"],
+.source-embed.page-5 [class*="page-counter"],
+.source-embed.page-5 [class*="slide-counter"],
+.source-embed.page-5 [class*="progress"] {
+  display: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+}
+.source-embed.page-5 [class*="title-region"],
+.source-embed.page-5 [class*="title-section"],
+.source-embed.page-5 [class*="title-header"] {
+  display: none !important;
+}
+.source-embed.page-5 img,
+.source-embed.page-5 svg,
+.source-embed.page-5 canvas,
+.source-embed.page-5 video {
+  max-width: 100% !important;
+  height: auto !important;
+}
+.source-embed.page-5 table {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+.source-embed.page-5 mjx-container[jax="SVG"] svg {
+  max-width: 100% !important;
+}
+@media (max-width: 980px) {
+  .source-embed.page-5 [class*="content-layout"],
+  .source-embed.page-5 [class*="content-area"],
+  .source-embed.page-5 [class*="content-grid"],
+  .source-embed.page-5 [class*="main-content"],
+  .source-embed.page-5 [class*="two-column"],
+  .source-embed.page-5 [class*="columns"],
+  .source-embed.page-5 [class*="column-layout"],
+  .source-embed.page-5 [class*="comparison"],
+  .source-embed.page-5 [class*="cards-row"],
+  .source-embed.page-5 [class*="card-row"] {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .source-embed.page-5 [class*="left-column"],
+  .source-embed.page-5 [class*="right-column"],
+  .source-embed.page-5 [class*="column"],
+  .source-embed.page-5 [class*="panel"],
+  .source-embed.page-5 [class*="card"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 1 1 auto !important;
+  }
+}
+@media (max-width: 700px) {
+  .source-embed.page-5 > div,
+  .source-embed.page-5 [class*="slide-root"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  .source-embed.page-5 [class*="content-layout"],
+  .source-embed.page-5 [class*="content-area"],
+  .source-embed.page-5 [class*="content-grid"],
+  .source-embed.page-5 [class*="main-content"] {
+    padding: 0 !important;
+    gap: 14px !important;
+  }
+  .source-embed.page-5 [class*="formula"],
+  .source-embed.page-5 [class*="equation"],
+  .source-embed.page-5 [class*="math"],
+  .source-embed.page-5 [class*="table"] {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+  }
+}</style>
+    <div class="source-embed page-5">
+<div class="vdw-slide-root-container" style="overflow: hidden;">
+
+
+<!-- Title Region -->
+
+<!-- Main Content (3 Columns) -->
+<div class="vdw-main-columns-wrapper">
+<!-- Column 1: Canonical Form -->
+<div class="vdw-column-content-block">
+<div class="vdw-card-item-container">
+<div class="vdw-card-section-header">
+<i class="fa-solid fa-ruler-combined"></i> 📐 Forma Canônica
+                    </div>
+<p class="vdw-card-body-text">
+                        A união das correções de volume e pressão resulta na <span class="vdw-highlight-navy-text">Equação de Van der Waals</span>, que descreve a fase fluida global:
+                    </p>
+<div class="vdw-equation-display-box">
+                        \[ \left(P + a\frac{n^2}{V^2}\right)(V - nb) = nRT \]
+                    </div>
+<p class="vdw-card-body-text">
+                        Esta expressão substitui o modelo ideal ao considerar que moléculas <span class="vdw-highlight-navy-text">interagem</span> e <span class="vdw-highlight-navy-text">ocupam espaço</span>.
+                    </p>
+</div>
+</div>
+<!-- Column 2: Physical Integration -->
+<div class="vdw-column-content-block">
+<div class="vdw-card-item-container teal-border">
+<div class="vdw-card-section-header">
+<i class="fa-solid fa-bolt"></i> ⚡ Integração de Efeitos
+                    </div>
+<ul class="vdw-bullet-list-group">
+<li><span class="vdw-highlight-teal-text">Pressão Interna:</span> O termo \(a(n/V)^2\) representa a coesão molecular que reduz a pressão contra as paredes.</li>
+<li><span class="vdw-highlight-teal-text">Volume Efetivo:</span> O termo \((V - nb)\) restringe o movimento ao volume realmente disponível no recipiente.</li>
+</ul>
+<p class="vdw-card-body-text">
+                        Para \(V \to \infty\) ou \(T \to \infty\), a equação recupera o comportamento de gás ideal, conforme as interações tornam-se desprezíveis.
+                    </p>
+</div>
+</div>
+<!-- Column 3: Experimental Parameters -->
+<div class="vdw-column-content-block">
+<div class="vdw-card-item-container orange-border">
+<div class="vdw-card-section-header">
+<i class="fa-solid fa-flask"></i> 🧪 Parâmetros Reais
+                    </div>
+<p class="vdw-card-body-text">
+                        Os parâmetros \(a\) e \(b\) são específicos para cada substância e determinados experimentalmente.
+                    </p>
+<div class="vdw-equation-display-box" style="text-align: left; padding-left: 20px;">
+<span style="font-size: 13px; color: #4B5563;">Exemplo: <b>dióxido de carbono (CO₂)</b></span>
+<div style="margin-top: 8px;">
+                            \[ a = 3,640 \text{ L}^2\cdot\text{atm/mol}^2 \]
+                            \[ b = 0,04267 \text{ L/mol} \]
+                        </div>
+</div>
+<p class="vdw-card-body-text" style="font-size: 12px; color: #6B7280;">
+                        Nota: \(a\) reflete a <span class="vdw-highlight-orange-text">intensidade atrativa</span> e \(b\) o <span class="vdw-highlight-orange-text">tamanho molecular</span>.
+                    </p>
+</div>
+</div>
+</div>
+<!-- Footer Region -->
+<div class="vdw-footer-region-wrapper">
+<div class="vdw-reflection-box-item">
+<div class="vdw-reflection-icon-circle">
+<i class="fa-solid fa-lightbulb"></i>
+</div>
+<div class="vdw-reflection-content-text">
+<strong>Para Reflexão:</strong> Como você espera que os valores de \(a\) e \(b\) variem em uma série homóloga de gases nobres (do He ao Xe)? Qual deles terá a maior pressão interna?
+                </div>
+</div>
+</div>
+</div>
+    </div>
+  </section>
+  </div>
+
+  <section data-termo-ai-exercise data-exercise-theme="purple"></section>
+</div>
+<script src="../../assets/chapter-embedded-slide.js"></script>
+</body>
+</html>

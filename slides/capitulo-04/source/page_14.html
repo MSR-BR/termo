@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Regra da Alavanca e Frações de Fase</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><style>body {width: 1280px; height: 720px; overflow: hidden; background-color: #F3F4F6;
+    font-family: "Inter", sans-serif}
+.lever-rule-slide-root {
+    width: 1280px;
+    height: 720px;
+    background-color: #FFF;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box
+    }
+/* Top Navigation Bar */
+.lever-rule-nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+    border-bottom: 1px solid #E5E7EB;
+    font-size: 12px;
+    color: #6B7280
+    }
+.lever-rule-nav-links {
+    display: flex;
+    gap: 20px
+    }
+.lever-rule-page-counter {
+    font-weight: 600;
+    color: #002147
+    }
+/* Title Region */
+.lever-rule-title-section {
+    display: flex;
+    flex-direction: column;
+    margin: 30px 60px 15px 60px;
+    border-left: 6px solid #0056B3;
+    padding-left: 20px
+    }
+.lever-rule-main-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: #002147;
+    margin: 0;
+    text-transform: none;
+    line-height: 1.2
+    }
+.lever-rule-subtitle {
+    font-size: 14px;
+    font-variant: small-caps;
+    color: #64748B;
+    margin: 4px 0 0 0;
+    letter-spacing: 1px
+    }
+/* Main Content Layout */
+.lever-rule-content-grid {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    padding: 0 60px;
+    flex: 1;
+    align-items: stretch
+    }
+.lever-rule-column-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center
+    }
+.lever-rule-card-container {
+    flex: 1;
+    padding: 20px;
+    border-left: 4px solid #002147;
+    background-color: #FFF;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column
+    }
+.lever-rule-card-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #002147;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px
+    }
+.lever-rule-card-body {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #1F2937
+    }
+.lever-rule-card-body p {
+    margin: 8px 0
+    }
+.lever-rule-highlight-navy {
+    color: #002147;
+    font-weight: 700
+    }
+.lever-rule-highlight-teal {
+    color: #0D9488;
+    font-weight: 700
+    }
+.lever-rule-highlight-orange {
+    color: #EA580C;
+    font-weight: 700
+    }
+/* Equation Box */
+.lever-rule-equation-box {
+    background-color: #F5F5F5;
+    border: 1px solid #E5E7EB;
+    padding: 12px;
+    margin: 12px 0;
+    text-align: center;
+    border-radius: 4px
+    }
+/* Footer Boxes */
+.lever-rule-footer-region {
+    padding: 20px 60px 30px 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px
+    }
+.lever-rule-reflection-box {
+    background-color: #F0FDFA;
+    border: 1px solid #CCFBF1;
+    padding: 15px 20px;
+    border-radius: 6px;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px
+    }
+.lever-rule-reflection-icon {
+    color: #0D9488;
+    font-size: 20px;
+    margin-top: 2px
+    }
+.lever-rule-reflection-text {
+    font-size: 13px;
+    color: #0F766E;
+    line-height: 1.4
+    }
+.lever-rule-reflection-text b {
+    font-weight: 700
+    }
+/* Column Specific Colors */
+.lever-rule-card-navy {
+    border-left-color: #002147
+    }
+.lever-rule-card-teal {
+    border-left-color: #0D9488
+    }
+.lever-rule-card-orange {
+    border-left-color: #EA580C
+    }
+html { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="lever-rule-slide-root" style="overflow: hidden;">
+<!-- Navigation Bar -->
+<nav class="lever-rule-nav-bar">
+<div class="lever-rule-nav-links">
+<span>← Índice</span>
+<span>|</span>
+<span>Capítulo 5 · Item 5.1.5</span>
+<span>|</span>
+<span>Salvar progresso</span>
+<span>|</span>
+<span>Enviar</span>
+<span>|</span>
+<span><i class="fa-regular fa-star"></i></span>
+</div>
+<div class="lever-rule-page-counter">14 / 22</div>
+</nav>
+<!-- Title Section -->
+<header class="lever-rule-title-section">
+<h1 class="lever-rule-main-title">Regra da Alavanca e Frações de Fase</h1>
+<p class="lever-rule-subtitle">Equilíbrio de Fases · Fração Gasosa · Conservação de Matéria</p>
+</header>
+<!-- Main Content -->
+<main class="lever-rule-content-grid">
+<!-- Column 1 -->
+<div class="lever-rule-column-wrapper">
+<section class="lever-rule-card-container lever-rule-card-navy">
+<div class="lever-rule-card-title">⚖️ O Patamar de Maxwell</div>
+<div class="lever-rule-card-body">
+<p>Dentro da região de <span class="lever-rule-highlight-navy">coexistência líquido-gás</span>, o sistema não segue a isoterma teórica de Van der Waals, mas sim a reta horizontal de Maxwell.</p>
+<p>O volume molar total \( v \) é a média ponderada dos volumes das fases em equilíbrio:</p>
+<div class="lever-rule-equation-box">
+                            \[ v = x_g v_g + x_\ell v_\ell \]
+                        </div>
+<p>Onde \( v_\ell \) e \( v_g \) são os volumes molares do líquido e do gás saturados.</p>
+</div>
+</section>
+</div>
+<!-- Column 2 -->
+<div class="lever-rule-column-wrapper">
+<section class="lever-rule-card-container lever-rule-card-teal">
+<div class="lever-rule-card-title">📐 Frações de Fase</div>
+<div class="lever-rule-card-body">
+<p>Considerando a <span class="lever-rule-highlight-teal">conservação do número de partículas</span>, as frações molares devem satisfazer:</p>
+<div class="lever-rule-equation-box">
+                            \[ x_g + x_\ell = 1 \]
+                        </div>
+<p>Isolando a <span class="lever-rule-highlight-teal">fração gasosa</span> \( x_g \) em termos do volume observado \( v \):</p>
+<div class="lever-rule-equation-box">
+                            \[ x_g = \frac{v - v_\ell}{v_g - v_\ell} \]
+                        </div>
+<p>Esta relação define a proporção de vapor presente no sistema bifásico.</p>
+</div>
+</section>
+</div>
+<!-- Column 3 -->
+<div class="lever-rule-column-wrapper">
+<section class="lever-rule-card-container lever-rule-card-orange">
+<div class="lever-rule-card-title">🔄 Interpretação Geométrica</div>
+<div class="lever-rule-card-body">
+<p>A <span class="lever-rule-highlight-orange">Regra da Alavanca</span> afirma que a fração de uma fase é proporcional ao comprimento do segmento oposto no diagrama \( p(v) \):</p>
+<ul style="padding-left: 20px; margin: 10px 0;">
+<li>Próximo a \( v_\ell \): Predomínio de líquido (\( x_g \to 0 \)).</li>
+<li>Próximo a \( v_g \): Predomínio de gás (\( x_g \to 1 \)).</li>
+<li>No centro: Mistura equimolar.</li>
+</ul>
+<p>O braço de alavanca é a distância relativa entre o estado atual e os limites de saturação.</p>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer Region -->
+<footer class="lever-rule-footer-region">
+<div class="lever-rule-reflection-box">
+<div class="lever-rule-reflection-icon">
+<i class="fa-solid fa-lightbulb"></i>
+</div>
+<div class="lever-rule-reflection-text">
+<b>Para Reflexão:</b> Como a regra da alavanca se relaciona com a conservação da massa total em um sistema fechado? Note que a variação de \( v \) no patamar de Maxwell implica apenas na redistribuição de matéria entre as fases, mantendo a pressão constante.
+                </div>
+</div>
+</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=1280, height=720, initial-scale=1.0" name="viewport"/>
+<title>Termodinâmica - Exemplo 5.1: CO2 em Cilindro</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><style>:root {
+    --background: #FFF;
+    --title-text: #002147;
+    --body-text: #1F2937;
+    --secondary-text: #4B5563;
+    --muted-text: #9CA3AF;
+    --accent: #0056B3;
+    --secondary-accent: #0D9488;
+    --border: #E5E7EB;
+    --card-navy: #002147;
+    --card-teal: #0D9488;
+    --card-orange: #EA580C;
+    --card-purple: #6A0DAD;
+    --equation-bg: #F5F5F5;
+    --reflection-bg: #F0FDFA;
+    --exercise-bg: #FAF5FF
+    }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box
+    }
+body {width: 1280px; height: 720px; overflow: hidden; font-family: "Inter", sans-serif;
+    background-color: var(--background);
+    color: var(--body-text)}
+.co2-slide-root-container {
+    width: 1280px;
+    height: 720px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-bottom: 20px
+    }
+/* Top Navigation Bar */
+.co2-top-navigation-bar {
+    width: 100%;
+    height: 40px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    font-size: 12px;
+    color: var(--secondary-text)
+    }
+.co2-nav-left-links {
+    display: flex;
+    gap: 15px
+    }
+.co2-page-counter-display {
+    font-weight: 600;
+    color: var(--title-text)
+    }
+/* Title Region */
+.co2-title-region-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 30px 60px 20px 60px;
+    border-left: 6px solid var(--accent);
+    padding-left: 20px
+    }
+.co2-main-title-text {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--title-text);
+    margin: 0
+    }
+.co2-subtitle-breadcrumb-text {
+    font-size: 14px;
+    font-variant: small-caps;
+    color: #64748B;
+    margin-top: 4px;
+    letter-spacing: 1px
+    }
+/* Main Content Grid */
+.co2-content-columns-wrapper {
+    display: flex;
+    flex: 1;
+    gap: 24px;
+    padding: 0 60px;
+    align-items: stretch
+    }
+.co2-column-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column
+    }
+/* Cards */
+.co2-info-card-module {
+    flex: 1;
+    border-left: 4px solid var(--card-navy);
+    background: #FFF;
+    padding: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column
+    }
+.co2-card-header-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px
+    }
+.co2-card-icon-emoji {
+    font-size: 18px
+    }
+.co2-card-title-text {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--title-text)
+    }
+.co2-card-body-paragraph {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--body-text);
+    margin-bottom: 12px
+    }
+.co2-highlight-term-navy {
+    color: var(--card-navy);
+    font-weight: 700
+    }
+.co2-highlight-term-teal {
+    color: var(--card-teal);
+    font-weight: 700
+    }
+.co2-highlight-term-orange {
+    color: var(--card-orange);
+    font-weight: 700
+    }
+/* Equation Box */
+.co2-equation-display-box {
+    background-color: var(--equation-bg);
+    border: 1px solid var(--border);
+    padding: 12px;
+    border-radius: 4px;
+    margin: 8px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px
+    }
+/* Footer Boxes */
+.co2-footer-region-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px 60px 10px 60px
+    }
+.co2-reflection-footer-box {
+    background-color: var(--reflection-bg);
+    border: 1px solid rgba(13, 148, 136, 0.2);
+    padding: 12px 20px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 15px
+    }
+.co2-exercise-footer-box {
+    background-color: var(--exercise-bg);
+    border: 1px solid rgba(106, 13, 173, 0.2);
+    padding: 12px 20px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 15px
+    }
+.co2-footer-icon {
+    font-size: 20px
+    }
+.co2-reflection-icon {
+    color: var(--card-teal)
+    }
+.co2-exercise-icon {
+    color: var(--card-purple)
+    }
+.co2-footer-text-content {
+    font-size: 13px;
+    line-height: 1.4
+    }
+/* Specific card colors */
+.co2-card-border-teal {
+    border-left-color: var(--card-teal)
+    }
+.co2-card-border-orange {
+    border-left-color: var(--card-orange)
+    }
+html { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="co2-slide-root-container" style="overflow: hidden;">
+<!-- Navigation -->
+<nav class="co2-top-navigation-bar">
+<div class="co2-nav-left-links">
+<span>← Índice</span>
+<span>|</span>
+<span>Capítulo 5 · Exemplo 5.1</span>
+<span>|</span>
+<span>Salvar progresso</span>
+<span>|</span>
+<span>Enviar</span>
+</div>
+<div class="co2-page-counter-display">15 / 22</div>
+</nav>
+<!-- Title Section -->
+<header class="co2-title-region-wrapper">
+<h1 class="co2-main-title-text">Exemplo 5.1: CO₂ em Cilindro Pressurizado</h1>
+<p class="co2-subtitle-breadcrumb-text">Equilíbrio Líquido-Vapor · Pressão de Coexistência · Regra da Alavanca</p>
+</header>
+<!-- Content Columns -->
+<main class="co2-content-columns-wrapper">
+<!-- Column 1: Equilibrium -->
+<section class="co2-column-container">
+<div class="co2-info-card-module">
+<div class="co2-card-header-group">
+<span class="co2-card-icon-emoji">⚖️</span>
+<h2 class="co2-card-title-text">Equilíbrio de Fases</h2>
+</div>
+<p class="co2-card-body-paragraph">
+                        Um cilindro comercial de CO₂ armazena o fluido em um estado de <span class="co2-highlight-term-navy">coexistência líquido-gás</span>. Segundo a construção de Maxwell, o sistema reside na reta horizontal do diagrama \(p(v)\).
+                    </p>
+<div class="co2-equation-display-box">
+                        \[ P_{cil} = P_{eq}(T) = \text{const.} \]
+                    </div>
+<p class="co2-card-body-paragraph">
+                        Enquanto houver as duas fases presentes, a pressão interna depende <span class="co2-highlight-term-navy">unicamente da temperatura</span>, não do volume total ou da quantidade de massa.
+                    </p>
+</div>
+</section>
+<!-- Column 2: Exhaust Process -->
+<section class="co2-column-container">
+<div class="co2-info-card-module co2-card-border-teal">
+<div class="co2-card-header-group">
+<span class="co2-card-icon-emoji">🔄</span>
+<h2 class="co2-card-title-text">Processo de Exaustão</h2>
+</div>
+<p class="co2-card-body-paragraph">
+                        Ao liberar gás pela válvula, a densidade média diminui. Para manter o <span class="co2-highlight-term-teal">equilíbrio termodinâmico</span> (\(g_l = g_g\)), parte do líquido evapora instantaneamente.
+                    </p>
+<div class="co2-equation-display-box">
+                        \[ v = x_g v_g + (1 - x_g) v_\ell \]
+                    </div>
+<p class="co2-card-body-paragraph">
+                        A <span class="co2-highlight-term-teal">fração gasosa \(x_g\)</span> aumenta gradualmente. O sistema percorre a reta de Maxwell da esquerda para a direita, mantendo a pressão \(P_{eq}\) constante.
+                    </p>
+</div>
+</section>
+<!-- Column 3: Depletion -->
+<section class="co2-column-container">
+<div class="co2-info-card-module co2-card-border-orange">
+<div class="co2-card-header-group">
+<span class="co2-card-icon-emoji">📐</span>
+<h2 class="co2-card-title-text">Esgotamento do Líquido</h2>
+</div>
+<p class="co2-card-body-paragraph">
+                        A pressão só começa a cair quando <span class="co2-highlight-term-orange">todo o líquido se esgota</span> (\(x_g \to 1\)). Nesse ponto, o sistema sai da região de coexistência.
+                    </p>
+<div class="co2-equation-display-box">
+                        \[ P \approx \frac{nRT}{V - nb} - a\frac{n^2}{V^2} \]
+                    </div>
+<p class="co2-card-body-paragraph">
+                        O fluido entra na fase de <span class="co2-highlight-term-orange">vapor superaquecido</span> (gás puro). A partir daqui, qualquer expansão adicional resulta em uma queda brusca de pressão seguindo a isoterma de Van der Waals estável.
+                    </p>
+</div>
+</section>
+</main>
+<!-- Footer Region -->
+<footer class="co2-footer-region-wrapper">
+<div class="co2-reflection-footer-box">
+<i class="fa-solid fa-lightbulb co2-footer-icon co2-reflection-icon"></i>
+<div class="co2-footer-text-content">
+<strong>Para Reflexão:</strong> Por que a temperatura do cilindro cai drasticamente se o gás for liberado muito rapidamente? Considere o <span class="co2-highlight-term-teal">calor latente de vaporização</span> necessário para transformar o líquido em gás.
+                </div>
+</div>
+<div class="co2-exercise-footer-box">
+<i class="fa-solid fa-pen-to-square co2-footer-icon co2-exercise-icon"></i>
+<div class="co2-footer-text-content">
+<strong>Exercício Rápido:</strong> Estime a massa de CO₂ líquido em um cilindro de 10L a 20°C sabendo que a pressão de vapor é ~57 atm. Use os parâmetros de Van der Waals: \(a = 3,64\) L²·atm/mol² e \(b = 0,0427\) L/mol.
+                </div>
+</div>
+</footer>
+</div>
+</body>
+</html>

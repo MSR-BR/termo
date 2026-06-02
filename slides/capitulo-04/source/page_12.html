@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Energia Livre de Gibbs e Coexistência</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><style>body {width: 1280px; height: 720px; overflow: hidden; background-color: #F3F4F6;
+    font-family: "Inter", sans-serif}
+.gibbs-slide-root-container {
+    width: 1280px;
+    height: 720px;
+    background-color: #FFF;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-sizing: border-box
+    }
+/* Top Navigation Bar */
+.gibbs-top-navigation-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 60px;
+    border-bottom: 1px solid #E5E7EB;
+    font-size: 12px;
+    color: #64748B;
+    font-weight: 500
+    }
+.gibbs-nav-left-links {
+    display: flex;
+    gap: 20px
+    }
+.gibbs-page-counter-display {
+    font-weight: 700;
+    color: #002147
+    }
+/* Title Region */
+.gibbs-title-region-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 40px 60px 20px 60px;
+    border-left: 6px solid #0056B3;
+    padding-left: 20px
+    }
+.gibbs-main-title-text {
+    font-size: 32px;
+    font-weight: 800;
+    color: #002147;
+    margin: 0;
+    text-transform: none
+    }
+.gibbs-subtitle-breadcrumb-text {
+    font-size: 14px;
+    font-variant: small-caps;
+    color: #64748B;
+    margin-top: 4px;
+    letter-spacing: 1px
+    }
+/* Main Content Grid */
+.gibbs-content-columns-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    padding: 0 60px;
+    flex: 1;
+    align-items: stretch;
+    margin-bottom: 20px
+    }
+.gibbs-column-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column
+    }
+.gibbs-card-item-box {
+    flex: 1;
+    background-color: #FFF;
+    border-left: 4px solid #002147;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1)
+    }
+.gibbs-card-title-header {
+    font-size: 18px;
+    font-weight: 700;
+    color: #002147;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px
+    }
+.gibbs-card-body-text {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #1F2937;
+    margin: 0
+    }
+.gibbs-card-body-text strong {
+    font-weight: 700
+    }
+.gibbs-card-body-text .highlight-navy {
+    color: #002147
+    }
+.gibbs-card-body-text .highlight-teal {
+    color: #0D9488
+    }
+.gibbs-card-body-text .highlight-orange {
+    color: #EA580C
+    }
+/* Equation Box */
+.gibbs-equation-display-box {
+    background-color: #F5F5F5;
+    border: 1px solid #E5E7EB;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center
+    }
+/* Footer Boxes */
+.gibbs-footer-reflection-container {
+    margin: 0 60px 40px 60px;
+    background-color: #F0FDFA;
+    border: 1px solid #CCFBF1;
+    padding: 15px 25px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 20px
+    }
+.gibbs-reflection-icon-circle {
+    background-color: #0D9488;
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0
+    }
+.gibbs-reflection-text-content {
+    font-size: 13px;
+    color: #0F766E;
+    line-height: 1.4;
+    margin: 0
+    }
+/* Specific Card Border Colors */
+.border-navy {
+    border-left-color: #002147
+    }
+.border-teal {
+    border-left-color: #0D9488
+    }
+.border-orange {
+    border-left-color: #EA580C
+    }
+.gibbs-bullet-list {
+    padding-left: 0;
+    margin: 10px 0;
+    list-style: none
+    }
+.gibbs-bullet-item {
+    margin-bottom: 8px;
+    position: relative;
+    padding-left: 15px
+    }
+.gibbs-bullet-item::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #9CA3AF
+    }
+html { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="gibbs-slide-root-container" style="overflow: hidden;">
+<!-- Top Navigation -->
+<nav class="gibbs-top-navigation-bar">
+<div class="gibbs-nav-left-links">
+<span>← Índice</span>
+<span>|</span>
+<span>Capítulo 5 · Item 5.1.4</span>
+<span>|</span>
+<span>Salvar progresso</span>
+<span>|</span>
+<span>Enviar</span>
+<span>|</span>
+<span>☆</span>
+</div>
+<div class="gibbs-page-counter-display">12 / 22</div>
+</nav>
+<!-- Title Region -->
+<header class="gibbs-title-region-wrapper">
+<h1 class="gibbs-main-title-text">Energia Livre de Gibbs e Coexistência</h1>
+<p class="gibbs-subtitle-breadcrumb-text">EQUILÍBRIO DE FASES · POTENCIAL QUÍMICO · ESTABILIDADE GLOBAL</p>
+</header>
+<!-- Main Content Layout -->
+<main class="gibbs-content-columns-wrapper">
+<!-- Column 1: A Função de Gibbs Reduzida -->
+<div class="gibbs-column-container">
+<section class="gibbs-card-item-box border-navy">
+<h2 class="gibbs-card-title-header"><i class="fa-solid fa-bolt"></i> ⚡ Potencial de Gibbs</h2>
+<div class="gibbs-card-body-text">
+                        A energia livre de Gibbs reduzida \( g(t,p) \) é obtida a partir da energia de Helmholtz \( f(t,v) \) através da transformada de Legendre:
+                        <div class="gibbs-equation-display-box">
+                            \[ g(t,p) = -t\ln\left(v - \frac{1}{3}\right) + Z_c\left(pv - \frac{3}{v}\right) + c(t) \]
+                        </div>
+                        Onde o volume reduzido \( v \) é determinado implicitamente pela pressão \( p \) e temperatura \( t \) via <strong>equação de estado</strong>.
+                    </div>
+</section>
+</div>
+<!-- Column 2: Critério de Estabilidade -->
+<div class="gibbs-column-container">
+<section class="gibbs-card-item-box border-teal">
+<h2 class="gibbs-card-title-header"><i class="fa-solid fa-weight-scale"></i> ⚖️ Estabilidade Global</h2>
+<div class="gibbs-card-body-text">
+                        Para um sistema em contato com reservatórios de <span class="highlight-teal"><strong>temperatura</strong></span> e <span class="highlight-teal"><strong>pressão</strong></span>, o estado de equilíbrio estável é o que minimiza a energia livre de Gibbs:
+                        <ul class="gibbs-bullet-list">
+<li class="gibbs-bullet-item"><strong>Fase Gasosa:</strong> Único mínimo em volumes grandes para baixas pressões.</li>
+<li class="gibbs-bullet-item"><strong>Fase Líquida:</strong> Único mínimo em volumes pequenos para altas pressões.</li>
+<li class="gibbs-bullet-item"><strong>Metaestabilidade:</strong> Surgimento de mínimos secundários locais.</li>
+</ul>
+</div>
+</section>
+</div>
+<!-- Column 3: Equilíbrio e Coexistência -->
+<div class="gibbs-column-container">
+<section class="gibbs-card-item-box border-orange">
+<h2 class="gibbs-card-title-header"><i class="fa-solid fa-star"></i> 🔄 Ponto de Coexistência</h2>
+<div class="gibbs-card-body-text">
+                        A transição de fase ocorre na pressão de equilíbrio <span class="highlight-orange"><strong>\( p_{eq} \)</strong></span>, onde os dois mínimos da energia de Gibbs tornam-se <strong>degenerados</strong>:
+                        <div class="gibbs-equation-display-box">
+                            \[ g(t, v_\ell) = g(t, v_g) \]
+                        </div>
+                        Neste ponto, as fases líquida (\( v_\ell \)) e gasosa (\( v_g \)) possuem o mesmo potencial químico e podem coexistir em equilíbrio térmico, mecânico e químico.
+                    </div>
+</section>
+</div>
+</main>
+<!-- Footer Reflection Box -->
+<footer class="gibbs-footer-reflection-container">
+<div class="gibbs-reflection-icon-circle">
+<i class="fa-solid fa-lightbulb"></i>
+</div>
+<p class="gibbs-reflection-text-content">
+<strong>Para Reflexão:</strong> Observe que a transição de fase é um processo de <strong>primeira ordem</strong>, caracterizado por uma descontinuidade na primeira derivada da energia de Gibbs (o volume \( v \)) em relação à pressão no ponto de equilíbrio. Como isso se relaciona com a conservação da energia livre total?
+            </p>
+</footer>
+</div>
+</body>
+</html>

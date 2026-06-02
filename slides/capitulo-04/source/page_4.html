@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=1280, height=720, initial-scale=1.0" name="viewport"/>
+<title>Termodinâmica - Capítulo 5: Gás de Van der Waals</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><style>:root {
+    --background: #FFF;
+    --title-text: #002147;
+    --body-text: #1F2937;
+    --secondary-text: #4B5563;
+    --muted-text: #9CA3AF;
+    --accent: #0056B3;
+    --secondary-accent: #0D9488;
+    --border: #E5E7EB;
+    --navy: #002147;
+    --teal: #0D9488;
+    --purple: #6A0DAD;
+    --orange: #EA580C;
+    --equation-bg: #F5F5F5
+    }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0
+    }
+body {width: 1280px; height: 720px; overflow: hidden; background-color: #F3F4F6;
+    font-family: "Inter", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center}
+.slide-root-container {
+    width: 1280px;
+    height: 720px;
+    background-color: var(--background);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1)
+    }
+/* Top Navigation Bar */
+.top-navigation-nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--secondary-text);
+    font-weight: 500
+    }
+.nav-left-index-link {
+    color: var(--accent);
+    text-decoration: none
+    }
+.nav-center-chapter-info {
+    font-weight: 600;
+    color: var(--body-text)
+    }
+.nav-right-actions-group {
+    display: flex;
+    gap: 20px;
+    align-items: center
+    }
+.page-counter-display {
+    position: absolute;
+    top: 50px;
+    right: 60px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--muted-text)
+    }
+/* Title Section */
+.slide-title-header-region {
+    display: flex;
+    flex-direction: column;
+    margin: 40px 60px 20px 60px;
+    border-left: 6px solid var(--accent);
+    padding-left: 20px
+    }
+.main-title-text-heading {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--title-text);
+    margin: 0;
+    line-height: 1.2
+    }
+.subtitle-breadcrumbs-small-caps {
+    font-size: 14px;
+    font-variant: small-caps;
+    color: #64748B;
+    margin-top: 4px;
+    letter-spacing: 1px;
+    font-weight: 600
+    }
+/* 3-Column Layout */
+.main-content-three-column-wrapper {
+    display: flex;
+    flex: 1;
+    gap: 20px;
+    padding: 0 60px 20px 60px;
+    align-items: stretch
+    }
+.content-card-module-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background: #FFF;
+    border-radius: 4px;
+    border-left: 4px solid var(--navy);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05)
+    }
+.card-title-with-icon {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--title-text);
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px
+    }
+.card-body-text-content {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--body-text)
+    }
+.highlight-navy {
+    color: var(--navy);
+    font-weight: 700
+    }
+.highlight-teal {
+    color: var(--teal);
+    font-weight: 700
+    }
+.highlight-purple {
+    color: var(--purple);
+    font-weight: 700
+    }
+/* Equation Boxes */
+.equation-container-gray-box {
+    background-color: var(--equation-bg);
+    border: 1px solid var(--border);
+    padding: 12px;
+    margin: 12px 0;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center
+    }
+/* Footer Boxes */
+.footer-reflection-purple-box {
+    margin: 0 60px 30px 60px;
+    padding: 15px 20px;
+    background-color: #F5F3FF;
+    border: 1px solid #DDD6FE;
+    border-left: 4px solid var(--purple);
+    border-radius: 4px;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px
+    }
+.footer-reflection-icon {
+    font-size: 20px;
+    color: var(--purple);
+    margin-top: 2px
+    }
+.footer-reflection-text {
+    font-size: 13px;
+    line-height: 1.4;
+    color: #4C1D95
+    }
+.list-item-bullet-point {
+    margin-bottom: 8px;
+    list-style: none;
+    position: relative;
+    padding-left: 15px
+    }
+.list-item-bullet-point::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: bold
+    }
+html { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="slide-root-container" style="overflow: hidden;">
+<!-- Top Nav -->
+<div class="top-navigation-nav-bar">
+<div><a class="nav-left-index-link" href="#">← Índice</a></div>
+<div class="nav-center-chapter-info">Capítulo 5 · Item 5.1.1</div>
+<div class="nav-right-actions-group">
+<span>Salvar progresso</span>
+<span>Enviar</span>
+<span>☆</span>
+</div>
+</div>
+<div class="page-counter-display">4 / 22</div>
+<!-- Title Area -->
+<div class="slide-title-header-region">
+<h1 class="main-title-text-heading">Correção de Pressão: O Parâmetro <i>a</i></h1>
+<p class="subtitle-breadcrumbs-small-caps">Forças Atrativas · Densidade de Pares · Pressão Interna</p>
+</div>
+<!-- 3 Columns -->
+<div class="main-content-three-column-wrapper">
+<!-- Card 1: Motivação -->
+<div class="content-card-module-item" style="border-left-color: var(--navy);">
+<h3 class="card-title-with-icon"><i class="fas fa-magnet" style="color: var(--navy);"></i> Forças Atrativas</h3>
+<div class="card-body-text-content">
+<p style="margin-bottom: 10px;">Em gases ideais, as moléculas são independentes. Em <span class="highlight-navy">gases reais</span>, forças atrativas de curto alcance (Van der Waals) atuam entre partículas.</p>
+<ul style="list-style: none;">
+<li class="list-item-bullet-point">Moléculas no interior são atraídas em todas as direções (força resultante nula).</li>
+<li class="list-item-bullet-point">Moléculas próximas às paredes sofrem uma <span class="highlight-navy">força resultante para o interior</span>.</li>
+<li class="list-item-bullet-point">Isso reduz a transferência de momento linear para a parede.</li>
+</ul>
+</div>
+</div>
+<!-- Card 2: Dependência N²/V² -->
+<div class="content-card-module-item" style="border-left-color: var(--teal);">
+<h3 class="card-title-with-icon"><i class="fas fa-chart-line" style="color: var(--teal);"></i> Densidade de Pares</h3>
+<div class="card-body-text-content">
+<p>A força total de atração depende da probabilidade de encontrar duas moléculas próximas. O número de <span class="highlight-teal">pares interagentes</span> cresce com \( N^2 \).</p>
+<div class="equation-container-gray-box">
+            \[ P_{atr} = -a \frac{n^2}{V^2} \]
+          </div>
+<p>Onde <span class="highlight-teal">a</span> é uma constante fenomenológica que mede a intensidade da atração intermolecular para cada substância específica.</p>
+</div>
+</div>
+<!-- Card 3: Pressão Corrigida -->
+<div class="content-card-module-item" style="border-left-color: var(--purple);">
+<h3 class="card-title-with-icon"><i class="fas fa-bolt" style="color: var(--purple);"></i> Energia e Coesão</h3>
+<div class="card-body-text-content">
+<p>A energia potencial atrativa total do fluido é inversamente proporcional ao volume:</p>
+<div class="equation-container-gray-box">
+            \[ U_{atr} \approx -a \frac{n^2}{V} \]
+          </div>
+<p>A pressão medida experimentalmente (\( P \)) é a pressão ideal (\( P_{id} \)) subtraída da <span class="highlight-purple">pressão interna de coesão</span>:</p>
+<div class="equation-container-gray-box">
+            \[ P = P_{id} - a \frac{n^2}{V^2} \]
+          </div>
+</div>
+</div>
+</div>
+<!-- Reflection Box -->
+<div class="footer-reflection-purple-box">
+<div class="footer-reflection-icon"><i class="fas fa-lightbulb"></i></div>
+<div class="footer-reflection-text">
+<strong>Para Reflexão:</strong> Por que a correção de pressão é proporcional ao quadrado da densidade molar \((n/V)^2\)? Pense na probabilidade estatística de colisão entre duas partículas em um volume finito. Como isso se relaciona com a formação de gotas líquidas?
+      </div>
+</div>
+</div>
+</body>
+</html>

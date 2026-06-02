@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>O Ponto Crítico - Gás de Van der Waals</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><style>:root {
+    --background: #FFF;
+    --title-text: #002147;
+    --body-text: #1F2937;
+    --secondary-text: #4B5563;
+    --muted-text: #9CA3AF;
+    --accent: #0056B3;
+    --secondary-accent: #0D9488;
+    --border-color: #E5E7EB;
+    --card-blue: #002147;
+    --card-teal: #0D9488;
+    --card-orange: #EA580C;
+    --card-purple: #6A0DAD;
+    --equation-bg: #F5F5F5
+    }
+* {
+    box-sizing: border-box;
+    margin: 0 0;
+    padding: 0 0
+    }
+body {width: 1280px; height: 720px; overflow: hidden; font-family: "Inter", sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center}
+.slide-root-container {
+    width: 1280px;
+    height: 720px;
+    background-color: var(--background);
+    position: relative;
+    display: flex;
+    flex-direction: column
+    }
+/* Top Navigation Bar */
+.top-nav-bar-wrapper {
+    width: 100%;
+    height: 40px;
+    padding: 0 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 12px;
+    color: var(--secondary-text)
+    }
+.nav-left-links {
+    display: flex;
+    gap: 12px 15px
+    }
+.page-counter-display {
+    font-weight: 600;
+    color: var(--title-text)
+    }
+/* Title Region */
+.title-region-container {
+    display: flex;
+    flex-direction: column;
+    margin: 24px 60px 16px 60px;
+    border-left: 6px solid var(--accent);
+    padding-left: 20px
+    }
+.title-main-heading {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--title-text);
+    margin: 0
+    }
+.title-sub-breadcrumbs {
+    font-size: 14px;
+    font-variant: small-caps;
+    color: #64748B;
+    margin-top: 4px;
+    letter-spacing: 1px
+    }
+/* Main Content 3-Column Layout */
+.main-content-columns-wrapper {
+    display: flex;
+    flex: 1;
+    gap: 16px 20px;
+    padding: 0 60px 16px 60px;
+    align-items: stretch
+    }
+.column-card-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-left: 4px solid var(--card-blue);
+    padding: 12px 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05)
+    }
+.column-card-container.teal-border {
+    border-left-color: var(--card-teal)
+    }
+.column-card-container.orange-border {
+    border-left-color: var(--card-orange)
+    }
+.card-header-with-icon {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--title-text);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px 8px
+    }
+.card-body-text-block {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--body-text);
+    margin-bottom: 8px
+    }
+.card-body-text-block b {
+    color: var(--accent);
+    font-weight: 700
+    }
+.card-body-text-block.teal-bold b {
+    color: var(--secondary-accent)
+    }
+.card-body-text-block.orange-bold b {
+    color: var(--card-orange)
+    }
+/* Equation Box */
+.math-equation-box-wrapper {
+    background-color: var(--equation-bg);
+    border: 1px solid var(--border-color);
+    padding: 8px 10px;
+    margin: 4px 0;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center
+    }
+/* Footer Boxes */
+.footer-reflection-box {
+    margin: 0 60px 24px 60px;
+    background-color: #f0fdfa;
+    border: 1px solid #ccfbf1;
+    border-radius: 8px;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px 15px
+    }
+.reflection-icon-circle {
+    background-color: var(--secondary-accent);
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0
+    }
+.reflection-text-content {
+    font-size: 13px;
+    color: #134e4a;
+    line-height: 1.4
+    }
+.reflection-text-content b {
+    font-weight: 700
+    }
+html { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="slide-root-container" style="overflow: hidden;">
+<!-- Top Navigation -->
+<nav class="top-nav-bar-wrapper">
+<div class="nav-left-links">
+<span>← Índice</span>
+<span>|</span>
+<span>Capítulo 5 · Item 5.1.2</span>
+<span>|</span>
+<span>Salvar progresso</span>
+<span>|</span>
+<span>Enviar</span>
+<span>|</span>
+<span><i class="fa-regular fa-star"></i></span>
+</div>
+<div class="page-counter-display">
+                6 / 22
+            </div>
+</nav>
+<!-- Title Section -->
+<header class="title-region-container">
+<h1 class="title-main-heading">O Ponto Crítico</h1>
+<p class="title-sub-breadcrumbs">Ponto de Inflexão · Derivadas Nulas · Coordenadas Críticas</p>
+</header>
+<!-- Main Content -->
+<main class="main-content-columns-wrapper">
+<!-- Column 1: Definição -->
+<section class="column-card-container">
+<div class="card-header-with-icon">
+<i class="fa-solid fa-ruler-combined"></i> Condição de Inflexão
+                </div>
+<div class="card-body-text-block">
+                    O <b>ponto crítico</b> é definido matematicamente como o ponto de inflexão da isoterma no diagrama \(P(V)\). Neste estado, as flutuações de densidade tornam-se infinitas.
+                </div>
+<div class="card-body-text-block">
+                    As condições para um ponto de inflexão horizontal exigem que:
+                </div>
+<div class="math-equation-box-wrapper">
+                    \[ \left( \frac{\partial P}{\partial V} \right)_T = 0 \]
+                </div>
+<div class="math-equation-box-wrapper">
+                    \[ \left( \frac{\partial^2 P}{\partial V^2} \right)_T = 0 \]
+                </div>
+</section>
+<!-- Column 2: Cálculo -->
+<section class="column-card-container teal-border">
+<div class="card-header-with-icon">
+<i class="fa-solid fa-gear"></i> Sistema de Equações
+                </div>
+<div class="card-body-text-block teal-bold">
+                    Aplicando as derivadas à <b>Equação de Van der Waals</b>, obtemos um sistema que permite isolar as variáveis críticas em função de \(a\) e \(b\):
+                </div>
+<div class="math-equation-box-wrapper">
+                    \[ -\frac{nRT}{(V-nb)^2} + \frac{2an^2}{V^3} = 0 \]
+                </div>
+<div class="math-equation-box-wrapper">
+                    \[ \frac{2nRT}{(V-nb)^3} - \frac{6an^2}{V^4} = 0 \]
+                </div>
+<div class="card-body-text-block" style="font-size: 12px;color: var(--muted-text);margin-top: 4px;">
+                    Dica: Divida a segunda equação pela primeira para simplificar o termo \((V-nb)\).
+                </div>
+</section>
+<!-- Column 3: Resultados -->
+<section class="column-card-container orange-border">
+<div class="card-header-with-icon">
+<i class="fa-solid fa-location-dot"></i> Parâmetros Críticos
+                </div>
+<div class="card-body-text-block orange-bold">
+                    A resolução do sistema fornece as <b>Coordenadas Críticas</b>, que são constantes para cada substância específica:
+                </div>
+<div class="math-equation-box-wrapper">
+                    \[ V_c = 3nb \]
+                </div>
+<div class="math-equation-box-wrapper">
+                    \[ T_c = \frac{8a}{27bR} \]
+                </div>
+<div class="math-equation-box-wrapper">
+                    \[ P_c = \frac{a}{27b^2} \]
+                </div>
+<div class="card-body-text-block" style="margin-top: 8px;">
+                    Note que \(V_c\) depende apenas do <b>volume excluído</b>, enquanto \(T_c\) e \(P_c\) envolvem a <b>atração intermolecular</b>.
+                </div>
+</section>
+</main>
+<!-- Footer Reflection Box -->
+<footer class="footer-reflection-box">
+<div class="reflection-icon-circle">
+<i class="fa-solid fa-lightbulb"></i>
+</div>
+<div class="reflection-text-content">
+<b>Para Reflexão:</b> Por que as derivadas devem ser nulas? Fisicamente, isso marca o limite onde as fases líquida e gasosa tornam-se <b>indistinguíveis</b>. Acima de \(T_c\), o sistema é um fluido supercrítico e não pode ser liquefeito apenas por compressão.
+            </div>
+</footer>
+</div>
+</body>
+</html>

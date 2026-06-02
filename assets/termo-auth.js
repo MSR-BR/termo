@@ -25,6 +25,7 @@
     statusNode: null,
     session: null,
     authListenerRegistered: false,
+    triggerClickListenerRegistered: false,
     progressSignature: "",
     refreshTimer: null,
     observer: null,
@@ -591,33 +592,20 @@
   function updateTriggerButton() {
     if (!state.triggerButton) return;
 
-    const indexPage = isIndexPage();
-
     if (state.session?.user) {
       const avatarUrl = getAvatarUrl(state.session.user);
-      const label = indexPage ? "Área pessoal" : getFriendlyName(state.session.user);
-      state.triggerButton.classList.toggle("termo-auth-trigger--compact", indexPage);
-      state.triggerButton.innerHTML = indexPage
-        ? (avatarUrl
-            ? `<img src="${avatarUrl}" alt="" class="auth-avatar"><span class="termo-auth-trigger__label">${label}</span>`
-            : `<i class="fa-solid fa-circle-user"></i><span class="termo-auth-trigger__label">${label}</span>`)
-        : (avatarUrl
-            ? `<img src="${avatarUrl}" alt="" class="auth-avatar"><span>${label}</span>`
-            : `<i class="fa-solid fa-circle-user"></i><span>${label}</span>`);
+      const label = getFriendlyName(state.session.user);
+      state.triggerButton.innerHTML = avatarUrl
+        ? `<img src="${avatarUrl}" alt="" class="auth-avatar"><span>${label}</span>`
+        : `<i class="fa-solid fa-circle-user"></i><span>${label}</span>`;
       state.triggerButton.setAttribute("aria-label", "Abrir área pessoal e progresso salvo");
       return;
     }
 
-    state.triggerButton.classList.toggle("termo-auth-trigger--compact", indexPage);
-    state.triggerButton.innerHTML = indexPage
-      ? `
-        <i class="fa-solid fa-circle-user"></i>
-        <span class="termo-auth-trigger__label">Entrar</span>
-      `
-      : `
-        <i class="fa-solid fa-bookmark"></i>
-        <span>Salvar progresso</span>
-      `;
+    state.triggerButton.innerHTML = `
+      <i class="fa-solid fa-bookmark"></i>
+      <span>Salvar progresso</span>
+    `;
     state.triggerButton.setAttribute("aria-label", "Abrir opcoes de login para salvar progresso");
   }
 
@@ -845,15 +833,25 @@
     button.type = "button";
     button.className = "termo-auth-trigger index-back-button";
     button.setAttribute("data-termo-auth-button", "true");
-    button.addEventListener("click", function () {
-      if (isIndexPage() && state.session?.user) {
-        navigateToPersonalArea("saved");
-        return;
-      }
+    return button;
+  }
 
+  function registerTriggerClickHandler() {
+    if (state.triggerClickListenerRegistered || !document.body) return;
+
+    document.addEventListener("click", function (event) {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+
+      const button = target.closest("[data-termo-auth-button]");
+      if (!button) return;
+
+      event.preventDefault();
+      event.stopPropagation();
       openModal();
     });
-    return button;
+
+    state.triggerClickListenerRegistered = true;
   }
 
   function getToolbarHost() {
@@ -975,6 +973,7 @@
 
   function autoMount() {
     renderTrigger();
+    registerTriggerClickHandler();
     watchForChanges();
     window.addEventListener("resize", scheduleRefresh);
     document.addEventListener("visibilitychange", function () {

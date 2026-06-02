@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gás de Van der Waals - A Curva Espinodal</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><style>body {width: 1280px; height: 720px; overflow: hidden; background-color: #F3F4F6;
+    font-family: "Inter", sans-serif}
+.van-der-waals-slide-root {
+    width: 1280px;
+    height: 720px;
+    background-color: #FFF;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    position: relative
+    }
+/* Barra de Navegação Superior */
+.van-der-waals-nav-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 60px;
+    border-bottom: 1px solid #E5E7EB;
+    font-size: 12px;
+    color: #4B5563
+    }
+.van-der-waals-nav-links {
+    display: flex;
+    gap: 15px
+    }
+.van-der-waals-page-counter {
+    font-weight: 700;
+    color: #002147
+    }
+/* Região do Título */
+.van-der-waals-title-container {
+    display: flex;
+    flex-direction: column;
+    margin: 30px 60px 20px 60px;
+    border-left: 6px solid #0056B3;
+    padding-left: 20px
+    }
+.van-der-waals-main-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: #002147;
+    margin: 0;
+    line-height: 1.2
+    }
+.van-der-waals-subtitle {
+    font-size: 14px;
+    font-variant: small-caps;
+    color: #64748B;
+    margin-top: 4px;
+    letter-spacing: 1px
+    }
+/* Layout de 3 Colunas */
+.van-der-waals-content-grid {
+    display: flex;
+    flex: 1;
+    margin: 0 60px;
+    gap: 20px;
+    align-items: stretch;
+    height: 380px
+    }
+.van-der-waals-column-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center
+    }
+.van-der-waals-info-card {
+    flex: 1;
+    background-color: #FFF;
+    border-left: 4px solid #002147;
+    padding: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column
+    }
+.van-der-waals-card-header {
+    font-size: 18px;
+    font-weight: 700;
+    color: #002147;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px
+    }
+.van-der-waals-card-body {
+    font-size: 14px;
+    color: #1F2937;
+    line-height: 1.5
+    }
+.van-der-waals-text-highlight-navy {
+    color: #002147;
+    font-weight: 700
+    }
+.van-der-waals-text-highlight-teal {
+    color: #0D9488;
+    font-weight: 700
+    }
+.van-der-waals-text-highlight-orange {
+    color: #EA580C;
+    font-weight: 700
+    }
+/* Box de Equação */
+.van-der-waals-equation-wrapper {
+    background-color: #F9FAFB;
+    border: 1px solid #E5E7EB;
+    padding: 12px;
+    margin: 10px 0;
+    text-align: center;
+    border-radius: 4px
+    }
+/* Imagem */
+.van-der-waals-image-box {
+    height: 180px;
+    margin: 10px 0;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #E5E7EB
+    }
+.van-der-waals-image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: white
+    }
+.van-der-waals-image-caption {
+    font-size: 11px;
+    color: #6B7280;
+    text-align: center;
+    margin-top: 4px
+    }
+/* Rodapé */
+.van-der-waals-footer-section {
+    margin: 20px 60px 30px 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px
+    }
+.van-der-waals-reflection-box {
+    background-color: #F0F9FF;
+    border-left: 4px solid #0D9488;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px
+    }
+.van-der-waals-reflection-icon {
+    font-size: 20px;
+    color: #0D9488
+    }
+.van-der-waals-reflection-text {
+    font-size: 14px;
+    color: #1F2937;
+    font-weight: 500
+    }
+/* Variações de cores dos cards */
+.card-teal {
+    border-left-color: #0D9488
+    }
+.card-orange {
+    border-left-color: #EA580C
+    }
+.card-purple {
+    border-left-color: #6A0DAD
+    }
+ul {
+    padding-left: 18px;
+    margin: 8px 0
+    }
+li {
+    margin-bottom: 6px
+    }
+html { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="van-der-waals-slide-root" style="overflow: hidden;">
+<!-- Barra de Navegação Superior -->
+<nav class="van-der-waals-nav-header">
+<div class="van-der-waals-nav-links">
+<span>← Índice</span>
+<span>|</span>
+<span>Capítulo 5 · Item 5.1.3</span>
+<span>|</span>
+<span>Salvar progresso</span>
+<span>|</span>
+<span>Enviar</span>
+<span>|</span>
+<i class="fa-regular fa-star"></i>
+</div>
+<div class="van-der-waals-page-counter">10 / 22</div>
+</nav>
+<!-- Região do Título -->
+<header class="van-der-waals-title-container">
+<h1 class="van-der-waals-main-title">A Curva Espinodal</h1>
+<p class="van-der-waals-subtitle">Definição Matemática · Instabilidade Mecânica · Limite de Estabilidade</p>
+</header>
+<!-- Conteúdo Principal em 3 Colunas -->
+<main class="van-der-waals-content-grid">
+<!-- Coluna 1: Definição -->
+<div class="van-der-waals-column-item">
+<section class="van-der-waals-info-card">
+<div class="van-der-waals-card-header">
+<span>📐</span> Definição Matemática
+                    </div>
+<div class="van-der-waals-card-body">
+                        A curva espinodal delimita a região onde a <span class="van-der-waals-text-highlight-navy">instabilidade mecânica</span> é absoluta. Ela é obtida impondo que a derivada da pressão em relação ao volume se anule:
+                        <div class="van-der-waals-equation-wrapper">
+                            \[ \left.\frac{\partial p}{\partial v}\right|_t = 0 \]
+                        </div>
+                        Resolvendo para a equação de van der Waals e eliminando a temperatura \( t \):
+                        <div class="van-der-waals-equation-wrapper">
+                            \[ p_{\text{espinodal}} = \frac{3v - 2}{v^3} \]
+                        </div>
+                        Esta curva conecta os <span class="van-der-waals-text-highlight-navy">pontos de máximo e mínimo</span> (extremos) das isotermas subcríticas.
+                    </div>
+</section>
+</div>
+<!-- Coluna 2: Análise Visual -->
+<div class="van-der-waals-column-item">
+<section class="van-der-waals-info-card card-teal">
+<div class="van-der-waals-card-header">
+<span>📈</span> Diagrama de Fases
+                    </div>
+<div class="van-der-waals-card-body">
+<div class="van-der-waals-image-box">
+<img alt="Gráfico da Curva Espinodal" src="https://static-us-img.skywork.ai/prod/nexus/1780078532/cropped_image_2_1780078532437664940.jpg"/>
+</div>
+<p class="van-der-waals-image-caption">Figura: Isoterma \( t = 0.9 \) e a Curva Espinodal (tracejada) no plano \( p(v) \).</p>
+<ul>
+<li>O <span class="van-der-waals-text-highlight-teal">ponto crítico</span> está em \( (v, p) = (1, 1) \).</li>
+<li>Abaixo da curva: <span class="van-der-waals-text-highlight-orange">Instabilidade absoluta</span> (\( \kappa_T &lt; 0 \)).</li>
+<li>Acima da curva: Estados estáveis ou metaestáveis.</li>
+</ul>
+</div>
+</section>
+</div>
+<!-- Coluna 3: Significado Físico -->
+<div class="van-der-waals-column-item">
+<section class="van-der-waals-info-card card-orange">
+<div class="van-der-waals-card-header">
+<span>⚡</span> Significado Físico
+                    </div>
+<div class="van-der-waals-card-body">
+                        A curva espinodal representa o <span class="van-der-waals-text-highlight-orange">limite teórico de estabilidade</span> de uma fase homogênea.
+                        <ul>
+<li>Dentro da espinodal, qualquer flutuação infinitesimal de densidade leva à <span class="van-der-waals-text-highlight-navy">separação espontânea</span> de fases (decomposição espinodal).</li>
+<li>O termo foi introduzido por <span class="van-der-waals-text-highlight-teal">John W. Cahn</span> e <span class="van-der-waals-text-highlight-teal">John E. Hilliard</span> (1960s).</li>
+<li>Diferencia-se da curva de coexistência (binodal), onde o equilíbrio é global. Entre a binodal e a espinodal, o sistema é <span class="van-der-waals-text-highlight-navy">metaestável</span>.</li>
+</ul>
+</div>
+</section>
+</div>
+</main>
+<!-- Rodapé Funcional -->
+<footer class="van-der-waals-footer-section">
+<div class="van-der-waals-reflection-box">
+<div class="van-der-waals-reflection-icon">
+<i class="fa-regular fa-lightbulb"></i>
+</div>
+<div class="van-der-waals-reflection-text">
+<strong>Para Reflexão:</strong> Por que a compressibilidade isotérmica \(\kappa_T\) diverge exatamente sobre a curva espinodal? O que isso nos diz sobre a resposta do sistema a pequenas perturbações de pressão?
+                </div>
+</div>
+</footer>
+</div>
+</body>
+</html>

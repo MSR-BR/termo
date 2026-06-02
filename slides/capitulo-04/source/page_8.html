@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Termodinâmica - O Fator de Compressibilidade Crítico Zc</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/><style>:root {
+    --background: #FFF;
+    --title-text: #002147;
+    --body-text: #1F2937;
+    --secondary-text: #4B5563;
+    --muted-text: #9CA3AF;
+    --accent: #0056B3;
+    --secondary-accent: #0D9488;
+    --border: #E5E7EB;
+    --card-navy: #002147;
+    --card-teal: #0D9488;
+    --card-orange: #EA580C;
+    --card-purple: #6A0DAD;
+    --equation-bg: #F5F5F5
+    }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0
+    }
+body {width: 1280px; height: 720px; overflow: hidden; background-color: #F3F4F6;
+    font-family: "Inter", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center}
+.slide-root-container {
+    width: 1280px;
+    height: 720px;
+    background-color: var(--background);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1)
+    }
+/* Top Navigation Bar */
+.zc-top-navigation-bar {
+    height: 40px;
+    padding: 0 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--secondary-text)
+    }
+.zc-nav-links-wrapper {
+    display: flex;
+    gap: 20px
+    }
+.zc-page-counter-label {
+    font-weight: 600;
+    color: var(--title-text)
+    }
+/* Title Region */
+.zc-title-region-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 40px 60px 20px 60px;
+    border-left: 6px solid var(--accent);
+    padding-left: 20px
+    }
+.zc-main-title-text {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--title-text);
+    margin: 0
+    }
+.zc-subtitle-breadcrumb-text {
+    font-size: 14px;
+    font-variant: small-caps;
+    color: #64748B;
+    margin-top: 4px;
+    letter-spacing: 1px
+    }
+/* Main Content Grid */
+.zc-content-columns-container {
+    flex: 1;
+    display: flex;
+    gap: 20px;
+    padding: 0 60px 20px 60px;
+    align-items: stretch
+    }
+.zc-column-item-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center
+    }
+.zc-info-card-block {
+    flex: 1;
+    padding: 20px;
+    background-color: transparent;
+    border-left: 4px solid var(--card-navy);
+    display: flex;
+    flex-direction: column;
+    gap: 15px
+    }
+.zc-info-card-block.teal-border {
+    border-left-color: var(--card-teal)
+    }
+.zc-info-card-block.orange-border {
+    border-left-color: var(--card-orange)
+    }
+.zc-card-header-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--title-text)
+    }
+.zc-card-header-icon {
+    font-size: 16px;
+    color: var(--accent)
+    }
+.zc-card-body-text {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--body-text)
+    }
+.zc-highlight-term {
+    font-weight: 700;
+    color: var(--accent)
+    }
+/* Equation Box */
+.zc-equation-display-box {
+    background-color: var(--equation-bg);
+    border: 1px solid var(--border);
+    padding: 12px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px 0
+    }
+/* Footer Boxes */
+.zc-footer-section-container {
+    padding: 0 60px 30px 60px;
+    display: flex;
+    gap: 20px
+    }
+.zc-reflection-footer-box {
+    flex: 1;
+    background-color: #F0FDFA;
+    border: 1px solid #CCFBF1;
+    border-radius: 8px;
+    padding: 15px 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px
+    }
+.zc-reflection-icon-wrapper {
+    color: var(--secondary-accent);
+    font-size: 20px;
+    margin-top: 2px
+    }
+.zc-reflection-content-text {
+    font-size: 13px;
+    color: #0F766E;
+    line-height: 1.4
+    }
+.zc-reflection-title {
+    font-weight: 700;
+    margin-bottom: 4px;
+    display: block
+    }
+ul.zc-list-items-container {
+    list-style: none;
+    padding: 0;
+    margin: 0
+    }
+li.zc-list-item-element {
+    font-size: 13px;
+    margin-bottom: 8px;
+    position: relative;
+    padding-left: 15px;
+    color: var(--body-text)
+    }
+li.zc-list-item-element::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: bold
+    }
+html { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="slide-root-container" style="overflow: hidden;">
+<!-- Navigation Bar -->
+<nav class="zc-top-navigation-bar">
+<div class="zc-nav-links-wrapper">
+<span>← Índice</span>
+<span>|</span>
+<span>Capítulo 5 · Item 5.1.2</span>
+<span>|</span>
+<span>Salvar progresso</span>
+<span>|</span>
+<span>Enviar</span>
+<span>|</span>
+<i class="fa-regular fa-star"></i>
+</div>
+<div class="zc-page-counter-label">8 / 22</div>
+</nav>
+<!-- Title Region -->
+<div class="zc-title-region-wrapper">
+<h1 class="zc-main-title-text">O Fator de Compressibilidade Crítico Zc</h1>
+<p class="zc-subtitle-breadcrumb-text">Definição · Previsão Universal · Implicações Experimentais</p>
+</div>
+<!-- Main Content Grid -->
+<div class="zc-content-columns-container">
+<!-- Column 1: Definição -->
+<div class="zc-column-item-wrapper">
+<div class="zc-info-card-block">
+<div class="zc-card-header-group">
+<i class="fa-solid fa-scale-balanced zc-card-header-icon"></i>
+<span>Definição de Zc</span>
+</div>
+<p class="zc-card-body-text">
+                        O <span class="zc-highlight-term">fator de compressibilidade (Z)</span> quantifica o desvio de um gás real em relação ao comportamento ideal. No <span class="zc-highlight-term">ponto crítico</span>, este parâmetro assume um valor específico:
+                    </p>
+<div class="zc-equation-display-box">
+                        \[ Z_c = \frac{P_c V_c}{nRT_c} \]
+                    </div>
+<p class="zc-card-body-text">
+                        Para um gás ideal, \( Z = 1 \) em qualquer estado. Para fluidos reais, \( Z_c \) reflete as <span class="zc-highlight-term">proporções geométricas</span> das variáveis de estado críticas.
+                    </p>
+</div>
+</div>
+<!-- Column 2: Previsão Universal -->
+<div class="zc-column-item-wrapper">
+<div class="zc-info-card-block teal-border">
+<div class="zc-card-header-group">
+<i class="fa-solid fa-ruler-combined zc-card-header-icon" style="color: var(--card-teal);"></i>
+<span>Previsão de Van der Waals</span>
+</div>
+<p class="zc-card-body-text">
+                        Substituindo os valores teóricos derivados da equação de estado (\( V_c = 3nb \), \( P_c = a/27b^2 \), \( T_c = 8a/27bR \)):
+                    </p>
+<div class="zc-equation-display-box">
+                        \[ Z_c = \frac{(a/27b^2)(3nb)}{nR(8a/27bR)} = \frac{3}{8} \]
+                    </div>
+<p class="zc-card-body-text">
+                        O valor <span class="zc-highlight-term" style="color: var(--card-teal);">Zc = 0.375</span> é uma <span class="zc-highlight-term" style="color: var(--card-teal);">previsão universal</span>: independe da natureza química do gás (parâmetros \(a\) e \(b\)).
+                    </p>
+</div>
+</div>
+<!-- Column 3: Confronto Experimental -->
+<div class="zc-column-item-wrapper">
+<div class="zc-info-card-block orange-border">
+<div class="zc-card-header-group">
+<i class="fa-solid fa-flask-vial zc-card-header-icon" style="color: var(--card-orange);"></i>
+<span>Realidade Experimental</span>
+</div>
+<ul class="zc-list-items-container">
+<li class="zc-list-item-element">
+                            Gases reais apresentam consistentemente <span class="zc-highlight-term" style="color: var(--card-orange);">Zc &lt; 0.375</span>.
+                        </li>
+<li class="zc-list-item-element">
+                            Exemplos: CO₂ (\( \approx 0.274 \)), H₂O (\( \approx 0.229 \)), Argônio (\( \approx 0.291 \)).
+                        </li>
+<li class="zc-list-item-element">
+                            A <span class="zc-highlight-term" style="color: var(--card-orange);">não-universalidade</span> de \( Z_c \) indica que o modelo de VdW é uma aproximação de campo médio.
+                        </li>
+</ul>
+<p class="zc-card-body-text" style="font-size: 12px; font-style: italic; border-top: 1px solid var(--border); padding-top: 10px;">
+                        A falha quantitativa decorre da simplificação das forças intermoleculares e da forma esférica das moléculas.
+                    </p>
+</div>
+</div>
+</div>
+<!-- Footer Section -->
+<div class="zc-footer-section-container">
+<div class="zc-reflection-footer-box">
+<div class="zc-reflection-icon-wrapper">
+<i class="fa-solid fa-lightbulb"></i>
+</div>
+<div class="zc-reflection-content-text">
+<span class="zc-reflection-title">Para Reflexão: O Princípio dos Estados Correspondentes</span>
+                    Se todos os fluidos obedecessem estritamente à equação de Van der Waals, todos teriam o mesmo \( Z_c \). O fato de \( Z_c \) variar experimentalmente sugere que a "geometria" das interações moleculares (como a polaridade ou acentricidade) quebra essa universalidade prevista pelo modelo.
+                </div>
+</div>
+</div>
+</div>
+</body>
+</html>
