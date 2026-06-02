@@ -596,17 +596,23 @@
     if (state.session?.user) {
       const avatarUrl = getAvatarUrl(state.session.user);
       const label = indexPage ? "Área pessoal" : getFriendlyName(state.session.user);
-      state.triggerButton.innerHTML = avatarUrl
-        ? `<img src="${avatarUrl}" alt="" class="auth-avatar"><span>${label}</span>`
-        : `<i class="fa-solid fa-circle-user"></i><span>${label}</span>`;
+      state.triggerButton.classList.toggle("termo-auth-trigger--compact", indexPage);
+      state.triggerButton.innerHTML = indexPage
+        ? (avatarUrl
+            ? `<img src="${avatarUrl}" alt="" class="auth-avatar"><span class="termo-auth-trigger__label">${label}</span>`
+            : `<i class="fa-solid fa-circle-user"></i><span class="termo-auth-trigger__label">${label}</span>`)
+        : (avatarUrl
+            ? `<img src="${avatarUrl}" alt="" class="auth-avatar"><span>${label}</span>`
+            : `<i class="fa-solid fa-circle-user"></i><span>${label}</span>`);
       state.triggerButton.setAttribute("aria-label", "Abrir área pessoal e progresso salvo");
       return;
     }
 
+    state.triggerButton.classList.toggle("termo-auth-trigger--compact", indexPage);
     state.triggerButton.innerHTML = indexPage
       ? `
         <i class="fa-solid fa-circle-user"></i>
-        <span>Entrar</span>
+        <span class="termo-auth-trigger__label">Entrar</span>
       `
       : `
         <i class="fa-solid fa-bookmark"></i>
@@ -903,12 +909,20 @@
     if (!anchor) return null;
 
     if (isIndexPage() && anchor === getToolbarHost()) {
-      const existingButton = anchor.querySelector("[data-termo-auth-button]");
-      if (existingButton) {
-        existingButton.remove();
+      let button = anchor.querySelector("[data-termo-auth-button]");
+      if (!button) {
+        button = createTriggerButton();
+        const shareButton = anchor.querySelector("[data-termo-share-button]");
+        if (shareButton) {
+          anchor.insertBefore(button, shareButton);
+        } else {
+          anchor.appendChild(button);
+        }
       }
-      state.triggerButton = null;
-      return null;
+
+      state.triggerButton = button;
+      updateTriggerButton();
+      return button;
     }
 
     const host = ensureHost(anchor, referenceButton);
