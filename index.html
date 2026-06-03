@@ -1840,21 +1840,21 @@
           <div class="topic-container" id="topicContainer">
             <div class="discovery-shell">
               <section class="discovery-grid">
-                <a class="discovery-card" href="index.html?view=chapters&chapter=01">
+                <button class="discovery-card" type="button" data-role="open-view" data-view-id="chapters" data-chapter-id="01">
                   <div class="discovery-card__title"><i class="fa-solid fa-list-ul"></i> Capítulos</div>
                   <div class="discovery-card__text">Entre direto no primeiro capítulo e navegue pelos itens do livro.</div>
                   <div class="discovery-card__meta">Abrir Capítulo 01</div>
-                </a>
-                <a class="discovery-card" href="index.html?view=saved">
+                </button>
+                <button class="discovery-card" type="button" data-role="open-view" data-view-id="saved">
                   <div class="discovery-card__title"><i class="fa-solid fa-circle-user"></i> Área Pessoal</div>
                   <div class="discovery-card__text">Abra seus exercícios e favoritos. O login é opcional e só habilita histórico salvo.</div>
                   <div class="discovery-card__meta">Abrir Área Pessoal</div>
-                </a>
-                <a class="discovery-card" href="index.html?view=simulators">
+                </button>
+                <button class="discovery-card" type="button" data-role="open-view" data-view-id="simulators">
                   <div class="discovery-card__title"><i class="fa-solid fa-flask-vial"></i> Extras</div>
                   <div class="discovery-card__text">Acesse os simuladores e outros recursos complementares do app em uma área separada.</div>
                   <div class="discovery-card__meta">Explorar recursos</div>
-                </a>
+                </button>
               </section>
             </div>
           </div>
@@ -1900,19 +1900,82 @@
         setDrawerSection(sectionId || "chapters");
       }
 
+      function closeDrawer() {
+        const overlay = document.getElementById("menuDrawerOverlay");
+        const menuButton = document.getElementById("menuToggleButton");
+        if (!overlay) return;
+
+        overlay.classList.remove("is-open");
+        if (menuButton) {
+          menuButton.setAttribute("aria-expanded", "false");
+        }
+
+        window.setTimeout(function () {
+          if (!overlay.classList.contains("is-open")) {
+            overlay.hidden = true;
+          }
+        }, 220);
+      }
+
+      const menuButton = document.getElementById("menuToggleButton");
+      if (menuButton) {
+        menuButton.addEventListener("click", function (event) {
+          if (window.TermoIndexReady) return;
+          event.preventDefault();
+          openDrawer("chapters");
+        });
+      }
+
+      const drawerCloseButton = document.getElementById("menuDrawerClose");
+      if (drawerCloseButton) {
+        drawerCloseButton.addEventListener("click", function (event) {
+          if (window.TermoIndexReady) return;
+          event.preventDefault();
+          closeDrawer();
+        });
+      }
+
+      const drawerOverlay = document.getElementById("menuDrawerOverlay");
+      if (drawerOverlay) {
+        drawerOverlay.addEventListener("click", function (event) {
+          if (window.TermoIndexReady || event.target !== drawerOverlay) return;
+          closeDrawer();
+        });
+      }
+
+      function navigateToView(button) {
+        const viewId = button.dataset.viewId || "chapters";
+        const chapterId = button.dataset.chapterId || "";
+        const targetUrl = new URL("index.html", window.location.href);
+        targetUrl.searchParams.set("view", viewId);
+        if (chapterId) {
+          targetUrl.searchParams.set("chapter", chapterId);
+        } else {
+          targetUrl.searchParams.delete("chapter");
+        }
+        window.location.href = targetUrl.href;
+      }
+
       document.addEventListener("click", function (event) {
         const target = event.target;
         const button = target && target.closest
-          ? target.closest('[data-role="open-drawer-section"]')
+          ? target.closest('[data-role="open-drawer-section"], [data-role="open-view"]')
           : null;
 
         if (!button) return;
+
+        if (button.matches('[data-role="open-view"]')) {
+          if (window.TermoIndexReady) return;
+          event.preventDefault();
+          navigateToView(button);
+          return;
+        }
 
         event.preventDefault();
         openDrawer(button.dataset.sectionId || "chapters");
       });
 
-      window.TermoLandingFallback = { openDrawer, setDrawerSection };
+      window.TermoLandingFallback = { openDrawer, closeDrawer, setDrawerSection };
     })();
   </script>
 
@@ -2364,21 +2427,21 @@
       topicContainer.innerHTML = `
         <div class="discovery-shell">
           <section class="discovery-grid">
-            <a class="discovery-card" href="index.html?view=chapters&chapter=01">
+            <button class="discovery-card" type="button" data-role="open-view" data-view-id="chapters" data-chapter-id="01">
               <div class="discovery-card__title"><i class="fa-solid fa-list-ul"></i> Capítulos</div>
               <div class="discovery-card__text">Entre direto no primeiro capítulo e navegue pelos itens do livro.</div>
               <div class="discovery-card__meta">Abrir Capítulo 01</div>
-            </a>
-            <a class="discovery-card" href="index.html?view=saved">
+            </button>
+            <button class="discovery-card" type="button" data-role="open-view" data-view-id="saved">
               <div class="discovery-card__title"><i class="fa-solid fa-circle-user"></i> Área Pessoal</div>
               <div class="discovery-card__text">Abra seus exercícios e favoritos. O login é opcional e só habilita histórico salvo.</div>
               <div class="discovery-card__meta">Abrir Área Pessoal</div>
-            </a>
-            <a class="discovery-card" href="index.html?view=simulators">
+            </button>
+            <button class="discovery-card" type="button" data-role="open-view" data-view-id="simulators">
               <div class="discovery-card__title"><i class="fa-solid fa-flask-vial"></i> Extras</div>
               <div class="discovery-card__text">Acesse os simuladores e outros recursos complementares do app em uma área separada.</div>
               <div class="discovery-card__meta">Explorar recursos</div>
-            </a>
+            </button>
           </section>
         </div>
       `;
@@ -2402,11 +2465,8 @@
 
       if (button.matches('[data-role="open-view"]')) {
         const viewId = button.dataset.viewId || "chapters";
-        if ((viewId === "saved" || viewId === "favorites") && !state.loggedIn) {
-          openDrawer("personal");
-          return true;
-        }
-        void activateView(viewId);
+        const chapterId = button.dataset.chapterId;
+        void activateView(viewId, chapterId);
         return true;
       }
 
@@ -3471,6 +3531,8 @@
         closeDrawer();
       }
     });
+
+    window.TermoIndexReady = true;
 
     function bindAuthStateListener() {
       if (!(window.TermoUserData && typeof window.TermoUserData.onAuthStateChange === "function")) {
