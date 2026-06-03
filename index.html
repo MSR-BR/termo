@@ -1966,6 +1966,7 @@
 
         if (button.matches('[data-role="open-view"]')) {
           if (window.TermoIndexReady) return;
+          if (button.matches("a[href]")) return;
           event.preventDefault();
           navigateToView(button);
           return;
@@ -3512,6 +3513,10 @@
 
       const discoveryButton = target.closest('[data-role="open-view"], [data-role="open-drawer-section"]');
       if (!discoveryButton) return;
+
+      if (discoveryButton.matches('a[href][data-role="open-view"]')) {
+        return;
+      }
 
       event.preventDefault();
       handleDiscoveryAction(discoveryButton);
