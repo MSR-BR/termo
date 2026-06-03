@@ -1747,7 +1747,7 @@
           <div class="metadata">
             <span><i class="fa-solid fa-user-tie"></i> Prof. Mario Reis</span>
             <span><i class="fa-solid fa-building-columns"></i> Instituto de Física — Universidade Federal Fluminense</span>
-            <span><i class="fa-solid fa-calendar-days"></i> Última atualização: <time id="lastUpdated" datetime="2026-06-03">03/06/2026</time> · <span id="appVersion">v0306.1</span></span>
+            <span><i class="fa-solid fa-calendar-days"></i> Última atualização: <time id="lastUpdated" datetime="2026-06-03">03/06/2026</time> · <span id="appVersion">v0306.2</span></span>
           </div>
         </div>
         <div class="header-tools" data-termo-header-tools aria-label="Ações principais"></div>
@@ -1823,21 +1823,37 @@
 
     <main class="layout">
       <section class="content-area" aria-live="polite">
-        <article class="chapter-panel">
+        <article class="chapter-panel chapter-panel--landing">
           <div class="panel-header">
             <div class="panel-headline">
-              <div class="panel-kicker" id="panelKicker">Selecione um capítulo</div>
-              <h2 class="panel-title" id="panelTitle">Explore o app inteiro</h2>
+              <div class="panel-kicker" id="panelKicker">Livro Vivo</div>
+              <h2 class="panel-title" id="panelTitle">Use o menu para navegar</h2>
               <p class="panel-description" id="panelDescription">
-                Entre pelos capítulos, pela área pessoal ou pelos simuladores. Esta página central foi pensada para mostrar que o app vai muito além de um único capítulo.
+                Abra Capítulos, Área Pessoal ou Extras pelo menu lateral, ou use os atalhos abaixo para ir direto ao que interessa.
               </p>
             </div>
             <div class="panel-actions" id="panelActions"></div>
           </div>
 
           <div class="topic-container" id="topicContainer">
-            <div class="empty-state">
-              <strong>Estrutura modular:</strong> esta página central contém apenas o menu principal. Os tópicos de cada capítulo devem ficar em arquivos externos, por exemplo <code>data/capitulo-02.json</code>. Assim, novas abas e páginas podem ser adicionadas sem reeditar este arquivo central.
+            <div class="discovery-shell">
+              <section class="discovery-grid">
+                <button class="discovery-card" type="button" data-role="open-drawer-section" data-section-id="chapters">
+                  <div class="discovery-card__title"><i class="fa-solid fa-list-ul"></i> Capítulos</div>
+                  <div class="discovery-card__text">Abra a estrutura completa do livro e entre nos itens de cada capítulo pelo menu deslizante.</div>
+                  <div class="discovery-card__meta">Explorar conteúdo</div>
+                </button>
+                <button class="discovery-card" type="button" data-role="open-drawer-section" data-section-id="personal">
+                  <div class="discovery-card__title"><i class="fa-solid fa-circle-user"></i> Área Pessoal</div>
+                  <div class="discovery-card__text">Abra as opções pessoais sem bloquear a navegação. O login é opcional e só habilita histórico e favoritos.</div>
+                  <div class="discovery-card__meta">Abrir opções</div>
+                </button>
+                <button class="discovery-card" type="button" data-role="open-view" data-view-id="simulators">
+                  <div class="discovery-card__title"><i class="fa-solid fa-flask-vial"></i> Extras</div>
+                  <div class="discovery-card__text">Acesse os simuladores e outros recursos complementares do app em uma área separada.</div>
+                  <div class="discovery-card__meta">Explorar recursos</div>
+                </button>
+              </section>
             </div>
           </div>
         </article>
@@ -1880,7 +1896,7 @@
 
     const JSPDF_CDN_URL = "https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js";
     const releaseInfo = {
-      version: "v0306.1",
+      version: "v0306.2",
       date: "2026-06-03",
       label: "03/06/2026"
     };
@@ -3417,8 +3433,8 @@
       renderExtrasMenu();
       setDrawerSection(state.drawerSection);
       bindAuthStateListener();
-      await refreshUserState();
       await activateView(state.view, state.chapterId);
+      await refreshUserState();
     }
 
     if (document.readyState === "loading") {
