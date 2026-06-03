@@ -1747,7 +1747,7 @@
           <div class="metadata">
             <span><i class="fa-solid fa-user-tie"></i> Prof. Mario Reis</span>
             <span><i class="fa-solid fa-building-columns"></i> Instituto de Física — Universidade Federal Fluminense</span>
-            <span><i class="fa-solid fa-calendar-days"></i> Última atualização: <time id="lastUpdated" datetime="2026-06-03">03/06/2026</time> · <span id="appVersion">v0306.2</span></span>
+            <span><i class="fa-solid fa-calendar-days"></i> Última atualização: <time id="lastUpdated" datetime="2026-06-03">03/06/2026</time> · <span id="appVersion">v0306.3</span></span>
           </div>
         </div>
         <div class="header-tools" data-termo-header-tools aria-label="Ações principais"></div>
@@ -1896,7 +1896,7 @@
 
     const JSPDF_CDN_URL = "https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js";
     const releaseInfo = {
-      version: "v0306.2",
+      version: "v0306.3",
       date: "2026-06-03",
       label: "03/06/2026"
     };
@@ -2329,24 +2329,34 @@
         </div>
       `;
 
-      topicContainer.querySelectorAll('[data-role="open-view"]').forEach((button) => {
-        button.addEventListener("click", function () {
-          const viewId = button.dataset.viewId || "chapters";
-          if ((viewId === "saved" || viewId === "favorites") && !state.loggedIn) {
-            if (window.TermoAuth?.openModal) {
-              window.TermoAuth.openModal();
-            }
-            return;
-          }
-          void activateView(viewId);
-        });
-      });
+      attachDiscoveryHandlers(topicContainer);
+    }
 
-      topicContainer.querySelectorAll('[data-role="open-drawer-section"]').forEach((button) => {
-        button.addEventListener("click", function () {
-          openDrawer(button.dataset.sectionId || "chapters");
-        });
+    function attachDiscoveryHandlers(scope) {
+      scope.querySelectorAll('[data-role="open-view"], [data-role="open-drawer-section"]').forEach((button) => {
+        button.setAttribute("data-discovery-bound", "true");
       });
+    }
+
+    function handleDiscoveryAction(button) {
+      if (!button) return false;
+
+      if (button.matches('[data-role="open-drawer-section"]')) {
+        openDrawer(button.dataset.sectionId || "chapters");
+        return true;
+      }
+
+      if (button.matches('[data-role="open-view"]')) {
+        const viewId = button.dataset.viewId || "chapters";
+        if ((viewId === "saved" || viewId === "favorites") && !state.loggedIn) {
+          openDrawer("personal");
+          return true;
+        }
+        void activateView(viewId);
+        return true;
+      }
+
+      return false;
     }
 
     function buildExercisePlainText(exercise) {
@@ -3380,6 +3390,17 @@
       if (event.target === menuDrawerOverlay) {
         closeDrawer();
       }
+    });
+
+    document.addEventListener("click", function (event) {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+
+      const discoveryButton = target.closest('[data-role="open-view"], [data-role="open-drawer-section"]');
+      if (!discoveryButton) return;
+
+      event.preventDefault();
+      handleDiscoveryAction(discoveryButton);
     });
 
     document.querySelectorAll("[data-drawer-trigger]").forEach((button) => {
