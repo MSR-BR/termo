@@ -1747,7 +1747,7 @@
           <div class="metadata">
             <span><i class="fa-solid fa-user-tie"></i> Prof. Mario Reis</span>
             <span><i class="fa-solid fa-building-columns"></i> Instituto de Física — Universidade Federal Fluminense</span>
-            <span><i class="fa-solid fa-calendar-days"></i> Última atualização: <time id="lastUpdated" datetime="2026-06-03">03/06/2026</time> · <span id="appVersion">v0306.3</span></span>
+            <span><i class="fa-solid fa-calendar-days"></i> Última atualização: <time id="lastUpdated" datetime="2026-06-03">03/06/2026</time> · <span id="appVersion">v0306.4</span></span>
           </div>
         </div>
         <div class="header-tools" data-termo-header-tools aria-label="Ações principais"></div>
@@ -1848,7 +1848,7 @@
                   <div class="discovery-card__text">Abra as opções pessoais sem bloquear a navegação. O login é opcional e só habilita histórico e favoritos.</div>
                   <div class="discovery-card__meta">Abrir opções</div>
                 </button>
-                <button class="discovery-card" type="button" data-role="open-view" data-view-id="simulators">
+                <button class="discovery-card" type="button" data-role="open-drawer-section" data-section-id="extras">
                   <div class="discovery-card__title"><i class="fa-solid fa-flask-vial"></i> Extras</div>
                   <div class="discovery-card__text">Acesse os simuladores e outros recursos complementares do app em uma área separada.</div>
                   <div class="discovery-card__meta">Explorar recursos</div>
@@ -1861,6 +1861,58 @@
     </main>
 
   </div>
+
+  <script>
+    (function () {
+      if (window.__termoLandingFallback) return;
+      window.__termoLandingFallback = true;
+
+      function setDrawerSection(sectionId) {
+        const normalizedSection = sectionId || "chapters";
+        document.querySelectorAll("[data-drawer-trigger]").forEach(function (button) {
+          const isActive = button.dataset.drawerTrigger === normalizedSection;
+          button.classList.toggle("is-open", isActive);
+          button.setAttribute("aria-expanded", String(isActive));
+        });
+
+        document.querySelectorAll(".drawer-group-panel").forEach(function (panel) {
+          const expectedId = `drawerPanel${normalizedSection.charAt(0).toUpperCase()}${normalizedSection.slice(1)}`;
+          panel.classList.toggle("is-open", panel.id === expectedId);
+        });
+      }
+
+      function openDrawer(sectionId) {
+        const overlay = document.getElementById("menuDrawerOverlay");
+        const menuButton = document.getElementById("menuToggleButton");
+        if (!overlay) return;
+
+        overlay.hidden = false;
+        window.requestAnimationFrame(function () {
+          overlay.classList.add("is-open");
+        });
+
+        if (menuButton) {
+          menuButton.setAttribute("aria-expanded", "true");
+        }
+
+        setDrawerSection(sectionId || "chapters");
+      }
+
+      document.addEventListener("click", function (event) {
+        const target = event.target;
+        const button = target && target.closest
+          ? target.closest('[data-role="open-drawer-section"]')
+          : null;
+
+        if (!button) return;
+
+        event.preventDefault();
+        openDrawer(button.dataset.sectionId || "chapters");
+      });
+
+      window.TermoLandingFallback = { openDrawer, setDrawerSection };
+    })();
+  </script>
 
   <script>
     /*
@@ -1896,7 +1948,7 @@
 
     const JSPDF_CDN_URL = "https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js";
     const releaseInfo = {
-      version: "v0306.3",
+      version: "v0306.4",
       date: "2026-06-03",
       label: "03/06/2026"
     };
@@ -2320,7 +2372,7 @@
               <div class="discovery-card__text">Abra as opções pessoais sem bloquear a navegação. O login é opcional e só habilita histórico e favoritos.</div>
               <div class="discovery-card__meta">Abrir opções</div>
             </button>
-            <button class="discovery-card" type="button" data-role="open-view" data-view-id="simulators">
+            <button class="discovery-card" type="button" data-role="open-drawer-section" data-section-id="extras">
               <div class="discovery-card__title"><i class="fa-solid fa-flask-vial"></i> Extras</div>
               <div class="discovery-card__text">Acesse os simuladores e outros recursos complementares do app em uma área separada.</div>
               <div class="discovery-card__meta">Explorar recursos</div>
