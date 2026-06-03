@@ -589,24 +589,34 @@
     }
   }
 
+  function setButtonHtml(button, html) {
+    if (!button || button.innerHTML === html) return;
+    button.innerHTML = html;
+  }
+
+  function setButtonAttribute(button, name, value) {
+    if (!button || button.getAttribute(name) === value) return;
+    button.setAttribute(name, value);
+  }
+
   function updateTriggerButton() {
     if (!state.triggerButton) return;
 
     if (state.session?.user) {
       const avatarUrl = getAvatarUrl(state.session.user);
       const label = getFriendlyName(state.session.user);
-      state.triggerButton.innerHTML = avatarUrl
+      setButtonHtml(state.triggerButton, avatarUrl
         ? `<img src="${avatarUrl}" alt="" class="auth-avatar"><span>${label}</span>`
-        : `<i class="fa-solid fa-circle-user"></i><span>${label}</span>`;
-      state.triggerButton.setAttribute("aria-label", "Abrir área pessoal e progresso salvo");
+        : `<i class="fa-solid fa-circle-user"></i><span>${label}</span>`);
+      setButtonAttribute(state.triggerButton, "aria-label", "Abrir área pessoal e progresso salvo");
       return;
     }
 
-    state.triggerButton.innerHTML = `
+    setButtonHtml(state.triggerButton, `
       <i class="fa-solid fa-bookmark"></i>
       <span>Salvar progresso</span>
-    `;
-    state.triggerButton.setAttribute("aria-label", "Abrir opcoes de login para salvar progresso");
+    `);
+    setButtonAttribute(state.triggerButton, "aria-label", "Abrir opcoes de login para salvar progresso");
   }
 
   function createFavoriteButton() {
@@ -647,14 +657,16 @@
 
     const button = state.favoriteButton;
     button.classList.toggle("is-active", Boolean(isFavorite));
-    button.innerHTML = `<i class="fa-${isFavorite ? "solid" : "regular"} fa-star"></i>`;
-    button.setAttribute(
+    setButtonHtml(button, `<i class="fa-${isFavorite ? "solid" : "regular"} fa-star"></i>`);
+    setButtonAttribute(
+      button,
       "aria-label",
       state.session?.user
         ? (isFavorite ? "Remover item dos favoritos" : "Salvar item nos favoritos")
         : "Entrar para salvar item nos favoritos"
     );
-    button.setAttribute(
+    setButtonAttribute(
+      button,
       "title",
       state.session?.user
         ? (isFavorite ? "Remover dos favoritos" : "Salvar nos favoritos")

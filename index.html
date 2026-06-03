@@ -81,6 +81,7 @@
       gap: 10px;
       flex-wrap: wrap;
       padding-top: 2px;
+      min-width: 0;
     }
 
     .course-label {
@@ -718,7 +719,7 @@
       border: 1px solid #E8EDF3;
       border-radius: 14px;
       background: #FFFFFF;
-      padding: 18px;
+      padding: 16px;
       box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04);
       text-align: left;
       cursor: pointer;
@@ -746,9 +747,9 @@
     .discovery-card__text {
       color: var(--muted);
       font-family: "Lora", Georgia, serif;
-      font-size: 14.5px;
+      font-size: 14px;
       line-height: 1.55;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .discovery-card__meta {
@@ -1605,6 +1606,7 @@
       .header-tools {
         justify-content: flex-start;
         padding-top: 8px;
+        width: 100%;
       }
       .menu-launcher-row {
         padding: 14px 20px 0 20px;
@@ -1630,6 +1632,23 @@
       .chapter-showcase__grid {
         grid-template-columns: 1fr;
       }
+      .discovery-shell {
+        gap: 14px;
+      }
+      .discovery-card {
+        border-radius: 12px;
+        padding: 14px;
+        min-height: 0;
+      }
+      .discovery-card__title {
+        font-size: 15px;
+        margin-bottom: 6px;
+      }
+      .discovery-card__text {
+        font-size: 13.5px;
+        line-height: 1.45;
+        margin-bottom: 9px;
+      }
       .discovery-actions {
         flex-direction: column;
         align-items: stretch;
@@ -1643,6 +1662,56 @@
       .main-title { font-size: 28px; }
       .drawer-shell {
         width: min(94vw, 360px);
+      }
+    }
+
+    @media (max-width: 520px) {
+      .top-header {
+        padding: 14px 16px;
+      }
+      .header-box {
+        gap: 12px;
+        padding-left: 14px;
+      }
+      .metadata {
+        gap: 8px 14px;
+        font-size: 12.5px;
+      }
+      .header-tools {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+      }
+      .header-tools .termo-auth-trigger,
+      .header-tools .termo-share-button {
+        width: 100%;
+        min-width: 0;
+        min-height: 38px;
+        padding: 8px 10px;
+        font-size: 12.5px;
+      }
+      .header-tools .termo-auth-trigger span,
+      .header-tools .termo-share-button span {
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .menu-launcher-row {
+        padding: 14px 16px 0 16px;
+      }
+      .menu-launcher-note {
+        font-size: 13px;
+      }
+      .layout {
+        padding: 16px;
+      }
+      .chapter-panel {
+        min-height: 0;
+        border-radius: 12px;
+      }
+      .chapter-panel--landing .topic-container,
+      .topic-container {
+        padding: 14px;
       }
     }
   </style>
@@ -1673,12 +1742,12 @@
     <header class="top-header">
       <div class="header-box">
         <div class="header-main">
-          <div class="course-label">Livro Ativo</div>
+          <div class="course-label">Livro Vivo</div>
           <h1 class="main-title">Termodinâmica para Estudantes de Física</h1>
           <div class="metadata">
             <span><i class="fa-solid fa-user-tie"></i> Prof. Mario Reis</span>
             <span><i class="fa-solid fa-building-columns"></i> Instituto de Física — Universidade Federal Fluminense</span>
-            <span><i class="fa-solid fa-calendar-days"></i> Última atualização: <time id="lastUpdated">23/05/2026</time></span>
+            <span><i class="fa-solid fa-calendar-days"></i> Última atualização: <time id="lastUpdated" datetime="2026-06-03">03/06/2026</time> · <span id="appVersion">v0306.1</span></span>
           </div>
         </div>
         <div class="header-tools" data-termo-header-tools aria-label="Ações principais"></div>
@@ -1698,7 +1767,7 @@
         <span>Menu</span>
       </button>
       <div class="menu-launcher-note">
-        Abra Área pessoal, Extras e Capítulos para navegar pelo livro sem tirar o foco do conteúdo.
+        Abra Área Pessoal, Extras e Capítulos pelo Livro Vivo sem tirar o foco do conteúdo.
       </div>
     </div>
 
@@ -1718,7 +1787,7 @@
           <div class="drawer-stack">
             <section class="drawer-group" data-drawer-group="personal">
               <button type="button" class="drawer-group-trigger" data-drawer-trigger="personal" aria-expanded="false" aria-controls="drawerPanelPersonal">
-                <span class="drawer-group-title"><i class="fa-solid fa-circle-user"></i> Área pessoal</span>
+                <span class="drawer-group-title"><i class="fa-solid fa-circle-user"></i> Área Pessoal</span>
                 <i class="fa-solid fa-chevron-down drawer-group-indicator" aria-hidden="true"></i>
               </button>
               <div class="drawer-group-panel" id="drawerPanelPersonal">
@@ -1810,6 +1879,11 @@
     ];
 
     const JSPDF_CDN_URL = "https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js";
+    const releaseInfo = {
+      version: "v0306.1",
+      date: "2026-06-03",
+      label: "03/06/2026"
+    };
 
     const personalViews = [
       {
@@ -1879,6 +1953,20 @@
       jsPdfPromise: null,
       drawerSection: "chapters"
     };
+
+    function renderReleaseInfo() {
+      const lastUpdated = document.getElementById("lastUpdated");
+      const appVersion = document.getElementById("appVersion");
+
+      if (lastUpdated) {
+        lastUpdated.dateTime = releaseInfo.date;
+        lastUpdated.textContent = releaseInfo.label;
+      }
+
+      if (appVersion) {
+        appVersion.textContent = releaseInfo.version;
+      }
+    }
 
     function getDrawerSectionForView(viewId) {
       if (viewId === "saved" || viewId === "favorites" || viewId === "validation-review") return "personal";
@@ -2195,9 +2283,9 @@
 
     function renderDiscoveryLanding() {
       setLandingMode(true);
-      panelKicker.textContent = "Livro ativo";
+      panelKicker.textContent = "Livro Vivo";
       panelTitle.textContent = "Use o menu para navegar";
-      panelDescription.textContent = "Abra Capítulos, Área pessoal ou Extras pelo menu lateral, ou use os atalhos abaixo para ir direto ao que interessa.";
+      panelDescription.textContent = "Abra Capítulos, Área Pessoal ou Extras pelo menu lateral, ou use os atalhos abaixo para ir direto ao que interessa.";
       setActiveChapter("");
       setActivePersonal("");
       setActiveExtra("");
@@ -2211,10 +2299,10 @@
               <div class="discovery-card__text">Abra a estrutura completa do livro e entre nos itens de cada capítulo pelo menu deslizante.</div>
               <div class="discovery-card__meta">Explorar conteúdo</div>
             </button>
-            <button class="discovery-card" type="button" data-role="open-view" data-view-id="saved">
-              <div class="discovery-card__title"><i class="fa-solid fa-circle-user"></i> Área pessoal</div>
-              <div class="discovery-card__text">Veja seus exercícios salvos e os itens favoritos quando estiver com login ativo.</div>
-              <div class="discovery-card__meta">Login Google opcional</div>
+            <button class="discovery-card" type="button" data-role="open-drawer-section" data-section-id="personal">
+              <div class="discovery-card__title"><i class="fa-solid fa-circle-user"></i> Área Pessoal</div>
+              <div class="discovery-card__text">Abra as opções pessoais sem bloquear a navegação. O login é opcional e só habilita histórico e favoritos.</div>
+              <div class="discovery-card__meta">Abrir opções</div>
             </button>
             <button class="discovery-card" type="button" data-role="open-view" data-view-id="simulators">
               <div class="discovery-card__title"><i class="fa-solid fa-flask-vial"></i> Extras</div>
@@ -3027,7 +3115,7 @@
 
     async function renderSavedExercises() {
       setLandingMode(false);
-      panelKicker.textContent = "Área pessoal";
+      panelKicker.textContent = "Área Pessoal";
       panelTitle.textContent = savedPanelCopy.title;
       panelDescription.textContent = savedPanelCopy.description;
       setActiveChapter(state.chapterId);
@@ -3105,7 +3193,7 @@
       setLandingMode(false);
       await refreshFavoriteCollections();
 
-      panelKicker.textContent = "Área pessoal";
+      panelKicker.textContent = "Área Pessoal";
       panelTitle.textContent = favoritesPanelCopy.title;
       panelDescription.textContent = favoritesPanelCopy.description;
       setActiveChapter(state.chapterId);
@@ -3143,7 +3231,7 @@
 
     async function renderValidationReview() {
       setLandingMode(false);
-      panelKicker.textContent = "Área pessoal";
+      panelKicker.textContent = "Área Pessoal";
       panelTitle.textContent = "Validações pendentes";
       panelDescription.textContent = "Revise os relatos enviados pelos usuários e decida quais comentários devem ser aproveitados na melhoria das próximas gerações.";
       setActiveChapter(state.chapterId);
@@ -3323,6 +3411,7 @@
     }
 
     async function bootIndexPage() {
+      renderReleaseInfo();
       renderChapterMenu();
       renderPersonalMenu();
       renderExtrasMenu();
