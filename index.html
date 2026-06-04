@@ -16,8 +16,8 @@
     };
   </script>
   <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
-  <link rel="stylesheet" href="assets/ai-exercises.css?v=0406.4">
-  <script defer src="assets/ai-exercises.js?v=0406.4"></script>
+  <link rel="stylesheet" href="assets/ai-exercises.css?v=0406.5">
+  <script defer src="assets/ai-exercises.js?v=0406.5"></script>
 
   <style>
     :root {
@@ -346,6 +346,13 @@
       display: grid;
       gap: 8px;
       margin-top: 2px;
+    }
+
+    a.chapter-button,
+    a.personal-button,
+    a.extras-button,
+    a.drawer-inline-action {
+      text-decoration: none;
     }
 
     .drawer-inline-action {
@@ -1802,11 +1809,34 @@
   location.replace(target);
 })();
 </script>
-<link rel="stylesheet" href="assets/termo-share.css?v=0406.4">
-<script defer src="assets/termo-share.js?v=0406.4"></script>
-<link rel="stylesheet" href="assets/termo-auth.css?v=0406.4">
-<script defer src="assets/termo-auth.js?v=0406.4"></script>
-<script defer src="assets/termo-user-data.js?v=0406.4"></script>
+<script>
+(function () {
+  const params = new URLSearchParams(window.location.search);
+  const view = params.get("view") || "chapters";
+  const chapterId = params.get("chapter") || "";
+  const path = window.location.pathname || "/";
+  const isIndexPath = path === "/" || /(^|\/)index\.html$/.test(path);
+  window.__termoLandingStaticMode = Boolean(isIndexPath && view === "chapters" && !chapterId);
+})();
+</script>
+<link rel="stylesheet" href="assets/termo-share.css?v=0406.5">
+<link rel="stylesheet" href="assets/termo-auth.css?v=0406.5">
+<script>
+(function () {
+  if (window.__termoLandingStaticMode) return;
+
+  [
+    "assets/termo-share.js?v=0406.5",
+    "assets/termo-auth.js?v=0406.5",
+    "assets/termo-user-data.js?v=0406.5"
+  ].forEach(function (src) {
+    const script = document.createElement("script");
+    script.defer = true;
+    script.src = src;
+    document.head.appendChild(script);
+  });
+})();
+</script>
 </head>
 
 <body>
@@ -1819,7 +1849,7 @@
           <div class="metadata">
             <span><i class="fa-solid fa-user-tie"></i> Prof. Mario Reis</span>
             <span><i class="fa-solid fa-building-columns"></i> Instituto de Física — Universidade Federal Fluminense</span>
-            <span><i class="fa-solid fa-calendar-days"></i> Última atualização: <time id="lastUpdated" datetime="2026-06-04">04/06/2026</time> · <span id="appVersion">v0406.4</span></span>
+            <span><i class="fa-solid fa-calendar-days"></i> Última atualização: <time id="lastUpdated" datetime="2026-06-04">04/06/2026</time> · <span id="appVersion">v0406.5</span></span>
           </div>
         </div>
         <div class="header-tools" data-termo-header-tools aria-label="Ações principais">
@@ -1853,7 +1883,7 @@
       </div>
     </div>
 
-    <div class="drawer-overlay" id="menuDrawerOverlay" hidden>
+    <div class="drawer-overlay" id="menuDrawerOverlay" aria-hidden="true">
       <aside class="drawer-shell" role="dialog" aria-modal="true" aria-labelledby="menuDrawerTitle">
         <div class="drawer-header">
           <div>
@@ -1868,24 +1898,52 @@
         <div class="drawer-scroll">
           <div class="drawer-stack">
             <section class="drawer-group" data-drawer-group="personal">
-              <button type="button" class="drawer-group-trigger" data-drawer-trigger="personal" aria-expanded="false" aria-controls="drawerPanelPersonal">
+              <button type="button" class="drawer-group-trigger is-open" data-drawer-trigger="personal" aria-expanded="true" aria-controls="drawerPanelPersonal">
                 <span class="drawer-group-title"><i class="fa-solid fa-circle-user"></i> Área Pessoal</span>
                 <i class="fa-solid fa-chevron-down drawer-group-indicator" aria-hidden="true"></i>
               </button>
-              <div class="drawer-group-panel" id="drawerPanelPersonal">
-                <div class="personal-list" id="personalList"></div>
+              <div class="drawer-group-panel is-open" id="drawerPanelPersonal">
+                <div class="personal-list" id="personalList">
+                  <a class="personal-button" href="index.html?view=saved">
+                    <span class="extras-icon"><i class="fa-solid fa-book-bookmark"></i></span>
+                    <span class="extras-text">
+                      <span class="extras-label">Meus exercícios</span>
+                      <span class="extras-note">Abra sua lista pessoal de exercícios gerados.</span>
+                    </span>
+                  </a>
+                  <a class="personal-button" href="index.html?view=favorites">
+                    <span class="extras-icon"><i class="fa-solid fa-star"></i></span>
+                    <span class="extras-text">
+                      <span class="extras-label">Itens favoritos</span>
+                      <span class="extras-note">Atalhos rápidos para páginas e exercícios marcados com estrela.</span>
+                    </span>
+                  </a>
+                </div>
                 <div class="sidebar-helper" id="personalHint">Entre com Google para habilitar sua área pessoal.</div>
-                <div class="personal-drawer-actions" id="personalDrawerActions"></div>
+                <div class="personal-drawer-actions" id="personalDrawerActions">
+                  <a class="drawer-inline-action" href="index.html?view=saved">
+                    <i class="fa-brands fa-google"></i>
+                    <span>Entrar com Google</span>
+                  </a>
+                </div>
               </div>
             </section>
 
             <section class="drawer-group" data-drawer-group="extras">
-              <button type="button" class="drawer-group-trigger" data-drawer-trigger="extras" aria-expanded="false" aria-controls="drawerPanelExtras">
+              <button type="button" class="drawer-group-trigger is-open" data-drawer-trigger="extras" aria-expanded="true" aria-controls="drawerPanelExtras">
                 <span class="drawer-group-title"><i class="fa-solid fa-sparkles"></i> Extras</span>
                 <i class="fa-solid fa-chevron-down drawer-group-indicator" aria-hidden="true"></i>
               </button>
-              <div class="drawer-group-panel" id="drawerPanelExtras">
-                <div class="extras-list" id="extrasList"></div>
+              <div class="drawer-group-panel is-open" id="drawerPanelExtras">
+                <div class="extras-list" id="extrasList">
+                  <a class="extras-button" href="index.html?view=simulators">
+                    <span class="extras-icon"><i class="fa-solid fa-flask-vial"></i></span>
+                    <span class="extras-text">
+                      <span class="extras-label">Simuladores</span>
+                      <span class="extras-note">Abra a área com simuladores e recursos complementares.</span>
+                    </span>
+                  </a>
+                </div>
               </div>
             </section>
 
@@ -1895,7 +1953,44 @@
                 <i class="fa-solid fa-chevron-down drawer-group-indicator" aria-hidden="true"></i>
               </button>
               <div class="drawer-group-panel is-open" id="drawerPanelChapters">
-                <ul class="chapter-list" id="chapterList"></ul>
+                <ul class="chapter-list" id="chapterList">
+                  <li>
+                    <a class="chapter-button" href="index.html?view=chapters&chapter=01">
+                      <span class="chapter-number">01</span>
+                      <span class="chapter-name">Conceitos Fundamentais</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="chapter-button" href="index.html?view=chapters&chapter=02">
+                      <span class="chapter-number">02</span>
+                      <span class="chapter-name">Potenciais Termodinâmicos e Aplicações</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="chapter-button" href="index.html?view=chapters&chapter=03">
+                      <span class="chapter-number">03</span>
+                      <span class="chapter-name">Termodinâmica Estatística</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="chapter-button" href="index.html?view=chapters&chapter=04">
+                      <span class="chapter-number">04</span>
+                      <span class="chapter-name">Transições de Fase</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="chapter-button" href="index.html?view=chapters&chapter=05">
+                      <span class="chapter-number">05</span>
+                      <span class="chapter-name">Processos Termodinâmicos</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="chapter-button" href="index.html?view=chapters&chapter=06">
+                      <span class="chapter-number">06</span>
+                      <span class="chapter-name">Ciclos Termodinâmicos</span>
+                    </a>
+                  </li>
+                </ul>
               </div>
             </section>
           </div>
@@ -2267,7 +2362,7 @@
 
     const JSPDF_CDN_URL = "https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js";
     const releaseInfo = {
-      version: "v0406.4",
+      version: "v0406.5",
       date: "2026-06-04",
       label: "04/06/2026"
     };
@@ -2588,7 +2683,9 @@
           closeDrawer();
           if (window.TermoAuth && typeof window.TermoAuth.openModal === "function") {
             window.TermoAuth.openModal();
+            return;
           }
+          window.location.href = "index.html?view=saved";
         });
         personalDrawerActions.appendChild(loginButton);
       }
@@ -3444,7 +3541,10 @@
     }
 
     async function refreshUserState() {
-      const session = await window.TermoAuth?.getSession?.().catch(function () {
+      const sessionPromise = window.TermoAuth && typeof window.TermoAuth.getSession === "function"
+        ? window.TermoAuth.getSession()
+        : Promise.resolve(null);
+      const session = await sessionPromise.catch(function () {
         return null;
       });
 
@@ -3740,105 +3840,109 @@
       await loadChapter(state.chapterId);
     }
 
-    window.addEventListener("termo-open-personal-area", function () {
-      if (!state.loggedIn) return;
-      void activateView("saved");
-    });
-
-    menuToggleButton.addEventListener("click", function (event) {
-      event.preventDefault();
-      if (menuDrawerOverlay.hidden || !menuDrawerOverlay.classList.contains("is-open")) {
-        openDrawer(getDrawerSectionForView(state.view));
-        return;
-      }
-      closeDrawer();
-    });
-
-    menuDrawerClose.addEventListener("click", closeDrawer);
-    menuDrawerOverlay.addEventListener("click", function (event) {
-      if (event.target === menuDrawerOverlay) {
-        closeDrawer();
-      }
-    });
-
-    document.addEventListener("click", function (event) {
-      const target = event.target;
-      if (!(target instanceof Element)) return;
-
-      const discoveryButton = target.closest('[data-role="open-view"], [data-role="open-drawer-section"]');
-      if (!discoveryButton) return;
-
-      if (discoveryButton.matches('a[href][data-role="open-view"]')) {
-        return;
-      }
-
-      event.preventDefault();
-      handleDiscoveryAction(discoveryButton);
-    });
-
-    document.querySelectorAll("[data-drawer-trigger]").forEach((button) => {
-      button.addEventListener("click", function () {
-        const targetSection = button.dataset.drawerTrigger;
-        const isOpen = button.getAttribute("aria-expanded") === "true";
-        const nextSection = isOpen ? "" : targetSection;
-        setDrawerSection(nextSection);
+    if (!window.__termoLandingStaticMode) {
+      window.addEventListener("termo-open-personal-area", function () {
+        if (!state.loggedIn) return;
+        void activateView("saved");
       });
-    });
 
-    document.addEventListener("keydown", function (event) {
-      if (event.key === "Escape") {
+      menuToggleButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        if (menuDrawerOverlay.hidden || !menuDrawerOverlay.classList.contains("is-open")) {
+          openDrawer(getDrawerSectionForView(state.view));
+          return;
+        }
         closeDrawer();
+      });
+
+      menuDrawerClose.addEventListener("click", closeDrawer);
+      menuDrawerOverlay.addEventListener("click", function (event) {
+        if (event.target === menuDrawerOverlay) {
+          closeDrawer();
+        }
+      });
+
+      document.addEventListener("click", function (event) {
+        const target = event.target;
+        if (!(target instanceof Element)) return;
+
+        const discoveryButton = target.closest('[data-role="open-view"], [data-role="open-drawer-section"]');
+        if (!discoveryButton) return;
+
+        if (discoveryButton.matches('a[href][data-role="open-view"]')) {
+          return;
+        }
+
+        event.preventDefault();
+        handleDiscoveryAction(discoveryButton);
+      });
+
+      document.querySelectorAll("[data-drawer-trigger]").forEach((button) => {
+        button.addEventListener("click", function () {
+          const targetSection = button.dataset.drawerTrigger;
+          const isOpen = button.getAttribute("aria-expanded") === "true";
+          const nextSection = isOpen ? "" : targetSection;
+          setDrawerSection(nextSection);
+        });
+      });
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+          closeDrawer();
+        }
+      });
+
+      window.TermoIndexReady = true;
+
+      function bindAuthStateListener() {
+        if (!(window.TermoUserData && typeof window.TermoUserData.onAuthStateChange === "function")) {
+          return;
+        }
+
+        window.TermoUserData.onAuthStateChange(async function () {
+          await refreshUserState();
+
+          if (state.view === "saved") {
+            await renderSavedExercises();
+            return;
+          }
+
+          if (state.view === "favorites") {
+            await renderFavorites();
+            return;
+          }
+
+          if (state.view === "validation-review") {
+            await renderValidationReview();
+            return;
+          }
+
+          if (state.view === "chapters") {
+            await renderPanelActions();
+          }
+        });
       }
-    });
 
-    window.TermoIndexReady = true;
-
-    function bindAuthStateListener() {
-      if (!(window.TermoUserData && typeof window.TermoUserData.onAuthStateChange === "function")) {
-        return;
-      }
-
-      window.TermoUserData.onAuthStateChange(async function () {
+      async function bootIndexPage() {
+        renderReleaseInfo();
+        renderChapterMenu();
+        renderPersonalMenu();
+        renderExtrasMenu();
+        setDrawerSection(state.drawerSection);
+        bindAuthStateListener();
+        await activateView(state.view, state.chapterId);
         await refreshUserState();
+      }
 
-        if (state.view === "saved") {
-          await renderSavedExercises();
-          return;
-        }
-
-        if (state.view === "favorites") {
-          await renderFavorites();
-          return;
-        }
-
-        if (state.view === "validation-review") {
-          await renderValidationReview();
-          return;
-        }
-
-        if (state.view === "chapters") {
-          await renderPanelActions();
-        }
-      });
-    }
-
-    async function bootIndexPage() {
-      renderReleaseInfo();
-      renderChapterMenu();
-      renderPersonalMenu();
-      renderExtrasMenu();
-      setDrawerSection(state.drawerSection);
-      bindAuthStateListener();
-      await activateView(state.view, state.chapterId);
-      await refreshUserState();
-    }
-
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", function () {
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", function () {
+          void bootIndexPage();
+        }, { once: true });
+      } else {
         void bootIndexPage();
-      }, { once: true });
+      }
     } else {
-      void bootIndexPage();
+      renderReleaseInfo();
     }
   </script>
 </body>
