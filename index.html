@@ -16,8 +16,8 @@
     };
   </script>
   <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
-  <link rel="stylesheet" href="assets/ai-exercises.css">
-  <script defer src="assets/ai-exercises.js"></script>
+  <link rel="stylesheet" href="assets/ai-exercises.css?v=0406.1">
+  <script defer src="assets/ai-exercises.js?v=0406.1"></script>
 
   <style>
     :root {
@@ -131,6 +131,7 @@
       border: 1px solid rgba(0, 75, 135, 0.18);
       background: #FFFFFF;
       color: var(--blue);
+      text-decoration: none;
       border-radius: 999px;
       padding: 10px 16px;
       font-family: "Inter", sans-serif;
@@ -171,6 +172,12 @@
       display: none;
     }
 
+    .drawer-overlay:target {
+      display: flex !important;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
     .drawer-overlay.is-open {
       opacity: 1;
       pointer-events: auto;
@@ -189,6 +196,10 @@
     }
 
     .drawer-overlay.is-open .drawer-shell {
+      transform: translateX(0);
+    }
+
+    .drawer-overlay:target .drawer-shell {
       transform: translateX(0);
     }
 
@@ -227,6 +238,7 @@
       border-radius: 999px;
       background: #F8FBFF;
       color: #0B5EA8;
+      text-decoration: none;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -1732,11 +1744,11 @@
   location.replace(target);
 })();
 </script>
-<link rel="stylesheet" href="assets/termo-share.css">
-<script defer src="assets/termo-share.js"></script>
-<link rel="stylesheet" href="assets/termo-auth.css">
-<script defer src="assets/termo-auth.js"></script>
-<script defer src="assets/termo-user-data.js"></script>
+<link rel="stylesheet" href="assets/termo-share.css?v=0406.1">
+<script defer src="assets/termo-share.js?v=0406.1"></script>
+<link rel="stylesheet" href="assets/termo-auth.css?v=0406.1">
+<script defer src="assets/termo-auth.js?v=0406.1"></script>
+<script defer src="assets/termo-user-data.js?v=0406.1"></script>
 </head>
 
 <body>
@@ -1749,34 +1761,35 @@
           <div class="metadata">
             <span><i class="fa-solid fa-user-tie"></i> Prof. Mario Reis</span>
             <span><i class="fa-solid fa-building-columns"></i> Instituto de Física — Universidade Federal Fluminense</span>
-            <span><i class="fa-solid fa-calendar-days"></i> Última atualização: <time id="lastUpdated" datetime="2026-06-03">03/06/2026</time> · <span id="appVersion">v0306.6</span></span>
+            <span><i class="fa-solid fa-calendar-days"></i> Última atualização: <time id="lastUpdated" datetime="2026-06-04">04/06/2026</time> · <span id="appVersion">v0406.1</span></span>
           </div>
         </div>
         <div class="header-tools" data-termo-header-tools aria-label="Ações principais">
-          <button type="button" class="termo-auth-trigger index-back-button" data-termo-auth-button="true" aria-label="Abrir opcoes de login para salvar progresso">
+          <a href="index.html?view=saved" class="termo-auth-trigger index-back-button" data-termo-auth-button="true" aria-label="Abrir opcoes de login para salvar progresso">
             <i class="fa-solid fa-bookmark"></i>
             <span>Salvar progresso</span>
-          </button>
-          <button type="button" class="termo-share-button termo-share-button--index index-back-button" data-termo-share-button="true" aria-label="Enviar esta página para outra pessoa">
+          </a>
+          <a href="mailto:?subject=Termodin%C3%A2mica%20para%20Estudantes%20de%20F%C3%ADsica&body=Achei%20este%20%C3%ADndice%20interativo%20sobre%20Termodin%C3%A2mica%20para%20Estudantes%20de%20F%C3%ADsica.%20Possui%20exerc%C3%ADcios%20autom%C3%A1ticos%2C%20simuladores%20e%20outros%20recursos%20inovadores.%0Ahttps%3A%2F%2Ftermo-theta.vercel.app%2F%3Fview%3Dchapters%26chapter%3D01" class="termo-share-button termo-share-button--index index-back-button" data-termo-share-button="true" aria-label="Enviar esta página para outra pessoa">
             <i class="fa-solid fa-paper-plane"></i>
             <span>Enviar</span>
-          </button>
+          </a>
         </div>
       </div>
     </header>
 
     <div class="menu-launcher-row">
-      <button
-        type="button"
+      <a
+        href="#menuDrawerOverlay"
         class="menu-toggle-button"
         id="menuToggleButton"
+        role="button"
         aria-haspopup="dialog"
         aria-expanded="false"
         aria-controls="menuDrawerOverlay"
       >
         <i class="fa-solid fa-bars"></i>
         <span>Menu</span>
-      </button>
+      </a>
       <div class="menu-launcher-note">
         Abra Área Pessoal, Extras e Capítulos pelo Livro Vivo sem tirar o foco do conteúdo.
       </div>
@@ -1789,9 +1802,9 @@
             <div class="drawer-kicker">Menu</div>
             <h2 class="drawer-title" id="menuDrawerTitle">Navegação do livro</h2>
           </div>
-          <button type="button" class="drawer-close-button" id="menuDrawerClose" aria-label="Fechar menu">
+          <a href="#" class="drawer-close-button" id="menuDrawerClose" role="button" aria-label="Fechar menu">
             <i class="fa-solid fa-xmark"></i>
-          </button>
+          </a>
         </div>
 
         <div class="drawer-scroll">
@@ -1819,11 +1832,11 @@
             </section>
 
             <section class="drawer-group" data-drawer-group="chapters">
-              <button type="button" class="drawer-group-trigger" data-drawer-trigger="chapters" aria-expanded="false" aria-controls="drawerPanelChapters">
+              <button type="button" class="drawer-group-trigger is-open" data-drawer-trigger="chapters" aria-expanded="true" aria-controls="drawerPanelChapters">
                 <span class="drawer-group-title"><i class="fa-solid fa-list-ul"></i> Capítulos</span>
                 <i class="fa-solid fa-chevron-down drawer-group-indicator" aria-hidden="true"></i>
               </button>
-              <div class="drawer-group-panel" id="drawerPanelChapters">
+              <div class="drawer-group-panel is-open" id="drawerPanelChapters">
                 <ul class="chapter-list" id="chapterList"></ul>
               </div>
             </section>
@@ -2196,9 +2209,9 @@
 
     const JSPDF_CDN_URL = "https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js";
     const releaseInfo = {
-      version: "v0306.6",
-      date: "2026-06-03",
-      label: "03/06/2026"
+      version: "v0406.1",
+      date: "2026-06-04",
+      label: "04/06/2026"
     };
 
     const personalViews = [
@@ -3674,7 +3687,8 @@
       void activateView("saved");
     });
 
-    menuToggleButton.addEventListener("click", function () {
+    menuToggleButton.addEventListener("click", function (event) {
+      event.preventDefault();
       if (menuDrawerOverlay.hidden || !menuDrawerOverlay.classList.contains("is-open")) {
         openDrawer(getDrawerSectionForView(state.view));
         return;
