@@ -160,14 +160,14 @@
       white-space: nowrap;
     }
 
-    .menu-toggle-button:hover {
-      transform: translateY(-1px);
-    }
-
     .menu-launcher-note {
       color: var(--muted);
       font-size: 13px;
       line-height: 1.45;
+    }
+
+    .menu-launcher-note:empty {
+      display: none;
     }
 
     .drawer-overlay {
@@ -392,11 +392,6 @@
       font-family: "Inter", sans-serif;
     }
 
-    .extras-button:hover {
-      background: var(--blue-soft);
-      border-color: #C5D8F5;
-    }
-
     .extras-button.active {
       background: var(--blue-soft);
       border-color: #C5D8F5;
@@ -427,11 +422,6 @@
       transition: 0.18s ease;
       color: var(--text);
       font-family: "Inter", sans-serif;
-    }
-
-    .personal-button:hover:not(:disabled) {
-      background: var(--blue-soft);
-      border-color: #C5D8F5;
     }
 
     .personal-button.active {
@@ -489,11 +479,6 @@
       transition: 0.18s ease;
       color: var(--text);
       font-family: "Inter", sans-serif;
-    }
-
-    .chapter-button:hover {
-      background: var(--blue-soft);
-      border-color: #C5D8F5;
     }
 
     .chapter-button.active {
@@ -618,6 +603,10 @@
       font-family: "Lora", Georgia, serif;
       font-size: 16px;
       line-height: 1.55;
+    }
+
+    .panel-description:empty {
+      display: none;
     }
 
     .topic-container {
@@ -775,12 +764,38 @@
       transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
     }
 
-    .discovery-card:hover,
     .discovery-card:focus-visible {
       border-color: #C6D7F2;
       box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
       transform: translateY(-1px);
       outline: none;
+    }
+
+    @media (hover: hover) {
+      .menu-toggle-button:hover {
+        transform: translateY(-1px);
+      }
+
+      .extras-button:hover {
+        background: var(--blue-soft);
+        border-color: #C5D8F5;
+      }
+
+      .personal-button:hover:not(:disabled) {
+        background: var(--blue-soft);
+        border-color: #C5D8F5;
+      }
+
+      .chapter-button:hover {
+        background: var(--blue-soft);
+        border-color: #C5D8F5;
+      }
+
+      .discovery-card:hover {
+        border-color: #C6D7F2;
+        box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+        transform: translateY(-1px);
+      }
     }
 
     .discovery-card__title {
@@ -1832,16 +1847,16 @@
   window.__termoLandingAuthResume = Boolean(hasAuthParams || hasPendingTarget);
 })();
 </script>
-<link rel="stylesheet" href="assets/termo-share.css?v=0406.6">
-<link rel="stylesheet" href="assets/termo-auth.css?v=0406.6">
+<link rel="stylesheet" href="assets/termo-share.css?v=0406.7">
+<link rel="stylesheet" href="assets/termo-auth.css?v=0406.7">
 <script>
 (function () {
   const scripts = window.__termoLandingStaticMode
-    ? (window.__termoLandingAuthResume ? ["assets/termo-auth.js?v=0406.6"] : [])
+    ? (window.__termoLandingAuthResume ? ["assets/termo-auth.js?v=0406.7"] : [])
     : [
-        "assets/termo-share.js?v=0406.6",
-        "assets/termo-auth.js?v=0406.6",
-        "assets/termo-user-data.js?v=0406.6"
+        "assets/termo-share.js?v=0406.7",
+        "assets/termo-auth.js?v=0406.7",
+        "assets/termo-user-data.js?v=0406.7"
       ];
 
   scripts.forEach(function (src) {
@@ -1864,7 +1879,7 @@
           <div class="metadata">
             <span><i class="fa-solid fa-user-tie"></i> Prof. Mario Reis</span>
             <span><i class="fa-solid fa-building-columns"></i> Instituto de Física — Universidade Federal Fluminense</span>
-            <span><i class="fa-solid fa-calendar-days"></i> Última atualização: <time id="lastUpdated" datetime="2026-06-04">04/06/2026</time> · <span id="appVersion">v0406.6</span></span>
+            <span><i class="fa-solid fa-calendar-days"></i> Última atualização: <time id="lastUpdated" datetime="2026-06-04">04/06/2026</time> · <span id="appVersion">v0406.7</span></span>
           </div>
         </div>
         <div class="header-tools" data-termo-header-tools aria-label="Ações principais">
@@ -1872,7 +1887,7 @@
             <i class="fa-solid fa-bookmark"></i>
             <span>Salvar progresso</span>
           </a>
-          <a href="mailto:?subject=Termodin%C3%A2mica%20para%20Estudantes%20de%20F%C3%ADsica&body=Achei%20este%20%C3%ADndice%20interativo%20sobre%20Termodin%C3%A2mica%20para%20Estudantes%20de%20F%C3%ADsica.%20Possui%20exerc%C3%ADcios%20autom%C3%A1ticos%2C%20simuladores%20e%20outros%20recursos%20inovadores.%0Ahttps%3A%2F%2Ftermo-theta.vercel.app%2F%3Fview%3Dchapters%26chapter%3D01" class="termo-share-button termo-share-button--index index-back-button" data-termo-share-button="true" aria-label="Enviar esta página para outra pessoa">
+          <a href="mailto:?subject=Termodin%C3%A2mica%20para%20Estudantes%20de%20F%C3%ADsica&body=Veja%20este%20livro%20interativo%20de%20Termodin%C3%A2mica%20para%20Estudantes%20de%20F%C3%ADsica.%0Ahttps%3A%2F%2Ftermo-theta.vercel.app%2F%3Fview%3Dchapters" class="termo-share-button termo-share-button--index index-back-button" data-termo-share-button="true" aria-label="Enviar esta página para outra pessoa">
             <i class="fa-solid fa-paper-plane"></i>
             <span>Enviar</span>
           </a>
@@ -1893,9 +1908,7 @@
         <i class="fa-solid fa-bars"></i>
         <span>Menu</span>
       </a>
-      <div class="menu-launcher-note">
-        Abra Área Pessoal, Extras e Capítulos pelo Livro Vivo sem tirar o foco do conteúdo.
-      </div>
+      <div class="menu-launcher-note"></div>
     </div>
 
     <div class="drawer-overlay" id="menuDrawerOverlay" aria-hidden="true">
@@ -2035,7 +2048,7 @@
                   <div class="discovery-card__text">Entre direto no primeiro capítulo e navegue pelos itens do livro.</div>
                   <div class="discovery-card__meta">Abrir Capítulo 01</div>
                 </a>
-                <a class="discovery-card" href="index.html?view=saved">
+                <a class="discovery-card" href="index.html?view=saved" data-landing-login-target="index.html?view=saved">
                   <div class="discovery-card__title"><i class="fa-solid fa-circle-user"></i> Área Pessoal</div>
                   <div class="discovery-card__text">Abra seus exercícios e favoritos. O login é opcional e só habilita histórico salvo.</div>
                   <div class="discovery-card__meta">Abrir Área Pessoal</div>
@@ -2377,7 +2390,7 @@
 
     const JSPDF_CDN_URL = "https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js";
     const releaseInfo = {
-      version: "v0406.6",
+      version: "v0406.7",
       date: "2026-06-04",
       label: "04/06/2026"
     };
@@ -2731,7 +2744,13 @@
 
     function setActiveChapter(id) {
       document.querySelectorAll(".chapter-button").forEach((button) => {
-        button.classList.toggle("active", state.view === "chapters" && button.dataset.chapterId === id);
+        const isActive = state.view === "chapters" && button.dataset.chapterId === id;
+        button.classList.toggle("active", isActive);
+        if (isActive) {
+          button.setAttribute("aria-current", "page");
+        } else {
+          button.removeAttribute("aria-current");
+        }
       });
       if (state.view === "chapters") {
         setDrawerSection("chapters");
@@ -2784,7 +2803,7 @@
       setLandingMode(true);
       panelKicker.textContent = "Livro Vivo";
       panelTitle.textContent = "Use o menu para navegar";
-      panelDescription.textContent = "Abra Capítulos, Área Pessoal ou Extras pelo menu lateral, ou use os atalhos abaixo para ir direto ao que interessa.";
+      panelDescription.textContent = "";
       setActiveChapter("");
       setActivePersonal("");
       setActiveExtra("");
@@ -3587,7 +3606,7 @@
 
       panelKicker.textContent = `Capítulo ${chapter.id}`;
       panelTitle.textContent = chapter.title;
-      panelDescription.textContent = "Carregando tópicos do capítulo...";
+      panelDescription.textContent = "";
       topicContainer.innerHTML = `<div class="empty-state"><strong>Aguarde:</strong> buscando o arquivo externo <code>${chapter.data}</code>.</div>`;
       await renderPanelActions();
 
@@ -3598,7 +3617,7 @@
         const data = await response.json();
         const topics = Array.isArray(data.topics) ? data.topics : [];
 
-        panelDescription.textContent = data.description || "Tópicos construídos a partir das apresentações HTML do capítulo.";
+        panelDescription.textContent = "";
 
         if (topics.length === 0) {
           topicContainer.innerHTML = `
@@ -3612,7 +3631,7 @@
 
         renderTopicGrid(topics);
       } catch (error) {
-        panelDescription.textContent = "Este capítulo ainda não possui uma ramificação cadastrada.";
+        panelDescription.textContent = "";
         topicContainer.innerHTML = `
           <div class="empty-state">
             <strong>Ramificação ainda não criada.</strong><br />
@@ -4032,7 +4051,7 @@
 
           if (!existingScript) {
             const script = document.createElement("script");
-            script.src = "assets/termo-auth.js?v=0406.6";
+            script.src = "assets/termo-auth.js?v=0406.7";
             script.async = true;
             script.onerror = function () {
               if (settled) return;

@@ -84,21 +84,12 @@
   }
 
   function buildIndexBlurb() {
-    const panelTitle = firstText(["#panelTitle"]);
-    const topic = panelTitle && panelTitle !== "Índice dos tópicos"
-      ? panelTitle
-      : "Termodinâmica para Estudantes de Física";
-
-    if (topic) {
-      return `Achei este índice interativo sobre ${topic}. Possui exercícios automáticos, simuladores e outros recursos inovadores.`;
-    }
-
-    return "Achei este índice interativo de Termodinâmica para Estudantes de Física. Possui exercícios automáticos, simuladores e outros recursos inovadores.";
+    return "Veja este livro interativo de Termodinâmica para Estudantes de Física.";
   }
 
   function buildPageBlurb() {
     const title = sanitizeTitle(firstText(TITLE_SELECTORS) || document.title || "este material");
-    return `Achei este material interativo sobre ${title}. Possui exercícios automáticos, simuladores e outros recursos inovadores.`;
+    return `Veja este trecho do livro interativo de Termodinâmica para Estudantes de Física: ${title}.`;
   }
 
   function getSharePayload() {

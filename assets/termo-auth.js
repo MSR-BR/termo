@@ -205,14 +205,14 @@
       return {
         kicker: "Acesso opcional",
         title: "Salve seu progresso",
-        copy: "Entre com Google para guardar seu caminho, seus favoritos e seus exercícios sem bloquear o conteúdo."
+        copy: "Entre com Google para salvar seu marcador de página, seus favoritos e seus exercícios sem bloquear o conteúdo."
       };
     }
 
     return {
       kicker: "Acesso opcional",
       title: "Continue este estudo depois",
-      copy: `Entre com Google para salvar este ponto sobre ${title} e retomar exatamente daqui quando quiser.`
+      copy: `Entre com Google para salvar este marcador de página sobre ${title} e retomar exatamente daqui quando quiser.`
     };
   }
 
@@ -337,7 +337,7 @@
         <div class="termo-auth-body">
           <div class="termo-auth-copy">${context.copy}</div>
           <ul class="termo-auth-benefits">
-            <li><i class="fa-solid fa-bookmark"></i><span>Salvar onde você parou.</span></li>
+            <li><i class="fa-solid fa-bookmark"></i><span>Salvar seu marcador de página.</span></li>
             <li><i class="fa-solid fa-star"></i><span>Guardar exercícios e favoritos.</span></li>
           </ul>
           <div class="termo-auth-panel" data-termo-auth-panel></div>
@@ -464,7 +464,7 @@
     const savedTitle = metadata.termo_last_page_title || "";
     const savedLabel = metadata.termo_last_page_label || "";
     const savedPoint = savedTitle
-      ? `<div class="termo-auth-muted">Último ponto salvo: ${savedLabel ? `${savedLabel} · ` : ""}${savedTitle}</div>`
+      ? `<div class="termo-auth-muted">Último marcador salvo: ${savedLabel ? `${savedLabel} · ` : ""}${savedTitle}</div>`
       : "";
     const links = getProfileLinks();
 
