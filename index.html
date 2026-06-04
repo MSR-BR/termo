@@ -1752,7 +1752,16 @@
             <span><i class="fa-solid fa-calendar-days"></i> Última atualização: <time id="lastUpdated" datetime="2026-06-03">03/06/2026</time> · <span id="appVersion">v0306.6</span></span>
           </div>
         </div>
-        <div class="header-tools" data-termo-header-tools aria-label="Ações principais"></div>
+        <div class="header-tools" data-termo-header-tools aria-label="Ações principais">
+          <button type="button" class="termo-auth-trigger index-back-button" data-termo-auth-button="true" aria-label="Abrir opcoes de login para salvar progresso">
+            <i class="fa-solid fa-bookmark"></i>
+            <span>Salvar progresso</span>
+          </button>
+          <button type="button" class="termo-share-button termo-share-button--index index-back-button" data-termo-share-button="true" aria-label="Enviar esta página para outra pessoa">
+            <i class="fa-solid fa-paper-plane"></i>
+            <span>Enviar</span>
+          </button>
+        </div>
       </div>
     </header>
 
@@ -1863,6 +1872,179 @@
     </main>
 
   </div>
+
+  <script>
+    (function () {
+      if (window.__termoEarlyActions) return;
+      window.__termoEarlyActions = true;
+
+      function matchesSelector(element, selector) {
+        var matcher = element.matches || element.msMatchesSelector || element.webkitMatchesSelector;
+        return matcher ? matcher.call(element, selector) : false;
+      }
+
+      function closestElement(element, selector) {
+        var node = element;
+        while (node && node.nodeType === 1) {
+          if (matchesSelector(node, selector)) return node;
+          node = node.parentElement;
+        }
+        return null;
+      }
+
+      function each(selector, callback) {
+        var nodes = document.querySelectorAll(selector);
+        for (var i = 0; i < nodes.length; i += 1) callback(nodes[i]);
+      }
+
+      function setDrawerSection(sectionId) {
+        var normalized = sectionId || "chapters";
+        each("[data-drawer-trigger]", function (button) {
+          var isActive = button.getAttribute("data-drawer-trigger") === normalized;
+          if (isActive) {
+            button.classList.add("is-open");
+          } else {
+            button.classList.remove("is-open");
+          }
+          button.setAttribute("aria-expanded", isActive ? "true" : "false");
+        });
+        each(".drawer-group-panel", function (panel) {
+          var expectedId = "drawerPanel" + normalized.charAt(0).toUpperCase() + normalized.slice(1);
+          if (panel.id === expectedId) {
+            panel.classList.add("is-open");
+          } else {
+            panel.classList.remove("is-open");
+          }
+        });
+      }
+
+      function openDrawer(sectionId) {
+        var overlay = document.getElementById("menuDrawerOverlay");
+        var menuButton = document.getElementById("menuToggleButton");
+        if (!overlay) return;
+        overlay.hidden = false;
+        window.setTimeout(function () {
+          overlay.classList.add("is-open");
+        }, 0);
+        if (menuButton) menuButton.setAttribute("aria-expanded", "true");
+        setDrawerSection(sectionId || "chapters");
+      }
+
+      function closeDrawer() {
+        var overlay = document.getElementById("menuDrawerOverlay");
+        var menuButton = document.getElementById("menuToggleButton");
+        if (!overlay) return;
+        overlay.classList.remove("is-open");
+        if (menuButton) menuButton.setAttribute("aria-expanded", "false");
+        window.setTimeout(function () {
+          if (!overlay.classList.contains("is-open")) overlay.hidden = true;
+        }, 240);
+      }
+
+      function getShareUrl() {
+        var localHost = /^(localhost|127\.0\.0\.1)$/i.test(window.location.hostname);
+        if (!localHost) return window.location.href;
+        var path = window.location.pathname === "/index.html" ? "/" : window.location.pathname;
+        return "https://termo-theta.vercel.app" + path + window.location.search + window.location.hash;
+      }
+
+      function getPageTitle() {
+        var titleNode = document.querySelector("#panelTitle") || document.querySelector(".main-title") || document.querySelector("h1");
+        var text = titleNode && titleNode.textContent ? titleNode.textContent.replace(/\s+/g, " ").trim() : "";
+        return text || "Termodinâmica para Estudantes de Física";
+      }
+
+      function setButtonFeedback(button, text) {
+        if (!button) return;
+        var original = button.getAttribute("data-original-label") || button.innerHTML;
+        button.setAttribute("data-original-label", original);
+        button.innerHTML = '<i class="fa-solid fa-check"></i><span>' + text + '</span>';
+        window.clearTimeout(Number(button.getAttribute("data-feedback-timer") || 0));
+        button.setAttribute("data-feedback-timer", String(window.setTimeout(function () {
+          button.innerHTML = original;
+        }, 1800)));
+      }
+
+      function sharePage(button) {
+        var title = "Termodinâmica para Estudantes de Física";
+        var topic = getPageTitle();
+        var text = "Achei este índice interativo sobre " + topic + ". Possui exercícios automáticos, simuladores e outros recursos inovadores.";
+        var url = getShareUrl();
+        var payload = { title: title, text: text, url: url };
+        var clipboardText = text + "\n" + url;
+
+        if (navigator.share) {
+          navigator.share(payload).then(function () {
+            setButtonFeedback(button, "Enviado");
+          }).catch(function (error) {
+            if (!error || error.name !== "AbortError") setButtonFeedback(button, "Tente de novo");
+          });
+          return;
+        }
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(clipboardText).then(function () {
+            setButtonFeedback(button, "Link copiado");
+          }).catch(function () {
+            window.location.href = "mailto:?subject=" + encodeURIComponent(title) + "&body=" + encodeURIComponent(clipboardText);
+          });
+          return;
+        }
+
+        window.location.href = "mailto:?subject=" + encodeURIComponent(title) + "&body=" + encodeURIComponent(clipboardText);
+      }
+
+      document.addEventListener("click", function (event) {
+        var target = event.target;
+        if (!target || target.nodeType !== 1) target = target && target.parentElement;
+        if (!target) return;
+
+        var shareButton = closestElement(target, "[data-termo-share-button]");
+        if (shareButton) {
+          event.preventDefault();
+          event.stopPropagation();
+          sharePage(shareButton);
+          return;
+        }
+
+        var authButton = closestElement(target, "[data-termo-auth-button]");
+        if (authButton && window.TermoAuth && typeof window.TermoAuth.openModal === "function") {
+          event.preventDefault();
+          event.stopPropagation();
+          window.TermoAuth.openModal();
+          return;
+        }
+
+        var menuButton = closestElement(target, "#menuToggleButton");
+        if (menuButton && !window.TermoIndexReady) {
+          event.preventDefault();
+          openDrawer("chapters");
+          return;
+        }
+
+        var drawerTrigger = closestElement(target, "[data-drawer-trigger]");
+        if (drawerTrigger && !window.TermoIndexReady) {
+          event.preventDefault();
+          var sectionId = drawerTrigger.getAttribute("data-drawer-trigger") || "chapters";
+          var isOpen = drawerTrigger.getAttribute("aria-expanded") === "true";
+          setDrawerSection(isOpen ? "" : sectionId);
+          return;
+        }
+
+        var drawerClose = closestElement(target, "#menuDrawerClose");
+        if (drawerClose && !window.TermoIndexReady) {
+          event.preventDefault();
+          closeDrawer();
+        }
+      }, false);
+
+      window.TermoEarlyActions = {
+        openDrawer: openDrawer,
+        closeDrawer: closeDrawer,
+        sharePage: sharePage
+      };
+    })();
+  </script>
 
   <script>
     (function () {
