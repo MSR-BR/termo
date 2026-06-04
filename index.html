@@ -16,8 +16,8 @@
     };
   </script>
   <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
-  <link rel="stylesheet" href="assets/ai-exercises.css?v=0406.5">
-  <script defer src="assets/ai-exercises.js?v=0406.5"></script>
+  <link rel="stylesheet" href="assets/ai-exercises.css?v=0406.6">
+  <script defer src="assets/ai-exercises.js?v=0406.6"></script>
 
   <style>
     :root {
@@ -1811,25 +1811,40 @@
 </script>
 <script>
 (function () {
+  const landingLoginTargetKey = "termoLandingPostLoginTarget";
   const params = new URLSearchParams(window.location.search);
   const view = params.get("view") || "chapters";
   const chapterId = params.get("chapter") || "";
   const path = window.location.pathname || "/";
   const isIndexPath = path === "/" || /(^|\/)index\.html$/.test(path);
   window.__termoLandingStaticMode = Boolean(isIndexPath && view === "chapters" && !chapterId);
+  if (!window.__termoLandingStaticMode) {
+    window.__termoLandingAuthResume = false;
+    return;
+  }
+
+  const authKeys = ["code", "state", "error", "error_code", "error_description", "access_token", "refresh_token", "provider_token", "provider_refresh_token"];
+  const hashParams = new URLSearchParams(window.location.hash.startsWith("#") ? window.location.hash.slice(1) : "");
+  const hasAuthParams = authKeys.some(function (key) {
+    return params.has(key) || hashParams.has(key);
+  });
+  const hasPendingTarget = Boolean(window.sessionStorage && window.sessionStorage.getItem(landingLoginTargetKey));
+  window.__termoLandingAuthResume = Boolean(hasAuthParams || hasPendingTarget);
 })();
 </script>
-<link rel="stylesheet" href="assets/termo-share.css?v=0406.5">
-<link rel="stylesheet" href="assets/termo-auth.css?v=0406.5">
+<link rel="stylesheet" href="assets/termo-share.css?v=0406.6">
+<link rel="stylesheet" href="assets/termo-auth.css?v=0406.6">
 <script>
 (function () {
-  if (window.__termoLandingStaticMode) return;
+  const scripts = window.__termoLandingStaticMode
+    ? (window.__termoLandingAuthResume ? ["assets/termo-auth.js?v=0406.6"] : [])
+    : [
+        "assets/termo-share.js?v=0406.6",
+        "assets/termo-auth.js?v=0406.6",
+        "assets/termo-user-data.js?v=0406.6"
+      ];
 
-  [
-    "assets/termo-share.js?v=0406.5",
-    "assets/termo-auth.js?v=0406.5",
-    "assets/termo-user-data.js?v=0406.5"
-  ].forEach(function (src) {
+  scripts.forEach(function (src) {
     const script = document.createElement("script");
     script.defer = true;
     script.src = src;
@@ -1849,11 +1864,11 @@
           <div class="metadata">
             <span><i class="fa-solid fa-user-tie"></i> Prof. Mario Reis</span>
             <span><i class="fa-solid fa-building-columns"></i> Instituto de Física — Universidade Federal Fluminense</span>
-            <span><i class="fa-solid fa-calendar-days"></i> Última atualização: <time id="lastUpdated" datetime="2026-06-04">04/06/2026</time> · <span id="appVersion">v0406.5</span></span>
+            <span><i class="fa-solid fa-calendar-days"></i> Última atualização: <time id="lastUpdated" datetime="2026-06-04">04/06/2026</time> · <span id="appVersion">v0406.6</span></span>
           </div>
         </div>
         <div class="header-tools" data-termo-header-tools aria-label="Ações principais">
-          <a href="index.html?view=saved" class="termo-auth-trigger index-back-button" data-termo-auth-button="true" aria-label="Abrir opcoes de login para salvar progresso">
+          <a href="index.html?view=saved" class="termo-auth-trigger index-back-button" data-termo-auth-button="true" data-landing-login-target="index.html?view=saved" aria-label="Abrir opcoes de login para salvar progresso">
             <i class="fa-solid fa-bookmark"></i>
             <span>Salvar progresso</span>
           </a>
@@ -1904,14 +1919,14 @@
               </button>
               <div class="drawer-group-panel is-open" id="drawerPanelPersonal">
                 <div class="personal-list" id="personalList">
-                  <a class="personal-button" href="index.html?view=saved">
+                  <a class="personal-button" href="index.html?view=saved" data-landing-login-target="index.html?view=saved">
                     <span class="extras-icon"><i class="fa-solid fa-book-bookmark"></i></span>
                     <span class="extras-text">
                       <span class="extras-label">Meus exercícios</span>
                       <span class="extras-note">Abra sua lista pessoal de exercícios gerados.</span>
                     </span>
                   </a>
-                  <a class="personal-button" href="index.html?view=favorites">
+                  <a class="personal-button" href="index.html?view=favorites" data-landing-login-target="index.html?view=favorites">
                     <span class="extras-icon"><i class="fa-solid fa-star"></i></span>
                     <span class="extras-text">
                       <span class="extras-label">Itens favoritos</span>
@@ -1921,7 +1936,7 @@
                 </div>
                 <div class="sidebar-helper" id="personalHint">Entre com Google para habilitar sua área pessoal.</div>
                 <div class="personal-drawer-actions" id="personalDrawerActions">
-                  <a class="drawer-inline-action" href="index.html?view=saved">
+                  <a class="drawer-inline-action" href="index.html?view=saved" data-landing-login-target="index.html?view=saved">
                     <i class="fa-brands fa-google"></i>
                     <span>Entrar com Google</span>
                   </a>
@@ -2362,7 +2377,7 @@
 
     const JSPDF_CDN_URL = "https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js";
     const releaseInfo = {
-      version: "v0406.5",
+      version: "v0406.6",
       date: "2026-06-04",
       label: "04/06/2026"
     };
@@ -2783,7 +2798,7 @@
               <div class="discovery-card__text">Entre direto no primeiro capítulo e navegue pelos itens do livro.</div>
               <div class="discovery-card__meta">Abrir Capítulo 01</div>
             </a>
-            <a class="discovery-card" href="index.html?view=saved">
+            <a class="discovery-card" href="index.html?view=saved" data-landing-login-target="index.html?view=saved">
               <div class="discovery-card__title"><i class="fa-solid fa-circle-user"></i> Área Pessoal</div>
               <div class="discovery-card__text">Abra seus exercícios e favoritos. O login é opcional e só habilita histórico salvo.</div>
               <div class="discovery-card__meta">Abrir Área Pessoal</div>
@@ -3943,6 +3958,176 @@
       }
     } else {
       renderReleaseInfo();
+
+      const landingLoginTargetKey = "termoLandingPostLoginTarget";
+      let landingAuthLoader = null;
+      let landingAuthListenerBound = false;
+
+      function readLandingLoginTarget() {
+        try {
+          return window.sessionStorage ? window.sessionStorage.getItem(landingLoginTargetKey) || "" : "";
+        } catch (_error) {
+          return "";
+        }
+      }
+
+      function writeLandingLoginTarget(value) {
+        try {
+          if (!window.sessionStorage) return;
+          if (value) {
+            window.sessionStorage.setItem(landingLoginTargetKey, value);
+          } else {
+            window.sessionStorage.removeItem(landingLoginTargetKey);
+          }
+        } catch (_error) {
+          return;
+        }
+      }
+
+      function normalizeLandingTarget(target) {
+        try {
+          return new URL(target || "index.html?view=saved", window.location.href).toString();
+        } catch (_error) {
+          return new URL("index.html?view=saved", window.location.href).toString();
+        }
+      }
+
+      function ensureLandingAuth() {
+        if (window.TermoAuth && typeof window.TermoAuth.openModal === "function") {
+          return Promise.resolve(window.TermoAuth);
+        }
+
+        if (landingAuthLoader) {
+          return landingAuthLoader;
+        }
+
+        landingAuthLoader = new Promise(function (resolve, reject) {
+          let attempts = 0;
+          let settled = false;
+
+          function finishWithAuth() {
+            if (settled) return true;
+            if (window.TermoAuth && typeof window.TermoAuth.openModal === "function") {
+              settled = true;
+              resolve(window.TermoAuth);
+              return true;
+            }
+            return false;
+          }
+
+          function checkReady() {
+            attempts += 1;
+            if (finishWithAuth()) return;
+            if (attempts >= 50) {
+              settled = true;
+              reject(new Error("Auth loader timeout"));
+              return;
+            }
+            window.setTimeout(checkReady, 100);
+          }
+
+          const existingScript = Array.from(document.scripts).find(function (node) {
+            return typeof node.src === "string" && node.src.indexOf("assets/termo-auth.js") !== -1;
+          });
+
+          if (!existingScript) {
+            const script = document.createElement("script");
+            script.src = "assets/termo-auth.js?v=0406.6";
+            script.async = true;
+            script.onerror = function () {
+              if (settled) return;
+              settled = true;
+              reject(new Error("Auth loader failed"));
+            };
+            document.head.appendChild(script);
+          }
+
+          checkReady();
+        });
+
+        return landingAuthLoader;
+      }
+
+      async function getLandingSession() {
+        const auth = await ensureLandingAuth();
+        if (auth && typeof auth.whenReady === "function") {
+          await auth.whenReady(2600);
+        }
+        if (auth && typeof auth.getSession === "function") {
+          return auth.getSession().catch(function () {
+            return null;
+          });
+        }
+        return null;
+      }
+
+      function bindLandingAuthCompletion() {
+        if (landingAuthListenerBound) return;
+        landingAuthListenerBound = true;
+
+        window.addEventListener("termo-auth-state-change", function (event) {
+          const target = readLandingLoginTarget();
+          if (!target || !event?.detail?.user) return;
+
+          writeLandingLoginTarget("");
+          window.location.assign(target);
+        });
+      }
+
+      async function handleLandingLoginRequest(target) {
+        const normalizedTarget = normalizeLandingTarget(target);
+        writeLandingLoginTarget(normalizedTarget);
+        bindLandingAuthCompletion();
+
+        try {
+          const session = await getLandingSession();
+          if (session?.user) {
+            writeLandingLoginTarget("");
+            window.location.assign(normalizedTarget);
+            return;
+          }
+
+          if (window.TermoAuth && typeof window.TermoAuth.openModal === "function") {
+            window.TermoAuth.openModal();
+            return;
+          }
+        } catch (_error) {
+          // Fallback below.
+        }
+
+        window.location.assign(normalizedTarget);
+      }
+
+      function bindLandingLoginTargets() {
+        document.querySelectorAll("[data-landing-login-target]").forEach(function (anchor) {
+          anchor.addEventListener("click", function (event) {
+            event.preventDefault();
+            void handleLandingLoginRequest(anchor.getAttribute("data-landing-login-target") || anchor.getAttribute("href") || "index.html?view=saved");
+          });
+        });
+      }
+
+      async function resumeLandingLoginFlow() {
+        const pendingTarget = readLandingLoginTarget();
+        if (!pendingTarget) return;
+
+        bindLandingAuthCompletion();
+
+        try {
+          const session = await getLandingSession();
+          if (session?.user) {
+            writeLandingLoginTarget("");
+            window.location.replace(pendingTarget);
+          }
+        } catch (_error) {
+          return;
+        }
+      }
+
+      bindLandingLoginTargets();
+      if (window.__termoLandingAuthResume) {
+        void resumeLandingLoginFlow();
+      }
     }
   </script>
 </body>
