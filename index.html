@@ -924,6 +924,91 @@
       line-height: 1.5;
     }
 
+    .simulator-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr));
+      gap: 16px;
+    }
+
+    .simulator-card {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-width: 0;
+      width: 100%;
+      border: 1px solid #E2E8F0;
+      border-left: 4px solid var(--blue);
+      border-radius: 14px;
+      background: #FFFFFF;
+      padding: 18px;
+      text-decoration: none;
+      color: var(--text);
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+
+    .simulator-card:focus-visible {
+      outline: none;
+      border-color: #C5D8F5;
+      box-shadow: 0 10px 24px rgba(0, 75, 135, 0.10);
+      transform: translateY(-2px);
+    }
+
+    .simulator-card__top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .simulator-card__eyebrow {
+      color: var(--red);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+    }
+
+    .simulator-card__title {
+      color: var(--blue);
+      font-size: 20px;
+      line-height: 1.2;
+      font-weight: 700;
+      overflow-wrap: break-word;
+    }
+
+    .simulator-card__icon {
+      flex: 0 0 auto;
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      background: #EAF2FD;
+      color: var(--blue);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .simulator-card__description {
+      color: var(--muted);
+      font-family: "Lora", Georgia, serif;
+      font-size: 15px;
+      line-height: 1.6;
+      overflow-wrap: break-word;
+    }
+
+    .simulator-card__footer {
+      margin-top: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
     .topic-card {
       display: block;
       background: #F8F9FA;
@@ -1879,7 +1964,7 @@
           <div class="metadata">
             <span><i class="fa-solid fa-user-tie"></i> Prof. Mario Reis</span>
             <span><i class="fa-solid fa-building-columns"></i> Instituto de Física — Universidade Federal Fluminense</span>
-            <span><i class="fa-solid fa-calendar-days"></i> Última atualização: <time id="lastUpdated" datetime="2026-06-04">04/06/2026</time> · <span id="appVersion">v0406.7</span></span>
+            <span><i class="fa-solid fa-calendar-days"></i> Última atualização: <time id="lastUpdated" datetime="2026-06-04">04/06/2026</time> · <span id="appVersion">v0406.8</span></span>
           </div>
         </div>
         <div class="header-tools" data-termo-header-tools aria-label="Ações principais">
@@ -2390,7 +2475,7 @@
 
     const JSPDF_CDN_URL = "https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js";
     const releaseInfo = {
-      version: "v0406.7",
+      version: "v0406.8",
       date: "2026-06-04",
       label: "04/06/2026"
     };
@@ -2502,9 +2587,75 @@
     };
 
     const simulatorsPanelCopy = {
-      title: "Simuladores",
-      description: "Em breve, esta área vai organizar os simuladores externos e atividades exploratórias do curso."
+      title: "Simuladores interativos",
+      description: "Abra cada simulador em uma nova aba e use os applets como apoio visual para explorar os conceitos do livro."
     };
+
+    const simulatorsCatalog = [
+      {
+        id: "S01",
+        title: "Escalas termométricas",
+        description: "Calculadora interativa que permite converter e visualizar temperaturas em Celsius, Fahrenheit e Kelvin com sliders sincronizados e mostradores analógicos.",
+        url: "https://msr-br.github.io/Termodinamica/termometros.html",
+        icon: "fa-temperature-half"
+      },
+      {
+        id: "S02",
+        title: "Equilíbrio térmico",
+        description: "Calculadora que estima a temperatura de equilíbrio térmico e o calor trocado entre múltiplos materiais a partir de massas, calores específicos e temperaturas iniciais.",
+        url: "https://msr-br.github.io/Termodinamica/eqtermico.html",
+        icon: "fa-scale-balanced"
+      },
+      {
+        id: "S03",
+        title: "Relações termodinâmicas e de Maxwell",
+        description: "Applet do Retângulo Termodinâmico com os potenciais U, F, H e G e as variáveis S, T, V e P, permitindo visualizar diferenciais, transformações de Legendre e relações de Maxwell.",
+        url: "https://msr-br.github.io/Termodinamica/qt.html",
+        icon: "fa-table-cells-large"
+      },
+      {
+        id: "S04",
+        title: "Paramagnetismo",
+        description: "Explore a magnetização paramagnética com a Função de Brillouin: ajuste s, g, B e T e acompanhe as curvas m(B) e m(T).",
+        url: "https://msr-br.github.io/Termodinamica/mag.html",
+        icon: "fa-magnet"
+      },
+      {
+        id: "S05",
+        title: "Van der Waals 1",
+        description: "Simulador da equação de Van der Waals em variáveis reduzidas, apresentando isotermas, curva espinodal e ponto crítico.",
+        url: "https://msr-br.github.io/Termodinamica/vdw.html",
+        icon: "fa-chart-line"
+      },
+      {
+        id: "S06",
+        title: "Van der Waals 2",
+        description: "Relaciona a isoterma de Van der Waals com a energia livre g(v), permitindo visualizar como a pressão afeta os mínimos de estabilidade do fluido.",
+        url: "https://msr-br.github.io/Termodinamica/vdw_pv_gv.html",
+        icon: "fa-wave-square"
+      },
+      {
+        id: "S07",
+        title: "Processo isotérmico",
+        description: "Mostra a expansão e compressão isotérmicas de um gás ideal, com animação do pistão, cálculo de ΔQ, ΔW e ΔS e curvas de entropia em tempo real.",
+        url: "https://msr-br.github.io/Termodinamica/isotermico.html",
+        icon: "fa-gauge-high"
+      },
+      {
+        id: "S08",
+        title: "Máquina térmica de Carnot",
+        description: "Simula o ciclo de Carnot com gás ideal, exibindo as quatro transformações, o diagrama S(T), os calores trocados, o trabalho total e a eficiência teórica.",
+        url: "https://msr-br.github.io/Termodinamica/mt_carnot.html",
+        icon: "fa-fire-flame-curved"
+      },
+      {
+        id: "S09",
+        title: "Máquina térmica de Stirling",
+        description: "Simulador do motor de Stirling tipo alfa com regenerador, dois cilindros, virabrequim e cálculo dos trabalhos e calores em cada etapa do ciclo ideal.",
+        url: "https://msr-br.github.io/Termodinamica/stirling_reg.html",
+        icon: "fa-gears"
+      }
+    ];
 
     function escapeHtml(value) {
       return String(value || "").replace(/[&<>"']/g, function (char) {
@@ -3829,10 +3980,34 @@
       setActivePersonal("");
       setActiveExtra("simulators");
       panelActions.innerHTML = "";
+
       topicContainer.innerHTML = `
-        <div class="empty-state">
-          <strong>Simuladores em breve.</strong><br />
-          Esta aba já está reservada para receber os simuladores do livro e das páginas de apoio.
+        <div class="simulator-grid">
+          ${simulatorsCatalog.map(function (simulator) {
+            return `
+              <a
+                class="simulator-card"
+                href="${escapeHtml(simulator.url)}"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div class="simulator-card__top">
+                  <div>
+                    <div class="simulator-card__eyebrow">${escapeHtml(simulator.id)}</div>
+                    <div class="simulator-card__title">${escapeHtml(simulator.title)}</div>
+                  </div>
+                  <span class="simulator-card__icon" aria-hidden="true">
+                    <i class="fa-solid ${escapeHtml(simulator.icon)}"></i>
+                  </span>
+                </div>
+                <div class="simulator-card__description">${escapeHtml(simulator.description)}</div>
+                <div class="simulator-card__footer">
+                  <i class="fa-solid fa-up-right-from-square"></i>
+                  <span>Abrir em nova aba</span>
+                </div>
+              </a>
+            `;
+          }).join("")}
         </div>
       `;
     }
