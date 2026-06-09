@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://termo-theta.vercel.app/sitemap.xml

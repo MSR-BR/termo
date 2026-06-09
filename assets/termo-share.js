@@ -89,7 +89,7 @@
 
   function buildPageBlurb() {
     const title = sanitizeTitle(firstText(TITLE_SELECTORS) || document.title || "este material");
-    return `Veja este trecho do livro interativo de Termodinâmica para Estudantes de Física: ${title}.`;
+    return `Veja este material interativo: ${title}.`;
   }
 
   function getSharePayload() {

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Termodinâmica para Estudantes de Física — Índice</title>
+  <title>Termodinâmica para Estudantes de Física | Livro interativo de Termodinâmica</title>
 
   <link href="https://fonts.googleapis.com" rel="preconnect" />
   <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
@@ -390,6 +390,7 @@
       transition: 0.18s ease;
       color: var(--text);
       font-family: "Inter", sans-serif;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .extras-button.active {
@@ -422,6 +423,7 @@
       transition: 0.18s ease;
       color: var(--text);
       font-family: "Inter", sans-serif;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .personal-button.active {
@@ -479,6 +481,7 @@
       transition: 0.18s ease;
       color: var(--text);
       font-family: "Inter", sans-serif;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .chapter-button.active {
@@ -486,6 +489,17 @@
       border-color: #C5D8F5;
       border-left: 5px solid var(--blue);
       padding-left: 7px;
+    }
+
+    .chapter-button:focus,
+    .chapter-button:focus-visible {
+      outline: none;
+    }
+
+    .chapter-button:not(.active):focus,
+    .chapter-button:not(.active):focus-visible {
+      background: #F8F9FA;
+      border-color: #E8EDF3;
     }
 
     .chapter-number {
@@ -762,6 +776,7 @@
       display: block;
       text-decoration: none;
       transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .discovery-card:focus-visible {
@@ -771,7 +786,7 @@
       outline: none;
     }
 
-    @media (hover: hover) {
+    @media (hover: hover) and (pointer: fine) {
       .menu-toggle-button:hover {
         transform: translateY(-1px);
       }
@@ -1740,6 +1755,142 @@
       font-size: 12px;
     }
 
+    .footer-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding-top: 10px;
+    }
+
+    .footer-link {
+      appearance: none;
+      -webkit-appearance: none;
+      border: 0;
+      background: transparent;
+      color: var(--blue);
+      font-family: "Inter", sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      padding: 2px 0;
+    }
+
+    .footer-link:hover {
+      text-decoration: underline;
+    }
+
+    .footer-divider {
+      color: #A0AEC0;
+      font-size: 12px;
+    }
+
+    .info-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.56);
+      backdrop-filter: blur(6px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 1400;
+    }
+
+    .info-modal-overlay.is-open {
+      display: flex;
+    }
+
+    .info-modal {
+      width: min(100%, 760px);
+      max-height: min(88vh, 860px);
+      overflow: auto;
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      box-shadow: 0 24px 60px rgba(15, 23, 42, 0.24);
+    }
+
+    .info-modal__header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 24px 24px 18px;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, #F8FBFF 0%, #FFFFFF 100%);
+    }
+
+    .info-modal__kicker {
+      color: var(--red);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+
+    .info-modal__title {
+      color: var(--blue);
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1.15;
+    }
+
+    .info-modal__close {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(0, 75, 135, 0.12);
+      border-radius: 999px;
+      background: #F8FBFF;
+      color: #0B5EA8;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      font-size: 18px;
+    }
+
+    .info-modal__body {
+      padding: 22px 24px 26px;
+      color: var(--text);
+      font-family: "Lora", Georgia, serif;
+      font-size: 16px;
+      line-height: 1.7;
+      display: grid;
+      gap: 16px;
+    }
+
+    .info-modal__body p {
+      margin: 0;
+    }
+
+    .info-modal__body ul {
+      margin: 0;
+      padding-left: 22px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .info-modal__body strong {
+      color: var(--blue);
+    }
+
+    .info-modal__body a {
+      color: var(--blue);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .info-modal__body a:hover {
+      text-decoration: underline;
+    }
+
     code {
       background: #EEF3FC;
       padding: 2px 5px;
@@ -1794,6 +1945,10 @@
       }
       .layout {
         padding: 20px;
+      }
+      .footer {
+        padding-left: 20px;
+        padding-right: 20px;
       }
       .topic-container {
         padding: 20px;
@@ -1884,6 +2039,10 @@
       .layout {
         padding: 16px;
       }
+      .footer {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
       .chapter-panel {
         min-height: 0;
         border-radius: 12px;
@@ -1891,6 +2050,24 @@
       .chapter-panel--landing .topic-container,
       .topic-container {
         padding: 14px;
+      }
+      .footer-links {
+        justify-content: flex-start;
+        gap: 10px;
+      }
+      .info-modal {
+        border-radius: 18px;
+      }
+      .info-modal__header {
+        padding: 20px 18px 16px;
+      }
+      .info-modal__title {
+        font-size: 24px;
+      }
+      .info-modal__body {
+        padding: 18px;
+        font-size: 15px;
+        line-height: 1.65;
       }
     }
   </style>
@@ -1932,16 +2109,16 @@
   window.__termoLandingAuthResume = Boolean(hasAuthParams || hasPendingTarget);
 })();
 </script>
-<link rel="stylesheet" href="assets/termo-share.css?v=0406.7">
-<link rel="stylesheet" href="assets/termo-auth.css?v=0406.7">
+<link rel="stylesheet" href="assets/termo-share.css?v=0609.1">
+<link rel="stylesheet" href="assets/termo-auth.css?v=0609.1">
 <script>
 (function () {
   const scripts = window.__termoLandingStaticMode
-    ? (window.__termoLandingAuthResume ? ["assets/termo-auth.js?v=0406.7"] : [])
+    ? ["assets/termo-auth.js?v=0609.1"]
     : [
-        "assets/termo-share.js?v=0406.7",
-        "assets/termo-auth.js?v=0406.7",
-        "assets/termo-user-data.js?v=0406.7"
+        "assets/termo-share.js?v=0609.1",
+        "assets/termo-auth.js?v=0609.1",
+        "assets/termo-user-data.js?v=0609.1"
       ];
 
   scripts.forEach(function (src) {
@@ -1952,6 +2129,25 @@
   });
 })();
 </script>
+<!-- termo-seo:start -->
+<meta name="description" content="Livro interativo de Termodinâmica com capítulos, exercícios automáticos por IA, simuladores, exemplos resolvidos e material didático do Prof. Mario Reis (IF-UFF)."/>
+<meta name="author" content="Prof. Mario Reis"/>
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"/>
+<meta name="googlebot" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"/>
+<meta name="theme-color" content="#004B87"/>
+<link rel="canonical" href="https://termo-theta.vercel.app/"/>
+<meta property="og:locale" content="pt_BR"/>
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="Termodinâmica para Estudantes de Física"/>
+<meta property="og:title" content="Termodinâmica para Estudantes de Física | Livro interativo de Termodinâmica"/>
+<meta property="og:description" content="Livro interativo de Termodinâmica com capítulos, exercícios automáticos por IA, simuladores, exemplos resolvidos e material didático do Prof. Mario Reis (IF-UFF)."/>
+<meta property="og:url" content="https://termo-theta.vercel.app/"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Termodinâmica para Estudantes de Física | Livro interativo de Termodinâmica"/>
+<meta name="twitter:description" content="Livro interativo de Termodinâmica com capítulos, exercícios automáticos por IA, simuladores, exemplos resolvidos e material didático do Prof. Mario Reis (IF-UFF)."/>
+<script type="application/ld+json">[{"@context":"https://schema.org","@type":"WebSite","name":"Termodinâmica para Estudantes de Física","url":"https://termo-theta.vercel.app/","inLanguage":"pt-BR"},{"@context":"https://schema.org","@type":"Course","name":"Termodinâmica para Estudantes de Física","description":"Livro interativo de Termodinâmica com capítulos, exercícios automáticos por IA, simuladores, exemplos resolvidos e material didático do Prof. Mario Reis (IF-UFF).","provider":{"@type":"CollegeOrUniversity","name":"Instituto de Física — Universidade Federal Fluminense"},"creator":{"@type":"Person","name":"Prof. Mario Reis"},"url":"https://termo-theta.vercel.app/"}]</script>
+<!-- termo-seo:end -->
+<script defer src="assets/termo-seo.js?v=0609.2"></script>
 </head>
 
 <body>
@@ -1964,7 +2160,7 @@
           <div class="metadata">
             <span><i class="fa-solid fa-user-tie"></i> Prof. Mario Reis</span>
             <span><i class="fa-solid fa-building-columns"></i> Instituto de Física — Universidade Federal Fluminense</span>
-            <span><i class="fa-solid fa-calendar-days"></i> Última atualização: <time id="lastUpdated" datetime="2026-06-04">04/06/2026</time> · <span id="appVersion">v0406.8</span></span>
+            <span><i class="fa-solid fa-calendar-days"></i> Última atualização: <time id="lastUpdated" datetime="2026-06-09">09/06/2026</time> · <span id="appVersion">v0609.1</span></span>
           </div>
         </div>
         <div class="header-tools" data-termo-header-tools aria-label="Ações principais">
@@ -2118,9 +2314,7 @@
             <div class="panel-headline">
               <div class="panel-kicker" id="panelKicker">Livro Vivo</div>
               <h2 class="panel-title" id="panelTitle">Use o menu para navegar</h2>
-              <p class="panel-description" id="panelDescription">
-                Abra Capítulos, Área Pessoal ou Extras pelo menu lateral, ou use os atalhos abaixo para ir direto ao que interessa.
-              </p>
+              <p class="panel-description" id="panelDescription"></p>
             </div>
             <div class="panel-actions" id="panelActions"></div>
           </div>
@@ -2130,17 +2324,14 @@
               <section class="discovery-grid">
                 <a class="discovery-card" href="index.html?view=chapters&chapter=01">
                   <div class="discovery-card__title"><i class="fa-solid fa-list-ul"></i> Capítulos</div>
-                  <div class="discovery-card__text">Entre direto no primeiro capítulo e navegue pelos itens do livro.</div>
                   <div class="discovery-card__meta">Abrir Capítulo 01</div>
                 </a>
                 <a class="discovery-card" href="index.html?view=saved" data-landing-login-target="index.html?view=saved">
                   <div class="discovery-card__title"><i class="fa-solid fa-circle-user"></i> Área Pessoal</div>
-                  <div class="discovery-card__text">Abra seus exercícios e favoritos. O login é opcional e só habilita histórico salvo.</div>
                   <div class="discovery-card__meta">Abrir Área Pessoal</div>
                 </a>
                 <a class="discovery-card" href="index.html?view=simulators">
                   <div class="discovery-card__title"><i class="fa-solid fa-flask-vial"></i> Extras</div>
-                  <div class="discovery-card__text">Acesse os simuladores e outros recursos complementares do app em uma área separada.</div>
                   <div class="discovery-card__meta">Explorar recursos</div>
                 </a>
               </section>
@@ -2150,6 +2341,29 @@
       </section>
     </main>
 
+    <footer class="footer">
+      <div class="footer-links" aria-label="Informações institucionais">
+        <button type="button" class="footer-link" data-info-modal-open="privacy">Privacidade</button>
+        <span class="footer-divider" aria-hidden="true">•</span>
+        <button type="button" class="footer-link" data-info-modal-open="support">Suporte</button>
+      </div>
+    </footer>
+
+  </div>
+
+  <div class="info-modal-overlay" id="infoModalOverlay" hidden>
+    <div class="info-modal" role="dialog" aria-modal="true" aria-labelledby="infoModalTitle" aria-describedby="infoModalBody">
+      <div class="info-modal__header">
+        <div>
+          <div class="info-modal__kicker" id="infoModalKicker">Informações</div>
+          <h2 class="info-modal__title" id="infoModalTitle">Privacidade</h2>
+        </div>
+        <button type="button" class="info-modal__close" id="infoModalClose" aria-label="Fechar janela">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="info-modal__body" id="infoModalBody"></div>
+    </div>
   </div>
 
   <script>
@@ -2246,8 +2460,7 @@
 
       function sharePage(button) {
         var title = "Termodinâmica para Estudantes de Física";
-        var topic = getPageTitle();
-        var text = "Achei este índice interativo sobre " + topic + ". Possui exercícios automáticos, simuladores e outros recursos inovadores.";
+        var text = "Veja este livro interativo de Termodinâmica para Estudantes de Física.";
         var url = getShareUrl();
         var payload = { title: title, text: text, url: url };
         var clipboardText = text + "\n" + url;
@@ -2322,6 +2535,93 @@
         closeDrawer: closeDrawer,
         sharePage: sharePage
       };
+    })();
+  </script>
+
+  <script>
+    (function () {
+      if (window.__termoInfoModalsReady) return;
+      window.__termoInfoModalsReady = true;
+
+      const modalContent = {
+        privacy: {
+          kicker: "Informação legal",
+          title: "Privacidade",
+          body: `
+            <p>Este app utiliza o login com Google apenas para identificar a conta do usuário e habilitar recursos opcionais de estudo, como <strong>marcador de página</strong>, lista de exercícios salvos, itens favoritos e envio de validações.</p>
+            <p>Ao entrar com Google, o sistema pode receber e armazenar somente os dados básicos autorizados por você no processo de autenticação, como <strong>nome, endereço de e-mail e imagem de perfil</strong>. Esses dados são usados exclusivamente para autenticação, personalização mínima da experiência e sincronização do histórico entre dispositivos.</p>
+            <p>Além disso, o app pode armazenar dados gerados durante o uso, como exercícios criados, favoritos, relatórios de validação e o último ponto de leitura. Esses registros existem para apoiar o estudo, permitir continuidade da navegação e melhorar a qualidade acadêmica do material.</p>
+            <p>Os dados são tratados com apoio da infraestrutura técnica utilizada pelo projeto, incluindo serviços de autenticação, banco de dados e hospedagem. Eles <strong>não são vendidos</strong>, não são usados para publicidade personalizada e não são compartilhados fora do contexto técnico necessário ao funcionamento do app.</p>
+            <p>O navegador também pode manter informações locais, como sessão ativa, preferências e estado temporário da interface, para melhorar a experiência do usuário.</p>
+            <p>Se você desejar corrigir, revisar ou solicitar exclusão dos dados associados à sua conta, entre em contato pelo e-mail <a href="mailto:marioreis@id.uff.br">marioreis@id.uff.br</a>. Você também pode revogar o acesso do Google nas configurações da sua conta Google.</p>
+          `
+        },
+        support: {
+          kicker: "Contato",
+          title: "Suporte",
+          body: `
+            <p>Para problemas <strong>técnicos, conceituais, matemáticos, pedagógicos</strong> ou de qualquer outra natureza relacionados ao app e ao material, envie uma mensagem para o Prof. Mario Reis.</p>
+            <ul>
+              <li><strong>Prof. Mario Reis</strong></li>
+              <li><strong>Instituto de Física — UFF</strong></li>
+              <li><a href="http://profmarioreis.wordpress.com" target="_blank" rel="noopener noreferrer">profmarioreis.wordpress.com</a></li>
+              <li><a href="mailto:marioreis@id.uff.br">marioreis@id.uff.br</a></li>
+            </ul>
+            <p>Se possível, descreva brevemente a página, o capítulo ou o simulador envolvido no problema para facilitar a análise.</p>
+          `
+        }
+      };
+
+      const overlay = document.getElementById("infoModalOverlay");
+      const closeButton = document.getElementById("infoModalClose");
+      const kicker = document.getElementById("infoModalKicker");
+      const title = document.getElementById("infoModalTitle");
+      const body = document.getElementById("infoModalBody");
+
+      function openInfoModal(modalId) {
+        const content = modalContent[modalId];
+        if (!overlay || !content) return;
+        kicker.textContent = content.kicker;
+        title.textContent = content.title;
+        body.innerHTML = content.body;
+        overlay.hidden = false;
+        window.requestAnimationFrame(function () {
+          overlay.classList.add("is-open");
+        });
+      }
+
+      function closeInfoModal() {
+        if (!overlay) return;
+        overlay.classList.remove("is-open");
+        window.setTimeout(function () {
+          if (!overlay.classList.contains("is-open")) overlay.hidden = true;
+        }, 180);
+      }
+
+      document.addEventListener("click", function (event) {
+        const trigger = event.target && event.target.closest ? event.target.closest("[data-info-modal-open]") : null;
+        if (trigger) {
+          event.preventDefault();
+          openInfoModal(trigger.getAttribute("data-info-modal-open"));
+          return;
+        }
+
+        if (closeButton && (event.target === closeButton || closeButton.contains(event.target))) {
+          event.preventDefault();
+          closeInfoModal();
+          return;
+        }
+
+        if (overlay && event.target === overlay) {
+          closeInfoModal();
+        }
+      });
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && overlay && overlay.classList.contains("is-open")) {
+          closeInfoModal();
+        }
+      });
     })();
   </script>
 
@@ -2475,9 +2775,9 @@
 
     const JSPDF_CDN_URL = "https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js";
     const releaseInfo = {
-      version: "v0406.8",
-      date: "2026-06-04",
-      label: "04/06/2026"
+      version: "v0609.1",
+      date: "2026-06-09",
+      label: "09/06/2026"
     };
 
     const personalViews = [
@@ -2965,17 +3265,14 @@
           <section class="discovery-grid">
             <a class="discovery-card" href="index.html?view=chapters&chapter=01">
               <div class="discovery-card__title"><i class="fa-solid fa-list-ul"></i> Capítulos</div>
-              <div class="discovery-card__text">Entre direto no primeiro capítulo e navegue pelos itens do livro.</div>
               <div class="discovery-card__meta">Abrir Capítulo 01</div>
             </a>
             <a class="discovery-card" href="index.html?view=saved" data-landing-login-target="index.html?view=saved">
               <div class="discovery-card__title"><i class="fa-solid fa-circle-user"></i> Área Pessoal</div>
-              <div class="discovery-card__text">Abra seus exercícios e favoritos. O login é opcional e só habilita histórico salvo.</div>
               <div class="discovery-card__meta">Abrir Área Pessoal</div>
             </a>
             <a class="discovery-card" href="index.html?view=simulators">
               <div class="discovery-card__title"><i class="fa-solid fa-flask-vial"></i> Extras</div>
-              <div class="discovery-card__text">Acesse os simuladores e outros recursos complementares do app em uma área separada.</div>
               <div class="discovery-card__meta">Explorar recursos</div>
             </a>
           </section>
@@ -4226,7 +4523,7 @@
 
           if (!existingScript) {
             const script = document.createElement("script");
-            script.src = "assets/termo-auth.js?v=0406.7";
+            script.src = "assets/termo-auth.js?v=0609.1";
             script.async = true;
             script.onerror = function () {
               if (settled) return;
@@ -4286,10 +4583,8 @@
             return;
           }
         } catch (_error) {
-          // Fallback below.
+          return;
         }
-
-        window.location.assign(normalizedTarget);
       }
 
       function bindLandingLoginTargets() {

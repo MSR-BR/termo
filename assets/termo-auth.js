@@ -204,7 +204,7 @@
     if (isIndexPage()) {
       return {
         kicker: "Acesso opcional",
-        title: "Salve seu progresso",
+        title: "Salve seu marcador de página",
         copy: "Entre com Google para salvar seu marcador de página, seus favoritos e seus exercícios sem bloquear o conteúdo."
       };
     }
@@ -469,7 +469,7 @@
     const links = getProfileLinks();
 
     return `
-      <div class="termo-auth-panel-title">Você já está com o progresso salvo</div>
+      <div class="termo-auth-panel-title">Você já está com seu marcador salvo</div>
       <div class="termo-auth-account">
         ${avatarUrl ? `<img src="${avatarUrl}" alt="" class="termo-auth-account-avatar">` : `<div class="termo-auth-account-avatar"></div>`}
         <div>
@@ -608,7 +608,7 @@
       setButtonHtml(state.triggerButton, avatarUrl
         ? `<img src="${avatarUrl}" alt="" class="auth-avatar"><span>${label}</span>`
         : `<i class="fa-solid fa-circle-user"></i><span>${label}</span>`);
-      setButtonAttribute(state.triggerButton, "aria-label", "Abrir área pessoal e progresso salvo");
+      setButtonAttribute(state.triggerButton, "aria-label", "Abrir área pessoal e marcador salvo");
       return;
     }
 
