@@ -1024,6 +1024,105 @@
       font-weight: 700;
     }
 
+    .simulator-detail {
+      display: grid;
+      gap: 16px;
+    }
+
+    .simulator-detail__intro,
+    .simulator-detail__frame {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 18px;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04);
+    }
+
+    .simulator-detail__intro {
+      padding: 18px;
+    }
+
+    .simulator-detail__eyebrow {
+      color: var(--red);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 8px;
+    }
+
+    .simulator-detail__title {
+      color: var(--blue);
+      font-size: clamp(24px, 3.2vw, 34px);
+      line-height: 1.15;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .simulator-detail__description {
+      color: var(--muted);
+      font-family: "Lora", Georgia, serif;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .simulator-detail__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .simulator-detail__button {
+      appearance: none;
+      -webkit-appearance: none;
+      border: 1px solid #C7D8F3;
+      background: #FFFFFF;
+      color: var(--blue);
+      border-radius: 999px;
+      padding: 10px 15px;
+      text-decoration: none;
+      font-family: "Inter", sans-serif;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .simulator-detail__button--primary {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: #FFFFFF;
+    }
+
+    .simulator-detail__frame {
+      padding: 12px;
+    }
+
+    .simulator-detail__frame iframe {
+      display: block;
+      width: 100%;
+      min-height: 760px;
+      border: 0;
+      border-radius: 14px;
+      background: #FFFFFF;
+    }
+
+    @media (max-width: 720px) {
+      .simulator-detail__intro {
+        padding: 16px;
+      }
+
+      .simulator-detail__frame {
+        padding: 10px;
+      }
+
+      .simulator-detail__frame iframe {
+        min-height: 620px;
+      }
+    }
+
     .topic-card {
       display: block;
       background: #F8F9FA;
@@ -2849,6 +2948,7 @@
     const state = {
       view: viewIds.has(requestedView) ? requestedView : "chapters",
       chapterId: params.get("chapter") || "",
+      simulatorId: params.get("sim") || "",
       loggedIn: false,
       canReviewValidations: false,
       favoriteItems: [],
@@ -2978,74 +3078,97 @@
 
     const simulatorsPanelCopy = {
       title: "Simuladores interativos",
-      description: "Abra cada simulador em uma nova aba e use os applets como apoio visual para explorar os conceitos do livro."
+      description: "Abra cada simulador dentro do app e use os applets como apoio visual para explorar os conceitos do livro."
     };
 
     const simulatorsCatalog = [
       {
         id: "S01",
+        slug: "termometros",
         title: "Escalas termométricas",
         description: "Calculadora interativa que permite converter e visualizar temperaturas em Celsius, Fahrenheit e Kelvin com sliders sincronizados e mostradores analógicos.",
-        url: "https://msr-br.github.io/Termodinamica/termometros.html",
+        url: "index.html?view=simulators&sim=termometros",
+        standaloneUrl: "simulators/termometros.html",
         icon: "fa-temperature-half"
       },
       {
         id: "S02",
+        slug: "eqtermico",
         title: "Equilíbrio térmico",
         description: "Calculadora que estima a temperatura de equilíbrio térmico e o calor trocado entre múltiplos materiais a partir de massas, calores específicos e temperaturas iniciais.",
-        url: "https://msr-br.github.io/Termodinamica/eqtermico.html",
+        url: "index.html?view=simulators&sim=eqtermico",
+        standaloneUrl: "simulators/eqtermico.html",
         icon: "fa-scale-balanced"
       },
       {
         id: "S03",
+        slug: "qt",
         title: "Relações termodinâmicas e de Maxwell",
         description: "Applet do Retângulo Termodinâmico com os potenciais U, F, H e G e as variáveis S, T, V e P, permitindo visualizar diferenciais, transformações de Legendre e relações de Maxwell.",
-        url: "https://msr-br.github.io/Termodinamica/qt.html",
+        url: "index.html?view=simulators&sim=qt",
+        standaloneUrl: "simulators/qt.html",
         icon: "fa-table-cells-large"
       },
       {
         id: "S04",
+        slug: "mag",
         title: "Paramagnetismo",
         description: "Explore a magnetização paramagnética com a Função de Brillouin: ajuste s, g, B e T e acompanhe as curvas m(B) e m(T).",
-        url: "https://msr-br.github.io/Termodinamica/mag.html",
+        url: "index.html?view=simulators&sim=mag",
+        standaloneUrl: "simulators/mag.html",
         icon: "fa-magnet"
       },
       {
         id: "S05",
+        slug: "vdw",
         title: "Van der Waals 1",
         description: "Simulador da equação de Van der Waals em variáveis reduzidas, apresentando isotermas, curva espinodal e ponto crítico.",
-        url: "https://msr-br.github.io/Termodinamica/vdw.html",
+        url: "index.html?view=simulators&sim=vdw",
+        standaloneUrl: "simulators/vdw.html",
         icon: "fa-chart-line"
       },
       {
         id: "S06",
+        slug: "vdw_pv_gv",
         title: "Van der Waals 2",
         description: "Relaciona a isoterma de Van der Waals com a energia livre g(v), permitindo visualizar como a pressão afeta os mínimos de estabilidade do fluido.",
-        url: "https://msr-br.github.io/Termodinamica/vdw_pv_gv.html",
+        url: "index.html?view=simulators&sim=vdw_pv_gv",
+        standaloneUrl: "simulators/vdw_pv_gv.html",
         icon: "fa-wave-square"
       },
       {
         id: "S07",
+        slug: "isotermico",
         title: "Processo isotérmico",
         description: "Mostra a expansão e compressão isotérmicas de um gás ideal, com animação do pistão, cálculo de ΔQ, ΔW e ΔS e curvas de entropia em tempo real.",
-        url: "https://msr-br.github.io/Termodinamica/isotermico.html",
+        url: "index.html?view=simulators&sim=isotermico",
+        standaloneUrl: "simulators/isotermico.html",
         icon: "fa-gauge-high"
       },
       {
         id: "S08",
+        slug: "mt_carnot",
         title: "Máquina térmica de Carnot",
         description: "Simula o ciclo de Carnot com gás ideal, exibindo as quatro transformações, o diagrama S(T), os calores trocados, o trabalho total e a eficiência teórica.",
-        url: "https://msr-br.github.io/Termodinamica/mt_carnot.html",
+        url: "index.html?view=simulators&sim=mt_carnot",
+        standaloneUrl: "simulators/mt_carnot.html",
         icon: "fa-fire-flame-curved"
       },
       {
         id: "S09",
+        slug: "stirling_reg",
         title: "Máquina térmica de Stirling",
         description: "Simulador do motor de Stirling tipo alfa com regenerador, dois cilindros, virabrequim e cálculo dos trabalhos e calores em cada etapa do ciclo ideal.",
-        url: "https://msr-br.github.io/Termodinamica/stirling_reg.html",
+        url: "index.html?view=simulators&sim=stirling_reg",
+        standaloneUrl: "simulators/stirling_reg.html",
         icon: "fa-gears"
       }
     ];
+
+    const simulatorsBySlug = simulatorsCatalog.reduce(function (accumulator, simulator) {
+      accumulator[simulator.slug] = simulator;
+      return accumulator;
+    }, {});
 
     function escapeHtml(value) {
       return String(value || "").replace(/[&<>"']/g, function (char) {
@@ -3181,6 +3304,11 @@
       } else {
         url.searchParams.delete("chapter");
       }
+      if (state.view === "simulators" && state.simulatorId) {
+        url.searchParams.set("sim", state.simulatorId);
+      } else {
+        url.searchParams.delete("sim");
+      }
       window.history.replaceState({}, "", url);
     }
 
@@ -3279,6 +3407,7 @@
         `;
         button.addEventListener("click", function () {
           closeDrawer();
+          state.simulatorId = "";
           void activateView(view.id);
         });
         extrasList.appendChild(button);
@@ -4379,16 +4508,31 @@
       await typesetValidationReview(topicContainer);
     }
 
-    function renderSimulators() {
-      setLandingMode(false);
-      panelKicker.textContent = "Recursos interativos";
-      panelTitle.textContent = simulatorsPanelCopy.title;
-      panelDescription.textContent = simulatorsPanelCopy.description;
-      setActiveChapter(state.chapterId);
-      setActivePersonal("");
-      setActiveExtra("simulators");
-      panelActions.innerHTML = "";
+    function attachSimulatorFrameAutoResize(frame) {
+      if (!(frame instanceof HTMLIFrameElement)) return;
 
+      function resizeFrame() {
+        try {
+          const documentRef = frame.contentDocument;
+          if (!documentRef) return;
+          const bodyHeight = documentRef.body ? documentRef.body.scrollHeight : 0;
+          const docHeight = documentRef.documentElement ? documentRef.documentElement.scrollHeight : 0;
+          const nextHeight = Math.max(bodyHeight, docHeight, 720);
+          frame.style.height = `${nextHeight}px`;
+        } catch (_error) {
+          // Mesma origem esperada; se falhar, mantemos a altura mínima do CSS.
+        }
+      }
+
+      frame.addEventListener("load", function () {
+        resizeFrame();
+        window.setTimeout(resizeFrame, 120);
+        window.setTimeout(resizeFrame, 360);
+        window.setTimeout(resizeFrame, 900);
+      });
+    }
+
+    function renderSimulatorCatalog() {
       topicContainer.innerHTML = `
         <div class="simulator-grid">
           ${simulatorsCatalog.map(function (simulator) {
@@ -4396,8 +4540,6 @@
               <a
                 class="simulator-card"
                 href="${escapeHtml(simulator.url)}"
-                target="_blank"
-                rel="noopener noreferrer"
               >
                 <div class="simulator-card__top">
                   <div>
@@ -4410,8 +4552,8 @@
                 </div>
                 <div class="simulator-card__description">${escapeHtml(simulator.description)}</div>
                 <div class="simulator-card__footer">
-                  <i class="fa-solid fa-up-right-from-square"></i>
-                  <span>Abrir em nova aba</span>
+                  <i class="fa-solid fa-arrow-right"></i>
+                  <span>Abrir no app</span>
                 </div>
               </a>
             `;
@@ -4420,11 +4562,62 @@
       `;
     }
 
-    async function activateView(viewId, chapterId) {
+    function renderSimulatorDetail(simulator) {
+      topicContainer.innerHTML = `
+        <div class="simulator-detail">
+          <section class="simulator-detail__intro">
+            <div class="simulator-detail__eyebrow">${escapeHtml(simulator.id)}</div>
+            <h2 class="simulator-detail__title">${escapeHtml(simulator.title)}</h2>
+            <div class="simulator-detail__description">${escapeHtml(simulator.description)}</div>
+            <div class="simulator-detail__actions">
+              <a class="simulator-detail__button" href="index.html?view=simulators">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>Voltar ao catálogo</span>
+              </a>
+              <a class="simulator-detail__button simulator-detail__button--primary" href="${escapeHtml(simulator.standaloneUrl)}" target="_blank" rel="noopener noreferrer">
+                <i class="fa-solid fa-up-right-from-square"></i>
+                <span>Abrir em nova aba sem cabeçalho</span>
+              </a>
+            </div>
+          </section>
+          <section class="simulator-detail__frame">
+            <iframe id="simulatorEmbeddedFrame" src="${escapeHtml(simulator.standaloneUrl)}" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title="${escapeHtml(simulator.title)}"></iframe>
+          </section>
+        </div>
+      `;
+
+      attachSimulatorFrameAutoResize(topicContainer.querySelector("#simulatorEmbeddedFrame"));
+    }
+
+    function renderSimulators() {
+      setLandingMode(false);
+      panelKicker.textContent = "Recursos interativos";
+      panelTitle.textContent = simulatorsPanelCopy.title;
+      panelDescription.textContent = simulatorsPanelCopy.description;
+      setActiveChapter(state.chapterId);
+      setActivePersonal("");
+      setActiveExtra("simulators");
+      panelActions.innerHTML = "";
+
+      const selectedSimulator = simulatorsBySlug[state.simulatorId] || null;
+      if (selectedSimulator) {
+        renderSimulatorDetail(selectedSimulator);
+        return;
+      }
+
+      renderSimulatorCatalog();
+    }
+
+    async function activateView(viewId, chapterId, simulatorId) {
       state.view = viewId;
       state.drawerSection = getDrawerSectionForView(viewId);
       if (typeof chapterId !== "undefined") {
         state.chapterId = chapterId || "";
+      }
+      if (typeof simulatorId !== "undefined") {
+        state.simulatorId = simulatorId || "";
+      } else if (viewId !== "simulators") {
+        state.simulatorId = "";
       }
 
       syncUrl();

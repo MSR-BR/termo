@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Motor de Stirling Alfa com Regenerador</title>
+<style>
+  :root {
+    --bg: #FCFCFA;
+    --panel: #FFFFFF;
+    --header: #F2F4F7;
+    --text: #2C3E50;
+    --muted: #5D6D7E;
+    --blue: #004B87;
+    --border: #DDE3ED;
+    --shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  }
+  * { box-sizing: border-box; }
+  html, body { width: 100%; max-width: 100%; overflow-x: hidden; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+  }
+  .page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  .hero {
+    background: var(--header);
+    border-bottom: 1px solid var(--border);
+    padding: 22px 24px;
+  }
+  .hero-box {
+    max-width: 1220px;
+    margin: 0 auto;
+    border-left: 6px solid var(--blue);
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .kicker {
+    font-size: 13px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .9px;
+    font-weight: 700;
+  }
+  .hero h1 {
+    margin: 0;
+    color: var(--blue);
+    font-size: clamp(26px, 3.8vw, 40px);
+    line-height: 1.15;
+  }
+  .hero p {
+    margin: 0;
+    line-height: 1.7;
+  }
+  .hero .lead {
+    font-family: "Lora", Georgia, serif;
+    font-size: clamp(18px, 2.1vw, 23px);
+  }
+  .hero .credits {
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .hero a { color: var(--blue); }
+  #main {
+    width: 100%;
+    max-width: 1220px;
+    margin: 0 auto;
+    padding: 24px;
+    display: grid;
+    gap: 18px;
+  }
+  .sim-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    box-shadow: var(--shadow);
+    padding: 18px 20px;
+  }
+  .sim-card h2,
+  .sim-card h3 {
+    margin: 0 0 10px 0;
+    color: var(--blue);
+  }
+  .canvas-card {
+    padding: 14px;
+  }
+  .canvas-wrap {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 18px;
+    border: 1px solid var(--border);
+    background: #FFFFFF;
+  }
+  canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1100 / 650;
+    background: #ffffff;
+  }
+  .status-line {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    font-size: 15px;
+    color: var(--muted);
+  }
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: var(--header);
+    border: 1px solid var(--border);
+    font-weight: 700;
+    color: var(--blue);
+  }
+  .controls-layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+  }
+  .control-group {
+    padding: 16px;
+    border-radius: 18px;
+    background: #FAFBFD;
+    border: 1px solid var(--border);
+    text-align: left;
+  }
+  .control-group h4 {
+    margin: 0 0 12px 0;
+    color: var(--blue);
+    font-size: 16px;
+  }
+  .field-grid {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 10px;
+    align-items: center;
+  }
+  .field-grid + .field-grid {
+    margin-top: 10px;
+  }
+  .field-grid label {
+    font-size: 14px;
+    color: var(--text);
+    font-weight: 600;
+  }
+  .field-grid input {
+    width: 110px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    font: inherit;
+    color: var(--text);
+    background: #FFFFFF;
+  }
+  .unit {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 600;
+  }
+  .button-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  button {
+    appearance: none;
+    border: 1px solid rgba(0, 75, 135, 0.18);
+    background: #FFFFFF;
+    color: var(--blue);
+    border-radius: 999px;
+    padding: 11px 18px;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+  }
+  #results {
+    text-align: left;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--text);
+  }
+  #resultadoTexto {
+    color: var(--muted);
+  }
+  .result-note {
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  @media (max-width: 720px) {
+    .hero { padding: 18px 16px; }
+    #main { padding: 18px 16px 24px 16px; }
+    .sim-card { padding: 16px 18px; }
+    .canvas-card { padding: 10px; }
+    .field-grid { grid-template-columns: 1fr; }
+    .field-grid input { width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="hero">
+    <div class="hero-box">
+      <div class="kicker">Simulador interativo</div>
+      <h1>Motor de Stirling Alfa com regenerador</h1>
+      <p class="lead">Modelo geométrico do ciclo com dois cilindros, virabrequim e cálculo das trocas de calor e trabalho em cada etapa ideal. Esta revisão atua apenas no layout, na responsividade e na consistência visual.</p>
+      <p class="credits">Desenvolvido por Mario Reis — Instituto de Física, Universidade Federal Fluminense (UFF) · <a href="mailto:marioreis@id.uff.br">marioreis@id.uff.br</a> · <a href="http://profmarioreis.wordpress.com" target="_blank" rel="noopener">profmarioreis.wordpress.com</a> · Versão 1.0 — 26 de julho de 2025</p>
+    </div>
+  </header>
+
+  <div id="main">
+    <section class="sim-card canvas-card">
+      <div class="status-line">
+        <span class="status-pill">Ângulo &theta; do virabrequim: <span id="thetaValue">0</span>°</span>
+        <div class="button-row">
+          <button type="button" onclick="toggleRun()">Iniciar / Pausar</button>
+        </div>
+      </div>
+      <div class="canvas-wrap">
+        <canvas id="stirlingCanvas" width="1100" height="650"></canvas>
+      </div>
+    </section>
+
+    <section class="sim-card">
+      <h2>Parâmetros do ciclo</h2>
+      <div class="controls-layout">
+        <div class="control-group">
+          <h4>Volumes característicos</h4>
+          <div class="field-grid">
+            <label for="V14">V1 = V4</label>
+            <input id="V14" type="number" value="5">
+            <span class="unit">L</span>
+          </div>
+          <div class="field-grid">
+            <label for="V23">V2 = V3</label>
+            <input id="V23" type="number" value="7">
+            <span class="unit">L</span>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <h4>Reservatórios térmicos</h4>
+          <div class="field-grid">
+            <label for="TH">TH</label>
+            <input id="TH" type="number" value="600">
+            <span class="unit">K</span>
+          </div>
+          <div class="field-grid">
+            <label for="TC">TC</label>
+            <input id="TC" type="number" value="300">
+            <span class="unit">K</span>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <h4>Ações</h4>
+          <div class="button-row">
+            <button type="button" onclick="updateParametros()">Atualizar parâmetros</button>
+            <button type="button" onclick="mostrarResultados()">Calcular trabalhos e calores</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sim-card" id="results">
+      <h3>Trabalhos e calores (gás ideal, n = 1 mol)</h3>
+      <div id="resultadoTexto">
+        &Delta;W<sub>21</sub> = ?, &Delta;Q<sub>21</sub> = ?<br>
+        &Delta;Q<sub>32</sub> = ?<br>
+        &Delta;W<sub>43</sub> = ?, &Delta;Q<sub>43</sub> = ?<br>
+        &Delta;Q<sub>14</sub> = ?
+      </div>
+      <p class="result-note">A cinemática e os cálculos originais foram mantidos. O ajuste aqui é apenas de apresentação e ergonomia.</p>
+    </section>
+  </div>
+</div>
+
+<script>
+// ---------------- Parâmetros termodinâmicos ----------------
+let V1 = 5, V2 = 7, V3 = 7, V4 = 5; // em litros
+let TH = 600, TC = 300;             // em kelvin
+
+function updateParametros() {
+  const v14 = parseFloat(document.getElementById('V14').value) || 5;
+  const v23 = parseFloat(document.getElementById('V23').value) || 7;
+  const th  = parseFloat(document.getElementById('TH').value)  || 600;
+  const tc  = parseFloat(document.getElementById('TC').value)  || 300;
+  V1 = V4 = v14;
+  V2 = V3 = v23;
+  TH = th;
+  TC = tc;
+}
+
+function computeWorkAndHeat() {
+  const R  = 8.314;       // J/mol·K
+  const n  = 1.0;         // mol
+  const Cv = 1.5 * R;     // gás monoatômico
+
+  const W12 = -n * R * TH * Math.log(V2 / V1); // expansão isotérmica TH
+  const Q12 = -W12;
+
+  const Q23 = n * Cv * (TC - TH);             // resfriamento isocórico TH→TC
+
+  const W34 =  n * R * TC * Math.log(V3 / V4); // compressão isotérmica TC
+  const Q34 = -W34;
+
+  const Q41 = n * Cv * (TH - TC);            // aquecimento isocórico TC→TH
+
+  return { W12, Q12, Q23, W34, Q34, Q41 };
+}
+
+function mostrarResultados() {
+  const r = computeWorkAndHeat();
+  const f = x => x.toFixed(2);
+document.getElementById('resultadoTexto').innerHTML =
+  `&Delta;W<sub>21</sub> = ${f(r.W12)} J, &nbsp; &Delta;Q<sub>21</sub> = ${f(r.Q12)} J<br>` +
+  `&Delta;Q<sub>32</sub> = ${f(r.Q23)} J<br>` +
+  `&Delta;W<sub>43</sub> = ${f(r.W34)} J, &nbsp; &Delta;Q<sub>43</sub> = ${f(r.Q34)} J<br>` +
+  `&Delta;Q<sub>14</sub> = ${f(r.Q41)} J`;
+}
+
+// ---------------- Geometria do motor (uma única manivela, duas bielas fixas) ----------------
+
+let running = true;       // animação ligada
+let theta   = 0;          // ângulo didático (0, π/2, π, 3π/2, ...)
+let phi0    = 0;          // offset mecânico para casar θ=0 com VE mínima
+
+const rodLength = 260;    // comprimento da biela (fixo)
+const crankR    = 60;     // raio do virabrequim (proporcional aos cilindros)
+const cylDrawLen = 240;   // comprimento desenhado dos cilindros
+const cylWidth  = 80;
+const pistonLen = 55;
+
+function toggleRun() { running = !running; }
+
+// resolve | base + s u - pin | = L  (s>=0)
+function solvePiston(base, u, pin) {
+  const Dx = base.x - pin.x;
+  const Dy = base.y - pin.y;
+  const Du = Dx*u.x + Dy*u.y;
+
+  const A  = 1;
+  const Bq = 2*Du;
+  const Cq = Dx*Dx + Dy*Dy - rodLength*rodLength;
+
+  let D = Bq*Bq - 4*A*Cq;
+  if (D < 0) D = 0;
+  const sqrtD = Math.sqrt(D);
+
+  let s1 = (-Bq + sqrtD)/(2*A);
+  let s2 = (-Bq - sqrtD)/(2*A);
+
+  let s = Math.min(s1,s2);
+  if (s < 0) s = Math.max(s1,s2);
+  if (s < 0) s = 0;   // garante dentro do cilindro do lado do regenerador
+
+  return {
+    x: base.x + s*u.x,
+    y: base.y + s*u.y,
+    s: s
+  };
+}
+
+// calcula phi0 de forma que θ=0 ⇒ pistão de expansão no volume mínimo (junto ao regenerador)
+function computePhi0() {
+  const canvas = document.getElementById('stirlingCanvas');
+  const cx = canvas.width  * 0.50;
+  const cy = canvas.height * 0.70;
+
+  // pontos de conexão com o regenerador
+  const regLeft  = { x: cx - 280, y: cy - 300 };
+  const regRight = { x: cx + 280, y: cy - 300 };
+
+  const center = { x: cx, y: cy };
+
+  const vE = { x: center.x - regLeft.x,  y: center.y - regLeft.y  };
+  const lenE = Math.hypot(vE.x,vE.y);
+  const uE = { x: vE.x/lenE, y: vE.y/lenE };
+
+  const baseE = regLeft;   // base dos cilindros é o lado do regenerador
+
+  let bestPhi = 0;
+  let minS    = Infinity;
+
+  for (let k=0; k<360; k++) {
+    const phi = k * Math.PI/180;
+    const pin = { x: center.x + crankR*Math.cos(phi),
+                  y: center.y + crankR*Math.sin(phi) };
+    const pistE = solvePiston(baseE,uE,pin);
+    if (pistE.s < minS) {
+      minS = pistE.s;
+      bestPhi = phi;
+    }
+  }
+  phi0 = bestPhi; // quando θ=0 ⇒ φ=phi0 ⇒ VE mínima
+}
+
+function draw() {
+  const canvas = document.getElementById('stirlingCanvas');
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  const cx = canvas.width  * 0.50;
+  const cy = canvas.height * 0.70;
+
+  const center = { x: cx, y: cy };
+
+  // pontos de conexão com o regenerador
+  const regLeft  = { x: cx - 280, y: cy - 300 };
+  const regRight = { x: cx + 280, y: cy - 300 };
+
+  const vE = { x: center.x - regLeft.x,  y: center.y - regLeft.y  };
+  const vC = { x: center.x - regRight.x, y: center.y - regRight.y };
+  const lenE = Math.hypot(vE.x,vE.y);
+  const lenC = Math.hypot(vC.x,vC.y);
+
+  const uE = { x: vE.x/lenE, y: vE.y/lenE };
+  const uC = { x: vC.x/lenC, y: vC.y/lenC };
+
+  const angE = Math.atan2(vE.y, vE.x);
+  const angC = Math.atan2(vC.y, vC.x);
+
+  // bases dos cilindros (lado do regenerador)
+  const baseE = regLeft;
+  const baseC = regRight;
+
+  // ponto "livre" do cilindro para desenho (lado do virabrequim)
+  const farE  = { x: baseE.x + cylDrawLen*uE.x, y: baseE.y + cylDrawLen*uE.y };
+  const farC  = { x: baseC.x + cylDrawLen*uC.x, y: baseC.y + cylDrawLen*uC.y };
+
+  // ângulo mecânico do pino (única manivela)
+  const phi = theta + phi0;
+  const pin = {
+    x: center.x + crankR*Math.cos(phi),
+    y: center.y + crankR*Math.sin(phi)
+  };
+
+  // posições dos pistões pela cinemática com biela fixa
+  const pistE = solvePiston(baseE,uE,pin);
+  const pistC = solvePiston(baseC,uC,pin);
+
+  // ---------------- Regenerador ----------------
+  const midX = (regLeft.x + regRight.x)/2;
+  const midY = (regLeft.y + regRight.y)/2;
+  ctx.save();
+  ctx.translate(midX, midY);
+  const angReg = Math.atan2(regRight.y - regLeft.y, regRight.x - regLeft.x);
+  ctx.rotate(angReg);
+  const Lreg = Math.hypot(regRight.x - regLeft.x, regRight.y - regLeft.y);
+  const grad = ctx.createLinearGradient(-Lreg/2, 0, Lreg/2, 0);
+  grad.addColorStop(0,'#ffb0b0');
+  grad.addColorStop(0.5,'#ccccff');
+  grad.addColorStop(1,'#b0d0ff');
+  ctx.fillStyle = grad;
+  ctx.fillRect(-Lreg/2, -26, Lreg, 52);
+  ctx.restore();
+
+  ctx.font = '24px Arial';
+  ctx.fillStyle = '#444';
+  ctx.textAlign = 'center';
+  ctx.fillText('regenerador', midX, midY - 35);
+
+  // ---------------- Cilindros ----------------
+  function drawCylinder(base,axis,color){
+    ctx.save();
+    ctx.translate(base.x,base.y);
+    ctx.rotate(Math.atan2(axis.y,axis.x));
+    ctx.fillStyle = color;
+    ctx.fillRect(0,-cylWidth/2,cylDrawLen,cylWidth);
+    ctx.restore();
+  }
+  drawCylinder(baseE,uE,'#ffe0dd'); // expansão
+  drawCylinder(baseC,uC,'#dde9ff'); // compressão
+
+  // ---------------- Pistões ----------------
+  function drawPiston(p,axis,color){
+    ctx.save();
+    ctx.translate(p.x,p.y);
+    ctx.rotate(Math.atan2(axis.y,axis.x));
+    ctx.fillStyle = color;
+    ctx.fillRect(-pistonLen,-cylWidth/2+10,pistonLen,cylWidth-20);
+    ctx.restore();
+  }
+  drawPiston(pistE,uE,'#ff9e9e');
+  drawPiston(pistC,uC,'#9ebcff');
+
+  // ---------------- Virabrequim ----------------
+  const cx0 = center.x;
+  const cy0 = center.y;
+  ctx.strokeStyle = '#333';
+  ctx.lineWidth   = 5;
+  ctx.beginPath();
+  ctx.arc(cx0,cy0,crankR,0,2*Math.PI);
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.moveTo(cx0,cy0);
+  ctx.lineTo(pin.x,pin.y);
+  ctx.stroke();
+
+  ctx.fillStyle = '#666';
+  ctx.beginPath(); ctx.arc(cx0,cy0,8,0,2*Math.PI); ctx.fill();
+  ctx.fillStyle = 'red';
+  ctx.beginPath(); ctx.arc(pin.x,pin.y,8,0,2*Math.PI); ctx.fill();
+
+  // ---------------- Bielas (comprimento fixo) ----------------
+  ctx.strokeStyle = '#444';
+  ctx.lineWidth   = 4;
+  ctx.beginPath(); ctx.moveTo(pin.x,pin.y); ctx.lineTo(pistE.x,pistE.y); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(pin.x,pin.y); ctx.lineTo(pistC.x,pistC.y); ctx.stroke();
+
+  // ---------------- Rótulos ----------------
+  ctx.fillStyle = '#222';
+  ctx.font = '22px Arial';
+  ctx.textAlign = 'left';
+
+  // rótulo cilindro de expansão – agora próximo ao regenerador
+  const midExpX = (baseE.x + farE.x) / 2;
+  const midExpY = (baseE.y + farE.y) / 2;
+  ctx.save();
+  // deslocado para perto do regenerador (extremidade baseE)
+  ctx.translate(regLeft.x - 10, regLeft.y + 60);
+  ctx.rotate(angE);
+  ctx.fillText('cilindro de expansão', 0, 0);
+  ctx.restore();
+
+  // rótulo cilindro de compressão – perto do início do cilindro azul, junto ao virabrequim
+  ctx.save();
+  // posição próxima à extremidade do cilindro azul voltada para o virabrequim
+  const compLabelX = farC.x + 60;  // ainda mais perto da parede do cilindro azul e mais longe do virabrequim  // aproxima mais da parede do cilindro azul e afasta do virabrequim  // aproxima do cilindro, mantendo inclinação  // afasta no sentido oposto, longe do virabrequim  // afastado do virabrequim, sem sobrepor  // afasta do virabrequim mantendo a inclinação  // mantém alinhamento horizontal
+  const compLabelY = farC.y + 20;  // desce ainda mais para manter totalmente fora da figura  // leve ajuste vertical para manter fora da figura  // pequeno ajuste vertical  // mantém posição vertical segura  // mantém deslocamento vertical seguro  // desce ainda mais  // desce ainda mais para fora da figura  // desce mais o texto para fora da figura
+  ctx.translate(compLabelX, compLabelY);
+  ctx.rotate(angC + Math.PI); // mantém a mesma inclinação, só corrige orientação
+  ctx.fillText('cilindro de compressão', 0, 0);
+  ctx.restore();
+
+  ctx.fillStyle = '#d32f2f';
+  ctx.fillText('TH', regLeft.x  - 60, regLeft.y + 90);
+  ctx.fillStyle = '#1565c0';
+  ctx.fillText('TC', regRight.x + 20, regRight.y + 90);
+
+  // mostra θ em graus (didático)
+  let deg = (theta*180/Math.PI) % 360;
+  if (deg < 0) deg += 360;
+  document.getElementById('thetaValue').innerText = deg.toFixed(1);
+}
+
+// animação
+function step() {
+  if (running) {
+    theta += 0.04; // ~2.3° por frame
+    if (theta > 2*Math.PI) theta -= 2*Math.PI;
+    draw();
+  }
+  requestAnimationFrame(step);
+}
+
+// inicialização
+updateParametros();
+computePhi0(); // ajusta phi0 para que θ=0 ⇒ VE mínima
+draw();
+requestAnimationFrame(step);
+
+</script>
+</body>
+</html>

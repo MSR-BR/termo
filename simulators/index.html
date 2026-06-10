@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simuladores Interativos | Termodinâmica para Estudantes de Física</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #FCFCFA;
+      --panel: #FFFFFF;
+      --header: #F2F4F7;
+      --text: #2C3E50;
+      --muted: #5D6D7E;
+      --blue: #004B87;
+      --blue-soft: #E8F0FE;
+      --border: #DDE3ED;
+      --shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Inter", sans-serif;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .top-header {
+      background: var(--header);
+      border-bottom: 1px solid var(--border);
+      padding: 22px 24px;
+    }
+
+    .header-box {
+      border-left: 6px solid var(--blue);
+      padding-left: 20px;
+      max-width: 1220px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .course-label {
+      font-size: 13px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.9px;
+      font-weight: 700;
+    }
+
+    .main-title {
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 1.12;
+      color: var(--blue);
+      font-weight: 700;
+    }
+
+    .hero-text {
+      font-family: "Lora", serif;
+      font-size: clamp(18px, 2.2vw, 24px);
+      line-height: 1.65;
+      color: var(--text);
+      max-width: 980px;
+    }
+
+    .metadata {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 24px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .metadata span {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .hero-button {
+      appearance: none;
+      border: 1px solid rgba(0, 75, 135, 0.18);
+      background: #FFFFFF;
+      color: var(--blue);
+      text-decoration: none;
+      border-radius: 999px;
+      padding: 11px 18px;
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-button--primary {
+      background: var(--blue);
+      color: #FFFFFF;
+      border-color: var(--blue);
+    }
+
+    .content {
+      width: 100%;
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 26px 24px 34px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .note-card,
+    .simulator-frame {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .note-card {
+      padding: 18px 22px;
+    }
+
+    .note-card h2 {
+      font-size: 18px;
+      color: var(--blue);
+      margin-bottom: 10px;
+    }
+
+    .note-card p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    .simulator-frame {
+      padding: 14px;
+    }
+
+    .simulator-frame iframe {
+      display: block;
+      width: 100%;
+      min-height: 760px;
+      border: 0;
+      border-radius: 18px;
+      background: #FFFFFF;
+    }
+
+    .missing-state {
+      padding: 22px;
+      color: var(--red, #B03A2E);
+      font-weight: 600;
+    }
+
+    @media (max-width: 720px) {
+      .top-header {
+        padding: 20px 16px;
+      }
+
+      .content {
+        padding: 18px 16px 26px 16px;
+      }
+
+      .note-card {
+        padding: 16px 18px;
+      }
+
+      .simulator-frame {
+        padding: 10px;
+      }
+
+      .simulator-frame iframe {
+        min-height: 640px;
+        border-radius: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="top-header">
+      <div class="header-box">
+        <div class="course-label" id="simulatorId">SIMULADOR INTERATIVO</div>
+        <h1 class="main-title" id="simulatorTitle">Simulador não encontrado</h1>
+        <p class="hero-text" id="simulatorDescription">Selecione um simulador válido a partir do catálogo do app.</p>
+        <div class="metadata">
+          <span>Prof. Mario Reis</span>
+          <span>Instituto de Física — Universidade Federal Fluminense</span>
+          <span>Versão local padronizada</span>
+        </div>
+        <div class="hero-actions">
+          <a class="hero-button" href="../index.html?view=simulators">Voltar ao catálogo</a>
+          <a class="hero-button hero-button--primary" href="../index.html?view=chapters">Voltar ao livro</a>
+          <a class="hero-button" href="#" id="directLink" rel="noopener" target="_blank">Abrir página direta</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="content">
+      <section class="note-card">
+        <h2>Leitura guiada</h2>
+        <p id="simulatorGuidance">O simulador abre abaixo dentro de uma moldura comum do app, preservando integralmente o conteúdo técnico original e melhorando a consistência visual e o uso em telas menores.</p>
+      </section>
+
+      <section class="simulator-frame" id="framePanel">
+        <iframe id="simulatorFrame" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title="Simulador interativo"></iframe>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const catalog = {
+      termometros: {
+        id: "S01",
+        title: "Escalas termométricas",
+        description: "Calculadora interativa que permite converter e visualizar temperaturas em Celsius, Fahrenheit e Kelvin com sliders sincronizados e mostradores analógicos.",
+        guidance: "Use os controles deslizantes para percorrer as três escalas e comparar as leituras sem sair da mesma interface. O conteúdo matemático do simulador original foi preservado.",
+        path: "termometros.html"
+      },
+      eqtermico: {
+        id: "S02",
+        title: "Equilíbrio térmico",
+        description: "Calculadora que estima a temperatura de equilíbrio térmico e o calor trocado entre múltiplos materiais a partir de massas, calores específicos e temperaturas iniciais.",
+        guidance: "Ajuste massas, temperaturas iniciais e calores específicos para comparar materiais diferentes. A interface foi unificada, mantendo a lógica física original intacta.",
+        path: "eqtermico.html"
+      },
+      qt: {
+        id: "S03",
+        title: "Relações termodinâmicas e de Maxwell",
+        description: "Applet do Retângulo Termodinâmico com os potenciais U, F, H e G e as variáveis S, T, V e P, permitindo visualizar diferenciais, transformações de Legendre e relações de Maxwell.",
+        guidance: "Clique nos potenciais e nas variáveis do retângulo para navegar pelas relações termodinâmicas. O arranjo visual foi padronizado sem alterar o conteúdo conceitual.",
+        path: "qt.html"
+      },
+      mag: {
+        id: "S04",
+        title: "Paramagnetismo",
+        description: "Explore a magnetização paramagnética com a Função de Brillouin: ajuste s, g, B e T e acompanhe as curvas m(B) e m(T).",
+        guidance: "Compare diferentes valores de spin e observe a resposta magnética sem alterar a formulação original do simulador. O foco desta versão é consistência visual e leitura confortável.",
+        path: "mag.html"
+      },
+      vdw: {
+        id: "S05",
+        title: "Van der Waals 1",
+        description: "Simulador da equação de Van der Waals em variáveis reduzidas, apresentando isotermas, curva espinodal e ponto crítico.",
+        guidance: "Percorra as isotermas reduzidas e acompanhe o ponto crítico e a espinodal. A moldura é nova, mas o conteúdo físico e o comportamento do gráfico foram mantidos.",
+        path: "vdw.html"
+      },
+      vdw_pv_gv: {
+        id: "S06",
+        title: "Van der Waals 2",
+        description: "Relaciona a isoterma de Van der Waals com a energia livre g(v), permitindo visualizar como a pressão afeta os mínimos de estabilidade do fluido.",
+        guidance: "Escolha a pressão reduzida e acompanhe simultaneamente a isoterma e a energia livre. Esta versão recebeu reforço especial de responsividade para funcionar melhor em celular e tablet.",
+        path: "vdw_pv_gv.html"
+      },
+      isotermico: {
+        id: "S07",
+        title: "Processo isotérmico",
+        description: "Mostra a expansão e compressão isotérmicas de um gás ideal, com animação do pistão, cálculo de ΔQ, ΔW e ΔS e curvas de entropia em tempo real.",
+        guidance: "Visualize o pistão, marque estados e acompanhe as grandezas termodinâmicas em tempo real. O conteúdo foi preservado e apenas a apresentação foi unificada.",
+        path: "isotermico.html"
+      },
+      mt_carnot: {
+        id: "S08",
+        title: "Máquina térmica de Carnot",
+        description: "Simula o ciclo de Carnot com gás ideal, exibindo as quatro transformações, o diagrama S(T), os calores trocados, o trabalho total e a eficiência teórica.",
+        guidance: "Acompanhe o ciclo de Carnot com os reservatórios, o diagrama S×T e os resultados numéricos na mesma página. A ideia foi manter a clareza do conteúdo e dar uniformidade ao conjunto de simuladores.",
+        path: "mt_carnot.html"
+      },
+      stirling_reg: {
+        id: "S09",
+        title: "Máquina térmica de Stirling",
+        description: "Simulador do motor de Stirling tipo alfa com regenerador, dois cilindros, virabrequim e cálculo dos trabalhos e calores em cada etapa do ciclo ideal.",
+        guidance: "Observe o mecanismo geométrico do motor de Stirling e ajuste os parâmetros termodinâmicos de forma mais confortável em telas pequenas. A cinemática e os cálculos foram preservados.",
+        path: "stirling_reg.html"
+      }
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const key = params.get("sim");
+    const simulator = key && catalog[key] ? catalog[key] : null;
+
+    const titleEl = document.getElementById("simulatorTitle");
+    const idEl = document.getElementById("simulatorId");
+    const descriptionEl = document.getElementById("simulatorDescription");
+    const guidanceEl = document.getElementById("simulatorGuidance");
+    const directLink = document.getElementById("directLink");
+    const frame = document.getElementById("simulatorFrame");
+    const framePanel = document.getElementById("framePanel");
+
+    function updateFrameHeight() {
+      if (!frame.contentDocument) {
+        return;
+      }
+      const doc = frame.contentDocument;
+      const body = doc.body;
+      const html = doc.documentElement;
+      const height = Math.max(
+        body ? body.scrollHeight : 0,
+        body ? body.offsetHeight : 0,
+        html ? html.clientHeight : 0,
+        html ? html.scrollHeight : 0,
+        html ? html.offsetHeight : 0
+      );
+      frame.style.height = Math.max(720, height + 12) + "px";
+    }
+
+    if (!simulator) {
+      directLink.removeAttribute("href");
+      directLink.setAttribute("aria-disabled", "true");
+      directLink.style.pointerEvents = "none";
+      directLink.style.opacity = "0.6";
+      framePanel.innerHTML = '<div class="missing-state">Simulador não encontrado. Volte ao catálogo e escolha um dos simuladores disponíveis.</div>';
+    } else {
+      document.title = simulator.title + " | Simuladores Interativos";
+      idEl.textContent = simulator.id + " · SIMULADOR INTERATIVO";
+      titleEl.textContent = simulator.title;
+      descriptionEl.textContent = simulator.description;
+      guidanceEl.textContent = simulator.guidance;
+      directLink.href = simulator.path;
+      frame.src = simulator.path;
+      frame.addEventListener("load", function () {
+        updateFrameHeight();
+        const doc = frame.contentDocument;
+        if (doc && window.ResizeObserver) {
+          const observer = new ResizeObserver(updateFrameHeight);
+          observer.observe(doc.documentElement);
+        }
+        if (doc && doc.fonts && doc.fonts.ready) {
+          doc.fonts.ready.then(updateFrameHeight);
+        }
+        window.setTimeout(updateFrameHeight, 250);
+        window.setTimeout(updateFrameHeight, 900);
+      });
+      window.addEventListener("resize", updateFrameHeight);
+    }
+  </script>
+</body>
+</html>

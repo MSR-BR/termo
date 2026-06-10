@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Equilíbrio Térmico — Múltiplos Materiais</title>
+
+<style>
+  :root{
+    --bg0:#060a14;
+    --bg1:#0b1224;
+    --card:#0f1a33cc;
+    --border:rgba(255,255,255,.10);
+    --text:#eaf0ff;
+    --muted:rgba(234,240,255,.72);
+
+    --a1:#4f8cff;   /* azul */
+    --a2:#a855f7;   /* roxo */
+    --a3:#ff4d6d;   /* rosa/vermelho */
+    --good:#34d399; /* verde */
+    --warn:#fbbf24; /* amarelo */
+
+    --r:18px;
+    --shadow:0 14px 40px rgba(0,0,0,.45);
+  }
+
+  *{box-sizing:border-box}
+  html,body{height:100%;width:100%;max-width:100%;overflow-x:hidden}
+  body{
+    margin:0;
+    color:var(--text);
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Helvetica Neue", sans-serif;
+    /* garante que o “azul” vá até o fim do conteúdo, mesmo com muitos materiais */
+    min-height: 100dvh;
+    background:
+      radial-gradient(1200px 700px at 12% 10%, rgba(79,140,255,.20), transparent 60%),
+      radial-gradient(900px 600px at 85% 25%, rgba(168,85,247,.18), transparent 62%),
+      radial-gradient(900px 600px at 70% 95%, rgba(255,77,109,.12), transparent 60%),
+      linear-gradient(180deg, var(--bg0), var(--bg1));
+    background-attachment: fixed;
+  }
+
+  a{color:rgba(234,240,255,.9); text-decoration-color:rgba(234,240,255,.35)}
+  a:hover{color:#fff; text-decoration-color:rgba(255,255,255,.7)}
+
+  .wrap{
+    width:min(1100px, 100%);
+    margin:0 auto;
+    padding: clamp(16px, 3vw, 28px);
+    padding-bottom: max(28px, env(safe-area-inset-bottom));
+  }
+
+  header{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-bottom: 14px;
+  }
+
+  .title{
+    font-size: clamp(22px, 3.2vw, 34px);
+    line-height:1.1;
+    letter-spacing:.2px;
+    margin:0;
+  }
+
+  .subtitle{
+    margin:0;
+    color:var(--muted);
+    font-size: clamp(13px, 1.5vw, 15px);
+    max-width: 86ch;
+  }
+
+  .credits{
+    color:rgba(234,240,255,.65);
+    font-size: 12.5px;
+    line-height:1.35;
+  }
+
+  .topbar{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:flex-start;
+    margin-top: 6px;
+  }
+
+  .pill{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 12px;
+    border-radius:999px;
+    background:rgba(255,255,255,.06);
+    border:1px solid var(--border);
+    box-shadow: 0 10px 24px rgba(0,0,0,.18);
+    backdrop-filter: blur(10px);
+  }
+
+  .btn{
+    appearance:none;
+    border:1px solid var(--border);
+    background: linear-gradient(90deg, rgba(79,140,255,.18), rgba(168,85,247,.14), rgba(255,77,109,.12));
+    color:var(--text);
+    border-radius: 999px;
+    padding: 10px 14px;
+    font-weight: 650;
+    letter-spacing:.2px;
+    cursor:pointer;
+    transition: transform .08s ease, filter .2s ease, border-color .2s ease;
+    user-select:none;
+    touch-action: manipulation;
+  }
+  .btn:hover{filter: brightness(1.08); border-color: rgba(255,255,255,.18)}
+  .btn:active{transform: translateY(1px)}
+  .btn.secondary{ background: rgba(255,255,255,.06); }
+
+  .layout{
+    display:grid;
+    grid-template-columns: 1.15fr .85fr;
+    gap: 14px;
+    align-items:start;
+    margin-top: 14px;
+  }
+  @media (max-width: 900px){
+    .layout{grid-template-columns: 1fr;}
+  }
+
+  .panel{
+    background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    box-shadow: var(--shadow);
+    overflow:hidden;
+  }
+
+  .panel > .hd{
+    padding: 14px 14px 10px 14px;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap: 10px;
+    background:
+      radial-gradient(600px 200px at 30% 0%, rgba(79,140,255,.18), transparent 60%),
+      radial-gradient(600px 200px at 80% 0%, rgba(168,85,247,.14), transparent 60%);
+  }
+
+  .hd .hdtxt{display:flex; flex-direction:column; gap:4px;}
+  .hd h2{margin:0; font-size: 15px; letter-spacing:.2px;}
+  .hd p{margin:0; color:var(--muted); font-size: 12.5px;}
+
+  .panel > .bd{padding: 14px;}
+
+  .materials{display:flex; flex-direction:column; gap: 10px;}
+
+  .mat{
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,.10);
+    background:
+      radial-gradient(700px 220px at 10% 0%, rgba(79,140,255,.14), transparent 60%),
+      radial-gradient(700px 220px at 85% 0%, rgba(255,77,109,.10), transparent 60%),
+      rgba(15,26,51,.65);
+    box-shadow: 0 10px 26px rgba(0,0,0,.24);
+    overflow:hidden;
+  }
+
+  .matHead{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    padding: 12px 12px 10px 12px;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+
+  .matTitle{display:flex; align-items:center; gap:10px; min-width: 0;}
+  .badge{
+    width: 34px; height: 34px;
+    border-radius: 12px;
+    display:grid; place-items:center;
+    font-weight: 800; color:#061024;
+    background: linear-gradient(135deg, var(--a1), var(--a2), var(--a3));
+  }
+
+  .matTitle strong{display:block; font-size: 14px; letter-spacing:.2px;}
+  .matTitle span{
+    display:block; font-size: 12px; color: var(--muted);
+    white-space: nowrap; overflow:hidden; text-overflow: ellipsis; max-width: 48ch;
+  }
+
+  .iconbtn{
+    appearance:none;
+    border: 1px solid rgba(255,255,255,.14);
+    background: rgba(0,0,0,.12);
+    color: rgba(234,240,255,.92);
+    border-radius: 12px;
+    padding: 8px 10px;
+    cursor:pointer;
+    transition: filter .2s ease, transform .08s ease;
+    touch-action: manipulation;
+  }
+  .iconbtn:hover{filter: brightness(1.08)}
+  .iconbtn:active{transform: translateY(1px)}
+
+  .grid{
+    padding: 12px;
+    display:grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 10px;
+  }
+
+  .field{
+    grid-column: span 6;
+    display:flex;
+    flex-direction:column;
+    gap: 6px;
+    min-width: 0;
+  }
+  @media (max-width: 520px){
+    .field{grid-column: span 12;}
+  }
+
+  .field label{font-size: 12px; color: rgba(234,240,255,.78);}
+
+  input[type="number"], select{
+    width: 100%;
+    padding: 10px 10px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,.14);
+    background: rgba(0,0,0,.18);
+    color: var(--text);
+    outline:none;
+    transition: border-color .2s ease, box-shadow .2s ease;
+  }
+  input[type="number"]::placeholder{color: rgba(234,240,255,.45)}
+  input[type="number"]:focus, select:focus{
+    border-color: rgba(79,140,255,.55);
+    box-shadow: 0 0 0 4px rgba(79,140,255,.16);
+  }
+
+  .hint{font-size: 11.5px; color: rgba(234,240,255,.62); margin-top:-2px;}
+
+  .tag{
+    font-size: 11.5px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    border:1px solid rgba(255,255,255,.12);
+    background: rgba(255,255,255,.06);
+    color: rgba(234,240,255,.82);
+    white-space:nowrap;
+  }
+
+  .out{
+    background:
+      radial-gradient(800px 240px at 15% 0%, rgba(168,85,247,.16), transparent 60%),
+      radial-gradient(800px 240px at 85% 0%, rgba(79,140,255,.14), transparent 60%),
+      rgba(15,26,51,.60);
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 16px;
+    box-shadow: 0 10px 26px rgba(0,0,0,.24);
+    padding: 12px;
+  }
+
+  .mono{
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 12.5px;
+    white-space: pre-wrap;
+    margin:0;
+    color: rgba(234,240,255,.92);
+  }
+
+  /* sticky no desktop */
+  @media (min-width: 901px){
+    .sticky{ position: sticky; top: 14px; }
+  }
+
+  /* acessibilidade */
+  .sr-only{
+    position:absolute;
+    width:1px;height:1px;
+    padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0,0,0,0);
+    white-space:nowrap;border:0;
+  }
+</style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <h1 class="title">Simulador de Equilíbrio Térmico</h1>
+      <p class="subtitle">
+        Adicione quantos blocos quiser (massa e temperatura inicial). Selecione o material para preencher automaticamente
+        o calor específico, ou escolha “Outro” para inserir um valor personalizado. O simulador calcula a temperatura de
+        equilíbrio <strong>T<sub>f</sub></strong> e o calor <strong>ΔQ</strong> absorvido/cedido por cada bloco (SI).
+      </p>
+
+      <div class="topbar">
+        <span class="pill">
+          <button class="btn" id="btnAdd" type="button">+ Adicionar material</button>
+          <button class="btn secondary" id="btnCalc" type="button">Calcular</button>
+        </span>
+        <span class="pill credits">
+          Desenvolvido por <strong>Mario Reis</strong> — Instituto de Física, UFF ·
+          <a href="mailto:marioreis@id.uff.br">marioreis@id.uff.br</a> ·
+          <a href="http://profmarioreis.wordpress.com" target="_blank" rel="noopener">profmarioreis.wordpress.com</a><br>
+          Versão 1.1 — 26 de julho de 2025
+        </span>
+      </div>
+    </header>
+
+    <main class="layout">
+      <!-- ENTRADA -->
+      <section class="panel" aria-label="Entrada">
+        <div class="hd">
+          <div class="hdtxt">
+            <h2>Materiais</h2>
+            <p>Preencha m, escolha o material (ou “Outro”) e informe T<sub>i</sub>.</p>
+          </div>
+          <span class="tag" id="matCount">0 materiais</span>
+        </div>
+        <div class="bd">
+          <div class="materials" id="materials"></div>
+        </div>
+      </section>
+
+      <!-- SAÍDA -->
+      <section class="panel sticky" aria-label="Saída">
+        <div class="hd">
+          <div class="hdtxt">
+            <h2>Resultados</h2>
+            <p>Mostra T<sub>f</sub> e ΔQ de cada material.</p>
+          </div>
+          <span class="tag">Unidades SI</span>
+        </div>
+        <div class="bd">
+          <div class="out">
+            <p class="mono" id="saida">Adicione materiais e clique em Calcular.</p>
+          </div>
+          <p class="hint" style="margin-top:10px">
+            Observação: o cálculo assume sistema isolado (sem perdas para o ambiente).
+          </p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+<script>
+(() => {
+  "use strict";
+
+  // Calores específicos (J/kg·K) ~ 25 °C
+  const tabelaC = new Map(Object.entries({
+    "Água (líquida)": 4184,
+    "Álcool etílico": 2440,
+    "Alumínio": 897,
+    "Cobre": 385,
+    "Ferro": 449,
+    "Aço": 490,
+    "Prata": 235,
+    "Ouro": 129,
+    "Chumbo": 128,
+    "PVC": 900,
+    "Polietileno": 2300,
+    "Vidro": 800
+  }));
+
+  const els = {
+    list: document.getElementById("materials"),
+    saida: document.getElementById("saida"),
+    btnAdd: document.getElementById("btnAdd"),
+    btnCalc: document.getElementById("btnCalc"),
+    matCount: document.getElementById("matCount"),
+  };
+
+  let nextId = 1;
+
+  const fmt = {
+    num(x, digits=3){
+      if (!Number.isFinite(x)) return "—";
+      return x.toFixed(digits);
+    }
+  };
+
+  function escapeHTML(s){
+    return String(s)
+      .replaceAll("&","&amp;")
+      .replaceAll("<","&lt;")
+      .replaceAll(">","&gt;")
+      .replaceAll('"',"&quot;")
+      .replaceAll("'","&#039;");
+  }
+
+  function optionHTML(){
+    const mats = [...tabelaC.keys()]
+      .map(n => `<option value="${escapeHTML(n)}">${escapeHTML(n)}</option>`)
+      .join("");
+    return `
+      <option value="" selected disabled>— selecione —</option>
+      ${mats}
+      <option value="Outro">Outro (personalizado)</option>
+    `;
+  }
+
+  function matTemplate(id){
+    return `
+      <article class="mat" data-id="${id}">
+        <div class="matHead">
+          <div class="matTitle">
+            <div class="badge">${id}</div>
+            <div style="min-width:0">
+              <strong>Material ${id}</strong>
+              <span id="subtitle-${id}">Selecione um material e informe m, c e T<sub>i</sub>.</span>
+            </div>
+          </div>
+          <button class="iconbtn" type="button" data-action="remove" aria-label="Remover material ${id}">✖</button>
+        </div>
+
+        <div class="grid">
+          <div class="field">
+            <label for="m-${id}">Massa m (kg)</label>
+            <input id="m-${id}" inputmode="decimal" type="number" step="any" min="0" placeholder="ex.: 0,50" />
+            <div class="hint">Use kg (ex.: 0,200 para 200 g).</div>
+          </div>
+
+          <div class="field">
+            <label for="sel-${id}">Material</label>
+            <select id="sel-${id}">
+              ${optionHTML()}
+            </select>
+            <div class="hint">“Outro” permite editar c.</div>
+          </div>
+
+          <div class="field">
+            <label for="c-${id}">Calor específico c (J/kg·K)</label>
+            <input id="c-${id}" inputmode="decimal" type="number" step="any" min="0" placeholder="ex.: 900" readonly />
+            <div class="hint" id="chint-${id}">Auto (pela tabela) ou manual (se “Outro”).</div>
+          </div>
+
+          <div class="field">
+            <label for="T-${id}">Temperatura inicial T<sub>i</sub> (K)</label>
+            <input id="T-${id}" inputmode="decimal" type="number" step="any" placeholder="ex.: 300" />
+            <div class="hint">Em Kelvin.</div>
+          </div>
+        </div>
+      </article>
+    `;
+  }
+
+  function updateCount(){
+    const n = els.list.querySelectorAll(".mat").length;
+    els.matCount.textContent = `${n} material${n===1 ? "" : "is"}`;
+  }
+
+  function addMaterial(){
+    const id = nextId++;
+    els.list.insertAdjacentHTML("beforeend", matTemplate(id));
+    updateCount();
+
+    const m = document.getElementById(`m-${id}`);
+    m?.focus({preventScroll:true});
+    requestAnimationFrame(() => m?.scrollIntoView({behavior:"smooth", block:"center"}));
+  }
+
+  function removeMaterial(card){
+    card.remove();
+    updateCount();
+  }
+
+  function setCFromSelection(id, value){
+    const cInput = document.getElementById(`c-${id}`);
+    const chint = document.getElementById(`chint-${id}`);
+    const subtitle = document.getElementById(`subtitle-${id}`);
+    if (!cInput) return;
+
+    if (value === "Outro"){
+      cInput.readOnly = false;
+      cInput.value = "";
+      chint.textContent = "Digite c manualmente (J/kg·K).";
+      subtitle.innerHTML = "Modo personalizado: informe <strong>c</strong> manualmente.";
+      cInput.focus();
+      return;
+    }
+
+    if (tabelaC.has(value)){
+      cInput.readOnly = true;
+      cInput.value = tabelaC.get(value);
+      chint.textContent = "c preenchido automaticamente pela tabela.";
+      subtitle.innerHTML = `Selecionado: <strong>${escapeHTML(value)}</strong>`;
+    }
+  }
+
+  function readMaterials(strict=false){
+    const cards = [...els.list.querySelectorAll(".mat")];
+    const data = [];
+
+    if (!cards.length){
+      return { ok:false, msg:"Adicione pelo menos um material.", data:[] };
+    }
+
+    for (const card of cards){
+      const id = card.dataset.id;
+      const m = Number(document.getElementById(`m-${id}`)?.value);
+      const c = Number(document.getElementById(`c-${id}`)?.value);
+      const T = Number(document.getElementById(`T-${id}`)?.value);
+
+      const ok = Number.isFinite(m) && m > 0 && Number.isFinite(c) && c > 0 && Number.isFinite(T);
+      if (strict && !ok){
+        return { ok:false, msg:`Preencha m, c e Tᵢ do Material ${id}.`, data:[] };
+      }
+      if (ok) data.push({id:Number(id), m, c, T});
+    }
+
+    if (strict && data.length !== cards.length){
+      return { ok:false, msg:"Há materiais incompletos. Preencha todos os campos.", data:[] };
+    }
+    if (data.length < 1){
+      return { ok:false, msg:"Preencha ao menos um material completo para calcular.", data:[] };
+    }
+    return { ok:true, msg:"", data };
+  }
+
+  function calcular(){
+    const { ok, msg, data } = readMaterials(true);
+    if (!ok){ alert(msg); return; }
+
+    let soma_mcT = 0;
+    let soma_mc  = 0;
+
+    for (const d of data){
+      const mc = d.m * d.c;
+      soma_mcT += mc * d.T;
+      soma_mc  += mc;
+    }
+
+    const Tf = soma_mcT / soma_mc;
+
+    let out = `T_f = ${fmt.num(Tf, 3)} K\n\n`;
+
+    for (const d of data){
+      const dQ = d.m * d.c * (Tf - d.T);
+      const sentido = (dQ > 0) ? "absorvido" : (dQ < 0) ? "cedido" : "nulo";
+      out += `Material ${d.id}: ΔQ = ${fmt.num(dQ, 3)} J (${sentido})\n`;
+    }
+
+    els.saida.textContent = out;
+  }
+
+  // Event delegation
+  els.list.addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-action]");
+    if (!btn) return;
+    const card = btn.closest(".mat");
+    if (!card) return;
+    if (btn.dataset.action === "remove") removeMaterial(card);
+  });
+
+  els.list.addEventListener("change", (e) => {
+    const sel = e.target.closest("select[id^='sel-']");
+    if (!sel) return;
+    const id = sel.id.split("-")[1];
+    setCFromSelection(id, sel.value);
+  });
+
+  els.btnAdd.addEventListener("click", addMaterial);
+  els.btnCalc.addEventListener("click", calcular);
+
+  // Defaults (2 blocos)
+  addMaterial();
+  addMaterial();
+})();
+</script>
+</body>
+</html>
