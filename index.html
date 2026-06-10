@@ -3088,6 +3088,7 @@
         title: "Escalas termométricas",
         description: "Calculadora interativa que permite converter e visualizar temperaturas em Celsius, Fahrenheit e Kelvin com sliders sincronizados e mostradores analógicos.",
         url: "index.html?view=simulators&sim=termometros",
+        shellUrl: "simulators/index.html?sim=termometros",
         standaloneUrl: "simulators/termometros.html",
         icon: "fa-temperature-half"
       },
@@ -3097,6 +3098,7 @@
         title: "Equilíbrio térmico",
         description: "Calculadora que estima a temperatura de equilíbrio térmico e o calor trocado entre múltiplos materiais a partir de massas, calores específicos e temperaturas iniciais.",
         url: "index.html?view=simulators&sim=eqtermico",
+        shellUrl: "simulators/index.html?sim=eqtermico",
         standaloneUrl: "simulators/eqtermico.html",
         icon: "fa-scale-balanced"
       },
@@ -3106,6 +3108,7 @@
         title: "Relações termodinâmicas e de Maxwell",
         description: "Applet do Retângulo Termodinâmico com os potenciais U, F, H e G e as variáveis S, T, V e P, permitindo visualizar diferenciais, transformações de Legendre e relações de Maxwell.",
         url: "index.html?view=simulators&sim=qt",
+        shellUrl: "simulators/index.html?sim=qt",
         standaloneUrl: "simulators/qt.html",
         icon: "fa-table-cells-large"
       },
@@ -3115,6 +3118,7 @@
         title: "Paramagnetismo",
         description: "Explore a magnetização paramagnética com a Função de Brillouin: ajuste s, g, B e T e acompanhe as curvas m(B) e m(T).",
         url: "index.html?view=simulators&sim=mag",
+        shellUrl: "simulators/index.html?sim=mag",
         standaloneUrl: "simulators/mag.html",
         icon: "fa-magnet"
       },
@@ -3124,6 +3128,7 @@
         title: "Van der Waals 1",
         description: "Simulador da equação de Van der Waals em variáveis reduzidas, apresentando isotermas, curva espinodal e ponto crítico.",
         url: "index.html?view=simulators&sim=vdw",
+        shellUrl: "simulators/index.html?sim=vdw",
         standaloneUrl: "simulators/vdw.html",
         icon: "fa-chart-line"
       },
@@ -3133,6 +3138,7 @@
         title: "Van der Waals 2",
         description: "Relaciona a isoterma de Van der Waals com a energia livre g(v), permitindo visualizar como a pressão afeta os mínimos de estabilidade do fluido.",
         url: "index.html?view=simulators&sim=vdw_pv_gv",
+        shellUrl: "simulators/index.html?sim=vdw_pv_gv",
         standaloneUrl: "simulators/vdw_pv_gv.html",
         icon: "fa-wave-square"
       },
@@ -3142,6 +3148,7 @@
         title: "Processo isotérmico",
         description: "Mostra a expansão e compressão isotérmicas de um gás ideal, com animação do pistão, cálculo de ΔQ, ΔW e ΔS e curvas de entropia em tempo real.",
         url: "index.html?view=simulators&sim=isotermico",
+        shellUrl: "simulators/index.html?sim=isotermico",
         standaloneUrl: "simulators/isotermico.html",
         icon: "fa-gauge-high"
       },
@@ -3151,6 +3158,7 @@
         title: "Máquina térmica de Carnot",
         description: "Simula o ciclo de Carnot com gás ideal, exibindo as quatro transformações, o diagrama S(T), os calores trocados, o trabalho total e a eficiência teórica.",
         url: "index.html?view=simulators&sim=mt_carnot",
+        shellUrl: "simulators/index.html?sim=mt_carnot",
         standaloneUrl: "simulators/mt_carnot.html",
         icon: "fa-fire-flame-curved"
       },
@@ -3160,6 +3168,7 @@
         title: "Máquina térmica de Stirling",
         description: "Simulador do motor de Stirling tipo alfa com regenerador, dois cilindros, virabrequim e cálculo dos trabalhos e calores em cada etapa do ciclo ideal.",
         url: "index.html?view=simulators&sim=stirling_reg",
+        shellUrl: "simulators/index.html?sim=stirling_reg",
         standaloneUrl: "simulators/stirling_reg.html",
         icon: "fa-gears"
       }
@@ -4539,7 +4548,7 @@
             return `
               <a
                 class="simulator-card"
-                href="${escapeHtml(simulator.url)}"
+                href="${escapeHtml(simulator.shellUrl)}"
               >
                 <div class="simulator-card__top">
                   <div>
@@ -4553,7 +4562,7 @@
                 <div class="simulator-card__description">${escapeHtml(simulator.description)}</div>
                 <div class="simulator-card__footer">
                   <i class="fa-solid fa-arrow-right"></i>
-                  <span>Abrir no app</span>
+                  <span>Abrir simulador</span>
                 </div>
               </a>
             `;
@@ -4601,7 +4610,7 @@
 
       const selectedSimulator = simulatorsBySlug[state.simulatorId] || null;
       if (selectedSimulator) {
-        renderSimulatorDetail(selectedSimulator);
+        window.location.replace(selectedSimulator.shellUrl);
         return;
       }
 
