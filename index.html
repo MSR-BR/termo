@@ -2208,16 +2208,16 @@
   window.__termoLandingAuthResume = Boolean(hasAuthParams || hasPendingTarget);
 })();
 </script>
-<link rel="stylesheet" href="assets/termo-share.css?v=0610.1">
-<link rel="stylesheet" href="assets/termo-auth.css?v=0610.1">
+<link rel="stylesheet" href="assets/termo-share.css?v=0610.2">
+<link rel="stylesheet" href="assets/termo-auth.css?v=0610.2">
 <script>
 (function () {
   const scripts = window.__termoLandingStaticMode
-    ? ["assets/termo-auth.js?v=0610.1"]
+    ? ["assets/termo-auth.js?v=0610.2"]
     : [
-        "assets/termo-share.js?v=0610.1",
-        "assets/termo-auth.js?v=0610.1",
-        "assets/termo-user-data.js?v=0610.1"
+        "assets/termo-share.js?v=0610.2",
+        "assets/termo-auth.js?v=0610.2",
+        "assets/termo-user-data.js?v=0610.2"
       ];
 
   scripts.forEach(function (src) {
@@ -2246,7 +2246,7 @@
 <meta name="twitter:description" content="Livro interativo de Termodinâmica com capítulos, exercícios automáticos por IA, simuladores, exemplos resolvidos e material didático do Prof. Mario Reis (IF-UFF)."/>
 <script type="application/ld+json">[{"@context":"https://schema.org","@type":"WebSite","name":"Termodinâmica para Estudantes de Física","url":"https://termo-theta.vercel.app/","inLanguage":"pt-BR"},{"@context":"https://schema.org","@type":"Course","name":"Termodinâmica para Estudantes de Física","description":"Livro interativo de Termodinâmica com capítulos, exercícios automáticos por IA, simuladores, exemplos resolvidos e material didático do Prof. Mario Reis (IF-UFF).","provider":{"@type":"CollegeOrUniversity","name":"Instituto de Física — Universidade Federal Fluminense"},"creator":{"@type":"Person","name":"Prof. Mario Reis"},"url":"https://termo-theta.vercel.app/"}]</script>
 <!-- termo-seo:end -->
-<script defer src="assets/termo-seo.js?v=0610.1"></script>
+<script defer src="assets/termo-seo.js?v=0610.2"></script>
 </head>
 
 <body>
@@ -2259,7 +2259,7 @@
           <div class="metadata">
             <span><i class="fa-solid fa-user-tie"></i> Prof. Mario Reis</span>
             <span><i class="fa-solid fa-building-columns"></i> Instituto de Física — Universidade Federal Fluminense</span>
-            <span><i class="fa-solid fa-calendar-days"></i> Última atualização: <time id="lastUpdated" datetime="2026-06-10">10/06/2026</time> · <span id="appVersion">v0610.1</span></span>
+            <span><i class="fa-solid fa-calendar-days"></i> Última atualização: <time id="lastUpdated" datetime="2026-06-10">10/06/2026</time> · <span id="appVersion">v0610.2</span></span>
           </div>
         </div>
         <div class="header-tools" data-termo-header-tools aria-label="Ações principais">
@@ -2959,7 +2959,7 @@
 
     const JSPDF_CDN_URL = "https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js";
     const releaseInfo = {
-      version: "v0610.1",
+      version: "v0610.2",
       date: "2026-06-10",
       label: "10/06/2026"
     };
@@ -4412,15 +4412,30 @@
       }
       await renderPanelActions();
 
+      if (embeddedData.topics.length > 0) {
+        window.setTimeout(function () {
+          void fetchChapterData(chapter, 1600).then(function (data) {
+            if (!isCurrentLoad()) return;
+            const topics = Array.isArray(data.topics) ? data.topics : [];
+            if (topics.length > 0) {
+              panelDescription.textContent = "";
+              renderTopicGrid(topics);
+            }
+          }).catch(function () {
+            return;
+          });
+        }, 0);
+        return;
+      }
+
       try {
-        const data = await fetchChapterData(chapter, embeddedData.topics.length > 0 ? 2200 : 3600);
+        const data = await fetchChapterData(chapter, 3600);
         if (!isCurrentLoad()) return;
         const topics = Array.isArray(data.topics) ? data.topics : [];
 
         panelDescription.textContent = "";
 
         if (topics.length === 0) {
-          if (embeddedData.topics.length > 0) return;
           topicContainer.innerHTML = `
             <div class="empty-state">
               <strong>Nenhum tópico cadastrado ainda.</strong><br />
@@ -4808,6 +4823,26 @@
         const target = event.target;
         if (!(target instanceof Element)) return;
 
+        const landingLoginTarget = target.closest("[data-landing-login-target]");
+        if (landingLoginTarget) {
+          event.preventDefault();
+          closeDrawer();
+          if (typeof window.handleLandingLoginRequest === "function") {
+            void window.handleLandingLoginRequest(
+              landingLoginTarget.getAttribute("data-landing-login-target") ||
+              landingLoginTarget.getAttribute("href") ||
+              "index.html?view=saved"
+            );
+          } else {
+            void ensureAuthModules().then(function (modules) {
+              if (modules.auth && typeof modules.auth.openModal === "function") {
+                modules.auth.openModal();
+              }
+            });
+          }
+          return;
+        }
+
         const discoveryButton = target.closest('[data-role="open-view"], [data-role="open-drawer-section"]');
         if (!discoveryButton) return;
 
@@ -4967,7 +5002,7 @@
 
           if (!existingScript) {
             const script = document.createElement("script");
-            script.src = "assets/termo-auth.js?v=0610.1";
+            script.src = "assets/termo-auth.js?v=0610.2";
             script.async = true;
             script.onerror = function () {
               if (settled) return;
