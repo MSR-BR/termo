@@ -2208,16 +2208,16 @@
   window.__termoLandingAuthResume = Boolean(hasAuthParams || hasPendingTarget);
 })();
 </script>
-<link rel="stylesheet" href="assets/termo-share.css?v=0609.2">
-<link rel="stylesheet" href="assets/termo-auth.css?v=0609.2">
+<link rel="stylesheet" href="assets/termo-share.css?v=0610.1">
+<link rel="stylesheet" href="assets/termo-auth.css?v=0610.1">
 <script>
 (function () {
   const scripts = window.__termoLandingStaticMode
-    ? ["assets/termo-auth.js?v=0609.2"]
+    ? ["assets/termo-auth.js?v=0610.1"]
     : [
-        "assets/termo-share.js?v=0609.2",
-        "assets/termo-auth.js?v=0609.2",
-        "assets/termo-user-data.js?v=0609.2"
+        "assets/termo-share.js?v=0610.1",
+        "assets/termo-auth.js?v=0610.1",
+        "assets/termo-user-data.js?v=0610.1"
       ];
 
   scripts.forEach(function (src) {
@@ -2246,7 +2246,7 @@
 <meta name="twitter:description" content="Livro interativo de Termodinâmica com capítulos, exercícios automáticos por IA, simuladores, exemplos resolvidos e material didático do Prof. Mario Reis (IF-UFF)."/>
 <script type="application/ld+json">[{"@context":"https://schema.org","@type":"WebSite","name":"Termodinâmica para Estudantes de Física","url":"https://termo-theta.vercel.app/","inLanguage":"pt-BR"},{"@context":"https://schema.org","@type":"Course","name":"Termodinâmica para Estudantes de Física","description":"Livro interativo de Termodinâmica com capítulos, exercícios automáticos por IA, simuladores, exemplos resolvidos e material didático do Prof. Mario Reis (IF-UFF).","provider":{"@type":"CollegeOrUniversity","name":"Instituto de Física — Universidade Federal Fluminense"},"creator":{"@type":"Person","name":"Prof. Mario Reis"},"url":"https://termo-theta.vercel.app/"}]</script>
 <!-- termo-seo:end -->
-<script defer src="assets/termo-seo.js?v=0609.2"></script>
+<script defer src="assets/termo-seo.js?v=0610.1"></script>
 </head>
 
 <body>
@@ -2259,7 +2259,7 @@
           <div class="metadata">
             <span><i class="fa-solid fa-user-tie"></i> Prof. Mario Reis</span>
             <span><i class="fa-solid fa-building-columns"></i> Instituto de Física — Universidade Federal Fluminense</span>
-            <span><i class="fa-solid fa-calendar-days"></i> Última atualização: <time id="lastUpdated" datetime="2026-06-09">09/06/2026</time> · <span id="appVersion">v0609.2</span></span>
+            <span><i class="fa-solid fa-calendar-days"></i> Última atualização: <time id="lastUpdated" datetime="2026-06-10">10/06/2026</time> · <span id="appVersion">v0610.1</span></span>
           </div>
         </div>
         <div class="header-tools" data-termo-header-tools aria-label="Ações principais">
@@ -2884,11 +2884,84 @@
       { id: "06", title: "Ciclos Termodinâmicos", summary: "Máquinas térmicas, eficiência, refrigeradores e ciclos clássicos.", data: "data/capitulo-06.json" }
     ];
 
+    const embeddedChapterData = {
+      "01": {
+        description: "Resumo visual dos conceitos fundamentais da Termodinâmica, organizado a partir das páginas HTML do Capítulo 1.",
+        topics: [
+          { id: "1.1", title: "Lei Zero da Termodinâmica", note: "Equilíbrio térmico, temperatura e termometria.", url: "slides/capitulo-01/page_2.html", aiExercise: true },
+          { id: "1.2", title: "Métodos de Medição de Temperatura", note: "Termômetros, sensores térmicos e medição sem contato.", url: "slides/capitulo-01/page_3.html" },
+          { id: "1.3", title: "Escalas Termométricas", note: "Celsius, Fahrenheit, Kelvin e zero absoluto.", url: "slides/capitulo-01/page_4.html", aiExercise: true },
+          { id: "1.4", title: "Relação entre Escalas", note: "Conversão entre escalas termométricas e exemplo resolvido.", url: "slides/capitulo-01/page_5.html", aiExercise: true },
+          { id: "1.5", title: "Classificação dos Sistemas Termodinâmicos", note: "Sistemas abertos, fechados e isolados.", url: "slides/capitulo-01/page_6.html" },
+          { id: "1.6", title: "Transformações Termodinâmicas", note: "Processos quasi-estáticos, reversíveis e irreversíveis.", url: "slides/capitulo-01/page_7.html" },
+          { id: "1.7", title: "Estados Termodinâmicos e Funções de Estado", note: "Estado termodinâmico, variáveis e funções de estado.", url: "slides/capitulo-01/page_8.html" },
+          { id: "1.8", title: "Calor", note: "Definição, convenção de sinais e calorimetria.", url: "slides/capitulo-01/page_9.html", aiExercise: true },
+          { id: "1.9", title: "Exemplo: Aquecendo um Bloco de Cobre", note: "Aplicação da equação do calor sensível.", url: "slides/capitulo-01/page_10.html", aiExercise: true },
+          { id: "1.10", title: "Exemplo: Equilíbrio Térmico", note: "Troca de calor entre corpos até o equilíbrio.", url: "slides/capitulo-01/page_11.html", aiExercise: true },
+          { id: "1.11", title: "Gás Ideal", note: "Argumentos qualitativos e equação de estado.", url: "slides/capitulo-01/page_12.html" },
+          { id: "1.12", title: "Trabalho Termodinâmico", note: "Trabalho de expansão e compressão: dW = -P dV.", url: "slides/capitulo-01/page_13.html" },
+          { id: "1.13", title: "Exemplo: Trabalho Isotérmico", note: "Cálculo do trabalho na expansão ou compressão isotérmica.", url: "slides/capitulo-01/page_14.html", aiExercise: true },
+          { id: "1.14", title: "Variáveis Conjugadas, Intensivas e Extensivas", note: "Pares conjugados e propriedades intensivas/extensivas.", url: "slides/capitulo-01/page_15.html" },
+          { id: "1.15", title: "Energia Interna", note: "Definição e componentes microscópicos da energia interna.", url: "slides/capitulo-01/page_16.html" },
+          { id: "1.16", title: "Primeira Lei da Termodinâmica", note: "Conservação de energia em sistemas termodinâmicos.", url: "slides/capitulo-01/page_17.html" },
+          { id: "1.17", title: "Exemplo: Aplicação da Primeira Lei", note: "Exemplo resolvido com calor, trabalho e variação da energia interna.", url: "slides/capitulo-01/page_18.html", aiExercise: true },
+          { id: "1.18", title: "Entropia e Desigualdade de Clausius", note: "Introdução à entropia, irreversibilidade e desigualdade de Clausius.", url: "slides/capitulo-01/page_19.html" },
+          { id: "1.19", title: "Capacidade Calorífica", note: "Capacidades caloríficas, calor específico e processos isocóricos.", url: "slides/capitulo-01/page_20.html" }
+        ]
+      },
+      "02": {
+        description: "Capítulo 2 — Potenciais Termodinâmicos e Aplicações. Conteúdo reorganizado por blocos conceituais, preservando o material dos HTMLs originais, exceto os exercícios finais.",
+        topics: [
+          { id: "2.1", title: "Potenciais Termodinâmicos e Transformações de Legendre", note: "Objetivos do capítulo, condições dos processos, ideia de potencial termodinâmico e mudança de variáveis naturais.", url: "slides/capitulo-02/page_1.html" },
+          { id: "2.2", title: "Entropia e Energia Interna", note: "Entropia como função de estado, energia interna como potencial fundamental e identificação de variáveis conjugadas.", url: "slides/capitulo-02/page_2.html" },
+          { id: "2.3", title: "Energia Livre de Helmholtz", note: "Definição, diferencial, variáveis naturais e interpretação física. Inclui exercícios automáticos por IA.", url: "slides/capitulo-02/page_3.html", aiExercise: true },
+          { id: "2.4", title: "Entalpia e Calor Isobárico", note: "Definição de entalpia, calor a pressão constante, aquecimento isobárico e processos endotérmicos/exotérmicos. Inclui exercícios automáticos por IA.", url: "slides/capitulo-02/page_4.html", aiExercise: true },
+          { id: "2.5", title: "Energia Livre de Gibbs e Espontaneidade", note: "Definição de Gibbs, critério de espontaneidade, equilíbrio e exemplo da sublimação do CO₂. Inclui exercícios automáticos por IA.", url: "slides/capitulo-02/page_5.html", aiExercise: true },
+          { id: "2.6", title: "Grande Potencial e Sistemas Abertos", note: "Definição, diferencial, variáveis naturais e interpretação física do grande potencial.", url: "slides/capitulo-02/page_6.html" },
+          { id: "2.7", title: "Variáveis Conjugadas Mecânicas e Magnéticas", note: "Analogias entre pressão-volume e campo magnético-magnetização.", url: "slides/capitulo-02/page_7.html" },
+          { id: "2.8", title: "Relações de Maxwell e Retângulo Termodinâmico", note: "Fundamentos matemáticos, relações principais, aplicação ao gás ideal, retângulo termodinâmico e simulador interativo. Inclui exercícios automáticos por IA.", url: "slides/capitulo-02/page_8.html", aiExercise: true },
+          { id: "2.9", title: "Tabela Resumo dos Potenciais Termodinâmicos", note: "Síntese final com definições, variáveis naturais, processos ideais e interpretações físicas dos potenciais.", url: "slides/capitulo-02/page_9.html" }
+        ]
+      },
+      "03": {
+        description: "Capítulo 3 — Termodinâmica Estatística. Índice organizado por blocos conceituais maiores para facilitar a navegação no app, tomando como base o conjunto de 26 HTMLs do material original.",
+        topics: [
+          { id: "3.1", title: "Entropia, Gibbs e a Visão por Ensembles", note: "Panorama histórico da entropia, formulação de Gibbs e Jaynes e introdução ao conceito de ensemble estatístico.", url: "slides/capitulo-03/page_2.html", aiExercise: true },
+          { id: "3.2", title: "Ensemble Micro-Canônico e Fórmula de Boltzmann", note: "Sistema isolado, postulado da equiprobabilidade e derivação da relação de Boltzmann.", url: "slides/capitulo-03/page_5.html", aiExercise: true },
+          { id: "3.3", title: "Ensemble Canônico, Distribuição de Boltzmann e Parâmetro Beta", note: "Contato com reservatório térmico, distribuição de Boltzmann, função de partição e significado físico do parâmetro beta.", url: "slides/capitulo-03/page_7.html", aiExercise: true },
+          { id: "3.4", title: "Energia Livre de Helmholtz e Energia Interna Estatística", note: "Relação entre função de partição, energia livre de Helmholtz e energia interna como média estatística.", url: "slides/capitulo-03/page_10.html", aiExercise: true },
+          { id: "3.5", title: "Partículas Distinguíveis, Indistinguíveis e Paradoxo de Gibbs", note: "Contagem de microestados, extensividade e correção por N fatorial para partículas indistinguíveis.", url: "slides/capitulo-03/page_12.html", aiExercise: true },
+          { id: "3.6", title: "Exemplo I: Gás Ideal Monoatômico — Função de Partição", note: "Construção da função de partição do gás ideal e papel do comprimento de onda térmico de de Broglie.", url: "slides/capitulo-03/page_14.html", aiExercise: true },
+          { id: "3.7", title: "Exemplo I: Gás Ideal Monoatômico — Energia Livre e Sackur-Tetrode", note: "Energia livre, equação de estado, energia interna e entropia do gás ideal na formulação de Sackur-Tetrode.", url: "slides/capitulo-03/page_16.html", aiExercise: true },
+          { id: "3.8", title: "Exemplo II: Paramagnetismo Quântico", note: "Modelo de spin, magnetização estatística e função de Brillouin.", url: "slides/capitulo-03/page_18.html", aiExercise: true },
+          { id: "3.9", title: "Exemplo III: Paramagnetismo Clássico", note: "Limite clássico dos momentos magnéticos e interpretação via função de Langevin.", url: "slides/capitulo-03/page_20.html", aiExercise: true },
+          { id: "3.10", title: "Terceira Lei e Limites do Modelo Clássico", note: "Postulado de Nernst, zero absoluto, entropia residual e falha do tratamento clássico em baixas temperaturas.", url: "slides/capitulo-03/page_21.html", aiExercise: true },
+          { id: "3.11", title: "Exemplo IV: Capacidade Calorífica em Sólidos", note: "Dulong-Petit, sólido de Einstein, quantização da vibração e calor específico em diferentes regimes.", url: "slides/capitulo-03/page_23.html", aiExercise: true }
+        ]
+      },
+      "04": {
+        description: "Capítulo 4 — Transições de Fase. Gás de Van der Waals, validade do gás ideal, ponto crítico, coexistência líquido-vapor, construção de Maxwell e respostas termodinâmicas próximas à transição de fase.",
+        topics: [
+          { id: "4.1", title: "Validade do Gás Ideal e Introdução ao Gás de Van der Waals", note: "Discussão qualitativa sobre quando o gás ideal deixa de funcionar e por que o modelo de Van der Waals introduz volume molecular finito e interações atrativas.", url: "slides/capitulo-04/page_1.html" },
+          { id: "4.2", title: "Equação de Estado de Van der Waals", note: "Motivação para gases reais, correções de volume e pressão, e forma final da equação de estado.", url: "slides/capitulo-04/page_2.html", aiExercise: true },
+          { id: "4.3", title: "Ponto Crítico", note: "Condições críticas do gás de Van der Waals e interpretação física do ponto crítico.", url: "slides/capitulo-04/page_6.html", aiExercise: true },
+          { id: "4.4", title: "Equação de Estado Reduzida", note: "Variáveis reduzidas, universalidade da equação de Van der Waals e fator de compressibilidade crítico.", url: "slides/capitulo-04/page_7.html", aiExercise: true },
+          { id: "4.5", title: "Instabilidade Mecânica e Espinodal", note: "Isotermas reduzidas, regiões instáveis e a curva espinodal nas transições líquido-vapor.", url: "slides/capitulo-04/page_9.html", aiExercise: true },
+          { id: "4.6", title: "Energia Livre de Helmholtz e Gibbs", note: "Critérios de estabilidade e coexistência de fases a partir das energias livres de Helmholtz e Gibbs.", url: "slides/capitulo-04/page_11.html", aiExercise: true },
+          { id: "4.7", title: "Construção de Maxwell", note: "Regra das áreas iguais, coexistência líquido-vapor, regra da alavanca e aplicação ao dióxido de carbono.", url: "slides/capitulo-04/page_13.html", aiExercise: true },
+          { id: "4.8", title: "Superaquecimento e Super-resfriamento", note: "Estados metaestáveis, nucleação e limites de estabilidade em transições de fase.", url: "slides/capitulo-04/page_16.html", aiExercise: true },
+          { id: "4.9", title: "Calor Latente e Equação de Clausius-Clapeyron", note: "Calor latente, inclinação da curva de coexistência e aplicações da equação de Clausius-Clapeyron.", url: "slides/capitulo-04/page_17.html", aiExercise: true },
+          { id: "4.10", title: "Compressibilidade Isotérmica", note: "Resposta volumétrica à pressão, divergência no ponto crítico e interpretação da compressibilidade isotérmica.", url: "slides/capitulo-04/page_20.html", aiExercise: true },
+          { id: "4.11", title: "Expansão Térmica", note: "Coeficiente de expansão térmica, resposta à temperatura e comportamento próximo ao ponto crítico.", url: "slides/capitulo-04/page_21.html", aiExercise: true }
+        ]
+      }
+    };
+
     const JSPDF_CDN_URL = "https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js";
     const releaseInfo = {
-      version: "v0609.2",
-      date: "2026-06-09",
-      label: "09/06/2026"
+      version: "v0610.1",
+      date: "2026-06-10",
+      label: "10/06/2026"
     };
 
     const personalViews = [
@@ -2958,6 +3031,7 @@
       exerciseModal: null,
       selectedExerciseId: null,
       jsPdfPromise: null,
+      chapterLoadToken: 0,
       drawerSection: "chapters"
     };
 
@@ -3256,6 +3330,53 @@
 
     function findChapterById(id) {
       return chapters.find((chapter) => chapter.id === id) || chapters[0];
+    }
+
+    function cloneChapterData(data) {
+      return {
+        description: data && data.description ? String(data.description) : "",
+        topics: Array.isArray(data?.topics)
+          ? data.topics.map((topic) => ({ ...topic }))
+          : []
+      };
+    }
+
+    function getEmbeddedChapterData(chapterId) {
+      return cloneChapterData(embeddedChapterData[chapterId]);
+    }
+
+    async function fetchChapterData(chapter, timeoutMs) {
+      const url = new URL(chapter.data, window.location.href);
+      url.searchParams.set("v", releaseInfo.version);
+
+      const controller = typeof AbortController !== "undefined"
+        ? new AbortController()
+        : null;
+      let timeoutId = 0;
+
+      const timeoutPromise = new Promise(function (_resolve, reject) {
+        timeoutId = window.setTimeout(function () {
+          if (controller) controller.abort();
+          reject(new Error(`Tempo esgotado ao carregar ${chapter.data}`));
+        }, Number(timeoutMs || 2600));
+      });
+
+      const fetchOptions = {
+        cache: "no-cache",
+        credentials: "same-origin"
+      };
+      if (controller) fetchOptions.signal = controller.signal;
+
+      try {
+        const response = await Promise.race([
+          fetch(url.toString(), fetchOptions),
+          timeoutPromise
+        ]);
+        if (!response.ok) throw new Error("Arquivo ainda não disponível");
+        return cloneChapterData(await response.json());
+      } finally {
+        if (timeoutId) window.clearTimeout(timeoutId);
+      }
     }
 
     function setDrawerSection(sectionId) {
@@ -4269,6 +4390,12 @@
     async function loadChapter(chapterId) {
       setLandingMode(false);
       const chapter = findChapterById(chapterId);
+      const loadToken = state.chapterLoadToken + 1;
+      state.chapterLoadToken = loadToken;
+      const isCurrentLoad = function () {
+        return state.view === "chapters" && state.chapterId === chapter.id && state.chapterLoadToken === loadToken;
+      };
+      const embeddedData = getEmbeddedChapterData(chapter.id);
       state.chapterId = chapter.id;
       setActiveChapter(chapter.id);
       setActivePersonal("");
@@ -4278,19 +4405,22 @@
       panelKicker.textContent = `Capítulo ${chapter.id}`;
       panelTitle.textContent = chapter.title;
       panelDescription.textContent = "";
-      topicContainer.innerHTML = `<div class="empty-state"><strong>Aguarde:</strong> buscando o arquivo externo <code>${chapter.data}</code>.</div>`;
+      if (embeddedData.topics.length > 0) {
+        renderTopicGrid(embeddedData.topics);
+      } else {
+        topicContainer.innerHTML = `<div class="empty-state"><strong>Aguarde:</strong> buscando o arquivo externo <code>${chapter.data}</code>.</div>`;
+      }
       await renderPanelActions();
 
       try {
-        const response = await fetch(chapter.data, { cache: "no-store" });
-        if (!response.ok) throw new Error("Arquivo ainda não disponível");
-
-        const data = await response.json();
+        const data = await fetchChapterData(chapter, embeddedData.topics.length > 0 ? 2200 : 3600);
+        if (!isCurrentLoad()) return;
         const topics = Array.isArray(data.topics) ? data.topics : [];
 
         panelDescription.textContent = "";
 
         if (topics.length === 0) {
+          if (embeddedData.topics.length > 0) return;
           topicContainer.innerHTML = `
             <div class="empty-state">
               <strong>Nenhum tópico cadastrado ainda.</strong><br />
@@ -4302,6 +4432,7 @@
 
         renderTopicGrid(topics);
       } catch (error) {
+        if (!isCurrentLoad() || embeddedData.topics.length > 0) return;
         panelDescription.textContent = "";
         topicContainer.innerHTML = `
           <div class="empty-state">
@@ -4836,7 +4967,7 @@
 
           if (!existingScript) {
             const script = document.createElement("script");
-            script.src = "assets/termo-auth.js?v=0609.2";
+            script.src = "assets/termo-auth.js?v=0610.1";
             script.async = true;
             script.onerror = function () {
               if (settled) return;
