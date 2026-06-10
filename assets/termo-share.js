@@ -84,7 +84,7 @@
   }
 
   function buildIndexBlurb() {
-    return "Veja este livro interativo de Termodinâmica para Estudantes de Física.";
+    return "Veja este livro interativo de Termodinâmica.";
   }
 
   function buildPageBlurb() {

@@ -7,6 +7,10 @@
     /(?:\\[A-Za-z]+|[A-Za-z]_[A-Za-z0-9]+|[A-Za-z]\^[A-Za-z0-9]+|\b(?:sum|ln|exp|lim|frac|partial|sin|cos|tan|sinh|cosh)\b|[=+\-*/^_]|[Σ∑∂ΔΩβλμ→≤≥±≠∞])/;
   const DEFAULT_VALIDATOR_EMAILS = ["marioreis@id.uff.br"];
 
+  function getCurrentPageReference() {
+    return `${window.location.pathname}${window.location.search}${window.location.hash}` || "/";
+  }
+
   function getHostState(host) {
     if (!host.__termoExerciseState) {
       host.__termoExerciseState = {
@@ -563,12 +567,13 @@
 
   function buildExerciseRecord(ctx, data, difficultyValue) {
     const chapter = getChapterMeta();
+    const pageReference = getCurrentPageReference();
 
     return {
       chapterId: chapter.chapterId,
       itemId: chapter.itemId,
-      pagePath: window.location.pathname,
-      pageUrl: window.location.href,
+      pagePath: pageReference,
+      pageUrl: pageReference,
       pageTitle: ctx.title || document.title || "Página do curso",
       difficulty: difficultyValue,
       exerciseCode: data.exerciseId || "",
@@ -693,6 +698,7 @@
     const button = host.querySelector('[data-role="submit-validation"]');
     const ctx = state.exercise.context || getPageContext(host);
     const chapter = getChapterMeta();
+    const pageReference = getCurrentPageReference();
 
     try {
       if (button) button.disabled = true;
@@ -708,8 +714,8 @@
           chapterId: chapter.chapterId,
           itemId: chapter.itemId,
           exerciseId: state.exercise.exerciseId || "",
-          pagePath: window.location.pathname,
-          pageUrl: window.location.href,
+          pagePath: pageReference,
+          pageUrl: pageReference,
           pageTitle: ctx.title || document.title || "Página do curso",
           pageSubtitle: ctx.subtitle || "",
           pageContent: ctx.content || "",

@@ -5,14 +5,36 @@
   const FAVORITE_ITEMS_KEY = "termo_favorite_items";
   const MAX_FAVORITE_ITEMS = 120;
 
+  function getCurrentPageReference() {
+    return `${window.location.pathname}${window.location.search}${window.location.hash}` || "/";
+  }
+
+  function toRelativeAppUrl(value) {
+    const fallback = getCurrentPageReference();
+    const raw = String(value || "").trim();
+
+    if (!raw) return fallback;
+
+    try {
+      const url = new URL(raw, window.location.origin);
+      return `${url.pathname}${url.search}${url.hash}` || fallback;
+    } catch (_error) {
+      if (raw.startsWith("/")) return raw;
+      if (raw.startsWith("?")) return `${window.location.pathname}${raw}`;
+      if (raw.startsWith("#")) return `${window.location.pathname}${window.location.search}${raw}`;
+      return fallback;
+    }
+  }
+
   function normalizeRecord(input) {
     const record = input || {};
+    const pageReference = toRelativeAppUrl(record.pageUrl || record.pagePath || getCurrentPageReference());
 
     return {
       chapter_id: record.chapterId || null,
       item_id: record.itemId || null,
-      page_path: record.pagePath || window.location.pathname,
-      page_url: record.pageUrl || window.location.href,
+      page_path: pageReference,
+      page_url: pageReference,
       page_title: record.pageTitle || document.title || "Página do curso",
       difficulty: record.difficulty || "medio",
       exercise_code: record.exerciseCode || record.exercise_id || null,
@@ -246,6 +268,7 @@
     const chapterId = String(record.chapterId || "").padStart(2, "0");
     const itemId = String(record.itemId || "").trim();
     const key = buildFavoriteItemKey(chapterId, itemId);
+    const pageReference = toRelativeAppUrl(record.url || record.pagePath || getCurrentPageReference());
 
     if (!key) return null;
 
@@ -256,8 +279,8 @@
       label: record.label || `Capítulo ${Number(chapterId)} · Item ${itemId}`,
       title: record.title || `Item ${itemId}`,
       note: record.note || "",
-      url: record.url || window.location.href,
-      pagePath: record.pagePath || window.location.pathname,
+      url: pageReference,
+      pagePath: pageReference,
       updatedAt: record.updatedAt || new Date().toISOString()
     };
   }

@@ -498,7 +498,7 @@
 
     .chapter-button:not(.active):focus,
     .chapter-button:not(.active):focus-visible {
-      background: #F8F9FA;
+      background: #FFFFFF;
       border-color: #E8EDF3;
     }
 
@@ -2109,16 +2109,16 @@
   window.__termoLandingAuthResume = Boolean(hasAuthParams || hasPendingTarget);
 })();
 </script>
-<link rel="stylesheet" href="assets/termo-share.css?v=0609.1">
-<link rel="stylesheet" href="assets/termo-auth.css?v=0609.1">
+<link rel="stylesheet" href="assets/termo-share.css?v=0609.2">
+<link rel="stylesheet" href="assets/termo-auth.css?v=0609.2">
 <script>
 (function () {
   const scripts = window.__termoLandingStaticMode
-    ? ["assets/termo-auth.js?v=0609.1"]
+    ? ["assets/termo-auth.js?v=0609.2"]
     : [
-        "assets/termo-share.js?v=0609.1",
-        "assets/termo-auth.js?v=0609.1",
-        "assets/termo-user-data.js?v=0609.1"
+        "assets/termo-share.js?v=0609.2",
+        "assets/termo-auth.js?v=0609.2",
+        "assets/termo-user-data.js?v=0609.2"
       ];
 
   scripts.forEach(function (src) {
@@ -2160,15 +2160,15 @@
           <div class="metadata">
             <span><i class="fa-solid fa-user-tie"></i> Prof. Mario Reis</span>
             <span><i class="fa-solid fa-building-columns"></i> Instituto de Física — Universidade Federal Fluminense</span>
-            <span><i class="fa-solid fa-calendar-days"></i> Última atualização: <time id="lastUpdated" datetime="2026-06-09">09/06/2026</time> · <span id="appVersion">v0609.1</span></span>
+            <span><i class="fa-solid fa-calendar-days"></i> Última atualização: <time id="lastUpdated" datetime="2026-06-09">09/06/2026</time> · <span id="appVersion">v0609.2</span></span>
           </div>
         </div>
         <div class="header-tools" data-termo-header-tools aria-label="Ações principais">
-          <a href="index.html?view=saved" class="termo-auth-trigger index-back-button" data-termo-auth-button="true" data-landing-login-target="index.html?view=saved" aria-label="Abrir opcoes de login para salvar progresso">
+          <a href="#" class="termo-auth-trigger index-back-button" data-termo-auth-button="true" data-landing-login-target="index.html?view=saved" aria-label="Abrir opções de login para salvar seu marcador de página">
             <i class="fa-solid fa-bookmark"></i>
             <span>Salvar progresso</span>
           </a>
-          <a href="mailto:?subject=Termodin%C3%A2mica%20para%20Estudantes%20de%20F%C3%ADsica&body=Veja%20este%20livro%20interativo%20de%20Termodin%C3%A2mica%20para%20Estudantes%20de%20F%C3%ADsica.%0Ahttps%3A%2F%2Ftermo-theta.vercel.app%2F%3Fview%3Dchapters" class="termo-share-button termo-share-button--index index-back-button" data-termo-share-button="true" aria-label="Enviar esta página para outra pessoa">
+          <a href="mailto:?subject=Termodin%C3%A2mica%20para%20Estudantes%20de%20F%C3%ADsica&body=Veja%20este%20livro%20interativo%20de%20Termodin%C3%A2mica.%0Ahttps%3A%2F%2Ftermo-theta.vercel.app%2F%3Fview%3Dchapters" class="termo-share-button termo-share-button--index index-back-button" data-termo-share-button="true" aria-label="Enviar esta página para outra pessoa">
             <i class="fa-solid fa-paper-plane"></i>
             <span>Enviar</span>
           </a>
@@ -2213,14 +2213,14 @@
               </button>
               <div class="drawer-group-panel is-open" id="drawerPanelPersonal">
                 <div class="personal-list" id="personalList">
-                  <a class="personal-button" href="index.html?view=saved" data-landing-login-target="index.html?view=saved">
+                  <a class="personal-button" href="#" data-landing-login-target="index.html?view=saved">
                     <span class="extras-icon"><i class="fa-solid fa-book-bookmark"></i></span>
                     <span class="extras-text">
                       <span class="extras-label">Meus exercícios</span>
                       <span class="extras-note">Abra sua lista pessoal de exercícios gerados.</span>
                     </span>
                   </a>
-                  <a class="personal-button" href="index.html?view=favorites" data-landing-login-target="index.html?view=favorites">
+                  <a class="personal-button" href="#" data-landing-login-target="index.html?view=favorites">
                     <span class="extras-icon"><i class="fa-solid fa-star"></i></span>
                     <span class="extras-text">
                       <span class="extras-label">Itens favoritos</span>
@@ -2230,7 +2230,7 @@
                 </div>
                 <div class="sidebar-helper" id="personalHint">Entre com Google para habilitar sua área pessoal.</div>
                 <div class="personal-drawer-actions" id="personalDrawerActions">
-                  <a class="drawer-inline-action" href="index.html?view=saved" data-landing-login-target="index.html?view=saved">
+                  <a class="drawer-inline-action" href="#" data-landing-login-target="index.html?view=saved">
                     <i class="fa-brands fa-google"></i>
                     <span>Entrar com Google</span>
                   </a>
@@ -2326,7 +2326,7 @@
                   <div class="discovery-card__title"><i class="fa-solid fa-list-ul"></i> Capítulos</div>
                   <div class="discovery-card__meta">Abrir Capítulo 01</div>
                 </a>
-                <a class="discovery-card" href="index.html?view=saved" data-landing-login-target="index.html?view=saved">
+                <a class="discovery-card" href="#" data-landing-login-target="index.html?view=saved">
                   <div class="discovery-card__title"><i class="fa-solid fa-circle-user"></i> Área Pessoal</div>
                   <div class="discovery-card__meta">Abrir Área Pessoal</div>
                 </a>
@@ -2460,7 +2460,7 @@
 
       function sharePage(button) {
         var title = "Termodinâmica para Estudantes de Física";
-        var text = "Veja este livro interativo de Termodinâmica para Estudantes de Física.";
+        var text = "Veja este livro interativo de Termodinâmica.";
         var url = getShareUrl();
         var payload = { title: title, text: text, url: url };
         var clipboardText = text + "\n" + url;
@@ -2496,6 +2496,18 @@
           event.preventDefault();
           event.stopPropagation();
           sharePage(shareButton);
+          return;
+        }
+
+        var landingLoginTarget = closestElement(target, "[data-landing-login-target]");
+        if (landingLoginTarget && !window.TermoIndexReady && typeof window.handleLandingLoginRequest === "function") {
+          event.preventDefault();
+          event.stopPropagation();
+          void window.handleLandingLoginRequest(
+            landingLoginTarget.getAttribute("data-landing-login-target") ||
+            landingLoginTarget.getAttribute("href") ||
+            "index.html?view=saved"
+          );
           return;
         }
 
@@ -2775,7 +2787,7 @@
 
     const JSPDF_CDN_URL = "https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js";
     const releaseInfo = {
-      version: "v0609.1",
+      version: "v0609.2",
       date: "2026-06-09",
       label: "09/06/2026"
     };
@@ -2848,6 +2860,84 @@
       jsPdfPromise: null,
       drawerSection: "chapters"
     };
+
+    function getCurrentAppReference() {
+      return `${window.location.pathname}${window.location.search}${window.location.hash}` || "/";
+    }
+
+    function getPreferredCourseOrigin() {
+      return /^(localhost|127\.0\.0\.1)$/i.test(window.location.hostname)
+        ? "https://termo-theta.vercel.app"
+        : window.location.origin;
+    }
+
+    function normalizeAppRelativeUrl(value, fallbackValue) {
+      const fallback = String(fallbackValue || getCurrentAppReference()).trim() || "/";
+      const raw = String(value || "").trim();
+
+      if (!raw) return fallback;
+
+      try {
+        const parsed = new URL(raw, window.location.origin);
+        return `${parsed.pathname}${parsed.search}${parsed.hash}` || fallback;
+      } catch (_error) {
+        if (raw.startsWith("/")) return raw;
+        if (raw.startsWith("?")) return `${window.location.pathname}${raw}`;
+        if (raw.startsWith("#")) return `${window.location.pathname}${window.location.search}${raw}`;
+        return fallback;
+      }
+    }
+
+    function buildAbsoluteCourseUrl(value, fallbackValue) {
+      const normalized = normalizeAppRelativeUrl(value, fallbackValue);
+      try {
+        return new URL(normalized, getPreferredCourseOrigin()).toString();
+      } catch (_error) {
+        return new URL(getCurrentAppReference(), getPreferredCourseOrigin()).toString();
+      }
+    }
+
+    function waitForAppGlobal(name, predicate, timeoutMs) {
+      const timeout = Number(timeoutMs || 2600);
+      const validate = typeof predicate === "function"
+        ? predicate
+        : function (value) { return Boolean(value); };
+
+      return new Promise(function (resolve) {
+        const startedAt = Date.now();
+
+        function check() {
+          const value = window[name];
+          if (validate(value)) {
+            resolve(value);
+            return;
+          }
+
+          if (Date.now() - startedAt >= timeout) {
+            resolve(null);
+            return;
+          }
+
+          window.setTimeout(check, 80);
+        }
+
+        check();
+      });
+    }
+
+    async function ensureAuthModules() {
+      const auth = await waitForAppGlobal("TermoAuth", function (value) {
+        return value && typeof value.openModal === "function";
+      }, 3200);
+      const userData = await waitForAppGlobal("TermoUserData", function (value) {
+        return value && typeof value.listExercises === "function";
+      }, 3200);
+
+      return {
+        auth: auth || null,
+        userData: userData || null
+      };
+    }
 
     function renderReleaseInfo() {
       const lastUpdated = document.getElementById("lastUpdated");
@@ -3138,9 +3228,11 @@
         button.addEventListener("click", function () {
           if (!state.loggedIn) {
             closeDrawer();
-            if (window.TermoAuth && typeof window.TermoAuth.openModal === "function") {
-              window.TermoAuth.openModal();
-            }
+            ensureAuthModules().then(function (modules) {
+              if (modules.auth && typeof modules.auth.openModal === "function") {
+                modules.auth.openModal();
+              }
+            });
             return;
           }
           closeDrawer();
@@ -3151,7 +3243,7 @@
 
       personalHint.textContent = state.loggedIn
         ? "Sua área pessoal está ativa. Os subtópicos acima abrem seu histórico e seus atalhos salvos."
-        : "Entre com Google para habilitar Meus exercícios e Itens favoritos.";
+        : "Entre com Google para habilitar sua área pessoal.";
 
       if (!state.loggedIn) {
         const loginButton = document.createElement("button");
@@ -3160,11 +3252,11 @@
         loginButton.innerHTML = `<i class="fa-brands fa-google"></i><span>Entrar com Google</span>`;
         loginButton.addEventListener("click", function () {
           closeDrawer();
-          if (window.TermoAuth && typeof window.TermoAuth.openModal === "function") {
-            window.TermoAuth.openModal();
-            return;
-          }
-          window.location.href = "index.html?view=saved";
+          ensureAuthModules().then(function (modules) {
+            if (modules.auth && typeof modules.auth.openModal === "function") {
+              modules.auth.openModal();
+            }
+          });
         });
         personalDrawerActions.appendChild(loginButton);
       }
@@ -3267,7 +3359,7 @@
               <div class="discovery-card__title"><i class="fa-solid fa-list-ul"></i> Capítulos</div>
               <div class="discovery-card__meta">Abrir Capítulo 01</div>
             </a>
-            <a class="discovery-card" href="index.html?view=saved" data-landing-login-target="index.html?view=saved">
+            <a class="discovery-card" href="#" data-landing-login-target="index.html?view=saved">
               <div class="discovery-card__title"><i class="fa-solid fa-circle-user"></i> Área Pessoal</div>
               <div class="discovery-card__meta">Abrir Área Pessoal</div>
             </a>
@@ -3307,7 +3399,7 @@
     }
 
     function buildExercisePlainText(exercise) {
-      const pageUrl = exercise.page_url || exercise.page_path || window.location.href;
+      const pageUrl = buildAbsoluteCourseUrl(exercise.page_path || exercise.page_url);
       const itemLabel = exercise.item_id || exercise.chapter_id || "Curso";
       const exerciseCodeLine = exercise.exercise_code ? [`ID do exercício: ${exercise.exercise_code}`] : [];
 
@@ -3502,7 +3594,7 @@
     async function shareExercise(exercise) {
       const title = `Exercício salvo · ${exercise.exercise_title || "Exercício"}`;
       const text = buildExercisePlainText(exercise);
-      const url = exercise.page_url || window.location.href;
+      const url = buildAbsoluteCourseUrl(exercise.page_path || exercise.page_url);
 
       if (navigator.share) {
         try {
@@ -3631,7 +3723,7 @@
       updateExerciseModalFavoriteButton(exercise);
 
       modal.querySelector('[data-role="exercise-open-page"]').onclick = function () {
-        window.location.href = exercise.page_url || exercise.page_path || "#";
+        window.location.href = normalizeAppRelativeUrl(exercise.page_path || exercise.page_url);
       };
       modal.querySelector('[data-role="exercise-favorite"]').onclick = async function () {
         const button = modal.querySelector('[data-role="exercise-favorite"]');
@@ -3748,9 +3840,10 @@
 
     function attachCommonHandlers(scope) {
       scope.querySelectorAll('[data-role="open-login"]').forEach((button) => {
-        button.addEventListener("click", function () {
-          if (window.TermoAuth && typeof window.TermoAuth.openModal === "function") {
-            window.TermoAuth.openModal();
+        button.addEventListener("click", async function () {
+          const modules = await ensureAuthModules();
+          if (modules.auth && typeof modules.auth.openModal === "function") {
+            modules.auth.openModal();
           }
         });
       });
@@ -3812,8 +3905,9 @@
       const favorites = Array.isArray(items) ? items : [];
       const exercises = Array.isArray(favoriteExercises) ? favoriteExercises : [];
       const favoriteMarkup = favorites.map(function (item) {
+        const favoriteUrl = normalizeAppRelativeUrl(item.url || item.pagePath);
         return `
-          <button class="favorite-item" data-favorite-url="${escapeHtml(item.url || item.pagePath || "#")}" type="button">
+          <button class="favorite-item" data-favorite-url="${escapeHtml(favoriteUrl)}" type="button">
             <div class="favorite-item__top"><i class="fa-solid fa-star"></i> Página favorita</div>
             <div class="favorite-item__title">${escapeHtml(item.label || `Item ${item.itemId || ""}`)} · ${escapeHtml(item.title || "Página do curso")}</div>
             <div class="favorite-item__note">${escapeHtml(item.note || "Abrir diretamente este item e retomar a leitura.")}</div>
@@ -3919,7 +4013,7 @@
               <i class="fa-solid fa-xmark"></i>
               Rejeitar relato
             </button>
-            <a class="saved-card__button" href="${escapeHtml(report.page_url || report.page_path || "#")}" target="_blank" rel="noopener noreferrer">
+            <a class="saved-card__button" href="${escapeHtml(normalizeAppRelativeUrl(report.page_path || report.page_url))}" target="_blank" rel="noopener noreferrer">
               <i class="fa-solid fa-arrow-up-right-from-square"></i>
               Abrir página
             </a>
@@ -4099,6 +4193,12 @@
       setActiveExtra("");
       panelActions.innerHTML = "";
 
+      await ensureAuthModules();
+      const session = await window.TermoAuth?.getSession?.().catch(function () {
+        return null;
+      });
+      state.loggedIn = Boolean(session?.user);
+
       if (!window.TermoAuth || typeof window.TermoAuth.isConfigured !== "function") {
         topicContainer.innerHTML = `<div class="empty-state"><strong>Auth não carregado.</strong><br />Recarregue a página para montar a área pessoal.</div>`;
         return;
@@ -4167,6 +4267,11 @@
 
     async function renderFavorites() {
       setLandingMode(false);
+      await ensureAuthModules();
+      const session = await window.TermoAuth?.getSession?.().catch(function () {
+        return null;
+      });
+      state.loggedIn = Boolean(session?.user);
       await refreshFavoriteCollections();
 
       panelKicker.textContent = "Área Pessoal";
@@ -4207,6 +4312,12 @@
 
     async function renderValidationReview() {
       setLandingMode(false);
+      await ensureAuthModules();
+      const session = await window.TermoAuth?.getSession?.().catch(function () {
+        return null;
+      });
+      state.loggedIn = Boolean(session?.user);
+      state.canReviewValidations = await canCurrentUserReviewValidations(session);
       panelKicker.textContent = "Área Pessoal";
       panelTitle.textContent = "Validações pendentes";
       panelDescription.textContent = "Revise os relatos enviados pelos usuários e decida quais comentários devem ser aproveitados na melhoria das próximas gerações.";
@@ -4400,8 +4511,15 @@
 
       window.TermoIndexReady = true;
 
-      function bindAuthStateListener() {
+      function bindAuthStateListener(attempts) {
+        const tries = Number(attempts || 0);
+
         if (!(window.TermoUserData && typeof window.TermoUserData.onAuthStateChange === "function")) {
+          if (tries < 40) {
+            window.setTimeout(function () {
+              bindAuthStateListener(tries + 1);
+            }, 100);
+          }
           return;
         }
 
@@ -4477,9 +4595,10 @@
 
       function normalizeLandingTarget(target) {
         try {
-          return new URL(target || "index.html?view=saved", window.location.href).toString();
+          var url = new URL(target || "index.html?view=saved", window.location.origin);
+          return (url.pathname || "/index.html") + (url.search || "") + (url.hash || "");
         } catch (_error) {
-          return new URL("index.html?view=saved", window.location.href).toString();
+          return "index.html?view=saved";
         }
       }
 
@@ -4523,7 +4642,7 @@
 
           if (!existingScript) {
             const script = document.createElement("script");
-            script.src = "assets/termo-auth.js?v=0609.1";
+            script.src = "assets/termo-auth.js?v=0609.2";
             script.async = true;
             script.onerror = function () {
               if (settled) return;
@@ -4586,6 +4705,8 @@
           return;
         }
       }
+
+      window.handleLandingLoginRequest = handleLandingLoginRequest;
 
       function bindLandingLoginTargets() {
         document.querySelectorAll("[data-landing-login-target]").forEach(function (anchor) {

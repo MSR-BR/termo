@@ -65,6 +65,10 @@
     return `${text.slice(0, maxLength - 1).trimEnd()}...`;
   }
 
+  function getCurrentPageReference() {
+    return `${window.location.pathname}${window.location.search}${window.location.hash}` || "/";
+  }
+
   function getCurrentItemContext() {
     const label = textContent(document.querySelector(".chapter-label"));
     if (!label) return null;
@@ -88,8 +92,8 @@
       label: `Capítulo ${Number(chapterId)} · Item ${itemId}`,
       title,
       note,
-      url: window.location.href,
-      pagePath: window.location.pathname
+      url: getCurrentPageReference(),
+      pagePath: getCurrentPageReference()
     };
   }
 
@@ -180,8 +184,8 @@
         label: `Capítulo ${Number(chapterId)} · Item ${itemId}`,
         title,
         note,
-        url: window.location.href,
-        pagePath: window.location.pathname
+        url: getCurrentPageReference(),
+        pagePath: getCurrentPageReference()
       };
     })()
       .then(function (context) {
