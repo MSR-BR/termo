@@ -2421,18 +2421,18 @@
           <div class="topic-container" id="topicContainer">
             <div class="discovery-shell">
               <section class="discovery-grid">
-                <a class="discovery-card" href="index.html?view=chapters&chapter=01">
+                <button type="button" class="discovery-card" data-role="open-drawer-section" data-section-id="chapters">
                   <div class="discovery-card__title"><i class="fa-solid fa-list-ul"></i> Capítulos</div>
-                  <div class="discovery-card__meta">Abrir Capítulo 01</div>
-                </a>
+                  <div class="discovery-card__meta">Abrir menu de capítulos</div>
+                </button>
                 <a class="discovery-card" href="#" data-landing-login-target="index.html?view=saved">
                   <div class="discovery-card__title"><i class="fa-solid fa-circle-user"></i> Área Pessoal</div>
                   <div class="discovery-card__meta">Abrir Área Pessoal</div>
                 </a>
-                <a class="discovery-card" href="index.html?view=simulators">
+                <button type="button" class="discovery-card" data-role="open-drawer-section" data-section-id="extras">
                   <div class="discovery-card__title"><i class="fa-solid fa-flask-vial"></i> Extras</div>
-                  <div class="discovery-card__meta">Explorar recursos</div>
-                </a>
+                  <div class="discovery-card__meta">Abrir menu de extras</div>
+                </button>
               </section>
             </div>
           </div>
@@ -2948,7 +2948,7 @@
     const state = {
       view: viewIds.has(requestedView) ? requestedView : "chapters",
       chapterId: params.get("chapter") || "",
-      simulatorId: params.get("sim") || "",
+      simulatorId: requestedView === "simulators" ? "" : (params.get("sim") || ""),
       loggedIn: false,
       canReviewValidations: false,
       favoriteItems: [],
@@ -3493,18 +3493,18 @@
       topicContainer.innerHTML = `
         <div class="discovery-shell">
           <section class="discovery-grid">
-            <a class="discovery-card" href="index.html?view=chapters&chapter=01">
+            <button type="button" class="discovery-card" data-role="open-drawer-section" data-section-id="chapters">
               <div class="discovery-card__title"><i class="fa-solid fa-list-ul"></i> Capítulos</div>
-              <div class="discovery-card__meta">Abrir Capítulo 01</div>
-            </a>
+              <div class="discovery-card__meta">Abrir menu de capítulos</div>
+            </button>
             <a class="discovery-card" href="#" data-landing-login-target="index.html?view=saved">
               <div class="discovery-card__title"><i class="fa-solid fa-circle-user"></i> Área Pessoal</div>
               <div class="discovery-card__meta">Abrir Área Pessoal</div>
             </a>
-            <a class="discovery-card" href="index.html?view=simulators">
+            <button type="button" class="discovery-card" data-role="open-drawer-section" data-section-id="extras">
               <div class="discovery-card__title"><i class="fa-solid fa-flask-vial"></i> Extras</div>
-              <div class="discovery-card__meta">Explorar recursos</div>
-            </a>
+              <div class="discovery-card__meta">Abrir menu de extras</div>
+            </button>
           </section>
         </div>
       `;
@@ -4608,10 +4608,9 @@
       setActiveExtra("simulators");
       panelActions.innerHTML = "";
 
-      const selectedSimulator = simulatorsBySlug[state.simulatorId] || null;
-      if (selectedSimulator) {
-        window.location.replace(selectedSimulator.shellUrl);
-        return;
+      if (state.simulatorId) {
+        state.simulatorId = "";
+        syncUrl();
       }
 
       renderSimulatorCatalog();
