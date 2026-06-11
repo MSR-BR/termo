@@ -593,8 +593,10 @@
     }
   }
 
-  function setButtonHtml(button, html) {
-    if (!button || button.innerHTML === html) return;
+  function setButtonHtml(button, html, signature) {
+    const nextSignature = signature || html.replace(/\s+/g, " ").trim();
+    if (!button || button.getAttribute("data-termo-html-signature") === nextSignature) return;
+    button.setAttribute("data-termo-html-signature", nextSignature);
     button.innerHTML = html;
   }
 
@@ -611,7 +613,7 @@
       const label = getFriendlyName(state.session.user);
       setButtonHtml(state.triggerButton, avatarUrl
         ? `<img src="${avatarUrl}" alt="" class="auth-avatar"><span>${label}</span>`
-        : `<i class="fa-solid fa-circle-user"></i><span>${label}</span>`);
+        : `<i class="fa-solid fa-circle-user"></i><span>${label}</span>`, `signed-in:${label}:${avatarUrl || ""}`);
       setButtonAttribute(state.triggerButton, "aria-label", "Abrir área pessoal e marcador salvo");
       return;
     }
@@ -619,7 +621,7 @@
     setButtonHtml(state.triggerButton, `
       <i class="fa-solid fa-bookmark"></i>
       <span>Salvar progresso</span>
-    `);
+    `, "signed-out");
     setButtonAttribute(state.triggerButton, "aria-label", "Abrir opcoes de login para salvar progresso");
   }
 
@@ -990,7 +992,9 @@
   function autoMount() {
     renderTrigger();
     registerTriggerClickHandler();
-    watchForChanges();
+    if (!isIndexPage()) {
+      watchForChanges();
+    }
     window.addEventListener("resize", scheduleRefresh);
     document.addEventListener("visibilitychange", function () {
       if (document.visibilityState === "hidden" && state.session?.user) {
@@ -1014,12 +1018,6 @@
     },
     getSession: async function () {
       await waitUntilReady(1800);
-      if (state.resolveReady) {
-        return state.session;
-      }
-      if (!state.session) {
-        await refreshSession();
-      }
       return state.session;
     }
   };

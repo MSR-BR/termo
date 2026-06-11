@@ -302,7 +302,9 @@
 
   function autoMount() {
     refresh();
-    watchForChanges();
+    if (!isIndexPage()) {
+      watchForChanges();
+    }
     window.addEventListener("resize", scheduleRefresh);
   }
 

@@ -2189,36 +2189,31 @@
 (function () {
   const landingLoginTargetKey = "termoLandingPostLoginTarget";
   const params = new URLSearchParams(window.location.search);
-  const view = params.get("view") || "chapters";
-  const chapterId = params.get("chapter") || "";
-  const path = window.location.pathname || "/";
-  const isIndexPath = path === "/" || /(^|\/)index\.html$/.test(path);
-  window.__termoLandingStaticMode = Boolean(isIndexPath && view === "chapters" && !chapterId);
-  if (!window.__termoLandingStaticMode) {
-    window.__termoLandingAuthResume = false;
-    return;
-  }
+  window.__termoLandingStaticMode = false;
 
   const authKeys = ["code", "state", "error", "error_code", "error_description", "access_token", "refresh_token", "provider_token", "provider_refresh_token"];
   const hashParams = new URLSearchParams(window.location.hash.startsWith("#") ? window.location.hash.slice(1) : "");
   const hasAuthParams = authKeys.some(function (key) {
     return params.has(key) || hashParams.has(key);
   });
-  const hasPendingTarget = Boolean(window.sessionStorage && window.sessionStorage.getItem(landingLoginTargetKey));
+  let hasPendingTarget = false;
+  try {
+    hasPendingTarget = Boolean(window.sessionStorage && window.sessionStorage.getItem(landingLoginTargetKey));
+  } catch (error) {
+    hasPendingTarget = false;
+  }
   window.__termoLandingAuthResume = Boolean(hasAuthParams || hasPendingTarget);
 })();
 </script>
-<link rel="stylesheet" href="assets/termo-share.css?v=0610.2">
-<link rel="stylesheet" href="assets/termo-auth.css?v=0610.2">
+<link rel="stylesheet" href="assets/termo-share.css?v=0611.3">
+<link rel="stylesheet" href="assets/termo-auth.css?v=0611.3">
 <script>
 (function () {
-  const scripts = window.__termoLandingStaticMode
-    ? ["assets/termo-auth.js?v=0610.2"]
-    : [
-        "assets/termo-share.js?v=0610.2",
-        "assets/termo-auth.js?v=0610.2",
-        "assets/termo-user-data.js?v=0610.2"
-      ];
+  const scripts = [
+    "assets/termo-share.js?v=0611.3",
+    "assets/termo-auth.js?v=0611.3",
+    "assets/termo-user-data.js?v=0611.3"
+  ];
 
   scripts.forEach(function (src) {
     const script = document.createElement("script");
@@ -2246,7 +2241,7 @@
 <meta name="twitter:description" content="Livro interativo de Termodinâmica com capítulos, exercícios automáticos por IA, simuladores, exemplos resolvidos e material didático do Prof. Mario Reis (IF-UFF)."/>
 <script type="application/ld+json">[{"@context":"https://schema.org","@type":"WebSite","name":"Termodinâmica para Estudantes de Física","url":"https://termo-theta.vercel.app/","inLanguage":"pt-BR"},{"@context":"https://schema.org","@type":"Course","name":"Termodinâmica para Estudantes de Física","description":"Livro interativo de Termodinâmica com capítulos, exercícios automáticos por IA, simuladores, exemplos resolvidos e material didático do Prof. Mario Reis (IF-UFF).","provider":{"@type":"CollegeOrUniversity","name":"Instituto de Física — Universidade Federal Fluminense"},"creator":{"@type":"Person","name":"Prof. Mario Reis"},"url":"https://termo-theta.vercel.app/"}]</script>
 <!-- termo-seo:end -->
-<script defer src="assets/termo-seo.js?v=0610.2"></script>
+<script defer src="assets/termo-seo.js?v=0611.3"></script>
 </head>
 
 <body>
@@ -2259,7 +2254,7 @@
           <div class="metadata">
             <span><i class="fa-solid fa-user-tie"></i> Prof. Mario Reis</span>
             <span><i class="fa-solid fa-building-columns"></i> Instituto de Física — Universidade Federal Fluminense</span>
-            <span><i class="fa-solid fa-calendar-days"></i> Última atualização: <time id="lastUpdated" datetime="2026-06-10">10/06/2026</time> · <span id="appVersion">v0610.2</span></span>
+            <span><i class="fa-solid fa-calendar-days"></i> Última atualização: <time id="lastUpdated" datetime="2026-06-11">11/06/2026</time> · <span id="appVersion">v0611.3</span></span>
           </div>
         </div>
         <div class="header-tools" data-termo-header-tools aria-label="Ações principais">
@@ -2276,31 +2271,30 @@
     </header>
 
     <div class="menu-launcher-row">
-      <a
-        href="#menuDrawerOverlay"
+      <button
+        type="button"
         class="menu-toggle-button"
         id="menuToggleButton"
-        role="button"
         aria-haspopup="dialog"
         aria-expanded="false"
         aria-controls="menuDrawerOverlay"
       >
         <i class="fa-solid fa-bars"></i>
         <span>Menu</span>
-      </a>
+      </button>
       <div class="menu-launcher-note"></div>
     </div>
 
-    <div class="drawer-overlay" id="menuDrawerOverlay" aria-hidden="true">
+    <div class="drawer-overlay" id="menuDrawerOverlay" aria-hidden="true" hidden>
       <aside class="drawer-shell" role="dialog" aria-modal="true" aria-labelledby="menuDrawerTitle">
         <div class="drawer-header">
           <div>
             <div class="drawer-kicker">Menu</div>
             <h2 class="drawer-title" id="menuDrawerTitle">Navegação do livro</h2>
           </div>
-          <a href="#" class="drawer-close-button" id="menuDrawerClose" role="button" aria-label="Fechar menu">
+          <button type="button" class="drawer-close-button" id="menuDrawerClose" aria-label="Fechar menu">
             <i class="fa-solid fa-xmark"></i>
-          </a>
+          </button>
         </div>
 
         <div class="drawer-scroll">
@@ -2515,9 +2509,8 @@
         var menuButton = document.getElementById("menuToggleButton");
         if (!overlay) return;
         overlay.hidden = false;
-        window.setTimeout(function () {
-          overlay.classList.add("is-open");
-        }, 0);
+        overlay.setAttribute("aria-hidden", "false");
+        overlay.classList.add("is-open");
         if (menuButton) menuButton.setAttribute("aria-expanded", "true");
         setDrawerSection(sectionId || "chapters");
       }
@@ -2527,6 +2520,7 @@
         var menuButton = document.getElementById("menuToggleButton");
         if (!overlay) return;
         overlay.classList.remove("is-open");
+        overlay.setAttribute("aria-hidden", "true");
         if (menuButton) menuButton.setAttribute("aria-expanded", "false");
         window.setTimeout(function () {
           if (!overlay.classList.contains("is-open")) overlay.hidden = true;
@@ -2761,9 +2755,8 @@
         if (!overlay) return;
 
         overlay.hidden = false;
-        window.requestAnimationFrame(function () {
-          overlay.classList.add("is-open");
-        });
+        overlay.setAttribute("aria-hidden", "false");
+        overlay.classList.add("is-open");
 
         if (menuButton) {
           menuButton.setAttribute("aria-expanded", "true");
@@ -2778,6 +2771,7 @@
         if (!overlay) return;
 
         overlay.classList.remove("is-open");
+        overlay.setAttribute("aria-hidden", "true");
         if (menuButton) {
           menuButton.setAttribute("aria-expanded", "false");
         }
@@ -2959,9 +2953,9 @@
 
     const JSPDF_CDN_URL = "https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js";
     const releaseInfo = {
-      version: "v0610.2",
-      date: "2026-06-10",
-      label: "10/06/2026"
+      version: "v0611.3",
+      date: "2026-06-11",
+      label: "11/06/2026"
     };
 
     const personalViews = [
@@ -3111,6 +3105,12 @@
         auth: auth || null,
         userData: userData || null
       };
+    }
+
+    async function ensureAuthOnly(timeoutMs) {
+      return waitForAppGlobal("TermoAuth", function (value) {
+        return value && typeof value.openModal === "function";
+      }, timeoutMs || 1800);
     }
 
     function renderReleaseInfo() {
@@ -3400,15 +3400,15 @@
     function openDrawer(sectionId) {
       state.drawerSection = sectionId || state.drawerSection || getDrawerSectionForView(state.view);
       menuDrawerOverlay.hidden = false;
-      window.requestAnimationFrame(() => {
-        menuDrawerOverlay.classList.add("is-open");
-      });
+      menuDrawerOverlay.setAttribute("aria-hidden", "false");
+      menuDrawerOverlay.classList.add("is-open");
       menuToggleButton.setAttribute("aria-expanded", "true");
       setDrawerSection(state.drawerSection);
     }
 
     function closeDrawer() {
       menuDrawerOverlay.classList.remove("is-open");
+      menuDrawerOverlay.setAttribute("aria-hidden", "true");
       menuToggleButton.setAttribute("aria-expanded", "false");
       window.setTimeout(() => {
         if (!menuDrawerOverlay.classList.contains("is-open")) {
@@ -4797,6 +4797,108 @@
       await loadChapter(state.chapterId);
     }
 
+    const landingLoginTargetKey = "termoLandingPostLoginTarget";
+    let landingAuthCompletionBound = false;
+
+    function readLandingLoginTarget() {
+      try {
+        return window.sessionStorage ? window.sessionStorage.getItem(landingLoginTargetKey) || "" : "";
+      } catch (_error) {
+        return "";
+      }
+    }
+
+    function writeLandingLoginTarget(value) {
+      try {
+        if (!window.sessionStorage) return;
+        if (value) {
+          window.sessionStorage.setItem(landingLoginTargetKey, value);
+        } else {
+          window.sessionStorage.removeItem(landingLoginTargetKey);
+        }
+      } catch (_error) {
+        return;
+      }
+    }
+
+    function normalizeLandingTarget(target) {
+      try {
+        const url = new URL(target || "index.html?view=saved", window.location.origin);
+        return (url.pathname || "/index.html") + (url.search || "") + (url.hash || "");
+      } catch (_error) {
+        return "/index.html?view=saved";
+      }
+    }
+
+    function bindLandingAuthCompletion() {
+      if (landingAuthCompletionBound) return;
+      landingAuthCompletionBound = true;
+
+      window.addEventListener("termo-auth-state-change", function (event) {
+        const target = readLandingLoginTarget();
+        if (!target || !event?.detail?.user) return;
+
+        writeLandingLoginTarget("");
+        window.location.assign(target);
+      });
+    }
+
+    async function handleLandingLoginRequest(target) {
+      const normalizedTarget = normalizeLandingTarget(target);
+      writeLandingLoginTarget(normalizedTarget);
+      bindLandingAuthCompletion();
+
+      const auth = await ensureAuthOnly();
+      if (!auth) return;
+
+      if (typeof auth.openModal === "function") {
+        auth.openModal();
+      }
+
+      if (typeof auth.whenReady === "function") {
+        await auth.whenReady(2600).catch(function () {
+          return null;
+        });
+      }
+
+      if (typeof auth.getSession === "function") {
+        const session = await auth.getSession().catch(function () {
+          return null;
+        });
+        if (session?.user) {
+          writeLandingLoginTarget("");
+          window.location.assign(normalizedTarget);
+          return;
+        }
+      }
+    }
+
+    async function resumeLandingLoginFlow() {
+      const pendingTarget = readLandingLoginTarget();
+      if (!pendingTarget) return;
+
+      bindLandingAuthCompletion();
+      const auth = await ensureAuthOnly();
+      if (!auth) return;
+
+      if (typeof auth.whenReady === "function") {
+        await auth.whenReady(2600).catch(function () {
+          return null;
+        });
+      }
+
+      if (typeof auth.getSession !== "function") return;
+      const session = await auth.getSession().catch(function () {
+        return null;
+      });
+      if (session?.user) {
+        writeLandingLoginTarget("");
+        window.location.replace(pendingTarget);
+      }
+    }
+
+    window.handleLandingLoginRequest = handleLandingLoginRequest;
+
     if (!window.__termoLandingStaticMode) {
       window.addEventListener("termo-open-personal-area", function () {
         if (!state.loggedIn) return;
@@ -4921,9 +5023,15 @@
       if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", function () {
           void bootIndexPage();
+          if (window.__termoLandingAuthResume) {
+            void resumeLandingLoginFlow();
+          }
         }, { once: true });
       } else {
         void bootIndexPage();
+        if (window.__termoLandingAuthResume) {
+          void resumeLandingLoginFlow();
+        }
       }
     } else {
       renderReleaseInfo();
@@ -5002,7 +5110,7 @@
 
           if (!existingScript) {
             const script = document.createElement("script");
-            script.src = "assets/termo-auth.js?v=0610.2";
+            script.src = "assets/termo-auth.js?v=0611.3";
             script.async = true;
             script.onerror = function () {
               if (settled) return;
