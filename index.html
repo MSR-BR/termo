@@ -2206,7 +2206,7 @@
 })();
 </script>
 <link rel="stylesheet" href="assets/termo-share.css?v=0611.3">
-<link rel="stylesheet" href="assets/termo-auth.css?v=0611.3">
+<link rel="stylesheet" href="assets/termo-auth.css?v=0611.4">
 <script>
 (function () {
   const scripts = [
@@ -2258,7 +2258,7 @@
           </div>
         </div>
         <div class="header-tools" data-termo-header-tools aria-label="Ações principais">
-          <a href="#" class="termo-auth-trigger index-back-button" data-termo-auth-button="true" data-landing-login-target="index.html?view=saved" aria-label="Abrir opções de login para salvar seu marcador de página">
+          <a href="#" class="termo-auth-trigger index-back-button" data-termo-auth-button="true" aria-label="Abrir opções de login para salvar seu marcador de página">
             <i class="fa-solid fa-bookmark"></i>
             <span>Salvar progresso</span>
           </a>
@@ -2592,6 +2592,14 @@
           return;
         }
 
+        var authButton = closestElement(target, "[data-termo-auth-button]");
+        if (authButton && window.TermoAuth && typeof window.TermoAuth.openModal === "function") {
+          event.preventDefault();
+          event.stopPropagation();
+          window.TermoAuth.openModal();
+          return;
+        }
+
         var landingLoginTarget = closestElement(target, "[data-landing-login-target]");
         if (landingLoginTarget && !window.TermoIndexReady && typeof window.handleLandingLoginRequest === "function") {
           event.preventDefault();
@@ -2601,14 +2609,6 @@
             landingLoginTarget.getAttribute("href") ||
             "index.html?view=saved"
           );
-          return;
-        }
-
-        var authButton = closestElement(target, "[data-termo-auth-button]");
-        if (authButton && window.TermoAuth && typeof window.TermoAuth.openModal === "function") {
-          event.preventDefault();
-          event.stopPropagation();
-          window.TermoAuth.openModal();
           return;
         }
 
@@ -4924,6 +4924,14 @@
       document.addEventListener("click", function (event) {
         const target = event.target;
         if (!(target instanceof Element)) return;
+
+        const authButton = target.closest("[data-termo-auth-button]");
+        if (authButton && window.TermoAuth && typeof window.TermoAuth.openModal === "function") {
+          event.preventDefault();
+          event.stopPropagation();
+          window.TermoAuth.openModal();
+          return;
+        }
 
         const landingLoginTarget = target.closest("[data-landing-login-target]");
         if (landingLoginTarget) {

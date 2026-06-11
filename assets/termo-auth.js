@@ -83,6 +83,15 @@
     return `${text.slice(0, maxLength - 1).trimEnd()}...`;
   }
 
+  function escapeHtml(value) {
+    return String(value || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
   function getCurrentPageReference() {
     return `${window.location.pathname}${window.location.search}${window.location.hash}` || "/";
   }
@@ -243,6 +252,11 @@
     const fullName = metadata.full_name || metadata.name || user?.email || "";
     const firstName = String(fullName).trim().split(/\s+/)[0];
     return firstName || "Perfil";
+  }
+
+  function getFullName(user) {
+    const metadata = user?.user_metadata || {};
+    return metadata.full_name || metadata.name || getFriendlyName(user);
   }
 
   function getAvatarUrl(user) {
@@ -545,22 +559,25 @@
   function buildSignedInPanel(user) {
     const avatarUrl = getAvatarUrl(user);
     const friendlyName = getFriendlyName(user);
+    const fullName = getFullName(user);
     const email = user?.email || "";
     const metadata = user?.user_metadata || {};
+    const provider = user?.app_metadata?.provider || "google";
     const savedTitle = metadata.termo_last_page_title || "";
     const savedLabel = metadata.termo_last_page_label || "";
     const savedPoint = savedTitle
-      ? `<div class="termo-auth-muted">Último marcador salvo: ${savedLabel ? `${savedLabel} · ` : ""}${savedTitle}</div>`
+      ? `<div class="termo-auth-muted">Último marcador salvo: ${savedLabel ? `${escapeHtml(savedLabel)} · ` : ""}${escapeHtml(savedTitle)}</div>`
       : "";
     const links = getProfileLinks();
 
     return `
       <div class="termo-auth-panel-title">Você já está com seu marcador salvo</div>
       <div class="termo-auth-account">
-        ${avatarUrl ? `<img src="${avatarUrl}" alt="" class="termo-auth-account-avatar">` : `<div class="termo-auth-account-avatar"></div>`}
+        ${avatarUrl ? `<img src="${escapeHtml(avatarUrl)}" alt="" class="termo-auth-account-avatar">` : `<div class="termo-auth-account-avatar"></div>`}
         <div>
-          <div class="termo-auth-account-name">${friendlyName}</div>
-          <div class="termo-auth-account-email">${email}</div>
+          <div class="termo-auth-account-kicker">Conta ${provider === "google" ? "Google" : "conectada"}</div>
+          <div class="termo-auth-account-name">${escapeHtml(fullName)}</div>
+          <div class="termo-auth-account-email">${escapeHtml(email)}</div>
         </div>
       </div>
       ${savedPoint}
@@ -621,6 +638,10 @@
       panel.innerHTML = buildSetupPanel();
       return;
     }
+
+    await refreshSession().catch(function () {
+      return null;
+    });
 
     if (state.session?.user) {
       panel.innerHTML = buildSignedInPanel(state.session.user);
@@ -1018,6 +1039,8 @@
         }
       }
 
+      button.removeAttribute("data-landing-login-target");
+      if (button.tagName === "A") button.setAttribute("href", "#");
       state.triggerButton = button;
       updateTriggerButton();
       return button;
@@ -1037,6 +1060,8 @@
       }
     }
 
+    button.removeAttribute("data-landing-login-target");
+    if (button.tagName === "A") button.setAttribute("href", "#");
     state.triggerButton = button;
     syncButtonMetrics(button, referenceButton || host.querySelector(".index-back-button"));
     updateTriggerButton();

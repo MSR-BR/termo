@@ -264,6 +264,17 @@
   border:1px solid rgba(0, 75, 135, 0.12);
 }
 
+.termo-auth-account-kicker{
+  color:#0B5EA8;
+  font-family:"Inter",sans-serif;
+  font-size:.72rem;
+  font-weight:800;
+  letter-spacing:.08em;
+  line-height:1.2;
+  margin-bottom:3px;
+  text-transform:uppercase;
+}
+
 .termo-auth-account-name{
   color:#123A63;
   font-family:"Inter",sans-serif;
