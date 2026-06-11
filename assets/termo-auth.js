@@ -3,6 +3,24 @@
 
   const CONFIG_ENDPOINT = "/api/public-config";
   const SUPABASE_ESM_URL = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+  const AUTH_SITE_URL = "https://termo-theta.vercel.app";
+  const LANDING_LOGIN_TARGET_KEY = "termoLandingPostLoginTarget";
+  const AUTH_CLEANUP_KEYS = [
+    "code",
+    "state",
+    "error",
+    "error_code",
+    "error_description"
+  ];
+  const AUTH_HASH_CLEANUP_KEYS = [
+    ...AUTH_CLEANUP_KEYS,
+    "access_token",
+    "refresh_token",
+    "expires_in",
+    "token_type",
+    "provider_token",
+    "provider_refresh_token"
+  ];
   const TITLE_SELECTORS = [
     ".main-title",
     ".chapter-title",
@@ -374,18 +392,93 @@
     state.modal.setAttribute("aria-hidden", "true");
   }
 
+  function cleanAuthParams(url) {
+    const target = new URL(url.toString());
+    const hashParams = new URLSearchParams(url.hash.startsWith("#") ? url.hash.slice(1) : "");
+
+    AUTH_CLEANUP_KEYS.forEach(function (key) {
+      target.searchParams.delete(key);
+    });
+
+    AUTH_HASH_CLEANUP_KEYS.forEach(function (key) {
+      hashParams.delete(key);
+    });
+
+    const cleanHash = hashParams.toString();
+    target.hash = cleanHash ? `#${cleanHash}` : "";
+    return target;
+  }
+
+  function readPendingLoginRedirectRoute() {
+    try {
+      if (!window.sessionStorage) return "";
+      const raw = String(window.sessionStorage.getItem(LANDING_LOGIN_TARGET_KEY) || "").trim();
+      if (!raw) return "";
+
+      const url = new URL(raw, AUTH_SITE_URL);
+      if (url.origin !== AUTH_SITE_URL) return "";
+      return `${url.pathname || "/index.html"}${url.search || ""}${url.hash || ""}`;
+    } catch (_error) {
+      return "";
+    }
+  }
+
+  function getCurrentRouteForRedirect() {
+    const search = window.location.search || "";
+    const hash = window.location.hash || "";
+
+    if (window.location.protocol === "file:") {
+      const pathname = window.location.pathname || "";
+      const marker = "/termo/";
+      const markerIndex = pathname.lastIndexOf(marker);
+      if (markerIndex !== -1) {
+        const relativePath = pathname.slice(markerIndex + marker.length).replace(/^\/+/, "");
+        return `/${relativePath || "index.html"}${search}${hash}`;
+      }
+      return `/index.html${search}${hash}`;
+    }
+
+    const pathname = window.location.pathname || "/";
+    return `${pathname}${search}${hash}`;
+  }
+
+  function buildCanonicalRedirectUrl() {
+    const current = new URL(window.location.href);
+    const pendingRoute = readPendingLoginRedirectRoute();
+    const isHttp = current.protocol === "http:" || current.protocol === "https:";
+    const isProduction = current.hostname === new URL(AUTH_SITE_URL).hostname;
+
+    if (!pendingRoute && isHttp && isProduction) {
+      return cleanAuthParams(current).toString();
+    }
+
+    const target = new URL(AUTH_SITE_URL);
+    const route = pendingRoute || getCurrentRouteForRedirect();
+    const routeUrl = new URL(route, AUTH_SITE_URL);
+    target.pathname = routeUrl.pathname;
+    target.search = routeUrl.search;
+    target.hash = routeUrl.hash;
+    return cleanAuthParams(target).toString();
+  }
+
   function sanitizeAuthUrl() {
     const url = new URL(window.location.href);
-    const searchKeys = ["code", "state", "error", "error_code", "error_description"];
     const hashParams = new URLSearchParams(url.hash.startsWith("#") ? url.hash.slice(1) : "");
     let changed = false;
 
-    searchKeys.forEach(function (key) {
+    AUTH_CLEANUP_KEYS.forEach(function (key) {
       if (url.searchParams.has(key)) {
         url.searchParams.delete(key);
         changed = true;
       }
 
+      if (hashParams.has(key)) {
+        hashParams.delete(key);
+        changed = true;
+      }
+    });
+
+    AUTH_HASH_CLEANUP_KEYS.forEach(function (key) {
       if (hashParams.has(key)) {
         hashParams.delete(key);
         changed = true;
@@ -400,18 +493,7 @@
   }
 
   function buildCleanRedirectUrl() {
-    const url = new URL(window.location.href);
-    ["code", "state", "error", "error_code", "error_description"].forEach(function (key) {
-      url.searchParams.delete(key);
-    });
-
-    const hashParams = new URLSearchParams(url.hash.startsWith("#") ? url.hash.slice(1) : "");
-    ["code", "state", "error", "error_code", "error_description", "access_token", "refresh_token", "expires_in", "token_type", "provider_token", "provider_refresh_token"].forEach(function (key) {
-      hashParams.delete(key);
-    });
-    const cleanHash = hashParams.toString();
-    url.hash = cleanHash ? `#${cleanHash}` : "";
-    return url.toString();
+    return buildCanonicalRedirectUrl();
   }
 
   function getProfileLinks() {
