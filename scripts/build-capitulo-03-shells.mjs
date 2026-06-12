@@ -131,7 +131,7 @@ window.MathJax = {
 
   <section data-termo-ai-exercise data-exercise-theme="purple"></section>
 </div>
-<script src="../../assets/chapter-embedded-slide.js"></script>
+<script src="../../assets/chapter-embedded-slide.js?v=0611.5"></script>
 </body>
 </html>`;
 }
@@ -286,6 +286,108 @@ ${scope} .mjx-chtml{
   max-width:100% !important;
   overflow-x:auto !important;
   overflow-y:hidden !important;
+}
+${scope} p,
+${scope} li,
+${scope} td,
+${scope} blockquote,
+${scope} [class*="text"],
+${scope} [class*="body"],
+${scope} [class*="description"],
+${scope} [class*="caption"],
+${scope} [class*="explanation"]{
+  color:#2C3E50 !important;
+  font-family:"Lora", Georgia, serif !important;
+  font-size:clamp(0.98rem, 1.1vw, 1.06rem) !important;
+  line-height:1.68 !important;
+  text-align:left !important;
+  overflow-wrap:normal !important;
+  word-break:normal !important;
+  hyphens:none !important;
+}
+${scope} [class*="heading"],
+${scope} [class*="sub-heading"],
+${scope} [class*="subheading"],
+${scope} [class*="card-title"],
+${scope} [class*="section-title"],
+${scope} [class*="header-title"],
+${scope} [class*="label"]{
+  white-space:normal !important;
+  overflow-wrap:break-word !important;
+  word-break:normal !important;
+  max-width:100% !important;
+  min-width:0 !important;
+}
+${scope} [class*="layout"],
+${scope} [class*="grid"],
+${scope} [class*="columns"],
+${scope} [class*="column"],
+${scope} [class*="content"],
+${scope} [class*="wrapper"]{
+  max-width:100% !important;
+  min-width:0 !important;
+  overflow-x:hidden !important;
+}
+${scope} [class*="card"]:not([class*="math"]):not([class*="equation"]):not([class*="formula"]),
+${scope} [class*="box"]:not([class*="math"]):not([class*="equation"]):not([class*="formula"]),
+${scope} [class*="module"]:not([class*="math"]):not([class*="equation"]):not([class*="formula"]),
+${scope} [class*="panel"]:not([class*="math"]):not([class*="equation"]):not([class*="formula"]){
+  max-width:100% !important;
+  min-width:0 !important;
+  background:#FFFFFF !important;
+  border:1px solid #D9E2EC !important;
+  border-radius:16px !important;
+  box-shadow:0 8px 22px rgba(0,0,0,.045) !important;
+  padding:clamp(16px, 2.1vw, 24px) !important;
+  overflow:visible !important;
+  white-space:normal !important;
+}
+@media (max-width:700px){
+  ${scope} [class*="heading"],
+  ${scope} [class*="sub-heading"],
+  ${scope} [class*="subheading"],
+  ${scope} [class*="card-title"],
+  ${scope} [class*="section-title"],
+  ${scope} [class*="header-title"],
+  ${scope} [class*="label"]{
+    display:block !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    overflow-x:hidden !important;
+  }
+  ${scope} [class*="layout"],
+  ${scope} [class*="grid"],
+  ${scope} [class*="columns"],
+  ${scope} [class*="column"],
+  ${scope} [class*="content"],
+  ${scope} [class*="wrapper"],
+  ${scope} [class*="card"]:not([class*="math"]):not([class*="equation"]):not([class*="formula"]),
+  ${scope} [class*="box"]:not([class*="math"]):not([class*="equation"]):not([class*="formula"]),
+  ${scope} [class*="module"]:not([class*="math"]):not([class*="equation"]):not([class*="formula"]),
+  ${scope} [class*="panel"]:not([class*="math"]):not([class*="equation"]):not([class*="formula"]){
+    overflow-x:hidden !important;
+  }
+}
+${scope} [class*="math"],
+${scope} [class*="equation"],
+${scope} [class*="formula"],
+${scope} [class*="derivation-block"]{
+  max-width:100% !important;
+  min-width:0 !important;
+  background:#F8FAFC !important;
+  border:1px solid #E2E8F0 !important;
+  border-radius:12px !important;
+  padding:clamp(12px, 1.7vw, 18px) !important;
+  margin:12px 0 !important;
+  text-align:center !important;
+  overflow-x:auto !important;
+  overflow-y:hidden !important;
+  -webkit-overflow-scrolling:touch;
+}
+${scope} mjx-assistive-mml,
+${scope} mjx-assistive-mml > math{
+  max-width:100% !important;
+  overflow:hidden !important;
 }
 @media (max-width:980px){
   ${scope} [class*="columns-wrapper"],

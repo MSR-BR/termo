@@ -35,6 +35,28 @@
         overflow: visible !important;
       }
 
+      .cover-right-content-panel,
+      .cover-equation-accent-block,
+      .cover-equation-accent-formula {
+        max-width: 100% !important;
+        min-width: 0 !important;
+        overflow-x: hidden !important;
+      }
+
+      .cover-equation-accent-formula {
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .cover-equation-accent-formula mjx-container,
+      .cover-equation-accent-formula mjx-container.MathJax {
+        display: block !important;
+        max-width: 100% !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        -webkit-overflow-scrolling: touch;
+      }
+
       .source-embed > div,
       .cover-slide-root,
       .slide-root-container,
@@ -105,6 +127,144 @@
       .source-embed td {
         overflow-wrap: normal !important;
         word-break: normal !important;
+      }
+
+      .source-embed {
+        color: #2C3E50 !important;
+        font-family: "Inter", sans-serif !important;
+        line-height: 1.55 !important;
+      }
+
+      .source-embed p,
+      .source-embed li,
+      .source-embed td,
+      .source-embed blockquote,
+      .source-embed [class*="text"],
+      .source-embed [class*="body"],
+      .source-embed [class*="description"],
+      .source-embed [class*="caption"],
+      .source-embed [class*="explanation"] {
+        color: #2C3E50 !important;
+        font-family: "Lora", Georgia, serif !important;
+        font-size: clamp(0.98rem, 1.1vw, 1.06rem) !important;
+        line-height: 1.68 !important;
+        text-align: left !important;
+        overflow-wrap: normal !important;
+        word-break: normal !important;
+        hyphens: none !important;
+      }
+
+      .source-embed [class*="heading"],
+      .source-embed [class*="sub-heading"],
+      .source-embed [class*="subheading"],
+      .source-embed [class*="card-title"],
+      .source-embed [class*="section-title"],
+      .source-embed [class*="header-title"],
+      .source-embed [class*="label"] {
+        color: #004B87 !important;
+        font-family: "Inter", sans-serif !important;
+        font-weight: 800 !important;
+        line-height: 1.22 !important;
+        letter-spacing: 0.01em !important;
+        white-space: normal !important;
+        overflow-wrap: break-word !important;
+        word-break: normal !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+      }
+
+      .source-embed [class*="layout"],
+      .source-embed [class*="grid"],
+      .source-embed [class*="columns"],
+      .source-embed [class*="column"],
+      .source-embed [class*="content"],
+      .source-embed [class*="wrapper"] {
+        max-width: 100% !important;
+        min-width: 0 !important;
+        overflow-x: hidden !important;
+      }
+
+      .source-embed [class*="card"]:not([class*="math"]):not([class*="equation"]):not([class*="formula"]),
+      .source-embed [class*="box"]:not([class*="math"]):not([class*="equation"]):not([class*="formula"]),
+      .source-embed [class*="module"]:not([class*="math"]):not([class*="equation"]):not([class*="formula"]),
+      .source-embed [class*="panel"]:not([class*="math"]):not([class*="equation"]):not([class*="formula"]) {
+        max-width: 100% !important;
+        min-width: 0 !important;
+        background: #FFFFFF !important;
+        border: 1px solid #D9E2EC !important;
+        border-radius: 16px !important;
+        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.045) !important;
+        padding: clamp(16px, 2.1vw, 24px) !important;
+        overflow: visible !important;
+        white-space: normal !important;
+      }
+
+      .source-embed [class*="accent"],
+      .source-embed [class*="highlight"],
+      .source-embed strong {
+        font-weight: 800 !important;
+      }
+
+      .source-embed [class*="accent"],
+      .source-embed [class*="highlight"] {
+        color: #C66A1B !important;
+      }
+
+      .source-embed [class*="math"],
+      .source-embed [class*="equation"],
+      .source-embed [class*="formula"],
+      .source-embed [class*="derivation-block"] {
+        max-width: 100% !important;
+        min-width: 0 !important;
+        background: #F8FAFC !important;
+        border: 1px solid #E2E8F0 !important;
+        border-radius: 12px !important;
+        padding: clamp(12px, 1.7vw, 18px) !important;
+        margin: 12px 0 !important;
+        text-align: center !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .source-embed mjx-assistive-mml,
+      .source-embed mjx-assistive-mml > math {
+        max-width: 100% !important;
+        overflow: hidden !important;
+      }
+
+      .source-embed [class*="columns"],
+      .source-embed [class*="content-layout"],
+      .source-embed [class*="layout-container"],
+      .source-embed [class*="main-content"],
+      .source-embed [class*="content-wrapper"],
+      .source-embed [class*="grid"] {
+        max-width: 100% !important;
+        min-width: 0 !important;
+        gap: clamp(14px, 2vw, 24px) !important;
+      }
+
+      .source-embed [class*="left-"],
+      .source-embed [class*="right-"],
+      .source-embed [class*="-column"],
+      .source-embed [class*="column"] {
+        min-width: 0 !important;
+        max-width: 100% !important;
+      }
+
+      .source-embed table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+        font-family: "Inter", sans-serif !important;
+        font-size: clamp(0.82rem, 0.95vw, 0.94rem) !important;
+        line-height: 1.35 !important;
+      }
+
+      .source-embed th {
+        color: #004B87 !important;
+        background: #F0F6FF !important;
+        font-family: "Inter", sans-serif !important;
+        font-weight: 800 !important;
       }
 
       @media (max-width: 980px) {
@@ -233,6 +393,63 @@
         .source-embed [class*="module"],
         .source-embed [class*="panel"] {
           max-width: 100% !important;
+          padding: 16px !important;
+          border-radius: 16px !important;
+          box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04) !important;
+        }
+
+        .source-embed p,
+        .source-embed li,
+        .source-embed td,
+        .source-embed blockquote,
+        .source-embed [class*="text"],
+        .source-embed [class*="body"],
+        .source-embed [class*="description"],
+        .source-embed [class*="caption"],
+        .source-embed [class*="explanation"] {
+          font-size: clamp(0.96rem, 4.1vw, 1.04rem) !important;
+          line-height: 1.58 !important;
+          text-align: left !important;
+          letter-spacing: 0 !important;
+          word-spacing: normal !important;
+        }
+
+        .source-embed [class*="heading"],
+        .source-embed [class*="sub-heading"],
+        .source-embed [class*="subheading"],
+        .source-embed [class*="card-title"],
+        .source-embed [class*="section-title"],
+        .source-embed [class*="header-title"],
+        .source-embed [class*="label"] {
+          display: block !important;
+          font-size: clamp(1.08rem, 5vw, 1.32rem) !important;
+          line-height: 1.2 !important;
+          white-space: normal !important;
+          overflow-wrap: break-word !important;
+          max-width: 100% !important;
+          min-width: 0 !important;
+          overflow-x: hidden !important;
+        }
+
+        .source-embed [class*="layout"],
+        .source-embed [class*="grid"],
+        .source-embed [class*="columns"],
+        .source-embed [class*="column"],
+        .source-embed [class*="content"],
+        .source-embed [class*="wrapper"],
+        .source-embed [class*="card"]:not([class*="math"]):not([class*="equation"]):not([class*="formula"]),
+        .source-embed [class*="box"]:not([class*="math"]):not([class*="equation"]):not([class*="formula"]),
+        .source-embed [class*="module"]:not([class*="math"]):not([class*="equation"]):not([class*="formula"]),
+        .source-embed [class*="panel"]:not([class*="math"]):not([class*="equation"]):not([class*="formula"]) {
+          overflow-x: hidden !important;
+        }
+
+        .source-embed [class*="math"],
+        .source-embed [class*="equation"],
+        .source-embed [class*="formula"],
+        .source-embed [class*="derivation-block"] {
+          padding: 12px !important;
+          margin: 10px 0 !important;
         }
 
         .source-embed table {
@@ -252,6 +469,11 @@
         .source-embed mjx-container[display="true"],
         .source-embed mjx-container.MathJax[display="true"] {
           font-size: 94% !important;
+        }
+
+        .cover-equation-accent-formula mjx-container,
+        .cover-equation-accent-formula mjx-container.MathJax {
+          font-size: 78% !important;
         }
       }
     `;
