@@ -118,6 +118,7 @@
     let query = supabase
       .from(TABLE_NAME)
       .select("id, exercise_code, chapter_id, item_id, page_path, page_url, page_title, difficulty, exercise_title, statement, solution, created_at, is_favorite")
+      .eq("user_id", session.user.id)
       .order("created_at", { ascending: false })
       .limit(limit);
 
@@ -158,6 +159,7 @@
       .from(TABLE_NAME)
       .update({ is_favorite: Boolean(isFavorite) })
       .eq("id", id)
+      .eq("user_id", session.user.id)
       .select("id, is_favorite")
       .single();
 
