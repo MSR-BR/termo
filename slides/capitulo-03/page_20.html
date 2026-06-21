@@ -7,7 +7,7 @@
 
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@400;500;600&display=swap" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/>
 
 <script>
@@ -25,14 +25,15 @@ window.MathJax = {
 </script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 
-<link href="../../assets/chapter-embedded-slide.css" rel="stylesheet"/>
-<link href="../../assets/ai-exercises.css" rel="stylesheet"/>
+<link rel="stylesheet" href="../../assets/ai-exercises.css">
 <script defer src="../../assets/ai-exercises.js"></script>
 <link rel="stylesheet" href="../../assets/termo-share.css">
 <script defer src="../../assets/termo-share.js"></script>
 <link rel="stylesheet" href="../../assets/termo-auth.css?v=0611.4">
+<link rel="stylesheet" href="../../assets/capitulo-02-layout.css?v=0611.4">
 <script defer src="../../assets/termo-auth.js?v=0611.4"></script>
 <script defer src="../../assets/termo-user-data.js"></script>
+<script defer src="../../assets/termo-seo.js?v=0609.2"></script>
 <!-- termo-seo:start -->
 <meta name="description" content="Limite clássico dos momentos magnéticos e interpretação via função de Langevin. Material interativo do livro Termodinâmica para Estudantes de Física, com autoria didátic..."/>
 <meta name="author" content="Prof. Mario Reis"/>
@@ -51,305 +52,77 @@ window.MathJax = {
 <meta name="twitter:description" content="Limite clássico dos momentos magnéticos e interpretação via função de Langevin. Material interativo do livro Termodinâmica para Estudantes de Física, com autoria didátic..."/>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Exemplo III: Paramagnetismo Clássico | Capítulo 3 | Termodinâmica para Estudantes de Física","description":"Limite clássico dos momentos magnéticos e interpretação via função de Langevin. Material interativo do livro Termodinâmica para Estudantes de Física, com autoria didátic...","url":"https://termo-theta.vercel.app/slides/capitulo-03/page_20.html","inLanguage":"pt-BR","isAccessibleForFree":true,"educationalUse":"instruction","learningResourceType":"InteractiveResource","author":{"@type":"Person","name":"Prof. Mario Reis"},"publisher":{"@type":"CollegeOrUniversity","name":"Instituto de Física — Universidade Federal Fluminense"},"isPartOf":{"@type":"Course","name":"Termodinâmica para Estudantes de Física","url":"https://termo-theta.vercel.app/"}}</script>
 <!-- termo-seo:end -->
-<script defer src="../../assets/termo-seo.js?v=0609.2"></script>
 </head>
+
 <body>
+
 <div class="page">
-  <section class="hero">
-    <div class="hero-inner">
-      <a href="../../index.html?chapter=03" class="index-back-button">
-        <i class="fa-solid fa-arrow-left"></i>
-        Índice
-      </a>
-      <div class="chapter-label">
-        <i class="fa-solid fa-layer-group"></i>
-        Capítulo 3 · Item 3.9
-      </div>
-      <h1 class="chapter-title">Exemplo III: Paramagnetismo Clássico</h1>
-      <div class="chapter-text">
-        <p>Limite clássico dos momentos magnéticos e interpretação via função de Langevin.</p>
-      </div>
-    </div>
-  </section>
 
-  <div class="content-root">
-    
-  <section class="source-fragment">
-    <style>.source-embed.page-20{
-    --background: #F8F9FA;
-    --title-text: #1A3C5C;
-    --body-text: #1E293B;
-    --secondary-text: #475569;
-    --muted-text: #64748B;
-    --accent: #E07820;
-    --border: #E2E8F0
-    }.source-embed.page-20 *{
-    box-sizing: border-box;
-    margin: 0 0;
-    padding: 0 0
-    }.source-embed.page-20{width: 100%; height: auto; overflow: visible; background-color: #CCC;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: "Inter", sans-serif}.source-embed.page-20 .slide-root-container{
-    width: 100%;
-    height: auto;
-    background-color: var(--background);
-    position: relative;
-    display: flex;
-    flex-direction: column
-    }.source-embed.page-20 .title-section-wrapper{
-    display: flex;
-    flex-direction: column;
-    padding: 20px 40px;
-    margin-top: 8px;
-    margin-left: 40px;
-    margin-right: 40px;
-    margin-bottom: 6px;
-    border-left: 6px solid var(--accent);
-    background-color: rgba(26, 60, 92, 0.03)
-    }.source-embed.page-20 .title-section-label{
-    color: var(--accent);
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-bottom: 4px
-    }.source-embed.page-20 .title-section-heading{
-    color: var(--title-text);
-    font-family: "Lora", serif;
-    font-size: 32px;
-    font-weight: 800;
-    margin: 0;
-    line-height: 1.2
-    }.source-embed.page-20 .langevin-main-content-layout{
-    display: flex;
-    flex: 1;
-    padding: 0 40px 11px 40px;
-    gap: 9px 24px;
-    align-items: stretch
-    }.source-embed.page-20 .langevin-left-column-wrapper{
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center
-    }.source-embed.page-20 .langevin-right-column-wrapper{
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center
-    }.source-embed.page-20 .langevin-info-card-block{
-    background: white;
-    border: 1px solid var(--border);
-    border-left: 4px solid var(--accent);
-    padding: 10px 20px;
-    border-radius: 0 8px 8px 0;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    flex: 1;
-    display: flex;
-    flex-direction: column
-    }.source-embed.page-20 .langevin-text-paragraph{
-    color: var(--body-text);
-    font-size: 16px;
-    line-height: 1.6;
-    margin-bottom: 6px
-    }.source-embed.page-20 .langevin-equation-box{
-    background-color: #F1F5F9;
-    padding: 6px 12px;
-    border-radius: 6px;
-    margin: 5px 0;
-    text-align: center
-    }.source-embed.page-20 .langevin-sub-heading{
-    color: var(--title-text);
-    font-family: "Lora", serif;
-    font-size: 22px;
-    font-weight: 700;
-    margin-bottom: 6px;
-    display: flex;
-    align-items: center;
-    gap: 5px 10px
-    }.source-embed.page-20 .langevin-sub-heading i{
-    color: var(--accent);
-    font-size: 18px
-    }.source-embed.page-20 .langevin-chart-image-container{
-    height: 233px;
-    border-radius: 12px;
-    overflow: visible;
-    border: 1px solid var(--border);
-    background-color: white;
-    margin-top: 6px;
-    display: flex;
-    justify-content: center;
-    align-items: center
-    }.source-embed.page-20 .langevin-chart-image-container img{
-    height: 100%;
-    width: auto;
-    object-fit: contain
-    }.source-embed.page-20 .langevin-image-caption{
-    font-size: 11px;
-    color: var(--muted-text);
-    text-align: center;
-    margin-top: 3px;
-    font-style: italic
-    }.source-embed.page-20 .langevin-exercise-tip-box{
-    margin-top: auto;
-    background-color: rgba(224, 120, 32, 0.1);
-    border: 1px dashed var(--accent);
-    padding: 5px 12px;
-    border-radius: 8px
-    }.source-embed.page-20 .langevin-exercise-tip-title{
-    color: var(--accent);
-    font-weight: 700;
-    font-size: 14px;
-    margin-bottom: 2px;
-    text-transform: uppercase
-    }.source-embed.page-20 .langevin-exercise-tip-text{
-    color: var(--body-text);
-    font-size: 13px;
-    line-height: 1.4
-    }.source-embed.page-20{ overflow: visible; }
+<section class="hero">
+<div class="hero-inner">
 
+<a href="../../index.html?chapter=03" class="index-back-button">
+<i class="fa-solid fa-arrow-left"></i>
+Índice
+</a>
 
-.source-embed.page-20{
-  display:block !important;
-  width:100% !important;
-  max-width:100% !important;
-  margin:0 !important;
-  padding:0 !important;
-  background:transparent !important;
-  overflow:visible !important;
-}
-.source-embed.page-20 > div{
-  width:100% !important;
-  max-width:100% !important;
-  height:auto !important;
-  min-height:0 !important;
-  margin:0 !important;
-  overflow:visible !important;
-}
-.source-embed.page-20 [class*="title-region"],
-.source-embed.page-20 [class*="title-section"],
-.source-embed.page-20 [class*="title-header"]{
-  display:none !important;
-}
-.source-embed.page-20 img,
-.source-embed.page-20 svg,
-.source-embed.page-20 canvas,
-.source-embed.page-20 video{
-  max-width:100% !important;
-  height:auto !important;
-}
-.source-embed.page-20 mjx-container,
-.source-embed.page-20 .MathJax,
-.source-embed.page-20 .mjx-chtml{
-  max-width:100% !important;
-  overflow-x:auto !important;
-  overflow-y:hidden !important;
-}
-@media (max-width:980px){
-  .source-embed.page-20 [class*="columns-wrapper"],
-  .source-embed.page-20 [class*="content-layout"],
-  .source-embed.page-20 [class*="content-area"],
-  .source-embed.page-20 [class*="layout-row"],
-  .source-embed.page-20 [class*="main-content"],
-  .source-embed.page-20 [class*="interaction-wrapper"]{
-    display:flex !important;
-    flex-direction:column !important;
-    gap:16px !important;
-  }
-  .source-embed.page-20 [class*="left-"],
-  .source-embed.page-20 [class*="right-"],
-  .source-embed.page-20 [class*="-column"]{
-    width:100% !important;
-    max-width:100% !important;
-    flex:1 1 auto !important;
-  }
-  .source-embed.page-20 [class*="grid"]{
-    grid-template-columns:1fr !important;
-  }
-}
-@media (max-width:700px){
-  .source-embed.page-20 [class*="columns-wrapper"],
-  .source-embed.page-20 [class*="content-layout"],
-  .source-embed.page-20 [class*="content-area"],
-  .source-embed.page-20 [class*="layout-row"],
-  .source-embed.page-20 [class*="main-content"],
-  .source-embed.page-20 [class*="interaction-wrapper"]{
-    padding-left:16px !important;
-    padding-right:16px !important;
-  }
-  .source-embed.page-20 [class*="title-main-heading"]{
-    font-size:clamp(1.7rem, 6vw, 2.25rem) !important;
-    line-height:1.12 !important;
-  }
-}
-</style>
-    <div class="source-embed page-20">
-      <div class="slide-root-container">
+<div class="chapter-label">
+<i class="fa-solid fa-layer-group"></i>
+Capítulo 3 · Item 3.9
+</div>
 
+<h1 class="chapter-title">Exemplo III: Paramagnetismo Clássico</h1>
 
+<div class="chapter-text">
+<p>Limite clássico dos momentos magnéticos e interpretação via função de Langevin.</p>
+</div>
 
-<div class="langevin-main-content-layout">
+</div>
+</section>
 
-<div class="langevin-left-column-wrapper">
-<div class="langevin-info-card-block">
-<h2 class="langevin-sub-heading">
+<section class="card">
+<div class="card-title purple">
 <i class="fa-solid fa-infinity"></i> O Modelo Contínuo
-          </h2>
-<p class="langevin-text-paragraph">
-            No limite clássico, tratamos os momentos magnéticos \(\vec{\mu}\) como vetores contínuos de módulo fixo \(\mu\), capazes de assumir qualquer orientação \(\theta\) em relação ao campo \(B_z\). A energia de interação é dada por:
-          </p>
-<div class="langevin-equation-box">
-            \[ E(\theta) = -\mu B_z \cos \theta \]
-          </div>
-<p class="langevin-text-paragraph">
-            Para calcular a função de partição de uma partícula (\(Z_1\)), devemos integrar o fator de Boltzmann sobre todo o ângulo sólido \(d\Omega = \sin\theta d\theta d\phi\):
-          </p>
-<div class="langevin-equation-box">
-            \[ Z_1 = \int e^{-\beta E(\theta)} d\Omega = \int_0^{2\pi} d\phi \int_0^\pi e^{\beta \mu B_z \cos \theta} \sin \theta d\theta \]
-          </div>
-<p class="langevin-text-paragraph">
-            Definindo a variável adimensional \(x = \mu B_z / k_B T\), a integração resulta na expressão analítica:
-          </p>
-<div class="langevin-equation-box">
-            \[ Z_1 = 4\pi \frac{\sinh x}{x} \]
-          </div>
-</div>
 </div>
 
-<div class="langevin-right-column-wrapper">
-<div class="langevin-info-card-block">
-<h2 class="langevin-sub-heading">
+<div class="body-text">
+<p>No limite clássico, tratamos os momentos magnéticos \(\vec{\mu}\) como vetores contínuos de módulo fixo \(\mu\), capazes de assumir qualquer orientação \(\theta\) em relação ao campo \(B_z\). A energia de interação é dada por:</p>
+
+<div class="math-box purple">\[ E(\theta) = -\mu B_z \cos \theta \]</div>
+
+<p>Para calcular a função de partição de uma partícula (\(Z_1\)), devemos integrar o fator de Boltzmann sobre todo o ângulo sólido \(d\Omega = \sin\theta d\theta d\phi\):</p>
+
+<div class="math-box purple">\[ Z_1 = \int e^{-\beta E(\theta)} d\Omega = \int_0^{2\pi} d\phi \int_0^\pi e^{\beta \mu B_z \cos \theta} \sin \theta d\theta \]</div>
+
+<p>Definindo a variável adimensional \(x = \mu B_z / k_B T\), a integração resulta na expressão analítica:</p>
+
+<div class="math-box purple">\[ Z_1 = 4\pi \frac{\sinh x}{x} \]</div>
+</div>
+</section>
+
+<section class="card">
+<div class="card-title green">
 <i class="fa-solid fa-chart-line"></i> Magnetização e a Função \(L(x)\)
-          </h2>
-<p class="langevin-text-paragraph">
-            A magnetização macroscópica \(M\) é obtida via derivada da energia livre de Helmholtz (\(F = -N k_B T \ln Z_1\)) em relação ao campo \(B_z\):
-          </p>
-<div class="langevin-equation-box">
-            \[ M = N\mu \left( \coth x - \frac{1}{x} \right) = N\mu L(x) \]
-          </div>
-<div class="langevin-chart-image-container">
-<img alt="Comparação Brillouin vs Langevin" src="https://static-us-img.skywork.ai/prod/nexus/1779576094/cropped_image_2_1779576094214287220.jpg"/>
 </div>
-<p class="langevin-image-caption">
-            Comparação: A Função de Langevin (tracejada) representa o limite \(s \to \infty\) da Função de Brillouin.
-          </p>
-<div class="langevin-exercise-tip-box">
-<div class="langevin-exercise-tip-title">Provocação Teórica</div>
-<div class="langevin-exercise-tip-text">
-              Note que para \(x \to 0\) (altas temperaturas), recuperamos a Lei de Curie clássica: \(M \approx N\mu x/3\). Mas o que ocorre com a entropia \(S\) quando \(T \to 0\)? O modelo clássico prevê uma divergência negativa (\(S \to -\infty\)), violando a 3ª Lei.
-            </div>
-</div>
-</div>
-</div>
-</div>
-</div>
-    </div>
-  </section>
-  </div>
 
-  <section data-termo-ai-exercise data-exercise-theme="purple"></section>
+<div class="body-text">
+<p>A magnetização macroscópica \(M\) é obtida via derivada da energia livre de Helmholtz (\(F = -N k_B T \ln Z_1\)) em relação ao campo \(B_z\):</p>
+
+<div class="math-box green">\[ M = N\mu \left( \coth x - \frac{1}{x} \right) = N\mu L(x) \]</div>
+
+<img src="https://static-us-img.skywork.ai/prod/nexus/1779576094/cropped_image_2_1779576094214287220.jpg" alt="Comparação Brillouin vs Langevin"/>
+
+<p>Comparação: A Função de Langevin (tracejada) representa o limite \(s \to \infty\) da Função de Brillouin.</p>
+
+<div class="highlight">Provocação Teórica
+
+Note que para \(x \to 0\) (altas temperaturas), recuperamos a Lei de Curie clássica: \(M \approx N\mu x/3\). Mas o que ocorre com a entropia \(S\) quando \(T \to 0\)? O modelo clássico prevê uma divergência negativa (\(S \to -\infty\)), violando a 3ª Lei.</div>
 </div>
-<script src="../../assets/chapter-embedded-slide.js?v=0611.5"></script>
+</section>
+
+<section data-termo-ai-exercise data-exercise-theme="purple"></section>
+
+</div>
+
 </body>
 </html>

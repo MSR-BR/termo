@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Ensemble Canônico, Distribuição de Boltzmann e Parâmetro Beta | Termodinâmica para Estudantes de Física | Termodinâmica para Estudantes de Física</title>
+<title>Ensemble Canônico, Distribuição de Boltzmann e Parâmetro Beta | Capítulo 3 | Termodinâmica para Estudantes de Física | Termodinâmica para Estudantes de Física</title>
 
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@400;500;600&display=swap" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/>
 
 <script>
@@ -25,16 +25,17 @@ window.MathJax = {
 </script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 
-<link href="../../assets/chapter-embedded-slide.css" rel="stylesheet"/>
-<link href="../../assets/ai-exercises.css" rel="stylesheet"/>
+<link rel="stylesheet" href="../../assets/ai-exercises.css">
 <script defer src="../../assets/ai-exercises.js"></script>
 <link rel="stylesheet" href="../../assets/termo-share.css">
 <script defer src="../../assets/termo-share.js"></script>
 <link rel="stylesheet" href="../../assets/termo-auth.css?v=0611.4">
+<link rel="stylesheet" href="../../assets/capitulo-02-layout.css?v=0611.4">
 <script defer src="../../assets/termo-auth.js?v=0611.4"></script>
 <script defer src="../../assets/termo-user-data.js"></script>
+<script defer src="../../assets/termo-seo.js?v=0609.2"></script>
 <!-- termo-seo:start -->
-<meta name="description" content="Ensemble Canônico, Distribuição de Boltzmann e Parâmetro Beta | Termodinâmica para Estudantes de Física. Página do livro interativo Termodinâmica para Estudantes de Físi..."/>
+<meta name="description" content="Ensemble Canônico, Distribuição de Boltzmann e Parâmetro Beta | Capítulo 3 | Termodinâmica para Estudantes de Física. Página do livro interativo Termodinâmica para Estud..."/>
 <meta name="author" content="Prof. Mario Reis"/>
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"/>
 <meta name="googlebot" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"/>
@@ -43,1054 +44,243 @@ window.MathJax = {
 <meta property="og:locale" content="pt_BR"/>
 <meta property="og:type" content="article"/>
 <meta property="og:site_name" content="Termodinâmica para Estudantes de Física"/>
-<meta property="og:title" content="Ensemble Canônico, Distribuição de Boltzmann e Parâmetro Beta | Termodinâmica para Estudantes de Física | Termodinâmica para Estudantes de Física"/>
-<meta property="og:description" content="Ensemble Canônico, Distribuição de Boltzmann e Parâmetro Beta | Termodinâmica para Estudantes de Física. Página do livro interativo Termodinâmica para Estudantes de Físi..."/>
+<meta property="og:title" content="Ensemble Canônico, Distribuição de Boltzmann e Parâmetro Beta | Capítulo 3 | Termodinâmica para Estudantes de Física | Termodinâmica para Estudantes de Física"/>
+<meta property="og:description" content="Ensemble Canônico, Distribuição de Boltzmann e Parâmetro Beta | Capítulo 3 | Termodinâmica para Estudantes de Física. Página do livro interativo Termodinâmica para Estud..."/>
 <meta property="og:url" content="https://termo-theta.vercel.app/slides/capitulo-03/page_9.html"/>
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Ensemble Canônico, Distribuição de Boltzmann e Parâmetro Beta | Termodinâmica para Estudantes de Física | Termodinâmica para Estudantes de Física"/>
-<meta name="twitter:description" content="Ensemble Canônico, Distribuição de Boltzmann e Parâmetro Beta | Termodinâmica para Estudantes de Física. Página do livro interativo Termodinâmica para Estudantes de Físi..."/>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Ensemble Canônico, Distribuição de Boltzmann e Parâmetro Beta | Termodinâmica para Estudantes de Física | Termodinâmica para Estudantes de Física","description":"Ensemble Canônico, Distribuição de Boltzmann e Parâmetro Beta | Termodinâmica para Estudantes de Física. Página do livro interativo Termodinâmica para Estudantes de Físi...","url":"https://termo-theta.vercel.app/slides/capitulo-03/page_9.html","inLanguage":"pt-BR","isAccessibleForFree":true,"educationalUse":"instruction","learningResourceType":"InteractiveResource","author":{"@type":"Person","name":"Prof. Mario Reis"},"publisher":{"@type":"CollegeOrUniversity","name":"Instituto de Física — Universidade Federal Fluminense"},"isPartOf":{"@type":"Course","name":"Termodinâmica para Estudantes de Física","url":"https://termo-theta.vercel.app/"}}</script>
+<meta name="twitter:title" content="Ensemble Canônico, Distribuição de Boltzmann e Parâmetro Beta | Capítulo 3 | Termodinâmica para Estudantes de Física | Termodinâmica para Estudantes de Física"/>
+<meta name="twitter:description" content="Ensemble Canônico, Distribuição de Boltzmann e Parâmetro Beta | Capítulo 3 | Termodinâmica para Estudantes de Física. Página do livro interativo Termodinâmica para Estud..."/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Ensemble Canônico, Distribuição de Boltzmann e Parâmetro Beta | Capítulo 3 | Termodinâmica para Estudantes de Física | Termodinâmica para Estudantes de Física","description":"Ensemble Canônico, Distribuição de Boltzmann e Parâmetro Beta | Capítulo 3 | Termodinâmica para Estudantes de Física. Página do livro interativo Termodinâmica para Estud...","url":"https://termo-theta.vercel.app/slides/capitulo-03/page_9.html","inLanguage":"pt-BR","isAccessibleForFree":true,"educationalUse":"instruction","learningResourceType":"InteractiveResource","author":{"@type":"Person","name":"Prof. Mario Reis"},"publisher":{"@type":"CollegeOrUniversity","name":"Instituto de Física — Universidade Federal Fluminense"},"isPartOf":{"@type":"Course","name":"Termodinâmica para Estudantes de Física","url":"https://termo-theta.vercel.app/"}}</script>
 <!-- termo-seo:end -->
-<script defer src="../../assets/termo-seo.js?v=0609.2"></script>
 </head>
+
 <body>
+
 <div class="page">
-  <section class="hero">
-    <div class="hero-inner">
-      <a href="../../index.html?chapter=03" class="index-back-button">
-        <i class="fa-solid fa-arrow-left"></i>
-        Índice
-      </a>
-      <div class="chapter-label">
-        <i class="fa-solid fa-layer-group"></i>
-        Capítulo 3 · Item 3.3
-      </div>
-      <h1 class="chapter-title">Ensemble Canônico, Distribuição de Boltzmann e Parâmetro Beta</h1>
-      <div class="chapter-text">
-        <p>Contato com reservatório térmico, distribuição de Boltzmann, função de partição e significado físico do parâmetro beta.</p>
-      </div>
-    </div>
-  </section>
 
-  <div class="content-root">
-    
-  <section class="source-fragment">
-    <style>.source-embed.page-7 *{
-    margin: 0 0;
-    padding: 0 0;
-    box-sizing: border-box
-    }.source-embed.page-7{width: 100%; height: auto; overflow: visible; background-color: #F8F9FA;
-    font-family: "Inter", sans-serif;
-    color: #1E293B}.source-embed.page-7 .slide-root-container{
-    width: 100%;
-    height: auto;
-    padding: 12px 40px;
-    display: flex;
-    flex-direction: column;
-    background-color: #F8F9FA
-    }.source-embed.page-7 .title-region-wrapper{
-    display: flex;
-    flex-direction: column;
-    padding: 20px 40px;
-    margin-bottom: 7px;
-    border-left: 6px solid #E07820;
-    background-color: rgba(26, 60, 92, 0.03)
-    }.source-embed.page-7 .title-section-label{
-    color: #E07820;
-    font-family: "Inter", sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-bottom: 4px
-    }.source-embed.page-7 .title-main-heading{
-    color: #1A3C5C;
-    font-family: "Lora", serif;
-    font-size: 32px;
-    font-weight: 800;
-    margin: 0;
-    line-height: 1.2
-    }.source-embed.page-7 .content-main-layout{
-    display: flex;
-    flex-direction: column;
-    gap: 7px 24px;
-    flex: 1
-    }.source-embed.page-7 .intro-text-block{
-    font-family: "Inter", sans-serif;
-    font-size: 16px;
-    line-height: 1.6;
-    color: #475569;
-    margin-bottom: 2px;
-    text-align: justify
-    }.source-embed.page-7 .columns-wrapper-container{
-    display: flex;
-    align-items: stretch;
-    gap: 7px 24px;
-    flex: 1
-    }.source-embed.page-7 .left-column-theoretical-basis{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex: 1 1 0
-    }.source-embed.page-7 .right-column-mathematical-derivation{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex: 1 1 0
-    }.source-embed.page-7 .academic-info-card{
-    background-color: #FFF;
-    padding: 7px 24px;
-    border-left: 4px solid #1A3C5C;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    flex: 1;
-    display: flex;
-    flex-direction: column
-    }.source-embed.page-7 .card-header-group{
-    display: flex;
-    align-items: center;
-    gap: 4px 12px;
-    margin-bottom: 5px
-    }.source-embed.page-7 .card-header-icon{
-    color: #E07820;
-    font-size: 18px
-    }.source-embed.page-7 .card-header-title{
-    color: #1A3C5C;
-    font-family: "Inter", sans-serif;
-    font-size: 20px;
-    font-weight: 700
-    }.source-embed.page-7 .card-body-content{
-    font-size: 13px;
-    line-height: 1.6;
-    color: #1E293B
-    }.source-embed.page-7 .math-block-display{
-    background-color: #F1F5F9;
-    padding: 5px 16px;
-    border-radius: 4px;
-    margin: 4px 0;
-    text-align: center;
-    font-size: 16px
-    }.source-embed.page-7 .accent-note-box{
-    background-color: rgba(224, 120, 32, 0.08);
-    border: 1px dashed #E07820;
-    padding: 4px 16px;
-    margin-top: 5px
-    }.source-embed.page-7 .accent-note-text{
-    color: #E07820;
-    font-size: 12px;
-    font-weight: 600;
-    font-style: italic
-    }.source-embed.page-7 .list-unstyled-items{
-    list-style: none;
-    margin-top: 2px
-    }.source-embed.page-7 .list-item-bullet{
-    margin-bottom: 2px;
-    padding-left: 20px;
-    position: relative
-    }.source-embed.page-7 .list-item-bullet::before{
-    content: "";
-    font-family: "Font Awesome 6 Free";
-    font-weight: 900;
-    position: absolute;
-    left: 0;
-    color: #E07820
-    }.source-embed.page-7 .footer-provocation-bar{
-    margin-top: 7px;
-    padding-top: 5px;
-    border-top: 1px solid #E2E8F0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center
-    }.source-embed.page-7 .provocation-text{
-    font-family: "Lora", serif;
-    font-size: 15px;
-    font-style: italic;
-    color: #64748B
-    }.source-embed.page-7 .author-tag{
-    font-size: 12px;
-    font-weight: 700;
-    color: #94A3B8;
-    text-transform: uppercase
-    }.source-embed.page-7{ overflow: visible; }
+<section class="hero">
+<div class="hero-inner">
 
+<a href="../../index.html?chapter=03" class="index-back-button">
+<i class="fa-solid fa-arrow-left"></i>
+Índice
+</a>
 
-.source-embed.page-7{
-  display:block !important;
-  width:100% !important;
-  max-width:100% !important;
-  margin:0 !important;
-  padding:0 !important;
-  background:transparent !important;
-  overflow:visible !important;
-}
-.source-embed.page-7 > div{
-  width:100% !important;
-  max-width:100% !important;
-  height:auto !important;
-  min-height:0 !important;
-  margin:0 !important;
-  overflow:visible !important;
-}
-.source-embed.page-7 [class*="title-region"],
-.source-embed.page-7 [class*="title-section"],
-.source-embed.page-7 [class*="title-header"]{
-  display:none !important;
-}
-.source-embed.page-7 img,
-.source-embed.page-7 svg,
-.source-embed.page-7 canvas,
-.source-embed.page-7 video{
-  max-width:100% !important;
-  height:auto !important;
-}
-.source-embed.page-7 mjx-container,
-.source-embed.page-7 .MathJax,
-.source-embed.page-7 .mjx-chtml{
-  max-width:100% !important;
-  overflow-x:auto !important;
-  overflow-y:hidden !important;
-}
-@media (max-width:980px){
-  .source-embed.page-7 [class*="columns-wrapper"],
-  .source-embed.page-7 [class*="content-layout"],
-  .source-embed.page-7 [class*="content-area"],
-  .source-embed.page-7 [class*="layout-row"],
-  .source-embed.page-7 [class*="main-content"],
-  .source-embed.page-7 [class*="interaction-wrapper"]{
-    display:flex !important;
-    flex-direction:column !important;
-    gap:16px !important;
-  }
-  .source-embed.page-7 [class*="left-"],
-  .source-embed.page-7 [class*="right-"],
-  .source-embed.page-7 [class*="-column"]{
-    width:100% !important;
-    max-width:100% !important;
-    flex:1 1 auto !important;
-  }
-  .source-embed.page-7 [class*="grid"]{
-    grid-template-columns:1fr !important;
-  }
-}
-@media (max-width:700px){
-  .source-embed.page-7 [class*="columns-wrapper"],
-  .source-embed.page-7 [class*="content-layout"],
-  .source-embed.page-7 [class*="content-area"],
-  .source-embed.page-7 [class*="layout-row"],
-  .source-embed.page-7 [class*="main-content"],
-  .source-embed.page-7 [class*="interaction-wrapper"]{
-    padding-left:16px !important;
-    padding-right:16px !important;
-  }
-  .source-embed.page-7 [class*="title-main-heading"]{
-    font-size:clamp(1.7rem, 6vw, 2.25rem) !important;
-    line-height:1.12 !important;
-  }
-}
-</style>
-    <div class="source-embed page-7">
-      <div class="slide-root-container">
-
-
-
-<div class="content-main-layout">
-<p class="intro-text-block">
-                Diferentemente do ensemble micro-canônico, onde o sistema é completamente isolado, o <strong>Ensemble Canônico</strong> descreve sistemas fechados em contato térmico com um reservatório de calor (banho térmico) a uma temperatura \(T\) constante. Neste cenário, a energia do sistema não é mais fixa e pode flutuar através de trocas microscópicas com o ambiente, embora o número de partículas \(N\) e o volume \(V\) permaneçam constantes.
-            </p>
-<div class="columns-wrapper-container">
-
-<div class="left-column-theoretical-basis">
-<div class="academic-info-card">
-<div class="card-header-group">
-<i class="fa-solid fa-flask-vial card-header-icon"></i>
-<h2 class="card-header-title">Contexto Físico e Vínculos</h2>
-</div>
-<div class="card-body-content">
-<p>Para determinar o estado de equilíbrio, aplicamos o <strong>Princípio da Máxima Entropia</strong> sob dois vínculos fundamentais que representam nosso conhecimento macroscópico do sistema:</p>
-<ul class="list-unstyled-items">
-<li class="list-item-bullet">
-<strong>Normalização:</strong> A soma de todas as probabilidades de ocupação dos estados \(i\) deve ser unitária.
-                                    <div class="math-block-display">\[ \sum_i p_i = 1 \]</div>
-</li>
-<li class="list-item-bullet">
-<strong>Energia Média (U):</strong> O reservatório fixa a energia interna média do sistema, permitindo flutuações locais.
-                                    <div class="math-block-display">\[ \langle E \rangle = \sum_i p_i \varepsilon_i = U \]</div>
-</li>
-</ul>
-<div class="accent-note-box">
-<span class="accent-note-text">Analogia: Um termostato mantém a temperatura média de uma sala, embora a energia cinética das moléculas de ar varie continuamente.</span>
-</div>
-</div>
-</div>
+<div class="chapter-label">
+<i class="fa-solid fa-layer-group"></i>
+Capítulo 3 · Item 3.3
 </div>
 
-<div class="right-column-mathematical-derivation">
-<div class="academic-info-card" style="border-left-color: #E07820;">
-<div class="card-header-group">
-<i class="fa-solid fa-calculator card-header-icon"></i>
-<h2 class="card-header-title">Maximização de Gibbs-Jaynes</h2>
+<h1 class="chapter-title">Ensemble Canônico, Distribuição de Boltzmann e Parâmetro Beta</h1>
+
+<div class="chapter-text">
+<p>Contato com reservatório térmico, distribuição de Boltzmann, função de partição e significado físico do parâmetro beta.</p>
 </div>
-<div class="card-body-content">
-<p>Utilizamos a técnica dos <strong>Multiplicadores de Lagrange</strong> para maximizar a entropia de Gibbs sujeita aos vínculos de normalização (\(\lambda\)) e energia (\(\beta\)):</p>
-<div class="math-block-display" style="font-size: 14px;">
-                                \[ S = -k_B \sum_i p_i \ln p_i + \lambda\left(1 - \sum_i p_i\right) + \beta\left(U - \sum_i p_i \varepsilon_i\right) \]
-                            </div>
+
+</div>
+</section>
+
+<div class="grid">
+<section class="card">
+<div class="card-title purple">
+<i class="fa-solid fa-flask-vial"></i> Contexto Físico e Vínculos
+</div>
+
+<div class="body-text">
+<p>Para determinar o estado de equilíbrio, aplicamos o
+<strong>Princípio da Máxima Entropia</strong>
+ sob dois vínculos fundamentais que representam nosso conhecimento macroscópico do sistema:</p>
+
+<ul><li><strong>Normalização:</strong>
+ A soma de todas as probabilidades de ocupação dos estados \(i\) deve ser unitária.
+
+<div class="math-box purple">\[ \sum_i p_i = 1 \]</div></li>
+
+<li><strong>Energia Média (U):</strong>
+ O reservatório fixa a energia interna média do sistema, permitindo flutuações locais.
+
+<div class="math-box purple">\[ \langle E \rangle = \sum_i p_i \varepsilon_i = U \]</div></li></ul>
+
+<div class="highlight">Analogia: Um termostato mantém a temperatura média de uma sala, embora a energia cinética das moléculas de ar varie continuamente.</div>
+</div>
+</section>
+
+<section class="card">
+<div class="card-title purple">
+<i class="fa-solid fa-calculator"></i> Maximização de Gibbs-Jaynes
+</div>
+
+<div class="body-text">
+<p>Utilizamos a técnica dos
+<strong>Multiplicadores de Lagrange</strong>
+ para maximizar a entropia de Gibbs sujeita aos vínculos de normalização (\(\lambda\)) e energia (\(\beta\)):</p>
+
+<div class="math-box purple">\[ S = -k_B \sum_i p_i \ln p_i + \lambda\left(1 - \sum_i p_i\right) + \beta\left(U - \sum_i p_i \varepsilon_i\right) \]</div>
+
 <p>Aplicando a condição de extremante \(\frac{\partial S}{\partial p_i} = 0\):</p>
-<div class="math-block-display">
-                                \[ -k_B(\ln p_i + 1) - \lambda - \beta \varepsilon_i = 0 \]
-                            </div>
+
+<div class="math-box purple">\[ -k_B(\ln p_i + 1) - \lambda - \beta \varepsilon_i = 0 \]</div>
+
 <p>Isolando \(p_i\), obtemos a forma funcional da distribuição:</p>
-<div class="math-block-display">
-                                \[ p_i = e^{-(1 + \frac{\lambda}{k_B})} e^{-\frac{\beta}{k_B} \varepsilon_i} \]
-                            </div>
+
+<div class="math-box purple">\[ p_i = e^{-(1 + \frac{\lambda}{k_B})} e^{-\frac{\beta}{k_B} \varepsilon_i} \]</div>
+
 <p>Esta derivação revela que a probabilidade de um estado ser ocupado decai exponencialmente com sua energia \(\varepsilon_i\).</p>
 </div>
-</div>
-</div>
-</div>
+</section>
 </div>
 
-<div class="footer-provocation-bar">
-<span class="provocation-text">Provocação Teórica: Por que a energia interna \(U\) é tratada como um vínculo e não como um valor fixo \(\Omega(E)\)?</span>
-<span class="author-tag">Prof. Mario Reis | UFF 2026</span>
-</div>
-</div>
-    </div>
-  </section>
-
-  <section class="source-fragment">
-    <style>.source-embed.page-8{
-    --background: #F8F9FA;
-    --title-text: #1A3C5C;
-    --body-text: #1E293B;
-    --secondary-text: #475569;
-    --muted-text: #64748B;
-    --accent: #E07820;
-    --secondary-accent: #0F172A;
-    --border: #E2E8F0;
-    --card-bg: #FFF
-    }.source-embed.page-8 *{
-    box-sizing: border-box;
-    margin: 0 0;
-    padding: 0 0
-    }.source-embed.page-8{width: 100%; height: auto; overflow: visible; background-color: #E5E5E5;
-    font-family: "Inter", sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center}.source-embed.page-8 .slide-root-container{
-    width: 100%;
-    height: auto;
-    background-color: var(--background);
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    padding: 0 0
-    }.source-embed.page-8 .title-region-wrapper{
-    display: flex;
-    flex-direction: column;
-    padding: 24px 40px;
-    margin-top: 8px;
-    margin-left: 40px;
-    margin-right: 40px;
-    border-left: 6px solid var(--accent);
-    background-color: rgba(26, 60, 92, 0.03)
-    }.source-embed.page-8 .title-label-section{
-    color: var(--accent);
-    font-family: "Inter", sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-bottom: 4px
-    }.source-embed.page-8 .title-main-heading{
-    color: var(--title-text);
-    font-family: "Lora", serif;
-    font-size: 32px;
-    font-weight: 800;
-    margin: 0;
-    line-height: 1.2
-    }.source-embed.page-8 .main-content-layout-row{
-    display: flex;
-    flex-direction: row;
-    gap: 9px 24px;
-    padding: 0 40px;
-    margin-top: 6px;
-    align-items: stretch;
-    flex: 1
-    }.source-embed.page-8 .left-derivation-column{
-    display: flex;
-    flex-direction: column;
-    flex: 1.2;
-    gap: 8px 16px
-    }.source-embed.page-8 .right-interpretation-column{
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    gap: 6px 16px
-    }.source-embed.page-8 .content-card-module{
-    background-color: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 10px 20px;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
-    flex: 1
-    }.source-embed.page-8 .card-heading-group{
-    display: flex;
-    align-items: center;
-    gap: 5px 10px;
-    margin-bottom: 6px;
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 4px
-    }.source-embed.page-8 .card-heading-icon{
-    color: var(--accent);
-    font-size: 18px
-    }.source-embed.page-8 .card-heading-text{
-    color: var(--title-text);
-    font-family: "Lora", serif;
-    font-size: 20px;
-    font-weight: 700
-    }.source-embed.page-8 .body-paragraph-text{
-    color: var(--body-text);
-    font-size: 15px;
-    line-height: 1.6;
-    margin-bottom: 6px;
-    text-align: justify
-    }.source-embed.page-8 .equation-display-block{
-    background-color: #F1F5F9;
-    padding: 6px 12px;
-    border-radius: 4px;
-    margin: 4px 0;
-    text-align: center;
-    border-left: 3px solid var(--title-text)
-    }.source-embed.page-8 .accent-box-note{
-    background-color: rgba(224, 120, 32, 0.08);
-    border-left: 4px solid var(--accent);
-    padding: 5px 16px;
-    margin-top: auto
-    }.source-embed.page-8 .accent-box-title{
-    color: var(--accent);
-    font-weight: 700;
-    font-size: 14px;
-    text-transform: uppercase;
-    margin-bottom: 2px;
-    display: flex;
-    align-items: center;
-    gap: 8px
-    }.source-embed.page-8 .accent-box-content{
-    color: var(--body-text);
-    font-size: 13px;
-    line-height: 1.5;
-    font-style: italic
-    }.source-embed.page-8 .list-container-wrapper{
-    list-style: none;
-    padding: 0 0;
-    margin: 0 0
-    }.source-embed.page-8 .list-item-entry{
-    display: block;
-    margin-bottom: 3px;
-    padding-left: 20px;
-    position: relative;
-    font-size: 13px;
-    color: var(--secondary-text)
-    }.source-embed.page-8 .list-item-entry::before{
-    content: "•";
-    color: var(--accent);
-    position: absolute;
-    left: 0;
-    font-weight: bold
-    }.source-embed.page-8 .footer-summary-container{
-    margin: 6px 40px 9px 40px;
-    padding: 5px 20px;
-    background-color: var(--secondary-accent);
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    gap: 6px 15px
-    }.source-embed.page-8 .footer-icon-badge{
-    color: #FFF;
-    background-color: var(--accent);
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0
-    }.source-embed.page-8 .footer-text-content{
-    color: #E2E8F0;
-    font-size: 14px;
-    line-height: 1.4
-    }.source-embed.page-8 .mjx-chtml{overflow: visible; font-size: 110% !important}
-
-.source-embed.page-8{
-  display:block !important;
-  width:100% !important;
-  max-width:100% !important;
-  margin:0 !important;
-  padding:0 !important;
-  background:transparent !important;
-  overflow:visible !important;
-}
-.source-embed.page-8 > div{
-  width:100% !important;
-  max-width:100% !important;
-  height:auto !important;
-  min-height:0 !important;
-  margin:0 !important;
-  overflow:visible !important;
-}
-.source-embed.page-8 [class*="title-region"],
-.source-embed.page-8 [class*="title-section"],
-.source-embed.page-8 [class*="title-header"]{
-  display:none !important;
-}
-.source-embed.page-8 img,
-.source-embed.page-8 svg,
-.source-embed.page-8 canvas,
-.source-embed.page-8 video{
-  max-width:100% !important;
-  height:auto !important;
-}
-.source-embed.page-8 mjx-container,
-.source-embed.page-8 .MathJax,
-.source-embed.page-8 .mjx-chtml{
-  max-width:100% !important;
-  overflow-x:auto !important;
-  overflow-y:hidden !important;
-}
-@media (max-width:980px){
-  .source-embed.page-8 [class*="columns-wrapper"],
-  .source-embed.page-8 [class*="content-layout"],
-  .source-embed.page-8 [class*="content-area"],
-  .source-embed.page-8 [class*="layout-row"],
-  .source-embed.page-8 [class*="main-content"],
-  .source-embed.page-8 [class*="interaction-wrapper"]{
-    display:flex !important;
-    flex-direction:column !important;
-    gap:16px !important;
-  }
-  .source-embed.page-8 [class*="left-"],
-  .source-embed.page-8 [class*="right-"],
-  .source-embed.page-8 [class*="-column"]{
-    width:100% !important;
-    max-width:100% !important;
-    flex:1 1 auto !important;
-  }
-  .source-embed.page-8 [class*="grid"]{
-    grid-template-columns:1fr !important;
-  }
-}
-@media (max-width:700px){
-  .source-embed.page-8 [class*="columns-wrapper"],
-  .source-embed.page-8 [class*="content-layout"],
-  .source-embed.page-8 [class*="content-area"],
-  .source-embed.page-8 [class*="layout-row"],
-  .source-embed.page-8 [class*="main-content"],
-  .source-embed.page-8 [class*="interaction-wrapper"]{
-    padding-left:16px !important;
-    padding-right:16px !important;
-  }
-  .source-embed.page-8 [class*="title-main-heading"]{
-    font-size:clamp(1.7rem, 6vw, 2.25rem) !important;
-    line-height:1.12 !important;
-  }
-}
-</style>
-    <div class="source-embed page-8">
-      <div class="slide-root-container">
-
-
-
-<div class="main-content-layout-row">
-
-<div class="left-derivation-column">
-<div class="content-card-module">
-<div class="card-heading-group">
-<i class="fa-solid fa-square-root-variable card-heading-icon"></i>
-<h2 class="card-heading-text">Derivação via Multiplicadores</h2>
-</div>
-<p class="body-paragraph-text">
-            Para um sistema em contato com um reservatório térmico, a energia pode flutuar, mas a energia interna média $U$ é mantida constante. Maximizamos a entropia de Gibbs sob dois vínculos: normalização e energia média.
-          </p>
-<div class="equation-display-block">
-            \[ \mathcal{L} = -\sum_i p_i \ln p_i + \lambda\left(1 - \sum_i p_i\right) + \beta\left(U - \sum_i p_i \varepsilon_i\right) \]
-          </div>
-<p class="body-paragraph-text">
-            Aplicando a condição de extremo $\partial \mathcal{L} / \partial p_i = 0$, obtemos:
-          </p>
-<div class="equation-display-block">
-            \[ -\ln p_i - 1 - \lambda - \beta\varepsilon_i = 0 \implies p_i = e^{-(1+\lambda)} e^{-\beta\varepsilon_i} \]
-          </div>
-<p class="body-paragraph-text">
-            Impondo a normalização $\sum p_i = 1$, definimos o fator de normalização como a <strong>Função de Partição $Z$</strong>:
-          </p>
-<div class="equation-display-block">
-            \[ \boxed{p_i = \frac{e^{-\beta\varepsilon_i}}{Z}} \quad \text{com} \quad \boxed{Z = \sum_i e^{-\beta\varepsilon_i}} \]
-          </div>
-</div>
+<div class="grid">
+<section class="card">
+<div class="card-title purple">
+<i class="fa-solid fa-square-root-variable"></i> Derivação via Multiplicadores
 </div>
 
-<div class="right-interpretation-column">
-<div class="content-card-module">
-<div class="card-heading-group">
-<i class="fa-solid fa-diagram-project card-heading-icon"></i>
-<h2 class="card-heading-text">Significado da Função de Partição</h2>
+<div class="body-text">
+<p>Para um sistema em contato com um reservatório térmico, a energia pode flutuar, mas a energia interna média $U$ é mantida constante. Maximizamos a entropia de Gibbs sob dois vínculos: normalização e energia média.</p>
+
+<div class="math-box purple">\[ \mathcal{L} = -\sum_i p_i \ln p_i + \lambda\left(1 - \sum_i p_i\right) + \beta\left(U - \sum_i p_i \varepsilon_i\right) \]</div>
+
+<p>Aplicando a condição de extremo $\partial \mathcal{L} / \partial p_i = 0$, obtemos:</p>
+
+<div class="math-box purple">\[ -\ln p_i - 1 - \lambda - \beta\varepsilon_i = 0 \implies p_i = e^{-(1+\lambda)} e^{-\beta\varepsilon_i} \]</div>
+
+<p>Impondo a normalização $\sum p_i = 1$, definimos o fator de normalização como a
+<strong>Função de Partição $Z$</strong>
+:</p>
+
+<div class="math-box purple">\[ \boxed{p_i = \frac{e^{-\beta\varepsilon_i}}{Z}} \quad \text{com} \quad \boxed{Z = \sum_i e^{-\beta\varepsilon_i}} \]</div>
 </div>
-<p class="body-paragraph-text">
-            A função de partição $Z$ (do alemão <i>Zustandssumme</i>, "soma sobre estados") é a grandeza central da mecânica estatística. Ela atua como uma ponte entre o micro e o macro:
-          </p>
-<div class="list-container-wrapper">
-<div class="list-item-entry"><strong>Normalizador:</strong> Garante que a soma das probabilidades seja unitária.</div>
-<div class="list-item-entry"><strong>Peso Estatístico:</strong> Estados com energia $\varepsilon_i \gg k_B T$ são exponencialmente suprimidos.</div>
-<div class="list-item-entry"><strong>Geradora de Potenciais:</strong> A partir de $Z$, derivamos todas as propriedades termodinâmicas (F, S, U, P).</div>
+</section>
+
+<section class="card">
+<div class="card-title green">
+<i class="fa-solid fa-diagram-project"></i> Significado da Função de Partição
 </div>
-<div class="accent-box-note">
-<div class="accent-box-title">
+
+<div class="body-text">
+<p>A função de partição $Z$ (do alemão
+, "soma sobre estados") é a grandeza central da mecânica estatística. Ela atua como uma ponte entre o micro e o macro:</p>
+
+<strong>Normalizador:</strong>
+ Garante que a soma das probabilidades seja unitária.
+
+<strong>Peso Estatístico:</strong>
+ Estados com energia $\varepsilon_i \gg k_B T$ são exponencialmente suprimidos.
+
+<strong>Geradora de Potenciais:</strong>
+ A partir de $Z$, derivamos todas as propriedades termodinâmicas (F, S, U, P).
+
+<div class="highlight"><i class="fa-solid fa-lightbulb"></i>
+
+ Provocação Teórica
+
+Se um sistema possui apenas dois níveis de energia, $0$ e $\Delta$, como a probabilidade de ocupação do estado excitado se comporta quando a temperatura $T \to \infty$? E quando $T \to 0$?</div>
+</div>
+</section>
+</div>
+
+<section class="card">
+<div class="card-title">
+<i class="fa-solid fa-scale-balanced"></i> Analogia Didática
+</div>
+
+<div class="body-text">
+<p>Imagine uma prateleira de livros onde os mais altos (alta energia) são mais difíceis de alcançar. Se você tiver "energia térmica" (escada), pode alcançá-los. Se a escada for curta (baixa temperatura), você só acessa os livros da base.</p>
+</div>
+</section>
+
+<div class="grid">
+<section class="card">
+<div class="card-title purple">
+<i class="fa-solid fa-circle-info"></i> Contexto: de onde vem \(\beta\)?
+</div>
+
+<div class="body-text">
+Na maximização da entropia de Gibbs com dois vínculos — normalização e energia média \(U\) — surgem naturalmente
+<div class="highlight">dois multiplicadores de Lagrange</div>
+: \(\lambda\) (associado à normalização) e \(\beta\) (associado à restrição de energia). A distribuição de Boltzmann \(p_i = e^{-\beta\varepsilon_i}/Z\) contém \(\beta\) como parâmetro livre. Para identificar seu significado físico, comparamos com a termodinâmica clássica, onde a temperatura \(T\) é a variável que governa o equilíbrio térmico.
+</div>
+</section>
+
+<section class="card">
+<div class="card-title green">
+<i class="fa-solid fa-calculator"></i> Derivação: identificação de \(\beta\) via termodinâmica
+</div>
+
+<div class="body-text">
+<ul><li>Passo 1
+
+ A entropia de equilíbrio do ensemble canônico é \(S = k_B(\beta U + \ln Z)\), obtida inserindo \(p_i\) na fórmula de Gibbs.</li>
+
+<li>Passo 2
+
+ Da termodinâmica clássica, a relação fundamental é \(dU = T\,dS - P\,dV\), portanto \(\left(\frac{\partial S}{\partial U}\right)_V = \frac{1}{T}\).</li>
+
+<li>Passo 3
+
+ Diferenciando a expressão estatística de \(S\) em relação a \(U\) a volume fixo: \(\left(\frac{\partial S}{\partial U}\right)_V = k_B\beta\).</li>
+
+<li>Resultado
+
+ Igualando os dois resultados: \(k_B \beta = \dfrac{1}{T}\), logo \[\beta = \dfrac{1}{k_B T}\].</li></ul>
+</div>
+</section>
+</div>
+
+<div class="grid">
+<section class="card">
+<div class="card-title purple">
+<i class="fa-solid fa-star"></i> Resultado Central e Interpretação Física
+</div>
+
+<div class="body-text">
+<div class="math-box purple">\[\beta = \frac{1}{k_B T} \qquad \Longrightarrow \qquad p_i = \frac{e^{-\varepsilon_i/k_BT}}{Z}\]</div>
+
+<div class="highlight">\(\beta\) é o
+<strong>multiplicador de Lagrange da energia</strong>
+: quanto maior \(\beta\) (menor \(T\)), a distribuição se concentra nos estados de menor energia. Quanto menor \(\beta\) (maior \(T\)), os estados tornam-se progressivamente equiprováveis. Fisicamente, \(\beta\)
+<em>controla a largura da distribuição</em>
+ de energias ocupadas pelo sistema — é a medida inversa da agitação térmica disponível.</div>
+</div>
+</section>
+
+<section class="card">
+<div class="card-title purple">
+<i class="fa-solid fa-arrows-left-right"></i> Analogia: Limites de \(\beta\)
+</div>
+
+<div class="body-text">
+<div class="highlight">\(\beta \to \infty\)  (\(T \to 0\))
+
+Apenas o estado fundamental \(\varepsilon_0\) é ocupado. A distribuição colapsa: \(p_0 \to 1\), \(p_{i&gt;0} \to 0\). O sistema "congela" no nível mais baixo.
+
+\(\beta \to 0\)  (\(T \to \infty\))
+
+Todos os estados tornam-se equiprováveis: \(p_i \to 1/\Omega\). Recupera-se o ensemble micro-canônico. A agitação térmica apaga as preferências energéticas.</div>
+</div>
+</section>
+</div>
+
+<section class="card">
+<div class="card-title purple">
+<i class="fa-solid fa-pencil"></i> Provocação Teórica & Exercício
+</div>
+
+<div class="body-text">
+Se \(\beta\) controla as flutuações, como se comporta a
+<strong>energia interna</strong>
+ \(U = -\partial \ln Z/\partial\beta\) quando \(\beta \to 0\)? Verifique para o sistema de 2 níveis (energias \(0\) e \(\varepsilon\)).
+
 <i class="fa-solid fa-lightbulb"></i>
-              Provocação Teórica
-            </div>
-<div class="accent-box-content">
-              Se um sistema possui apenas dois níveis de energia, $0$ e $\Delta$, como a probabilidade de ocupação do estado excitado se comporta quando a temperatura $T \to \infty$? E quando $T \to 0$?
-            </div>
+
+ Dica: calcule \(Z = 1 + e^{-\beta\varepsilon}\) e expanda para \(\beta \to 0\). Você deve obter \(U \to \varepsilon/2\) — equipartição entre os dois estados.
 </div>
-</div>
-<div class="content-card-module" style="flex: 0.6;">
-<div class="card-heading-group">
-<i class="fa-solid fa-scale-balanced card-heading-icon"></i>
-<h2 class="card-heading-text">Analogia Didática</h2>
-</div>
-<p class="body-paragraph-text" style="font-size: 14px;">
-            Imagine uma prateleira de livros onde os mais altos (alta energia) são mais difíceis de alcançar. Se você tiver "energia térmica" (escada), pode alcançá-los. Se a escada for curta (baixa temperatura), você só acessa os livros da base.
-          </p>
-</div>
-</div>
+</section>
+
+<section data-termo-ai-exercise data-exercise-theme="purple"></section>
+
 </div>
 
-<div class="footer-summary-container">
-<div class="footer-icon-badge">
-<i class="fa-solid fa-key"></i>
-</div>
-<div class="footer-text-content">
-<strong>Conceito Chave:</strong> A distribuição de Boltzmann mostra que a probabilidade de um microestado decai exponencialmente com sua energia. O parâmetro $\beta$ controla a "largura" dessa distribuição, vinculando a estatística à temperatura macroscópica.
-      </div>
-</div>
-</div>
-    </div>
-  </section>
-
-  <section class="source-fragment">
-    <style>.source-embed.page-9 *{
-    margin: 0 0;
-    padding: 0 0;
-    box-sizing: border-box
-    }.source-embed.page-9{width: 100%; height: auto; overflow: visible; background: #d0d0d0;
-    display: block}.source-embed.page-9 .beta-slide-root{
-    width: 100%;
-    height: auto;
-    background-color: #F8F9FA;
-    font-family: "Inter", sans-serif;
-    color: #1E293B;
-    display: flex;
-    flex-direction: column;
-    padding: 0 0
-    }.source-embed.page-9 .beta-title-region{
-    display: flex;
-    flex-direction: column;
-    padding: 18px 40px 14px 40px;
-    border-left: 6px solid #E07820;
-    background-color: rgba(26, 60, 92, 0.03);
-    margin: 16px 36px 0 36px;
-    flex-shrink: 0
-    }.source-embed.page-9 .beta-title-section-label{
-    color: #E07820;
-    font-family: "Inter", sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-bottom: 4px
-    }.source-embed.page-9 .beta-title-heading{
-    color: #1A3C5C;
-    font-family: "Lora", serif;
-    font-size: 32px;
-    font-weight: 800;
-    line-height: 1.2;
-    margin: 0
-    }.source-embed.page-9 .beta-main-content{
-    display: flex;
-    flex-direction: row;
-    align-items: stretch;
-    flex: 1;
-    gap: 13px 16px;
-    padding: 11px 36px 13px 36px;
-    min-height: 0
-    }.source-embed.page-9 .beta-left-column{
-    display: flex;
-    flex-direction: column;
-    flex: 1.1;
-    gap: 12px
-    }.source-embed.page-9 .beta-left-context-card{
-    background-color: #fff;
-    border: 1px solid #E2E8F0;
-    border-left: 4px solid #1A3C5C;
-    border-radius: 6px;
-    padding: 12px 16px;
-    flex: 1 1 0
-    }.source-embed.page-9 .beta-left-context-card-heading{
-    color: #1A3C5C;
-    font-family: "Lora", serif;
-    font-size: 14px;
-    font-weight: 700;
-    margin-bottom: 6px;
-    display: flex;
-    align-items: center;
-    gap: 7px
-    }.source-embed.page-9 .beta-left-context-card-heading i{
-    color: #E07820;
-    font-size: 13px
-    }.source-embed.page-9 .beta-left-context-card-body{
-    color: #1E293B;
-    font-family: "Inter", sans-serif;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.6
-    }.source-embed.page-9 .beta-left-derivation-card{
-    background-color: #fff;
-    border: 1px solid #E2E8F0;
-    border-left: 4px solid #E07820;
-    border-radius: 6px;
-    padding: 12px 16px;
-    flex: 2 1 0
-    }.source-embed.page-9 .beta-left-derivation-heading{
-    color: #E07820;
-    font-family: "Inter", sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    gap: 7px
-    }.source-embed.page-9 .beta-left-derivation-heading i{
-    font-size: 12px
-    }.source-embed.page-9 .beta-derivation-steps-list{
-    list-style: none;
-    display: block
-    }.source-embed.page-9 .beta-derivation-step-item{
-    display: block;
-    padding: 5px 0;
-    border-bottom: 1px dashed #E2E8F0;
-    color: #1E293B;
-    font-size: 14px;
-    line-height: 1.55
-    }.source-embed.page-9 .beta-derivation-step-item:last-child{
-    border-bottom: none
-    }.source-embed.page-9 .beta-step-label{
-    color: #E07820;
-    font-weight: 700;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-right: 4px
-    }.source-embed.page-9 .beta-right-column{
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    gap: 10px 12px
-    }.source-embed.page-9 .beta-right-result-card{
-    background-color: rgba(26, 60, 92, 0.04);
-    border: 1.5px solid #1A3C5C;
-    border-radius: 6px;
-    padding: 11px 16px;
-    flex: 1.2 1 0
-    }.source-embed.page-9 .beta-right-result-heading{
-    color: #1A3C5C;
-    font-family: "Lora", serif;
-    font-size: 14px;
-    font-weight: 700;
-    margin-bottom: 6px;
-    display: flex;
-    align-items: center;
-    gap: 6px 7px
-    }.source-embed.page-9 .beta-right-result-heading i{
-    color: #E07820;
-    font-size: 13px
-    }.source-embed.page-9 .beta-result-equation-block{
-    background-color: #fff;
-    border: 1px solid #E2E8F0;
-    border-radius: 4px;
-    padding: 6px 12px;
-    margin-bottom: 6px;
-    text-align: center;
-    font-size: 15px
-    }.source-embed.page-9 .beta-result-interpretation-text{
-    color: #334155;
-    font-size: 13px;
-    font-weight: 400;
-    line-height: 1.6
-    }.source-embed.page-9 .beta-right-analogy-card{
-    background-color: #fff;
-    border: 1px solid #E2E8F0;
-    border-left: 4px solid #E07820;
-    border-radius: 6px;
-    padding: 10px 16px;
-    flex: 1 1 0
-    }.source-embed.page-9 .beta-right-analogy-heading{
-    color: #E07820;
-    font-family: "Inter", sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 6px;
-    display: flex;
-    align-items: center;
-    gap: 6px 7px
-    }.source-embed.page-9 .beta-right-analogy-heading i{
-    font-size: 12px
-    }.source-embed.page-9 .beta-analogy-comparison-grid{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6px 8px
-    }.source-embed.page-9 .beta-analogy-comparison-col{
-    border-radius: 4px;
-    padding: 8px 10px
-    }.source-embed.page-9 .beta-analogy-comparison-col-left{
-    background-color: rgba(26, 60, 92, 0.06)
-    }.source-embed.page-9 .beta-analogy-comparison-col-right{
-    background-color: rgba(224, 120, 32, 0.07)
-    }.source-embed.page-9 .beta-analogy-col-title{
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 5px
-    }.source-embed.page-9 .beta-analogy-col-title-navy{
-    color: #1A3C5C
-    }.source-embed.page-9 .beta-analogy-col-title-amber{
-    color: #E07820
-    }.source-embed.page-9 .beta-analogy-col-body{
-    color: #334155;
-    font-size: 13px;
-    line-height: 1.55
-    }.source-embed.page-9 .beta-right-exercise-card{
-    background-color: rgba(224, 120, 32, 0.06);
-    border: 1.5px solid #E07820;
-    border-radius: 6px;
-    padding: 8px 14px;
-    flex: 0.8 1 0
-    }.source-embed.page-9 .beta-exercise-heading{
-    color: #E07820;
-    font-family: "Inter", sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 4px;
-    display: flex;
-    align-items: center;
-    gap: 5px 6px
-    }.source-embed.page-9 .beta-exercise-heading i{
-    font-size: 11px
-    }.source-embed.page-9 .beta-exercise-body-text{
-    color: #1E293B;
-    font-size: 13px;
-    line-height: 1.55
-    }.source-embed.page-9 .beta-exercise-hint-text{
-    color: #475569;
-    font-size: 12px;
-    line-height: 1.5;
-    margin-top: 3px;
-    font-style: italic
-    }.source-embed.page-9 .beta-inline-highlight{
-    color: #1A3C5C;
-    font-weight: 600
-    }.source-embed.page-9{ overflow: visible; }
-
-
-.source-embed.page-9{
-  display:block !important;
-  width:100% !important;
-  max-width:100% !important;
-  margin:0 !important;
-  padding:0 !important;
-  background:transparent !important;
-  overflow:visible !important;
-}
-.source-embed.page-9 > div{
-  width:100% !important;
-  max-width:100% !important;
-  height:auto !important;
-  min-height:0 !important;
-  margin:0 !important;
-  overflow:visible !important;
-}
-.source-embed.page-9 [class*="title-region"],
-.source-embed.page-9 [class*="title-section"],
-.source-embed.page-9 [class*="title-header"]{
-  display:none !important;
-}
-.source-embed.page-9 img,
-.source-embed.page-9 svg,
-.source-embed.page-9 canvas,
-.source-embed.page-9 video{
-  max-width:100% !important;
-  height:auto !important;
-}
-.source-embed.page-9 mjx-container,
-.source-embed.page-9 .MathJax,
-.source-embed.page-9 .mjx-chtml{
-  max-width:100% !important;
-  overflow-x:auto !important;
-  overflow-y:hidden !important;
-}
-@media (max-width:980px){
-  .source-embed.page-9 [class*="columns-wrapper"],
-  .source-embed.page-9 [class*="content-layout"],
-  .source-embed.page-9 [class*="content-area"],
-  .source-embed.page-9 [class*="layout-row"],
-  .source-embed.page-9 [class*="main-content"],
-  .source-embed.page-9 [class*="interaction-wrapper"]{
-    display:flex !important;
-    flex-direction:column !important;
-    gap:16px !important;
-  }
-  .source-embed.page-9 [class*="left-"],
-  .source-embed.page-9 [class*="right-"],
-  .source-embed.page-9 [class*="-column"]{
-    width:100% !important;
-    max-width:100% !important;
-    flex:1 1 auto !important;
-  }
-  .source-embed.page-9 [class*="grid"]{
-    grid-template-columns:1fr !important;
-  }
-}
-@media (max-width:700px){
-  .source-embed.page-9 [class*="columns-wrapper"],
-  .source-embed.page-9 [class*="content-layout"],
-  .source-embed.page-9 [class*="content-area"],
-  .source-embed.page-9 [class*="layout-row"],
-  .source-embed.page-9 [class*="main-content"],
-  .source-embed.page-9 [class*="interaction-wrapper"]{
-    padding-left:16px !important;
-    padding-right:16px !important;
-  }
-  .source-embed.page-9 [class*="title-main-heading"]{
-    font-size:clamp(1.7rem, 6vw, 2.25rem) !important;
-    line-height:1.12 !important;
-  }
-}
-</style>
-    <div class="source-embed page-9">
-      <div class="beta-slide-root">
-
-
-
-<div class="beta-main-content">
-
-<div class="beta-left-column">
-
-<div class="beta-left-context-card">
-<div class="beta-left-context-card-heading">
-<i class="fa-solid fa-circle-info"></i>
-            Contexto: de onde vem \(\beta\)?
-          </div>
-<div class="beta-left-context-card-body">
-            Na maximização da entropia de Gibbs com dois vínculos — normalização e energia média \(U\) — surgem naturalmente <span class="beta-inline-highlight">dois multiplicadores de Lagrange</span>: \(\lambda\) (associado à normalização) e \(\beta\) (associado à restrição de energia). A distribuição de Boltzmann \(p_i = e^{-\beta\varepsilon_i}/Z\) contém \(\beta\) como parâmetro livre. Para identificar seu significado físico, comparamos com a termodinâmica clássica, onde a temperatura \(T\) é a variável que governa o equilíbrio térmico.
-          </div>
-</div>
-
-<div class="beta-left-derivation-card">
-<div class="beta-left-derivation-heading">
-<i class="fa-solid fa-calculator"></i>
-            Derivação: identificação de \(\beta\) via termodinâmica
-          </div>
-<ul class="beta-derivation-steps-list">
-<li class="beta-derivation-step-item">
-<span class="beta-step-label">Passo 1</span>
-              A entropia de equilíbrio do ensemble canônico é \(S = k_B(\beta U + \ln Z)\), obtida inserindo \(p_i\) na fórmula de Gibbs.
-            </li>
-<li class="beta-derivation-step-item">
-<span class="beta-step-label">Passo 2</span>
-              Da termodinâmica clássica, a relação fundamental é \(dU = T\,dS - P\,dV\), portanto \(\left(\frac{\partial S}{\partial U}\right)_V = \frac{1}{T}\).
-            </li>
-<li class="beta-derivation-step-item">
-<span class="beta-step-label">Passo 3</span>
-              Diferenciando a expressão estatística de \(S\) em relação a \(U\) a volume fixo: \(\left(\frac{\partial S}{\partial U}\right)_V = k_B\beta\).
-            </li>
-<li class="beta-derivation-step-item">
-<span class="beta-step-label">Resultado</span>
-              Igualando os dois resultados: \(k_B \beta = \dfrac{1}{T}\), logo \[\beta = \dfrac{1}{k_B T}\].
-            </li>
-</ul>
-</div>
-</div>
-
-<div class="beta-right-column">
-
-<div class="beta-right-result-card">
-<div class="beta-right-result-heading">
-<i class="fa-solid fa-star"></i>
-            Resultado Central e Interpretação Física
-          </div>
-<div class="beta-result-equation-block">
-            \[\beta = \frac{1}{k_B T} \qquad \Longrightarrow \qquad p_i = \frac{e^{-\varepsilon_i/k_BT}}{Z}\]
-          </div>
-<div class="beta-result-interpretation-text">
-            \(\beta\) é o <strong>multiplicador de Lagrange da energia</strong>: quanto maior \(\beta\) (menor \(T\)), a distribuição se concentra nos estados de menor energia. Quanto menor \(\beta\) (maior \(T\)), os estados tornam-se progressivamente equiprováveis. Fisicamente, \(\beta\) <em>controla a largura da distribuição</em> de energias ocupadas pelo sistema — é a medida inversa da agitação térmica disponível.
-          </div>
-</div>
-
-<div class="beta-right-analogy-card">
-<div class="beta-right-analogy-heading">
-<i class="fa-solid fa-arrows-left-right"></i>
-            Analogia: Limites de \(\beta\)
-          </div>
-<div class="beta-analogy-comparison-grid">
-<div class="beta-analogy-comparison-col beta-analogy-comparison-col-left">
-<div class="beta-analogy-col-title beta-analogy-col-title-navy">
-                \(\beta \to \infty\)  (\(T \to 0\))
-              </div>
-<div class="beta-analogy-col-body">
-                Apenas o estado fundamental \(\varepsilon_0\) é ocupado. A distribuição colapsa: \(p_0 \to 1\), \(p_{i&gt;0} \to 0\). O sistema "congela" no nível mais baixo.
-              </div>
-</div>
-<div class="beta-analogy-comparison-col beta-analogy-comparison-col-right">
-<div class="beta-analogy-col-title beta-analogy-col-title-amber">
-                \(\beta \to 0\)  (\(T \to \infty\))
-              </div>
-<div class="beta-analogy-col-body">
-                Todos os estados tornam-se equiprováveis: \(p_i \to 1/\Omega\). Recupera-se o ensemble micro-canônico. A agitação térmica apaga as preferências energéticas.
-              </div>
-</div>
-</div>
-</div>
-
-<div class="beta-right-exercise-card">
-<div class="beta-exercise-heading">
-<i class="fa-solid fa-pencil"></i>
-            Provocação Teórica &amp; Exercício
-          </div>
-<div class="beta-exercise-body-text">
-            Se \(\beta\) controla as flutuações, como se comporta a <strong>energia interna</strong> \(U = -\partial \ln Z/\partial\beta\) quando \(\beta \to 0\)? Verifique para o sistema de 2 níveis (energias \(0\) e \(\varepsilon\)).
-          </div>
-<div class="beta-exercise-hint-text">
-<i class="fa-solid fa-lightbulb" style="color: #E07820;margin-right: 4px;"></i>
-            Dica: calcule \(Z = 1 + e^{-\beta\varepsilon}\) e expanda para \(\beta \to 0\). Você deve obter \(U \to \varepsilon/2\) — equipartição entre os dois estados.
-          </div>
-</div>
-</div>
-</div>
-</div>
-    </div>
-  </section>
-  </div>
-
-  <section data-termo-ai-exercise data-exercise-theme="purple"></section>
-</div>
-<script src="../../assets/chapter-embedded-slide.js?v=0611.5"></script>
 </body>
 </html>

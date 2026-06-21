@@ -7,7 +7,7 @@
 
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@400;500;600&display=swap" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/>
 
 <script>
@@ -25,14 +25,15 @@ window.MathJax = {
 </script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 
-<link href="../../assets/chapter-embedded-slide.css" rel="stylesheet"/>
-<link href="../../assets/ai-exercises.css" rel="stylesheet"/>
+<link rel="stylesheet" href="../../assets/ai-exercises.css">
 <script defer src="../../assets/ai-exercises.js"></script>
 <link rel="stylesheet" href="../../assets/termo-share.css">
 <script defer src="../../assets/termo-share.js"></script>
 <link rel="stylesheet" href="../../assets/termo-auth.css?v=0611.4">
+<link rel="stylesheet" href="../../assets/capitulo-02-layout.css?v=0611.4">
 <script defer src="../../assets/termo-auth.js?v=0611.4"></script>
 <script defer src="../../assets/termo-user-data.js"></script>
+<script defer src="../../assets/termo-seo.js?v=0609.2"></script>
 <!-- termo-seo:start -->
 <meta name="description" content="Construção da função de partição do gás ideal e papel do comprimento de onda térmico de de Broglie. Material interativo do livro Termodinâmica para Estudantes de Física,..."/>
 <meta name="author" content="Prof. Mario Reis"/>
@@ -51,599 +52,158 @@ window.MathJax = {
 <meta name="twitter:description" content="Construção da função de partição do gás ideal e papel do comprimento de onda térmico de de Broglie. Material interativo do livro Termodinâmica para Estudantes de Física,..."/>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Exemplo I: Gás Ideal Monoatômico — Função de Partição | Capítulo 3 | Termodinâmica para Estudantes de Física","description":"Construção da função de partição do gás ideal e papel do comprimento de onda térmico de de Broglie. Material interativo do livro Termodinâmica para Estudantes de Física,...","url":"https://termo-theta.vercel.app/slides/capitulo-03/page_14.html","inLanguage":"pt-BR","isAccessibleForFree":true,"educationalUse":"instruction","learningResourceType":"InteractiveResource","author":{"@type":"Person","name":"Prof. Mario Reis"},"publisher":{"@type":"CollegeOrUniversity","name":"Instituto de Física — Universidade Federal Fluminense"},"isPartOf":{"@type":"Course","name":"Termodinâmica para Estudantes de Física","url":"https://termo-theta.vercel.app/"}}</script>
 <!-- termo-seo:end -->
-<script defer src="../../assets/termo-seo.js?v=0609.2"></script>
 </head>
+
 <body>
+
 <div class="page">
-  <section class="hero">
-    <div class="hero-inner">
-      <a href="../../index.html?chapter=03" class="index-back-button">
-        <i class="fa-solid fa-arrow-left"></i>
-        Índice
-      </a>
-      <div class="chapter-label">
-        <i class="fa-solid fa-layer-group"></i>
-        Capítulo 3 · Item 3.6
-      </div>
-      <h1 class="chapter-title">Exemplo I: Gás Ideal Monoatômico — Função de Partição</h1>
-      <div class="chapter-text">
-        <p>Construção da função de partição do gás ideal e papel do comprimento de onda térmico de de Broglie.</p>
-      </div>
-    </div>
-  </section>
 
-  <div class="content-root">
-    
-  <section class="source-fragment">
-    <style>.source-embed.page-14 *{
-    box-sizing: border-box;
-    -webkit-font-smoothing: antialiased
-    }.source-embed.page-14{width: 100%; height: auto; overflow: visible; background-color: #F8F9FA;
-    display: flex;
-    justify-content: center;
-    align-items: center}.source-embed.page-14 .gas-ideal-slide-root{
-    width: 100%;
-    height: auto;
-    background-color: #F8F9FA;
-    color: #1E293B;
-    font-family: "Inter", sans-serif;
-    padding: 0 0;
-    display: flex;
-    flex-direction: column;
-    position: relative
-    }.source-embed.page-14 .title-region-container{
-    display: flex;
-    flex-direction: column;
-    padding: 30px 60px;
-    margin-bottom: 10px;
-    border-left: 8px solid #E07820;
-    background-color: rgba(26, 60, 92, 0.04)
-    }.source-embed.page-14 .title-region-label{
-    color: #E07820;
-    font-family: "Inter", sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 6px
-    }.source-embed.page-14 .title-region-heading{
-    color: #1A3C5C;
-    font-family: "Lora", serif;
-    font-size: 36px;
-    font-weight: 800;
-    margin: 0;
-    line-height: 1.2
-    }.source-embed.page-14 .gas-ideal-content-grid{
-    display: flex;
-    flex-direction: row;
-    gap: 15px 30px;
-    padding: 0 60px 21px 60px;
-    flex: 1;
-    align-items: stretch
-    }.source-embed.page-14 .gas-ideal-left-column{
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 10px 20px;
-    justify-content: center
-    }.source-embed.page-14 .gas-ideal-right-column{
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 10px 20px;
-    justify-content: center
-    }.source-embed.page-14 .gas-ideal-explanation-block{
-    background-color: transparent
-    }.source-embed.page-14 .gas-ideal-explanation-text{
-    font-size: 15px;
-    line-height: 1.6;
-    color: #1E293B;
-    margin-bottom: 5px
-    }.source-embed.page-14 .gas-ideal-derivation-card{
-    background-color: #FFF;
-    border-left: 4px solid #1A3C5C;
-    padding: 10px 25px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    flex: 1
-    }.source-embed.page-14 .gas-ideal-card-title{
-    font-family: "Lora", serif;
-    font-size: 20px;
-    font-weight: 800;
-    color: #1A3C5C;
-    margin-top: 0;
-    margin-bottom: 6px;
-    display: flex;
-    align-items: center;
-    gap: 10px
-    }.source-embed.page-14 .gas-ideal-math-display{
-    font-size: 17px;
-    margin: 8px 0;
-    color: #0F172A
-    }.source-embed.page-14 .gas-ideal-accent-box{
-    background-color: rgba(224, 120, 32, 0.08);
-    border: 1px dashed #E07820;
-    padding: 8px 15px;
-    border-radius: 4px
-    }.source-embed.page-14 .gas-ideal-accent-title{
-    color: #E07820;
-    font-weight: 700;
-    font-size: 14px;
-    margin-bottom: 2px;
-    display: flex;
-    align-items: center;
-    gap: 8px
-    }.source-embed.page-14 .gas-ideal-accent-content{
-    font-size: 13px;
-    color: #475569;
-    line-height: 1.5;
-    font-style: italic
-    }.source-embed.page-14 .gas-ideal-step-list{
-    margin: 0 0;
-    padding: 0 0;
-    list-style: none
-    }.source-embed.page-14 .gas-ideal-step-item{
-    font-size: 14px;
-    margin-bottom: 4px;
-    display: flex;
-    align-items: flex-start;
-    gap: 5px 10px
-    }.source-embed.page-14 .gas-ideal-step-icon{
-    color: #E07820;
-    margin-top: 2px;
-    font-size: 11px
-    }.source-embed.page-14 .gas-ideal-math-inline{
-    font-family: "Times New Roman", serif;
-    font-style: italic
-    }.source-embed.page-14{ overflow: visible; }
+<section class="hero">
+<div class="hero-inner">
 
+<a href="../../index.html?chapter=03" class="index-back-button">
+<i class="fa-solid fa-arrow-left"></i>
+Índice
+</a>
 
-.source-embed.page-14{
-  display:block !important;
-  width:100% !important;
-  max-width:100% !important;
-  margin:0 !important;
-  padding:0 !important;
-  background:transparent !important;
-  overflow:visible !important;
-}
-.source-embed.page-14 > div{
-  width:100% !important;
-  max-width:100% !important;
-  height:auto !important;
-  min-height:0 !important;
-  margin:0 !important;
-  overflow:visible !important;
-}
-.source-embed.page-14 [class*="title-region"],
-.source-embed.page-14 [class*="title-section"],
-.source-embed.page-14 [class*="title-header"]{
-  display:none !important;
-}
-.source-embed.page-14 img,
-.source-embed.page-14 svg,
-.source-embed.page-14 canvas,
-.source-embed.page-14 video{
-  max-width:100% !important;
-  height:auto !important;
-}
-.source-embed.page-14 mjx-container,
-.source-embed.page-14 .MathJax,
-.source-embed.page-14 .mjx-chtml{
-  max-width:100% !important;
-  overflow-x:auto !important;
-  overflow-y:hidden !important;
-}
-@media (max-width:980px){
-  .source-embed.page-14 [class*="columns-wrapper"],
-  .source-embed.page-14 [class*="content-layout"],
-  .source-embed.page-14 [class*="content-area"],
-  .source-embed.page-14 [class*="layout-row"],
-  .source-embed.page-14 [class*="main-content"],
-  .source-embed.page-14 [class*="interaction-wrapper"]{
-    display:flex !important;
-    flex-direction:column !important;
-    gap:16px !important;
-  }
-  .source-embed.page-14 [class*="left-"],
-  .source-embed.page-14 [class*="right-"],
-  .source-embed.page-14 [class*="-column"]{
-    width:100% !important;
-    max-width:100% !important;
-    flex:1 1 auto !important;
-  }
-  .source-embed.page-14 [class*="grid"]{
-    grid-template-columns:1fr !important;
-  }
-}
-@media (max-width:700px){
-  .source-embed.page-14 [class*="columns-wrapper"],
-  .source-embed.page-14 [class*="content-layout"],
-  .source-embed.page-14 [class*="content-area"],
-  .source-embed.page-14 [class*="layout-row"],
-  .source-embed.page-14 [class*="main-content"],
-  .source-embed.page-14 [class*="interaction-wrapper"]{
-    padding-left:16px !important;
-    padding-right:16px !important;
-  }
-  .source-embed.page-14 [class*="title-main-heading"]{
-    font-size:clamp(1.7rem, 6vw, 2.25rem) !important;
-    line-height:1.12 !important;
-  }
-}
-</style>
-    <div class="source-embed page-14">
-      <div class="gas-ideal-slide-root">
-
-
-
-<div class="gas-ideal-content-grid">
-
-<div class="gas-ideal-left-column">
-<div class="gas-ideal-explanation-block">
-<p class="gas-ideal-explanation-text">
-            O gás ideal monoatômico é o sistema modelo fundamental. Consideramos \(N\) partículas de massa \(m\) em um volume \(V\), sem interações (\(U_{int} = 0\)). O desafio estatístico reside na transição do espaço de fase contínuo para a contagem discreta de estados.
-          </p>
+<div class="chapter-label">
+<i class="fa-solid fa-layer-group"></i>
+Capítulo 3 · Item 3.6
 </div>
-<div class="gas-ideal-derivation-card">
-<h2 class="gas-ideal-card-title">
+
+<h1 class="chapter-title">Exemplo I: Gás Ideal Monoatômico — Função de Partição</h1>
+
+<div class="chapter-text">
+<p>Construção da função de partição do gás ideal e papel do comprimento de onda térmico de de Broglie.</p>
+</div>
+
+</div>
+</section>
+
+<div class="grid">
+<section class="card">
+<div class="card-title">
+Conceito
+</div>
+
+<div class="body-text">
+<p>O gás ideal monoatômico é o sistema modelo fundamental. Consideramos \(N\) partículas de massa \(m\) em um volume \(V\), sem interações (\(U_{int} = 0\)). O desafio estatístico reside na transição do espaço de fase contínuo para a contagem discreta de estados.</p>
+</div>
+</section>
+
+<section class="card">
+<div class="card-title green">
 <i class="fas fa-atom"></i> Função de Partição de 1 Partícula
-          </h2>
-<div class="gas-ideal-explanation-text">
-            Utilizamos a Hamiltoniana puramente cinética \(H = \frac{p^2}{2m}\). A quantização semi-clássica introduz o fator \(1/h^3\) para cada partícula:
-          </div>
-<div class="gas-ideal-math-display">
-            \[ Z(1) = \frac{1}{h^3} \int e^{-\beta \frac{p^2}{2m}} d^3q d^3p \]
-          </div>
-<div class="gas-ideal-step-list">
-<div class="gas-ideal-step-item">
-<i class="fas fa-chevron-right gas-ideal-step-icon"></i>
-<span>A integral espacial \(\int d^3q\) resulta no volume \(V\).</span>
-</div>
-<div class="gas-ideal-step-item">
-<i class="fas fa-chevron-right gas-ideal-step-icon"></i>
-<span>A integral de momento é uma Gaussiana em 3D.</span>
-</div>
-</div>
-<div class="gas-ideal-math-display">
-            \[ Z(1) = \frac{V}{h^3} (2\pi m k_B T)^{3/2} = \frac{V}{\lambda^3} \]
-          </div>
-</div>
 </div>
 
-<div class="gas-ideal-right-column">
-<div class="gas-ideal-derivation-card">
-<h2 class="gas-ideal-card-title">
+<div class="body-text">
+Utilizamos a Hamiltoniana puramente cinética \(H = \frac{p^2}{2m}\). A quantização semi-clássica introduz o fator \(1/h^3\) para cada partícula:
+
+<div class="math-box green">\[ Z(1) = \frac{1}{h^3} \int e^{-\beta \frac{p^2}{2m}} d^3q d^3p \]</div>
+
+<i class="fas fa-chevron-right"></i>
+
+A integral espacial \(\int d^3q\) resulta no volume \(V\).
+
+<i class="fas fa-chevron-right"></i>
+
+A integral de momento é uma Gaussiana em 3D.
+
+<div class="math-box green">\[ Z(1) = \frac{V}{h^3} (2\pi m k_B T)^{3/2} = \frac{V}{\lambda^3} \]</div>
+</div>
+</section>
+</div>
+
+<div class="grid">
+<section class="card">
+<div class="card-title green">
 <i class="fas fa-users-viewfinder"></i> Extensão para N Partículas
-          </h2>
-<p class="gas-ideal-explanation-text">
-            Para um gás, as partículas são <strong>indistinguíveis</strong>. Devemos corrigir a supercontagem de estados dividindo por \(N!\):
-          </p>
-<div class="gas-ideal-math-display">
-            \[ Z(N) = \frac{[Z(1)]^N}{N!} = \frac{1}{N!} \left( \frac{V}{\lambda^3} \right)^N \]
-          </div>
-<div class="gas-ideal-explanation-text" style="font-size: 13px;color: #64748B;">
-            Onde \(\lambda = \sqrt{h^2 / 2\pi m k_B T}\) é o comprimento de onda térmico de de Broglie.
-          </div>
 </div>
-<div class="gas-ideal-derivation-card">
-<h2 class="gas-ideal-card-title">
+
+<div class="body-text">
+<p>Para um gás, as partículas são
+<strong>indistinguíveis</strong>
+. Devemos corrigir a supercontagem de estados dividindo por \(N!\):</p>
+
+<div class="math-box green">\[ Z(N) = \frac{[Z(1)]^N}{N!} = \frac{1}{N!} \left( \frac{V}{\lambda^3} \right)^N \]</div>
+
+Onde \(\lambda = \sqrt{h^2 / 2\pi m k_B T}\) é o comprimento de onda térmico de de Broglie.
+</div>
+</section>
+
+<section class="card">
+<div class="card-title green">
 <i class="fas fa-lightbulb"></i> Analogia do Espaço de Fase
-          </h2>
-<p class="gas-ideal-explanation-text">
-            Imagine o espaço de fase como um "armazém" contínuo. A constante de Planck \(h\) define o tamanho da menor "caixa" (célula) que podemos distinguir. Sem esse volume finito \(h^3\), a função de partição seria dimensionalmente incorreta e a entropia divergiria.
-          </p>
-<div class="gas-ideal-accent-box">
-<div class="gas-ideal-accent-title">
-<i class="fa-solid fa-pencil"></i> Dica de Exercício
-            </div>
-<div class="gas-ideal-accent-content">
-              Prove que em 2D, a função de partição escala com \(V/\lambda^2\). O expoente do volume sempre acompanha a dimensão do sistema, enquanto \(\lambda\) retém a informação térmica e quântica.
-            </div>
-</div>
-</div>
-</div>
 </div>
 
-<div style="padding: 5px 60px 10px;font-size: 14px;color: #94A3B8;text-align: center;">
-<i class="fa-solid fa-circle-question"></i> Provocação: O que aconteceria com \(Z(N)\) se ignorássemos o fator \(N!\) ao calcular propriedades extensivas?
-    </div>
+<div class="body-text">
+<p>Imagine o espaço de fase como um "armazém" contínuo. A constante de Planck \(h\) define o tamanho da menor "caixa" (célula) que podemos distinguir. Sem esse volume finito \(h^3\), a função de partição seria dimensionalmente incorreta e a entropia divergiria.</p>
+
+<div class="highlight"><i class="fa-solid fa-pencil"></i>
+ Dica de Exercício
+
+Prove que em 2D, a função de partição escala com \(V/\lambda^2\). O expoente do volume sempre acompanha a dimensão do sistema, enquanto \(\lambda\) retém a informação térmica e quântica.</div>
 </div>
-    </div>
-  </section>
+</section>
+</div>
 
-  <section class="source-fragment">
-    <style>.source-embed.page-15{
-    --background: #F8F9FA;
-    --title-text: #1A3C5C;
-    --body-text: #1E293B;
-    --secondary-text: #475569;
-    --muted-text: #64748B;
-    --accent: #E07820;
-    --secondary-accent: #0F172A;
-    --border: #E2E8F0;
-    --card-bg: #FFF
-    }.source-embed.page-15 *{
-    box-sizing: border-box;
-    margin: 0 0;
-    padding: 0 0
-    }.source-embed.page-15{width: 100%; height: auto; overflow: visible; background-color: #CCC;
-    
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: "Inter", sans-serif}.source-embed.page-15 .slide-root-container{
-    width: 100%;
-    height: auto;
-    background-color: var(--background);
-    position: relative;
-    display: flex;
-    flex-direction: column
-    }.source-embed.page-15 .title-region-wrapper{
-    display: flex;
-    flex-direction: column;
-    padding: 30px 60px 20px 60px;
-    margin-bottom: 8px;
-    border-left: 6px solid var(--accent);
-    background-color: rgba(26, 60, 92, 0.03)
-    }.source-embed.page-15 .title-section-label{
-    color: var(--accent);
-    font-family: "Inter", sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-bottom: 6px
-    }.source-embed.page-15 .title-main-heading{
-    color: var(--title-text);
-    font-family: "Lora", serif;
-    font-size: 32px;
-    font-weight: 800;
-    margin: 0;
-    line-height: 1.2
-    }.source-embed.page-15 .de-broglie-main-layout{
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 0 60px 32px 60px;
-    gap: 16px 20px
-    }.source-embed.page-15 .de-broglie-intro-text{
-    font-size: 17px;
-    line-height: 1.6;
-    color: var(--body-text);
-    background: rgba(226, 232, 240, 0.3);
-    padding: 12px 20px;
-    border-radius: 4px;
-    border-left: 3px solid var(--title-text)
-    }.source-embed.page-15 .de-broglie-columns-container{
-    display: flex;
-    flex-direction: row;
-    gap: 19px 24px;
-    align-items: stretch;
-    flex: 1
-    }.source-embed.page-15 .left-column-theoretical-basis{
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 16px 20px;
-    justify-content: center
-    }.source-embed.page-15 .right-column-regime-analysis{
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 16px 20px;
-    justify-content: center
-    }.source-embed.page-15 .info-card-module{
-    background-color: var(--card-bg);
-    border: 1px solid var(--border);
-    border-left: 4px solid var(--title-text);
-    padding: 19px 24px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
-    display: flex;
-    flex-direction: column;
-    flex: 1
-    }.source-embed.page-15 .info-card-module-accent{
-    border-left: 4px solid var(--accent)
-    }.source-embed.page-15 .card-heading-title{
-    color: var(--title-text);
-    font-size: 19px;
-    font-weight: 700;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 10px
-    }.source-embed.page-15 .card-heading-title i{
-    color: var(--accent);
-    font-size: 16px
-    }.source-embed.page-15 .card-body-paragraph{
-    font-size: 15px;
-    color: var(--secondary-text);
-    line-height: 1.5;
-    margin-bottom: 10px
-    }.source-embed.page-15 .formula-highlight-box{
-    background: #F1F5F9;
-    padding: 12px 15px;
-    text-align: center;
-    border-radius: 6px;
-    margin: 8px 0
-    }.source-embed.page-15 .regime-list-wrapper{
-    list-style: none;
-    margin-top: 8px
-    }.source-embed.page-15 .regime-list-item{
-    display: block;
-    padding: 6px 0;
-    border-bottom: 1px solid var(--border);
-    font-size: 14px;
-    color: var(--body-text)
-    }.source-embed.page-15 .regime-list-item:last-child{
-    border-bottom: none
-    }.source-embed.page-15 .regime-list-item strong{
-    color: var(--title-text)
-    }.source-embed.page-15 .provocacao-box-footer{
-    background-color: var(--secondary-accent);
-    color: #FFF;
-    padding: 13px 24px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    gap: 16px 20px;
-    margin-top: 8px
-    }.source-embed.page-15 .provocacao-icon{
-    font-size: 24px;
-    color: var(--accent)
-    }.source-embed.page-15 .provocacao-text{
-    font-size: 15px;
-    font-weight: 400;
-    font-style: italic
-    }.source-embed.page-15 .math-inline{
-    font-weight: 600;
-    color: var(--title-text)
-    }.source-embed.page-15{ overflow: visible; }
-
-
-.source-embed.page-15{
-  display:block !important;
-  width:100% !important;
-  max-width:100% !important;
-  margin:0 !important;
-  padding:0 !important;
-  background:transparent !important;
-  overflow:visible !important;
-}
-.source-embed.page-15 > div{
-  width:100% !important;
-  max-width:100% !important;
-  height:auto !important;
-  min-height:0 !important;
-  margin:0 !important;
-  overflow:visible !important;
-}
-.source-embed.page-15 [class*="title-region"],
-.source-embed.page-15 [class*="title-section"],
-.source-embed.page-15 [class*="title-header"]{
-  display:none !important;
-}
-.source-embed.page-15 img,
-.source-embed.page-15 svg,
-.source-embed.page-15 canvas,
-.source-embed.page-15 video{
-  max-width:100% !important;
-  height:auto !important;
-}
-.source-embed.page-15 mjx-container,
-.source-embed.page-15 .MathJax,
-.source-embed.page-15 .mjx-chtml{
-  max-width:100% !important;
-  overflow-x:auto !important;
-  overflow-y:hidden !important;
-}
-@media (max-width:980px){
-  .source-embed.page-15 [class*="columns-wrapper"],
-  .source-embed.page-15 [class*="content-layout"],
-  .source-embed.page-15 [class*="content-area"],
-  .source-embed.page-15 [class*="layout-row"],
-  .source-embed.page-15 [class*="main-content"],
-  .source-embed.page-15 [class*="interaction-wrapper"]{
-    display:flex !important;
-    flex-direction:column !important;
-    gap:16px !important;
-  }
-  .source-embed.page-15 [class*="left-"],
-  .source-embed.page-15 [class*="right-"],
-  .source-embed.page-15 [class*="-column"]{
-    width:100% !important;
-    max-width:100% !important;
-    flex:1 1 auto !important;
-  }
-  .source-embed.page-15 [class*="grid"]{
-    grid-template-columns:1fr !important;
-  }
-}
-@media (max-width:700px){
-  .source-embed.page-15 [class*="columns-wrapper"],
-  .source-embed.page-15 [class*="content-layout"],
-  .source-embed.page-15 [class*="content-area"],
-  .source-embed.page-15 [class*="layout-row"],
-  .source-embed.page-15 [class*="main-content"],
-  .source-embed.page-15 [class*="interaction-wrapper"]{
-    padding-left:16px !important;
-    padding-right:16px !important;
-  }
-  .source-embed.page-15 [class*="title-main-heading"]{
-    font-size:clamp(1.7rem, 6vw, 2.25rem) !important;
-    line-height:1.12 !important;
-  }
-}
-</style>
-    <div class="source-embed page-15">
-      <div class="slide-root-container">
-
-
-
-<div class="de-broglie-main-layout">
-
-<div class="de-broglie-intro-text">
-        Ao tratar um gás ideal estatisticamente, as partículas não são meros pontos geométricos, mas pacotes de onda quânticos. O <strong>comprimento de onda térmico (\(\lambda\))</strong> quantifica a extensão espacial média desses pacotes em uma temperatura \(T\), servindo como régua para determinar a validade da física clássica.
-      </div>
-
-<div class="de-broglie-columns-container">
-
-<div class="left-column-theoretical-basis">
-<div class="info-card-module">
-<div class="card-heading-title">
+<div class="grid">
+<section class="card">
+<div class="card-title green">
 <i class="fas fa-atom"></i> Definição Matemática
-            </div>
-<p class="card-body-paragraph">
-              Surge da integração da função de partição de uma partícula no espaço de fase após a quantização semi-clássica:
-            </p>
-<div class="formula-highlight-box">
-              \[ \lambda = \left[ \frac{2\pi \hbar^2}{m k_B T} \right]^{1/2} = \frac{h}{\sqrt{2\pi m k_B T}} \]
-            </div>
-<p class="card-body-paragraph">
-              Note que \(\lambda\) é inversamente proporcional a \(\sqrt{T}\). À medida que o sistema esfria, o comprimento de onda cresce, aumentando a "delocalização" da partícula.
-            </p>
-</div>
 </div>
 
-<div class="right-column-regime-analysis">
-<div class="info-card-module info-card-module-accent">
-<div class="card-heading-title">
+<div class="body-text">
+<p>Surge da integração da função de partição de uma partícula no espaço de fase após a quantização semi-clássica:</p>
+
+<div class="math-box green">\[ \lambda = \left[ \frac{2\pi \hbar^2}{m k_B T} \right]^{1/2} = \frac{h}{\sqrt{2\pi m k_B T}} \]</div>
+
+<p>Note que \(\lambda\) é inversamente proporcional a \(\sqrt{T}\). À medida que o sistema esfria, o comprimento de onda cresce, aumentando a "delocalização" da partícula.</p>
+</div>
+</section>
+
+<section class="card">
+<div class="card-title">
 <i class="fas fa-chart-line"></i> Critério de Classicidade
-            </div>
-<p class="card-body-paragraph">
-              Seja \(d \approx (V/N)^{1/3}\) a distância média entre as partículas no volume \(V\). A transição entre regimes depende da razão \(\lambda/d\):
-            </p>
-<div class="regime-list-wrapper">
-<div class="regime-list-item">
-<i class="fa-solid fa-circle-check" style="color: green;margin-right: 8px;"></i>
-<strong>Regime Clássico (\(\lambda \ll d\)):</strong> Os pacotes de onda não se sobrepõem. As partículas são tratáveis como pontos distinguíveis.
-              </div>
-<div class="regime-list-item">
-<i class="fa-solid fa-triangle-exclamation" style="color: var(--accent);margin-right: 8px;"></i>
-<strong>Regime Quântico (\(\lambda \gtrsim d\)):</strong> Forte sobreposição de ondas. A indistinguibilidade torna-se dominante (Estatísticas de Bose ou Fermi).
-              </div>
-<div class="regime-list-item">
-<i class="fas fa-temperature-low" style="color: #1A3C5C; margin-right: 8px;"></i>
-<strong>Temperatura Crítica \(T_0\):</strong> Definida quando \(\lambda = d\), marca o início da degenerescência quântica.
-              </div>
-</div>
-</div>
-</div>
 </div>
 
-<div class="provocacao-box-footer">
-<i class="fas fa-lightbulb provocacao-icon"></i>
-<div class="provocacao-text">
-<strong>Provocação Teórica:</strong> Por que o Hélio permanece líquido em pressões normais até o zero absoluto? Calcule \(\lambda\) para o He a 4K e compare com sua distância interatômica. A resposta reside na escala quântica definida por esta equação.
-        </div>
-</div>
-</div>
-</div>
-    </div>
-  </section>
-  </div>
+<div class="body-text">
+<p>Seja \(d \approx (V/N)^{1/3}\) a distância média entre as partículas no volume \(V\). A transição entre regimes depende da razão \(\lambda/d\):</p>
 
-  <section data-termo-ai-exercise data-exercise-theme="purple"></section>
+<i class="fa-solid fa-circle-check"></i>
+
+<strong>Regime Clássico (\(\lambda \ll d\)):</strong>
+ Os pacotes de onda não se sobrepõem. As partículas são tratáveis como pontos distinguíveis.
+
+<i class="fa-solid fa-triangle-exclamation"></i>
+
+<strong>Regime Quântico (\(\lambda \gtrsim d\)):</strong>
+ Forte sobreposição de ondas. A indistinguibilidade torna-se dominante (Estatísticas de Bose ou Fermi).
+
+<i class="fas fa-temperature-low"></i>
+
+<strong>Temperatura Crítica \(T_0\):</strong>
+ Definida quando \(\lambda = d\), marca o início da degenerescência quântica.
 </div>
-<script src="../../assets/chapter-embedded-slide.js?v=0611.5"></script>
+</section>
+</div>
+
+<section class="card">
+<div class="card-title purple">
+Conceito
+</div>
+
+<div class="body-text">
+<i class="fas fa-lightbulb"></i>
+
+<div class="highlight"><strong>Provocação Teórica:</strong>
+ Por que o Hélio permanece líquido em pressões normais até o zero absoluto? Calcule \(\lambda\) para o He a 4K e compare com sua distância interatômica. A resposta reside na escala quântica definida por esta equação.</div>
+</div>
+</section>
+
+<section data-termo-ai-exercise data-exercise-theme="purple"></section>
+
+</div>
+
 </body>
 </html>

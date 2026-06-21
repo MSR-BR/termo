@@ -7,7 +7,7 @@
 
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@400;500;600&display=swap" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/>
 
 <script>
@@ -25,14 +25,15 @@ window.MathJax = {
 </script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 
-<link href="../../assets/chapter-embedded-slide.css" rel="stylesheet"/>
-<link href="../../assets/ai-exercises.css" rel="stylesheet"/>
+<link rel="stylesheet" href="../../assets/ai-exercises.css">
 <script defer src="../../assets/ai-exercises.js"></script>
 <link rel="stylesheet" href="../../assets/termo-share.css">
 <script defer src="../../assets/termo-share.js"></script>
 <link rel="stylesheet" href="../../assets/termo-auth.css?v=0611.4">
+<link rel="stylesheet" href="../../assets/capitulo-02-layout.css?v=0611.4">
 <script defer src="../../assets/termo-auth.js?v=0611.4"></script>
 <script defer src="../../assets/termo-user-data.js"></script>
+<script defer src="../../assets/termo-seo.js?v=0609.2"></script>
 <!-- termo-seo:start -->
 <meta name="description" content="Panorama histórico da entropia, formulação de Gibbs e Jaynes e introdução ao conceito de ensemble estatístico. Material interativo do livro Termodinâmica para Estudantes..."/>
 <meta name="author" content="Prof. Mario Reis"/>
@@ -51,914 +52,208 @@ window.MathJax = {
 <meta name="twitter:description" content="Panorama histórico da entropia, formulação de Gibbs e Jaynes e introdução ao conceito de ensemble estatístico. Material interativo do livro Termodinâmica para Estudantes..."/>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Entropia, Gibbs e a Visão por Ensembles | Capítulo 3 | Termodinâmica para Estudantes de Física","description":"Panorama histórico da entropia, formulação de Gibbs e Jaynes e introdução ao conceito de ensemble estatístico. Material interativo do livro Termodinâmica para Estudantes...","url":"https://termo-theta.vercel.app/slides/capitulo-03/page_2.html","inLanguage":"pt-BR","isAccessibleForFree":true,"educationalUse":"instruction","learningResourceType":"InteractiveResource","author":{"@type":"Person","name":"Prof. Mario Reis"},"publisher":{"@type":"CollegeOrUniversity","name":"Instituto de Física — Universidade Federal Fluminense"},"isPartOf":{"@type":"Course","name":"Termodinâmica para Estudantes de Física","url":"https://termo-theta.vercel.app/"}}</script>
 <!-- termo-seo:end -->
-<script defer src="../../assets/termo-seo.js?v=0609.2"></script>
 </head>
+
 <body>
+
 <div class="page">
-  <section class="hero">
-    <div class="hero-inner">
-      <a href="../../index.html?chapter=03" class="index-back-button">
-        <i class="fa-solid fa-arrow-left"></i>
-        Índice
-      </a>
-      <div class="chapter-label">
-        <i class="fa-solid fa-layer-group"></i>
-        Capítulo 3 · Item 3.1
-      </div>
-      <h1 class="chapter-title">Entropia, Gibbs e a Visão por Ensembles</h1>
-      <div class="chapter-text">
-        <p>Panorama histórico da entropia, formulação de Gibbs e Jaynes e introdução ao conceito de ensemble estatístico.</p>
-      </div>
-    </div>
-  </section>
 
-  <div class="content-root">
-    
-  <section class="source-fragment">
-    <style>.source-embed.page-2{width: 100%; height: auto; overflow: visible; background-color: #F8F9FA;
-    font-family: "Inter", sans-serif;
-    color: #1E293B}.source-embed.page-2 .slide-root-container{
-    width: 100%;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    background-color: #F8F9FA
-    }.source-embed.page-2 .title-region-wrapper{
-    display: flex;
-    flex-direction: column;
-    padding: 30px 60px 20px 60px;
-    margin-bottom: 6px;
-    border-left: 8px solid #E07820;
-    background-color: rgba(26, 60, 92, 0.04)
-    }.source-embed.page-2 .title-section-label{
-    color: #E07820;
-    font-family: "Inter", sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 6px
-    }.source-embed.page-2 .title-main-heading{
-    color: #1A3C5C;
-    font-family: "Lora", serif;
-    font-size: 36px;
-    font-weight: 800;
-    margin: 0;
-    line-height: 1.2
-    }.source-embed.page-2 .main-content-columns-wrapper{
-    display: flex;
-    flex-direction: row;
-    align-items: stretch;
-    gap: 15px 24px;
-    padding: 0 60px;
-    flex: 1
-    }.source-embed.page-2 .left-historical-column{
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center
-    }.source-embed.page-2 .right-historical-column{
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center
-    }.source-embed.page-2 .entropy-historical-card{
-    background-color: #FFF;
-    border-left: 4px solid #1A3C5C;
-    padding: 15px 24px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    flex: 1;
-    display: flex;
-    flex-direction: column
-    }.source-embed.page-2 .card-header-group{
-    display: flex;
-    align-items: center;
-    gap: 8px 12px;
-    margin-bottom: 10px
-    }.source-embed.page-2 .card-icon-container{
-    color: #E07820;
-    font-size: 24px
-    }.source-embed.page-2 .card-title-text{
-    color: #1A3C5C;
-    font-family: "Lora", serif;
-    font-size: 22px;
-    font-weight: 700;
-    margin: 0 0
-    }.source-embed.page-2 .card-body-description{
-    font-size: 16px;
-    line-height: 1.6;
-    color: #334155;
-    margin-bottom: 13px
-    }.source-embed.page-2 .formula-display-box{
-    background-color: #F1F5F9;
-    padding: 10px 15px;
-    border-radius: 4px;
-    text-align: center;
-    margin: 6px 0;
-    border: 1px solid #E2E8F0
-    }.source-embed.page-2 .bottom-interaction-wrapper{
-    padding: 13px 60px 26px 60px;
-    display: flex;
-    gap: 15px 24px
-    }.source-embed.page-2 .theory-provocation-card{
-    background-color: #1A3C5C;
-    color: #F8F9FA;
-    padding: 11px 24px;
-    border-radius: 8px;
-    flex: 1
-    }.source-embed.page-2 .analogy-didactic-card{
-    background-color: rgba(224, 120, 32, 0.1);
-    border: 1px dashed #E07820;
-    color: #1E293B;
-    padding: 11px 24px;
-    border-radius: 8px;
-    flex: 1
-    }.source-embed.page-2 .accent-label-small{
-    font-weight: 700;
-    font-size: 13px;
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 2px
-    }.source-embed.page-2 .theory-text-content{
-    font-size: 15px;
-    line-height: 1.4;
-    margin: 0 0
-    }.source-embed.page-2 ul{
-    padding-left: 20px;
-    margin: 0 0;
-    list-style: none
-    }.source-embed.page-2 li{
-    position: relative;
-    margin-bottom: 5px;
-    font-size: 15px;
-    line-height: 1.4
-    }.source-embed.page-2 li::before{
-    content: "•";
-    color: #E07820;
-    font-weight: bold;
-    display: inline-block;
-    width: 1em;
-    margin-left: -1em
-    }.source-embed.page-2{ overflow: visible; }
+<section class="hero">
+<div class="hero-inner">
 
+<a href="../../index.html?chapter=03" class="index-back-button">
+<i class="fa-solid fa-arrow-left"></i>
+Índice
+</a>
 
-.source-embed.page-2{
-  display:block !important;
-  width:100% !important;
-  max-width:100% !important;
-  margin:0 !important;
-  padding:0 !important;
-  background:transparent !important;
-  overflow:visible !important;
-}
-.source-embed.page-2 > div{
-  width:100% !important;
-  max-width:100% !important;
-  height:auto !important;
-  min-height:0 !important;
-  margin:0 !important;
-  overflow:visible !important;
-}
-.source-embed.page-2 [class*="title-region"],
-.source-embed.page-2 [class*="title-section"],
-.source-embed.page-2 [class*="title-header"]{
-  display:none !important;
-}
-.source-embed.page-2 img,
-.source-embed.page-2 svg,
-.source-embed.page-2 canvas,
-.source-embed.page-2 video{
-  max-width:100% !important;
-  height:auto !important;
-}
-.source-embed.page-2 mjx-container,
-.source-embed.page-2 .MathJax,
-.source-embed.page-2 .mjx-chtml{
-  max-width:100% !important;
-  overflow-x:auto !important;
-  overflow-y:hidden !important;
-}
-@media (max-width:980px){
-  .source-embed.page-2 [class*="columns-wrapper"],
-  .source-embed.page-2 [class*="content-layout"],
-  .source-embed.page-2 [class*="content-area"],
-  .source-embed.page-2 [class*="layout-row"],
-  .source-embed.page-2 [class*="main-content"],
-  .source-embed.page-2 [class*="interaction-wrapper"]{
-    display:flex !important;
-    flex-direction:column !important;
-    gap:16px !important;
-  }
-  .source-embed.page-2 [class*="left-"],
-  .source-embed.page-2 [class*="right-"],
-  .source-embed.page-2 [class*="-column"]{
-    width:100% !important;
-    max-width:100% !important;
-    flex:1 1 auto !important;
-  }
-  .source-embed.page-2 [class*="grid"]{
-    grid-template-columns:1fr !important;
-  }
-}
-@media (max-width:700px){
-  .source-embed.page-2 [class*="columns-wrapper"],
-  .source-embed.page-2 [class*="content-layout"],
-  .source-embed.page-2 [class*="content-area"],
-  .source-embed.page-2 [class*="layout-row"],
-  .source-embed.page-2 [class*="main-content"],
-  .source-embed.page-2 [class*="interaction-wrapper"]{
-    padding-left:16px !important;
-    padding-right:16px !important;
-  }
-  .source-embed.page-2 [class*="title-main-heading"]{
-    font-size:clamp(1.7rem, 6vw, 2.25rem) !important;
-    line-height:1.12 !important;
-  }
-}
-</style>
-    <div class="source-embed page-2">
-      <div class="slide-root-container">
-
-
-
-<div class="main-content-columns-wrapper">
-
-<div class="left-historical-column">
-<div class="entropy-historical-card">
-<div class="card-header-group">
-<div class="card-icon-container"><i class="fa-solid fa-burst"></i></div>
-<h2 class="card-title-text">A Visão Macroscópica (Clausius)</h2>
-</div>
-<p class="card-body-description">
-                        Em 1865, Rudolf Clausius consolidou a Segunda Lei da Termodinâmica definindo a entropia como uma função de estado. Sua abordagem era puramente fenomenológica, focada em processos reversíveis e trocas de calor.
-                    </p>
-<div class="formula-display-box">
-                        \[ dS = \frac{dQ_{rev}}{T} \]
-                    </div>
-<ul>
-<li><strong>Termo:</strong> Derivado do grego <em>entropé</em> (transformação).</li>
-<li><strong>Escala:</strong> Lida apenas com quantidades macroscópicas mensuráveis (Calor e Temperatura).</li>
-</ul>
-</div>
+<div class="chapter-label">
+<i class="fa-solid fa-layer-group"></i>
+Capítulo 3 · Item 3.1
 </div>
 
-<div class="right-historical-column">
-<div class="entropy-historical-card">
-<div class="card-header-group">
-<div class="card-icon-container"><i class="fas fa-cubes"></i></div>
-<h2 class="card-title-text">A Visão Microscópica (Boltzmann)</h2>
-</div>
-<p class="card-body-description">
-                        Ludwig Boltzmann, em 1877, revolucionou a física ao propor que a entropia é uma medida do "desordenamento" ou, mais precisamente, do número de configurações microscópicas que resultam no mesmo estado macroscópico.
-                    </p>
-<div class="formula-display-box">
-                        \[ S = k_B \ln \Omega \]
-                    </div>
-<ul>
-<li><strong>\(\Omega\):</strong> Número de microestados acessíveis ao sistema para uma dada energia fixa.</li>
-<li><strong>Ponte:</strong> Conecta a mecânica Newtoniana (micro) com a termodinâmica (macro).</li>
-<li><strong>Universalidade:</strong> Explica a seta do tempo via probabilidade: sistemas evoluem para estados de maior \(\Omega\).</li>
-</ul>
-</div>
-</div>
+<h1 class="chapter-title">Entropia, Gibbs e a Visão por Ensembles</h1>
+
+<div class="chapter-text">
+<p>Panorama histórico da entropia, formulação de Gibbs e Jaynes e introdução ao conceito de ensemble estatístico.</p>
 </div>
 
-<div class="bottom-interaction-wrapper">
-<div class="theory-provocation-card">
-<span class="accent-label-small" style="color: #E07820;">Provocação Teórica</span>
-<p class="theory-text-content">
-                    Se a entropia de Clausius requer temperatura para ser definida, como Boltzmann pôde defini-la sem menção explícita à temperatura em sua fórmula fundamental? Como o conceito de temperatura emerge da contagem de estados \(\Omega\)?
-                </p>
 </div>
-<div class="analogy-didactic-card">
-<span class="accent-label-small" style="color: #1A3C5C;">Analogia Didática</span>
-<p class="theory-text-content">
-                    Pense em um dado de 6 faces. O "macroestado" é o fato de você ter um dado em mãos. O "microestado" é a face voltada para cima. Se o dado é justo, existem \(\Omega = 6\) possibilidades. A entropia deste sistema seria \(S = k_B \ln 6\).
-                </p>
+</section>
+
+<div class="grid">
+<section class="card">
+<div class="card-title green">
+<i class="fa-solid fa-burst"></i> A Visão Macroscópica (Clausius)
 </div>
+
+<div class="body-text">
+<p>Em 1865, Rudolf Clausius consolidou a Segunda Lei da Termodinâmica definindo a entropia como uma função de estado. Sua abordagem era puramente fenomenológica, focada em processos reversíveis e trocas de calor.</p>
+
+<div class="math-box green">\[ dS = \frac{dQ_{rev}}{T} \]</div>
+
+<ul><li><strong>Termo:</strong>
+ Derivado do grego
+<em>entropé</em>
+ (transformação).</li>
+
+<li><strong>Escala:</strong>
+ Lida apenas com quantidades macroscópicas mensuráveis (Calor e Temperatura).</li></ul>
 </div>
+</section>
+
+<section class="card">
+<div class="card-title green">
+<i class="fas fa-cubes"></i> A Visão Microscópica (Boltzmann)
 </div>
-    </div>
-  </section>
 
-  <section class="source-fragment">
-    <style>.source-embed.page-3{width: 100%; height: auto; overflow: visible; background-color: #F8F9FA;
-    color: #1E293B;
-    font-family: "Inter", sans-serif}.source-embed.page-3 .gibbs-jaynes-slide-root{
-    width: 100%;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    background-color: #F8F9FA;
-    padding: 0 0
-    }.source-embed.page-3 .title-region-wrapper{
-    display: flex;
-    flex-direction: column;
-    padding: 20px 40px;
-    margin-top: 8px;
-    margin-left: 40px;
-    margin-right: 40px;
-    margin-bottom: 6px;
-    border-left: 6px solid #E07820;
-    background-color: rgba(26, 60, 92, 0.03)
-    }.source-embed.page-3 .title-section-label{
-    color: #E07820;
-    font-family: "Inter", sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-bottom: 4px
-    }.source-embed.page-3 .title-main-heading{
-    color: #1A3C5C;
-    font-family: "Lora", serif;
-    font-size: 32px;
-    font-weight: 800;
-    margin: 0;
-    line-height: 1.2
-    }.source-embed.page-3 .gibbs-jaynes-intro-text{
-    padding: 0 40px;
-    margin-bottom: 8px;
-    font-size: 16px;
-    line-height: 1.6;
-    color: #1E293B;
-    max-width: 1100px
-    }.source-embed.page-3 .gibbs-jaynes-content-layout{
-    display: flex;
-    flex-direction: row;
-    padding: 0 40px;
-    gap: 9px 24px;
-    align-items: stretch;
-    flex: 1;
-    margin-bottom: 11px
-    }.source-embed.page-3 .gibbs-jaynes-left-column{
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    gap: 10px 20px
-    }.source-embed.page-3 .gibbs-jaynes-right-column{
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    gap: 8px 20px
-    }.source-embed.page-3 .gibbs-jaynes-info-card{
-    background-color: #FFF;
-    border: 1px solid #E2E8F0;
-    border-left: 4px solid #1A3C5C;
-    border-radius: 4px;
-    padding: 10px 20px;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    flex: 1
-    }.source-embed.page-3 .gibbs-jaynes-accent-card{
-    background-color: #FFF;
-    border: 1px solid #E2E8F0;
-    border-left: 4px solid #E07820;
-    border-radius: 4px;
-    padding: 8px 20px;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    flex: 1
-    }.source-embed.page-3 .gibbs-jaynes-card-title{
-    color: #1A3C5C;
-    font-family: "Lora", serif;
-    font-size: 20px;
-    font-weight: 700;
-    margin-top: 0;
-    margin-bottom: 6px;
-    display: flex;
-    align-items: center;
-    gap: 10px
-    }.source-embed.page-3 .gibbs-jaynes-card-title i{
-    color: #E07820;
-    font-size: 18px
-    }.source-embed.page-3 .gibbs-jaynes-math-block{
-    background-color: #F1F5F9;
-    padding: 7px 15px;
-    border-radius: 4px;
-    margin: 5px 0;
-    text-align: center;
-    font-size: 1.1em
-    }.source-embed.page-3 .gibbs-jaynes-body-paragraph{
-    font-size: 15px;
-    line-height: 1.5;
-    color: #334155;
-    margin-bottom: 5px
-    }.source-embed.page-3 .gibbs-jaynes-exercise-box{
-    margin-top: auto;
-    background-color: rgba(224, 120, 32, 0.05);
-    border: 1px dashed #E07820;
-    padding: 5px 12px;
-    border-radius: 4px
-    }.source-embed.page-3 .gibbs-jaynes-exercise-label{
-    color: #E07820;
-    font-weight: 700;
-    font-size: 12px;
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 2px
-    }.source-embed.page-3 .gibbs-jaynes-list-item{
-    display: block;
-    margin-bottom: 4px;
-    padding-left: 15px;
-    position: relative;
-    font-size: 14px
-    }.source-embed.page-3 .gibbs-jaynes-list-item::before{
-    content: "•";
-    color: #E07820;
-    position: absolute;
-    left: 0;
-    font-weight: bold
-    }.source-embed.page-3 .gibbs-jaynes-analogy-footer{
-    margin: 0 40px 11px 40px;
-    padding: 6px 15px;
-    background-color: #0F172A;
-    color: #F8F9FA;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    gap: 8px 20px
-    }.source-embed.page-3 .gibbs-jaynes-analogy-icon{
-    font-size: 24px;
-    color: #E07820
-    }.source-embed.page-3 .gibbs-jaynes-analogy-text{
-    font-size: 14px;
-    font-style: italic;
-    line-height: 1.4
-    }.source-embed.page-3{ overflow: visible; }
+<div class="body-text">
+<p>Ludwig Boltzmann, em 1877, revolucionou a física ao propor que a entropia é uma medida do "desordenamento" ou, mais precisamente, do número de configurações microscópicas que resultam no mesmo estado macroscópico.</p>
 
+<div class="math-box green">\[ S = k_B \ln \Omega \]</div>
 
-.source-embed.page-3{
-  display:block !important;
-  width:100% !important;
-  max-width:100% !important;
-  margin:0 !important;
-  padding:0 !important;
-  background:transparent !important;
-  overflow:visible !important;
-}
-.source-embed.page-3 > div{
-  width:100% !important;
-  max-width:100% !important;
-  height:auto !important;
-  min-height:0 !important;
-  margin:0 !important;
-  overflow:visible !important;
-}
-.source-embed.page-3 [class*="title-region"],
-.source-embed.page-3 [class*="title-section"],
-.source-embed.page-3 [class*="title-header"]{
-  display:none !important;
-}
-.source-embed.page-3 img,
-.source-embed.page-3 svg,
-.source-embed.page-3 canvas,
-.source-embed.page-3 video{
-  max-width:100% !important;
-  height:auto !important;
-}
-.source-embed.page-3 mjx-container,
-.source-embed.page-3 .MathJax,
-.source-embed.page-3 .mjx-chtml{
-  max-width:100% !important;
-  overflow-x:auto !important;
-  overflow-y:hidden !important;
-}
-@media (max-width:980px){
-  .source-embed.page-3 [class*="columns-wrapper"],
-  .source-embed.page-3 [class*="content-layout"],
-  .source-embed.page-3 [class*="content-area"],
-  .source-embed.page-3 [class*="layout-row"],
-  .source-embed.page-3 [class*="main-content"],
-  .source-embed.page-3 [class*="interaction-wrapper"]{
-    display:flex !important;
-    flex-direction:column !important;
-    gap:16px !important;
-  }
-  .source-embed.page-3 [class*="left-"],
-  .source-embed.page-3 [class*="right-"],
-  .source-embed.page-3 [class*="-column"]{
-    width:100% !important;
-    max-width:100% !important;
-    flex:1 1 auto !important;
-  }
-  .source-embed.page-3 [class*="grid"]{
-    grid-template-columns:1fr !important;
-  }
-}
-@media (max-width:700px){
-  .source-embed.page-3 [class*="columns-wrapper"],
-  .source-embed.page-3 [class*="content-layout"],
-  .source-embed.page-3 [class*="content-area"],
-  .source-embed.page-3 [class*="layout-row"],
-  .source-embed.page-3 [class*="main-content"],
-  .source-embed.page-3 [class*="interaction-wrapper"]{
-    padding-left:16px !important;
-    padding-right:16px !important;
-  }
-  .source-embed.page-3 [class*="title-main-heading"]{
-    font-size:clamp(1.7rem, 6vw, 2.25rem) !important;
-    line-height:1.12 !important;
-  }
-}
-</style>
-    <div class="source-embed page-3">
-      <div class="gibbs-jaynes-slide-root">
+<ul><li><strong>\(\Omega\):</strong>
+ Número de microestados acessíveis ao sistema para uma dada energia fixa.</li>
 
+<li><strong>Ponte:</strong>
+ Conecta a mecânica Newtoniana (micro) com a termodinâmica (macro).</li>
 
+<li><strong>Universalidade:</strong>
+ Explica a seta do tempo via probabilidade: sistemas evoluem para estados de maior \(\Omega\).</li></ul>
+</div>
+</section>
+</div>
 
-<div class="gibbs-jaynes-intro-text">
-            Enquanto Boltzmann focou em sistemas isolados com microestados equiprováveis, Josiah Willard Gibbs (1902) generalizou o conceito de entropia para distribuições de probabilidade arbitrárias. Mais tarde, em 1957, Edwin Jaynes unificou a termodinâmica com a Teoria da Informação de Shannon, estabelecendo que a física estatística é uma forma de inferência lógica baseada na maximização da nossa incerteza (entropia) sob restrições físicas conhecidas.
-        </div>
+<div class="grid">
+<section class="card">
+<div class="card-title purple">
+Provocação Teórica
+</div>
 
-<div class="gibbs-jaynes-content-layout">
+<div class="body-text">
+<p>Se a entropia de Clausius requer temperatura para ser definida, como Boltzmann pôde defini-la sem menção explícita à temperatura em sua fórmula fundamental? Como o conceito de temperatura emerge da contagem de estados \(\Omega\)?</p>
+</div>
+</section>
 
-<div class="gibbs-jaynes-left-column">
-<div class="gibbs-jaynes-info-card">
-<h2 class="gibbs-jaynes-card-title">
+<section class="card">
+<div class="card-title">
+Analogia Didática
+</div>
+
+<div class="body-text">
+<p>Pense em um dado de 6 faces. O "macroestado" é o fato de você ter um dado em mãos. O "microestado" é a face voltada para cima. Se o dado é justo, existem \(\Omega = 6\) possibilidades. A entropia deste sistema seria \(S = k_B \ln 6\).</p>
+</div>
+</section>
+</div>
+
+<div class="grid">
+<section class="card">
+<div class="card-title">
 <i class="fas fa-layer-group"></i> Entropia de Gibbs
-                    </h2>
-<p class="gibbs-jaynes-body-paragraph">
-                        A formulação de Gibbs é aplicável a qualquer ensemble estatístico, tratando \(p_i\) como a probabilidade do sistema estar no estado \(i\):
-                    </p>
-<div class="gibbs-jaynes-math-block">
-                        \[ S = -k_B \sum_{i} p_i \ln p_i \]
-                    </div>
-<p class="gibbs-jaynes-body-paragraph">
-                        Esta expressão é idêntica à Entropia de Shannon na teoria da informação. Através dela, definimos valores médios de observáveis físicos:
-                    </p>
-<div class="gibbs-jaynes-math-block">
-                        \[ \langle\hat{O}\rangle = \sum_i \hat{O}_i\, p_i \]
-                    </div>
-<div class="gibbs-jaynes-list-item">Recupera Boltzmann se \(p_i = 1/\Omega\).</div>
-<div class="gibbs-jaynes-list-item">Funciona para sistemas abertos e fechados.</div>
-</div>
 </div>
 
-<div class="gibbs-jaynes-right-column">
-<div class="gibbs-jaynes-accent-card">
-<h2 class="gibbs-jaynes-card-title">
+<div class="body-text">
+<p>A formulação de Gibbs é aplicável a qualquer ensemble estatístico, tratando \(p_i\) como a probabilidade do sistema estar no estado \(i\):</p>
+
+<div class="math-box">\[ S = -k_B \sum_{i} p_i \ln p_i \]</div>
+
+<p>Esta expressão é idêntica à Entropia de Shannon na teoria da informação. Através dela, definimos valores médios de observáveis físicos:</p>
+
+<div class="math-box">\[ \langle\hat{O}\rangle = \sum_i \hat{O}_i\, p_i \]</div>
+
+Recupera Boltzmann se \(p_i = 1/\Omega\).
+
+Funciona para sistemas abertos e fechados.
+</div>
+</section>
+
+<section class="card">
+<div class="card-title">
 <i class="fas fa-arrow-up-wide-short"></i> Princípio da Máxima Entropia
-                    </h2>
-<p class="gibbs-jaynes-body-paragraph">
-                        Jaynes postulou que a distribuição \(p_i\) de equilíbrio é aquela que <strong>maximiza S</strong> sujeita aos vínculos (constraints) do sistema (ex: energia ou número de partículas fixos):
-                    </p>
-<div class="gibbs-jaynes-math-block">
-                        \[ \frac{dS}{dp_i} = 0 \quad \text{sujeito a} \quad \sum p_i = 1 \]
-                    </div>
-<p class="gibbs-jaynes-body-paragraph">
-                        Utilizamos a técnica dos <strong>Multiplicadores de Lagrange</strong> para encontrar o estado mais provável, que corresponde à configuração de maior desordem ou maior "falta de informação".
-                    </p>
-<div class="gibbs-jaynes-exercise-box">
-<span class="gibbs-jaynes-exercise-label">Provocação Teórica</span>
-<div class="gibbs-jaynes-body-paragraph" style="font-size: 13px;margin: 0 0;">
-                            Se não houvesse nenhum vínculo físico (além da normalização), qual seria a distribuição \(p_i\) resultante? 
-                            <strong>Dica:</strong> Pense em um sistema totalmente isolado e sem restrições de energia.
-                        </div>
-</div>
-</div>
-</div>
 </div>
 
+<div class="body-text">
+<p>Jaynes postulou que a distribuição \(p_i\) de equilíbrio é aquela que
+<strong>maximiza S</strong>
+ sujeita aos vínculos (constraints) do sistema (ex: energia ou número de partículas fixos):</p>
+
+<div class="math-box">\[ \frac{dS}{dp_i} = 0 \quad \text{sujeito a} \quad \sum p_i = 1 \]</div>
+
+<p>Utilizamos a técnica dos
+<strong>Multiplicadores de Lagrange</strong>
+ para encontrar o estado mais provável, que corresponde à configuração de maior desordem ou maior "falta de informação".</p>
+
+Provocação Teórica
+
+Se não houvesse nenhum vínculo físico (além da normalização), qual seria a distribuição \(p_i\) resultante?
+
+<strong>Dica:</strong>
+ Pense em um sistema totalmente isolado e sem restrições de energia.
 </div>
-    </div>
-  </section>
-
-  <section class="source-fragment">
-    <style>.source-embed.page-4{width: 100%; height: auto; overflow: visible; background-color: #F8F9FA;
-    display: flex;
-    justify-content: center;
-    align-items: center}.source-embed.page-4 .slide-root-container{
-    width: 100%;
-    height: auto;
-    background-color: #F8F9FA;
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    position: relative
-    }.source-embed.page-4 .title-region-wrapper{
-    display: flex;
-    flex-direction: column;
-    padding: 20px 40px;
-    margin-bottom: 10px;
-    border-left: 6px solid #E07820;
-    background-color: rgba(26, 60, 92, 0.03);
-    box-sizing: border-box
-    }.source-embed.page-4 .section-label-text{
-    color: #E07820;
-    font-family: "Inter", sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-bottom: 4px
-    }.source-embed.page-4 .page-title-heading{
-    color: #1A3C5C;
-    font-family: "Lora", serif;
-    font-size: 32px;
-    font-weight: 800;
-    margin: 0;
-    line-height: 1.2
-    }.source-embed.page-4 .main-content-layout{
-    padding: 0 40px 26px 40px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px 24px;
-    box-sizing: border-box;
-    flex: 1
-    }.source-embed.page-4 .narrative-intro-block{
-    color: #1E293B;
-    font-family: "Inter", sans-serif;
-    font-size: 16px;
-    line-height: 1.6;
-    margin: 0 0
-    }.source-embed.page-4 .ensemble-comparison-grid{
-    display: flex;
-    gap: 13px 20px;
-    width: 100%
-    }.source-embed.page-4 .ensemble-card-item{
-    flex: 1;
-    background-color: #FFF;
-    border: 1px solid #E2E8F0;
-    border-left: 4px solid #1A3C5C;
-    padding: 13px 20px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    display: flex;
-    flex-direction: column;
-    gap: 8px 12px;
-    box-sizing: border-box
-    }.source-embed.page-4 .ensemble-card-item.accent-border{
-    border-left-color: #E07820
-    }.source-embed.page-4 .card-header-group{
-    display: flex;
-    align-items: center;
-    gap: 8px 12px
-    }.source-embed.page-4 .card-icon-wrapper{
-    width: 32px;
-    height: 32px;
-    background-color: rgba(26, 60, 92, 0.1);
-    border-radius: 6px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #1A3C5C
-    }.source-embed.page-4 .ensemble-card-item.accent-border .card-icon-wrapper{
-    background-color: rgba(224, 120, 32, 0.1);
-    color: #E07820
-    }.source-embed.page-4 .card-title-text{
-    font-family: "Lora", serif;
-    font-size: 20px;
-    font-weight: 700;
-    color: #1A3C5C;
-    margin: 0 0
-    }.source-embed.page-4 .card-content-list{
-    list-style: none;
-    padding: 0 0;
-    margin: 0 0;
-    font-family: "Inter", sans-serif;
-    font-size: 14px;
-    color: #475569
-    }.source-embed.page-4 .card-list-item{
-    margin-bottom: 5px;
-    line-height: 1.4
-    }.source-embed.page-4 .card-list-item strong{
-    color: #1E293B
-    }.source-embed.page-4 .math-constraint-box{
-    background-color: #F1F5F9;
-    padding: 5px 12px;
-    border-radius: 4px;
-    font-size: 13px;
-    color: #1A3C5C;
-    text-align: center
-    }.source-embed.page-4 .table-data-wrapper{
-    width: 100%;
-    flex: 1
-    }.source-embed.page-4 .ensemble-summary-table{
-    width: 100%;
-    height: 100%;
-    border-collapse: collapse;
-    font-family: "Inter", sans-serif;
-    font-size: 14px
-    }.source-embed.page-4 .ensemble-summary-table th{
-    background-color: rgba(26, 60, 92, 0.05);
-    color: #1A3C5C;
-    font-weight: 700;
-    text-align: left;
-    padding: 8px 12px;
-    border-bottom: 2px solid #E2E8F0
-    }.source-embed.page-4 .ensemble-summary-table td{
-    padding: 8px 12px;
-    border-bottom: 1px solid #E2E8F0;
-    color: #1E293B;
-    vertical-align: middle
-    }.source-embed.page-4 .theoretical-provocation-block{
-    background-color: rgba(224, 120, 32, 0.05);
-    border: 1px dashed #E07820;
-    padding: 10px 24px;
-    border-radius: 8px;
-    display: flex;
-    align-items: flex-start;
-    gap: 10px 16px;
-    box-sizing: border-box
-    }.source-embed.page-4 .provocation-icon{
-    color: #E07820;
-    font-size: 24px;
-    margin-top: 2px
-    }.source-embed.page-4 .provocation-content-text{
-    flex: 1
-    }.source-embed.page-4 .provocation-title{
-    font-family: "Inter", sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    color: #E07820;
-    margin: 0 0 2px 0
-    }.source-embed.page-4 .provocation-body{
-    font-family: "Inter", sans-serif;
-    font-size: 14px;
-    line-height: 1.5;
-    color: #1E293B;
-    margin: 0 0
-    }.source-embed.page-4{ overflow: visible; }
-
-
-.source-embed.page-4{
-  display:block !important;
-  width:100% !important;
-  max-width:100% !important;
-  margin:0 !important;
-  padding:0 !important;
-  background:transparent !important;
-  overflow:visible !important;
-}
-.source-embed.page-4 > div{
-  width:100% !important;
-  max-width:100% !important;
-  height:auto !important;
-  min-height:0 !important;
-  margin:0 !important;
-  overflow:visible !important;
-}
-.source-embed.page-4 [class*="title-region"],
-.source-embed.page-4 [class*="title-section"],
-.source-embed.page-4 [class*="title-header"]{
-  display:none !important;
-}
-.source-embed.page-4 img,
-.source-embed.page-4 svg,
-.source-embed.page-4 canvas,
-.source-embed.page-4 video{
-  max-width:100% !important;
-  height:auto !important;
-}
-.source-embed.page-4 mjx-container,
-.source-embed.page-4 .MathJax,
-.source-embed.page-4 .mjx-chtml{
-  max-width:100% !important;
-  overflow-x:auto !important;
-  overflow-y:hidden !important;
-}
-@media (max-width:980px){
-  .source-embed.page-4 [class*="columns-wrapper"],
-  .source-embed.page-4 [class*="content-layout"],
-  .source-embed.page-4 [class*="content-area"],
-  .source-embed.page-4 [class*="layout-row"],
-  .source-embed.page-4 [class*="main-content"],
-  .source-embed.page-4 [class*="interaction-wrapper"]{
-    display:flex !important;
-    flex-direction:column !important;
-    gap:16px !important;
-  }
-  .source-embed.page-4 [class*="left-"],
-  .source-embed.page-4 [class*="right-"],
-  .source-embed.page-4 [class*="-column"]{
-    width:100% !important;
-    max-width:100% !important;
-    flex:1 1 auto !important;
-  }
-  .source-embed.page-4 [class*="grid"]{
-    grid-template-columns:1fr !important;
-  }
-}
-@media (max-width:700px){
-  .source-embed.page-4 [class*="columns-wrapper"],
-  .source-embed.page-4 [class*="content-layout"],
-  .source-embed.page-4 [class*="content-area"],
-  .source-embed.page-4 [class*="layout-row"],
-  .source-embed.page-4 [class*="main-content"],
-  .source-embed.page-4 [class*="interaction-wrapper"]{
-    padding-left:16px !important;
-    padding-right:16px !important;
-  }
-  .source-embed.page-4 [class*="title-main-heading"]{
-    font-size:clamp(1.7rem, 6vw, 2.25rem) !important;
-    line-height:1.12 !important;
-  }
-}
-</style>
-    <div class="source-embed page-4">
-      <div class="slide-root-container">
-
-
-
-<div class="main-content-layout">
-
-<p class="narrative-intro-block">
-                Na mecânica estatística, um <strong>ensemble</strong> (ou coletividade) é uma construção mental composta por um grande número de cópias virtuais de um sistema sob as mesmas condições macroscópicas. A escolha do ensemble depende de como o sistema interage com o ambiente, o que define os vínculos aplicados à entropia de Gibbs e determina a distribuição de probabilidade \(p_i\) dos microestados.
-            </p>
-
-<div class="ensemble-comparison-grid">
-
-<div class="ensemble-card-item">
-<div class="card-header-group">
-<div class="card-icon-wrapper"><i class="fas fa-cube"></i></div>
-<h3 class="card-title-text">Micro-Canônico</h3>
-</div>
-<ul class="card-content-list">
-<li class="card-list-item"><strong>Troca:</strong> Nenhuma (Isolado)</li>
-<li class="card-list-item"><strong>Vínculos:</strong> \(N, V, E\) constantes</li>
-<li class="card-list-item"><strong>Potencial:</strong> Entropia \(S\)</li>
-</ul>
-<div class="math-constraint-box">
-                        Vínculo: \(\sum p_i = 1\)
-                    </div>
+</section>
 </div>
 
-<div class="ensemble-card-item accent-border">
-<div class="card-header-group">
-<div class="card-icon-wrapper"><i class="fa-solid fa-thermometer"></i></div>
-<h3 class="card-title-text">Canônico</h3>
-</div>
-<ul class="card-content-list">
-<li class="card-list-item"><strong>Troca:</strong> Energia (Fechado)</li>
-<li class="card-list-item"><strong>Vínculos:</strong> \(N, V, T\) constantes</li>
-<li class="card-list-item"><strong>Potencial:</strong> Energia Livre \(F\)</li>
-</ul>
-<div class="math-constraint-box">
-                        \(\sum p_i = 1\) &amp; \(\sum p_i \varepsilon_i = U\)
-                    </div>
+<div class="grid">
+<section class="card">
+<div class="card-title">
+<i class="fas fa-cube"></i> Micro-Canônico
 </div>
 
-<div class="ensemble-card-item">
-<div class="card-header-group">
-<div class="card-icon-wrapper"><i class="fas fa-door-open"></i></div>
-<h3 class="card-title-text">Grand-Canônico</h3>
+<div class="body-text">
+<ul><li><strong>Troca:</strong>
+ Nenhuma (Isolado)</li>
+
+<li><strong>Vínculos:</strong>
+ \(N, V, E\) constantes</li>
+
+<li><strong>Potencial:</strong>
+ Entropia \(S\)</li></ul>
+
+<div class="math-box">Vínculo: \(\sum p_i = 1\)</div>
 </div>
-<ul class="card-content-list">
-<li class="card-list-item"><strong>Troca:</strong> Energia + Partículas</li>
-<li class="card-list-item"><strong>Vínculos:</strong> \(\mu, V, T\) constantes</li>
-<li class="card-list-item"><strong>Potencial:</strong> Grand Potential \(\Phi\)</li>
-</ul>
-<div class="math-constraint-box">
-                        Vínculos em \(U\) e \(N\) médio
-                    </div>
-</div>
+</section>
+
+<section class="card">
+<div class="card-title">
+<i class="fa-solid fa-thermometer"></i> Canônico
 </div>
 
-<div class="table-data-wrapper">
-<table class="ensemble-summary-table">
-<thead>
-<tr>
-<th>Ensemble</th>
-<th>Interação com Reservatório</th>
-<th>Distribuição de Probabilidade \(p_i\)</th>
-<th>Função de Partição</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Micro-Canônico</strong></td>
-<td>Nenhuma (Isolamento Térmico e Mecânico)</td>
-<td>\(p_i = 1/\Omega\)</td>
-<td>\(\Omega(N, V, E)\)</td>
-</tr>
-<tr>
-<td><strong>Canônico</strong></td>
-<td>Térmica (Reservatório de Temperatura \(T\))</td>
-<td>\(p_i = e^{-\beta\varepsilon_i}/Z\)</td>
-<td>\(Z = \sum_i e^{-\beta\varepsilon_i}\)</td>
-</tr>
-<tr>
-<td><strong>Grand-Canônico</strong></td>
-<td>Térmica e Química (Reservatório de \(T\) e \(\mu\))</td>
-<td>\(p_i = e^{-\beta(\varepsilon_i - \mu N_i)}/\Xi\)</td>
-<td>\(\Xi = \sum_{N,i} e^{-\beta(\varepsilon_i - \mu N)}\)</td>
-</tr>
-</tbody>
-</table>
+<div class="body-text">
+<ul><li><strong>Troca:</strong>
+ Energia (Fechado)</li>
+
+<li><strong>Vínculos:</strong>
+ \(N, V, T\) constantes</li>
+
+<li><strong>Potencial:</strong>
+ Energia Livre \(F\)</li></ul>
+
+<div class="math-box">\(\sum p_i = 1\) &amp; \(\sum p_i \varepsilon_i = U\)</div>
+</div>
+</section>
 </div>
 
+<section class="card">
+<div class="card-title">
+<i class="fas fa-door-open"></i> Grand-Canônico
 </div>
-</div>
-    </div>
-  </section>
-  </div>
 
-  <section data-termo-ai-exercise data-exercise-theme="purple"></section>
+<div class="body-text">
+<ul><li><strong>Troca:</strong>
+ Energia + Partículas</li>
+
+<li><strong>Vínculos:</strong>
+ \(\mu, V, T\) constantes</li>
+
+<li><strong>Potencial:</strong>
+ Grand Potential \(\Phi\)</li></ul>
+
+<div class="math-box">Vínculos em \(U\) e \(N\) médio</div>
 </div>
-<script src="../../assets/chapter-embedded-slide.js?v=0611.5"></script>
+</section>
+
+<section data-termo-ai-exercise data-exercise-theme="purple"></section>
+
+</div>
+
 </body>
 </html>

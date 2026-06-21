@@ -7,7 +7,7 @@
 
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@400;500;600&display=swap" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" rel="stylesheet"/>
 
 <script>
@@ -25,14 +25,15 @@ window.MathJax = {
 </script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 
-<link href="../../assets/chapter-embedded-slide.css" rel="stylesheet"/>
-<link href="../../assets/ai-exercises.css" rel="stylesheet"/>
+<link rel="stylesheet" href="../../assets/ai-exercises.css">
 <script defer src="../../assets/ai-exercises.js"></script>
 <link rel="stylesheet" href="../../assets/termo-share.css">
 <script defer src="../../assets/termo-share.js"></script>
 <link rel="stylesheet" href="../../assets/termo-auth.css?v=0611.4">
+<link rel="stylesheet" href="../../assets/capitulo-02-layout.css?v=0611.4">
 <script defer src="../../assets/termo-auth.js?v=0611.4"></script>
 <script defer src="../../assets/termo-user-data.js"></script>
+<script defer src="../../assets/termo-seo.js?v=0609.2"></script>
 <!-- termo-seo:start -->
 <meta name="description" content="Relação entre função de partição, energia livre de Helmholtz e energia interna como média estatística. Material interativo do livro Termodinâmica para Estudantes de Físi..."/>
 <meta name="author" content="Prof. Mario Reis"/>
@@ -51,579 +52,151 @@ window.MathJax = {
 <meta name="twitter:description" content="Relação entre função de partição, energia livre de Helmholtz e energia interna como média estatística. Material interativo do livro Termodinâmica para Estudantes de Físi..."/>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Energia Livre de Helmholtz e Energia Interna Estatística | Capítulo 3 | Termodinâmica para Estudantes de Física","description":"Relação entre função de partição, energia livre de Helmholtz e energia interna como média estatística. Material interativo do livro Termodinâmica para Estudantes de Físi...","url":"https://termo-theta.vercel.app/slides/capitulo-03/page_10.html","inLanguage":"pt-BR","isAccessibleForFree":true,"educationalUse":"instruction","learningResourceType":"InteractiveResource","author":{"@type":"Person","name":"Prof. Mario Reis"},"publisher":{"@type":"CollegeOrUniversity","name":"Instituto de Física — Universidade Federal Fluminense"},"isPartOf":{"@type":"Course","name":"Termodinâmica para Estudantes de Física","url":"https://termo-theta.vercel.app/"}}</script>
 <!-- termo-seo:end -->
-<script defer src="../../assets/termo-seo.js?v=0609.2"></script>
 </head>
+
 <body>
+
 <div class="page">
-  <section class="hero">
-    <div class="hero-inner">
-      <a href="../../index.html?chapter=03" class="index-back-button">
-        <i class="fa-solid fa-arrow-left"></i>
-        Índice
-      </a>
-      <div class="chapter-label">
-        <i class="fa-solid fa-layer-group"></i>
-        Capítulo 3 · Item 3.4
-      </div>
-      <h1 class="chapter-title">Energia Livre de Helmholtz e Energia Interna Estatística</h1>
-      <div class="chapter-text">
-        <p>Relação entre função de partição, energia livre de Helmholtz e energia interna como média estatística.</p>
-      </div>
-    </div>
-  </section>
 
-  <div class="content-root">
-    
-  <section class="source-fragment">
-    <style>.source-embed.page-10 *{
-    box-sizing: border-box;
-    margin: 0 0;
-    padding: 0 0
-    }.source-embed.page-10{width: 100%; height: auto; overflow: visible; background-color: #F8F9FA;
-    font-family: "Inter", sans-serif;
-    color: #1E293B}.source-embed.page-10 .slide-root-layout{
-    width: 100%;
-    height: auto;
-    padding: 9px 40px;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    background-color: #F8F9FA
-    }.source-embed.page-10 .title-region-wrapper{
-    display: flex;
-    flex-direction: column;
-    padding: 20px 40px;
-    margin-bottom: 5px;
-    border-left: 6px solid #E07820;
-    background-color: rgba(26, 60, 92, 0.03)
-    }.source-embed.page-10 .title-section-label{
-    color: #E07820;
-    font-family: "Inter", sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-bottom: 4px
-    }.source-embed.page-10 .title-main-heading{
-    color: #1A3C5C;
-    font-family: "Lora", serif;
-    font-size: 32px;
-    font-weight: 800;
-    margin: 0;
-    line-height: 1.2
-    }.source-embed.page-10 .main-content-columns{
-    display: flex;
-    flex-direction: row;
-    gap: 7px 32px;
-    align-items: stretch;
-    flex: 1
-    }.source-embed.page-10 .left-column-derivation{
-    display: flex;
-    flex-direction: column;
-    flex: 1.2;
-    gap: 6px 20px
-    }.source-embed.page-10 .right-column-applications{
-    display: flex;
-    flex-direction: column;
-    flex: 0.8;
-    gap: 5px 20px
-    }.source-embed.page-10 .content-card-module{
-    background: #FFF;
-    border: 1px solid #E2E8F0;
-    border-radius: 4px;
-    padding: 6px 24px;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05)
-    }.source-embed.page-10 .derivation-steps-card{
-    border-left: 4px solid #1A3C5C
-    }.source-embed.page-10 .potentials-summary-card{
-    border-left: 4px solid #E07820
-    }.source-embed.page-10 .card-title-header{
-    font-family: "Lora", serif;
-    font-size: 20px;
-    font-weight: 700;
-    color: #1A3C5C;
-    margin-bottom: 3px;
-    display: flex;
-    align-items: center;
-    gap: 10px
-    }.source-embed.page-10 .card-body-text{
-    font-size: 14px;
-    line-height: 1.6;
-    color: #475569;
-    margin-bottom: 5px
-    }.source-embed.page-10 .math-expression-block{
-    background-color: #F1F5F9;
-    padding: 3px 12px;
-    border-radius: 4px;
-    margin: 2px 0;
-    text-align: center
-    }.source-embed.page-10 .potentials-list-group{
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 2px 12px
-    }.source-embed.page-10 .potentials-list-item{
-    display: flex;
-    align-items: center;
-    padding: 2px 12px;
-    background: rgba(224, 120, 32, 0.05);
-    border-radius: 4px;
-    font-size: 13px
-    }.source-embed.page-10 .potentials-label-math{
-    font-weight: 700;
-    color: #1A3C5C;
-    min-width: 60px
-    }.source-embed.page-10 .interactive-tip-box{
-    background-color: #1A3C5C;
-    color: #FFF;
-    padding: 4px 24px;
-    border-radius: 4px;
-    display: flex;
-    align-items: flex-start;
-    gap: 4px 16px;
-    margin-top: 5px
-    }.source-embed.page-10 .tip-icon-wrapper{
-    font-size: 22px;
-    color: #E07820
-    }.source-embed.page-10 .tip-content-text{
-    font-size: 12px;
-    line-height: 1.5
-    }.source-embed.page-10 .tip-content-text strong{
-    color: #E07820;
-    display: block;
-    margin-bottom: 2px;
-    text-transform: uppercase;
-    font-size: 10px
-    }.source-embed.page-10 .highlight-accent{
-    color: #E07820;
-    font-weight: 600
-    }.source-embed.page-10{ overflow: visible; }
+<section class="hero">
+<div class="hero-inner">
 
+<a href="../../index.html?chapter=03" class="index-back-button">
+<i class="fa-solid fa-arrow-left"></i>
+Índice
+</a>
 
-.source-embed.page-10{
-  display:block !important;
-  width:100% !important;
-  max-width:100% !important;
-  margin:0 !important;
-  padding:0 !important;
-  background:transparent !important;
-  overflow:visible !important;
-}
-.source-embed.page-10 > div{
-  width:100% !important;
-  max-width:100% !important;
-  height:auto !important;
-  min-height:0 !important;
-  margin:0 !important;
-  overflow:visible !important;
-}
-.source-embed.page-10 [class*="title-region"],
-.source-embed.page-10 [class*="title-section"],
-.source-embed.page-10 [class*="title-header"]{
-  display:none !important;
-}
-.source-embed.page-10 img,
-.source-embed.page-10 svg,
-.source-embed.page-10 canvas,
-.source-embed.page-10 video{
-  max-width:100% !important;
-  height:auto !important;
-}
-.source-embed.page-10 mjx-container,
-.source-embed.page-10 .MathJax,
-.source-embed.page-10 .mjx-chtml{
-  max-width:100% !important;
-  overflow-x:auto !important;
-  overflow-y:hidden !important;
-}
-@media (max-width:980px){
-  .source-embed.page-10 [class*="columns-wrapper"],
-  .source-embed.page-10 [class*="content-layout"],
-  .source-embed.page-10 [class*="content-area"],
-  .source-embed.page-10 [class*="layout-row"],
-  .source-embed.page-10 [class*="main-content"],
-  .source-embed.page-10 [class*="interaction-wrapper"]{
-    display:flex !important;
-    flex-direction:column !important;
-    gap:16px !important;
-  }
-  .source-embed.page-10 [class*="left-"],
-  .source-embed.page-10 [class*="right-"],
-  .source-embed.page-10 [class*="-column"]{
-    width:100% !important;
-    max-width:100% !important;
-    flex:1 1 auto !important;
-  }
-  .source-embed.page-10 [class*="grid"]{
-    grid-template-columns:1fr !important;
-  }
-}
-@media (max-width:700px){
-  .source-embed.page-10 [class*="columns-wrapper"],
-  .source-embed.page-10 [class*="content-layout"],
-  .source-embed.page-10 [class*="content-area"],
-  .source-embed.page-10 [class*="layout-row"],
-  .source-embed.page-10 [class*="main-content"],
-  .source-embed.page-10 [class*="interaction-wrapper"]{
-    padding-left:16px !important;
-    padding-right:16px !important;
-  }
-  .source-embed.page-10 [class*="title-main-heading"]{
-    font-size:clamp(1.7rem, 6vw, 2.25rem) !important;
-    line-height:1.12 !important;
-  }
-}
-</style>
-    <div class="source-embed page-10">
-      <div class="slide-root-layout">
-
-
-
-<div class="main-content-columns">
-
-<div class="left-column-derivation">
-<div class="content-card-module derivation-steps-card">
-
-<p class="card-body-text">
-            A ponte entre a mecânica estatística e a termodinâmica é estabelecida ao inserirmos a distribuição de Boltzmann na definição de entropia de Gibbs. Este processo revela como a flutuação de estados microscópicos gera o potencial de Helmholtz.
-          </p>
-<div class="math-expression-block">
-            \[ S = -k_B \sum_i p_i \ln p_i \quad \text{onde} \quad p_i = \frac{e^{-\beta\varepsilon_i}}{Z} \]
-          </div>
-<p class="card-body-text" style="margin-top: 2px;font-style: italic;">
-            Substituindo \(\ln p_i = -\beta\varepsilon_i - \ln Z\):
-          </p>
-<div class="math-expression-block">
-            \[ S = -k_B \sum_i p_i (-\beta\varepsilon_i - \ln Z) = k_B \beta \langle E \rangle + k_B \ln Z \]
-          </div>
-<p class="card-body-text">
-            Identificando a energia interna \(U = \langle E \rangle\) e utilizando a definição termodinâmica da energia livre \(F = U - TS\), obtemos a equação-mestra do ensemble canônico:
-          </p>
-<div class="math-expression-block" style="background-color: rgba(224, 120, 32, 0.1);border: 1px solid #E07820;">
-<span style="font-size: 22px;font-weight: 800;color: #1A3C5C;">
-              \[ \boxed{F = -k_B T \ln Z} \]
-            </span>
-</div>
-</div>
+<div class="chapter-label">
+<i class="fa-solid fa-layer-group"></i>
+Capítulo 3 · Item 3.4
 </div>
 
-<div class="right-column-applications">
-<div class="content-card-module potentials-summary-card">
-<div class="card-title-header">
-<i class="fa-solid fa-diagram-project"></i>
-            Acesso aos Potenciais
-          </div>
-<p class="card-body-text">
-            Uma vez determinada a função de partição \(Z(T, V, N)\), a Energia Livre de Helmholtz atua como a <span class="highlight-accent">função geratriz</span> de todas as propriedades observáveis do sistema via diferenciação:
-          </p>
-<ul class="potentials-list-group">
-<li class="potentials-list-item">
-<span class="potentials-label-math">Entropia:</span>
-<span>\[ S = -\left( \frac{\partial F}{\partial T} \right)_{V, N} \]</span>
-</li>
-<li class="potentials-list-item">
-<span class="potentials-label-math">Pressão:</span>
-<span>\[ P = -\left( \frac{\partial F}{\partial V} \right)_{T, N} \]</span>
-</li>
-<li class="potentials-list-item">
-<span class="potentials-label-math">Potencial:</span>
-<span>\[ \mu = \left( \frac{\partial F}{\partial N} \right)_{T, V} \]</span>
-</li>
-<li class="potentials-list-item">
-<span class="potentials-label-math">Energia:</span>
-<span>\[ U = F + TS = -T^2 \frac{\partial (F/T)}{\partial T} \]</span>
-</li>
-</ul>
+<h1 class="chapter-title">Energia Livre de Helmholtz e Energia Interna Estatística</h1>
+
+<div class="chapter-text">
+<p>Relação entre função de partição, energia livre de Helmholtz e energia interna como média estatística.</p>
 </div>
-<div class="interactive-tip-box">
-<div class="tip-icon-wrapper">
+
+</div>
+</section>
+
+<div class="grid">
+<section class="card">
+<div class="card-title green">
+<i class="fas fa-calculator"></i> Derivação da Relação Fundamental
+</div>
+
+<div class="body-text">
+<p>A ponte entre a mecânica estatística e a termodinâmica é estabelecida ao inserirmos a distribuição de Boltzmann na definição de entropia de Gibbs. Este processo revela como a flutuação de estados microscópicos gera o potencial de Helmholtz.</p>
+
+\[ S = -k_B \sum_i p_i \ln p_i \quad \text{onde} \quad p_i = \frac{e^{-\beta\varepsilon_i}}{Z} \]
+
+<p>Substituindo \(\ln p_i = -\beta\varepsilon_i - \ln Z\):</p>
+
+\[ S = -k_B \sum_i p_i (-\beta\varepsilon_i - \ln Z) = k_B \beta \langle E \rangle + k_B \ln Z \]
+
+<p>Identificando a energia interna \(U = \langle E \rangle\) e utilizando a definição termodinâmica da energia livre \(F = U - TS\), obtemos a equação-mestra do ensemble canônico:</p>
+
+\[ \boxed{F = -k_B T \ln Z} \]
+</div>
+</section>
+
+<section class="card">
+<div class="card-title green">
+<i class="fa-solid fa-diagram-project"></i> Acesso aos Potenciais
+</div>
+
+<div class="body-text">
+<p>Uma vez determinada a função de partição \(Z(T, V, N)\), a Energia Livre de Helmholtz atua como a
+função geratriz
+ de todas as propriedades observáveis do sistema via diferenciação:</p>
+
+<ul><li>Entropia:
+
+\[ S = -\left( \frac{\partial F}{\partial T} \right)_{V, N} \]</li>
+
+<li>Pressão:
+
+\[ P = -\left( \frac{\partial F}{\partial V} \right)_{T, N} \]</li>
+
+<li>Potencial:
+
+\[ \mu = \left( \frac{\partial F}{\partial N} \right)_{T, V} \]</li>
+
+<li>Energia:
+
+\[ U = F + TS = -T^2 \frac{\partial (F/T)}{\partial T} \]</li></ul>
+</div>
+</section>
+</div>
+
+<section class="card">
+<div class="card-title purple">
+Conceito
+</div>
+
+<div class="body-text">
 <i class="fas fa-lightbulb"></i>
+
+<div class="highlight"><strong>Provocação Teórica</strong>
+
+ O que acontece com a Energia Livre \(F\) se deslocarmos a escala de energia de todos os microestados por uma constante \(\Delta\)? Como isso afeta as grandezas mensuráveis como \(P\) e \(S\)?</div>
 </div>
-<div class="tip-content-text">
-<strong>Provocação Teórica</strong>
-            O que acontece com a Energia Livre \(F\) se deslocarmos a escala de energia de todos os microestados por uma constante \(\Delta\)? Como isso afeta as grandezas mensuráveis como \(P\) e \(S\)?
-          </div>
-</div>
-</div>
+</section>
+
+<div class="grid">
+<section class="card">
+<div class="card-title green">
+<i class="fas fa-calculator"></i> A Derivação de U via Função de Partição
 </div>
 
-<div style="margin-top: 5px;border-top: 1px solid #E2E8F0;padding-top: 2px;display: flex;justify-content: space-between;align-items: center;">
-<span style="font-size: 13px;color: #64748B;font-family: 'Inter', sans-serif;">
-        Notas de Aula — Prof. Mario Reis (UFF)
-      </span>
-<span style="font-size: 13px;color: #64748B;font-family: 'Inter', sans-serif;font-style: italic;">
-        A função de partição contém toda a informação termodinâmica do sistema.
-      </span>
+<div class="body-text">
+<p>No Ensemble Canônico, a energia interna \( U \) é definida como a média estatística das energias dos microestados acessíveis. Partindo da probabilidade de Boltzmann \( p_i = e^{-\beta\varepsilon_i}/Z \), temos:</p>
+
+<div class="math-box green">\[ U = \langle\hat{H}\rangle = \sum_i p_i \varepsilon_i = \frac{1}{Z} \sum_i \varepsilon_i e^{-\beta\varepsilon_i} \]</div>
+
+<p>Observe que o termo \( \varepsilon_i e^{-\beta\varepsilon_i} \) pode ser expresso como uma derivada parcial em relação ao parâmetro \( \beta \):</p>
+
+<div class="math-box green">\[ \frac{\partial e^{-\beta\varepsilon_i}}{\partial \beta} = -\varepsilon_i e^{-\beta\varepsilon_i} \implies \sum_i \varepsilon_i e^{-\beta\varepsilon_i} = -\frac{\partial Z}{\partial \beta} \]</div>
+
+<div class="math-box green">\[ \boxed{U = -\frac{1}{Z} \frac{\partial Z}{\partial \beta} = -\frac{\partial \ln Z}{\partial \beta}} \]</div>
 </div>
-</div>
-    </div>
-  </section>
+</section>
 
-  <section class="source-fragment">
-    <style>.source-embed.page-11 *{
-    box-sizing: border-box;
-    margin: 0 0;
-    padding: 0 0
-    }.source-embed.page-11{width: 100%; height: auto; overflow: visible; background-color: #F8F9FA;
-    font-family: "Inter", sans-serif;
-    color: #1E293B}.source-embed.page-11 .slide-root-container{
-    width: 100%;
-    height: auto;
-    padding: 19px 40px;
-    display: flex;
-    flex-direction: column
-    }.source-embed.page-11 .title-region-wrapper{
-    display: flex;
-    flex-direction: column;
-    padding: 20px 40px;
-    margin-bottom: 11px;
-    border-left: 6px solid #E07820;
-    background-color: rgba(26, 60, 92, 0.03)
-    }.source-embed.page-11 .title-section-label{
-    color: #E07820;
-    font-family: "Inter", sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-bottom: 4px
-    }.source-embed.page-11 .title-main-heading{
-    color: #1A3C5C;
-    font-family: "Lora", serif;
-    font-size: 32px;
-    font-weight: 800;
-    margin: 0;
-    line-height: 1.2
-    }.source-embed.page-11 .main-content-columns-wrapper{
-    display: flex;
-    align-items: stretch;
-    gap: 15px 32px;
-    flex: 1
-    }.source-embed.page-11 .left-column-derivation-container{
-    display: flex;
-    flex-direction: column;
-    flex: 1.2;
-    gap: 10px 20px
-    }.source-embed.page-11 .right-column-insight-container{
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    gap: 10px 20px
-    }.source-embed.page-11 .academic-card-module{
-    background-color: #FFF;
-    border: 1px solid #E2E8F0;
-    border-radius: 4px;
-    padding: 11px 24px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    display: flex;
-    flex-direction: column
-    }.source-embed.page-11 .card-accent-border{
-    border-left: 4px solid #1A3C5C
-    }.source-embed.page-11 .card-header-text{
-    color: #1A3C5C;
-    font-family: "Lora", serif;
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 6px;
-    display: flex;
-    align-items: center;
-    gap: 6px 12px
-    }.source-embed.page-11 .body-text-standard{
-    font-size: 16px;
-    line-height: 1.6;
-    color: #1E293B;
-    margin-bottom: 8px
-    }.source-embed.page-11 .math-display-block{
-    background-color: rgba(26, 60, 92, 0.02);
-    padding: 8px 16px;
-    border-radius: 4px;
-    margin: 4px 0;
-    text-align: center
-    }.source-embed.page-11 .equation-highlight-box{
-    background-color: #1A3C5C;
-    color: #FFF;
-    padding: 10px 20px;
-    border-radius: 4px;
-    text-align: center;
-    margin-top: 6px
-    }.source-embed.page-11 .exercise-tip-box{
-    background-color: rgba(224, 120, 32, 0.1);
-    border: 1px dashed #E07820;
-    padding: 8px 16px;
-    border-radius: 4px
-    }.source-embed.page-11 .exercise-label{
-    color: #E07820;
-    font-weight: 700;
-    font-size: 14px;
-    text-transform: uppercase;
-    margin-bottom: 4px;
-    display: block
-    }.source-embed.page-11 .theory-provocation-text{
-    font-style: italic;
-    color: #475569;
-    font-size: 15px;
-    margin-top: 6px;
-    padding-left: 12px;
-    border-left: 2px solid #94A3B8
-    }.source-embed.page-11 .list-item-container{
-    list-style: none;
-    margin-bottom: 4px;
-    font-size: 15px
-    }.source-embed.page-11 .list-item-container i{
-    color: #E07820;
-    margin-right: 8px;
-    font-size: 12px
-    }.source-embed.page-11 .flex-fill{
-    flex: 1
-    }.source-embed.page-11{ overflow: visible; }
-
-
-.source-embed.page-11{
-  display:block !important;
-  width:100% !important;
-  max-width:100% !important;
-  margin:0 !important;
-  padding:0 !important;
-  background:transparent !important;
-  overflow:visible !important;
-}
-.source-embed.page-11 > div{
-  width:100% !important;
-  max-width:100% !important;
-  height:auto !important;
-  min-height:0 !important;
-  margin:0 !important;
-  overflow:visible !important;
-}
-.source-embed.page-11 [class*="title-region"],
-.source-embed.page-11 [class*="title-section"],
-.source-embed.page-11 [class*="title-header"]{
-  display:none !important;
-}
-.source-embed.page-11 img,
-.source-embed.page-11 svg,
-.source-embed.page-11 canvas,
-.source-embed.page-11 video{
-  max-width:100% !important;
-  height:auto !important;
-}
-.source-embed.page-11 mjx-container,
-.source-embed.page-11 .MathJax,
-.source-embed.page-11 .mjx-chtml{
-  max-width:100% !important;
-  overflow-x:auto !important;
-  overflow-y:hidden !important;
-}
-@media (max-width:980px){
-  .source-embed.page-11 [class*="columns-wrapper"],
-  .source-embed.page-11 [class*="content-layout"],
-  .source-embed.page-11 [class*="content-area"],
-  .source-embed.page-11 [class*="layout-row"],
-  .source-embed.page-11 [class*="main-content"],
-  .source-embed.page-11 [class*="interaction-wrapper"]{
-    display:flex !important;
-    flex-direction:column !important;
-    gap:16px !important;
-  }
-  .source-embed.page-11 [class*="left-"],
-  .source-embed.page-11 [class*="right-"],
-  .source-embed.page-11 [class*="-column"]{
-    width:100% !important;
-    max-width:100% !important;
-    flex:1 1 auto !important;
-  }
-  .source-embed.page-11 [class*="grid"]{
-    grid-template-columns:1fr !important;
-  }
-}
-@media (max-width:700px){
-  .source-embed.page-11 [class*="columns-wrapper"],
-  .source-embed.page-11 [class*="content-layout"],
-  .source-embed.page-11 [class*="content-area"],
-  .source-embed.page-11 [class*="layout-row"],
-  .source-embed.page-11 [class*="main-content"],
-  .source-embed.page-11 [class*="interaction-wrapper"]{
-    padding-left:16px !important;
-    padding-right:16px !important;
-  }
-  .source-embed.page-11 [class*="title-main-heading"]{
-    font-size:clamp(1.7rem, 6vw, 2.25rem) !important;
-    line-height:1.12 !important;
-  }
-}
-</style>
-    <div class="source-embed page-11">
-      <div class="slide-root-container">
-
-
-
-<div class="main-content-columns-wrapper">
-
-<div class="left-column-derivation-container">
-<div class="academic-card-module card-accent-border flex-fill">
-<div class="card-header-text">
-<i class="fas fa-calculator"></i>
-                        A Derivação de U via Função de Partição
-                    </div>
-<p class="body-text-standard">
-                        No Ensemble Canônico, a energia interna \( U \) é definida como a média estatística das energias dos microestados acessíveis. Partindo da probabilidade de Boltzmann \( p_i = e^{-\beta\varepsilon_i}/Z \), temos:
-                    </p>
-<div class="math-display-block">
-                        \[ U = \langle\hat{H}\rangle = \sum_i p_i \varepsilon_i = \frac{1}{Z} \sum_i \varepsilon_i e^{-\beta\varepsilon_i} \]
-                    </div>
-<p class="body-text-standard">
-                        Observe que o termo \( \varepsilon_i e^{-\beta\varepsilon_i} \) pode ser expresso como uma derivada parcial em relação ao parâmetro \( \beta \):
-                    </p>
-<div class="math-display-block">
-                        \[ \frac{\partial e^{-\beta\varepsilon_i}}{\partial \beta} = -\varepsilon_i e^{-\beta\varepsilon_i} \implies \sum_i \varepsilon_i e^{-\beta\varepsilon_i} = -\frac{\partial Z}{\partial \beta} \]
-                    </div>
-<div class="equation-highlight-box">
-<span style="font-size: 22px;font-weight: 700;">
-                            \[ \boxed{U = -\frac{1}{Z} \frac{\partial Z}{\partial \beta} = -\frac{\partial \ln Z}{\partial \beta}} \]
-                        </span>
-</div>
-</div>
+<section class="card">
+<div class="card-title green">
+<i class="fas fa-microscope"></i> Interpretação e Conexões
 </div>
 
-<div class="right-column-insight-container">
-<div class="academic-card-module flex-fill">
-<div class="card-header-text">
-<i class="fas fa-microscope"></i>
-                        Interpretação e Conexões
-                    </div>
-<p class="body-text-standard">
-                        Esta relação demonstra que a Função de Partição \( Z \) atua como uma <strong>função geratriz</strong>: todas as informações macroscópicas estão codificadas em suas derivadas.
-                    </p>
-<div class="list-item-container">
-<i class="fas fa-chevron-right"></i> <strong>Dependência da Temperatura:</strong> Utilizando a regra da cadeia para \( \beta = (k_B T)^{-1} \), obtemos a forma alternativa:
-                    </div>
-<div class="math-display-block" style="font-size: 18px;">
-                        \[ U = k_B T^2 \frac{\partial \ln Z}{\partial T} \]
-                    </div>
-<div class="list-item-container">
-<i class="fas fa-chevron-right"></i> <strong>Flutuações:</strong> A segunda derivada de \( \ln Z \) está relacionada à variância da energia (Capacidade Calorífica).
-                    </div>
-<div class="theory-provocation-text">
-                        "Por que a energia interna depende apenas de derivadas de Z e não de seu valor absoluto?"
-                    </div>
-<div class="exercise-tip-box" style="margin-top: 10px;">
-<span class="exercise-label">Dica de Exercício 4.11</span>
-<p class="body-text-standard" style="font-size: 14px;margin-bottom: 0;">
-                            Ao calcular \( U \) para sistemas de dois níveis, prefira derivar em relação a \( \beta \). Isso simplifica o tratamento de exponenciais e evita o carregamento excessivo de constantes físicas durante os passos intermediários.
-                        </p>
-</div>
-</div>
-</div>
-</div>
-</div>
-    </div>
-  </section>
-  </div>
+<div class="body-text">
+<p>Esta relação demonstra que a Função de Partição \( Z \) atua como uma
+<strong>função geratriz</strong>
+: todas as informações macroscópicas estão codificadas em suas derivadas.</p>
 
-  <section data-termo-ai-exercise data-exercise-theme="purple"></section>
+<i class="fas fa-chevron-right"></i>
+
+<strong>Dependência da Temperatura:</strong>
+ Utilizando a regra da cadeia para \( \beta = (k_B T)^{-1} \), obtemos a forma alternativa:
+
+<div class="math-box green">\[ U = k_B T^2 \frac{\partial \ln Z}{\partial T} \]</div>
+
+<i class="fas fa-chevron-right"></i>
+
+<strong>Flutuações:</strong>
+ A segunda derivada de \( \ln Z \) está relacionada à variância da energia (Capacidade Calorífica).
+
+<div class="highlight">"Por que a energia interna depende apenas de derivadas de Z e não de seu valor absoluto?"</div>
+
+<div class="highlight">Dica de Exercício 4.11
+
+<p>Ao calcular \( U \) para sistemas de dois níveis, prefira derivar em relação a \( \beta \). Isso simplifica o tratamento de exponenciais e evita o carregamento excessivo de constantes físicas durante os passos intermediários.</p></div>
 </div>
-<script src="../../assets/chapter-embedded-slide.js?v=0611.5"></script>
+</section>
+</div>
+
+<section data-termo-ai-exercise data-exercise-theme="purple"></section>
+
+</div>
+
 </body>
 </html>
