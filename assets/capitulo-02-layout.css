@@ -323,6 +323,23 @@ mjx-container,
   font-family:"Inter",sans-serif!important;
 }
 
+.summary-table.microstate-table{
+  min-width:0!important;
+}
+
+.summary-table.microstate-table td,
+.summary-table.microstate-table td:first-child{
+  color:var(--cap2-text)!important;
+  font-weight:400!important;
+  font-family:"Lora",Georgia,serif!important;
+}
+
+.summary-table.microstate-table .microstate-total{
+  color:var(--cap2-blue)!important;
+  font-weight:700!important;
+  font-family:"Inter",sans-serif!important;
+}
+
 .math-cell{
   background:#F8F9FA!important;
   text-align:center!important;
@@ -417,6 +434,10 @@ video{
 
   .summary-table{
     min-width:760px!important;
+  }
+
+  .summary-table.microstate-table{
+    min-width:0!important;
   }
 
   .process-table{

@@ -38,7 +38,8 @@ const itemBlocks = [
     title: "Partículas Distinguíveis, Indistinguíveis e Paradoxo de Gibbs",
     note: "Contagem de microestados, extensividade e correção por N! para partículas indistinguíveis.",
     pages: [12, 13],
-    aiExercise: true
+    aiExercise: true,
+    customContent: "particles"
   },
   {
     id: "3.6",
@@ -392,6 +393,21 @@ function cardVariant(node, headingHtml) {
   return "";
 }
 
+function renderTableCellAttrs(node) {
+  const attrs = [];
+
+  for (const attrName of ["colspan", "rowspan"]) {
+    const value = node.attrs[attrName];
+    if (value) attrs.push(`${attrName}="${escapeAttr(value)}"`);
+  }
+
+  if (/^Total:/i.test(compactText(node))) {
+    attrs.push('class="microstate-total"');
+  }
+
+  return attrs.length ? ` ${attrs.join(" ")}` : "";
+}
+
 function cleanNode(node, variant = "", insideCallout = false) {
   if (node.type === "text") {
     return node.value.replace(/[ \t]+/g, " ");
@@ -426,7 +442,11 @@ function cleanNode(node, variant = "", insideCallout = false) {
     return `<${node.tag}>${cleanNodes(node.children, variant, insideCallout)}</${node.tag}>`;
   }
 
-  if (["ul", "ol", "li", "p", "thead", "tbody", "tr", "th", "td"].includes(node.tag)) {
+  if (["th", "td"].includes(node.tag)) {
+    return `<${node.tag}${renderTableCellAttrs(node)}>${cleanNodes(node.children, variant, insideCallout)}</${node.tag}>`;
+  }
+
+  if (["ul", "ol", "li", "p", "thead", "tbody", "tr"].includes(node.tag)) {
     return `<${node.tag}>${cleanNodes(node.children, variant, insideCallout)}</${node.tag}>`;
   }
 
@@ -435,7 +455,10 @@ function cleanNode(node, variant = "", insideCallout = false) {
   }
 
   if (node.tag === "table") {
-    return `<div class="table-wrap"><table class="summary-table">${cleanNodes(node.children, variant, insideCallout)}</table></div>`;
+    const tableClass = /combinatorial-example/i.test(className(node))
+      ? "summary-table microstate-table"
+      : "summary-table";
+    return `<div class="table-wrap"><table class="${tableClass}">${cleanNodes(node.children, variant, insideCallout)}</table></div>`;
   }
 
   if (isMathBlock(node)) {
@@ -626,6 +649,76 @@ async function renderItemContent(pages) {
   return fragments.filter(Boolean).join("\n\n");
 }
 
+function removeOldGibbsInsight(html) {
+  const marker = "Insight Físico & O Paradoxo de Gibbs";
+  const markerIndex = html.indexOf(marker);
+  if (markerIndex === -1) return html;
+
+  const start = html.lastIndexOf('<section class="card">', markerIndex);
+  const end = html.indexOf("</section>", markerIndex);
+  if (start === -1 || end === -1) return html;
+
+  return normalizeWhitespace(`${html.slice(0, start)}${html.slice(end + "</section>".length)}`);
+}
+
+function renderGibbsExtensivityCard() {
+  return `<section class="card">
+<div class="card-title purple">
+<i class="fas fa-lightbulb"></i> Paradoxo de Gibbs: correção e demonstração
+</div>
+
+<div class="body-text">
+<p>O problema aparece quando partículas idênticas de um gás são tratadas como se fossem distinguíveis. Para um gás ideal clássico, a função de partição de uma partícula é proporcional ao volume disponível, \(Z_1 = V/\lambda_T^3\), em que \(\lambda_T\) é o comprimento de onda térmico de de Broglie.</p>
+
+<div class="math-box purple">\\[
+Z_N^{\\mathrm{dist}} = (Z_1)^N = \\left(\\frac{V}{\\lambda_T^3}\\right)^N
+\\]</div>
+
+<p>Da energia livre de Helmholtz, \(F=-k_B T\ln Z_N\), obtemos no caso distinguível:</p>
+
+<div class="math-box purple">\\[
+F_{\\mathrm{dist}}=-N k_B T\\ln\\!\\left(\\frac{V}{\\lambda_T^3}\\right),
+\\qquad
+S_{\\mathrm{dist}}=N k_B\\left[\\ln\\!\\left(\\frac{V}{\\lambda_T^3}\\right)+\\frac{3}{2}\\right].
+\\]</div>
+
+<p>Agora teste a extensividade, fazendo \(N\\to \\alpha N\) e \(V\\to \\alpha V\). Surge um termo extra:</p>
+
+<div class="math-box purple">\\[
+S_{\\mathrm{dist}}(\\alpha N,\\alpha V)
+=\\alpha S_{\\mathrm{dist}}(N,V)+\\alpha N k_B\\ln\\alpha .
+\\]</div>
+
+<p>Como aparece o termo adicional \(\alpha N k_B\ln\alpha\), a entropia não escala linearmente com o tamanho do sistema. Essa é a forma estatística do paradoxo de Gibbs.</p>
+
+<p>A correção é reconhecer que permutar partículas idênticas não produz um novo estado físico. Por isso dividimos a contagem por \(N!\):</p>
+
+<div class="math-box purple">\\[
+Z_N=\\frac{1}{N!}\\left(\\frac{V}{\\lambda_T^3}\\right)^N .
+\\]</div>
+
+<p>Usando Stirling, \(\ln N!\\simeq N\ln N-N\), a energia livre corrigida fica</p>
+
+<div class="math-box purple">\\[
+F=-N k_B T\\left[\\ln\\!\\left(\\frac{V}{N\\lambda_T^3}\\right)+1\\right].
+\\]</div>
+
+<p>Logo,</p>
+
+<div class="math-box purple">\\[
+S=N k_B\\left[\\ln\\!\\left(\\frac{V}{N\\lambda_T^3}\\right)+\\frac{5}{2}\\right].
+\\]</div>
+
+<div class="highlight"><strong>Conclusão:</strong> a correção \(1/N!\) troca a dependência em \(\ln V\) por uma dependência em \(\ln(V/N)\). Como \(V/N\) permanece constante quando \(N\) e \(V\) crescem na mesma proporção, temos \(S(\\alpha N,\\alpha V)=\\alpha S(N,V)\). A entropia volta a ser extensiva.</div>
+</div>
+</section>`;
+}
+
+async function renderParticlesContent() {
+  const baseContent = removeOldGibbsInsight(await renderSourcePage(12));
+  return `${baseContent}\n\n${renderGibbsExtensivityCard()}`;
+}
+
 function pageTemplate({ id, title, note, content, aiExercise = false }) {
   const aiAssets = aiExercise
     ? `<link rel="stylesheet" href="../../assets/ai-exercises.css">
@@ -727,7 +820,9 @@ const coverContent = await renderCoverContent();
 await writePage(1, pageTemplate({ ...coverPage, content: coverContent }));
 
 for (const block of itemBlocks) {
-  const content = await renderItemContent(block.pages);
+  const content = block.customContent === "particles"
+    ? await renderParticlesContent()
+    : await renderItemContent(block.pages);
   const html = pageTemplate({ ...block, content });
   for (const page of block.pages) {
     await writePage(page, html);

@@ -104,7 +104,7 @@ rede cristalina
 
 <div class="math-box">\[ Z(N) = [Z(1)]^N \]</div>
 
-<div class="table-wrap"><table class="summary-table"><thead><tr><th>Exemplo: 2 Partículas (A,B), 2 Níveis (\(\varepsilon_1, \varepsilon_2\))</th></tr></thead>
+<div class="table-wrap"><table class="summary-table microstate-table"><thead><tr><th colspan="2">Exemplo: 2 Partículas (A,B), 2 Níveis (\(\varepsilon_1, \varepsilon_2\))</th></tr></thead>
 
 <tbody><tr><td>Estado 1: (A na \(\varepsilon_1\), B na \(\varepsilon_1\))</td>
 <td>Estado 2: (A na \(\varepsilon_2\), B na \(\varepsilon_2\))</td></tr>
@@ -112,7 +112,7 @@ rede cristalina
 <tr><td>Estado 3: (A na \(\varepsilon_1\), B na \(\varepsilon_2\))</td>
 <td>Estado 4: (A na \(\varepsilon_2\), B na \(\varepsilon_1\))</td></tr>
 
-<tr><td>Total: 4 Microestados (\(2^2\))</td></tr></tbody></table></div>
+<tr><td colspan="2" class="microstate-total">Total: 4 Microestados (\(2^2\))</td></tr></tbody></table></div>
 </div>
 </section>
 
@@ -128,64 +128,67 @@ gases ideais
 
 <div class="math-box">\[ Z(N) \approx \frac{[Z(1)]^N}{N!} \]</div>
 
-<div class="table-wrap"><table class="summary-table"><thead><tr><th>Exemplo: 2 Partículas Idênticas, 2 Níveis (\(\varepsilon_1, \varepsilon_2\))</th></tr></thead>
+<div class="table-wrap"><table class="summary-table microstate-table"><thead><tr><th colspan="2">Exemplo: 2 Partículas Idênticas, 2 Níveis (\(\varepsilon_1, \varepsilon_2\))</th></tr></thead>
 
 <tbody><tr><td>Config 1: (Ambas na \(\varepsilon_1\))</td>
 <td>Config 2: (Ambas na \(\varepsilon_2\))</td></tr>
 
-<tr><td>Config 3: (Uma na \(\varepsilon_1\), outra na \(\varepsilon_2\))</td></tr>
+<tr><td colspan="2">Config 3: (Uma na \(\varepsilon_1\), outra na \(\varepsilon_2\))</td></tr>
 
-<tr><td>Total: 3 Microestados (Bosons)</td></tr></tbody></table></div>
+<tr><td colspan="2" class="microstate-total">Total: 3 Microestados (Bosons)</td></tr></tbody></table></div>
 </div>
 </section>
 
 <section class="card">
 <div class="card-title purple">
-<i class="fas fa-lightbulb"></i> Insight Físico & O Paradoxo de Gibbs
+<i class="fas fa-lightbulb"></i> Paradoxo de Gibbs: correção e demonstração
 </div>
 
 <div class="body-text">
-<p>O fator de correção \(1/N!\) é fundamental para restaurar a
-<strong>extensividade</strong>
- da entropia. Sem ele, ao misturar dois volumes iguais de um mesmo gás, a entropia calculada aumentaria de forma espúria (Paradoxo de Gibbs). Este fator remove a supercontagem das \(N!\) permutações de partículas entre estados já ocupados no regime clássico de baixa densidade.</p>
+<p>O problema aparece quando partículas idênticas de um gás são tratadas como se fossem distinguíveis. Para um gás ideal clássico, a função de partição de uma partícula é proporcional ao volume disponível, \(Z_1 = V/\lambda_T^3\), em que \(\lambda_T\) é o comprimento de onda térmico de de Broglie.</p>
+
+<div class="math-box purple">\[
+Z_N^{\mathrm{dist}} = (Z_1)^N = \left(\frac{V}{\lambda_T^3}\right)^N
+\]</div>
+
+<p>Da energia livre de Helmholtz, \(F=-k_B T\ln Z_N\), obtemos no caso distinguível:</p>
+
+<div class="math-box purple">\[
+F_{\mathrm{dist}}=-N k_B T\ln\!\left(\frac{V}{\lambda_T^3}\right),
+\qquad
+S_{\mathrm{dist}}=N k_B\left[\ln\!\left(\frac{V}{\lambda_T^3}\right)+\frac{3}{2}\right].
+\]</div>
+
+<p>Agora teste a extensividade, fazendo \(N\to \alpha N\) e \(V\to \alpha V\). Surge um termo extra:</p>
+
+<div class="math-box purple">\[
+S_{\mathrm{dist}}(\alpha N,\alpha V)
+=\alpha S_{\mathrm{dist}}(N,V)+\alpha N k_B\ln\alpha .
+\]</div>
+
+<p>Como aparece o termo adicional \(\alpha N k_B\ln\alpha\), a entropia não escala linearmente com o tamanho do sistema. Essa é a forma estatística do paradoxo de Gibbs.</p>
+
+<p>A correção é reconhecer que permutar partículas idênticas não produz um novo estado físico. Por isso dividimos a contagem por \(N!\):</p>
+
+<div class="math-box purple">\[
+Z_N=\frac{1}{N!}\left(\frac{V}{\lambda_T^3}\right)^N .
+\]</div>
+
+<p>Usando Stirling, \(\ln N!\simeq N\ln N-N\), a energia livre corrigida fica</p>
+
+<div class="math-box purple">\[
+F=-N k_B T\left[\ln\!\left(\frac{V}{N\lambda_T^3}\right)+1\right].
+\]</div>
+
+<p>Logo,</p>
+
+<div class="math-box purple">\[
+S=N k_B\left[\ln\!\left(\frac{V}{N\lambda_T^3}\right)+\frac{5}{2}\right].
+\]</div>
+
+<div class="highlight"><strong>Conclusão:</strong> a correção \(1/N!\) troca a dependência em \(\ln V\) por uma dependência em \(\ln(V/N)\). Como \(V/N\) permanece constante quando \(N\) e \(V\) crescem na mesma proporção, temos \(S(\alpha N,\alpha V)=\alpha S(N,V)\). A entropia volta a ser extensiva.</div>
 </div>
 </section>
-
-<div class="grid">
-<section class="card">
-<div class="card-title purple">
-<i class="fa-solid fa-triangle-exclamation"></i> O Problema da Extensividade
-</div>
-
-<div class="body-text">
-<p>Ao tratar partículas de um gás como
-distinguíveis
-, a função de partição $Z_N = [Z_1]^N$ leva a uma entropia que não é uma grandeza extensiva. Isso gera o famoso
-<strong>Paradoxo de Gibbs</strong>
-: a entropia de mistura de dois volumes iguais do mesmo gás a mesma $P$ e $T$ resultaria em um valor positivo, contradizendo a termodinâmica clássica.</p>
-
-<ul><li><strong>Supercontagem:</strong>
- No formalismo clássico, permutar partículas idênticas gera um novo microestado matemático, mas fisicamente o estado do sistema é o mesmo.</li>
-
-<li><strong>Requisito Físico:</strong>
- A entropia deve satisfazer $S(\lambda N, \lambda V) = \lambda S(N, V)$.</li>
-
-<li><strong>Consequência:</strong>
- Sem a correção, o potencial químico $\mu$ dependeria do tamanho do sistema, o que é fisicamente inconsistente.</li></ul>
-</div>
-</section>
-
-<section class="card">
-<div class="card-title purple">
-Conceito
-</div>
-
-<div class="body-text">
-Dica de Exercício:
- Tente demonstrar que, com esta correção, a entropia $S = -(\partial F/\partial T)_{V,N}$ agora escala linearmente com $N$, resolvendo o paradoxo.
-</div>
-</section>
-</div>
 
 <section data-termo-ai-exercise data-exercise-theme="purple"></section>
 
