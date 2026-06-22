@@ -137,6 +137,19 @@ body {width: 1280px; height: 720px; overflow: hidden; background-color: #CCC;
     object-fit: contain;
     background-color: #FFF
     }
+.einstein-expression-graph {
+    height: 210px;
+    margin: 8px 0
+    }
+.einstein-caption-warning {
+    background: #FFF7F5;
+    border-left: 4px solid #B23B3B;
+    border-radius: 6px;
+    color: var(--body-text);
+    font-size: 14px;
+    line-height: 1.5;
+    padding: 8px 12px
+    }
 .einstein-provocation-card {
     background-color: var(--secondary-accent);
     color: #FFF;
@@ -230,6 +243,12 @@ html { overflow: hidden; }
 <p class="einstein-card-text">
                     A variável reduzida \(x\) quantifica a relação entre a energia do quanta vibracional (\(\hbar\omega\)) e a energia térmica disponível (\(k_BT\)).
                 </p>
+<div class="einstein-graph-image-container einstein-expression-graph">
+<img alt="Gráfico do Calor Específico de Einstein" src="../../assets/images/capitulo-03/calor-especifico-einstein.jpg"/>
+</div>
+<div class="einstein-caption-warning">
+                    O gráfico mostra o calor específico molar do sólido de Einstein, em unidades de \(R\), em função de \(T/T_E\). A curva recupera o limite clássico \(3R\) em altas temperaturas e decai exponencialmente para zero quando \(T \ll T_E\).
+                </div>
 </div>
 <div class="einstein-analysis-card">
 <div class="einstein-card-header">
@@ -248,24 +267,6 @@ html { overflow: hidden; }
                         Para \(x \gg 1\), a expressão torna-se proporcional a \(x^2 e^{-x}\). O calor específico decai <span class="einstein-highlight-box">exponencialmente para zero</span>, satisfazendo a Terceira Lei da Termodinâmica.
                     </p>
 </div>
-</div>
-</div>
-<!-- Right Column: Visual and Interpretation -->
-<div class="right-einstein-visual-column">
-<!-- Image Container -->
-<div class="einstein-graph-image-container">
-<img alt="Gráfico do Calor Específico de Einstein" src="https://static-us-img.skywork.ai/prod/nexus/1779576094/cropped_image_2_1779576094293610637.jpg"/>
-</div>
-<!-- Provocation/Context Card -->
-<div class="einstein-provocation-card">
-<span class="einstein-provocation-title">Provocação Teórica</span>
-<p class="einstein-provocation-content">
-                    "O modelo de Einstein supõe que todos os osciladores possuem a mesma frequência \(\omega\). No entanto, o decaimento experimental em sólidos reais (como metais) costuma ser proporcional a \(T^3\) em vez de exponencial. Por que o modelo de Einstein falha em capturar essa dependência exata em temperaturas muito baixas?"
-                </p>
-<p class="einstein-card-text" style="color: rgba(255,255,255,0.7);margin-top: 10px;font-size: 13px;">
-<i class="fa-solid fa-lightbulb" style="margin-right: 8px;"></i>
-                    Dica: Pense em modos coletivos de vibração (fonons) de baixa frequência.
-                </p>
 </div>
 </div>
 </div>
