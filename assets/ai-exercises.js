@@ -100,6 +100,10 @@
     const prefix = enumeratedMatch ? enumeratedMatch[1] : "";
     const content = enumeratedMatch ? enumeratedMatch[2].trim() : trimmed;
 
+    if (/:/.test(content) && countWords(content) > 0 && !/[=+\-*/→≤≥≠]/.test(content)) {
+      return trimmed;
+    }
+
     if (!hasProseCue(content) && isSimpleInlineMath(content)) {
       return `${prefix}\\(${latexifySnippet(cleanupEquation(content))}\\)`;
     }
@@ -140,6 +144,14 @@
         : `\\(${cleaned}\\)`;
     }
 
+    if (/\\\(|\\\[/.test(line)) {
+      return line;
+    }
+
+    if (/:/.test(line) && countWords(line) > 0 && !/[=+*/→≤≥≠-]/.test(line)) {
+      return line;
+    }
+
     if (countWords(line) <= 2 && shouldDisplayEquation(line)) {
       const cleaned = cleanupEquation(line);
       return isSimpleInlineMath(cleaned) ? `\\(${latexifySnippet(cleaned)}\\)` : `\\[${cleaned}\\]`;
@@ -148,9 +160,112 @@
     return line;
   }
 
+  function repairGeneratedMathDelimiters(value) {
+    let text = String(value || "")
+      .replace(/\r\n?/g, "\n");
+
+    const sourceLines = text.split("\n");
+    const joinedLines = [];
+    let pendingInline = "";
+    sourceLines.forEach(function (rawLine, index) {
+      const raw = String(rawLine || "");
+      if (pendingInline && !raw.trim()) {
+        joinedLines.push(pendingInline + "\\)");
+        joinedLines.push(raw);
+        pendingInline = "";
+        return;
+      }
+
+      const line = pendingInline ? pendingInline + " " + raw.trim() : raw;
+      const inlineOpen = (line.match(/\\\(/g) || []).length;
+      const inlineClose = (line.match(/\\\)/g) || []).length;
+      if (inlineOpen > inlineClose) {
+        const nextLine = String(sourceLines[index + 1] || "");
+        const continuesMath = /^\s*(?:[.,;:+\-*/=})\]]|\d|\\[A-Za-z])/.test(nextLine);
+        if (!nextLine.trim() || !continuesMath) {
+          joinedLines.push(line + "\\)");
+          pendingInline = "";
+        } else {
+          pendingInline = line;
+        }
+        return;
+      }
+
+      joinedLines.push(line);
+      pendingInline = "";
+    });
+    if (pendingInline) joinedLines.push(pendingInline + "\\)");
+
+    text = joinedLines
+      .join("\n")
+      .replace(/(\d)\s+\.(\d)/g, "$1.$2")
+      .replace(/\\\(\s*\\\)/g, "")
+      .replace(/\\\[\s*\\\]/g, "");
+
+    let output = "";
+    let cursor = 0;
+    let inlineBalance = 0;
+    let displayBalance = 0;
+    const tokenPattern = /\\[()[\]]/g;
+    let match;
+    while ((match = tokenPattern.exec(text))) {
+      output += text.slice(cursor, match.index);
+      const token = match[0];
+      if (token === "\\(") {
+        inlineBalance += 1;
+        output += token;
+      } else if (token === "\\)") {
+        if (inlineBalance > 0) {
+          inlineBalance -= 1;
+          output += token;
+        }
+      } else if (token === "\\[") {
+        displayBalance += 1;
+        output += token;
+      } else if (token === "\\]") {
+        if (displayBalance > 0) {
+          displayBalance -= 1;
+          output += token;
+        }
+      }
+      cursor = match.index + token.length;
+    }
+    output += text.slice(cursor);
+
+    if (displayBalance > 0) output += "\\]".repeat(displayBalance);
+    if (inlineBalance > 0) output += "\\)".repeat(inlineBalance);
+    return output;
+  }
+
+  function replaceOutsideMathSegments(value, transform) {
+    const tokens = [];
+    const masked = String(value || "").replace(mathSegmentPattern, function (match) {
+      const token = "@@TERMO_MATH_" + tokens.length + "@@";
+      tokens.push(match);
+      return token;
+    });
+
+    return transform(masked).replace(/@@TERMO_MATH_(\d+)@@/g, function (_match, index) {
+      return tokens[Number(index)] || "";
+    });
+  }
+
+  function wrapBareMathTokens(value) {
+    return replaceOutsideMathSegments(value, function (segment) {
+      return segment
+        .replace(/(^|[^A-Za-z\\])([A-Za-z])_([A-Za-z0-9]+)\b/g, function (_match, lead, symbol, subscript) {
+          return lead + "\\(" + symbol + "_{" + subscript + "}\\)";
+        })
+        .replace(/(^|[^A-Za-z\\])([A-Za-z])\^([A-Za-z0-9]+)\b/g, function (_match, lead, symbol, superscript) {
+          return lead + "\\(" + symbol + "^{" + superscript + "}\\)";
+        });
+    });
+  }
+
   function normalizeGeneratedMath(value) {
-    return String(value || "")
-      .replace(/\r\n?/g, "\n")
+    return wrapBareMathTokens(
+      repairGeneratedMathDelimiters(value)
+        .replace(/\r\n?/g, "\n")
       .replace(/\\\\/g, "\\")
       .replace(/^\s*```(?:latex|tex)?\s*$/gim, "")
       .replace(/^\s*```\s*$/gm, "")
@@ -172,7 +287,8 @@
       })
       .join("\n")
       .replace(/\n{3,}/g, "\n\n")
-      .trim();
+      .trim()
+    );
   }
 
   function latexifySnippet(snippet) {
@@ -327,6 +443,16 @@
     flushParagraph();
     flushDisplay();
     return blocks;
+  }
+
+  function normalizeExercisePayload(data) {
+    const payload = data || {};
+    return {
+      ...payload,
+      title: normalizeGeneratedMath(payload.title || "Exercício").replace(/\s+/g, " ").trim() || "Exercício",
+      statement: normalizeGeneratedMath(payload.statement || ""),
+      solution: normalizeGeneratedMath(payload.solution || "")
+    };
   }
 
   function formatGeneratedText(value) {
@@ -954,28 +1080,30 @@
         );
       }
 
+      const cleanData = normalizeExercisePayload(data);
+
       outputTitle.innerHTML = `
         <i class="fa-solid fa-circle-question"></i>
-        <span class="termo-exercise__generated-title">${escapeHtml(data.title || "Exercício")}</span>
-        ${data.exerciseId ? `<span class="termo-exercise__id-chip">${escapeHtml(data.exerciseId)}</span>` : ""}
+        <span class="termo-exercise__generated-title">${escapeHtml(cleanData.title || "Exercício")}</span>
+        ${cleanData.exerciseId ? `<span class="termo-exercise__id-chip">${escapeHtml(cleanData.exerciseId)}</span>` : ""}
       `;
       output.classList.remove("termo-exercise__placeholder");
-      output.innerHTML = formatGeneratedText(data.statement || "A API não retornou um enunciado.");
+      output.innerHTML = formatGeneratedText(cleanData.statement || "A API não retornou um enunciado.");
 
       solution.classList.remove("termo-exercise__placeholder");
-      solution.innerHTML = formatGeneratedText(data.solution || "A API não retornou uma solução.");
+      solution.innerHTML = formatGeneratedText(cleanData.solution || "A API não retornou uma solução.");
 
       await typesetMath([output, solution]);
-      toggleBtn.disabled = !(data.solution || "").trim();
+      toggleBtn.disabled = !(cleanData.solution || "").trim();
       hostState.exercise = {
-        title: data.title || "Exercício",
-        exerciseId: data.exerciseId || "",
-        statement: data.statement || "",
-        solution: data.solution || "",
+        title: cleanData.title || "Exercício",
+        exerciseId: cleanData.exerciseId || "",
+        statement: cleanData.statement || "",
+        solution: cleanData.solution || "",
         difficulty: difficulty.value,
         context: ctx
       };
-      hostState.saveResult = await persistExercise(host, buildExerciseRecord(ctx, data, difficulty.value));
+      hostState.saveResult = await persistExercise(host, buildExerciseRecord(ctx, cleanData, difficulty.value));
       if (hostState.canValidate && Number(data.validationMemoryCount || 0) > 0) {
         setMemoryStatus(
           host,
@@ -1069,6 +1197,7 @@
     mount,
     autoMount,
     formatGeneratedText,
+    normalizeExercisePayload,
     normalizeGeneratedMath
   };
 

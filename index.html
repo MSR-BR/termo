@@ -1568,7 +1568,15 @@
       line-height: 1.65;
     }
 
-    .exercise-modal__content mjx-container {
+    .exercise-modal__content mjx-container:not([display="true"]) {
+      display: inline-block;
+      max-width: 100%;
+      overflow: visible;
+      vertical-align: baseline;
+    }
+
+    .exercise-modal__content mjx-container[display="true"] {
+      display: block;
       max-width: 100%;
       overflow-x: auto;
       overflow-y: hidden;
@@ -1667,8 +1675,17 @@
       line-height: 1.65;
     }
 
-    .saved-card__statement mjx-container,
-    .saved-card__solution mjx-container {
+    .saved-card__statement mjx-container:not([display="true"]),
+    .saved-card__solution mjx-container:not([display="true"]) {
+      display: inline-block;
+      max-width: 100%;
+      overflow: visible;
+      vertical-align: baseline;
+    }
+
+    .saved-card__statement mjx-container[display="true"],
+    .saved-card__solution mjx-container[display="true"] {
+      display: block;
       max-width: 100%;
       overflow-x: auto;
       overflow-y: hidden;
@@ -1844,7 +1861,15 @@
       font-size: 1em;
     }
 
-    .validation-review-card__content mjx-container {
+    .validation-review-card__content mjx-container:not([display="true"]) {
+      display: inline-block;
+      max-width: 100%;
+      overflow: visible;
+      vertical-align: baseline;
+    }
+
+    .validation-review-card__content mjx-container[display="true"] {
+      display: block;
       max-width: 100%;
       overflow-x: auto;
       overflow-y: hidden;
