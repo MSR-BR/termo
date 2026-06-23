@@ -7,6 +7,15 @@
     /(?:\\[A-Za-z]+|[A-Za-z]_[A-Za-z0-9]+|[A-Za-z]\^[A-Za-z0-9]+|\b(?:sum|ln|exp|lim|frac|partial|sin|cos|tan|sinh|cosh)\b|[=+\-*/^_]|[Σ∑∂ΔΩβλμ→≤≥±≠∞])/;
   const DEFAULT_VALIDATOR_EMAILS = ["marioreis@id.uff.br"];
 
+  function sanitizeGeneratedExerciseText(value) {
+    return String(value || "")
+      .replace(/\b(?:conforme|como)\s+(?:estudado|apresentado|descrito|discutido)\s+(?:pelo|por)\s+(?:o\s+)?(?:prof\.?|professor)\s+mario\s+reis,?\s*/gi, "")
+      .replace(/\b(?:segundo|de acordo com)\s+(?:o\s+)?(?:prof\.?|professor)\s+mario\s+reis,?\s*/gi, "")
+      .replace(/\b(?:prof\.?|professor)\s+mario\s+reis\b/gi, "este material")
+      .replace(/\bmario\s+reis\b/gi, "este material")
+      .replace(/(^|[.!?] +)([a-zà-ÿ])/g, (_match, lead, letter) => lead + letter.toUpperCase());
+  }
+
   function getCurrentPageReference() {
     return `${window.location.pathname}${window.location.search}${window.location.hash}` || "/";
   }
@@ -250,21 +259,42 @@
     });
   }
 
-  function wrapBareMathTokens(value) {
+  function wrapBareLatexExpressions(value) {
+    const latexCommand = /\\(?:left|right|frac|partial|kappa|lambda|mu|Delta|Omega|sum|int|sqrt|cdot|text|mathrm|to|rightarrow|le|ge|neq|infty|varepsilon|epsilon|beta|gamma|theta|Theta|Phi|phi|alpha|sigma|rho|ln|exp)(?![A-Za-z])/;
+    const latexRun = /(^|[^A-Za-zÀ-ÿ\\])((?:(?:\\(?:text|mathrm)\s*\{[^}]*\})|(?:\\[A-Za-z]+)|(?:[A-Za-z](?![A-Za-zÀ-ÿ]))|(?:\d+(?:\.\d+)?)|[\s_{}()[\]=+\-*/<>.,]){4,})(?=$|[^A-Za-zÀ-ÿ])/g;
+
     return replaceOutsideMathSegments(value, function (segment) {
+      return segment.replace(latexRun, function (match, lead, candidate) {
+        if (!latexCommand.test(candidate)) return match;
+        const cleaned = cleanupEquation(candidate);
+        if (!cleaned || !latexCommand.test(cleaned)) return match;
+        return lead + "\\(" + cleaned + "\\)";
+      });
+    });
+  }
+
+  function separateAdjacentMathAndText(value) {
+    return String(value || "")
+      .replace(/(\\\)|\\\])(?=[A-Za-zÀ-ÿ])/g, "$1 ")
+      .replace(/([,.;:])(?=\\\(|\\\[)/g, "$1 ")
+      .replace(/([A-Za-zÀ-ÿ])(?=\\\(|\\\[)/g, "$1 ");
+  }
+
+  function wrapBareMathTokens(value) {
+    return replaceOutsideMathSegments(wrapBareLatexExpressions(value), function (segment) {
       return segment
-        .replace(/(^|[^A-Za-z\\])([A-Za-z])_([A-Za-z0-9]+)\b/g, function (_match, lead, symbol, subscript) {
+        .replace(/(^|[^A-Za-zÀ-ÿ\\])([A-Za-z])_([A-Za-z0-9]+)\b/g, function (_match, lead, symbol, subscript) {
           return lead + "\\(" + symbol + "_{" + subscript + "}\\)";
         })
-        .replace(/(^|[^A-Za-z\\])([A-Za-z])\^([A-Za-z0-9]+)\b/g, function (_match, lead, symbol, superscript) {
+        .replace(/(^|[^A-Za-zÀ-ÿ\\])([A-Za-z])\^([A-Za-z0-9]+)\b/g, function (_match, lead, symbol, superscript) {
           return lead + "\\(" + symbol + "^{" + superscript + "}\\)";
         });
     });
   }
 
   function normalizeGeneratedMath(value) {
-    return wrapBareMathTokens(
-      repairGeneratedMathDelimiters(value)
+    const normalized = wrapBareMathTokens(
+      repairGeneratedMathDelimiters(sanitizeGeneratedExerciseText(value))
         .replace(/\r\n?/g, "\n")
       .replace(/\\\\/g, "\\")
       .replace(/^\s*```(?:latex|tex)?\s*$/gim, "")
@@ -289,6 +319,7 @@
       .replace(/\n{3,}/g, "\n\n")
       .trim()
     );
+    return separateAdjacentMathAndText(normalized);
   }
 
   function latexifySnippet(snippet) {
@@ -325,32 +356,37 @@
   }
 
   function autoFormatPlainMath(paragraph) {
-    if (/\\\(|\\\[/.test(paragraph)) {
-      return paragraph;
-    }
-
     let formatted = paragraph;
 
     formatted = formatted.replace(
-      /\[\s*([^[\]\n]{3,180})\s*\]/g,
+      /\[\s*([^\[\]\n]{3,180})\s*\]/g,
       function (match, snippet) {
         if (!isMathy(snippet)) return match;
-        return `\\(${latexifySnippet(snippet)}\\)`;
+        return "\\(" + latexifySnippet(snippet) + "\\)";
       }
     );
 
     formatted = formatted.replace(
-      /([A-Za-z][A-Za-z0-9']*(?:_[A-Za-z0-9]+)?\s*=\s*[^.,;\n]+)(?=[.,;\n]|$)/g,
+      /\(\s*([A-Za-z](?:_[A-Za-z0-9]+)?)\s*\)/g,
       function (_match, snippet) {
-        return `\\(${latexifySnippet(snippet)}\\)`;
+        return "\\(" + latexifySnippet(snippet) + "\\)";
       }
     );
 
     formatted = formatted.replace(
       /\(([^()]{0,60}[→=][^()]{0,60})\)/g,
       function (_match, snippet) {
-        if (/\\\(|\\\[/.test(snippet)) return `(${snippet})`;
-        return `\\(${latexifySnippet(snippet)}\\)`;
+        if (/\\\(|\\\[/.test(snippet)) return "(" + snippet + ")";
+        return "\\(" + latexifySnippet(snippet) + "\\)";
+      }
+    );
+
+    formatted = formatted.replace(
+      /([A-Za-z][A-Za-z0-9']*(?:_[A-Za-z0-9]+)?\s*=\s*[^.,;()\n]+)(?=[.,;()\n]|$)/g,
+      function (match, snippet, offset, source) {
+        const previous = source.slice(Math.max(0, offset - 2), offset);
+        if (previous === "\\(" || previous === "\\[") return match;
+        return "\\(" + latexifySnippet(snippet) + "\\)";
       }
     );
 
@@ -375,10 +411,11 @@
   }
 
   function renderInlineMarkup(text) {
-    const mathAware = autoFormatPlainMath(text);
-    const protectedText = protectMathSegments(mathAware);
-    const escaped = escapeHtml(protectedText.masked)
-      .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+    const protectedText = protectMathSegments(text);
+    const mathAware = autoFormatPlainMath(protectedText.masked);
+    const escaped = escapeHtml(mathAware)
+      .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+      .replace(/(^|[^\w*])\*([^*\n]+)\*/g, "$1<em>$2</em>");
 
     return restoreMathSegments(escaped, protectedText.tokens);
   }
@@ -916,7 +953,7 @@
       </div>
 
       <div class="termo-exercise__disclaimer">
-        <strong>Aviso importante:</strong> todo o conteúdo didático das páginas e do livro associado foi criado pelo Prof. Mario Reis.
+        <strong>Aviso importante:</strong> todo o conteúdo didático das páginas e do livro associado foi criado pelo autor do material.
         O aplicativo de criação de exercícios é um experimento didático; os exercícios e soluções serão gerados automaticamente por IA e
         <strong>podem conter erros conceituais, matemáticos ou pedagógicos</strong>. Erros detectados devem ser comunicados para
         <a href="mailto:marioreis@id.uff.br">marioreis@id.uff.br</a>.
