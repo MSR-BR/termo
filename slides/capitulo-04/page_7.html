@@ -111,7 +111,11 @@ ponto crítico
 forma reduzida universal
 :</p>
 
-<div class="math-box">\[ \left(p + \frac{3}{v^2}\right)\left(v - \frac{1}{3}\right) = \frac{8t}{3} \]</div>
+<div class="math-box">\[ \left(p + \frac{3}{v^2}\right)\left(v - \frac{1}{3}\right) = \frac{t}{Z_c} \]</div>
+
+<img src="../../assets/images/capitulo-04/equacao-de-estado-reduzida.png" alt="Isotermas da equação de estado reduzida de Van der Waals"/>
+
+<div class="warning"><p>O gráfico mostra a pressão reduzida \(p\) em função do volume reduzido \(v\) para diferentes temperaturas reduzidas \(t\). O ponto crítico está em \((1,1)\); abaixo de \(t=1\), as isotermas cruzam a região delimitada pela curva espinodal tracejada.</p></div>
 
 <p>Esta equação é válida para qualquer fluido que siga o modelo, independentemente de sua natureza química, desde que escalonado por \(P_c, V_c, T_c\).</p>
 </div>
@@ -120,61 +124,19 @@ forma reduzida universal
 
 <section class="card">
 <div class="card-title">
-🌐 Estados Correspondentes
+<i class="fa-solid fa-scale-balanced"></i> Fator de compressibilidade
 </div>
 
 <div class="body-text">
-<p>O
-<div class="highlight">Princípio dos Estados Correspondentes</div>
- afirma que fluidos em mesmos (p, v, t) exibem propriedades similares.</p>
+<p>O fator de compressibilidade \(Z\) quantifica o desvio de um gás real em relação ao comportamento ideal:</p>
 
-<p>O fator de compressibilidade crítico é uma previsão fixa do modelo:</p>
+<div class="math-box">\[ Z = \frac{PV}{nRT}, \qquad Z_c = \frac{P_c V_c}{nRT_c} \]</div>
 
-<div class="math-box">\[ Z_c = \frac{P_c V_c}{nRT_c} = \frac{3}{8} = 0.375 \]</div>
+<p>Para um gás ideal, \(Z = 1\) em qualquer estado. Para fluidos reais, \(Z\) varia com temperatura, pressão e volume, e \(Z_c\) resume o comportamento no ponto crítico.</p>
 
 <p>Desvios experimentais de \(Z_c\) indicam as limitações do modelo em capturar a geometria molecular real.</p>
 </div>
 </section>
-
-<div class="grid">
-<section class="card">
-<div class="card-title">
-<i class="fa-solid fa-scale-balanced"></i> Definição de Zc
-</div>
-
-<div class="body-text">
-<p>O
-<div class="highlight">fator de compressibilidade (Z)</div>
- quantifica o desvio de um gás real em relação ao comportamento ideal. No
-ponto crítico
-, este parâmetro assume um valor específico:</p>
-
-<div class="math-box">\[ Z_c = \frac{P_c V_c}{nRT_c} \]</div>
-
-<p>Para um gás ideal, \( Z = 1 \) em qualquer estado. Para fluidos reais, \( Z_c \) reflete as
-proporções geométricas
- das variáveis de estado críticas.</p>
-</div>
-</section>
-
-<section class="card">
-<div class="card-title green">
-<i class="fa-solid fa-ruler-combined"></i> Previsão de Van der Waals
-</div>
-
-<div class="body-text">
-<p>Substituindo os valores teóricos derivados da equação de estado (\( V_c = 3nb \), \( P_c = a/27b^2 \), \( T_c = 8a/27bR \)):</p>
-
-<div class="math-box green">\[ Z_c = \frac{(a/27b^2)(3nb)}{nR(8a/27bR)} = \frac{3}{8} \]</div>
-
-<p>O valor
-Zc = 0.375
- é uma
-previsão universal
-: independe da natureza química do gás (parâmetros \(a\) e \(b\)).</p>
-</div>
-</section>
-</div>
 
 <section class="card">
 <div class="card-title purple">
@@ -182,17 +144,13 @@ previsão universal
 </div>
 
 <div class="body-text">
-<ul><li>Gases reais apresentam consistentemente
-Zc &lt; 0.375
-.</li>
+<ul><li>Gases reais apresentam valores críticos de \(Z_c\) diferentes do valor previsto pelo modelo de van der Waals.</li>
 
 <li>Exemplos: CO₂ (\( \approx 0.274 \)), H₂O (\( \approx 0.229 \)), Argônio (\( \approx 0.291 \)).</li>
 
-<li>A
-não-universalidade
- de \( Z_c \) indica que o modelo de VdW é uma aproximação de campo médio.</li></ul>
+<li>A não-universalidade de \(Z_c\) indica que o comportamento crítico depende de detalhes moleculares além da aproximação de campo médio.</li></ul>
 
-<p>A falha quantitativa decorre da simplificação das forças intermoleculares e da forma esférica das moléculas.</p>
+<p>A falha quantitativa decorre da simplificação das forças intermoleculares e da geometria efetiva das moléculas.</p>
 </div>
 </section>
 
