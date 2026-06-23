@@ -491,6 +491,38 @@
       padding-left: 7px;
     }
 
+    .chapter-button.is-disabled,
+    .chapter-button:disabled,
+    .chapter-button[aria-disabled="true"] {
+      background: #F1F3F5;
+      border-color: #E0E6EF;
+      color: #8793A4;
+      cursor: not-allowed;
+      opacity: 0.82;
+      box-shadow: none;
+    }
+
+    .chapter-button.is-disabled .chapter-number,
+    .chapter-button:disabled .chapter-number,
+    .chapter-button[aria-disabled="true"] .chapter-number {
+      color: #9AA5B4;
+    }
+
+    .chapter-button.is-disabled .chapter-name,
+    .chapter-button:disabled .chapter-name,
+    .chapter-button[aria-disabled="true"] .chapter-name {
+      color: #7E8999;
+    }
+
+    .chapter-status {
+      display: block;
+      margin-top: 2px;
+      color: #9AA5B4;
+      font-size: 11.5px;
+      font-weight: 600;
+      line-height: 1.25;
+    }
+
     .chapter-button:focus,
     .chapter-button:focus-visible {
       outline: none;
@@ -801,7 +833,7 @@
         border-color: #C5D8F5;
       }
 
-      .chapter-button:hover {
+      .chapter-button:hover:not(.is-disabled):not(:disabled):not([aria-disabled="true"]) {
         background: var(--blue-soft);
         border-color: #C5D8F5;
       }
@@ -2381,15 +2413,15 @@
                     </a>
                   </li>
                   <li>
-                    <a class="chapter-button" href="index.html?view=chapters&chapter=05">
+                    <a class="chapter-button is-disabled" aria-disabled="true" tabindex="-1" title="Capítulo em preparo">
                       <span class="chapter-number">05</span>
-                      <span class="chapter-name">Processos Termodinâmicos</span>
+                      <span class="chapter-name">Processos Termodinâmicos<span class="chapter-status">Em preparo</span></span>
                     </a>
                   </li>
                   <li>
-                    <a class="chapter-button" href="index.html?view=chapters&chapter=06">
+                    <a class="chapter-button is-disabled" aria-disabled="true" tabindex="-1" title="Capítulo em preparo">
                       <span class="chapter-number">06</span>
-                      <span class="chapter-name">Ciclos Termodinâmicos</span>
+                      <span class="chapter-name">Ciclos Termodinâmicos<span class="chapter-status">Em preparo</span></span>
                     </a>
                   </li>
                 </ul>
@@ -2874,8 +2906,8 @@
       { id: "02", title: "Potenciais Termodinâmicos e Aplicações", summary: "Energia livre, entalpia, transformações de Legendre e respostas físicas.", data: "data/capitulo-02.json" },
       { id: "03", title: "Termodinâmica Estatística", summary: "Entropia, ensembles, gases ideais e exemplos clássicos e quânticos.", data: "data/capitulo-03.json" },
       { id: "04", title: "Transições de Fase", summary: "Mudanças de fase, estabilidade, coexistência e comportamento crítico.", data: "data/capitulo-04.json" },
-      { id: "05", title: "Processos Termodinâmicos", summary: "Caminhos entre estados, trocas de calor e trabalho em processos variados.", data: "data/capitulo-05.json" },
-      { id: "06", title: "Ciclos Termodinâmicos", summary: "Máquinas térmicas, eficiência, refrigeradores e ciclos clássicos.", data: "data/capitulo-06.json" }
+      { id: "05", title: "Processos Termodinâmicos", summary: "Caminhos entre estados, trocas de calor e trabalho em processos variados.", data: "data/capitulo-05.json", disabled: true, disabledNote: "Em preparo" },
+      { id: "06", title: "Ciclos Termodinâmicos", summary: "Máquinas térmicas, eficiência, refrigeradores e ciclos clássicos.", data: "data/capitulo-06.json", disabled: true, disabledNote: "Em preparo" }
     ];
 
     const embeddedChapterData = {
@@ -3439,17 +3471,26 @@
       chapters.forEach((chapter) => {
         const li = document.createElement("li");
         const button = document.createElement("button");
-        button.className = "chapter-button";
+        const isDisabled = Boolean(chapter.disabled);
+        const disabledNote = chapter.disabledNote || "Em preparo";
+        button.className = `chapter-button${isDisabled ? " is-disabled" : ""}`;
         button.type = "button";
         button.dataset.chapterId = chapter.id;
+        if (isDisabled) {
+          button.disabled = true;
+          button.setAttribute("aria-disabled", "true");
+          button.title = disabledNote;
+        }
         button.innerHTML = `
           <span class="chapter-number">${chapter.id}</span>
-          <span class="chapter-name">${chapter.title}</span>
+          <span class="chapter-name">${chapter.title}${isDisabled ? `<span class="chapter-status">${disabledNote}</span>` : ""}</span>
         `;
-        button.addEventListener("click", function () {
-          closeDrawer();
-          void activateView("chapters", chapter.id);
-        });
+        if (!isDisabled) {
+          button.addEventListener("click", function () {
+            closeDrawer();
+            void activateView("chapters", chapter.id);
+          });
+        }
         li.appendChild(button);
         chapterList.appendChild(li);
       });
