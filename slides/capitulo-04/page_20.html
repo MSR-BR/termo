@@ -52,6 +52,34 @@ window.MathJax = {
 <meta name="twitter:description" content="Resposta volumétrica à pressão, divergência no ponto crítico e interpretação da compressibilidade isotérmica. Material interativo do livro Termodinâmica para Estudantes..."/>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Compressibilidade Isotérmica | Capítulo 4 | Termodinâmica para Estudantes de Física","description":"Resposta volumétrica à pressão, divergência no ponto crítico e interpretação da compressibilidade isotérmica. Material interativo do livro Termodinâmica para Estudantes...","url":"https://termo-theta.vercel.app/slides/capitulo-04/page_20.html","inLanguage":"pt-BR","isAccessibleForFree":true,"educationalUse":"instruction","learningResourceType":"InteractiveResource","author":{"@type":"Person","name":"Prof. Mario Reis"},"publisher":{"@type":"CollegeOrUniversity","name":"Instituto de Física — Universidade Federal Fluminense"},"isPartOf":{"@type":"Course","name":"Termodinâmica para Estudantes de Física","url":"https://termo-theta.vercel.app/"}}</script>
 <!-- termo-seo:end -->
+<style>
+.chapter-figure{
+  margin:clamp(12px,1.8vw,18px) 0 0;
+}
+
+.chapter-figure img{
+  display:block;
+  width:100%;
+  max-width:920px;
+  margin:0 auto;
+  border:1px solid #DDE6F2;
+  border-radius:8px;
+  background:#FFFFFF;
+}
+
+.figure-caption{
+  margin:clamp(12px,1.8vw,18px) 0 0;
+  padding:clamp(12px,1.8vw,18px);
+  border:1px solid #F1B3AE;
+  border-left:6px solid #B33A3A;
+  border-radius:0 8px 8px 0;
+  background:#FFF7F5;
+  font-family:"Lora",Georgia,serif;
+  font-size:var(--cap2-body);
+  line-height:1.58;
+  color:var(--cap2-text);
+}
+</style>
 </head>
 
 <body>
@@ -87,15 +115,11 @@ Capítulo 4 · Item 4.10
 </div>
 
 <div class="body-text">
-<p>A
-<div class="highlight">compressibilidade isotérmica</div>
- (\(\kappa_T\)) quantifica a resposta relativa do volume frente a variações de pressão a temperatura constante.</p>
+<p>A compressibilidade isotérmica \(\kappa_T\) quantifica a resposta relativa do volume frente a variações de pressão a temperatura constante.</p>
 
 <div class="math-box">\[ \kappa_T = -\frac{1}{V}\left.\frac{\partial V}{\partial P}\right|_T \]</div>
 
-<p>Na forma
-adimensional
- reduzida (\(\bar{\kappa}_t\)):</p>
+<p>Na forma adimensional reduzida, definimos \(\bar{\kappa}_t=P_c\kappa_T\). Para a equação de estado reduzida de van der Waals, após algumas contas algébricas a partir de \(\kappa_T=-V^{-1}(\partial V/\partial P)_T\), obtém-se:</p>
 
 <div class="math-box">\[ \bar{\kappa}_t = \frac{Z_c v^2(3v-1)^2}{3\left[3tv^3 - 2Z_c(3v-1)^2\right]} \]</div>
 </div>
@@ -135,7 +159,10 @@ Conceito
 </div>
 
 <div class="body-text">
+<figure class="chapter-figure">
 <img src="../../assets/images/capitulo-04/compressibilidade-reduzida.jpg" alt="Gráfico de Compressibilidade"/>
+<figcaption class="figure-caption">O gráfico mostra a compressibilidade reduzida \(\bar{\kappa}_t\) ao longo da coexistência líquido-gás para diferentes pressões reduzidas. As linhas pontilhadas indicam as temperaturas espinodais: ao se aproximar desses limites, \(\bar{\kappa}_t\) cresce rapidamente, sinalizando que pequenas variações de pressão produzem grandes variações de volume.</figcaption>
+</figure>
 </div>
 </section>
 

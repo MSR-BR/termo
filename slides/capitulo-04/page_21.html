@@ -52,6 +52,34 @@ window.MathJax = {
 <meta name="twitter:description" content="Coeficiente de expansão térmica, resposta à temperatura e comportamento próximo ao ponto crítico. Material interativo do livro Termodinâmica para Estudantes de Física, c..."/>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Expansão Térmica | Capítulo 4 | Termodinâmica para Estudantes de Física","description":"Coeficiente de expansão térmica, resposta à temperatura e comportamento próximo ao ponto crítico. Material interativo do livro Termodinâmica para Estudantes de Física, c...","url":"https://termo-theta.vercel.app/slides/capitulo-04/page_21.html","inLanguage":"pt-BR","isAccessibleForFree":true,"educationalUse":"instruction","learningResourceType":"InteractiveResource","author":{"@type":"Person","name":"Prof. Mario Reis"},"publisher":{"@type":"CollegeOrUniversity","name":"Instituto de Física — Universidade Federal Fluminense"},"isPartOf":{"@type":"Course","name":"Termodinâmica para Estudantes de Física","url":"https://termo-theta.vercel.app/"}}</script>
 <!-- termo-seo:end -->
+<style>
+.chapter-figure{
+  margin:clamp(12px,1.8vw,18px) 0 0;
+}
+
+.chapter-figure img{
+  display:block;
+  width:100%;
+  max-width:920px;
+  margin:0 auto;
+  border:1px solid #DDE6F2;
+  border-radius:8px;
+  background:#FFFFFF;
+}
+
+.figure-caption{
+  margin:clamp(12px,1.8vw,18px) 0 0;
+  padding:clamp(12px,1.8vw,18px);
+  border:1px solid #F1B3AE;
+  border-left:6px solid #B33A3A;
+  border-radius:0 8px 8px 0;
+  background:#FFF7F5;
+  font-family:"Lora",Georgia,serif;
+  font-size:var(--cap2-body);
+  line-height:1.58;
+  color:var(--cap2-text);
+}
+</style>
 </head>
 
 <body>
@@ -86,13 +114,11 @@ Capítulo 4 · Item 4.11
 </div>
 
 <div class="body-text">
-<p>O coeficiente de
-<div class="highlight">expansão térmica isobárica</div>
- quantifica a variação relativa do volume com a temperatura.</p>
+<p>O coeficiente \(\alpha_P\) quantifica a variação relativa do volume com a temperatura quando a pressão é mantida constante.</p>
 
 <div class="math-box green">\[ \alpha_P = \frac{1}{V}\left.\frac{\partial V}{\partial T}\right|_P \]</div>
 
-<p>Em variáveis reduzidas, utilizando a derivada implícita da equação de estado:</p>
+<p>Em variáveis reduzidas, definimos \(\bar{\alpha}_p=T_c\alpha_P=(1/v)(\partial v/\partial t)_p\). Para a equação de estado reduzida de van der Waals, usando derivação implícita, resulta:</p>
 
 <div class="math-box green">\[ \bar{\alpha}_p = \frac{v^2(3v-1)}{3tv^3 - 2Z_c(3v-1)^2} \]</div>
 
@@ -106,9 +132,10 @@ Capítulo 4 · Item 4.11
 </div>
 
 <div class="body-text">
+<figure class="chapter-figure">
 <img src="../../assets/images/capitulo-04/expansao-termica-reduzida.jpg" alt="Gráfico de expansão térmica reduzida"/>
-
-<p>Figura 16: Expansão térmica \(\bar{\alpha}_p\) em função de \(t\) para pressões \(p &lt; 1\).</p>
+<figcaption class="figure-caption">O gráfico mostra o coeficiente reduzido \(\bar{\alpha}_p\) em função da temperatura reduzida \(t\), para diferentes pressões reduzidas abaixo do ponto crítico. As linhas pontilhadas indicam as temperaturas espinodais; nas proximidades desses limites, a resposta volumétrica ao aquecimento cresce rapidamente.</figcaption>
+</figure>
 
 <p>Observa-se que a
 fase líquida

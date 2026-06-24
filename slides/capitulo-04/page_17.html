@@ -185,73 +185,36 @@ p(t)=p_i\exp\left[
 </div>
 </section>
 
-<div class="grid">
 <section class="card">
 <div class="card-title">
-<i class="fa-solid fa-thermometer"></i> Dados do Sistema
+<i class="fa-solid fa-calculator"></i> Exemplo: Pressão de Vapor da Água
 </div>
 
 <div class="body-text">
-<ul><li>Considere a água ao nível do mar:
-<br/>
+<p><strong>Dados do sistema.</strong> Considere água em equilíbrio líquido-vapor ao nível do mar, com \(T_i=373\,\text{K}\) e \(P_i=1\,\text{atm}\). O calor latente molar de vaporização será tomado como \(\Delta L^{molar}=40{,}7\,\text{kJ/mol}\). Queremos estimar a pressão de vapor a \(T=353\,\text{K}\), isto é, a \(80^\circ\text{C}\).</p>
 
-T
-<sub>i</sub>
- = 373 K (100°C)
-<br/>
+<p><strong>Modelo matemático.</strong> Usamos a forma integrada de Clausius-Clapeyron, válida quando a fase vapor pode ser aproximada por gás ideal e \(\Delta L^{molar}\) varia pouco no intervalo considerado:</p>
 
-P
-<sub>i</sub>
- = 1 atm</li>
+<div class="math-box">\[
+\ln\left(\frac{P}{P_i}\right)
+=
+-\frac{\Delta L^{molar}}{R}
+\left(\frac{1}{T}-\frac{1}{T_i}\right),
+\qquad
+R=8{,}314\,\text{J/(mol K)}.
+\]</div>
 
-<li>Calor latente molar de vaporização:
-<br/>
+<p><strong>Análise e resultado.</strong> Substituindo os valores numéricos, obtemos:</p>
 
-ΔL
-<sup>molar</sup>
- = 40.7 kJ/mol</li>
+<div class="math-box">\[
+\ln\left(\frac{P}{1\,\text{atm}}\right)
+=
+-\frac{40700}{8{,}314}
+\left(\frac{1}{353}-\frac{1}{373}\right)
+\approx -0{,}70.
+\]</div>
 
-<li>Objetivo: Calcular a pressão de vapor
-P
- para a temperatura de
-T = 353 K (80°C)
-.</li></ul>
-</div>
-</section>
-
-<section class="card">
-<div class="card-title">
-<i class="fa-solid fa-calculator"></i> Modelo Matemático
-</div>
-
-<div class="body-text">
-<p>Utilizamos a <strong>equação de Clausius-Clapeyron</strong> integrada sob a aproximação de gás ideal para a fase vapor:</p>
-
-<div class="math-box">\[ \ln\left(\frac{P}{P_i}\right) = -\frac{\Delta L^{molar}}{R}\left(\frac{1}{T} - \frac{1}{T_i}\right) \]</div>
-
-<p>Onde
-R = 8.314 J/(mol·K)
-. Esta relação descreve a dependência exponencial da pressão de equilíbrio com a temperatura.</p>
-</div>
-</section>
-</div>
-
-<section class="card">
-<div class="card-title">
-<i class="fa-solid fa-chart-line"></i> Análise e Resultado
-</div>
-
-<div class="body-text">
-<p>Substituindo os valores numéricos:</p>
-
-<div class="math-box">\[ \ln(P) = -4895.8 \times (1.52 \times 10^{-4}) \]</div>
-
-<ul><li>ln(P/1 atm) ≈ -0.744</li>
-
-<li>\(P \approx e^{-0.744} \approx 0.48\,\text{atm}\)</li>
-
-<li>Conclusão:
- Uma queda de apenas 20°C reduz a pressão de vapor a menos da metade do valor nominal.</li></ul>
+<p>Portanto, \(P\approx e^{-0{,}70}\,\text{atm}\approx 0{,}50\,\text{atm}\). Uma redução de apenas \(20^\circ\text{C}\) já diminui a pressão de vapor da água para cerca de metade do valor em \(100^\circ\text{C}\), ilustrando a forte dependência exponencial prevista pela equação de Clausius-Clapeyron.</p>
 </div>
 </section>
 
