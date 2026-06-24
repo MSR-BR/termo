@@ -52,6 +52,67 @@ window.MathJax = {
 <meta name="twitter:description" content="Critérios de estabilidade e coexistência de fases a partir das energias livres de Helmholtz e Gibbs. Material interativo do livro Termodinâmica para Estudantes de Física..."/>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Energia Livre de Helmholtz e Gibbs | Capítulo 4 | Termodinâmica para Estudantes de Física","description":"Critérios de estabilidade e coexistência de fases a partir das energias livres de Helmholtz e Gibbs. Material interativo do livro Termodinâmica para Estudantes de Física...","url":"https://termo-theta.vercel.app/slides/capitulo-04/page_11.html","inLanguage":"pt-BR","isAccessibleForFree":true,"educationalUse":"instruction","learningResourceType":"InteractiveResource","author":{"@type":"Person","name":"Prof. Mario Reis"},"publisher":{"@type":"CollegeOrUniversity","name":"Instituto de Física — Universidade Federal Fluminense"},"isPartOf":{"@type":"Course","name":"Termodinâmica para Estudantes de Física","url":"https://termo-theta.vercel.app/"}}</script>
 <!-- termo-seo:end -->
+<style>
+.chapter-figure{
+  margin:clamp(12px,1.8vw,18px) 0 0;
+}
+
+.chapter-figure img{
+  display:block;
+  width:100%;
+  max-width:980px;
+  margin:0 auto;
+  border:1px solid #DDE6F2;
+  border-radius:8px;
+  background:#FFFFFF;
+}
+
+.figure-caption{
+  margin:clamp(12px,1.8vw,18px) 0 0;
+  padding:clamp(12px,1.8vw,18px);
+  border:1px solid #F1B3AE;
+  border-left:6px solid #B33A3A;
+  border-radius:0 8px 8px 0;
+  background:#FFF7F5;
+  font-family:"Lora",Georgia,serif;
+  font-size:var(--cap2-body);
+  line-height:1.58;
+  color:var(--cap2-text);
+}
+
+.simulator-callout{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-top:clamp(12px,1.8vw,18px);
+  padding:clamp(12px,1.7vw,16px);
+  border:1px solid #BFD8F8;
+  border-left:6px solid #004B87;
+  border-radius:0 8px 8px 0;
+  background:#F4F8FF;
+}
+
+.simulator-callout p{
+  margin:0!important;
+}
+
+.simulator-link{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  width:fit-content;
+  color:#004B87!important;
+  font-family:"Inter",sans-serif;
+  font-weight:800;
+  text-decoration:none;
+}
+
+.simulator-link:hover{
+  text-decoration:underline;
+}
+</style>
 </head>
 
 <body>
@@ -131,46 +192,64 @@ onde o volume reduzido \( v \) é determinado implicitamente pela pressão \( p 
 .
 </div>
 </section>
+</div>
 
 <section class="card">
-<div class="card-title">
-<i class="fa-solid fa-weight-scale"></i> ⚖️ Estabilidade Global
+<div class="card-title green">
+<i class="fa-solid fa-chart-line"></i> Mínimos de \(g(v)\) e Estados de Equilíbrio
 </div>
 
 <div class="body-text">
-Para um sistema em contato com reservatórios de
-<strong>temperatura</strong>
- e
-<strong>pressão</strong>
-, o estado de equilíbrio estável é o que minimiza a energia livre de Gibbs:
+<p>Para determinar os estados de equilíbrio, é necessário calcular o mínimo da energia livre reduzida \(g(t,p)\) em função do volume reduzido \(v\); isto é, impor \(dg=0\). Assim, a partir da expressão acima, podemos examinar o comportamento de \(g(v)\) para diferentes pressões, em paralelo com a isoterma reduzida \(p(v)\).</p>
 
-<ul><li><strong>Fase Gasosa:</strong>
- Único mínimo em volumes grandes para baixas pressões.</li>
+<p>Em cada curva \(g(v)\), o símbolo \(\times\) marca o(s) volume(s) de equilíbrio associado(s) ao par \((t,p)\). No exemplo abaixo, consideramos \(t=0.9\). Para uma pressão baixa, \(p=0.40\), a equação de estado indica um único volume de equilíbrio em aproximadamente \(v=4.91\). O gráfico de \(g(v)\) exibe um único mínimo nesse volume, confirmando o comportamento de uma fase gasosa de alta compressibilidade.</p>
 
-<li><strong>Fase Líquida:</strong>
- Único mínimo em volumes pequenos para altas pressões.</li>
+<p>Quando aparecem dois mínimos, cada um corresponde a uma fase localmente possível, líquida ou gasosa. O equilíbrio termodinâmico é dado pelo mínimo global de \(g(v)\); na coexistência, os dois mínimos têm o mesmo valor de energia livre.</p>
 
-<li><strong>Metaestabilidade:</strong>
- Surgimento de mínimos secundários locais.</li></ul>
+<div class="simulator-callout">
+<p><strong>Simulador interativo:</strong> varie \(t\), \(p\) e \(v\) para acompanhar como os mínimos de \(g(v)\) aparecem, desaparecem e se igualam na coexistência líquido-gás.</p>
+<a class="simulator-link" href="https://msr-br.github.io/Termodinamica/vdw_pv_gv.html" target="_blank" rel="noopener noreferrer">
+<i class="fa-solid fa-arrow-up-right-from-square"></i>
+Abrir simulador p(v) e g(v)
+</a>
+</div>
 </div>
 </section>
-</div>
 
-<section class="card">
+<section class="card figure-card">
 <div class="card-title">
-<i class="fa-solid fa-star"></i> 🔄 Ponto de Coexistência
+<i class="fa-solid fa-chart-area"></i> Isoterma e Energia Livre Reduzida
 </div>
 
 <div class="body-text">
-A transição de fase ocorre na pressão de equilíbrio
-<strong>\( p_{eq} \)</strong>
-, onde os dois mínimos da energia de Gibbs tornam-se
-<strong>degenerados</strong>
-:
+<figure class="chapter-figure">
+<img src="../../assets/images/capitulo-04/energia-livre-reduzida-gibbs-t09.png" alt="Isoterma reduzida e energia livre de Gibbs para t igual a 0.9"/>
+<figcaption class="figure-caption">O gráfico compara, para \(t=0.9\), a isoterma reduzida \(p(v)\) e a energia livre reduzida \(g(v)\). A curva tracejada indica a espinodal; as curvas destacadas em azul, verde e vermelho correspondem a \(p_{\min}=0.420\), \(p_{eq}=0.647\) e \(p_{\max}=0.724\). Os símbolos \(\times\) marcam os volumes de equilíbrio, isto é, os mínimos de \(g(v)\).</figcaption>
+</figure>
+</div>
+</section>
 
-<div class="math-box">\[ g(t, v_\ell) = g(t, v_g) \]</div>
+<section class="card">
+<div class="card-title">
+<i class="fa-solid fa-layer-group"></i> Metaestabilidade e Coexistência
+</div>
 
- Neste ponto, as fases líquida (\( v_\ell \)) e gasosa (\( v_g \)) possuem o mesmo potencial químico e podem coexistir em equilíbrio térmico, mecânico e químico.
+<div class="body-text">
+<p>À medida que a pressão aumenta, o sistema se aproxima do limite inferior da região de instabilidade mecânica em \(p_{\min}=0.420\). Nesse ponto, o mínimo de energia em grandes volumes coexiste com um ponto de inflexão que surge em volumes menores. Para \(p&gt;p_{\min}\), esse ponto de inflexão transforma-se em um segundo mínimo de energia livre: um associado ao gás, com grande volume \((v_g)\), e outro associado ao líquido, com pequeno volume \((v_\ell)\), separados por uma barreira de energia.</p>
+
+<p>Dentro da região espinodal, \(p_{\min}&lt;p&lt;p_{\max}\), os dois mínimos persistem. Na pressão de equilíbrio \(p_{eq}=0.647\), as energias livres se igualam: o sistema coexiste em duas fases com volumes \(v_\ell \approx 0.603\) (líquido) e \(v_g \approx 2.349\) (gás).</p>
+
+<p>Ao elevar ainda mais a pressão, chega-se ao limite superior da instabilidade mecânica, em \(p_{\max}=0.724\). Nesse ponto, o mínimo associado ao gás torna-se um ponto de inflexão; resta apenas o mínimo em volumes pequenos, característico de uma fase líquida pouco compressível. Para pressões bem acima de \(p_{\max}\), como \(p=0.80\), a equação de estado possui um único volume de equilíbrio em aproximadamente \(v=0.581\), coincidente com o único mínimo de \(g(v)\).</p>
+</div>
+</section>
+
+<section class="card">
+<div class="card-title green">
+<i class="fa-solid fa-check"></i> Síntese Física
+</div>
+
+<div class="body-text">
+<p>A análise pela energia livre mostra que o equilíbrio corresponde sempre ao mínimo global de \(g(v)\), descartando os volumes associados à compressibilidade negativa. Para representar esse comportamento de forma consistente no diagrama \(p(v)\), é necessário um procedimento adicional que leve em conta a coexistência líquido-gás: a construção de Maxwell, tema da próxima subseção.</p>
 </div>
 </section>
 

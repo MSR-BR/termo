@@ -1108,13 +1108,17 @@
 
       const data = await readApiPayload(response);
       if (!response.ok) {
-        throw new Error(
+        const apiError = new Error(
           data?.details?.error?.message ||
           data?.details?.error ||
           data?.details?.message ||
           data?.error ||
           `Erro HTTP ${response.status}`
         );
+        apiError.status = response.status;
+        apiError.reason = data?.reason || "";
+        apiError.payload = data || null;
+        throw apiError;
       }
 
       const cleanData = normalizeExercisePayload(data);
@@ -1153,14 +1157,30 @@
       resetValidationForm(host);
       await refreshValidationVisibility(host);
     } catch (error) {
+      const errorMessage = error && error.message ? error.message : "Falha ao chamar a API de exercícios.";
+      const isTemporaryProviderIssue =
+        error?.status === 429 ||
+        error?.status === 503 ||
+        error?.reason === "gemini_temporarily_unavailable" ||
+        /temporariamente|ocupad|demanda|high demand|try again|rate limit|indispon/i.test(errorMessage);
+      const isConfigurationIssue =
+        /GEMINI_API_KEY|configurad|api\/exercicio\.js|publicado no Vercel/i.test(errorMessage) ||
+        (error?.status >= 500 && !isTemporaryProviderIssue);
+
       outputTitle.innerHTML = `
         <i class="fa-solid fa-triangle-exclamation"></i>
         Não foi possível gerar o exercício
       `;
       output.classList.add("termo-exercise__placeholder");
       output.innerHTML = `
-        <p><strong>Erro retornado:</strong> ${escapeHtml(error && error.message ? error.message : "Falha ao chamar a API de exercícios.")}</p>
-        <p>Verifique se o projeto está publicado no Vercel, se o arquivo <strong>api/exercicio.js</strong> existe e se a variável <strong>GEMINI_API_KEY</strong> foi configurada.</p>
+        <p><strong>Erro retornado:</strong> ${escapeHtml(errorMessage)}</p>
+        ${
+          isTemporaryProviderIssue
+            ? "<p>O servidor já tentou novamente e também testou modelos alternativos. Aguarde alguns segundos e clique em <strong>Novo exercício</strong> outra vez.</p>"
+            : isConfigurationIssue
+              ? "<p>Verifique a publicação no Vercel, o endpoint <strong>api/exercicio.js</strong> e a variável <strong>GEMINI_API_KEY</strong>.</p>"
+              : "<p>Tente novamente. Se o erro persistir, revise a configuração do endpoint de exercícios.</p>"
+        }
       `;
       setSaveStatus(host, "", "");
       setMemoryStatus(host, "", "");
