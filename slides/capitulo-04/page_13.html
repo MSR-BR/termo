@@ -52,6 +52,34 @@ window.MathJax = {
 <meta name="twitter:description" content="Regra das áreas iguais, coexistência líquido-vapor, regra da alavanca e aplicação ao dióxido de carbono. Material interativo do livro Termodinâmica para Estudantes de Fí..."/>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Construção de Maxwell | Capítulo 4 | Termodinâmica para Estudantes de Física","description":"Regra das áreas iguais, coexistência líquido-vapor, regra da alavanca e aplicação ao dióxido de carbono. Material interativo do livro Termodinâmica para Estudantes de Fí...","url":"https://termo-theta.vercel.app/slides/capitulo-04/page_13.html","inLanguage":"pt-BR","isAccessibleForFree":true,"educationalUse":"instruction","learningResourceType":"InteractiveResource","author":{"@type":"Person","name":"Prof. Mario Reis"},"publisher":{"@type":"CollegeOrUniversity","name":"Instituto de Física — Universidade Federal Fluminense"},"isPartOf":{"@type":"Course","name":"Termodinâmica para Estudantes de Física","url":"https://termo-theta.vercel.app/"}}</script>
 <!-- termo-seo:end -->
+<style>
+.chapter-figure{
+  margin:clamp(12px,1.8vw,18px) 0 0;
+}
+
+.chapter-figure img{
+  display:block;
+  width:100%;
+  max-width:900px;
+  margin:0 auto;
+  border:1px solid #DDE6F2;
+  border-radius:8px;
+  background:#FFFFFF;
+}
+
+.figure-caption{
+  margin:clamp(12px,1.8vw,18px) 0 0;
+  padding:clamp(12px,1.8vw,18px);
+  border:1px solid #F1B3AE;
+  border-left:6px solid #B33A3A;
+  border-radius:0 8px 8px 0;
+  background:#FFF7F5;
+  font-family:"Lora",Georgia,serif;
+  font-size:var(--cap2-body);
+  line-height:1.58;
+  color:var(--cap2-text);
+}
+</style>
 </head>
 
 <body>
@@ -116,6 +144,19 @@ Regra das Áreas Iguais
 </div>
 
 <section class="card">
+<div class="card-title green">
+<i class="fa-solid fa-chart-area"></i> Construção de Maxwell no Diagrama \(p(v)\)
+</div>
+
+<div class="body-text">
+<figure class="chapter-figure">
+<img src="../../assets/images/capitulo-04/construcao-maxwell-areas.png" alt="Construção de Maxwell com áreas iguais na isoterma reduzida"/>
+<figcaption class="figure-caption">O gráfico mostra a construção de Maxwell para \(t=0.9\). A reta horizontal em \(p_{eq}\) substitui o trecho instável da isoterma de van der Waals; as áreas coloridas acima e abaixo da reta têm o mesmo módulo. Os volumes \(v_\ell\) e \(v_g\) delimitam as fases líquida e gasosa em coexistência.</figcaption>
+</figure>
+</div>
+</section>
+
+<section class="card">
 <div class="card-title">
 <i class="fas fa-chart-line"></i> Equilíbrio de Gibbs
 </div>
@@ -131,7 +172,6 @@ Regra das Áreas Iguais
 </div>
 </section>
 
-<div class="grid">
 <section class="card">
 <div class="card-title">
 ⚖️ O Patamar de Maxwell
@@ -147,57 +187,25 @@ coexistência líquido-gás, o sistema não segue a isoterma teórica de Van der
 </div>
 </section>
 
-<div class="grid">
 <section class="card">
 <div class="card-title">
-⚖️ Equilíbrio de Fases
+<i class="fa-solid fa-gas-pump"></i> Exemplo: Cilindro de CO₂
 </div>
 
 <div class="body-text">
-<p>Um cilindro comercial de CO₂ armazena o fluido em um estado de
-coexistência líquido-gás
-. Segundo a construção de Maxwell, o sistema reside na reta horizontal do diagrama \(p(v)\).</p>
+<p>Um cilindro comercial de CO₂ armazena o fluido em um estado de coexistência líquido-gás. Segundo a construção de Maxwell, enquanto as duas fases coexistem, o sistema permanece no patamar horizontal do diagrama \(p(v)\).</p>
 
 <div class="math-box">\[ P_{cil} = P_{eq}(T) = \text{const.} \]</div>
 
-<p>Enquanto houver as duas fases presentes, a pressão interna depende unicamente da temperatura, não do volume total ou da quantidade de massa.</p>
-</div>
-</section>
-
-<section class="card">
-<div class="card-title">
-🔄 Processo de Exaustão
-</div>
-
-<div class="body-text">
-<p>Ao liberar gás pela válvula, a densidade média diminui. Para manter o
-equilíbrio termodinâmico
- (\(g_l = g_g\)), parte do líquido evapora instantaneamente.</p>
+<p>Ao liberar gás pela válvula, a densidade média diminui. Para manter o equilíbrio termodinâmico \((g_\ell = g_g)\), parte do líquido evapora instantaneamente, e a fração gasosa \(x_g\) aumenta gradualmente.</p>
 
 <div class="math-box">\[ v = x_g v_g + (1 - x_g) v_\ell \]</div>
 
-<p>A
-fração gasosa \(x_g\)
- aumenta gradualmente. O sistema percorre a reta de Maxwell da esquerda para a direita, mantendo a pressão \(P_{eq}\) constante.</p>
-</div>
-</section>
-</div>
-
-<section class="card">
-<div class="card-title">
-📐 Esgotamento do Líquido
-</div>
-
-<div class="body-text">
-<p>A pressão só começa a cair quando
-todo o líquido se esgota
- (\(x_g \to 1\)). Nesse ponto, o sistema sai da região de coexistência.</p>
+<p>Assim, o sistema percorre a reta de Maxwell da esquerda para a direita, mantendo a pressão \(P_{eq}\) constante. A pressão só começa a cair quando todo o líquido se esgota \((x_g \to 1)\); nesse ponto, o fluido sai da região de coexistência e entra na fase de vapor superaquecido.</p>
 
 <div class="math-box">\[ P \approx \frac{nRT}{V - nb} - a\frac{n^2}{V^2} \]</div>
 
-<p>O fluido entra na fase de
-vapor superaquecido
- (gás puro). A partir daqui, qualquer expansão adicional resulta em uma queda brusca de pressão seguindo a isoterma de Van der Waals estável.</p>
+<p>A partir daí, qualquer expansão adicional reduz a pressão seguindo o ramo estável da isoterma de van der Waals.</p>
 </div>
 </section>
 
