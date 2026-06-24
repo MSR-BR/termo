@@ -52,6 +52,34 @@ window.MathJax = {
 <meta name="twitter:description" content="Estados metaestáveis, nucleação e limites de estabilidade em transições de fase. Material interativo do livro Termodinâmica para Estudantes de Física, com autoria didáti..."/>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Superaquecimento e Super-resfriamento | Capítulo 4 | Termodinâmica para Estudantes de Física","description":"Estados metaestáveis, nucleação e limites de estabilidade em transições de fase. Material interativo do livro Termodinâmica para Estudantes de Física, com autoria didáti...","url":"https://termo-theta.vercel.app/slides/capitulo-04/page_16.html","inLanguage":"pt-BR","isAccessibleForFree":true,"educationalUse":"instruction","learningResourceType":"InteractiveResource","author":{"@type":"Person","name":"Prof. Mario Reis"},"publisher":{"@type":"CollegeOrUniversity","name":"Instituto de Física — Universidade Federal Fluminense"},"isPartOf":{"@type":"Course","name":"Termodinâmica para Estudantes de Física","url":"https://termo-theta.vercel.app/"}}</script>
 <!-- termo-seo:end -->
+<style>
+.chapter-figure{
+  margin:clamp(12px,1.8vw,18px) 0 0;
+}
+
+.chapter-figure img{
+  display:block;
+  width:100%;
+  max-width:920px;
+  margin:0 auto;
+  border:1px solid #DDE6F2;
+  border-radius:8px;
+  background:#FFFFFF;
+}
+
+.figure-caption{
+  margin:clamp(12px,1.8vw,18px) 0 0;
+  padding:clamp(12px,1.8vw,18px);
+  border:1px solid #F1B3AE;
+  border-left:6px solid #B33A3A;
+  border-radius:0 8px 8px 0;
+  background:#FFF7F5;
+  font-family:"Lora",Georgia,serif;
+  font-size:var(--cap2-body);
+  line-height:1.58;
+  color:var(--cap2-text);
+}
+</style>
 </head>
 
 <body>
@@ -80,77 +108,60 @@ Capítulo 4 · Item 4.8
 </div>
 </section>
 
-<div class="grid">
 <section class="card">
 <div class="card-title">
-🌀 Natureza da Metaestabilidade
+<i class="fa-solid fa-chart-line"></i> Diagrama \(p(t)\) e Curvas de Estabilidade
 </div>
 
 <div class="body-text">
-<p>Estados localizados entre a
-<strong>curva de coexistência</strong>
- (Maxwell) e a
-<strong>curva espinodal</strong>
- são termodinamicamente
-metaestáveis
-.</p>
+<p>No plano das variáveis reduzidas, a linha de coexistência \(p_{eq}(t)\) separa os estados de equilíbrio líquido e gasoso. Ela é obtida pela construção de Maxwell, isto é, pela condição de igualdade do potencial de Gibbs molar nas duas fases.</p>
 
-<ul><li>O sistema é estável frente a pequenas flutuações locais (\(\kappa_T &gt; 0\)).</li>
+<p>As curvas espinodais delimitam o fim da estabilidade local. Elas correspondem aos pontos extremos da isoterma \(p(v,t)\), onde a compressibilidade isotérmica diverge e a fase homogênea deixa de ser mecanicamente sustentável.</p>
 
-<li>O equilíbrio global exige a separação de fases para minimizar a energia livre.</li>
+<div class="math-box">\[
+\left(\frac{\partial p}{\partial v}\right)_t = 0,
+\qquad
+p_{\min}=p(v_{\min},t),
+\qquad
+p_{\max}=p(v_{\max},t).
+\]</div>
 
-<li>A transição é impedida pela barreira energética de
-<strong>nucleação</strong>
-.</li></ul>
-
-<div class="math-box">\[ \Delta G_{\text{global}} &lt; 0 \quad \text{mas} \quad \delta^2 G &gt; 0 \]</div>
+<figure class="chapter-figure">
+<img src="../../assets/images/capitulo-04/diagrama-fases-pt-vdw.png" alt="Diagrama de fases reduzido com linha de coexistência e curvas espinodais"/>
+<figcaption class="figure-caption">O diagrama mostra a curva de coexistência líquido-gás no plano \(p(t)\) e os dois ramos espinodais do modelo de van der Waals. Entre a coexistência e a espinodal, o sistema ainda pode permanecer em uma fase homogênea por um intervalo finito, mas esse estado é metaestável: existe uma fase ou mistura de fases com menor energia livre.</figcaption>
+</figure>
 </div>
 </section>
 
 <section class="card">
 <div class="card-title">
-🌡️ Superaquecimento do Líquido
+<i class="fa-solid fa-circle-nodes"></i> Região Metaestável
 </div>
 
 <div class="body-text">
-<p>Ocorre quando um líquido é aquecido acima de sua
-temperatura de ebulição
- sem que a fase vapor se forme.</p>
+<p>Na faixa situada entre a linha de coexistência e a curva espinodal, o estado homogêneo não é o equilíbrio global, mas ainda resiste a pequenas flutuações. A transição para a fase estável exige a formação de um núcleo suficientemente grande para vencer a barreira de energia livre.</p>
 
-<ul><li>Ausência de superfícies rugosas ou impurezas impede a formação de bolhas.</li>
+<p>Por isso, a metaestabilidade não contradiz a termodinâmica: ela indica que o sistema está preso em um mínimo local de energia livre. O mínimo global corresponderia à fase alternativa, ou à coexistência líquido-gás, mas a passagem até ele depende de nucleação.</p>
 
-<li>O sistema segue o ramo líquido da isoterma de Van der Waals além da reta de Maxwell.</li>
-
-<li>Fenômeno comum em laboratório conhecido como
-<strong>"bumping"</strong>
-.</li></ul>
-
-<div class="math-box">\( T &gt; T_{eq}(P) \quad \text{em fase líquida} \)</div>
+<div class="math-box">\[
+\Delta G_{\text{global}} &lt; 0,
+\qquad
+\delta^2G_{\text{local}} &gt; 0.
+\]</div>
 </div>
 </section>
-</div>
 
 <section class="card">
 <div class="card-title">
-❄️ Super-resfriamento do Vapor
+<i class="fa-solid fa-temperature-arrow-up"></i> Superaquecimento e Super-resfriamento
 </div>
 
 <div class="body-text">
-<p>O vapor permanece em fase única mesmo abaixo da
-<div class="highlight">temperatura de condensação</div>
-, mantendo-se como gás metaestável.</p>
+<p>Considere um sistema inicialmente líquido, aquecido a pressão constante. Ao cruzar a linha de coexistência, a vaporização deveria ocorrer no equilíbrio. Se não houver centros de nucleação, porém, o líquido pode permanecer como fase única além dessa linha, entrando no ramo líquido metaestável.</p>
 
-<ul><li>Fundamental para a formação de gotículas em nuvens sub-resfriadas.</li>
+<p>Esse regime é o <strong>superaquecimento do líquido</strong>. Ele termina quando o sistema alcança a espinodal correspondente: nesse limite a barreira de nucleação desaparece, as flutuações crescem espontaneamente e a fase homogênea colapsa.</p>
 
-<li>Base do funcionamento da
-<strong>Câmara de Wilson</strong>
- para detecção de partículas ionizantes.</li>
-
-<li>Ao atingir a
-<strong>curva espinodal</strong>
-, a instabilidade torna-se absoluta e a fase colapsa.</li></ul>
-
-<div class="math-box">\[ p_{\text{espinodal}} = \frac{3v - 2}{v^3} \]</div>
+<p>De modo análogo, ao resfriar um gás, a condensação pode ser atrasada. O gás atravessa a linha de coexistência sem formar líquido e permanece no ramo gasoso metaestável até atingir a espinodal oposta. Esse comportamento caracteriza o <strong>super-resfriamento do gás</strong>.</p>
 </div>
 </section>
 

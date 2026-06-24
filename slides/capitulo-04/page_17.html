@@ -87,18 +87,17 @@ Capítulo 4 · Item 4.9
 </div>
 
 <div class="body-text">
-<p>Na linha de coexistência, as energias livres de Gibbs reduzidas devem ser iguais:
-g
-<sub>g</sub>
- = g
-<sub>ℓ</sub>
-. Para variações infinitesimais ao longo da curva:</p>
+<p>Na linha de coexistência, as fases líquida e gasosa têm o mesmo potencial de Gibbs molar reduzido. Ao deslocar-se infinitesimalmente sobre essa curva, as duas fases devem continuar satisfazendo a mesma condição de equilíbrio.</p>
 
-<div class="math-box green">\[ dg_{\ell} = dg_{g} \]</div>
+<div class="math-box green">\[
+g_g=g_\ell
+\quad \Rightarrow \quad
+dg_g=dg_\ell,
+\qquad
+dg=-s\,dt+Z_c\,v\,dp.
+\]</div>
 
-<p>Utilizando a diferencial
-dg = -s dt + Z_c v dp
-, obtemos a relação fundamental entre entropia e volume:</p>
+<p>Aplicando a mesma diferencial às duas fases, obtemos a relação fundamental entre salto entrópico, salto volumétrico e inclinação da curva de coexistência:</p>
 
 <div class="math-box green">\[ (s_g - s_\ell) dt = Z_c (v_g - v_\ell) dp \]</div>
 </div>
@@ -129,11 +128,12 @@ calor latente reduzido
 </div>
 
 <div class="body-text">
-<p>Combinando as expressões anteriores, derivamos a
-<div class="highlight">equação de Clausius-Clapeyron</div>
- em variáveis reduzidas:</p>
+<p>Combinando as expressões anteriores, derivamos a <strong>equação de Clausius-Clapeyron</strong> em variáveis reduzidas:</p>
 
-<div class="math-box green">\[ \frac{dp}{dt} = \frac{\Delta\bar{\ell}^{molar}}{Z_c t (v_g - v_\ell)} \]</div>
+<p>\[
+\frac{dp}{dt} =
+\frac{\Delta\bar{\ell}^{molar}}{Z_c\,t\,(v_g-v_\ell)}.
+\]</p>
 
 <ul><li><b>dp/dt</b>
 : Inclinação da curva de coexistência.</li>
@@ -146,61 +146,42 @@ calor latente reduzido
 </div>
 </section>
 
-<div class="grid">
 <section class="card">
 <div class="card-title">
-<i class="fas fa-ruler-combined"></i> Hipóteses Fundamentais
+<i class="fas fa-ruler-combined"></i> Exemplo: Forma Integrada de Clausius-Clapeyron
 </div>
 
 <div class="body-text">
-<p>Para situações
-distantes do ponto crítico
-, o volume da fase gasosa domina o sistema:</p>
+<p>Para obter uma forma simples da equação de Clausius-Clapeyron, consideramos uma região distante do ponto crítico, onde o volume molar do gás é muito maior que o volume molar do líquido:</p>
 
-<ul><li>\( v_g \gg v_\ell \): O volume líquido torna-se desprezível.</li>
+<ul><li>\(v_g \gg v_\ell\), de modo que \(v_g-v_\ell \approx v_g\).</li>
 
-<li>Tratamento do vapor como
-gás ideal
-.</li></ul>
+<li>A fase gasosa é aproximada por um gás ideal na forma reduzida.</li>
+
+<li>O calor latente reduzido molar é tomado aproximadamente constante no intervalo de temperaturas analisado.</li></ul>
 
 <div class="math-box">\[ v_g \approx \frac{t}{Z_c p} \]</div>
-</div>
-</section>
 
-<section class="card">
-<div class="card-title green">
-<i class="fas fa-bolt"></i> Derivação Matemática
-</div>
+<p>Substituindo essa aproximação na equação diferencial, obtemos:</p>
 
-<div class="body-text">
-<p>Substituindo \( v_g \) na equação de
-Clausius-Clapeyron
- reduzida:</p>
+<div class="math-box">\[
+\frac{dp}{p}
+=
+\Delta\bar{\ell}^{molar}\frac{dt}{t^2}.
+\]</div>
 
-<div class="math-box green">\[ \frac{dp}{p} = \Delta\bar{\ell}^{molar} \frac{dt}{t^2} \]</div>
+<p>Integrando entre um estado de referência \((t_i,p_i)\) e um estado genérico \((t,p)\), resulta:</p>
 
-<p>Integrando ambos os lados entre um estado de referência \( (t_i, p_i) \) e um estado genérico \( (t, p) \).</p>
-</div>
-</section>
-</div>
+<div class="math-box">\[
+p(t)=p_i\exp\left[
+-\Delta\bar{\ell}^{molar}
+\left(\frac{1}{t}-\frac{1}{t_i}\right)
+\right].
+\]</div>
 
-<section class="card">
-<div class="card-title purple">
-<i class="fas fa-chart-line"></i> Resultado e Validade
-</div>
+<p>Fisicamente, esse resultado mostra que a pressão de vapor é extremamente sensível à temperatura: uma pequena variação em \(1/t\) produz uma mudança exponencial em \(p\). Quanto maior o calor latente, maior é o custo energético para transferir moléculas para a fase vapor e mais rapidamente a pressão de vapor diminui ao reduzir a temperatura.</p>
 
-<div class="body-text">
-<p>A pressão de vapor exibe um
-crescimento exponencial
- com o inverso da temperatura:</p>
-
-<div class="math-box purple">\[ p(t) = p_i \exp\left[-\Delta\bar{\ell}^{molar}\left(\frac{1}{t} - \frac{1}{t_i}\right)\right] \]</div>
-
-<p><i class="fa-solid fa-triangle-exclamation"></i>
-
- Esta aproximação
-falha próximo ao ponto crítico
-, onde \( v_g \to v_\ell \).</p>
+<p><i class="fa-solid fa-triangle-exclamation"></i> A aproximação falha perto do ponto crítico, onde \(v_g\) deixa de ser muito maior que \(v_\ell\), e também perde precisão quando \(\Delta\bar{\ell}^{molar}\) varia de forma significativa com a temperatura.</p>
 </div>
 </section>
 
@@ -244,9 +225,7 @@ T = 353 K (80°C)
 </div>
 
 <div class="body-text">
-<p>Utilizamos a
-<div class="highlight">Equação de Clausius-Clapeyron</div>
- integrada sob a aproximação de gás ideal para a fase vapor:</p>
+<p>Utilizamos a <strong>equação de Clausius-Clapeyron</strong> integrada sob a aproximação de gás ideal para a fase vapor:</p>
 
 <div class="math-box">\[ \ln\left(\frac{P}{P_i}\right) = -\frac{\Delta L^{molar}}{R}\left(\frac{1}{T} - \frac{1}{T_i}\right) \]</div>
 
@@ -269,7 +248,7 @@ R = 8.314 J/(mol·K)
 
 <ul><li>ln(P/1 atm) ≈ -0.744</li>
 
-<li><div class="highlight">P ≈ e^{-0.744} ≈ 0.48 atm</div></li>
+<li>\(P \approx e^{-0.744} \approx 0.48\,\text{atm}\)</li>
 
 <li>Conclusão:
  Uma queda de apenas 20°C reduz a pressão de vapor a menos da metade do valor nominal.</li></ul>
