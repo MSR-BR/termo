@@ -983,6 +983,7 @@
   function restoreBookButton(button) {
     if (!button) return;
 
+    const originalHtml = button.getAttribute("data-termo-book-original-label") || button.innerHTML || BOOK_BUTTON_DEFAULT_HTML;
     window.clearTimeout(Number(button.getAttribute("data-termo-book-feedback-timer") || 0));
     button.removeAttribute("data-termo-book-feedback-timer");
     button.removeAttribute("data-termo-book-original-label");
@@ -992,7 +993,7 @@
     button.classList.add("termo-book-trigger");
     button.setAttribute("data-termo-book-button", "true");
     button.setAttribute("aria-label", "Baixar PDF do livro em elaboração");
-    button.innerHTML = BOOK_BUTTON_DEFAULT_HTML;
+    button.innerHTML = originalHtml;
   }
 
   function writePendingBookDownload(value) {
@@ -1018,11 +1019,12 @@
 
   function setBookButtonFeedback(button, label, iconClass, durationMs) {
     if (!button) return;
-    button.setAttribute("data-termo-book-original-label", BOOK_BUTTON_DEFAULT_HTML);
+    const originalHtml = button.getAttribute("data-termo-book-original-label") || button.innerHTML || BOOK_BUTTON_DEFAULT_HTML;
+    button.setAttribute("data-termo-book-original-label", originalHtml);
     button.innerHTML = `<i class="fa-solid ${iconClass || "fa-file-pdf"}"></i><span>${escapeHtml(label)}</span>`;
     window.clearTimeout(Number(button.getAttribute("data-termo-book-feedback-timer") || 0));
     button.setAttribute("data-termo-book-feedback-timer", String(window.setTimeout(function () {
-      button.innerHTML = BOOK_BUTTON_DEFAULT_HTML;
+      restoreBookButton(button);
     }, durationMs || 1800)));
   }
 
@@ -1121,12 +1123,15 @@
   function openSignedPdfUrl(url, filename) {
     const link = document.createElement("a");
     link.href = url;
-    link.target = "_blank";
-    link.rel = "noopener noreferrer";
     link.download = filename || BOOK_DEFAULT_FILENAME;
     document.body.appendChild(link);
     link.click();
     link.remove();
+  }
+
+  function showBookDownloadError(error) {
+    const message = error?.message || "Nao foi possivel preparar o download do PDF.";
+    window.alert(message);
   }
 
   async function downloadBookPdf(button) {
@@ -1178,7 +1183,9 @@
       }
 
       if (!response.ok || !payload?.url) {
-        throw new Error(payload?.error || "download_unavailable");
+        const message = payload?.error || "Nao foi possivel preparar o download do PDF.";
+        const details = payload?.details ? `\n\n${payload.details}` : "";
+        throw new Error(`${message}${details}`);
       }
 
       writePendingBookDownload(false);
@@ -1186,9 +1193,10 @@
       setBookButtonFeedback(activeButton, "Abrindo PDF", "fa-file-arrow-down", 1800);
     } catch (_error) {
       setBookButtonFeedback(activeButton, "Tente de novo", "fa-triangle-exclamation", 2400);
+      showBookDownloadError(_error);
     } finally {
       state.bookDownloadInFlight = false;
-      restoreBookButton(activeButton);
+      if (activeButton) activeButton.disabled = false;
     }
   }
 
