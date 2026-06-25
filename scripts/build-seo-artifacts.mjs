@@ -9,12 +9,12 @@ const slidesDir = path.join(rootDir, "slides");
 const dataDir = path.join(rootDir, "data");
 
 const SITE_URL = "https://termo-theta.vercel.app";
-const SEO_ASSET_VERSION = "0609.2";
 const COURSE_TITLE = "Termodinâmica para Estudantes de Física";
 const AUTHOR_NAME = "Prof. Mario Reis";
 const PUBLISHER_NAME = "Instituto de Física — Universidade Federal Fluminense";
 const DEFAULT_SITE_DESCRIPTION = "Livro interativo de Termodinâmica com capítulos, exercícios automáticos por IA, simuladores, exemplos resolvidos e material didático do Prof. Mario Reis (IF-UFF).";
-const TODAY = "2026-06-09";
+const TODAY = process.env.SITEMAP_LASTMOD || todayInSaoPaulo();
+const SEO_ASSET_VERSION = process.env.SEO_ASSET_VERSION || TODAY.replaceAll("-", "");
 
 const chapterCatalog = {
   "01": {
@@ -64,6 +64,26 @@ function truncate(value, maxLength) {
   if (!text) return "";
   if (text.length <= maxLength) return text;
   return `${text.slice(0, maxLength - 1).trimEnd()}...`;
+}
+
+function todayInSaoPaulo() {
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/Sao_Paulo",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  }).format(new Date());
+}
+
+function cleanPageTitle(value) {
+  const suffix = ` | ${COURSE_TITLE}`;
+  let title = String(value || COURSE_TITLE).replace(/\s+/g, " ").trim();
+
+  while (title.endsWith(suffix)) {
+    title = title.slice(0, -suffix.length).trim();
+  }
+
+  return title || COURSE_TITLE;
 }
 
 async function collectHtmlFiles(dir, bucket = []) {
@@ -122,6 +142,10 @@ function getCanonicalUrl(relativePath) {
   return `${SITE_URL}/${relativePath}`;
 }
 
+function getSlideChapterId(relativePath) {
+  return relativePath.match(/^slides\/capitulo-(\d+)\/page_\d+\.html$/i)?.[1] || "";
+}
+
 function getCoverMeta(relativePath) {
   const match = relativePath.match(/^slides\/capitulo-(\d+)\/page_1\.html$/i);
   if (!match) return null;
@@ -142,7 +166,7 @@ function getSourceCanonical(relativePath) {
 
 function inferPageMeta(relativePath, html, topicMap) {
   const titleMatch = html.match(/<title>([\s\S]*?)<\/title>/i);
-  const currentTitle = titleMatch ? titleMatch[1].replace(/\s+/g, " ").trim() : COURSE_TITLE;
+  const currentTitle = cleanPageTitle(titleMatch ? titleMatch[1] : COURSE_TITLE);
   const normalizedRelativePath = relativePath.replace(/^\/+/, "");
   const isIndex = normalizedRelativePath === "index.html";
   const isInstructions = normalizedRelativePath === "INSTRUCOES_SNIPPET.html";
@@ -273,11 +297,23 @@ function upsertTitle(html, title) {
   return html.replace(/<\/head>/i, `<title>${escapeHtml(title)}</title>\n</head>`);
 }
 
+function removeLegacySeoTags(html) {
+  return html
+    .replace(/\n?<meta\s+name="(?:description|author|robots|googlebot|theme-color|twitter:card|twitter:title|twitter:description)"\s+content="[^"]*"\s*\/?>/gi, "")
+    .replace(/\n?<link\s+rel="canonical"\s+href="[^"]*"\s*\/?>/gi, "")
+    .replace(/\n?<meta\s+property="og:[^"]+"\s+content="[^"]*"\s*\/?>/gi, "")
+    .replace(/\n?<script\s+type="application\/ld\+json">[\s\S]*?<\/script>/gi, "");
+}
+
 function upsertSeoBlock(html, block) {
+  const placeholder = "__TERMO_SEO_BLOCK__";
+
   if (/<!-- termo-seo:start -->[\s\S]*?<!-- termo-seo:end -->/i.test(html)) {
-    return html.replace(/<!-- termo-seo:start -->[\s\S]*?<!-- termo-seo:end -->/i, block);
+    const withPlaceholder = html.replace(/<!-- termo-seo:start -->[\s\S]*?<!-- termo-seo:end -->/i, placeholder);
+    return removeLegacySeoTags(withPlaceholder).replace(placeholder, block);
   }
-  return html.replace(/<\/head>/i, `${block}\n</head>`);
+
+  return removeLegacySeoTags(html).replace(/<\/head>/i, `${block}\n</head>`);
 }
 
 function upsertSeoAsset(html, assetTag) {
@@ -312,17 +348,36 @@ async function writeRobotsFile() {
   await writeFile(path.join(rootDir, "robots.txt"), `${content}\n`, "utf8");
 }
 
-async function writeSitemap(topicMap) {
+async function writeSitemap(topicMap, htmlFiles) {
   const urls = new Map();
   urls.set(`${SITE_URL}/`, { priority: "1.0", changefreq: "weekly" });
   urls.set(`${SITE_URL}/?view=simulators`, { priority: "0.8", changefreq: "weekly" });
 
+  const activeChapterIds = new Set();
+
+  for (const topic of topicMap.values()) {
+    if (topic.chapterId) activeChapterIds.add(topic.chapterId);
+  }
+
+  for (const filePath of htmlFiles) {
+    const relativePath = toPosix(path.relative(rootDir, filePath));
+    const chapterId = getSlideChapterId(relativePath);
+    if (chapterId) activeChapterIds.add(chapterId);
+  }
+
   for (const chapterId of Object.keys(chapterCatalog).sort()) {
+    if (!activeChapterIds.has(chapterId)) continue;
     urls.set(`${SITE_URL}/?view=chapters&chapter=${chapterId}`, { priority: "0.9", changefreq: "weekly" });
   }
 
   for (const [relativeUrl] of topicMap.entries()) {
     urls.set(`${SITE_URL}/${relativeUrl}`, { priority: "0.7", changefreq: "monthly" });
+  }
+
+  for (const filePath of htmlFiles) {
+    const relativePath = toPosix(path.relative(rootDir, filePath));
+    if (!getSlideChapterId(relativePath)) continue;
+    urls.set(`${SITE_URL}/${relativePath}`, { priority: "0.7", changefreq: "monthly" });
   }
 
   const body = Array.from(urls.entries())
@@ -354,6 +409,6 @@ for (const filePath of htmlFiles) {
 }
 
 await writeRobotsFile();
-await writeSitemap(topicMap);
+await writeSitemap(topicMap, htmlFiles);
 
 console.log(`SEO atualizado em ${htmlFiles.length} HTMLs, robots.txt e sitemap.xml.`);

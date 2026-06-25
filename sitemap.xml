@@ -2,283 +2,589 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://termo-theta.vercel.app/</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/?view=simulators</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/?view=chapters&amp;chapter=01</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/?view=chapters&amp;chapter=02</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/?view=chapters&amp;chapter=03</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/?view=chapters&amp;chapter=04</loc>
-    <lastmod>2026-06-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://termo-theta.vercel.app/?view=chapters&amp;chapter=05</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/?view=chapters&amp;chapter=06</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/slides/capitulo-01/page_2.html</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/slides/capitulo-01/page_3.html</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/slides/capitulo-01/page_4.html</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/slides/capitulo-01/page_5.html</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/slides/capitulo-01/page_6.html</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/slides/capitulo-01/page_7.html</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/slides/capitulo-01/page_8.html</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/slides/capitulo-01/page_9.html</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/slides/capitulo-01/page_10.html</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/slides/capitulo-01/page_11.html</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/slides/capitulo-01/page_12.html</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/slides/capitulo-01/page_13.html</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/slides/capitulo-01/page_14.html</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/slides/capitulo-01/page_15.html</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/slides/capitulo-01/page_16.html</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/slides/capitulo-01/page_17.html</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/slides/capitulo-01/page_18.html</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/slides/capitulo-01/page_19.html</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/slides/capitulo-01/page_20.html</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/slides/capitulo-02/page_1.html</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/slides/capitulo-02/page_2.html</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/slides/capitulo-02/page_3.html</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/slides/capitulo-02/page_4.html</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/slides/capitulo-02/page_5.html</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/slides/capitulo-02/page_6.html</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/slides/capitulo-02/page_7.html</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/slides/capitulo-02/page_8.html</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/slides/capitulo-02/page_9.html</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/slides/capitulo-03/page_2.html</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/slides/capitulo-03/page_5.html</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/slides/capitulo-03/page_7.html</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/slides/capitulo-03/page_10.html</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/slides/capitulo-03/page_12.html</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/slides/capitulo-03/page_14.html</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/slides/capitulo-03/page_16.html</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/slides/capitulo-03/page_18.html</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/slides/capitulo-03/page_20.html</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/slides/capitulo-03/page_21.html</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://termo-theta.vercel.app/slides/capitulo-03/page_23.html</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-04/page_1.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-04/page_2.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-04/page_6.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-04/page_7.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-04/page_9.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-04/page_11.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-04/page_13.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-04/page_16.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-04/page_17.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-04/page_20.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-04/page_21.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-06/page_1.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-06/page_2.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-06/page_3.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-06/page_4.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-06/page_5.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-06/page_6.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-06/page_7.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-06/page_8.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-06/page_9.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-06/page_10.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-06/page_11.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-06/page_12.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-06/page_13.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-06/page_14.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-06/page_15.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-01/page_1.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-03/page_1.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-03/page_11.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-03/page_13.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-03/page_15.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-03/page_17.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-03/page_19.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-03/page_22.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-03/page_24.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-03/page_25.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-03/page_26.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-03/page_3.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-03/page_4.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-03/page_6.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-03/page_8.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-03/page_9.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-04/page_10.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-04/page_12.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-04/page_14.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-04/page_15.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-04/page_18.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-04/page_19.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-04/page_3.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-04/page_4.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-04/page_5.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://termo-theta.vercel.app/slides/capitulo-04/page_8.html</loc>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
