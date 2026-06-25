@@ -7,6 +7,7 @@ import {
   handleExerciseValidationAdminRequest,
   handleExerciseValidationRequest
 } from "./lib/exercicio-handler.mjs";
+import { handleLivroPdfRequest } from "./lib/livro-pdf-handler.mjs";
 import { handlePublicConfigRequest } from "./lib/public-config-handler.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -223,6 +224,17 @@ const server = http.createServer(async (req, res) => {
         details: String(error)
       });
     }
+    return;
+  }
+
+  if (requestUrl === "/api/livro-pdf") {
+    const response = await handleLivroPdfRequest({
+      method: req.method,
+      headers: req.headers,
+      env: process.env
+    });
+
+    sendJson(res, response.status, response.body);
     return;
   }
 

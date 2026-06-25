@@ -2169,10 +2169,11 @@
       }
       .header-tools {
         display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(112px, 1fr));
         gap: 8px;
       }
       .header-tools .termo-auth-trigger,
+      .header-tools .termo-book-trigger,
       .header-tools .termo-share-button {
         width: 100%;
         min-width: 0;
@@ -2181,6 +2182,7 @@
         font-size: 12.5px;
       }
       .header-tools .termo-auth-trigger span,
+      .header-tools .termo-book-trigger span,
       .header-tools .termo-share-button span {
         min-width: 0;
         overflow: hidden;
@@ -2263,12 +2265,12 @@
 })();
 </script>
 <link rel="stylesheet" href="assets/termo-share.css?v=0611.3">
-<link rel="stylesheet" href="assets/termo-auth.css?v=0611.4">
+<link rel="stylesheet" href="assets/termo-auth.css?v=0625.2">
 <script>
 (function () {
   const scripts = [
     "assets/termo-share.js?v=0611.3",
-    "assets/termo-auth.js?v=0611.4",
+    "assets/termo-auth.js?v=0625.2",
     "assets/termo-user-data.js?v=0611.3"
   ];
 
@@ -2319,6 +2321,10 @@
             <i class="fa-solid fa-bookmark"></i>
             <span>Salvar progresso</span>
           </a>
+          <button type="button" class="termo-book-trigger index-back-button" data-termo-book-button="true" aria-label="Baixar PDF do livro em elaboração">
+            <i class="fa-solid fa-file-pdf"></i>
+            <span>PDF do livro</span>
+          </button>
           <a href="mailto:?subject=Termodin%C3%A2mica%20para%20Estudantes%20de%20F%C3%ADsica&body=Veja%20este%20livro%20interativo%20de%20Termodin%C3%A2mica.%0Ahttps%3A%2F%2Ftermo-theta.vercel.app%2F%3Fview%3Dchapters" class="termo-share-button termo-share-button--index index-back-button" data-termo-share-button="true" aria-label="Enviar esta página para outra pessoa">
             <i class="fa-solid fa-paper-plane"></i>
             <span>Enviar</span>
@@ -2402,6 +2408,13 @@
                       <span class="extras-note">Abra a área com simuladores e recursos complementares.</span>
                     </span>
                   </a>
+                  <button type="button" class="extras-button" data-termo-book-button="true">
+                    <span class="extras-icon"><i class="fa-solid fa-file-pdf"></i></span>
+                    <span class="extras-text">
+                      <span class="extras-label">Livro em PDF</span>
+                      <span class="extras-note">Baixe o rascunho/pre-print do livro. Login necessário para concluir.</span>
+                    </span>
+                  </button>
                 </div>
               </div>
             </section>
@@ -2483,6 +2496,10 @@
                 <button type="button" class="discovery-card" data-role="open-drawer-section" data-section-id="extras">
                   <div class="discovery-card__title"><i class="fa-solid fa-flask-vial"></i> Extras</div>
                   <div class="discovery-card__meta">Abrir menu de extras</div>
+                </button>
+                <button type="button" class="discovery-card" data-termo-book-button="true">
+                  <div class="discovery-card__title"><i class="fa-solid fa-file-pdf"></i> Livro em PDF</div>
+                  <div class="discovery-card__meta">Login necessário para baixar</div>
                 </button>
               </section>
             </div>
@@ -3599,6 +3616,19 @@
         });
         extrasList.appendChild(button);
       });
+
+      const bookButton = document.createElement("button");
+      bookButton.type = "button";
+      bookButton.className = "extras-button";
+      bookButton.setAttribute("data-termo-book-button", "true");
+      bookButton.innerHTML = `
+        <span class="extras-icon"><i class="fa-solid fa-file-pdf"></i></span>
+        <span class="extras-text">
+          <span class="extras-label">Livro em PDF</span>
+          <span class="extras-note">Baixe o rascunho/pre-print do livro. Login necessário para concluir.</span>
+        </span>
+      `;
+      extrasList.appendChild(bookButton);
     }
 
     function setActiveChapter(id) {
@@ -3682,6 +3712,10 @@
             <button type="button" class="discovery-card" data-role="open-drawer-section" data-section-id="extras">
               <div class="discovery-card__title"><i class="fa-solid fa-flask-vial"></i> Extras</div>
               <div class="discovery-card__meta">Abrir menu de extras</div>
+            </button>
+            <button type="button" class="discovery-card" data-termo-book-button="true">
+              <div class="discovery-card__title"><i class="fa-solid fa-file-pdf"></i> Livro em PDF</div>
+              <div class="discovery-card__meta">Login necessário para baixar</div>
             </button>
           </section>
         </div>
@@ -5184,7 +5218,7 @@
 
           if (!existingScript) {
             const script = document.createElement("script");
-            script.src = "assets/termo-auth.js?v=0611.4";
+            script.src = "assets/termo-auth.js?v=0625.2";
             script.async = true;
             script.onerror = function () {
               if (settled) return;

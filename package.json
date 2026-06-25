@@ -5,6 +5,7 @@
     "dev:vercel": "vercel dev",
     "check": "node scripts/check-content.mjs",
     "seo": "node scripts/build-seo-artifacts.mjs",
+    "upload:livro-pdf": "node scripts/upload-livro-pdf.mjs",
     "deploy": "vercel --prod"
   }
 }

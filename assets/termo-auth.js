@@ -2,9 +2,13 @@
   if (window.TermoAuth) return;
 
   const CONFIG_ENDPOINT = "/api/public-config";
+  const BOOK_API_ENDPOINT = "/api/livro-pdf";
   const SUPABASE_ESM_URL = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
   const AUTH_SITE_URL = "https://termo-theta.vercel.app";
   const LANDING_LOGIN_TARGET_KEY = "termoLandingPostLoginTarget";
+  const BOOK_PENDING_DOWNLOAD_KEY = "termoPendingBookPdfDownload";
+  const BOOK_DEFAULT_FILENAME = "termodinamica-preprint.pdf";
+  const BOOK_BUTTON_DEFAULT_HTML = '<i class="fa-solid fa-file-pdf"></i><span>PDF do livro</span>';
   const AUTH_CLEANUP_KEYS = [
     "code",
     "state",
@@ -38,10 +42,14 @@
     supabasePromise: null,
     supabase: null,
     modal: null,
+    bookNoticeModal: null,
+    bookNoticeResolver: null,
     triggerButton: null,
+    bookButton: null,
     favoriteButton: null,
     statusNode: null,
     session: null,
+    bookDownloadInFlight: false,
     authListenerRegistered: false,
     triggerClickListenerRegistered: false,
     progressSignature: "",
@@ -829,6 +837,7 @@
     updateTriggerButton();
     await refreshFavoriteButtonState();
     emitAuthState();
+    maybeResumeBookDownload();
   }
 
   async function syncProgress(force) {
@@ -881,6 +890,7 @@
         emitAuthState();
         if (state.session?.user) {
           void syncProgress(false);
+          maybeResumeBookDownload();
         }
       });
       state.authListenerRegistered = true;
@@ -927,9 +937,10 @@
     return state.session;
   }
 
-  function syncButtonMetrics(button, reference) {
+  function syncButtonMetrics(button, reference, options) {
     if (!button || !reference) return;
 
+    const preserveColors = Boolean(options?.preserveColors);
     const styles = window.getComputedStyle(reference);
     button.style.paddingTop = styles.paddingTop;
     button.style.paddingRight = styles.paddingRight;
@@ -941,11 +952,13 @@
     button.style.minHeight = styles.minHeight !== "0px" ? styles.minHeight : styles.height;
     button.style.fontFamily = styles.fontFamily;
     button.style.fontWeight = styles.fontWeight;
-    button.style.color = styles.color;
-    button.style.backgroundColor = styles.backgroundColor;
-    button.style.borderColor = styles.borderColor;
-    button.style.borderStyle = styles.borderStyle;
-    button.style.borderWidth = styles.borderWidth;
+    if (!preserveColors) {
+      button.style.color = styles.color;
+      button.style.backgroundColor = styles.backgroundColor;
+      button.style.borderColor = styles.borderColor;
+      button.style.borderStyle = styles.borderStyle;
+      button.style.borderWidth = styles.borderWidth;
+    }
     button.style.boxShadow = "none";
   }
 
@@ -957,12 +970,250 @@
     return button;
   }
 
+  function createBookButton() {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "termo-book-trigger index-back-button";
+    button.setAttribute("data-termo-book-button", "true");
+    button.setAttribute("aria-label", "Baixar PDF do livro em elaboração");
+    button.innerHTML = BOOK_BUTTON_DEFAULT_HTML;
+    return button;
+  }
+
+  function restoreBookButton(button) {
+    if (!button) return;
+
+    window.clearTimeout(Number(button.getAttribute("data-termo-book-feedback-timer") || 0));
+    button.removeAttribute("data-termo-book-feedback-timer");
+    button.removeAttribute("data-termo-book-original-label");
+    button.disabled = false;
+    button.hidden = false;
+    button.style.removeProperty("display");
+    button.classList.add("termo-book-trigger");
+    button.setAttribute("data-termo-book-button", "true");
+    button.setAttribute("aria-label", "Baixar PDF do livro em elaboração");
+    button.innerHTML = BOOK_BUTTON_DEFAULT_HTML;
+  }
+
+  function writePendingBookDownload(value) {
+    try {
+      if (!window.sessionStorage) return;
+      if (value) {
+        window.sessionStorage.setItem(BOOK_PENDING_DOWNLOAD_KEY, "1");
+      } else {
+        window.sessionStorage.removeItem(BOOK_PENDING_DOWNLOAD_KEY);
+      }
+    } catch (_error) {
+      return;
+    }
+  }
+
+  function hasPendingBookDownload() {
+    try {
+      return Boolean(window.sessionStorage && window.sessionStorage.getItem(BOOK_PENDING_DOWNLOAD_KEY));
+    } catch (_error) {
+      return false;
+    }
+  }
+
+  function setBookButtonFeedback(button, label, iconClass, durationMs) {
+    if (!button) return;
+    button.setAttribute("data-termo-book-original-label", BOOK_BUTTON_DEFAULT_HTML);
+    button.innerHTML = `<i class="fa-solid ${iconClass || "fa-file-pdf"}"></i><span>${escapeHtml(label)}</span>`;
+    window.clearTimeout(Number(button.getAttribute("data-termo-book-feedback-timer") || 0));
+    button.setAttribute("data-termo-book-feedback-timer", String(window.setTimeout(function () {
+      button.innerHTML = BOOK_BUTTON_DEFAULT_HTML;
+    }, durationMs || 1800)));
+  }
+
+  function createBookNoticeModal() {
+    const overlay = document.createElement("div");
+    overlay.className = "termo-book-notice-overlay";
+    overlay.setAttribute("data-termo-book-notice", "true");
+    overlay.setAttribute("aria-hidden", "true");
+    overlay.hidden = true;
+
+    overlay.innerHTML = `
+      <div class="termo-book-notice-modal" role="dialog" aria-modal="true" aria-labelledby="termoBookNoticeTitle">
+        <div class="termo-book-notice-header">
+          <div>
+            <div class="termo-book-notice-kicker">Rascunho / pre-print</div>
+            <h2 class="termo-book-notice-title" id="termoBookNoticeTitle">Livro em elaboração</h2>
+          </div>
+          <button type="button" class="termo-book-notice-close" data-termo-book-notice-cancel aria-label="Fechar">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div class="termo-book-notice-body">
+          <p>Este PDF faz parte do projeto de escrita de um livro e ainda não está publicado.</p>
+          <p>O texto segue em redação e ainda não foi completamente revisado. Faltam seções, exercícios, ajustes de consistência e revisões finais.</p>
+          <p>Ele deve ser lido como material preliminar de um projeto em andamento.</p>
+        </div>
+        <div class="termo-book-notice-actions">
+          <button type="button" class="termo-book-notice-secondary" data-termo-book-notice-cancel>Cancelar</button>
+          <button type="button" class="termo-book-notice-primary" data-termo-book-notice-confirm>OK, continuar</button>
+        </div>
+      </div>
+    `;
+
+    function finish(accepted) {
+      overlay.classList.remove("is-open");
+      overlay.setAttribute("aria-hidden", "true");
+      window.setTimeout(function () {
+        if (!overlay.classList.contains("is-open")) overlay.hidden = true;
+      }, 180);
+
+      const resolver = state.bookNoticeResolver;
+      state.bookNoticeResolver = null;
+      if (resolver) resolver(Boolean(accepted));
+    }
+
+    overlay.addEventListener("click", function (event) {
+      if (event.target === overlay) finish(false);
+    });
+
+    overlay.querySelectorAll("[data-termo-book-notice-cancel]").forEach(function (button) {
+      button.addEventListener("click", function () {
+        finish(false);
+      });
+    });
+
+    overlay.querySelector("[data-termo-book-notice-confirm]").addEventListener("click", function () {
+      finish(true);
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && overlay.classList.contains("is-open")) {
+        finish(false);
+      }
+    });
+
+    document.body.appendChild(overlay);
+    return overlay;
+  }
+
+  function showBookNotice() {
+    if (!document.body) return Promise.resolve(true);
+
+    if (state.bookNoticeResolver) {
+      return Promise.resolve(false);
+    }
+
+    const overlay = state.bookNoticeModal || createBookNoticeModal();
+    state.bookNoticeModal = overlay;
+
+    overlay.hidden = false;
+    overlay.classList.add("is-open");
+    overlay.setAttribute("aria-hidden", "false");
+
+    const confirmButton = overlay.querySelector("[data-termo-book-notice-confirm]");
+    if (confirmButton && typeof confirmButton.focus === "function") {
+      window.setTimeout(function () {
+        confirmButton.focus();
+      }, 40);
+    }
+
+    return new Promise(function (resolve) {
+      state.bookNoticeResolver = resolve;
+    });
+  }
+
+  function openSignedPdfUrl(url, filename) {
+    const link = document.createElement("a");
+    link.href = url;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.download = filename || BOOK_DEFAULT_FILENAME;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  }
+
+  async function downloadBookPdf(button) {
+    const activeButton = button || state.bookButton || document.querySelector("[data-termo-book-button]");
+    if (state.bookDownloadInFlight) return;
+
+    await waitUntilReady(2600).catch(function () {
+      return null;
+    });
+
+    if (!state.session?.access_token) {
+      writePendingBookDownload(true);
+      setBookButtonFeedback(activeButton, "Entre para baixar", "fa-lock", 2200);
+      openModal();
+      return;
+    }
+
+    const acceptedNotice = await showBookNotice();
+    if (!acceptedNotice) {
+      restoreBookButton(activeButton);
+      return;
+    }
+
+    state.bookDownloadInFlight = true;
+    if (activeButton) activeButton.disabled = true;
+    setBookButtonFeedback(activeButton, "Preparando PDF", "fa-spinner fa-spin", 2400);
+
+    try {
+      const response = await fetch(BOOK_API_ENDPOINT, {
+        method: "GET",
+        cache: "no-store",
+        headers: {
+          Authorization: `Bearer ${state.session.access_token}`
+        }
+      });
+
+      let payload = null;
+      try {
+        payload = await response.json();
+      } catch (_error) {
+        payload = null;
+      }
+
+      if (response.status === 401) {
+        writePendingBookDownload(true);
+        setBookButtonFeedback(activeButton, "Entre novamente", "fa-lock", 2200);
+        openModal();
+        return;
+      }
+
+      if (!response.ok || !payload?.url) {
+        throw new Error(payload?.error || "download_unavailable");
+      }
+
+      writePendingBookDownload(false);
+      openSignedPdfUrl(payload.url, payload.filename || BOOK_DEFAULT_FILENAME);
+      setBookButtonFeedback(activeButton, "Abrindo PDF", "fa-file-arrow-down", 1800);
+    } catch (_error) {
+      setBookButtonFeedback(activeButton, "Tente de novo", "fa-triangle-exclamation", 2400);
+    } finally {
+      state.bookDownloadInFlight = false;
+      restoreBookButton(activeButton);
+    }
+  }
+
+  function maybeResumeBookDownload() {
+    if (!state.session?.access_token || !hasPendingBookDownload()) return;
+    writePendingBookDownload(false);
+    window.setTimeout(function () {
+      void downloadBookPdf(state.bookButton || document.querySelector("[data-termo-book-button]"));
+    }, 350);
+  }
+
   function registerTriggerClickHandler() {
     if (state.triggerClickListenerRegistered || !document.body) return;
 
     document.addEventListener("click", function (event) {
       const target = event.target;
       if (!(target instanceof Element)) return;
+
+      const bookButton = target.closest("[data-termo-book-button]");
+      if (bookButton) {
+        event.preventDefault();
+        event.stopPropagation();
+        void downloadBookPdf(bookButton);
+        return;
+      }
 
       const button = target.closest("[data-termo-auth-button]");
       if (!button) return;
@@ -1043,6 +1294,19 @@
       if (button.tagName === "A") button.setAttribute("href", "#");
       state.triggerButton = button;
       updateTriggerButton();
+
+      let bookButton = anchor.querySelector("[data-termo-book-button]");
+      if (!bookButton) {
+        bookButton = createBookButton();
+        const shareButton = anchor.querySelector("[data-termo-share-button]");
+        if (shareButton) {
+          anchor.insertBefore(bookButton, shareButton);
+        } else {
+          anchor.appendChild(bookButton);
+        }
+      }
+      state.bookButton = bookButton;
+      restoreBookButton(bookButton);
       return button;
     }
 
@@ -1065,6 +1329,20 @@
     state.triggerButton = button;
     syncButtonMetrics(button, referenceButton || host.querySelector(".index-back-button"));
     updateTriggerButton();
+
+    let bookButton = host.querySelector("[data-termo-book-button]");
+    if (!bookButton) {
+      bookButton = createBookButton();
+      const shareButton = host.querySelector("[data-termo-share-button]");
+      if (shareButton) {
+        host.insertBefore(bookButton, shareButton);
+      } else {
+        host.appendChild(bookButton);
+      }
+    }
+    state.bookButton = bookButton;
+    restoreBookButton(bookButton);
+    syncButtonMetrics(bookButton, referenceButton || host.querySelector(".index-back-button"), { preserveColors: true });
 
     let favoriteButton = host.querySelector("[data-termo-favorite-button]");
     if (!favoriteButton) {
@@ -1115,6 +1393,7 @@
     autoMount,
     openModal,
     closeModal,
+    downloadBookPdf,
     refresh: scheduleRefresh,
     fetchConfig,
     ensureSupabase,
