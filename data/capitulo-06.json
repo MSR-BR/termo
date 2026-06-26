@@ -3,107 +3,81 @@
   "topics": [
     {
       "id": "6.1",
-      "title": "Mapa do Capítulo e Convenções de Sinais",
-      "note": "Visão geral dos ciclos, reservatórios térmicos, trabalho líquido e convenção usada para calor e trabalho.",
-      "url": "slides/capitulo-06/page_1.html",
-      "aiExercise": false
-    },
-    {
-      "id": "6.2",
       "title": "Máquinas Térmicas e Refrigeradores",
       "note": "Modos de operação de um ciclo termodinâmico, fluxos de energia e distinção entre produzir trabalho e transportar calor.",
-      "url": "slides/capitulo-06/page_2.html",
+      "url": "slides/capitulo-06/page_1.html",
       "aiExercise": true
     },
     {
-      "id": "6.3",
+      "id": "6.2",
       "title": "Ciclo de Carnot como Máquina Térmica",
       "note": "As quatro etapas reversíveis do ciclo de Carnot e a interpretação física de cada troca de calor e trabalho.",
+      "url": "slides/capitulo-06/page_2.html",
+      "aiExercise": true,
+      "simulatorId": "S08"
+    },
+    {
+      "id": "6.3",
+      "title": "Energia Interna, Calor e Trabalho",
+      "note": "Primeira Lei no ciclo, balanço entre calor e trabalho, Segunda Lei, enunciado de Kelvin e caso do gás ideal.",
       "url": "slides/capitulo-06/page_3.html",
       "aiExercise": true
     },
     {
       "id": "6.4",
-      "title": "Balanços Termodinâmicos no Ciclo de Carnot",
-      "note": "Energia interna nula no ciclo, relação entre calor e trabalho e condição entrópica reversível.",
+      "title": "Eficiência Geral e Eficiência de Carnot",
+      "note": "Eficiência geral de máquinas térmicas, limite de Carnot e derivação explícita para gases ideais.",
       "url": "slides/capitulo-06/page_4.html",
-      "aiExercise": false
+      "aiExercise": true
     },
     {
       "id": "6.5",
-      "title": "Eficiência de Carnot e Gás Ideal",
-      "note": "Derivação de η = 1 − TC/TH, aplicação a gases ideais e relação volumétrica nas isotermas.",
+      "title": "Exemplo: Máquina de Carnot",
+      "note": "Cálculo de calores, trabalho líquido, volumes intermediários e eficiência para um gás ideal monoatômico.",
       "url": "slides/capitulo-06/page_5.html",
       "aiExercise": true
     },
     {
       "id": "6.6",
-      "title": "Exemplo: Máquina de Carnot",
-      "note": "Cálculo de calores, trabalho líquido, volumes intermediários e eficiência para um gás ideal monoatômico.",
+      "title": "Ciclo de Carnot como Refrigerador",
+      "note": "Percurso inverso do ciclo, trabalho externo positivo e coeficiente de performance ideal.",
       "url": "slides/capitulo-06/page_6.html",
       "aiExercise": true
     },
     {
       "id": "6.7",
-      "title": "Ciclo de Carnot como Refrigerador",
-      "note": "Percurso inverso do ciclo, trabalho externo positivo e coeficiente de performance ideal.",
+      "title": "Exemplo: Refrigerador de Carnot",
+      "note": "Aplicação numérica do CoP e interpretação do trabalho necessário para remover calor do reservatório frio.",
       "url": "slides/capitulo-06/page_7.html",
       "aiExercise": true
     },
     {
       "id": "6.8",
-      "title": "Exemplo: Refrigerador de Carnot",
-      "note": "Aplicação numérica do CoP e interpretação do trabalho necessário para remover calor do reservatório frio.",
+      "title": "Ciclo de Stirling sem Regenerador",
+      "note": "Processos isotérmicos e isocóricos, origem do trabalho líquido e motivo da eficiência ficar abaixo de Carnot.",
       "url": "slides/capitulo-06/page_8.html",
       "aiExercise": true
     },
     {
       "id": "6.9",
-      "title": "Ciclo de Stirling sem Regenerador",
-      "note": "Processos isotérmicos e isocóricos, origem do trabalho líquido e motivo da eficiência ficar abaixo de Carnot.",
+      "title": "Produção de Entropia no Stirling sem Regenerador",
+      "note": "Irreversibilidade nas isocóricas, gradientes térmicos finitos e perda de eficiência por produção de entropia.",
       "url": "slides/capitulo-06/page_9.html",
-      "aiExercise": true
+      "aiExercise": false
     },
     {
       "id": "6.10",
-      "title": "Produção de Entropia no Stirling sem Regenerador",
-      "note": "Irreversibilidade nas isocóricas, gradientes térmicos finitos e perda de eficiência por produção de entropia.",
+      "title": "Motor de Stirling com Regenerador Tipo Alfa",
+      "note": "Arquitetura com dois cilindros, defasagem de pistões e papel termodinâmico do regenerador.",
       "url": "slides/capitulo-06/page_10.html",
-      "aiExercise": false
+      "aiExercise": true,
+      "simulatorId": "S09"
     },
     {
       "id": "6.11",
-      "title": "Motor de Stirling com Regenerador Tipo Alfa",
-      "note": "Arquitetura com dois cilindros, defasagem de pistões e papel termodinâmico do regenerador.",
-      "url": "slides/capitulo-06/page_11.html",
-      "aiExercise": true
-    },
-    {
-      "id": "6.12",
-      "title": "Estágios do Stirling com Regenerador",
-      "note": "Descrição das quatro etapas ideais e das trocas internas de calor com a matriz regeneradora.",
-      "url": "slides/capitulo-06/page_12.html",
-      "aiExercise": false
-    },
-    {
-      "id": "6.13",
-      "title": "Eficiência do Stirling Ideal",
-      "note": "Comparação entre Stirling sem regenerador e com regenerador ideal, recuperando o limite de Carnot.",
-      "url": "slides/capitulo-06/page_13.html",
-      "aiExercise": true
-    },
-    {
-      "id": "6.14",
       "title": "Exemplo: Motor Stirling Alfa",
-      "note": "Cálculo de volumes, calores, trabalho e eficiência para um motor Stirling alfa com regenerador ideal.",
-      "url": "slides/capitulo-06/page_14.html",
-      "aiExercise": true
-    },
-    {
-      "id": "6.15",
-      "title": "Síntese e Exercícios Propostos",
-      "note": "Comparação entre Carnot e Stirling, critérios de reversibilidade e lista de problemas para consolidação.",
-      "url": "slides/capitulo-06/page_15.html",
+      "note": "Cálculo de volumes, calores, trabalho líquido e eficiência para um motor Stirling alfa com regenerador ideal.",
+      "url": "slides/capitulo-06/page_11.html",
       "aiExercise": true
     }
   ]

@@ -1046,14 +1046,33 @@
       overflow-wrap: break-word;
     }
 
-    .simulator-card__footer {
+    .simulator-card__actions {
       margin-top: auto;
+      display: grid;
+      gap: 8px;
+      justify-items: start;
+    }
+
+    .simulator-card__footer {
       display: inline-flex;
       align-items: center;
       gap: 8px;
       color: var(--blue);
       font-size: 13px;
       font-weight: 700;
+      text-decoration: none;
+      transition: color 0.18s ease, transform 0.18s ease;
+    }
+
+    .simulator-card__footer:hover,
+    .simulator-card__footer:focus-visible {
+      color: #1F8A4C;
+      outline: none;
+      transform: translateX(2px);
+    }
+
+    .simulator-card__footer--section {
+      color: #1F8A4C;
     }
 
     .simulator-detail {
@@ -1193,6 +1212,13 @@
       margin-bottom: 6px;
     }
 
+    .topic-card-badges {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 7px;
+    }
+
     .topic-id {
       color: var(--red);
       font-size: 12px;
@@ -1229,6 +1255,11 @@
     .topic-badge.ai-exercise {
       background: #E9D5FF;
       color: #5B21B6;
+    }
+
+    .topic-badge.simulator-highlight {
+      background: #DCFCE7;
+      color: #166534;
     }
 
     .empty-state {
@@ -2300,7 +2331,7 @@
 <meta name="twitter:description" content="Livro interativo de Termodinâmica com capítulos, exercícios automáticos por IA, simuladores, exemplos resolvidos e material didático do Prof. Mario Reis (IF-UFF)."/>
 <script type="application/ld+json">[{"@context":"https://schema.org","@type":"WebSite","name":"Termodinâmica para Estudantes de Física","url":"https://termo-theta.vercel.app/","inLanguage":"pt-BR"},{"@context":"https://schema.org","@type":"Course","name":"Termodinâmica para Estudantes de Física","description":"Livro interativo de Termodinâmica com capítulos, exercícios automáticos por IA, simuladores, exemplos resolvidos e material didático do Prof. Mario Reis (IF-UFF).","provider":{"@type":"CollegeOrUniversity","name":"Instituto de Física — Universidade Federal Fluminense"},"creator":{"@type":"Person","name":"Prof. Mario Reis"},"url":"https://termo-theta.vercel.app/"}]</script>
 <!-- termo-seo:end -->
-<script defer src="assets/termo-seo.js?v=20260625"></script>
+<script defer src="assets/termo-seo.js?v=20260626"></script>
 </head>
 
 <body>
@@ -2954,14 +2985,14 @@
         topics: [
           { id: "1.1", title: "Lei Zero da Termodinâmica", note: "Equilíbrio térmico, temperatura e termometria.", url: "slides/capitulo-01/page_2.html", aiExercise: true },
           { id: "1.2", title: "Métodos de Medição de Temperatura", note: "Termômetros, sensores térmicos e medição sem contato.", url: "slides/capitulo-01/page_3.html" },
-          { id: "1.3", title: "Escalas Termométricas", note: "Celsius, Fahrenheit, Kelvin e zero absoluto.", url: "slides/capitulo-01/page_4.html", aiExercise: true },
+          { id: "1.3", title: "Escalas Termométricas", note: "Celsius, Fahrenheit, Kelvin e zero absoluto.", url: "slides/capitulo-01/page_4.html", aiExercise: true, simulatorId: "S01" },
           { id: "1.4", title: "Relação entre Escalas", note: "Conversão entre escalas termométricas e exemplo resolvido.", url: "slides/capitulo-01/page_5.html", aiExercise: true },
           { id: "1.5", title: "Classificação dos Sistemas Termodinâmicos", note: "Sistemas abertos, fechados e isolados.", url: "slides/capitulo-01/page_6.html" },
           { id: "1.6", title: "Transformações Termodinâmicas", note: "Processos quasi-estáticos, reversíveis e irreversíveis.", url: "slides/capitulo-01/page_7.html" },
           { id: "1.7", title: "Estados Termodinâmicos e Funções de Estado", note: "Estado termodinâmico, variáveis e funções de estado.", url: "slides/capitulo-01/page_8.html" },
           { id: "1.8", title: "Calor", note: "Definição, convenção de sinais e calorimetria.", url: "slides/capitulo-01/page_9.html", aiExercise: true },
           { id: "1.9", title: "Exemplo: Aquecendo um Bloco de Cobre", note: "Aplicação da equação do calor sensível.", url: "slides/capitulo-01/page_10.html", aiExercise: true },
-          { id: "1.10", title: "Exemplo: Equilíbrio Térmico", note: "Troca de calor entre corpos até o equilíbrio.", url: "slides/capitulo-01/page_11.html", aiExercise: true },
+          { id: "1.10", title: "Exemplo: Equilíbrio Térmico", note: "Troca de calor entre corpos até o equilíbrio.", url: "slides/capitulo-01/page_11.html", aiExercise: true, simulatorId: "S02" },
           { id: "1.11", title: "Gás Ideal", note: "Argumentos qualitativos e equação de estado.", url: "slides/capitulo-01/page_12.html" },
           { id: "1.12", title: "Trabalho Termodinâmico", note: "Trabalho de expansão e compressão: dW = -P dV.", url: "slides/capitulo-01/page_13.html" },
           { id: "1.13", title: "Exemplo: Trabalho Isotérmico", note: "Cálculo do trabalho na expansão ou compressão isotérmica.", url: "slides/capitulo-01/page_14.html", aiExercise: true },
@@ -2983,7 +3014,7 @@
           { id: "2.5", title: "Energia Livre de Gibbs e Espontaneidade", note: "Definição de Gibbs, critério de espontaneidade, equilíbrio e exemplo da sublimação do CO₂. Inclui exercícios automáticos por IA.", url: "slides/capitulo-02/page_5.html", aiExercise: true },
           { id: "2.6", title: "Grand Potential e Sistemas Abertos", note: "Definição, diferencial, variáveis naturais e interpretação física do grand potential.", url: "slides/capitulo-02/page_6.html" },
           { id: "2.7", title: "Variáveis Conjugadas Mecânicas e Magnéticas", note: "Analogias entre pressão-volume e campo magnético-magnetização.", url: "slides/capitulo-02/page_7.html" },
-          { id: "2.8", title: "Relações de Maxwell e Retângulo Termodinâmico", note: "Fundamentos matemáticos, relações principais, aplicação ao gás ideal, retângulo termodinâmico e simulador interativo. Inclui exercícios automáticos por IA.", url: "slides/capitulo-02/page_8.html", aiExercise: true },
+          { id: "2.8", title: "Relações de Maxwell e Retângulo Termodinâmico", note: "Fundamentos matemáticos, relações principais, aplicação ao gás ideal, retângulo termodinâmico e simulador interativo. Inclui exercícios automáticos por IA.", url: "slides/capitulo-02/page_8.html", aiExercise: true, simulatorId: "S03" },
           { id: "2.9", title: "Tabela Resumo dos Potenciais Termodinâmicos", note: "Síntese final com definições, variáveis naturais, processos ideais e interpretações físicas dos potenciais.", url: "slides/capitulo-02/page_9.html" }
         ]
       },
@@ -2997,7 +3028,7 @@
           { id: "3.5", title: "Partículas Distinguíveis, Indistinguíveis e Paradoxo de Gibbs", note: "Contagem de microestados, extensividade e correção por N fatorial para partículas indistinguíveis.", url: "slides/capitulo-03/page_12.html", aiExercise: true },
           { id: "3.6", title: "Exemplo I: Gás Ideal Monoatômico — Função de Partição", note: "Construção da função de partição do gás ideal e papel do comprimento de onda térmico de de Broglie.", url: "slides/capitulo-03/page_14.html", aiExercise: true },
           { id: "3.7", title: "Exemplo I: Gás Ideal Monoatômico — Energia Livre e Sackur-Tetrode", note: "Energia livre, equação de estado, energia interna e entropia do gás ideal na formulação de Sackur-Tetrode.", url: "slides/capitulo-03/page_16.html", aiExercise: true },
-          { id: "3.8", title: "Exemplo II: Paramagnetismo Quântico", note: "Modelo de spin, magnetização estatística e função de Brillouin.", url: "slides/capitulo-03/page_18.html", aiExercise: true },
+          { id: "3.8", title: "Exemplo II: Paramagnetismo Quântico", note: "Modelo de spin, magnetização estatística e função de Brillouin.", url: "slides/capitulo-03/page_18.html", aiExercise: true, simulatorId: "S04" },
           { id: "3.9", title: "Exemplo III: Paramagnetismo Clássico", note: "Limite clássico dos momentos magnéticos e interpretação via função de Langevin.", url: "slides/capitulo-03/page_20.html", aiExercise: true },
           { id: "3.10", title: "Terceira Lei e Limites do Modelo Clássico", note: "Postulado de Nernst, zero absoluto, entropia residual e falha do tratamento clássico em baixas temperaturas.", url: "slides/capitulo-03/page_21.html", aiExercise: true },
           { id: "3.11", title: "Exemplo IV: Capacidade Calorífica em Sólidos", note: "Dulong-Petit, sólido de Einstein, quantização da vibração e calor específico em diferentes regimes.", url: "slides/capitulo-03/page_23.html", aiExercise: true }
@@ -3010,8 +3041,8 @@
           { id: "4.2", title: "Equação de Estado de Van der Waals", note: "Motivação para gases reais, correções de volume e pressão, e forma final da equação de estado.", url: "slides/capitulo-04/page_2.html", aiExercise: true },
           { id: "4.3", title: "Ponto Crítico", note: "Condições críticas do gás de Van der Waals e interpretação física do ponto crítico.", url: "slides/capitulo-04/page_6.html", aiExercise: true },
           { id: "4.4", title: "Equação de Estado Reduzida", note: "Variáveis reduzidas, universalidade da equação de Van der Waals e fator de compressibilidade crítico.", url: "slides/capitulo-04/page_7.html", aiExercise: true },
-          { id: "4.5", title: "Instabilidade Mecânica e Espinodal", note: "Isotermas reduzidas, regiões instáveis e a curva espinodal nas transições líquido-vapor.", url: "slides/capitulo-04/page_9.html", aiExercise: true },
-          { id: "4.6", title: "Energia Livre de Helmholtz e Gibbs", note: "Critérios de estabilidade e coexistência de fases a partir das energias livres de Helmholtz e Gibbs.", url: "slides/capitulo-04/page_11.html", aiExercise: true },
+          { id: "4.5", title: "Instabilidade Mecânica e Espinodal", note: "Isotermas reduzidas, regiões instáveis e a curva espinodal nas transições líquido-vapor.", url: "slides/capitulo-04/page_9.html", aiExercise: true, simulatorId: "S05" },
+          { id: "4.6", title: "Energia Livre de Helmholtz e Gibbs", note: "Critérios de estabilidade e coexistência de fases a partir das energias livres de Helmholtz e Gibbs.", url: "slides/capitulo-04/page_11.html", aiExercise: true, simulatorId: "S06" },
           { id: "4.7", title: "Construção de Maxwell", note: "Regra das áreas iguais, coexistência líquido-vapor, regra da alavanca e aplicação ao dióxido de carbono.", url: "slides/capitulo-04/page_13.html", aiExercise: true },
           { id: "4.8", title: "Superaquecimento e Super-resfriamento", note: "Estados metaestáveis, nucleação e limites de estabilidade em transições de fase.", url: "slides/capitulo-04/page_16.html", aiExercise: true },
           { id: "4.9", title: "Calor Latente e Equação de Clausius-Clapeyron", note: "Calor latente, inclinação da curva de coexistência e aplicações da equação de Clausius-Clapeyron.", url: "slides/capitulo-04/page_17.html", aiExercise: true },
@@ -3228,6 +3259,8 @@
     const simulatorsCatalog = [
       {
         id: "S01",
+        sectionId: "1.3",
+        sectionUrl: "slides/capitulo-01/page_4.html",
         slug: "termometros",
         title: "Escalas termométricas",
         description: "Calculadora interativa que permite converter e visualizar temperaturas em Celsius, Fahrenheit e Kelvin com sliders sincronizados e mostradores analógicos.",
@@ -3237,6 +3270,8 @@
       },
       {
         id: "S02",
+        sectionId: "1.10",
+        sectionUrl: "slides/capitulo-01/page_11.html",
         slug: "eqtermico",
         title: "Equilíbrio térmico",
         description: "Calculadora que estima a temperatura de equilíbrio térmico e o calor trocado entre múltiplos materiais a partir de massas, calores específicos e temperaturas iniciais.",
@@ -3246,6 +3281,8 @@
       },
       {
         id: "S03",
+        sectionId: "2.8",
+        sectionUrl: "slides/capitulo-02/page_8.html",
         slug: "qt",
         title: "Relações termodinâmicas e de Maxwell",
         description: "Applet do Retângulo Termodinâmico com os potenciais U, F, H e G e as variáveis S, T, V e P, permitindo visualizar diferenciais, transformações de Legendre e relações de Maxwell.",
@@ -3255,6 +3292,8 @@
       },
       {
         id: "S04",
+        sectionId: "3.8",
+        sectionUrl: "slides/capitulo-03/page_18.html",
         slug: "mag",
         title: "Paramagnetismo",
         description: "Explore a magnetização paramagnética com a Função de Brillouin: ajuste s, g, B e T e acompanhe as curvas m(B) e m(T).",
@@ -3264,6 +3303,8 @@
       },
       {
         id: "S05",
+        sectionId: "4.5",
+        sectionUrl: "slides/capitulo-04/page_9.html",
         slug: "vdw",
         title: "Van der Waals 1",
         description: "Simulador da equação de Van der Waals em variáveis reduzidas, apresentando isotermas, curva espinodal e ponto crítico.",
@@ -3273,6 +3314,8 @@
       },
       {
         id: "S06",
+        sectionId: "4.6",
+        sectionUrl: "slides/capitulo-04/page_11.html",
         slug: "vdw_pv_gv",
         title: "Van der Waals 2",
         description: "Relaciona a isoterma de Van der Waals com a energia livre g(v), permitindo visualizar como a pressão afeta os mínimos de estabilidade do fluido.",
@@ -3291,6 +3334,8 @@
       },
       {
         id: "S08",
+        sectionId: "6.2",
+        sectionUrl: "slides/capitulo-06/page_2.html",
         slug: "mt_carnot",
         title: "Máquina térmica de Carnot",
         description: "Simula o ciclo de Carnot com gás ideal, exibindo as quatro transformações, o diagrama S(T), os calores trocados, o trabalho total e a eficiência teórica.",
@@ -3300,6 +3345,8 @@
       },
       {
         id: "S09",
+        sectionId: "6.10",
+        sectionUrl: "slides/capitulo-06/page_10.html",
         slug: "stirling_reg",
         title: "Máquina térmica de Stirling",
         description: "Simulador do motor de Stirling tipo alfa com regenerador, dois cilindros, virabrequim e cálculo dos trabalhos e calores em cada etapa do ciclo ideal.",
@@ -3666,13 +3713,17 @@
       grid.className = "topic-grid";
 
       topics.forEach((topic) => {
+        const badges = [
+          topic.simulatorId ? `<div class="topic-badge simulator-highlight"><i class="fa-solid fa-desktop"></i> Simulador ${escapeHtml(topic.simulatorId)}</div>` : "",
+          topic.aiExercise ? `<div class="topic-badge ai-exercise"><i class="fa-solid fa-wand-magic-sparkles"></i> Exercício IA</div>` : ""
+        ].filter(Boolean).join("");
         const link = document.createElement("a");
-        link.className = `topic-card${topic.aiExercise ? " ai-exercise" : ""}`;
+        link.className = `topic-card${topic.aiExercise ? " ai-exercise" : ""}${topic.simulatorId ? " has-simulator" : ""}`;
         link.href = topic.url || "#";
         link.innerHTML = `
           <div class="topic-card-top">
             <div class="topic-id">${escapeHtml(topic.id || "")}</div>
-            ${topic.aiExercise ? `<div class="topic-badge ai-exercise"><i class="fa-solid fa-wand-magic-sparkles"></i> Exercício IA</div>` : ""}
+            <div class="topic-card-badges">${badges}</div>
           </div>
           <div class="topic-title">${escapeHtml(topic.title || "Tópico sem título")}</div>
           <div class="topic-note">${escapeHtml(topic.note || "Abrir página HTML deste tópico.")}</div>
@@ -4774,13 +4825,11 @@
       topicContainer.innerHTML = `
         <div class="simulator-grid">
           ${simulatorsCatalog.map(function (simulator) {
+            const sectionLink = simulator.sectionId && simulator.sectionUrl
+              ? `<a class="simulator-card__footer simulator-card__footer--section" href="${escapeHtml(simulator.sectionUrl)}"><i class="fa-solid fa-arrow-right"></i><span>Abrir seção ${escapeHtml(simulator.sectionId)}</span></a>`
+              : "";
             return `
-              <a
-                class="simulator-card"
-                href="${escapeHtml(simulator.standaloneUrl)}"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <article class="simulator-card">
                 <div class="simulator-card__top">
                   <div>
                     <div class="simulator-card__eyebrow">${escapeHtml(simulator.id)}</div>
@@ -4791,11 +4840,19 @@
                   </span>
                 </div>
                 <div class="simulator-card__description">${escapeHtml(simulator.description)}</div>
-                <div class="simulator-card__footer">
-                  <i class="fa-solid fa-arrow-right"></i>
-                  <span>Abrir simulador</span>
+                <div class="simulator-card__actions">
+                  <a
+                    class="simulator-card__footer"
+                    href="${escapeHtml(simulator.standaloneUrl)}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <i class="fa-solid fa-arrow-right"></i>
+                    <span>Abrir simulador</span>
+                  </a>
+                  ${sectionLink}
                 </div>
-              </a>
+              </article>
             `;
           }).join("")}
         </div>
