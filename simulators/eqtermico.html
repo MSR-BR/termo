@@ -7,21 +7,17 @@
 
 <style>
   :root{
-    --bg0:#060a14;
-    --bg1:#0b1224;
-    --card:#0f1a33cc;
-    --border:rgba(255,255,255,.10);
-    --text:#eaf0ff;
-    --muted:rgba(234,240,255,.72);
-
-    --a1:#4f8cff;   /* azul */
-    --a2:#a855f7;   /* roxo */
-    --a3:#ff4d6d;   /* rosa/vermelho */
-    --good:#34d399; /* verde */
-    --warn:#fbbf24; /* amarelo */
-
-    --r:18px;
-    --shadow:0 14px 40px rgba(0,0,0,.45);
+    --page:#f3f7fb;
+    --paper:#ffffff;
+    --paper-soft:#eef5ff;
+    --line:#d7e3f0;
+    --text:#28384c;
+    --muted:#5f7186;
+    --brand:#00508f;
+    --brand-soft:#e6f0fb;
+    --accent:#b63a32;
+    --green:#1f8b4c;
+    --shadow:0 18px 44px rgba(31, 56, 82, .12);
   }
 
   *{box-sizing:border-box}
@@ -29,52 +25,114 @@
   body{
     margin:0;
     color:var(--text);
-    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Helvetica Neue", sans-serif;
-    /* garante que o “azul” vá até o fim do conteúdo, mesmo com muitos materiais */
-    min-height: 100dvh;
-    background:
-      radial-gradient(1200px 700px at 12% 10%, rgba(79,140,255,.20), transparent 60%),
-      radial-gradient(900px 600px at 85% 25%, rgba(168,85,247,.18), transparent 62%),
-      radial-gradient(900px 600px at 70% 95%, rgba(255,77,109,.12), transparent 60%),
-      linear-gradient(180deg, var(--bg0), var(--bg1));
-    background-attachment: fixed;
+    font-family:system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+    min-height:100dvh;
+    background:var(--page);
   }
 
-  a{color:rgba(234,240,255,.9); text-decoration-color:rgba(234,240,255,.35)}
-  a:hover{color:#fff; text-decoration-color:rgba(255,255,255,.7)}
+  a{color:var(--brand); text-decoration-thickness:2px; text-underline-offset:3px}
 
   .wrap{
-    width:min(1100px, 100%);
-    margin:0 auto;
-    padding: clamp(16px, 3vw, 28px);
+    width:min(1120px, calc(100% - 32px));
+    margin:24px auto 32px;
+    padding:0;
     padding-bottom: max(28px, env(safe-area-inset-bottom));
   }
 
-  header{
+  .sim-header{
+    background:linear-gradient(180deg, var(--paper-soft), var(--paper));
+    border:1px solid var(--line);
+    border-left:8px solid var(--brand);
+    border-radius:8px;
+    box-shadow:var(--shadow);
+    padding:clamp(18px, 3vw, 28px);
     display:flex;
     flex-direction:column;
-    gap:10px;
-    margin-bottom: 14px;
+    gap:18px;
+  }
+
+  .header-row{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:18px;
+    flex-wrap:wrap;
+  }
+
+  .eyebrow{
+    margin:0 0 8px;
+    color:var(--accent);
+    font-size:.92rem;
+    line-height:1.2;
+    font-weight:800;
+    letter-spacing:.08em;
+    text-transform:uppercase;
   }
 
   .title{
-    font-size: clamp(22px, 3.2vw, 34px);
-    line-height:1.1;
-    letter-spacing:.2px;
     margin:0;
+    color:var(--brand);
+    font-size:clamp(2rem, 5vw, 3.4rem);
+    line-height:1.04;
+    letter-spacing:0;
   }
 
   .subtitle{
-    margin:0;
+    max-width:78ch;
+    margin:14px 0 0;
     color:var(--muted);
-    font-size: clamp(13px, 1.5vw, 15px);
-    max-width: 86ch;
+    font-size:clamp(1.05rem, 2vw, 1.28rem);
+    line-height:1.55;
   }
 
-  .credits{
-    color:rgba(234,240,255,.65);
-    font-size: 12.5px;
-    line-height:1.35;
+  .header-actions{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+  }
+
+  .action-link{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:42px;
+    padding:10px 14px;
+    border:1px solid #b9d1ec;
+    border-radius:8px;
+    background:#f8fbff;
+    color:var(--brand);
+    font-weight:750;
+    text-decoration:none;
+  }
+
+  .meta-grid{
+    display:grid;
+    grid-template-columns:1.35fr 1fr .72fr;
+    gap:12px;
+  }
+
+  .meta-card{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:14px 16px;
+    min-width:0;
+  }
+
+  .meta-card strong{
+    display:block;
+    color:var(--brand);
+    font-size:1rem;
+    margin-bottom:4px;
+  }
+
+  .meta-card p,
+  .meta-card small{
+    margin:0;
+    color:var(--muted);
+    line-height:1.45;
+    font-size:.95rem;
   }
 
   .topbar{
@@ -83,86 +141,83 @@
     flex-wrap:wrap;
     align-items:center;
     justify-content:flex-start;
-    margin-top: 6px;
+    margin-top:18px;
   }
 
   .pill{
     display:inline-flex;
     align-items:center;
     gap:8px;
-    padding:10px 12px;
-    border-radius:999px;
-    background:rgba(255,255,255,.06);
-    border:1px solid var(--border);
-    box-shadow: 0 10px 24px rgba(0,0,0,.18);
-    backdrop-filter: blur(10px);
+    padding:0;
+    border-radius:8px;
+    background:transparent;
+    border:0;
   }
 
   .btn{
     appearance:none;
-    border:1px solid var(--border);
-    background: linear-gradient(90deg, rgba(79,140,255,.18), rgba(168,85,247,.14), rgba(255,77,109,.12));
-    color:var(--text);
-    border-radius: 999px;
-    padding: 10px 14px;
+    border:1px solid #b9d1ec;
+    background:var(--brand);
+    color:#fff;
+    border-radius:8px;
+    min-height:44px;
+    padding:10px 15px;
     font-weight: 650;
-    letter-spacing:.2px;
+    letter-spacing:0;
     cursor:pointer;
-    transition: transform .08s ease, filter .2s ease, border-color .2s ease;
     user-select:none;
     touch-action: manipulation;
   }
-  .btn:hover{filter: brightness(1.08); border-color: rgba(255,255,255,.18)}
+  .btn:hover{filter: brightness(1.06)}
   .btn:active{transform: translateY(1px)}
-  .btn.secondary{ background: rgba(255,255,255,.06); }
+  .btn.secondary{
+    background:#f8fbff;
+    color:var(--brand);
+  }
 
   .layout{
     display:grid;
     grid-template-columns: 1.15fr .85fr;
-    gap: 14px;
+    gap:14px;
     align-items:start;
-    margin-top: 14px;
+    margin-top:18px;
   }
   @media (max-width: 900px){
     .layout{grid-template-columns: 1fr;}
   }
 
   .panel{
-    background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-    border: 1px solid var(--border);
-    border-radius: var(--r);
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-top:5px solid var(--brand);
+    border-radius:8px;
     box-shadow: var(--shadow);
     overflow:hidden;
   }
 
   .panel > .hd{
-    padding: 14px 14px 10px 14px;
-    border-bottom: 1px solid rgba(255,255,255,.08);
+    padding:14px 14px 10px 14px;
+    border-bottom:1px solid var(--line);
     display:flex;
     align-items:flex-start;
     justify-content:space-between;
-    gap: 10px;
-    background:
-      radial-gradient(600px 200px at 30% 0%, rgba(79,140,255,.18), transparent 60%),
-      radial-gradient(600px 200px at 80% 0%, rgba(168,85,247,.14), transparent 60%);
+    gap:10px;
+    background:var(--brand-soft);
   }
 
   .hd .hdtxt{display:flex; flex-direction:column; gap:4px;}
-  .hd h2{margin:0; font-size: 15px; letter-spacing:.2px;}
-  .hd p{margin:0; color:var(--muted); font-size: 12.5px;}
+  .hd h2{margin:0; color:var(--brand); font-size:15px; letter-spacing:0;}
+  .hd p{margin:0; color:var(--muted); font-size:12.5px;}
 
   .panel > .bd{padding: 14px;}
 
   .materials{display:flex; flex-direction:column; gap: 10px;}
 
   .mat{
-    border-radius: 16px;
-    border: 1px solid rgba(255,255,255,.10);
-    background:
-      radial-gradient(700px 220px at 10% 0%, rgba(79,140,255,.14), transparent 60%),
-      radial-gradient(700px 220px at 85% 0%, rgba(255,77,109,.10), transparent 60%),
-      rgba(15,26,51,.65);
-    box-shadow: 0 10px 26px rgba(0,0,0,.24);
+    border-radius:8px;
+    border:1px solid var(--line);
+    background:#fbfdff;
+    box-shadow:0 8px 22px rgba(31, 56, 82, .08);
     overflow:hidden;
   }
 
@@ -171,34 +226,34 @@
     align-items:center;
     justify-content:space-between;
     gap:10px;
-    padding: 12px 12px 10px 12px;
-    border-bottom: 1px solid rgba(255,255,255,.08);
+    padding:12px 12px 10px 12px;
+    border-bottom:1px solid var(--line);
   }
 
   .matTitle{display:flex; align-items:center; gap:10px; min-width: 0;}
   .badge{
     width: 34px; height: 34px;
-    border-radius: 12px;
+    border-radius: 8px;
     display:grid; place-items:center;
-    font-weight: 800; color:#061024;
-    background: linear-gradient(135deg, var(--a1), var(--a2), var(--a3));
+    font-weight:800;
+    color:#fff;
+    background:var(--brand);
   }
 
-  .matTitle strong{display:block; font-size: 14px; letter-spacing:.2px;}
+  .matTitle strong{display:block; color:var(--brand); font-size:14px; letter-spacing:0;}
   .matTitle span{
-    display:block; font-size: 12px; color: var(--muted);
+    display:block; font-size:12px; color:var(--muted);
     white-space: nowrap; overflow:hidden; text-overflow: ellipsis; max-width: 48ch;
   }
 
   .iconbtn{
     appearance:none;
-    border: 1px solid rgba(255,255,255,.14);
-    background: rgba(0,0,0,.12);
-    color: rgba(234,240,255,.92);
-    border-radius: 12px;
+    border:1px solid #e0a8a2;
+    background:#fff8f7;
+    color:var(--accent);
+    border-radius:8px;
     padding: 8px 10px;
     cursor:pointer;
-    transition: filter .2s ease, transform .08s ease;
     touch-action: manipulation;
   }
   .iconbtn:hover{filter: brightness(1.08)}
@@ -222,45 +277,42 @@
     .field{grid-column: span 12;}
   }
 
-  .field label{font-size: 12px; color: rgba(234,240,255,.78);}
+  .field label{font-size:12px; color:var(--muted);}
 
   input[type="number"], select{
     width: 100%;
     padding: 10px 10px;
-    border-radius: 12px;
-    border: 1px solid rgba(255,255,255,.14);
-    background: rgba(0,0,0,.18);
+    border-radius:8px;
+    border:1px solid #b8c9da;
+    background:#fff;
     color: var(--text);
     outline:none;
     transition: border-color .2s ease, box-shadow .2s ease;
   }
-  input[type="number"]::placeholder{color: rgba(234,240,255,.45)}
+  input[type="number"]::placeholder{color:#9ca9b8}
   input[type="number"]:focus, select:focus{
-    border-color: rgba(79,140,255,.55);
-    box-shadow: 0 0 0 4px rgba(79,140,255,.16);
+    border-color:#7fb0e6;
+    box-shadow:0 0 0 4px rgba(0,80,143,.12);
   }
 
-  .hint{font-size: 11.5px; color: rgba(234,240,255,.62); margin-top:-2px;}
+  .hint{font-size:11.5px; color:var(--muted); margin-top:-2px;}
 
   .tag{
-    font-size: 11.5px;
-    padding: 6px 10px;
-    border-radius: 999px;
-    border:1px solid rgba(255,255,255,.12);
-    background: rgba(255,255,255,.06);
-    color: rgba(234,240,255,.82);
+    font-size:11.5px;
+    padding:6px 10px;
+    border-radius:999px;
+    border:1px solid #b9d1ec;
+    background:#f8fbff;
+    color:var(--brand);
     white-space:nowrap;
   }
 
   .out{
-    background:
-      radial-gradient(800px 240px at 15% 0%, rgba(168,85,247,.16), transparent 60%),
-      radial-gradient(800px 240px at 85% 0%, rgba(79,140,255,.14), transparent 60%),
-      rgba(15,26,51,.60);
-    border: 1px solid rgba(255,255,255,.10);
-    border-radius: 16px;
-    box-shadow: 0 10px 26px rgba(0,0,0,.24);
-    padding: 12px;
+    background:#fbfdff;
+    border:1px solid var(--line);
+    border-radius:8px;
+    box-shadow:0 8px 22px rgba(31, 56, 82, .08);
+    padding:12px;
   }
 
   .mono{
@@ -268,12 +320,20 @@
     font-size: 12.5px;
     white-space: pre-wrap;
     margin:0;
-    color: rgba(234,240,255,.92);
+    color:var(--text);
   }
 
   /* sticky no desktop */
   @media (min-width: 901px){
     .sticky{ position: sticky; top: 14px; }
+  }
+
+  @media (max-width: 840px){
+    .wrap{ width:min(100% - 18px, 1120px); margin-top:12px }
+    .meta-grid{ grid-template-columns:1fr }
+    .header-actions{ justify-content:flex-start }
+    .pill{ width:100%; flex-wrap:wrap }
+    .btn{ flex:1 1 180px }
   }
 
   /* acessibilidade */
@@ -289,24 +349,52 @@
 
 <body>
   <div class="wrap">
-    <header>
-      <h1 class="title">Simulador de Equilíbrio Térmico</h1>
-      <p class="subtitle">
-        Adicione quantos blocos quiser (massa e temperatura inicial). Selecione o material para preencher automaticamente
-        o calor específico, ou escolha “Outro” para inserir um valor personalizado. O simulador calcula a temperatura de
-        equilíbrio <strong>T<sub>f</sub></strong> e o calor <strong>ΔQ</strong> absorvido/cedido por cada bloco (SI).
-      </p>
+    <header class="sim-header">
+      <div class="header-row">
+        <div>
+          <p class="eyebrow">S02 · Seção 1.10 · Simulador</p>
+          <h1 class="title">Equilíbrio Térmico</h1>
+          <p class="subtitle">
+            Calcule a temperatura de equilíbrio de múltiplos materiais em um sistema isolado.
+            O simulador usa massa, calor específico e temperatura inicial para estimar
+            <strong>T<sub>f</sub></strong> e <strong>ΔQ</strong> de cada bloco.
+          </p>
+        </div>
+        <nav class="header-actions" aria-label="Links do simulador">
+          <a class="action-link" href="../index.html?view=simulators">Catálogo</a>
+          <a class="action-link" href="../slides/capitulo-01/page_11.html">Seção 1.10</a>
+        </nav>
+      </div>
 
-      <div class="topbar">
+      <div class="meta-grid">
+        <section class="meta-card">
+          <strong>Instrução de uso</strong>
+          <p>
+            Adicione materiais, informe massa e temperatura inicial, escolha o material ou
+            preencha o calor específico em “Outro”, e clique em Calcular.
+          </p>
+        </section>
+        <section class="meta-card">
+          <strong>Créditos</strong>
+          <p>
+            <small>
+              Desenvolvido por <strong>Mario Reis</strong> — Instituto de Física,
+              Universidade Federal Fluminense (UFF) ·
+              <a href="mailto:marioreis@id.uff.br">marioreis@id.uff.br</a> ·
+              <a href="https://profmarioreis.wordpress.com" target="_blank" rel="noopener">profmarioreis.wordpress.com</a>
+            </small>
+          </p>
+        </section>
+        <section class="meta-card">
+          <strong>Versão</strong>
+          <p>S02 · v1.1<br>26/06/2026</p>
+        </section>
+      </div>
+
+      <div class="topbar" aria-label="Controles do simulador">
         <span class="pill">
           <button class="btn" id="btnAdd" type="button">+ Adicionar material</button>
           <button class="btn secondary" id="btnCalc" type="button">Calcular</button>
-        </span>
-        <span class="pill credits">
-          Desenvolvido por <strong>Mario Reis</strong> — Instituto de Física, UFF ·
-          <a href="mailto:marioreis@id.uff.br">marioreis@id.uff.br</a> ·
-          <a href="http://profmarioreis.wordpress.com" target="_blank" rel="noopener">profmarioreis.wordpress.com</a><br>
-          Versão 1.1 — 26 de julho de 2025
         </span>
       </div>
     </header>
@@ -451,7 +539,7 @@
 
   function updateCount(){
     const n = els.list.querySelectorAll(".mat").length;
-    els.matCount.textContent = `${n} material${n===1 ? "" : "is"}`;
+    els.matCount.textContent = `${n} ${n===1 ? "material" : "materiais"}`;
   }
 
   function addMaterial(){
