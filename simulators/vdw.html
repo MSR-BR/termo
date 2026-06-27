@@ -1,80 +1,327 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Equação de Van der Waals — p(v) reduzido + espinodal</title>
+  <title>S05 · Equação de Van der Waals</title>
   <style>
-    :root { --bg:#0b0d10; --fg:#e6eef8; --muted:#9fb3c8; --grid:#243140; --accent:#4da3ff; --spinodal:#ff7a59; }
-    * { box-sizing:border-box; }
-    html, body { width:100%; max-width:100%; overflow-x:hidden; }
-    body { margin:0; font:16px/1.4 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; color:var(--fg); background:var(--bg); }
-    header { padding:14px 16px; border-bottom:1px solid #15202b; background:#0f1318; position:sticky; top:0; z-index:10; }
-    h1 { font-size:20px; margin:0 0 4px; }
-    .sub { color:var(--muted); font-size:13px; }
-    main { display:grid; grid-template-columns:1fr; gap:14px; padding:14px; max-width:1000px; margin:0 auto; }
-    .panel { background:#0f141a; border:1px solid #1d2a36; border-radius:16px; padding:14px; box-shadow:0 4px 20px rgba(0,0,0,.35); }
-    .controls { display:grid; gap:10px; align-items:center; grid-template-columns: 90px 1fr 90px; font-size:14px; }
-    input[type="range"] { width:100%; }
-    .badge { display:inline-block; padding:.1rem .45rem; border-radius:999px; font-size:12px; background:#16212d; color:var(--muted); border:1px solid #223142; }
-    .legend { display:flex; gap:10px; flex-wrap:wrap; align-items:center; font-size:13px; color:var(--muted); }
-    .key { display:inline-flex; align-items:center; gap:6px; }
-    .swatch { width:16px; height:3px; border-radius:2px; display:inline-block; }
-    .swatch.curva { background:var(--accent); }
-    .swatch.spin { background:var(--spinodal); box-shadow:0 0 0 1px var(--spinodal); }
-    .swatch.crit { width:8px; height:8px; border-radius:50%; background:#ffd166; }
-    #chartWrap { position:relative; width:100%; aspect-ratio: 16/10; }
-    svg { width:100%; height:100%; display:block; }
-    .axis text { fill:var(--muted); font-size:12px; }
-    .axis .tick line { stroke:var(--grid); }
-    .axis path, .axis .domain { stroke:var(--muted); opacity:.35; }
-    .grid line { stroke:var(--grid); }
-    .curve { fill:none; stroke:var(--accent); stroke-width:2.0; }
-    .spinodal { fill:none; stroke:var(--spinodal); stroke-width:1.8; stroke-dasharray:6 6; }
-    .critical { fill:#ffd166; stroke:#000; stroke-width:.8; }
-    footer { color:var(--muted); font-size:12px; padding:0 14px 14px; max-width:1000px; margin:0 auto; }
-    a { color:#8dc1ff; }
+    :root{
+      --page:#f3f7fb;
+      --paper:#ffffff;
+      --paper-soft:#eef5ff;
+      --line:#d7e3f0;
+      --text:#28384c;
+      --muted:#5f7186;
+      --brand:#00508f;
+      --brand-soft:#e6f0fb;
+      --accent:#b63a32;
+      --green:#1f8b4c;
+      --curve:#00508f;
+      --spinodal:#b63a32;
+      --critical:#d97706;
+      --shadow:0 18px 44px rgba(31, 56, 82, .12);
+    }
+
+    *{box-sizing:border-box}
+    html,body{width:100%;max-width:100%;overflow-x:hidden}
+    body{
+      margin:0;
+      background:var(--page);
+      color:var(--text);
+      font-family:system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+      min-height:100svh;
+      line-height:1.45;
+    }
+    a{color:var(--brand); text-decoration-thickness:2px; text-underline-offset:3px}
+
+    .shell{
+      width:min(1180px, calc(100% - 32px));
+      margin:24px auto 32px;
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+    }
+    .sim-header{
+      background:linear-gradient(180deg, var(--paper-soft), var(--paper));
+      border:1px solid var(--line);
+      border-left:8px solid var(--brand);
+      border-radius:8px;
+      box-shadow:var(--shadow);
+      padding:clamp(18px, 3vw, 28px);
+    }
+    .header-row{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+    .eyebrow{
+      margin:0 0 8px;
+      color:var(--accent);
+      font-size:.92rem;
+      line-height:1.2;
+      font-weight:800;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+    h1{
+      margin:0;
+      color:var(--brand);
+      font-size:clamp(2rem, 5vw, 3.4rem);
+      line-height:1.04;
+      letter-spacing:0;
+    }
+    .intro{
+      max-width:82ch;
+      margin:14px 0 0;
+      color:var(--muted);
+      font-size:clamp(1.05rem, 2vw, 1.28rem);
+      line-height:1.55;
+    }
+    .header-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .action-link{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:42px;
+      padding:10px 14px;
+      border:1px solid #b9d1ec;
+      border-radius:8px;
+      background:#f8fbff;
+      color:var(--brand);
+      font-weight:750;
+      text-decoration:none;
+    }
+    .meta-grid{
+      display:grid;
+      grid-template-columns:1.35fr 1fr .72fr;
+      gap:12px;
+      margin-top:20px;
+    }
+    .meta-card{
+      background:var(--paper);
+      border:1px solid var(--line);
+      border-radius:8px;
+      padding:14px 16px;
+      min-width:0;
+    }
+    .meta-card strong{
+      display:block;
+      color:var(--brand);
+      font-size:1rem;
+      margin-bottom:4px;
+    }
+    .meta-card p,
+    .meta-card small{
+      margin:0;
+      color:var(--muted);
+      line-height:1.45;
+      font-size:.95rem;
+    }
+
+    .sim-main{
+      display:grid;
+      grid-template-columns:minmax(280px, .68fr) minmax(0, 1.32fr);
+      gap:18px;
+      align-items:start;
+    }
+    .panel{
+      background:var(--paper);
+      border:1px solid var(--line);
+      border-top:5px solid var(--brand);
+      border-radius:8px;
+      box-shadow:var(--shadow);
+      padding:18px;
+    }
+    .panel h2{
+      margin:.1rem 0 .7rem;
+      color:var(--brand);
+      font-size:1.2rem;
+    }
+    .controls{
+      display:grid;
+      gap:12px;
+      font-size:1rem;
+    }
+    label{
+      display:block;
+      color:var(--brand);
+      font-weight:800;
+    }
+    input[type="range"]{
+      width:100%;
+      accent-color:var(--brand);
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:max-content;
+      min-height:34px;
+      padding:.28rem .7rem;
+      border-radius:999px;
+      font-size:.92rem;
+      background:var(--brand-soft);
+      color:var(--brand);
+      border:1px solid #c7d8f3;
+      font-weight:800;
+    }
+    .formula{
+      background:#f8fbff;
+      border:1px solid var(--line);
+      border-left:4px solid var(--brand);
+      border-radius:0 8px 8px 0;
+      padding:12px 14px;
+      color:var(--text);
+      margin-top:12px;
+    }
+    .formula p{margin:.45rem 0}
+    .small{font-size:.9rem; color:var(--muted)}
+
+    .legend{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      font-size:.92rem;
+      color:var(--muted);
+      margin-top:12px;
+    }
+    .key{
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      background:var(--brand-soft);
+      border:1px solid #c7d8f3;
+      border-radius:999px;
+      padding:6px 9px;
+      color:var(--brand);
+      font-weight:750;
+    }
+    .swatch{
+      width:18px;
+      height:3px;
+      border-radius:2px;
+      display:inline-block;
+    }
+    .swatch.curva{background:var(--curve)}
+    .swatch.spin{background:var(--spinodal); box-shadow:0 0 0 1px var(--spinodal)}
+    .swatch.crit{width:9px; height:9px; border-radius:50%; background:var(--critical)}
+
+    #chartWrap{
+      position:relative;
+      width:100%;
+      aspect-ratio:16 / 10;
+      min-height:360px;
+    }
+    svg{
+      width:100%;
+      height:100%;
+      display:block;
+      background:#f8fbff;
+      border:1px solid var(--line);
+      border-radius:8px;
+    }
+    .axis text{fill:var(--muted); font-size:12px}
+    .axis .tick,
+    .axis path,
+    .axis .domain{stroke:var(--muted); opacity:.6}
+    .grid line{stroke:rgba(95,113,134,.18)}
+    .curve{fill:none; stroke:var(--curve); stroke-width:2.4}
+    .spinodal{fill:none; stroke:var(--spinodal); stroke-width:2; stroke-dasharray:7 7}
+    .critical{fill:var(--critical); stroke:#7c3f00; stroke-width:.8}
+
+    @media (max-width: 920px){
+      .shell{width:min(100% - 20px, 1180px); margin:14px auto 24px}
+      .meta-grid,
+      .sim-main{grid-template-columns:1fr}
+      .header-actions{justify-content:flex-start}
+      #chartWrap{min-height:300px}
+    }
+    @media (max-width: 560px){
+      .panel{padding:14px}
+      #chartWrap{min-height:250px}
+    }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Equação de Van der Waals — <span class="badge">p × v (variáveis reduzidas)</span></h1>
-    <div class="sub">Ajuste a temperatura reduzida <b>t</b> e observe a isoterma <i>p(v)</i> dada por (p + 3/v²)(v − 1/3) = 8t/3. A curva tracejada é a espinodal p = (3v − 2)/v³; o ponto crítico é (v, p, t) = (1, 1, 1).</div>
-    <div class="sub" style="margin-top:6px">Definições reduzidas: v = V/Vc, t = T/Tc, p = P/Pc, com Vc = 3nb, Tc = 8a/(27bR), Pc = a/(27b²).</div>
-    <div class="sub" style="margin-top:10px">Desenvolvido por <b>Mario Reis</b> — Instituto de Física, Universidade Federal Fluminense (UFF) · <a href="mailto:marioreis@id.uff.br">marioreis@id.uff.br</a> · <a href="https://profmarioreis.wordpress.com" target="_blank">profmarioreis.wordpress.com</a> · 22 de setembro de 2025</div>
-  </header>
+  <main class="shell">
+    <header class="sim-header">
+      <div class="header-row">
+        <div>
+          <p class="eyebrow">S05 · Seção 4.5 · Simulador</p>
+          <h1>Equação de Van der Waals</h1>
+          <p class="intro">Ajuste a temperatura reduzida <strong>t</strong> e observe a isoterma <em>p(v)</em> em variáveis reduzidas. A curva tracejada indica a espinodal, que delimita a perda de estabilidade mecânica da fase homogênea.</p>
+        </div>
+        <nav class="header-actions" aria-label="Navegação do simulador">
+          <a class="action-link" href="../index.html?view=simulators">Simuladores</a>
+          <a class="action-link" href="../slides/capitulo-04/page_9.html">Abrir seção 4.5</a>
+        </nav>
+      </div>
 
-  <main>
-    <section class="panel">
-      <div class="controls" role="group" aria-label="Controles de temperatura">
-        <label for="t">Temperatura t</label>
+      <div class="meta-grid">
+        <div class="meta-card">
+          <strong>Instrução de uso</strong>
+          <p>Mova o controle de temperatura para comparar isotermas subcríticas e supercríticas. Para <strong>t &lt; 1</strong>, a região associada à espinodal evidencia o trecho mecanicamente instável da isoterma.</p>
+        </div>
+        <div class="meta-card">
+          <strong>Créditos</strong>
+          <p>Material didático desenvolvido por Prof. Mario Reis, Instituto de Física, Universidade Federal Fluminense.</p>
+        </div>
+        <div class="meta-card">
+          <strong>Versão</strong>
+          <small>S05 · v1.1<br><span id="dateTag"></span></small>
+        </div>
+      </div>
+    </header>
+
+    <div class="sim-main">
+      <section class="panel controls">
+        <h2>Controle</h2>
+        <label for="t">Temperatura reduzida</label>
         <input id="t" type="range" min="0.85" max="1.4" step="0.01" value="0.90" aria-valuemin="0.85" aria-valuemax="1.4" aria-valuenow="0.90" />
         <div id="tVal" class="badge">t = 0.90</div>
-      </div>
-    </section>
 
-    <section id="chart" class="panel">
-      <div id="chartWrap">
-        <svg id="svg" viewBox="0 0 800 520" aria-labelledby="title desc" role="img">
-          <title id="title">Diagrama p × v do gás de Van der Waals</title>
-          <desc id="desc">Curva p(v) para uma temperatura reduzida t ajustável e a curva espinodal em p = (3v − 2)/v³; inclui grelha e eixos com marcas.</desc>
-          <!-- Camadas -->
-          <g id="grid" class="grid"></g>
-          <g id="axes" class="axis"></g>
-          <path id="spin" class="spinodal" />
-          <path id="curve" class="curve" />
-          <circle id="cp" class="critical" r="4" />
-        </svg>
-      </div>
-      <div class="legend" style="margin-top:10px">
-        <span class="key"><span class="swatch curva"></span> isoterma p(v) para t</span>
-        <span class="key"><span class="swatch spin"></span> espinodal</span>
-        <span class="key"><span class="swatch crit"></span> ponto crítico</span>
-      </div>
-    </section>
+        <div class="formula">
+          <p><strong>Equação reduzida:</strong></p>
+          <p>(p + 3/v<sup>2</sup>)(v - 1/3) = 8t/3</p>
+          <p class="small">v = V/V<sub>c</sub>, t = T/T<sub>c</sub>, p = P/P<sub>c</sub>, com V<sub>c</sub> = 3nb, T<sub>c</sub> = 8a/(27bR) e P<sub>c</sub> = a/(27b<sup>2</sup>).</p>
+        </div>
+      </section>
+
+      <section id="chart" class="panel">
+        <div id="chartWrap">
+          <svg id="svg" viewBox="0 0 800 520" aria-labelledby="title desc" role="img">
+            <title id="title">Diagrama p por v do gás de Van der Waals</title>
+            <desc id="desc">Curva p(v) para uma temperatura reduzida ajustável, curva espinodal e ponto crítico.</desc>
+            <g id="grid" class="grid"></g>
+            <g id="axes" class="axis"></g>
+            <path id="spin" class="spinodal" />
+            <path id="curve" class="curve" />
+            <circle id="cp" class="critical" r="4" />
+          </svg>
+        </div>
+        <div class="legend">
+          <span class="key"><span class="swatch curva"></span> isoterma p(v)</span>
+          <span class="key"><span class="swatch spin"></span> espinodal</span>
+          <span class="key"><span class="swatch crit"></span> ponto crítico</span>
+        </div>
+      </section>
+    </div>
   </main>
 
   <script>
+    const dateTag = document.getElementById('dateTag');
+    dateTag.textContent = new Date().toLocaleDateString('pt-BR', {
+      day:'2-digit', month:'long', year:'numeric'
+    });
+
     function linScale(domainMin, domainMax, rangeMin, rangeMax) {
       const d = domainMax - domainMin, r = rangeMax - rangeMin;
       return {
@@ -83,7 +330,6 @@
       };
     }
 
-    const svg = document.getElementById('svg');
     const gGrid = document.getElementById('grid');
     const gAxes = document.getElementById('axes');
     const pathCurve = document.getElementById('curve');
@@ -94,7 +340,7 @@
     const inner = {x:m.l, y:m.t, w:W - m.l - m.r, h:H - m.t - m.b};
 
     let vMin = 0.35, vMax = 4.8;
-    let pMin = -0.3, pMax = 3.5; // escala ajustada
+    let pMin = -0.3, pMax = 3.5;
 
     const sx = linScale(vMin, vMax, inner.x, inner.x + inner.w);
     const sy = linScale(pMax, pMin, inner.y, inner.y + inner.h);

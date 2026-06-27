@@ -1,42 +1,140 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Paramagnetismo Interativo — Função de Brillouin</title>
+<title>S04 · Paramagnetismo</title>
 <style>
   :root{
-    --bg:#0b1020;
-    --panel:#111833;
-    --ink:#e8ecff;
-    --muted:#9fb0ff;
-    --accent:#6aa8ff;
-    --accent2:#ffb86b;
-    --grid:#2a335c;
-    --border:#202a52;
+    --page:#f3f7fb;
+    --paper:#ffffff;
+    --paper-soft:#eef5ff;
+    --line:#d7e3f0;
+    --text:#28384c;
+    --muted:#5f7186;
+    --brand:#00508f;
+    --brand-soft:#e6f0fb;
+    --accent:#b63a32;
+    --green:#1f8b4c;
+    --orange:#d97706;
+    --plot-main:#00508f;
+    --plot-extra:#d97706;
+    --shadow:0 18px 44px rgba(31, 56, 82, .12);
   }
   *{box-sizing:border-box}
   html,body{width:100%;max-width:100%;overflow-x:hidden}
   body{
     margin:0;
-    font:14px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,sans-serif;
-    color:var(--ink);
-    background:linear-gradient(180deg,#0b1020,#0a0f1d 60%);
+    background:var(--page);
+    color:var(--text);
+    font-family:system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+    min-height:100svh;
+    line-height:1.45;
   }
-  header{padding:16px 16px 8px}
-  h1{margin:0 0 8px; font-size:22px}
-  .wrap{
+  a{color:var(--brand); text-decoration-thickness:2px; text-underline-offset:3px}
+  .shell{
+    width:min(1180px, calc(100% - 32px));
+    margin:24px auto 32px;
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+  }
+  .sim-header{
+    background:linear-gradient(180deg, var(--paper-soft), var(--paper));
+    border:1px solid var(--line);
+    border-left:8px solid var(--brand);
+    border-radius:8px;
+    box-shadow:var(--shadow);
+    padding:clamp(18px, 3vw, 28px);
+  }
+  .header-row{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:18px;
+    flex-wrap:wrap;
+  }
+  .eyebrow{
+    margin:0 0 8px;
+    color:var(--accent);
+    font-size:.92rem;
+    line-height:1.2;
+    font-weight:800;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+  }
+  h1{
+    margin:0;
+    color:var(--brand);
+    font-size:clamp(2rem, 5vw, 3.4rem);
+    line-height:1.04;
+    letter-spacing:0;
+  }
+  .intro{
+    max-width:80ch;
+    margin:14px 0 0;
+    color:var(--muted);
+    font-size:clamp(1.05rem, 2vw, 1.28rem);
+    line-height:1.55;
+  }
+  .header-actions{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+  }
+  .action-link{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:42px;
+    padding:10px 14px;
+    border:1px solid #b9d1ec;
+    border-radius:8px;
+    background:#f8fbff;
+    color:var(--brand);
+    font-weight:750;
+    text-decoration:none;
+  }
+  .meta-grid{
     display:grid;
-    grid-template-columns:420px 1fr;
-    gap:16px;
-    padding:16px;
+    grid-template-columns:1.35fr 1fr .72fr;
+    gap:12px;
+    margin-top:20px;
   }
-  .card{
-    background:var(--panel);
-    border:1px solid var(--border);
-    border-radius:16px;
-    padding:14px;
-    box-shadow:0 10px 30px rgba(0,0,0,.25);
+  .meta-card{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:14px 16px;
+    min-width:0;
+  }
+  .meta-card strong{
+    display:block;
+    color:var(--brand);
+    font-size:1rem;
+    margin-bottom:4px;
+  }
+  .meta-card p,
+  .meta-card small{
+    margin:0;
+    color:var(--muted);
+    line-height:1.45;
+    font-size:.95rem;
+  }
+  .sim-main{
+    display:grid;
+    grid-template-columns:minmax(280px, .72fr) minmax(0, 1.28fr);
+    gap:18px;
+    align-items:start;
+  }
+  .panel{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-top:5px solid var(--brand);
+    border-radius:8px;
+    box-shadow:var(--shadow);
+    padding:18px;
   }
   .controls label{
     display:block;
@@ -49,33 +147,40 @@
     align-items:center;
     flex-wrap:wrap;
   }
-  select, input[type=number]{
-    background:#0e1430;
-    color:var(--ink);
-    border:1px solid #24306b;
+  select,
+  input[type=number]{
+    background:#f8fbff;
+    color:var(--text);
+    border:1px solid #b9d1ec;
     border-radius:10px;
-    padding:6px 8px;
+    min-height:42px;
+    padding:8px 10px;
     width:100%;
+    font:inherit;
   }
   button{
-    background:#0d1535;
-    color:#cfe2ff;
-    border:1px solid #2a3b7a;
-    border-radius:10px;
-    padding:6px 10px;
+    background:#f8fbff;
+    color:var(--brand);
+    border:1px solid #b9d1ec;
+    border-radius:8px;
+    min-height:42px;
+    padding:8px 12px;
     cursor:pointer;
+    font-weight:750;
+    font:inherit;
   }
-  button:hover{filter:brightness(1.1)}
+  button:hover{background:var(--brand-soft)}
   .pill{
     display:inline-flex;
     align-items:center;
     gap:6px;
-    padding:4px 8px;
-    border:1px solid #2a3b7a;
+    padding:6px 9px;
+    border:1px solid #c7d8f3;
     border-radius:999px;
-    background:#0d1535;
-    color:#cfe2ff;
-    font-size:12px;
+    background:var(--brand-soft);
+    color:var(--brand);
+    font-size:.82rem;
+    font-weight:750;
   }
   .swatch{
     display:inline-block;
@@ -95,46 +200,73 @@
     gap:8px;
     margin-top:8px;
   }
-  .howto{margin:10px 16px 0}
-  .howto p{margin:6px 0}
-  .small{font-size:12px; color:#c6cffc}
+  .small{font-size:.85rem; color:var(--muted)}
+  .plot-title{
+    margin:4px 0 8px;
+    color:var(--brand);
+    font-weight:800;
+  }
 
   .canvasWrap{
     position:relative;
     width:100%;
-    height:280px;
+    height:320px;
   }
   canvas{
     width:100%;
     height:100%;
     display:block;
-    background:#0b122d;
-    border-radius:12px;
-    border:1px solid #1b2552;
+    background:#f8fbff;
+    border-radius:8px;
+    border:1px solid var(--line);
   }
 
   @media (max-width: 920px){
-    .wrap{grid-template-columns:1fr}
-    header{padding:12px}
-    h1{font-size:18px}
+    .shell{width:min(100% - 20px, 1180px); margin:14px auto 24px}
+    .meta-grid,
+    .sim-main{grid-template-columns:1fr}
+    .header-actions{justify-content:flex-start}
+    .canvasWrap{height:280px}
+  }
+  @media (max-width: 560px){
     .canvasWrap{height:240px}
+    .panel{padding:14px}
   }
 </style>
 </head>
 <body>
-<header>
-  <h1>Paramagnetismo Interativo — Função de Brillouin</h1>
-  <div class="card howto">
-    <p><strong>Como usar:</strong> Ajuste o spin principal <em>s</em>. A curva da esquerda mostra a magnetização reduzida <strong>m(x)=B<sub>s</sub>(x)</strong>. A curva da direita mostra <strong>m(1/x)</strong>. O eixo vertical exibe a <strong>magnetização reduzida</strong> \(m\).</p>
-    <p>Para comparar outro spin, digite o valor (passo 1/2) e clique em <em>Adicionar curva extra</em>. Para voltar ao gráfico com apenas uma curva, use <em>Remover curva extra</em>.</p>
-    <p class="small">Modelo: \(m = B_s(x)\), onde \(B_s(x)\) é a função de Brillouin.</p>
-    <p class="small">Assim, neste app a comparação entre spins é feita diretamente em função de \(x\) e \(1/x\), reproduzindo a ordem esperada dos gráficos teóricos.</p>
-    <p class="small">Desenvolvido por <strong>Mario Reis</strong> — Instituto de Física, Universidade Federal Fluminense (UFF) · <a href="mailto:marioreis@id.uff.br">marioreis@id.uff.br</a> · <a href="https://profmarioreis.wordpress.com" target="_blank" rel="noopener">profmarioreis.wordpress.com</a> · <span id="dateTag"></span></p>
-  </div>
-</header>
+<main class="shell">
+  <header class="sim-header">
+    <div class="header-row">
+      <div>
+        <p class="eyebrow">S04 · Seção 3.8 · Simulador</p>
+        <h1>Paramagnetismo</h1>
+        <p class="intro">Explore a magnetização reduzida de um sistema paramagnético descrito pela Função de Brillouin. Ajuste o spin principal, compare com outra curva e observe como a saturação depende de <em>s</em>.</p>
+      </div>
+      <nav class="header-actions" aria-label="Navegação do simulador">
+        <a class="action-link" href="../index.html?view=simulators">Simuladores</a>
+        <a class="action-link" href="../slides/capitulo-03/page_18.html">Abrir seção 3.8</a>
+      </nav>
+    </div>
 
-<div class="wrap">
-  <section class="card controls">
+    <div class="meta-grid">
+      <div class="meta-card">
+        <strong>Instrução de uso</strong>
+        <p>Ajuste o spin principal <em>s</em>. A curva da esquerda mostra <strong>m(x)=B<sub>s</sub>(x)</strong>; a da direita mostra a mesma magnetização em função de <strong>1/x</strong>. Para comparar outro spin, adicione uma curva extra.</p>
+      </div>
+      <div class="meta-card">
+        <strong>Créditos</strong>
+        <p>Material didático desenvolvido por Prof. Mario Reis, Instituto de Física, Universidade Federal Fluminense.</p>
+      </div>
+      <div class="meta-card">
+        <strong>Versão</strong>
+        <small>S04 · v1.1<br><span id="dateTag"></span></small>
+      </div>
+    </div>
+  </header>
+
+  <div class="sim-main">
+  <section class="panel controls">
     <div class="row" style="gap:12px">
       <div style="flex:1 1 180px">
         <label>Spin principal (s)</label>
@@ -158,35 +290,36 @@
     </div>
 
     <div class="vals">
-      <div class="small">Modelo exibido: \(m(x)=B_s(x)\)</div>
-      <div class="small">Eixos: gráfico 1 em \(x\), gráfico 2 em \(1/x\)</div>
+      <div class="small">Modelo exibido: m(x)=B<sub>s</sub>(x)</div>
+      <div class="small">Eixos: gráfico 1 em x, gráfico 2 em 1/x</div>
     </div>
 
     <div class="legend">
-      <div class="pill"><span class="swatch" style="background:var(--accent)"></span> Curva principal</div>
-      <div class="pill"><span class="swatch" style="background:var(--accent2)"></span> Curva extra (se ativa)</div>
+      <div class="pill"><span class="swatch" style="background:var(--plot-main)"></span> Curva principal</div>
+      <div class="pill"><span class="swatch" style="background:var(--plot-extra)"></span> Curva extra (se ativa)</div>
       <div class="pill">Spin principal: s = <span id="sMain"></span></div>
       <div class="pill">Spin extra: <span id="sExtraTxt">—</span></div>
     </div>
   </section>
 
-  <section class="card">
+  <section class="panel">
     <div class="row" style="gap:12px; margin-top:8px">
       <div style="flex:1 1 300px">
-        <div class="small" style="margin:4px 0 6px">Magnetização reduzida em função de x</div>
+        <div class="plot-title">Magnetização reduzida em função de x</div>
         <div class="canvasWrap">
           <canvas id="plotX"></canvas>
         </div>
       </div>
       <div style="flex:1 1 300px">
-        <div class="small" style="margin:4px 0 6px">Magnetização reduzida em função de 1/x</div>
+        <div class="plot-title">Magnetização reduzida em função de 1/x</div>
         <div class="canvasWrap">
           <canvas id="plotInvX"></canvas>
         </div>
       </div>
     </div>
   </section>
-</div>
+  </div>
+</main>
 
 <script>
   const DPR = window.devicePixelRatio || 1;
@@ -255,7 +388,7 @@
     const h = ctx.canvas.height;
 
     ctx.save();
-    ctx.strokeStyle = '#3a4aa0';
+    ctx.strokeStyle = '#8ea6c2';
     ctx.lineWidth = 1.2 * DPR;
 
     // Eixos
@@ -270,7 +403,7 @@
     ctx.stroke();
 
     // Grid
-    ctx.strokeStyle = 'rgba(159,176,255,0.18)';
+    ctx.strokeStyle = 'rgba(95,113,134,0.18)';
     ctx.lineWidth = 1 * DPR;
 
     const xTicks = 6;
@@ -293,7 +426,7 @@
     }
 
     // Labels
-    ctx.fillStyle = '#cfe2ff';
+    ctx.fillStyle = '#28384c';
     ctx.font = (14*DPR) + 'px system-ui';
     ctx.textAlign = 'center';
 
@@ -311,7 +444,7 @@
     }
 
     // títulos dos eixos
-    ctx.fillStyle = '#cfe2ff';
+    ctx.fillStyle = '#28384c';
     ctx.font = (16*DPR) + 'px system-ui';
     ctx.textAlign = 'center';
     ctx.fillText(xlab, w - 52*DPR, h - 18*DPR);
@@ -377,9 +510,9 @@
       if(sExtra != null) ysExtra.push(Bs(sExtra, x));
     }
 
-    plotCurve(ctxX, xs, ysMain, 0, 10, 0, 1.05, '#6aa8ff', false);
+    plotCurve(ctxX, xs, ysMain, 0, 10, 0, 1.05, '#00508f', false);
     if(sExtra != null){
-      plotCurve(ctxX, xs, ysExtra, 0, 10, 0, 1.05, '#ffb86b', true);
+      plotCurve(ctxX, xs, ysExtra, 0, 10, 0, 1.05, '#d97706', true);
     }
 
     // --- gráfico m(1/x)
@@ -398,9 +531,9 @@
       if(sExtra != null) ysExtraInv.push(Bs(sExtra, x));
     }
 
-    plotCurve(ctxInv, us, ysMainInv, 0, 10, 0, 1.05, '#6aa8ff', false);
+    plotCurve(ctxInv, us, ysMainInv, 0, 10, 0, 1.05, '#00508f', false);
     if(sExtra != null){
-      plotCurve(ctxInv, us, ysExtraInv, 0, 10, 0, 1.05, '#ffb86b', true);
+      plotCurve(ctxInv, us, ysExtraInv, 0, 10, 0, 1.05, '#d97706', true);
     }
   }
 
