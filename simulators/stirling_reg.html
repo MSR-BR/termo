@@ -3,17 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Motor de Stirling Alfa com Regenerador</title>
+<title>S09 · Motor de Stirling alfa com regenerador</title>
 <style>
   :root {
-    --bg: #FCFCFA;
-    --panel: #FFFFFF;
-    --header: #F2F4F7;
-    --text: #2C3E50;
-    --muted: #5D6D7E;
-    --blue: #004B87;
-    --border: #DDE3ED;
-    --shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    --page:#f3f7fb;
+    --paper:#ffffff;
+    --paper-soft:#eef5ff;
+    --line:#d7e3f0;
+    --text:#28384c;
+    --muted:#5f7186;
+    --brand:#00508f;
+    --accent:#b63a32;
+    --green:#1f8b4c;
+    --shadow:0 14px 34px rgba(0,52,96,.10);
   }
   * { box-sizing: border-box; }
   html, body { width: 100%; max-width: 100%; overflow-x: hidden; }
@@ -21,73 +23,120 @@
     margin: 0;
     min-height: 100vh;
     font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-    background: var(--bg);
+    background: var(--page);
     color: var(--text);
   }
-  .page {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-  .hero {
-    background: var(--header);
-    border-bottom: 1px solid var(--border);
-    padding: 22px 24px;
-  }
-  .hero-box {
-    max-width: 1220px;
+  a { color: inherit; }
+  .shell {
+    width:min(1280px,calc(100% - 32px));
     margin: 0 auto;
-    border-left: 6px solid var(--blue);
-    padding-left: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+    padding:24px 0 32px;
+  }
+  .sim-header,
+  .sim-card {
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:8px;
+    box-shadow:var(--shadow);
+  }
+  .sim-header {
+    border-top:6px solid var(--brand);
+    padding:24px;
+    margin-bottom:16px;
+  }
+  .header-row {
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:20px;
   }
   .kicker {
+    margin:0 0 8px;
     font-size: 13px;
-    color: var(--muted);
+    color: var(--accent);
     text-transform: uppercase;
-    letter-spacing: .9px;
-    font-weight: 700;
+    letter-spacing: .10em;
+    font-weight: 800;
   }
-  .hero h1 {
+  h1 {
     margin: 0;
-    color: var(--blue);
-    font-size: clamp(26px, 3.8vw, 40px);
-    line-height: 1.15;
+    color: var(--brand);
+    font-size: clamp(30px, 4vw, 48px);
+    line-height: 1.04;
   }
-  .hero p {
-    margin: 0;
-    line-height: 1.7;
-  }
-  .hero .lead {
+  .lead {
+    margin:16px 0 0;
+    max-width:900px;
+    color:var(--muted);
     font-family: "Lora", Georgia, serif;
     font-size: clamp(18px, 2.1vw, 23px);
+    line-height:1.55;
   }
-  .hero .credits {
-    font-size: 14px;
-    color: var(--muted);
+  .header-actions {
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    justify-content:flex-end;
   }
-  .hero a { color: var(--blue); }
-  #main {
-    width: 100%;
-    max-width: 1220px;
-    margin: 0 auto;
-    padding: 24px;
+  .action-link {
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:42px;
+    padding:10px 14px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    color:var(--brand);
+    background:#fff;
+    font-weight:800;
+    text-decoration:none;
+    white-space:nowrap;
+  }
+  .action-link.primary {
+    background:var(--brand);
+    border-color:var(--brand);
+    color:#fff;
+  }
+  .meta-grid {
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:12px;
+    margin-top:22px;
+  }
+  .meta-card {
+    background:var(--paper-soft);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:14px;
+  }
+  .meta-card strong {
+    display:block;
+    color:var(--brand);
+    margin-bottom:6px;
+  }
+  .meta-card p {
+    margin:0;
+    color:var(--muted);
+    line-height:1.5;
+  }
+  .app {
     display: grid;
-    gap: 18px;
+    grid-template-columns:minmax(320px,.95fr) minmax(360px,1.05fr);
+    grid-template-areas:
+      "observation observation"
+      "controls data";
+    gap:16px;
   }
+  .observation-card { grid-area: observation; }
+  .controls-card { grid-area: controls; }
+  .data-card { grid-area: data; }
   .sim-card {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 24px;
-    box-shadow: var(--shadow);
-    padding: 18px 20px;
+    padding:14px;
   }
   .sim-card h2,
   .sim-card h3 {
     margin: 0 0 10px 0;
-    color: var(--blue);
+    color: var(--brand);
   }
   .canvas-card {
     padding: 14px;
@@ -95,8 +144,8 @@
   .canvas-wrap {
     width: 100%;
     overflow: hidden;
-    border-radius: 18px;
-    border: 1px solid var(--border);
+    border-radius: 8px;
+    border: 1px solid var(--line);
     background: #FFFFFF;
   }
   canvas {
@@ -121,11 +170,11 @@
     align-items: center;
     gap: 8px;
     padding: 8px 12px;
-    border-radius: 999px;
-    background: var(--header);
-    border: 1px solid var(--border);
-    font-weight: 700;
-    color: var(--blue);
+    border-radius: 8px;
+    background: var(--paper-soft);
+    border: 1px solid var(--line);
+    font-weight: 800;
+    color: var(--brand);
   }
   .controls-layout {
     display: grid;
@@ -134,14 +183,14 @@
   }
   .control-group {
     padding: 16px;
-    border-radius: 18px;
+    border-radius: 8px;
     background: #FAFBFD;
-    border: 1px solid var(--border);
+    border: 1px solid var(--line);
     text-align: left;
   }
   .control-group h4 {
     margin: 0 0 12px 0;
-    color: var(--blue);
+    color: var(--brand);
     font-size: 16px;
   }
   .field-grid {
@@ -161,8 +210,8 @@
   .field-grid input {
     width: 110px;
     padding: 10px 12px;
-    border-radius: 12px;
-    border: 1px solid var(--border);
+    border-radius: 8px;
+    border: 1px solid var(--line);
     font: inherit;
     color: var(--text);
     background: #FFFFFF;
@@ -179,16 +228,21 @@
   }
   button {
     appearance: none;
-    border: 1px solid rgba(0, 75, 135, 0.18);
-    background: #FFFFFF;
-    color: var(--blue);
-    border-radius: 999px;
+    border: 1px solid var(--brand);
+    background: var(--brand);
+    color: #fff;
+    border-radius: 8px;
     padding: 11px 18px;
     font-family: "Inter", sans-serif;
     font-size: 14px;
-    font-weight: 700;
+    font-weight: 800;
     cursor: pointer;
-    box-shadow: var(--shadow);
+    transition:.18s ease;
+  }
+  button:hover { transform: translateY(-1px); }
+  button.secondary {
+    background:#64748b;
+    border-color:#64748b;
   }
   #results {
     text-align: left;
@@ -205,42 +259,94 @@
     color: var(--muted);
     line-height: 1.7;
   }
+  .formula-note {
+    margin:0;
+    padding:12px 14px;
+    border-radius:8px;
+    background:var(--paper-soft);
+    border-left:5px solid var(--brand);
+    color:var(--muted);
+    line-height:1.55;
+  }
+  .result-grid {
+    display:grid;
+    grid-template-columns:auto 1fr;
+    gap:7px 12px;
+    align-items:start;
+    font-variant-numeric:tabular-nums;
+  }
+  .result-grid strong { color:var(--brand); }
+  @media (max-width: 980px) {
+    .header-row { flex-direction: column; }
+    .header-actions { justify-content:flex-start; }
+    .meta-grid { grid-template-columns:1fr; }
+    .app {
+      grid-template-columns:1fr;
+      grid-template-areas:
+        "observation"
+        "controls"
+        "data";
+    }
+  }
   @media (max-width: 720px) {
-    .hero { padding: 18px 16px; }
-    #main { padding: 18px 16px 24px 16px; }
-    .sim-card { padding: 16px 18px; }
+    .shell { width:min(100% - 18px,1280px); padding-top:12px; }
+    .sim-header,
+    .sim-card { padding: 12px; }
     .canvas-card { padding: 10px; }
     .field-grid { grid-template-columns: 1fr; }
     .field-grid input { width: 100%; }
+    .button-row button { flex:1 1 100%; }
+    .result-grid { grid-template-columns:1fr; }
   }
 </style>
 </head>
 <body>
-<div class="page">
-  <header class="hero">
-    <div class="hero-box">
-      <div class="kicker">Simulador interativo</div>
-      <h1>Motor de Stirling Alfa com regenerador</h1>
-      <p class="lead">Modelo geométrico do ciclo com dois cilindros, virabrequim e cálculo das trocas de calor e trabalho em cada etapa ideal. Esta revisão atua apenas no layout, na responsividade e na consistência visual.</p>
-      <p class="credits">Desenvolvido por Mario Reis — Instituto de Física, Universidade Federal Fluminense (UFF) · <a href="mailto:marioreis@id.uff.br">marioreis@id.uff.br</a> · <a href="http://profmarioreis.wordpress.com" target="_blank" rel="noopener">profmarioreis.wordpress.com</a> · Versão 1.0 — 26 de julho de 2025</p>
+<main class="shell">
+  <header class="sim-header">
+    <div class="header-row">
+      <div>
+        <p class="kicker">S09 · Simulador</p>
+        <h1>Motor de Stirling alfa com regenerador</h1>
+      </div>
+      <nav class="header-actions" aria-label="Navegação do simulador">
+        <a class="action-link" href="../index.html?view=simulators">Voltar aos simuladores</a>
+        <a class="action-link primary" href="../slides/capitulo-06/page_10.html">Abrir seção 6.10</a>
+      </nav>
+    </div>
+    <p class="lead">Explore a geometria do motor alfa, o deslocamento dos pistões e as trocas ideais de calor e trabalho no ciclo de Stirling com regenerador.</p>
+    <div class="meta-grid">
+      <div class="meta-card">
+        <strong>Instrução de uso</strong>
+        <p>Ajuste os volumes característicos e as temperaturas dos reservatórios. Use Iniciar/Pausar para observar o virabrequim e Calcular para atualizar os balanços energéticos.</p>
+      </div>
+      <div class="meta-card">
+        <strong>Créditos</strong>
+        <p>Prof. Mario Reis · Instituto de Física, Universidade Federal Fluminense · <a href="mailto:marioreis@id.uff.br">marioreis@id.uff.br</a></p>
+      </div>
+      <div class="meta-card">
+        <strong>Versão</strong>
+        <p>S09 v1.1 · Atualizado em <span id="dateTag">27/06/2026</span>.</p>
+      </div>
     </div>
   </header>
 
-  <div id="main">
-    <section class="sim-card canvas-card">
+  <section class="app" aria-label="Simulador do motor de Stirling com regenerador">
+    <article class="sim-card canvas-card observation-card">
       <div class="status-line">
         <span class="status-pill">Ângulo &theta; do virabrequim: <span id="thetaValue">0</span>°</span>
         <div class="button-row">
           <button type="button" onclick="toggleRun()">Iniciar / Pausar</button>
+          <button type="button" class="secondary" onclick="resetCycle()">Voltar para &theta; = 0</button>
         </div>
       </div>
       <div class="canvas-wrap">
         <canvas id="stirlingCanvas" width="1100" height="650"></canvas>
       </div>
-    </section>
+    </article>
 
-    <section class="sim-card">
+    <article class="sim-card controls-card">
       <h2>Parâmetros do ciclo</h2>
+      <p class="formula-note">Modelo geométrico mantido: V<sub>1</sub> = V<sub>4</sub>, V<sub>2</sub> = V<sub>3</sub>, gás ideal com n = 1 mol e etapas isotérmicas/isocóricas ideais.</p>
       <div class="controls-layout">
         <div class="control-group">
           <h4>Volumes característicos</h4>
@@ -278,22 +384,27 @@
           </div>
         </div>
       </div>
-    </section>
+    </article>
 
-    <section class="sim-card" id="results">
+    <article class="sim-card data-card" id="results">
       <h3>Trabalhos e calores (gás ideal, n = 1 mol)</h3>
-      <div id="resultadoTexto">
-        &Delta;W<sub>21</sub> = ?, &Delta;Q<sub>21</sub> = ?<br>
-        &Delta;Q<sub>32</sub> = ?<br>
-        &Delta;W<sub>43</sub> = ?, &Delta;Q<sub>43</sub> = ?<br>
-        &Delta;Q<sub>14</sub> = ?
+      <div id="resultadoTexto" class="result-grid">
+        <strong>&Delta;W<sub>21</sub>, &Delta;Q<sub>21</sub></strong><span>?</span>
+        <strong>&Delta;Q<sub>32</sub></strong><span>?</span>
+        <strong>&Delta;W<sub>43</sub>, &Delta;Q<sub>43</sub></strong><span>?</span>
+        <strong>&Delta;Q<sub>14</sub></strong><span>?</span>
       </div>
-      <p class="result-note">A cinemática e os cálculos originais foram mantidos. O ajuste aqui é apenas de apresentação e ergonomia.</p>
-    </section>
-  </div>
-</div>
+      <p class="result-note">Convenção mantida: ΔW é o trabalho sobre o gás; por isso a expansão isotérmica tem ΔW&lt;0 e a compressão isotérmica tem ΔW&gt;0.</p>
+    </article>
+  </section>
+</main>
 
 <script>
+const dateTag = document.getElementById('dateTag');
+if (dateTag) {
+  dateTag.textContent = new Date().toLocaleDateString('pt-BR', { day:'2-digit', month:'long', year:'numeric' });
+}
+
 // ---------------- Parâmetros termodinâmicos ----------------
 let V1 = 5, V2 = 7, V3 = 7, V4 = 5; // em litros
 let TH = 600, TC = 300;             // em kelvin
@@ -307,6 +418,7 @@ function updateParametros() {
   V2 = V3 = v23;
   TH = th;
   TC = tc;
+  draw();
 }
 
 function computeWorkAndHeat() {
@@ -328,13 +440,14 @@ function computeWorkAndHeat() {
 }
 
 function mostrarResultados() {
+  updateParametros();
   const r = computeWorkAndHeat();
   const f = x => x.toFixed(2);
 document.getElementById('resultadoTexto').innerHTML =
-  `&Delta;W<sub>21</sub> = ${f(r.W12)} J, &nbsp; &Delta;Q<sub>21</sub> = ${f(r.Q12)} J<br>` +
-  `&Delta;Q<sub>32</sub> = ${f(r.Q23)} J<br>` +
-  `&Delta;W<sub>43</sub> = ${f(r.W34)} J, &nbsp; &Delta;Q<sub>43</sub> = ${f(r.Q34)} J<br>` +
-  `&Delta;Q<sub>14</sub> = ${f(r.Q41)} J`;
+  `<strong>&Delta;W<sub>21</sub>, &Delta;Q<sub>21</sub></strong><span>${f(r.W12)} J, ${f(r.Q12)} J</span>` +
+  `<strong>&Delta;Q<sub>32</sub></strong><span>${f(r.Q23)} J</span>` +
+  `<strong>&Delta;W<sub>43</sub>, &Delta;Q<sub>43</sub></strong><span>${f(r.W34)} J, ${f(r.Q34)} J</span>` +
+  `<strong>&Delta;Q<sub>14</sub></strong><span>${f(r.Q41)} J</span>`;
 }
 
 // ---------------- Geometria do motor (uma única manivela, duas bielas fixas) ----------------
@@ -350,6 +463,11 @@ const cylWidth  = 80;
 const pistonLen = 55;
 
 function toggleRun() { running = !running; }
+
+function resetCycle() {
+  theta = 0;
+  draw();
+}
 
 // resolve | base + s u - pin | = L  (s>=0)
 function solvePiston(base, u, pin) {
@@ -545,8 +663,8 @@ function draw() {
   // rótulo cilindro de compressão – perto do início do cilindro azul, junto ao virabrequim
   ctx.save();
   // posição próxima à extremidade do cilindro azul voltada para o virabrequim
-  const compLabelX = farC.x + 60;  // ainda mais perto da parede do cilindro azul e mais longe do virabrequim  // aproxima mais da parede do cilindro azul e afasta do virabrequim  // aproxima do cilindro, mantendo inclinação  // afasta no sentido oposto, longe do virabrequim  // afastado do virabrequim, sem sobrepor  // afasta do virabrequim mantendo a inclinação  // mantém alinhamento horizontal
-  const compLabelY = farC.y + 20;  // desce ainda mais para manter totalmente fora da figura  // leve ajuste vertical para manter fora da figura  // pequeno ajuste vertical  // mantém posição vertical segura  // mantém deslocamento vertical seguro  // desce ainda mais  // desce ainda mais para fora da figura  // desce mais o texto para fora da figura
+  const compLabelX = farC.x + 60;
+  const compLabelY = farC.y + 20;
   ctx.translate(compLabelX, compLabelY);
   ctx.rotate(angC + Math.PI); // mantém a mesma inclinação, só corrige orientação
   ctx.fillText('cilindro de compressão', 0, 0);
@@ -574,9 +692,9 @@ function step() {
 }
 
 // inicialização
-updateParametros();
 computePhi0(); // ajusta phi0 para que θ=0 ⇒ VE mínima
-draw();
+updateParametros();
+mostrarResultados();
 requestAnimationFrame(step);
 
 </script>

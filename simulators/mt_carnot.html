@@ -2,29 +2,152 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Simulador – Ciclo de Carnot (gás ideal)</title>
+  <title>S08 · Ciclo de Carnot como máquina térmica</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
+    :root{
+      --cil-alt:320px;
+      --cil-larg:220px;
+      --pist-alt:22px;
+      --page:#f3f7fb;
+      --paper:#ffffff;
+      --paper-soft:#eef5ff;
+      --line:#d7e3f0;
+      --text:#28384c;
+      --muted:#5f7186;
+      --brand:#00508f;
+      --accent:#b63a32;
+      --green:#1f8b4c;
+      --shadow:0 14px 34px rgba(0,52,96,.10);
+    }
     *{box-sizing:border-box}
     html,body{width:100%;max-width:100%;overflow-x:hidden}
-    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#0f172a;background:#f8fafc}
-    header{padding:14px 12px 0 12px;text-align:center}
-    header h1{margin:0;font-size:1.6rem}
-    header p{margin:.25rem 0 0 0;color:#334155}
-    header .credits{margin:.25rem 0 12px 0;color:#475569;font-size:.95rem}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--text);background:var(--page)}
+    a{color:inherit}
+    .shell{
+      width:min(1280px,calc(100% - 32px));
+      margin:0 auto;
+      padding:24px 0 32px;
+    }
+    .sim-header,.card{
+      background:var(--paper);
+      border:1px solid var(--line);
+      border-radius:8px;
+      box-shadow:var(--shadow);
+    }
+    .sim-header{
+      border-top:6px solid var(--brand);
+      padding:24px;
+      margin-bottom:16px;
+    }
+    .header-row{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:20px;
+    }
+    .eyebrow{
+      margin:0 0 8px;
+      color:var(--accent);
+      font-size:13px;
+      font-weight:800;
+      letter-spacing:.10em;
+      text-transform:uppercase;
+    }
+    h1{
+      margin:0;
+      color:var(--brand);
+      font-size:clamp(30px,4vw,48px);
+      line-height:1.04;
+    }
+    .intro{
+      margin:16px 0 0;
+      max-width:900px;
+      color:var(--muted);
+      font-family:Georgia,serif;
+      font-size:clamp(18px,2vw,23px);
+      line-height:1.55;
+    }
+    .header-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content:flex-end;
+    }
+    .action-link{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:42px;
+      padding:10px 14px;
+      border:1px solid var(--line);
+      border-radius:8px;
+      color:var(--brand);
+      background:#fff;
+      font-weight:800;
+      text-decoration:none;
+      white-space:nowrap;
+    }
+    .action-link.primary{
+      background:var(--brand);
+      border-color:var(--brand);
+      color:#fff;
+    }
+    .meta-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:12px;
+      margin-top:22px;
+    }
+    .meta-card{
+      background:var(--paper-soft);
+      border:1px solid var(--line);
+      border-radius:8px;
+      padding:14px;
+    }
+    .meta-card strong{
+      display:block;
+      color:var(--brand);
+      margin-bottom:6px;
+    }
+    .meta-card p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.5;
+    }
 
-    .app{display:grid;grid-template-columns:360px 320px 1fr;gap:14px;padding:14px}
-    @media (max-width:1100px){.app{grid-template-columns:1fr}}
+    .app{
+      display:grid;
+      grid-template-columns:minmax(320px,.95fr) minmax(360px,1.05fr);
+      grid-template-areas:
+        "observation observation"
+        "controls data";
+      gap:16px;
+    }
+    .observation-card{grid-area:observation}
+    .controls-card{grid-area:controls}
+    .data-card{grid-area:data}
+    .observation-grid{
+      display:grid;
+      grid-template-columns:minmax(320px,390px) minmax(0,1fr);
+      gap:14px;
+      align-items:stretch;
+    }
+    .observation-panel{min-width:0}
+    .observation-panel + .observation-panel{
+      border-left:1px solid var(--line);
+      padding-left:14px;
+    }
 
-    .card{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:10px}
-    .card h3{margin:4px 0 8px 0}
-    .procLabel{margin:6px auto 10px auto;padding:6px 10px;border-radius:10px;background:#eef2ff;color:#1e293b;font-weight:700;font-size:.95rem;display:inline-block}
+    .card{padding:14px}
+    .card h3{margin:4px 0 8px 0;color:var(--brand)}
+    .procLabel{margin:6px auto 10px auto;padding:7px 10px;border-radius:8px;background:#eef2ff;color:#1e293b;font-weight:800;font-size:.95rem;display:inline-block}
 
     /* Cena do cilindro */
-    :root{ --cil-alt:320px; --cil-larg:220px; --pist-alt:22px; }
     .scene{display:flex;flex-direction:column;align-items:center}
-    .sceneHeader{display:flex;align-items:center;justify-content:center}
+    .sceneHeader{display:flex;align-items:center;justify-content:center;max-width:100%;overflow-x:auto;padding-bottom:6px}
     .res{width:86px;height:var(--cil-alt);border:3px solid #334155;background:#fff7e6;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;margin:0 6px}
+    .res,.cil{flex:0 0 auto}
     .res span{font-weight:700;color:#334155}
     .cil{position:relative;width:var(--cil-larg);height:var(--cil-alt);border:3px solid #334155;border-radius:12px;background:#ffffff;overflow:hidden;margin:0 8px}
     .cil.isolado{background:repeating-linear-gradient(45deg,#f1f5f9 0 10px,#e2e8f0 10px 20px)}
@@ -33,103 +156,180 @@
     .arrowH,.arrowV{position:absolute}
 
     .controls{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
-    .ctrl{background:#ffffff;border:1px solid #e2e8f0;border-radius:12px;padding:8px}
+    .ctrl{background:#ffffff;border:1px solid var(--line);border-radius:8px;padding:8px}
+    .full-control{grid-column:1/-1}
     .ctrl h4{margin:0 0 6px 0}
     .row{display:flex;align-items:center;gap:8px;margin:6px 0}
     .row label{width:110px;color:#334155}
     .row input[type="number"]{width:110px}
-    button{appearance:none;background:#0ea5e9;color:#fff;border:none;border-radius:10px;padding:7px 10px;font-weight:700;cursor:pointer}
+    input[type="number"]{
+      min-height:36px;
+      border:1px solid var(--line);
+      border-radius:8px;
+      padding:6px 8px;
+      color:var(--text);
+      background:#fff;
+      font:inherit;
+    }
+    .param-actions{
+      justify-content:space-between;
+      align-items:stretch;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+    .player-actions{display:flex;gap:8px;flex-wrap:wrap}
+    button{appearance:none;background:var(--brand);color:#fff;border:none;border-radius:8px;padding:8px 12px;font-weight:800;cursor:pointer;transition:.18s ease}
+    button:hover{transform:translateY(-1px)}
     button.secondary{background:#64748b}
 
     .kv{display:grid;grid-template-columns:auto 1fr;gap:6px;font-variant-numeric:tabular-nums}
     .kv div:nth-child(odd){color:#334155}
+    .note{margin-top:12px;color:#334155;font-size:.94rem;line-height:1.5}
 
     .plotWrap{position:relative}
     #plotST{width:100%;height:360px;border-radius:12px;background:#fff;border:1px solid #e2e8f0;display:block}
+    @media (max-width:980px){
+      .header-row{flex-direction:column}
+      .header-actions{justify-content:flex-start}
+      .meta-grid{grid-template-columns:1fr}
+      .app{
+        grid-template-columns:1fr;
+        grid-template-areas:
+          "observation"
+          "controls"
+          "data";
+      }
+      .observation-grid{grid-template-columns:1fr}
+      .observation-panel + .observation-panel{
+        border-left:0;
+        border-top:1px solid var(--line);
+        padding-left:0;
+        padding-top:12px;
+      }
+    }
+    @media (max-width:560px){
+      .shell{width:min(100% - 18px,1280px);padding-top:12px}
+      .sim-header,.card{padding:12px}
+      .controls{grid-template-columns:1fr}
+      .row{align-items:flex-start;flex-direction:column}
+      .row label{width:auto}
+      .row input[type="number"]{width:100%}
+      .player-actions button,.param-actions button{flex:1 1 100%}
+      #plotST{height:300px}
+    }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Ciclo de Carnot — máquina térmica (gás ideal)</h1>
-    <p>Condição do ciclo (gás ideal): <b>V₂/V₁ = V₃/V₄</b>. Entradas mínimas: <i>n</i>, T<sub>H</sub>, T<sub>C</sub>, V<sub>1</sub>, r = V<sub>2</sub>/V<sub>1</sub> e γ.</p>
-    <p class="credits">Desenvolvido por <b>Mario Reis</b> – Instituto de Física, Universidade Federal Fluminense (UFF)<br>
-      <a href="mailto:marioreis@id.uff.br">marioreis@id.uff.br</a> · <a href="http://profmarioreis.wordpress.com" target="_blank">profmarioreis.wordpress.com</a><br>
-      Versão 1.0 – 21 de outubro de 2025</p>
-  </header>
-
-  <div class="app">
-    <!-- Coluna 1: CENA + CONTROLES -->
-    <div class="card">
-      <div class="scene">
-        <div id="procMachine" class="procLabel">Processo atual: pronto (estado 1)</div>
-        <div class="sceneHeader">
-          <div class="res" id="resC"><span>Reservatório</span><span>T<sub>C</sub></span><span id="labTC">400 K</span></div>
-          <div class="cil" id="cil">
-            <div class="gas" id="gas"></div>
-            <div class="pist" id="pist"></div>
-            <!-- setas calor/trabalho -->
-            <div class="arrowH" id="aQ" style="left:8px;bottom:10px;width:100px;height:40px">
-              <svg viewBox="0 0 100 40" width="100" height="40">
-                <line x1="0" y1="20" x2="100" y2="20" stroke="#dc2626" stroke-width="4" />
-                <polygon points="90,10 90,30 100,20" fill="#dc2626" />
-              </svg>
-            </div>
-            <div class="arrowV" id="aW" style="right:8px;bottom:8px;width:20px;height:50px">
-              <svg viewBox="0 0 20 50" width="20" height="50">
-                <line x1="10" y1="50" x2="10" y2="0" stroke="#2563eb" stroke-width="4" />
-                <polygon points="5,15 15,15 10,0" fill="#2563eb" />
-              </svg>
-            </div>
-          </div>
-          <div class="res" id="resH"><span>Reservatório</span><span>T<sub>H</sub></span><span id="labTH">700 K</span></div>
+  <main class="shell">
+    <header class="sim-header">
+      <div class="header-row">
+        <div>
+          <p class="eyebrow">S08 · Simulador</p>
+          <h1>Ciclo de Carnot como máquina térmica</h1>
+        </div>
+        <nav class="header-actions" aria-label="Navegação do simulador">
+          <a class="action-link" href="../index.html?view=simulators">Voltar aos simuladores</a>
+          <a class="action-link primary" href="../slides/capitulo-06/page_2.html">Abrir seção 6.2</a>
+        </nav>
+      </div>
+      <p class="intro">Acompanhe a máquina de Carnot como um ciclo reversível de gás ideal. Ajuste as entradas mínimas e observe, lado a lado, o pistão e o diagrama S×T.</p>
+      <div class="meta-grid">
+        <div class="meta-card">
+          <strong>Instrução de uso</strong>
+          <p>Defina <i>n</i>, T<sub>H</sub>, T<sub>C</sub>, V<sub>1</sub>, r e γ. Depois use Recalcular, Play ou Step para percorrer as quatro etapas.</p>
+        </div>
+        <div class="meta-card">
+          <strong>Créditos</strong>
+          <p>Prof. Mario Reis · Instituto de Física, Universidade Federal Fluminense · <a href="mailto:marioreis@id.uff.br">marioreis@id.uff.br</a></p>
+        </div>
+        <div class="meta-card">
+          <strong>Versão</strong>
+          <p>S08 v1.1 · Atualizado em <span id="dateTag">27/06/2026</span>.</p>
         </div>
       </div>
+    </header>
 
-      <div class="controls">
-        <div class="ctrl" style="grid-column:1/3">
-          <h4>Parâmetros mínimos</h4>
-          <div class="row"><label>n (mol)</label><input id="nMol" type="number" value="2" step="0.1"></div>
-          <div class="row"><label>T<sub>H</sub> (K)</label><input id="TH" type="number" value="700" step="1"></div>
-          <div class="row"><label>T<sub>C</sub> (K)</label><input id="TC" type="number" value="400" step="1"></div>
-          <div class="row"><label>V<sub>1</sub> (L)</label><input id="V1" type="number" value="8" step="0.1"></div>
-          <div class="row"><label>r = V<sub>2</sub>/V<sub>1</sub></label><input id="r12" type="number" value="2.5" step="0.1" min="1"></div>
-          <div class="row"><label>γ (adiabático)</label><input id="gamma" type="number" value="1.667" step="0.001"></div>
-          <div class="row" style="justify-content:space-between">
-            <button id="recalc">Recalcular</button>
-            <div style="display:flex;gap:8px">
-              <button id="play">▶︎ Play</button>
-              <button id="pause" class="secondary">❚❚ Pause</button>
-              <button id="step" class="secondary">➤ Step</button>
+    <section class="app" aria-label="Simulador do ciclo de Carnot">
+      <article class="card observation-card">
+        <div class="observation-grid">
+          <div class="observation-panel">
+            <h3>Representação física do ciclo</h3>
+            <div class="scene">
+              <div id="procMachine" class="procLabel">Processo atual: pronto (estado 1)</div>
+              <div class="sceneHeader">
+                <div class="res" id="resC"><span>Reservatório</span><span>T<sub>C</sub></span><span id="labTC">400 K</span></div>
+                <div class="cil" id="cil">
+                  <div class="gas" id="gas"></div>
+                  <div class="pist" id="pist"></div>
+                  <div class="arrowH" id="aQ" style="left:8px;bottom:10px;width:100px;height:40px">
+                    <svg viewBox="0 0 100 40" width="100" height="40" aria-hidden="true">
+                      <line x1="0" y1="20" x2="100" y2="20" stroke="#dc2626" stroke-width="4" />
+                      <polygon points="90,10 90,30 100,20" fill="#dc2626" />
+                    </svg>
+                  </div>
+                  <div class="arrowV" id="aW" style="right:8px;bottom:8px;width:20px;height:50px">
+                    <svg viewBox="0 0 20 50" width="20" height="50" aria-hidden="true">
+                      <line x1="10" y1="50" x2="10" y2="0" stroke="#2563eb" stroke-width="4" />
+                      <polygon points="5,15 15,15 10,0" fill="#2563eb" />
+                    </svg>
+                  </div>
+                </div>
+                <div class="res" id="resH"><span>Reservatório</span><span>T<sub>H</sub></span><span id="labTH">700 K</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="observation-panel">
+            <h3>Plano S×T (J/K × K)</h3>
+            <div id="procNow" class="procLabel">Processo atual: pronto (estado 1)</div>
+            <div class="plotWrap">
+              <canvas id="plotST"></canvas>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </article>
 
-    <!-- Coluna 2: resultados -->
-    <div class="card">
-      <h3>Resultados</h3>
-      <div class="kv" id="kv"></div>
-      <hr>
-      <div class="kv" id="detail"></div>
-      <p style="margin-top:8px;color:#334155;font-size:.9rem">Convenção: ΔW>0 = trabalho <b>no</b> gás (compressão); ΔW<0 = trabalho <b>pelo</b> gás (expansão). Em isotérmico ideal, ΔU=0 ⇒ ΔQ = −ΔW.</p>
-    </div>
+      <article class="card controls-card">
+        <h3>Controle do ciclo</h3>
+        <div class="controls">
+          <div class="ctrl full-control">
+            <h4>Parâmetros mínimos</h4>
+            <div class="row"><label>n (mol)</label><input id="nMol" type="number" value="2" step="0.1"></div>
+            <div class="row"><label>T<sub>H</sub> (K)</label><input id="TH" type="number" value="700" step="1"></div>
+            <div class="row"><label>T<sub>C</sub> (K)</label><input id="TC" type="number" value="400" step="1"></div>
+            <div class="row"><label>V<sub>1</sub> (L)</label><input id="V1" type="number" value="8" step="0.1"></div>
+            <div class="row"><label>r = V<sub>2</sub>/V<sub>1</sub></label><input id="r12" type="number" value="2.5" step="0.1" min="1"></div>
+            <div class="row"><label>γ (adiabático)</label><input id="gamma" type="number" value="1.667" step="0.001"></div>
+            <div class="row param-actions">
+              <button id="recalc" type="button">Recalcular</button>
+              <div class="player-actions">
+                <button id="play" type="button">Play</button>
+                <button id="pause" class="secondary" type="button">Pause</button>
+                <button id="step" class="secondary" type="button">Step</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
 
-    <!-- Coluna 3: S(T) -->
-    <div class="card">
-      <h3>Plano S×T (J/K × K) — Carnot</h3>
-      <div id="procNow" class="procLabel">Processo atual: pronto (estado 1)</div>
-      <div class="plotWrap">
-        <canvas id="plotST"></canvas>
-      </div>
-    </div>
-  </div>
+      <article class="card data-card">
+        <h3>Resultados</h3>
+        <div class="kv" id="kv"></div>
+        <hr>
+        <div class="kv" id="detail"></div>
+        <p class="note">Convenção: ΔW&gt;0 = trabalho <b>no</b> gás (compressão); ΔW&lt;0 = trabalho <b>pelo</b> gás (expansão). Em isotérmico ideal, ΔU=0 ⇒ ΔQ = −ΔW.</p>
+      </article>
+    </section>
+  </main>
 
   <script>
     // === util ===
     const R = 8.314462618; // J/mol/K
     const L2M3 = 1e-3;
     const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+    const dateTag = document.getElementById('dateTag');
+    if(dateTag){
+      dateTag.textContent = new Date().toLocaleDateString('pt-BR', { day:'2-digit', month:'long', year:'numeric' });
+    }
 
     // === elementos ===
     const nEl = document.getElementById('nMol');
@@ -247,7 +447,7 @@
 
   if(state==='12'){                  // expansão isotérmica (TH)
     V = V1*Math.pow(V2/V1, frac);
-    showHeat(true,  -1, +1);         // calor: ← ; trabalho: ↑
+    showHeat(true,  +1, +1);         // calor entrando no sistema; trabalho: ↑
     updateLabels('12');
   }
 
