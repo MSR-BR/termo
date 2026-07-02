@@ -376,6 +376,56 @@ video{
   height:auto!important;
 }
 
+
+/* Pin side-by-side content cards to the top when one column grows dynamically. */
+.grid,
+.maxwell-grid,
+.body,
+.main-content-layout,
+.main-content-wrapper,
+.content-main-layout,
+.content-grid-container,
+.content-columns-wrapper,
+.main-content-container,
+.content-layout-grid,
+.gas-ideal-content-layout,
+.content-grid,
+.main-grid,
+.ai-workspace{
+  align-items:start!important;
+}
+
+.grid>*,
+.maxwell-grid>*,
+.body>*,
+.main-content-layout>*,
+.main-content-wrapper>*,
+.content-main-layout>*,
+.content-grid-container>*,
+.content-columns-wrapper>*,
+.main-content-container>*,
+.content-layout-grid>*,
+.gas-ideal-content-layout>*,
+.content-grid>*,
+.main-grid>*,
+.ai-workspace>*{
+  align-self:start!important;
+}
+
+.col,.left-column,.right-column,.left-content-column,.right-content-column,.left-theory-column,.right-application-column,.left-explanation-column,.right-formalism-column,.left-column-content,.right-column-content,.content-column-left,.content-column-right,.left-column-theoretical,.right-column-practical,.left-column-textual,.right-column-tabular,.left-derivation-pane,.right-application-pane,.left-column-theory,.right-column-practical,.gas-ideal-left-column,.gas-ideal-right-column,.left-pane,.right-pane{
+  justify-content:flex-start!important;
+}
+
+.card,
+.termo-exercise,
+[data-termo-ai-exercise]{
+  align-self:flex-start!important;
+}
+
+.right-panel{
+  align-items:flex-start!important;
+}
+
 @media (max-width:900px){
   html,
   body{

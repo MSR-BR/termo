@@ -86,6 +86,14 @@ img,svg,video{max-width:100%!important;height:auto!important;}
 .main-title{font-family:"Inter",sans-serif!important;font-size:clamp(1.8rem,4vw,3rem)!important;color:#fff!important;line-height:1.12!important;}
 .chap-number{font-family:"Inter",sans-serif!important;font-size:clamp(3rem,7vw,5rem)!important;font-weight:800!important;color:rgba(255,255,255,.12)!important;}
 
+
+/* Alinha cartões lado a lado pelo topo quando uma coluna cresce dinamicamente. */
+.grid,.body,.main-content-layout,.main-content-wrapper,.content-main-layout,.content-grid-container,.content-columns-wrapper,.main-content-container,.content-layout-grid,.gas-ideal-content-layout,.content-grid,.main-grid,.ai-workspace{align-items:start!important;}
+.grid>*,.body>*,.main-content-layout>*,.main-content-wrapper>*,.content-main-layout>*,.content-grid-container>*,.content-columns-wrapper>*,.main-content-container>*,.content-layout-grid>*,.gas-ideal-content-layout>*,.content-grid>*,.main-grid>*,.ai-workspace>*{align-self:start!important;}
+.col,.left-column,.right-column,.left-content-column,.right-content-column,.left-theory-column,.right-application-column,.left-explanation-column,.right-formalism-column,.left-column-content,.right-column-content,.content-column-left,.content-column-right,.left-column-theoretical,.right-column-practical,.left-column-textual,.right-column-tabular,.left-derivation-pane,.right-application-pane,.left-column-theory,.right-column-practical,.gas-ideal-left-column,.gas-ideal-right-column,.left-pane,.right-pane{justify-content:flex-start!important;}
+.card,.termo-exercise,[data-termo-ai-exercise]{align-self:flex-start!important;}
+.right-panel{align-items:flex-start!important;}
+
 /* Responsividade real */
 @media (max-width: 900px){
   body{padding:0!important;background:var(--bg)!important;}
