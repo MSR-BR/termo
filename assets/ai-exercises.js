@@ -20,6 +20,14 @@
     return `${window.location.pathname}${window.location.search}${window.location.hash}` || "/";
   }
 
+  function trackAnalytics(eventName, properties) {
+    try {
+      window.TermoAnalytics?.track?.(eventName, properties || {});
+    } catch (_error) {
+      /* analytics must never block exercise generation */
+    }
+  }
+
   function getHostState(host) {
     if (!host.__termoExerciseState) {
       host.__termoExerciseState = {
@@ -911,8 +919,14 @@
         payload.summary || "Relato enviado para análise do professor.",
         "success"
       );
+      trackAnalytics("exercise_validation_success", {
+        difficulty: state.exercise.difficulty || "",
+        statement_status: statementStatus,
+        solution_status: solutionStatus
+      });
     } catch (error) {
       console.warn("Nao foi possivel enviar a validacao do exercicio.", error);
+      trackAnalytics("exercise_validation_error", { message: error?.message || "validation_error" });
       setValidationStatus(host, error && error.message ? error.message : "Nao foi possivel registrar a validação agora.", "error");
     } finally {
       if (button) button.disabled = false;
@@ -1145,6 +1159,11 @@
         context: ctx
       };
       hostState.saveResult = await persistExercise(host, buildExerciseRecord(ctx, cleanData, difficulty.value));
+      trackAnalytics("exercise_generate_success", {
+        difficulty: difficulty.value,
+        exercise_id: cleanData.exerciseId || "",
+        validation_memory_count: Number(data.validationMemoryCount || 0)
+      });
       if (hostState.canValidate && Number(data.validationMemoryCount || 0) > 0) {
         setMemoryStatus(
           host,
@@ -1166,6 +1185,13 @@
       const isConfigurationIssue =
         /GEMINI_API_KEY|configurad|api\/exercicio\.js|publicado no Vercel/i.test(errorMessage) ||
         (error?.status >= 500 && !isTemporaryProviderIssue);
+
+      trackAnalytics("exercise_generate_error", {
+        difficulty: difficulty?.value || "",
+        status: error?.status || 0,
+        reason: error?.reason || "",
+        temporary: Boolean(isTemporaryProviderIssue)
+      });
 
       outputTitle.innerHTML = `
         <i class="fa-solid fa-triangle-exclamation"></i>
@@ -1212,7 +1238,11 @@
 
     if (toggleBtn && solutionPanel) {
       toggleBtn.addEventListener("click", function () {
-        solutionPanel.style.display = solutionPanel.style.display === "block" ? "none" : "block";
+        const nextVisible = solutionPanel.style.display !== "block";
+        solutionPanel.style.display = nextVisible ? "block" : "none";
+        trackAnalytics(nextVisible ? "exercise_solution_open" : "exercise_solution_close", {
+          difficulty: host.querySelector('[data-role="difficulty"]')?.value || ""
+        });
       });
     }
 
@@ -1230,6 +1260,9 @@
 
     if (validationSubmit) {
       validationSubmit.addEventListener("click", function () {
+        trackAnalytics("exercise_validation_submit", {
+          difficulty: host.querySelector('[data-role="difficulty"]')?.value || ""
+        });
         submitValidation(host);
       });
     }

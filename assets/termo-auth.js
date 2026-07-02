@@ -1134,6 +1134,14 @@
     window.alert(message);
   }
 
+  function trackAnalytics(eventName, properties) {
+    try {
+      window.TermoAnalytics?.track?.(eventName, properties || {});
+    } catch (_error) {
+      /* analytics must never block the auth flow */
+    }
+  }
+
   async function downloadBookPdf(button) {
     const activeButton = button || state.bookButton || document.querySelector("[data-termo-book-button]");
     if (state.bookDownloadInFlight) return;
@@ -1143,6 +1151,7 @@
     });
 
     if (!state.session?.access_token) {
+      trackAnalytics("pdf_download_login_required");
       writePendingBookDownload(true);
       setBookButtonFeedback(activeButton, "Entre para baixar", "fa-lock", 2200);
       openModal();
@@ -1151,6 +1160,7 @@
 
     const acceptedNotice = await showBookNotice();
     if (!acceptedNotice) {
+      trackAnalytics("pdf_download_notice_cancel");
       restoreBookButton(activeButton);
       return;
     }
@@ -1160,6 +1170,7 @@
     setBookButtonFeedback(activeButton, "Preparando PDF", "fa-spinner fa-spin", 2400);
 
     try {
+      trackAnalytics("pdf_download_request");
       const response = await fetch(BOOK_API_ENDPOINT, {
         method: "GET",
         cache: "no-store",
@@ -1176,6 +1187,7 @@
       }
 
       if (response.status === 401) {
+        trackAnalytics("pdf_download_denied", { status: 401 });
         writePendingBookDownload(true);
         setBookButtonFeedback(activeButton, "Entre novamente", "fa-lock", 2200);
         openModal();
@@ -1189,9 +1201,11 @@
       }
 
       writePendingBookDownload(false);
+      trackAnalytics("pdf_download_ready", { filename: payload.filename || BOOK_DEFAULT_FILENAME });
       openSignedPdfUrl(payload.url, payload.filename || BOOK_DEFAULT_FILENAME);
       setBookButtonFeedback(activeButton, "Abrindo PDF", "fa-file-arrow-down", 1800);
     } catch (_error) {
+      trackAnalytics("pdf_download_error", { message: _error?.message || "download_error" });
       setBookButtonFeedback(activeButton, "Tente de novo", "fa-triangle-exclamation", 2400);
       showBookDownloadError(_error);
     } finally {
