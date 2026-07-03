@@ -433,6 +433,7 @@ async function writeRobotsFile() {
 function collectSitemapUrls(topicMap, htmlFiles) {
   const urls = new Set();
   urls.add(`${SITE_URL}/`);
+  urls.add(`${SITE_URL}/home.html`);
   urls.add(`${SITE_URL}/conteudo.html`);
   urls.add(`${SITE_URL}/simulators/index.html`);
 
@@ -799,6 +800,7 @@ function buildContentPage(topicMap) {
       <h1>Conteúdo do livro interativo de Termodinâmica</h1>
       <p>Esta página reúne links diretos para os capítulos, tópicos e simuladores do projeto TERMO.</p>
       <nav class="quick-links" aria-label="Atalhos de conteúdo">
+        <a href="home.html">Apresentação</a>
         ${chapters.map((chapter) => `<a href="#capitulo-${escapeHtml(chapter.id)}">Capítulo ${Number(chapter.id)}</a>`).join("\n        ")}
         <a href="#simuladores">Simuladores</a>
       </nav>
@@ -825,8 +827,521 @@ ${simulatorItems}
 `;
 }
 
+function buildHomePage(topicMap) {
+  const chapters = buildChapterSections(topicMap);
+  const topicCount = chapters.reduce((total, chapter) => total + chapter.topics.length, 0);
+  const heroImage = "assets/images/capitulo-04/isotermas-van-der-waals.jpg";
+
+  const routeCards = [
+    {
+      label: "Menu principal",
+      title: "Abrir o app TERMO",
+      description: "Acesso direto ao livro interativo, com navegação por capítulos, simuladores, exercícios e recursos de estudo.",
+      href: "index.html"
+    },
+    {
+      label: "Mapa completo",
+      title: "Explorar todos os tópicos",
+      description: "Lista rastreável dos capítulos, seções e páginas de conteúdo do material de Termodinâmica.",
+      href: "conteudo.html"
+    },
+    {
+      label: "Capítulos",
+      title: "Entrar pelo capítulo 1",
+      description: "Ponto de partida para os conceitos fundamentais: Lei Zero, temperatura, calor, trabalho e primeira lei.",
+      href: "index.html?view=chapters&chapter=01"
+    },
+    {
+      label: "Simuladores",
+      title: "Ver recursos interativos",
+      description: "Catálogo de simulações para escalas termométricas, equilíbrio térmico, Maxwell, Van der Waals, Carnot e Stirling.",
+      href: "index.html?view=simulators"
+    }
+  ];
+
+  const routeCardMarkup = routeCards.map((card) => [
+    '        <article class="route-card">',
+    `          <p class="card-label">${escapeHtml(card.label)}</p>`,
+    `          <h3><a href="${escapeHtml(card.href)}">${escapeHtml(card.title)}</a></h3>`,
+    `          <p>${escapeHtml(card.description)}</p>`,
+    "        </article>"
+  ].join("\n")).join("\n");
+
+  const chapterCards = chapters.map((chapter) => {
+    const topicLinks = chapter.topics
+      .sort((a, b) => String(a.id).localeCompare(String(b.id), "pt-BR", { numeric: true }))
+      .map((topic) => [
+        '              <li>',
+        `                <a href="${escapeHtml(topic.url)}"><span>${escapeHtml(topic.id)}</span>${escapeHtml(topic.title)}</a>`,
+        "              </li>"
+      ].join("\n"))
+      .join("\n");
+
+    return [
+      `        <article class="chapter-card" id="capitulo-${escapeHtml(chapter.id)}">`,
+      '          <div class="chapter-copy">',
+      `            <p class="card-label">Capítulo ${Number(chapter.id)}</p>`,
+      `            <h3>${escapeHtml(chapter.title)}</h3>`,
+      `            <p>${escapeHtml(chapter.description)}</p>`,
+      '            <div class="card-actions">',
+      `              <a href="index.html?view=chapters&amp;chapter=${escapeHtml(chapter.id)}">Abrir no app</a>`,
+      `              <a href="conteudo.html#capitulo-${escapeHtml(chapter.id)}">Ver no mapa</a>`,
+      "            </div>",
+      "          </div>",
+      '          <ol class="topic-links">',
+      topicLinks,
+      "          </ol>",
+      "        </article>"
+    ].join("\n");
+  }).join("\n");
+
+  const simulatorCards = simulatorCatalog.map((simulator) => [
+    '        <article class="simulator-card">',
+    `          <p class="card-label">${escapeHtml(simulator.id)}</p>`,
+    `          <h3><a href="${escapeHtml(simulator.standaloneUrl)}">${escapeHtml(simulator.title)}</a></h3>`,
+    `          <p>${escapeHtml(simulator.description)}</p>`,
+    '          <div class="card-actions">',
+    `            <a href="${escapeHtml(simulator.standaloneUrl)}">Abrir simulador</a>`,
+    `            <a href="${escapeHtml(simulator.appUrl)}">Abrir no app</a>`,
+    simulator.sectionUrl ? `            <a href="${escapeHtml(simulator.sectionUrl)}">Seção ${escapeHtml(simulator.sectionId)}</a>` : "",
+    "          </div>",
+    "        </article>"
+  ].filter(Boolean).join("\n")).join("\n");
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: `${COURSE_TITLE} | Livro interativo de Termodinâmica`,
+    description: DEFAULT_SITE_DESCRIPTION,
+    url: `${SITE_URL}/home.html`,
+    inLanguage: "pt-BR",
+    about: {
+      "@type": "Course",
+      name: COURSE_TITLE,
+      description: DEFAULT_SITE_DESCRIPTION,
+      provider: {
+        "@type": "CollegeOrUniversity",
+        name: PUBLISHER_NAME
+      },
+      creator: {
+        "@type": "Person",
+        name: AUTHOR_NAME
+      }
+    },
+    mainEntity: chapters.map((chapter) => ({
+      "@type": "LearningResource",
+      name: `Capítulo ${Number(chapter.id)} — ${chapter.title}`,
+      description: chapter.description,
+      url: `${SITE_URL}/conteudo.html#capitulo-${chapter.id}`
+    }))
+  };
+
+  return `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>${escapeHtml(COURSE_TITLE)} | Livro interativo de Termodinâmica</title>
+  <meta name="description" content="${escapeHtml(DEFAULT_SITE_DESCRIPTION)}" />
+  <meta name="author" content="${escapeHtml(AUTHOR_NAME)}" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <meta name="googlebot" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <link rel="canonical" href="${SITE_URL}/home.html" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="${escapeHtml(COURSE_TITLE)}" />
+  <meta property="og:title" content="${escapeHtml(COURSE_TITLE)} | Livro interativo de Termodinâmica" />
+  <meta property="og:description" content="${escapeHtml(DEFAULT_SITE_DESCRIPTION)}" />
+  <meta property="og:url" content="${SITE_URL}/home.html" />
+  <meta property="og:image" content="${SITE_URL}/${heroImage}" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="${escapeHtml(COURSE_TITLE)}" />
+  <meta name="twitter:description" content="${escapeHtml(DEFAULT_SITE_DESCRIPTION)}" />
+  <meta name="twitter:image" content="${SITE_URL}/${heroImage}" />
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #FCFCFA;
+      --panel: #FFFFFF;
+      --panel-soft: #F8FAFC;
+      --text: #263747;
+      --muted: #5D6D7E;
+      --blue: #004B87;
+      --blue-dark: #102A43;
+      --red: #B03A2E;
+      --green: #28745A;
+      --border: #DDE3ED;
+      --shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Inter", sans-serif;
+      line-height: 1.55;
+    }
+
+    a {
+      color: var(--blue);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .hero {
+      min-height: min(62vh, 560px);
+      display: grid;
+      align-items: end;
+      background:
+        linear-gradient(90deg, rgba(8, 25, 43, 0.90), rgba(8, 25, 43, 0.64) 50%, rgba(8, 25, 43, 0.18)),
+        url("${heroImage}") center / cover no-repeat;
+      color: #FFFFFF;
+      padding: clamp(22px, 6vw, 64px) 0;
+    }
+
+    .wrap {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .hero-content {
+      max-width: 800px;
+    }
+
+    .top-links,
+    .quick-links,
+    .card-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .top-links {
+      margin-bottom: 26px;
+    }
+
+    .top-links a,
+    .quick-links a,
+    .card-actions a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 36px;
+      border: 1px solid rgba(255, 255, 255, 0.38);
+      border-radius: 999px;
+      padding: 8px 12px;
+      background: rgba(255, 255, 255, 0.12);
+      color: #FFFFFF;
+      font-size: 13px;
+      backdrop-filter: blur(8px);
+    }
+
+    .kicker,
+    .card-label,
+    .section-label {
+      color: var(--red);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hero .kicker {
+      color: #F5C2BA;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      max-width: 760px;
+      font-size: clamp(34px, 6vw, 62px);
+      line-height: 1.03;
+      margin-bottom: 16px;
+    }
+
+    .hero p {
+      max-width: 720px;
+      color: #EAF0F7;
+      font-family: "Lora", Georgia, serif;
+      font-size: clamp(17px, 2.2vw, 21px);
+    }
+
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .hero-stat {
+      min-width: 126px;
+      border-left: 3px solid #F5C2BA;
+      padding-left: 12px;
+    }
+
+    .hero-stat strong {
+      display: block;
+      color: #FFFFFF;
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .hero-stat span {
+      color: #DCE7F1;
+      font-size: 13px;
+    }
+
+    main {
+      padding: 22px 0 48px;
+    }
+
+    .intro-grid,
+    .simulator-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .section-block {
+      margin-top: 30px;
+    }
+
+    .section-header {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 16px;
+      max-width: 820px;
+    }
+
+    .section-header h2 {
+      color: var(--blue);
+      font-size: clamp(24px, 3.4vw, 38px);
+      line-height: 1.1;
+    }
+
+    .section-header p {
+      color: var(--muted);
+      font-family: "Lora", Georgia, serif;
+      font-size: 16px;
+    }
+
+    .route-card,
+    .chapter-card,
+    .simulator-card {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .route-card,
+    .simulator-card {
+      padding: 18px;
+    }
+
+    .route-card h3,
+    .simulator-card h3,
+    .chapter-card h3 {
+      color: var(--blue-dark);
+      font-size: 19px;
+      line-height: 1.22;
+      margin: 8px 0 8px;
+    }
+
+    .route-card p,
+    .simulator-card p,
+    .chapter-card p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .route-card:nth-child(2) .card-label,
+    .chapter-card:nth-child(even) .card-label {
+      color: var(--green);
+    }
+
+    .chapter-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .chapter-card {
+      display: grid;
+      grid-template-columns: minmax(230px, 0.38fr) minmax(0, 1fr);
+      gap: 22px;
+      padding: clamp(18px, 3vw, 26px);
+    }
+
+    .chapter-copy {
+      display: grid;
+      align-content: start;
+      gap: 4px;
+    }
+
+    .chapter-copy .card-actions,
+    .simulator-card .card-actions {
+      margin-top: 14px;
+    }
+
+    .chapter-copy .card-actions a,
+    .simulator-card .card-actions a {
+      border-color: #C7D8F3;
+      background: #FFFFFF;
+      color: var(--blue);
+      backdrop-filter: none;
+    }
+
+    .topic-links {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px 16px;
+      list-style: none;
+    }
+
+    .topic-links a {
+      display: inline-flex;
+      gap: 8px;
+      align-items: baseline;
+      line-height: 1.35;
+      font-size: 14px;
+    }
+
+    .topic-links span {
+      color: var(--red);
+      font-size: 12px;
+      font-weight: 800;
+      min-width: 32px;
+    }
+
+    .simulator-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .footer-note {
+      margin-top: 28px;
+      border-top: 1px solid var(--border);
+      padding-top: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 980px) {
+      .intro-grid,
+      .simulator-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .chapter-card {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .wrap {
+        width: min(100% - 24px, 1180px);
+      }
+
+      .hero {
+        min-height: 540px;
+        background-position: center top;
+      }
+
+      .intro-grid,
+      .simulator-grid,
+      .topic-links {
+        grid-template-columns: 1fr;
+      }
+
+      .top-links a,
+      .quick-links a,
+      .card-actions a {
+        min-height: 34px;
+      }
+    }
+  </style>
+  <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap hero-content">
+      <nav class="top-links" aria-label="Acessos principais">
+        <a href="index.html">Abrir app</a>
+        <a href="conteudo.html">Mapa de conteúdo</a>
+        <a href="#capitulos">Capítulos</a>
+        <a href="#simuladores">Simuladores</a>
+      </nav>
+      <p class="kicker">Livro interativo aberto</p>
+      <h1>${escapeHtml(COURSE_TITLE)}</h1>
+      <p>${escapeHtml(DEFAULT_SITE_DESCRIPTION)}</p>
+      <div class="hero-stats" aria-label="Resumo do conteúdo">
+        <div class="hero-stat"><strong>${chapters.length}</strong><span>capítulos disponíveis</span></div>
+        <div class="hero-stat"><strong>${topicCount}</strong><span>tópicos com páginas diretas</span></div>
+        <div class="hero-stat"><strong>${simulatorCatalog.length}</strong><span>simuladores interativos</span></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="section-block" aria-labelledby="rotas-principais">
+      <div class="section-header">
+        <p class="section-label">Entrada rápida</p>
+        <h2 id="rotas-principais">Rotas principais do projeto</h2>
+        <p>Escolha entre abrir a experiência completa do app, navegar por um mapa de conteúdo textual ou entrar diretamente nos capítulos e simuladores.</p>
+      </div>
+      <div class="intro-grid">
+${routeCardMarkup}
+      </div>
+    </section>
+
+    <section class="section-block" id="capitulos" aria-labelledby="capitulos-heading">
+      <div class="section-header">
+        <p class="section-label">Capítulos e tópicos</p>
+        <h2 id="capitulos-heading">Acesso direto ao material didático</h2>
+        <p>Cada tópico abaixo aponta para uma página HTML própria, adequada para leitura, referência em disciplinas e indexação por buscadores.</p>
+      </div>
+      <div class="chapter-list">
+${chapterCards}
+      </div>
+    </section>
+
+    <section class="section-block" id="simuladores" aria-labelledby="simuladores-heading">
+      <div class="section-header">
+        <p class="section-label">Recursos interativos</p>
+        <h2 id="simuladores-heading">Simuladores de Termodinâmica</h2>
+        <p>Ferramentas independentes para visualizar conceitos, testar parâmetros e conectar modelos matemáticos com comportamento físico.</p>
+      </div>
+      <div class="simulator-grid">
+${simulatorCards}
+      </div>
+    </section>
+
+    <p class="footer-note">${escapeHtml(COURSE_TITLE)} é um projeto didático de ${escapeHtml(AUTHOR_NAME)} no ${escapeHtml(PUBLISHER_NAME)}.</p>
+  </main>
+</body>
+</html>
+`;
+}
+
 async function writeContentPage(topicMap) {
   await writeFile(path.join(rootDir, "conteudo.html"), buildContentPage(topicMap), "utf8");
+}
+
+async function writeHomePage(topicMap) {
+  await writeFile(path.join(rootDir, "home.html"), buildHomePage(topicMap), "utf8");
 }
 
 const topicMap = await loadTopicMap();
@@ -836,8 +1351,9 @@ for (const filePath of htmlFiles) {
   await processHtmlFile(filePath, topicMap);
 }
 
+await writeHomePage(topicMap);
 await writeContentPage(topicMap);
 await writeRobotsFile();
 await writeSitemaps(topicMap, htmlFiles);
 
-console.log(`SEO atualizado em ${htmlFiles.length} HTMLs, conteudo.html, robots.txt, sitemap.xml, sitemap.txt e cópias de compatibilidade.`);
+console.log(`SEO atualizado em ${htmlFiles.length} HTMLs, home.html, conteudo.html, robots.txt, sitemap.xml, sitemap.txt e cópias de compatibilidade.`);

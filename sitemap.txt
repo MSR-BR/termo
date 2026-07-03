@@ -1,4 +1,5 @@
 https://termo-theta.vercel.app/
+https://termo-theta.vercel.app/home.html
 https://termo-theta.vercel.app/conteudo.html
 https://termo-theta.vercel.app/simulators/index.html
 https://termo-theta.vercel.app/slides/capitulo-01/page_2.html

@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Termodinâmica para Estudantes de Física | Livro interativo de Termodinâmica</title>
+  <meta name="description" content="Livro interativo de Termodinâmica com capítulos, exercícios automáticos por IA, simuladores, exemplos resolvidos e material didático do Prof. Mario Reis (IF-UFF)." />
+  <meta name="author" content="Prof. Mario Reis" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <meta name="googlebot" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <link rel="canonical" href="https://termo-theta.vercel.app/home.html" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Termodinâmica para Estudantes de Física" />
+  <meta property="og:title" content="Termodinâmica para Estudantes de Física | Livro interativo de Termodinâmica" />
+  <meta property="og:description" content="Livro interativo de Termodinâmica com capítulos, exercícios automáticos por IA, simuladores, exemplos resolvidos e material didático do Prof. Mario Reis (IF-UFF)." />
+  <meta property="og:url" content="https://termo-theta.vercel.app/home.html" />
+  <meta property="og:image" content="https://termo-theta.vercel.app/assets/images/capitulo-04/isotermas-van-der-waals.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Termodinâmica para Estudantes de Física" />
+  <meta name="twitter:description" content="Livro interativo de Termodinâmica com capítulos, exercícios automáticos por IA, simuladores, exemplos resolvidos e material didático do Prof. Mario Reis (IF-UFF)." />
+  <meta name="twitter:image" content="https://termo-theta.vercel.app/assets/images/capitulo-04/isotermas-van-der-waals.jpg" />
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #FCFCFA;
+      --panel: #FFFFFF;
+      --panel-soft: #F8FAFC;
+      --text: #263747;
+      --muted: #5D6D7E;
+      --blue: #004B87;
+      --blue-dark: #102A43;
+      --red: #B03A2E;
+      --green: #28745A;
+      --border: #DDE3ED;
+      --shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Inter", sans-serif;
+      line-height: 1.55;
+    }
+
+    a {
+      color: var(--blue);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .hero {
+      min-height: min(62vh, 560px);
+      display: grid;
+      align-items: end;
+      background:
+        linear-gradient(90deg, rgba(8, 25, 43, 0.90), rgba(8, 25, 43, 0.64) 50%, rgba(8, 25, 43, 0.18)),
+        url("assets/images/capitulo-04/isotermas-van-der-waals.jpg") center / cover no-repeat;
+      color: #FFFFFF;
+      padding: clamp(22px, 6vw, 64px) 0;
+    }
+
+    .wrap {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .hero-content {
+      max-width: 800px;
+    }
+
+    .top-links,
+    .quick-links,
+    .card-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .top-links {
+      margin-bottom: 26px;
+    }
+
+    .top-links a,
+    .quick-links a,
+    .card-actions a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 36px;
+      border: 1px solid rgba(255, 255, 255, 0.38);
+      border-radius: 999px;
+      padding: 8px 12px;
+      background: rgba(255, 255, 255, 0.12);
+      color: #FFFFFF;
+      font-size: 13px;
+      backdrop-filter: blur(8px);
+    }
+
+    .kicker,
+    .card-label,
+    .section-label {
+      color: var(--red);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hero .kicker {
+      color: #F5C2BA;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      max-width: 760px;
+      font-size: clamp(34px, 6vw, 62px);
+      line-height: 1.03;
+      margin-bottom: 16px;
+    }
+
+    .hero p {
+      max-width: 720px;
+      color: #EAF0F7;
+      font-family: "Lora", Georgia, serif;
+      font-size: clamp(17px, 2.2vw, 21px);
+    }
+
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .hero-stat {
+      min-width: 126px;
+      border-left: 3px solid #F5C2BA;
+      padding-left: 12px;
+    }
+
+    .hero-stat strong {
+      display: block;
+      color: #FFFFFF;
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .hero-stat span {
+      color: #DCE7F1;
+      font-size: 13px;
+    }
+
+    main {
+      padding: 22px 0 48px;
+    }
+
+    .intro-grid,
+    .simulator-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .section-block {
+      margin-top: 30px;
+    }
+
+    .section-header {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 16px;
+      max-width: 820px;
+    }
+
+    .section-header h2 {
+      color: var(--blue);
+      font-size: clamp(24px, 3.4vw, 38px);
+      line-height: 1.1;
+    }
+
+    .section-header p {
+      color: var(--muted);
+      font-family: "Lora", Georgia, serif;
+      font-size: 16px;
+    }
+
+    .route-card,
+    .chapter-card,
+    .simulator-card {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .route-card,
+    .simulator-card {
+      padding: 18px;
+    }
+
+    .route-card h3,
+    .simulator-card h3,
+    .chapter-card h3 {
+      color: var(--blue-dark);
+      font-size: 19px;
+      line-height: 1.22;
+      margin: 8px 0 8px;
+    }
+
+    .route-card p,
+    .simulator-card p,
+    .chapter-card p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .route-card:nth-child(2) .card-label,
+    .chapter-card:nth-child(even) .card-label {
+      color: var(--green);
+    }
+
+    .chapter-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .chapter-card {
+      display: grid;
+      grid-template-columns: minmax(230px, 0.38fr) minmax(0, 1fr);
+      gap: 22px;
+      padding: clamp(18px, 3vw, 26px);
+    }
+
+    .chapter-copy {
+      display: grid;
+      align-content: start;
+      gap: 4px;
+    }
+
+    .chapter-copy .card-actions,
+    .simulator-card .card-actions {
+      margin-top: 14px;
+    }
+
+    .chapter-copy .card-actions a,
+    .simulator-card .card-actions a {
+      border-color: #C7D8F3;
+      background: #FFFFFF;
+      color: var(--blue);
+      backdrop-filter: none;
+    }
+
+    .topic-links {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px 16px;
+      list-style: none;
+    }
+
+    .topic-links a {
+      display: inline-flex;
+      gap: 8px;
+      align-items: baseline;
+      line-height: 1.35;
+      font-size: 14px;
+    }
+
+    .topic-links span {
+      color: var(--red);
+      font-size: 12px;
+      font-weight: 800;
+      min-width: 32px;
+    }
+
+    .simulator-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .footer-note {
+      margin-top: 28px;
+      border-top: 1px solid var(--border);
+      padding-top: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 980px) {
+      .intro-grid,
+      .simulator-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .chapter-card {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .wrap {
+        width: min(100% - 24px, 1180px);
+      }
+
+      .hero {
+        min-height: 540px;
+        background-position: center top;
+      }
+
+      .intro-grid,
+      .simulator-grid,
+      .topic-links {
+        grid-template-columns: 1fr;
+      }
+
+      .top-links a,
+      .quick-links a,
+      .card-actions a {
+        min-height: 34px;
+      }
+    }
+  </style>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Termodinâmica para Estudantes de Física | Livro interativo de Termodinâmica","description":"Livro interativo de Termodinâmica com capítulos, exercícios automáticos por IA, simuladores, exemplos resolvidos e material didático do Prof. Mario Reis (IF-UFF).","url":"https://termo-theta.vercel.app/home.html","inLanguage":"pt-BR","about":{"@type":"Course","name":"Termodinâmica para Estudantes de Física","description":"Livro interativo de Termodinâmica com capítulos, exercícios automáticos por IA, simuladores, exemplos resolvidos e material didático do Prof. Mario Reis (IF-UFF).","provider":{"@type":"CollegeOrUniversity","name":"Instituto de Física — Universidade Federal Fluminense"},"creator":{"@type":"Person","name":"Prof. Mario Reis"}},"mainEntity":[{"@type":"LearningResource","name":"Capítulo 1 — Conceitos Fundamentais","description":"Conceitos fundamentais da Termodinâmica: equilíbrio térmico, temperatura, escalas, calor, trabalho e primeira lei.","url":"https://termo-theta.vercel.app/conteudo.html#capitulo-01"},{"@type":"LearningResource","name":"Capítulo 2 — Potenciais Termodinâmicos e Aplicações","description":"Potenciais termodinâmicos, transformações de Legendre, energia livre, entalpia, relações de Maxwell e aplicações.","url":"https://termo-theta.vercel.app/conteudo.html#capitulo-02"},{"@type":"LearningResource","name":"Capítulo 3 — Termodinâmica Estatística","description":"Termodinâmica estatística com ensembles, entropia, distribuição de Boltzmann, gás ideal e exemplos quânticos e clássicos.","url":"https://termo-theta.vercel.app/conteudo.html#capitulo-03"},{"@type":"LearningResource","name":"Capítulo 4 — Transições de Fase","description":"Transições de fase, gás de Van der Waals, ponto crítico, estabilidade, coexistência e construção de Maxwell.","url":"https://termo-theta.vercel.app/conteudo.html#capitulo-04"},{"@type":"LearningResource","name":"Capítulo 6 — Ciclos Termodinâmicos","description":"Ciclos termodinâmicos, máquinas térmicas, eficiência, refrigeradores e transformações cíclicas.","url":"https://termo-theta.vercel.app/conteudo.html#capitulo-06"}]}</script>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap hero-content">
+      <nav class="top-links" aria-label="Acessos principais">
+        <a href="index.html">Abrir app</a>
+        <a href="conteudo.html">Mapa de conteúdo</a>
+        <a href="#capitulos">Capítulos</a>
+        <a href="#simuladores">Simuladores</a>
+      </nav>
+      <p class="kicker">Livro interativo aberto</p>
+      <h1>Termodinâmica para Estudantes de Física</h1>
+      <p>Livro interativo de Termodinâmica com capítulos, exercícios automáticos por IA, simuladores, exemplos resolvidos e material didático do Prof. Mario Reis (IF-UFF).</p>
+      <div class="hero-stats" aria-label="Resumo do conteúdo">
+        <div class="hero-stat"><strong>5</strong><span>capítulos disponíveis</span></div>
+        <div class="hero-stat"><strong>61</strong><span>tópicos com páginas diretas</span></div>
+        <div class="hero-stat"><strong>9</strong><span>simuladores interativos</span></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="section-block" aria-labelledby="rotas-principais">
+      <div class="section-header">
+        <p class="section-label">Entrada rápida</p>
+        <h2 id="rotas-principais">Rotas principais do projeto</h2>
+        <p>Escolha entre abrir a experiência completa do app, navegar por um mapa de conteúdo textual ou entrar diretamente nos capítulos e simuladores.</p>
+      </div>
+      <div class="intro-grid">
+        <article class="route-card">
+          <p class="card-label">Menu principal</p>
+          <h3><a href="index.html">Abrir o app TERMO</a></h3>
+          <p>Acesso direto ao livro interativo, com navegação por capítulos, simuladores, exercícios e recursos de estudo.</p>
+        </article>
+        <article class="route-card">
+          <p class="card-label">Mapa completo</p>
+          <h3><a href="conteudo.html">Explorar todos os tópicos</a></h3>
+          <p>Lista rastreável dos capítulos, seções e páginas de conteúdo do material de Termodinâmica.</p>
+        </article>
+        <article class="route-card">
+          <p class="card-label">Capítulos</p>
+          <h3><a href="index.html?view=chapters&amp;chapter=01">Entrar pelo capítulo 1</a></h3>
+          <p>Ponto de partida para os conceitos fundamentais: Lei Zero, temperatura, calor, trabalho e primeira lei.</p>
+        </article>
+        <article class="route-card">
+          <p class="card-label">Simuladores</p>
+          <h3><a href="index.html?view=simulators">Ver recursos interativos</a></h3>
+          <p>Catálogo de simulações para escalas termométricas, equilíbrio térmico, Maxwell, Van der Waals, Carnot e Stirling.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-block" id="capitulos" aria-labelledby="capitulos-heading">
+      <div class="section-header">
+        <p class="section-label">Capítulos e tópicos</p>
+        <h2 id="capitulos-heading">Acesso direto ao material didático</h2>
+        <p>Cada tópico abaixo aponta para uma página HTML própria, adequada para leitura, referência em disciplinas e indexação por buscadores.</p>
+      </div>
+      <div class="chapter-list">
+        <article class="chapter-card" id="capitulo-01">
+          <div class="chapter-copy">
+            <p class="card-label">Capítulo 1</p>
+            <h3>Conceitos Fundamentais</h3>
+            <p>Conceitos fundamentais da Termodinâmica: equilíbrio térmico, temperatura, escalas, calor, trabalho e primeira lei.</p>
+            <div class="card-actions">
+              <a href="index.html?view=chapters&amp;chapter=01">Abrir no app</a>
+              <a href="conteudo.html#capitulo-01">Ver no mapa</a>
+            </div>
+          </div>
+          <ol class="topic-links">
+              <li>
+                <a href="slides/capitulo-01/page_2.html"><span>1.1</span>Lei Zero da Termodinâmica</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-01/page_3.html"><span>1.2</span>Métodos de Medição de Temperatura</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-01/page_4.html"><span>1.3</span>Escalas Termométricas</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-01/page_5.html"><span>1.4</span>Relação entre Escalas</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-01/page_6.html"><span>1.5</span>Classificação dos Sistemas Termodinâmicos</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-01/page_7.html"><span>1.6</span>Transformações Termodinâmicas</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-01/page_8.html"><span>1.7</span>Estados Termodinâmicos e Funções de Estado</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-01/page_9.html"><span>1.8</span>Calor</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-01/page_10.html"><span>1.9</span>Exemplo: Aquecendo um Bloco de Cobre</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-01/page_11.html"><span>1.10</span>Exemplo: Equilíbrio Térmico</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-01/page_12.html"><span>1.11</span>Gás Ideal</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-01/page_13.html"><span>1.12</span>Trabalho Termodinâmico</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-01/page_14.html"><span>1.13</span>Exemplo: Trabalho Isotérmico</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-01/page_15.html"><span>1.14</span>Variáveis Conjugadas, Intensivas e Extensivas</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-01/page_16.html"><span>1.15</span>Energia Interna</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-01/page_17.html"><span>1.16</span>Primeira Lei da Termodinâmica</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-01/page_18.html"><span>1.17</span>Exemplo: Aplicação da Primeira Lei</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-01/page_19.html"><span>1.18</span>Entropia e Desigualdade de Clausius</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-01/page_20.html"><span>1.19</span>Capacidade Calorífica</a>
+              </li>
+          </ol>
+        </article>
+        <article class="chapter-card" id="capitulo-02">
+          <div class="chapter-copy">
+            <p class="card-label">Capítulo 2</p>
+            <h3>Potenciais Termodinâmicos e Aplicações</h3>
+            <p>Potenciais termodinâmicos, transformações de Legendre, energia livre, entalpia, relações de Maxwell e aplicações.</p>
+            <div class="card-actions">
+              <a href="index.html?view=chapters&amp;chapter=02">Abrir no app</a>
+              <a href="conteudo.html#capitulo-02">Ver no mapa</a>
+            </div>
+          </div>
+          <ol class="topic-links">
+              <li>
+                <a href="slides/capitulo-02/page_1.html"><span>2.1</span>Potenciais Termodinâmicos e Transformações de Legendre</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-02/page_2.html"><span>2.2</span>Entropia e Energia Interna</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-02/page_3.html"><span>2.3</span>Energia Livre de Helmholtz</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-02/page_4.html"><span>2.4</span>Entalpia e Calor Isobárico</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-02/page_5.html"><span>2.5</span>Energia Livre de Gibbs e Espontaneidade</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-02/page_6.html"><span>2.6</span>Grand Potential e Sistemas Abertos</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-02/page_7.html"><span>2.7</span>Variáveis Conjugadas Mecânicas e Magnéticas</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-02/page_8.html"><span>2.8</span>Relações de Maxwell e Retângulo Termodinâmico</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-02/page_9.html"><span>2.9</span>Tabela Resumo dos Potenciais Termodinâmicos</a>
+              </li>
+          </ol>
+        </article>
+        <article class="chapter-card" id="capitulo-03">
+          <div class="chapter-copy">
+            <p class="card-label">Capítulo 3</p>
+            <h3>Termodinâmica Estatística</h3>
+            <p>Termodinâmica estatística com ensembles, entropia, distribuição de Boltzmann, gás ideal e exemplos quânticos e clássicos.</p>
+            <div class="card-actions">
+              <a href="index.html?view=chapters&amp;chapter=03">Abrir no app</a>
+              <a href="conteudo.html#capitulo-03">Ver no mapa</a>
+            </div>
+          </div>
+          <ol class="topic-links">
+              <li>
+                <a href="slides/capitulo-03/page_2.html"><span>3.1</span>Entropia, Gibbs e a Visão por Ensembles</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-03/page_5.html"><span>3.2</span>Ensemble Micro-Canônico e Fórmula de Boltzmann</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-03/page_7.html"><span>3.3</span>Ensemble Canônico, Distribuição de Boltzmann e Parâmetro Beta</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-03/page_10.html"><span>3.4</span>Energia Livre de Helmholtz e Energia Interna Estatística</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-03/page_12.html"><span>3.5</span>Partículas Distinguíveis, Indistinguíveis e Paradoxo de Gibbs</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-03/page_14.html"><span>3.6</span>Exemplo I: Gás Ideal Monoatômico — Função de Partição</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-03/page_16.html"><span>3.7</span>Exemplo I: Gás Ideal Monoatômico — Energia Livre e Sackur-Tetrode</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-03/page_18.html"><span>3.8</span>Exemplo II: Paramagnetismo Quântico</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-03/page_20.html"><span>3.9</span>Exemplo III: Paramagnetismo Clássico</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-03/page_21.html"><span>3.10</span>Terceira Lei e Limites do Modelo Clássico</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-03/page_23.html"><span>3.11</span>Exemplo IV: Capacidade Calorífica em Sólidos</a>
+              </li>
+          </ol>
+        </article>
+        <article class="chapter-card" id="capitulo-04">
+          <div class="chapter-copy">
+            <p class="card-label">Capítulo 4</p>
+            <h3>Transições de Fase</h3>
+            <p>Transições de fase, gás de Van der Waals, ponto crítico, estabilidade, coexistência e construção de Maxwell.</p>
+            <div class="card-actions">
+              <a href="index.html?view=chapters&amp;chapter=04">Abrir no app</a>
+              <a href="conteudo.html#capitulo-04">Ver no mapa</a>
+            </div>
+          </div>
+          <ol class="topic-links">
+              <li>
+                <a href="slides/capitulo-04/page_1.html"><span>4.1</span>Validade do Gás Ideal e Introdução ao Gás de Van der Waals</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-04/page_2.html"><span>4.2</span>Equação de Estado de Van der Waals</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-04/page_6.html"><span>4.3</span>Ponto Crítico</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-04/page_7.html"><span>4.4</span>Equação de Estado Reduzida</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-04/page_9.html"><span>4.5</span>Instabilidade Mecânica e Espinodal</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-04/page_11.html"><span>4.6</span>Energia Livre de Helmholtz e Gibbs</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-04/page_13.html"><span>4.7</span>Construção de Maxwell</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-04/page_16.html"><span>4.8</span>Superaquecimento e Super-resfriamento</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-04/page_17.html"><span>4.9</span>Calor Latente e Equação de Clausius-Clapeyron</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-04/page_20.html"><span>4.10</span>Compressibilidade Isotérmica</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-04/page_21.html"><span>4.11</span>Expansão Térmica</a>
+              </li>
+          </ol>
+        </article>
+        <article class="chapter-card" id="capitulo-06">
+          <div class="chapter-copy">
+            <p class="card-label">Capítulo 6</p>
+            <h3>Ciclos Termodinâmicos</h3>
+            <p>Ciclos termodinâmicos, máquinas térmicas, eficiência, refrigeradores e transformações cíclicas.</p>
+            <div class="card-actions">
+              <a href="index.html?view=chapters&amp;chapter=06">Abrir no app</a>
+              <a href="conteudo.html#capitulo-06">Ver no mapa</a>
+            </div>
+          </div>
+          <ol class="topic-links">
+              <li>
+                <a href="slides/capitulo-06/page_1.html"><span>6.1</span>Máquinas Térmicas e Refrigeradores</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-06/page_2.html"><span>6.2</span>Ciclo de Carnot como Máquina Térmica</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-06/page_3.html"><span>6.3</span>Energia Interna, Calor e Trabalho</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-06/page_4.html"><span>6.4</span>Eficiência Geral e Eficiência de Carnot</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-06/page_5.html"><span>6.5</span>Exemplo: Máquina de Carnot</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-06/page_6.html"><span>6.6</span>Ciclo de Carnot como Refrigerador</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-06/page_7.html"><span>6.7</span>Exemplo: Refrigerador de Carnot</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-06/page_8.html"><span>6.8</span>Ciclo de Stirling sem Regenerador</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-06/page_9.html"><span>6.9</span>Produção de Entropia no Stirling sem Regenerador</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-06/page_10.html"><span>6.10</span>Motor de Stirling com Regenerador Tipo Alfa</a>
+              </li>
+              <li>
+                <a href="slides/capitulo-06/page_11.html"><span>6.11</span>Exemplo: Motor Stirling Alfa</a>
+              </li>
+          </ol>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-block" id="simuladores" aria-labelledby="simuladores-heading">
+      <div class="section-header">
+        <p class="section-label">Recursos interativos</p>
+        <h2 id="simuladores-heading">Simuladores de Termodinâmica</h2>
+        <p>Ferramentas independentes para visualizar conceitos, testar parâmetros e conectar modelos matemáticos com comportamento físico.</p>
+      </div>
+      <div class="simulator-grid">
+        <article class="simulator-card">
+          <p class="card-label">S01</p>
+          <h3><a href="simulators/termometros.html">Escalas termométricas</a></h3>
+          <p>Conversão e visualização de temperaturas em Celsius, Fahrenheit e Kelvin.</p>
+          <div class="card-actions">
+            <a href="simulators/termometros.html">Abrir simulador</a>
+            <a href="index.html?view=simulators&amp;sim=termometros">Abrir no app</a>
+            <a href="slides/capitulo-01/page_4.html">Seção 1.3</a>
+          </div>
+        </article>
+        <article class="simulator-card">
+          <p class="card-label">S02</p>
+          <h3><a href="simulators/eqtermico.html">Equilíbrio térmico</a></h3>
+          <p>Temperatura de equilíbrio e calor trocado entre múltiplos materiais.</p>
+          <div class="card-actions">
+            <a href="simulators/eqtermico.html">Abrir simulador</a>
+            <a href="index.html?view=simulators&amp;sim=eqtermico">Abrir no app</a>
+            <a href="slides/capitulo-01/page_11.html">Seção 1.10</a>
+          </div>
+        </article>
+        <article class="simulator-card">
+          <p class="card-label">S03</p>
+          <h3><a href="simulators/qt.html">Relações termodinâmicas e de Maxwell</a></h3>
+          <p>Retângulo termodinâmico, diferenciais e relações de Maxwell.</p>
+          <div class="card-actions">
+            <a href="simulators/qt.html">Abrir simulador</a>
+            <a href="index.html?view=simulators&amp;sim=qt">Abrir no app</a>
+            <a href="slides/capitulo-02/page_8.html">Seção 2.8</a>
+          </div>
+        </article>
+        <article class="simulator-card">
+          <p class="card-label">S04</p>
+          <h3><a href="simulators/mag.html">Paramagnetismo</a></h3>
+          <p>Magnetização paramagnética com função de Brillouin.</p>
+          <div class="card-actions">
+            <a href="simulators/mag.html">Abrir simulador</a>
+            <a href="index.html?view=simulators&amp;sim=mag">Abrir no app</a>
+            <a href="slides/capitulo-03/page_18.html">Seção 3.8</a>
+          </div>
+        </article>
+        <article class="simulator-card">
+          <p class="card-label">S05</p>
+          <h3><a href="simulators/vdw.html">Van der Waals 1</a></h3>
+          <p>Isotermas, curva espinodal e ponto crítico em variáveis reduzidas.</p>
+          <div class="card-actions">
+            <a href="simulators/vdw.html">Abrir simulador</a>
+            <a href="index.html?view=simulators&amp;sim=vdw">Abrir no app</a>
+            <a href="slides/capitulo-04/page_9.html">Seção 4.5</a>
+          </div>
+        </article>
+        <article class="simulator-card">
+          <p class="card-label">S06</p>
+          <h3><a href="simulators/vdw_pv_gv.html">Van der Waals 2</a></h3>
+          <p>Relação entre isoterma de Van der Waals e energia livre g(v).</p>
+          <div class="card-actions">
+            <a href="simulators/vdw_pv_gv.html">Abrir simulador</a>
+            <a href="index.html?view=simulators&amp;sim=vdw_pv_gv">Abrir no app</a>
+            <a href="slides/capitulo-04/page_11.html">Seção 4.6</a>
+          </div>
+        </article>
+        <article class="simulator-card">
+          <p class="card-label">S07</p>
+          <h3><a href="simulators/isotermico.html">Processo isotérmico</a></h3>
+          <p>Expansão e compressão isotérmicas de um gás ideal.</p>
+          <div class="card-actions">
+            <a href="simulators/isotermico.html">Abrir simulador</a>
+            <a href="index.html?view=simulators&amp;sim=isotermico">Abrir no app</a>
+          </div>
+        </article>
+        <article class="simulator-card">
+          <p class="card-label">S08</p>
+          <h3><a href="simulators/mt_carnot.html">Máquina térmica de Carnot</a></h3>
+          <p>Ciclo de Carnot, calores trocados, trabalho total e eficiência.</p>
+          <div class="card-actions">
+            <a href="simulators/mt_carnot.html">Abrir simulador</a>
+            <a href="index.html?view=simulators&amp;sim=mt_carnot">Abrir no app</a>
+            <a href="slides/capitulo-06/page_2.html">Seção 6.2</a>
+          </div>
+        </article>
+        <article class="simulator-card">
+          <p class="card-label">S09</p>
+          <h3><a href="simulators/stirling_reg.html">Máquina térmica de Stirling</a></h3>
+          <p>Motor de Stirling tipo alfa com regenerador.</p>
+          <div class="card-actions">
+            <a href="simulators/stirling_reg.html">Abrir simulador</a>
+            <a href="index.html?view=simulators&amp;sim=stirling_reg">Abrir no app</a>
+            <a href="slides/capitulo-06/page_10.html">Seção 6.10</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <p class="footer-note">Termodinâmica para Estudantes de Física é um projeto didático de Prof. Mario Reis no Instituto de Física — Universidade Federal Fluminense.</p>
+  </main>
+</body>
+</html>
