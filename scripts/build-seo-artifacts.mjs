@@ -424,18 +424,17 @@ async function writeRobotsFile() {
     "User-agent: *",
     "Allow: /",
     "",
-    `Sitemap: ${SITE_URL}/sitemap-index.xml`
+    `Sitemap: ${SITE_URL}/sitemap.xml`
   ].join("\n");
 
   await writeFile(path.join(rootDir, "robots.txt"), `${content}\n`, "utf8");
 }
 
 function collectSitemapUrls(topicMap, htmlFiles) {
-  const urls = new Map();
-  urls.set(`${SITE_URL}/`, { priority: "1.0", changefreq: "weekly" });
-  urls.set(`${SITE_URL}/conteudo.html`, { priority: "0.95", changefreq: "weekly" });
-  urls.set(`${SITE_URL}/?view=simulators`, { priority: "0.8", changefreq: "weekly" });
-  urls.set(`${SITE_URL}/simulators/index.html`, { priority: "0.8", changefreq: "monthly" });
+  const urls = new Set();
+  urls.add(`${SITE_URL}/`);
+  urls.add(`${SITE_URL}/conteudo.html`);
+  urls.add(`${SITE_URL}/simulators/index.html`);
 
   const activeChapterIds = new Set();
 
@@ -449,37 +448,28 @@ function collectSitemapUrls(topicMap, htmlFiles) {
     if (chapterId) activeChapterIds.add(chapterId);
   }
 
-  for (const chapterId of Object.keys(chapterCatalog).sort()) {
-    if (!activeChapterIds.has(chapterId)) continue;
-    urls.set(`${SITE_URL}/?view=chapters&chapter=${chapterId}`, { priority: "0.9", changefreq: "weekly" });
-  }
-
   for (const [relativeUrl] of topicMap.entries()) {
-    urls.set(`${SITE_URL}/${relativeUrl}`, { priority: "0.7", changefreq: "monthly" });
+    urls.add(`${SITE_URL}/${relativeUrl}`);
   }
 
   for (const simulator of simulatorCatalog) {
-    urls.set(`${SITE_URL}/${simulator.standaloneUrl}`, { priority: "0.75", changefreq: "monthly" });
-    urls.set(`${SITE_URL}/${simulator.appUrl}`, { priority: "0.7", changefreq: "monthly" });
+    urls.add(`${SITE_URL}/${simulator.standaloneUrl}`);
   }
 
   for (const filePath of htmlFiles) {
     const relativePath = toPosix(path.relative(rootDir, filePath));
     if (!getSlideChapterId(relativePath)) continue;
-    urls.set(`${SITE_URL}/${relativePath}`, { priority: "0.7", changefreq: "monthly" });
+    urls.add(`${SITE_URL}/${relativePath}`);
   }
 
   return urls;
 }
 
 function buildUrlsetXml(urls) {
-  const body = Array.from(urls.entries())
-    .map(([url, meta]) => [
+  const body = Array.from(urls)
+    .map((url) => [
       "  <url>",
       `    <loc>${xmlEscape(url)}</loc>`,
-      `    <lastmod>${TODAY}</lastmod>`,
-      `    <changefreq>${meta.changefreq}</changefreq>`,
-      `    <priority>${meta.priority}</priority>`,
       "  </url>"
     ].join("\n"))
     .join("\n");
@@ -497,19 +487,12 @@ function buildUrlsetXml(urls) {
 async function writeSitemaps(topicMap, htmlFiles) {
   const urls = collectSitemapUrls(topicMap, htmlFiles);
   const pageSitemapXml = buildUrlsetXml(urls);
-  const sitemapIndexXml = [
-    '<?xml version="1.0" encoding="UTF-8"?>',
-    '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-    "  <sitemap>",
-    `    <loc>${SITE_URL}/sitemap-pages.xml</loc>`,
-    `    <lastmod>${TODAY}</lastmod>`,
-    "  </sitemap>",
-    "</sitemapindex>"
-  ].join("\n");
+  const sitemapText = `${Array.from(urls).join("\n")}\n`;
 
   await writeFile(path.join(rootDir, "sitemap.xml"), `${pageSitemapXml}\n`, "utf8");
+  await writeFile(path.join(rootDir, "sitemap.txt"), sitemapText, "utf8");
   await writeFile(path.join(rootDir, "sitemap-pages.xml"), `${pageSitemapXml}\n`, "utf8");
-  await writeFile(path.join(rootDir, "sitemap-index.xml"), `${sitemapIndexXml}\n`, "utf8");
+  await writeFile(path.join(rootDir, "sitemap-index.xml"), `${pageSitemapXml}\n`, "utf8");
 }
 
 function buildChapterSections(topicMap) {
@@ -857,4 +840,4 @@ await writeContentPage(topicMap);
 await writeRobotsFile();
 await writeSitemaps(topicMap, htmlFiles);
 
-console.log(`SEO atualizado em ${htmlFiles.length} HTMLs, conteudo.html, robots.txt, sitemap.xml, sitemap-pages.xml e sitemap-index.xml.`);
+console.log(`SEO atualizado em ${htmlFiles.length} HTMLs, conteudo.html, robots.txt, sitemap.xml, sitemap.txt e cópias de compatibilidade.`);
