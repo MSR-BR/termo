@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://termo-theta.vercel.app/sitemap.xml
+Sitemap: https://termo-theta.vercel.app/sitemap-index.xml

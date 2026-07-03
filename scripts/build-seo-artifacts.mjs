@@ -16,6 +16,88 @@ const DEFAULT_SITE_DESCRIPTION = "Livro interativo de Termodinâmica com capítu
 const TODAY = process.env.SITEMAP_LASTMOD || todayInSaoPaulo();
 const SEO_ASSET_VERSION = process.env.SEO_ASSET_VERSION || TODAY.replaceAll("-", "");
 
+const simulatorCatalog = [
+  {
+    id: "S01",
+    sectionId: "1.3",
+    sectionUrl: "slides/capitulo-01/page_4.html",
+    title: "Escalas termométricas",
+    description: "Conversão e visualização de temperaturas em Celsius, Fahrenheit e Kelvin.",
+    appUrl: "index.html?view=simulators&sim=termometros",
+    standaloneUrl: "simulators/termometros.html"
+  },
+  {
+    id: "S02",
+    sectionId: "1.10",
+    sectionUrl: "slides/capitulo-01/page_11.html",
+    title: "Equilíbrio térmico",
+    description: "Temperatura de equilíbrio e calor trocado entre múltiplos materiais.",
+    appUrl: "index.html?view=simulators&sim=eqtermico",
+    standaloneUrl: "simulators/eqtermico.html"
+  },
+  {
+    id: "S03",
+    sectionId: "2.8",
+    sectionUrl: "slides/capitulo-02/page_8.html",
+    title: "Relações termodinâmicas e de Maxwell",
+    description: "Retângulo termodinâmico, diferenciais e relações de Maxwell.",
+    appUrl: "index.html?view=simulators&sim=qt",
+    standaloneUrl: "simulators/qt.html"
+  },
+  {
+    id: "S04",
+    sectionId: "3.8",
+    sectionUrl: "slides/capitulo-03/page_18.html",
+    title: "Paramagnetismo",
+    description: "Magnetização paramagnética com função de Brillouin.",
+    appUrl: "index.html?view=simulators&sim=mag",
+    standaloneUrl: "simulators/mag.html"
+  },
+  {
+    id: "S05",
+    sectionId: "4.5",
+    sectionUrl: "slides/capitulo-04/page_9.html",
+    title: "Van der Waals 1",
+    description: "Isotermas, curva espinodal e ponto crítico em variáveis reduzidas.",
+    appUrl: "index.html?view=simulators&sim=vdw",
+    standaloneUrl: "simulators/vdw.html"
+  },
+  {
+    id: "S06",
+    sectionId: "4.6",
+    sectionUrl: "slides/capitulo-04/page_11.html",
+    title: "Van der Waals 2",
+    description: "Relação entre isoterma de Van der Waals e energia livre g(v).",
+    appUrl: "index.html?view=simulators&sim=vdw_pv_gv",
+    standaloneUrl: "simulators/vdw_pv_gv.html"
+  },
+  {
+    id: "S07",
+    title: "Processo isotérmico",
+    description: "Expansão e compressão isotérmicas de um gás ideal.",
+    appUrl: "index.html?view=simulators&sim=isotermico",
+    standaloneUrl: "simulators/isotermico.html"
+  },
+  {
+    id: "S08",
+    sectionId: "6.2",
+    sectionUrl: "slides/capitulo-06/page_2.html",
+    title: "Máquina térmica de Carnot",
+    description: "Ciclo de Carnot, calores trocados, trabalho total e eficiência.",
+    appUrl: "index.html?view=simulators&sim=mt_carnot",
+    standaloneUrl: "simulators/mt_carnot.html"
+  },
+  {
+    id: "S09",
+    sectionId: "6.10",
+    sectionUrl: "slides/capitulo-06/page_10.html",
+    title: "Máquina térmica de Stirling",
+    description: "Motor de Stirling tipo alfa com regenerador.",
+    appUrl: "index.html?view=simulators&sim=stirling_reg",
+    standaloneUrl: "simulators/stirling_reg.html"
+  }
+];
+
 const chapterCatalog = {
   "01": {
     title: "Conceitos Fundamentais",
@@ -342,16 +424,18 @@ async function writeRobotsFile() {
     "User-agent: *",
     "Allow: /",
     "",
-    `Sitemap: ${SITE_URL}/sitemap.xml`
+    `Sitemap: ${SITE_URL}/sitemap-index.xml`
   ].join("\n");
 
   await writeFile(path.join(rootDir, "robots.txt"), `${content}\n`, "utf8");
 }
 
-async function writeSitemap(topicMap, htmlFiles) {
+function collectSitemapUrls(topicMap, htmlFiles) {
   const urls = new Map();
   urls.set(`${SITE_URL}/`, { priority: "1.0", changefreq: "weekly" });
+  urls.set(`${SITE_URL}/conteudo.html`, { priority: "0.95", changefreq: "weekly" });
   urls.set(`${SITE_URL}/?view=simulators`, { priority: "0.8", changefreq: "weekly" });
+  urls.set(`${SITE_URL}/simulators/index.html`, { priority: "0.8", changefreq: "monthly" });
 
   const activeChapterIds = new Set();
 
@@ -374,12 +458,21 @@ async function writeSitemap(topicMap, htmlFiles) {
     urls.set(`${SITE_URL}/${relativeUrl}`, { priority: "0.7", changefreq: "monthly" });
   }
 
+  for (const simulator of simulatorCatalog) {
+    urls.set(`${SITE_URL}/${simulator.standaloneUrl}`, { priority: "0.75", changefreq: "monthly" });
+    urls.set(`${SITE_URL}/${simulator.appUrl}`, { priority: "0.7", changefreq: "monthly" });
+  }
+
   for (const filePath of htmlFiles) {
     const relativePath = toPosix(path.relative(rootDir, filePath));
     if (!getSlideChapterId(relativePath)) continue;
     urls.set(`${SITE_URL}/${relativePath}`, { priority: "0.7", changefreq: "monthly" });
   }
 
+  return urls;
+}
+
+function buildUrlsetXml(urls) {
   const body = Array.from(urls.entries())
     .map(([url, meta]) => [
       "  <url>",
@@ -398,7 +491,359 @@ async function writeSitemap(topicMap, htmlFiles) {
     "</urlset>"
   ].join("\n");
 
-  await writeFile(path.join(rootDir, "sitemap.xml"), `${xml}\n`, "utf8");
+  return xml;
+}
+
+async function writeSitemaps(topicMap, htmlFiles) {
+  const urls = collectSitemapUrls(topicMap, htmlFiles);
+  const pageSitemapXml = buildUrlsetXml(urls);
+  const sitemapIndexXml = [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    "  <sitemap>",
+    `    <loc>${SITE_URL}/sitemap-pages.xml</loc>`,
+    `    <lastmod>${TODAY}</lastmod>`,
+    "  </sitemap>",
+    "</sitemapindex>"
+  ].join("\n");
+
+  await writeFile(path.join(rootDir, "sitemap.xml"), `${pageSitemapXml}\n`, "utf8");
+  await writeFile(path.join(rootDir, "sitemap-pages.xml"), `${pageSitemapXml}\n`, "utf8");
+  await writeFile(path.join(rootDir, "sitemap-index.xml"), `${sitemapIndexXml}\n`, "utf8");
+}
+
+function buildChapterSections(topicMap) {
+  const chapters = new Map();
+
+  for (const [relativeUrl, topic] of topicMap.entries()) {
+    const chapterId = topic.chapterId || getSlideChapterId(relativeUrl);
+    if (!chapterId || chapterId === "05") continue;
+
+    if (!chapters.has(chapterId)) {
+      chapters.set(chapterId, {
+        id: chapterId,
+        title: chapterCatalog[chapterId]?.title || `Capítulo ${Number(chapterId)}`,
+        description: chapterCatalog[chapterId]?.description || "",
+        topics: []
+      });
+    }
+
+    chapters.get(chapterId).topics.push({
+      ...topic,
+      url: relativeUrl
+    });
+  }
+
+  return Array.from(chapters.values()).sort((a, b) => a.id.localeCompare(b.id));
+}
+
+function buildContentPage(topicMap) {
+  const chapters = buildChapterSections(topicMap);
+  const chapterCards = chapters.map((chapter) => {
+    const topicItems = chapter.topics
+      .sort((a, b) => String(a.id).localeCompare(String(b.id), "pt-BR", { numeric: true }))
+      .map((topic) => [
+        '          <li class="topic-item">',
+        `            <a href="${escapeHtml(topic.url)}"><span>${escapeHtml(topic.id)}</span>${escapeHtml(topic.title)}</a>`,
+        `            <p>${escapeHtml(topic.note || "Abrir página do tópico.")}</p>`,
+        "          </li>"
+      ].join("\n"))
+      .join("\n");
+
+    return [
+      `      <section class="content-card" id="capitulo-${escapeHtml(chapter.id)}">`,
+      "        <div>",
+      `          <p class="eyebrow">Capítulo ${Number(chapter.id)}</p>`,
+      `          <h2>${escapeHtml(chapter.title)}</h2>`,
+      `          <p>${escapeHtml(chapter.description)}</p>`,
+      `          <a class="chapter-link" href="index.html?view=chapters&amp;chapter=${escapeHtml(chapter.id)}">Abrir capítulo no app</a>`,
+      "        </div>",
+      '        <ol class="topic-list">',
+      topicItems,
+      "        </ol>",
+      "      </section>"
+    ].join("\n");
+  }).join("\n");
+
+  const simulatorItems = simulatorCatalog.map((simulator) => [
+    '          <li class="simulator-item">',
+    `            <a href="${escapeHtml(simulator.standaloneUrl)}"><span>${escapeHtml(simulator.id)}</span>${escapeHtml(simulator.title)}</a>`,
+    `            <p>${escapeHtml(simulator.description)}</p>`,
+    '            <div class="simulator-links">',
+    `              <a href="${escapeHtml(simulator.appUrl)}">Abrir no app</a>`,
+    simulator.sectionUrl ? `              <a href="${escapeHtml(simulator.sectionUrl)}">Seção ${escapeHtml(simulator.sectionId)}</a>` : "",
+    "            </div>",
+    "          </li>"
+  ].filter(Boolean).join("\n")).join("\n");
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: `Mapa de Conteúdo | ${COURSE_TITLE}`,
+    description: "Mapa de capítulos, tópicos e simuladores do livro interativo de Termodinâmica.",
+    url: `${SITE_URL}/conteudo.html`,
+    inLanguage: "pt-BR",
+    isPartOf: {
+      "@type": "Course",
+      name: COURSE_TITLE,
+      url: `${SITE_URL}/`
+    },
+    author: {
+      "@type": "Person",
+      name: AUTHOR_NAME
+    },
+    publisher: {
+      "@type": "CollegeOrUniversity",
+      name: PUBLISHER_NAME
+    }
+  };
+
+  return `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mapa de Conteúdo | Termodinâmica para Estudantes de Física</title>
+  <meta name="description" content="Mapa de conteúdo crawlável do livro interativo Termodinâmica para Estudantes de Física: capítulos, tópicos, simuladores e recursos principais." />
+  <meta name="author" content="${escapeHtml(AUTHOR_NAME)}" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <meta name="googlebot" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <link rel="canonical" href="${SITE_URL}/conteudo.html" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="${escapeHtml(COURSE_TITLE)}" />
+  <meta property="og:title" content="Mapa de Conteúdo | ${escapeHtml(COURSE_TITLE)}" />
+  <meta property="og:description" content="Capítulos, tópicos e simuladores do livro interativo de Termodinâmica." />
+  <meta property="og:url" content="${SITE_URL}/conteudo.html" />
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #FCFCFA;
+      --panel: #FFFFFF;
+      --text: #2C3E50;
+      --muted: #5D6D7E;
+      --blue: #004B87;
+      --border: #DDE3ED;
+      --red: #B03A2E;
+      --shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Inter", sans-serif;
+      line-height: 1.55;
+    }
+
+    a {
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .page {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 44px;
+    }
+
+    .hero,
+    .content-card,
+    .simulator-panel {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      padding: clamp(22px, 4vw, 36px);
+      margin-bottom: 18px;
+    }
+
+    .back-link,
+    .quick-links a,
+    .chapter-link {
+      display: inline-flex;
+      border: 1px solid #C7D8F3;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 13px;
+      background: #FFFFFF;
+    }
+
+    .back-link {
+      margin-bottom: 18px;
+    }
+
+    .kicker,
+    .eyebrow {
+      color: var(--red);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      color: var(--blue);
+      font-size: clamp(30px, 5vw, 48px);
+      line-height: 1.08;
+      margin-bottom: 14px;
+    }
+
+    h2 {
+      color: var(--blue);
+      font-size: clamp(21px, 3vw, 30px);
+      line-height: 1.15;
+      margin-bottom: 10px;
+    }
+
+    .hero p,
+    .content-card > div > p,
+    .simulator-panel > div > p {
+      color: var(--muted);
+      font-family: "Lora", Georgia, serif;
+      font-size: 16px;
+      max-width: 820px;
+    }
+
+    .quick-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .content-stack {
+      display: grid;
+      gap: 16px;
+    }
+
+    .content-card,
+    .simulator-panel {
+      display: grid;
+      grid-template-columns: minmax(220px, 0.42fr) minmax(0, 1fr);
+      gap: 24px;
+      padding: clamp(18px, 3vw, 28px);
+      align-items: start;
+    }
+
+    .chapter-link {
+      margin-top: 16px;
+    }
+
+    .topic-list,
+    .simulator-list {
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+
+    .topic-item,
+    .simulator-item {
+      border: 1px solid #E8EDF3;
+      background: #F8FAFC;
+      border-radius: 8px;
+      padding: 12px 14px;
+    }
+
+    .topic-item a,
+    .simulator-item a {
+      display: inline-flex;
+      gap: 9px;
+      align-items: baseline;
+      line-height: 1.35;
+    }
+
+    .topic-item span,
+    .simulator-item span {
+      color: var(--red);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+
+    .topic-item p,
+    .simulator-item p {
+      color: var(--muted);
+      font-size: 13.5px;
+      margin-top: 5px;
+    }
+
+    .simulator-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+      font-size: 13px;
+    }
+
+    @media (max-width: 760px) {
+      .page {
+        width: min(100% - 24px, 1180px);
+        padding-top: 16px;
+      }
+
+      .content-card,
+      .simulator-panel {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+    }
+  </style>
+  <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <a class="back-link" href="index.html">Voltar ao app</a>
+      <p class="kicker">Mapa do site</p>
+      <h1>Conteúdo do livro interativo de Termodinâmica</h1>
+      <p>Esta página reúne links diretos para os capítulos, tópicos e simuladores do projeto TERMO.</p>
+      <nav class="quick-links" aria-label="Atalhos de conteúdo">
+        ${chapters.map((chapter) => `<a href="#capitulo-${escapeHtml(chapter.id)}">Capítulo ${Number(chapter.id)}</a>`).join("\n        ")}
+        <a href="#simuladores">Simuladores</a>
+      </nav>
+    </section>
+
+    <div class="content-stack">
+${chapterCards}
+
+      <section class="simulator-panel" id="simuladores">
+        <div>
+          <p class="eyebrow">Recursos interativos</p>
+          <h2>Simuladores</h2>
+          <p>Simuladores independentes para explorar escalas termométricas, equilíbrio térmico, relações de Maxwell, Van der Waals, Carnot e Stirling.</p>
+          <a class="chapter-link" href="index.html?view=simulators">Abrir catálogo no app</a>
+        </div>
+        <ol class="simulator-list">
+${simulatorItems}
+        </ol>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
+`;
+}
+
+async function writeContentPage(topicMap) {
+  await writeFile(path.join(rootDir, "conteudo.html"), buildContentPage(topicMap), "utf8");
 }
 
 const topicMap = await loadTopicMap();
@@ -408,7 +853,8 @@ for (const filePath of htmlFiles) {
   await processHtmlFile(filePath, topicMap);
 }
 
+await writeContentPage(topicMap);
 await writeRobotsFile();
-await writeSitemap(topicMap, htmlFiles);
+await writeSitemaps(topicMap, htmlFiles);
 
-console.log(`SEO atualizado em ${htmlFiles.length} HTMLs, robots.txt e sitemap.xml.`);
+console.log(`SEO atualizado em ${htmlFiles.length} HTMLs, conteudo.html, robots.txt, sitemap.xml, sitemap-pages.xml e sitemap-index.xml.`);
