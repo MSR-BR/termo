@@ -1,6 +1,6 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { readdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -9,6 +9,8 @@ const slidesDir = path.join(rootDir, "slides");
 const dataDir = path.join(rootDir, "data");
 
 const SITE_URL = "https://termo-theta.vercel.app";
+const GITHUB_PAGES_URL = "https://msr-br.github.io/termo";
+const GITHUB_REPOSITORY_URL = "https://github.com/MSR-BR/termo";
 const COURSE_TITLE = "Termodinâmica para Estudantes de Física";
 const AUTHOR_NAME = "Prof. Mario Reis";
 const PUBLISHER_NAME = "Instituto de Física — Universidade Federal Fluminense";
@@ -1336,12 +1338,440 @@ ${simulatorCards}
 `;
 }
 
+function buildGithubPagesBridge(topicMap) {
+  const chapters = buildChapterSections(topicMap);
+  const topicCount = chapters.reduce((total, chapter) => total + chapter.topics.length, 0);
+  const heroImage = `${SITE_URL}/assets/images/capitulo-04/isotermas-van-der-waals.jpg`;
+
+  const chapterCards = chapters.map((chapter) => [
+    '        <article class="content-card">',
+    `          <p class="card-label">Capítulo ${Number(chapter.id)}</p>`,
+    `          <h3>${escapeHtml(chapter.title)}</h3>`,
+    `          <p>${escapeHtml(chapter.description)}</p>`,
+    '          <div class="card-actions">',
+    `            <a href="${SITE_URL}/index.html?view=chapters&amp;chapter=${escapeHtml(chapter.id)}">Abrir capítulo</a>`,
+    `            <a href="${SITE_URL}/conteudo.html#capitulo-${escapeHtml(chapter.id)}">Ver tópicos</a>`,
+    "          </div>",
+    "        </article>"
+  ].join("\n")).join("\n");
+
+  const simulatorCards = simulatorCatalog.map((simulator) => [
+    '        <article class="content-card">',
+    `          <p class="card-label">${escapeHtml(simulator.id)}</p>`,
+    `          <h3>${escapeHtml(simulator.title)}</h3>`,
+    `          <p>${escapeHtml(simulator.description)}</p>`,
+    '          <div class="card-actions">',
+    `            <a href="${SITE_URL}/${escapeHtml(simulator.standaloneUrl)}">Abrir simulador</a>`,
+    `            <a href="${SITE_URL}/${escapeHtml(simulator.appUrl)}">Abrir no app</a>`,
+    "          </div>",
+    "        </article>"
+  ].join("\n")).join("\n");
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: `${COURSE_TITLE} | Página ponte`,
+    description: DEFAULT_SITE_DESCRIPTION,
+    url: `${GITHUB_PAGES_URL}/`,
+    inLanguage: "pt-BR",
+    isPartOf: {
+      "@type": "WebSite",
+      name: "GitHub Pages"
+    },
+    mainEntity: {
+      "@type": "Course",
+      name: COURSE_TITLE,
+      description: DEFAULT_SITE_DESCRIPTION,
+      provider: {
+        "@type": "CollegeOrUniversity",
+        name: PUBLISHER_NAME
+      },
+      creator: {
+        "@type": "Person",
+        name: AUTHOR_NAME
+      },
+      url: `${SITE_URL}/home.html`,
+      sameAs: [
+        SITE_URL,
+        GITHUB_REPOSITORY_URL
+      ]
+    }
+  };
+
+  return `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TERMO | Livro interativo de Termodinâmica</title>
+  <meta name="description" content="${escapeHtml(DEFAULT_SITE_DESCRIPTION)}" />
+  <meta name="author" content="${escapeHtml(AUTHOR_NAME)}" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <meta name="googlebot" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <link rel="canonical" href="${SITE_URL}/home.html" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="TERMO" />
+  <meta property="og:title" content="${escapeHtml(COURSE_TITLE)}" />
+  <meta property="og:description" content="${escapeHtml(DEFAULT_SITE_DESCRIPTION)}" />
+  <meta property="og:url" content="${GITHUB_PAGES_URL}/" />
+  <meta property="og:image" content="${heroImage}" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="${escapeHtml(COURSE_TITLE)}" />
+  <meta name="twitter:description" content="${escapeHtml(DEFAULT_SITE_DESCRIPTION)}" />
+  <meta name="twitter:image" content="${heroImage}" />
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #FCFCFA;
+      --panel: #FFFFFF;
+      --text: #263747;
+      --muted: #5D6D7E;
+      --blue: #004B87;
+      --blue-dark: #102A43;
+      --red: #B03A2E;
+      --green: #28745A;
+      --border: #DDE3ED;
+      --shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Inter", sans-serif;
+      line-height: 1.55;
+    }
+
+    a {
+      color: var(--blue);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .hero {
+      display: grid;
+      align-items: end;
+      min-height: min(62vh, 560px);
+      background:
+        linear-gradient(90deg, rgba(8, 25, 43, 0.91), rgba(8, 25, 43, 0.64) 55%, rgba(8, 25, 43, 0.22)),
+        url("${heroImage}") center / cover no-repeat;
+      color: #FFFFFF;
+      padding: clamp(26px, 6vw, 66px) 0;
+    }
+
+    .wrap {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .hero-content {
+      max-width: 820px;
+    }
+
+    .kicker,
+    .section-label,
+    .card-label {
+      color: var(--red);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hero .kicker {
+      color: #F5C2BA;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      max-width: 780px;
+      margin-bottom: 16px;
+      font-size: clamp(34px, 6vw, 60px);
+      line-height: 1.03;
+    }
+
+    h2 {
+      color: var(--blue);
+      font-size: clamp(24px, 3.4vw, 38px);
+      line-height: 1.1;
+    }
+
+    h3 {
+      color: var(--blue-dark);
+      font-size: 19px;
+      line-height: 1.22;
+      margin: 8px 0;
+    }
+
+    .hero p {
+      max-width: 720px;
+      color: #EAF0F7;
+      font-family: "Lora", Georgia, serif;
+      font-size: clamp(17px, 2.1vw, 21px);
+    }
+
+    .actions,
+    .card-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .actions {
+      margin-top: 24px;
+    }
+
+    .actions a,
+    .card-actions a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 36px;
+      border: 1px solid rgba(255, 255, 255, 0.38);
+      border-radius: 999px;
+      padding: 8px 12px;
+      background: rgba(255, 255, 255, 0.12);
+      color: #FFFFFF;
+      font-size: 13px;
+    }
+
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .hero-stat {
+      min-width: 132px;
+      border-left: 3px solid #F5C2BA;
+      padding-left: 12px;
+    }
+
+    .hero-stat strong {
+      display: block;
+      color: #FFFFFF;
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .hero-stat span {
+      color: #DCE7F1;
+      font-size: 13px;
+    }
+
+    main {
+      padding: 24px 0 48px;
+    }
+
+    .section-block {
+      margin-top: 30px;
+    }
+
+    .section-header {
+      display: grid;
+      gap: 8px;
+      max-width: 820px;
+      margin-bottom: 16px;
+    }
+
+    .section-header p {
+      color: var(--muted);
+      font-family: "Lora", Georgia, serif;
+      font-size: 16px;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .chapter-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .content-card {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+
+    .content-card p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .content-card:nth-child(even) .card-label {
+      color: var(--green);
+    }
+
+    .card-actions {
+      margin-top: 14px;
+    }
+
+    .card-actions a {
+      border-color: #C7D8F3;
+      background: #FFFFFF;
+      color: var(--blue);
+    }
+
+    .note {
+      margin-top: 28px;
+      border-top: 1px solid var(--border);
+      padding-top: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 900px) {
+      .content-grid,
+      .chapter-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .wrap {
+        width: min(100% - 24px, 1120px);
+      }
+
+      .hero {
+        min-height: 540px;
+        background-position: center top;
+      }
+
+      .content-grid,
+      .chapter-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+  <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap hero-content">
+      <p class="kicker">Página ponte no GitHub Pages</p>
+      <h1>${escapeHtml(COURSE_TITLE)}</h1>
+      <p>${escapeHtml(DEFAULT_SITE_DESCRIPTION)}</p>
+      <nav class="actions" aria-label="Acessos principais">
+        <a href="${SITE_URL}/home.html">Apresentação oficial</a>
+        <a href="${SITE_URL}/">Abrir app</a>
+        <a href="${SITE_URL}/conteudo.html">Mapa de conteúdo</a>
+        <a href="${GITHUB_REPOSITORY_URL}">Repositório GitHub</a>
+      </nav>
+      <div class="hero-stats" aria-label="Resumo do conteúdo">
+        <div class="hero-stat"><strong>${chapters.length}</strong><span>capítulos</span></div>
+        <div class="hero-stat"><strong>${topicCount}</strong><span>tópicos diretos</span></div>
+        <div class="hero-stat"><strong>${simulatorCatalog.length}</strong><span>simuladores</span></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="section-block" aria-labelledby="principal-heading">
+      <div class="section-header">
+        <p class="section-label">Versão canônica</p>
+        <h2 id="principal-heading">A experiência principal está na Vercel</h2>
+        <p>Esta página existe para facilitar descoberta pública e referência acadêmica. A página canônica, indicada aos buscadores, é a landing oficial do TERMO na Vercel.</p>
+      </div>
+      <div class="content-grid">
+        <article class="content-card">
+          <p class="card-label">Landing oficial</p>
+          <h3>Apresentação do TERMO</h3>
+          <p>Página estática com resumo do projeto, capítulos, simuladores e links diretos para o material didático.</p>
+          <div class="card-actions">
+            <a href="${SITE_URL}/home.html">Abrir landing</a>
+          </div>
+        </article>
+        <article class="content-card">
+          <p class="card-label">App</p>
+          <h3>Livro interativo</h3>
+          <p>Interface principal para estudar capítulos, resolver exercícios e acessar recursos do curso.</p>
+          <div class="card-actions">
+            <a href="${SITE_URL}/">Abrir app</a>
+          </div>
+        </article>
+        <article class="content-card">
+          <p class="card-label">Mapa</p>
+          <h3>Conteúdo rastreável</h3>
+          <p>Lista textual de páginas, seções e simuladores, pensada para navegação direta e descoberta por buscadores.</p>
+          <div class="card-actions">
+            <a href="${SITE_URL}/conteudo.html">Abrir mapa</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-block" aria-labelledby="chapters-heading">
+      <div class="section-header">
+        <p class="section-label">Capítulos</p>
+        <h2 id="chapters-heading">Percursos de estudo em Termodinâmica</h2>
+        <p>Os capítulos conectam fundamentos, potenciais termodinâmicos, estatística, transições de fase, processos e ciclos.</p>
+      </div>
+      <div class="chapter-grid">
+${chapterCards}
+      </div>
+    </section>
+
+    <section class="section-block" aria-labelledby="simulators-heading">
+      <div class="section-header">
+        <p class="section-label">Simuladores</p>
+        <h2 id="simulators-heading">Recursos interativos</h2>
+        <p>Simulações independentes para explorar modelos, parâmetros e comportamento físico de sistemas termodinâmicos.</p>
+      </div>
+      <div class="content-grid">
+${simulatorCards}
+      </div>
+    </section>
+
+    <p class="note">${escapeHtml(COURSE_TITLE)} é um projeto didático de ${escapeHtml(AUTHOR_NAME)} no ${escapeHtml(PUBLISHER_NAME)}. Página canônica: <a href="${SITE_URL}/home.html">${SITE_URL}/home.html</a>.</p>
+  </main>
+</body>
+</html>
+`;
+}
+
 async function writeContentPage(topicMap) {
   await writeFile(path.join(rootDir, "conteudo.html"), buildContentPage(topicMap), "utf8");
 }
 
 async function writeHomePage(topicMap) {
   await writeFile(path.join(rootDir, "home.html"), buildHomePage(topicMap), "utf8");
+}
+
+async function writeGithubPagesBridge(topicMap) {
+  const docsDir = path.join(rootDir, "docs");
+  const sitemapXml = [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    "  <url>",
+    `    <loc>${xmlEscape(`${GITHUB_PAGES_URL}/`)}</loc>`,
+    "  </url>",
+    "</urlset>"
+  ].join("\n");
+
+  await mkdir(docsDir, { recursive: true });
+  await writeFile(path.join(docsDir, ".nojekyll"), "", "utf8");
+  await writeFile(path.join(docsDir, "index.html"), buildGithubPagesBridge(topicMap), "utf8");
+  await writeFile(path.join(docsDir, "sitemap.xml"), `${sitemapXml}\n`, "utf8");
 }
 
 const topicMap = await loadTopicMap();
@@ -1353,7 +1783,8 @@ for (const filePath of htmlFiles) {
 
 await writeHomePage(topicMap);
 await writeContentPage(topicMap);
+await writeGithubPagesBridge(topicMap);
 await writeRobotsFile();
 await writeSitemaps(topicMap, htmlFiles);
 
-console.log(`SEO atualizado em ${htmlFiles.length} HTMLs, home.html, conteudo.html, robots.txt, sitemap.xml, sitemap.txt e cópias de compatibilidade.`);
+console.log(`SEO atualizado em ${htmlFiles.length} HTMLs, home.html, conteudo.html, docs/index.html, robots.txt, sitemap.xml, sitemap.txt e cópias de compatibilidade.`);
