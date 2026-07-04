@@ -15,6 +15,13 @@ Production:
 Remote repository:
 - https://github.com/MSR-BR/termo.git
 
+Public discovery / SEO entry points:
+- Official static landing: https://termo-theta.vercel.app/home.html
+- Crawlable content map: https://termo-theta.vercel.app/conteudo.html
+- Main sitemap: https://termo-theta.vercel.app/sitemap.xml
+- GitHub Pages bridge: https://msr-br.github.io/termo/
+- GitHub Pages bridge sitemap: https://msr-br.github.io/termo/sitemap.xml
+
 ## Repository Shape
 
 - `index.html`: main application shell and view controller.
@@ -94,6 +101,32 @@ Do not break:
 - simulator opening behavior;
 - SEO artifacts and canonical links.
 
+## SEO / Discovery State As Of 2026-07-04
+
+Google Search Console repeatedly failed on sitemap fetch / request indexing even
+when public URLs were live. The practical strategy moved away from relying on
+manual request indexing and toward public discovery paths.
+
+Completed:
+- simplified `robots.txt` and sitemap files;
+- added a static academic landing page at `home.html`;
+- added a crawlable content map at `conteudo.html`;
+- added a GitHub Pages bridge under `docs/index.html`;
+- configured GitHub Pages to publish `main` + `/docs`;
+- added a short `README.md` with public links.
+
+Important commits:
+- `5560d5d` Simplify sitemap for Search Console
+- `5f464f2` Add academic landing page for TERMO
+- `aea2dbf` Add GitHub Pages bridge for TERMO
+
+The GitHub Pages bridge intentionally declares:
+- canonical: `https://termo-theta.vercel.app/home.html`
+- public URL: `https://msr-br.github.io/termo/`
+
+Next marketing step requested by the user: plan Google Ads for TERMO after
+waiting roughly two weeks to observe Search Console / indexing effects.
+
 ## Working Rules For Codex
 
 Before editing:
@@ -109,4 +142,3 @@ After editing:
 - for visual work, start `npm run dev` and inspect the affected page when useful.
 
 Commit/deploy only when the user asks for it.
-
