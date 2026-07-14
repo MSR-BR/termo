@@ -87,6 +87,20 @@
       flex: 1;
     }
 
+    .termo-brandmark {
+      display: inline-flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .termo-brandmark img {
+      width: clamp(88px, 10vw, 122px);
+      height: auto;
+      display: block;
+      border-radius: 10px;
+      box-shadow: 0 8px 22px rgba(0, 75, 135, 0.10);
+    }
+
     .header-tools {
       display: inline-flex;
       align-items: center;
@@ -2340,6 +2354,9 @@
     <header class="top-header">
       <div class="header-box">
         <div class="header-main">
+          <a class="termo-brandmark" href="home.html" aria-label="Abrir apresentação oficial do TERMO">
+            <img src="assets/termo-logo.png" alt="Logo do TERMO" />
+          </a>
           <div class="course-label">Livro Interativo</div>
           <h1 class="main-title">Termodinâmica para Estudantes de Física</h1>
           <div class="metadata">

@@ -1033,6 +1033,25 @@ function buildHomePage(topicMap) {
       max-width: 800px;
     }
 
+    .hero-brandmark {
+      display: inline-flex;
+      align-items: center;
+      margin-bottom: 18px;
+      padding: 8px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.10);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.16);
+    }
+
+    .hero-brandmark img {
+      width: clamp(112px, 16vw, 160px);
+      height: auto;
+      display: block;
+      border-radius: 10px;
+    }
+
     .top-links,
     .quick-links,
     .card-actions {
@@ -1293,6 +1312,9 @@ function buildHomePage(topicMap) {
         <a href="#capitulos">Capítulos</a>
         <a href="#simuladores">Simuladores</a>
       </nav>
+      <a class="hero-brandmark" href="index.html" aria-label="Abrir o app TERMO">
+        <img src="assets/termo-logo.png" alt="Logo do TERMO" />
+      </a>
       <p class="kicker">Livro interativo aberto</p>
       <h1>${escapeHtml(COURSE_TITLE)}</h1>
       <p>${escapeHtml(DEFAULT_SITE_DESCRIPTION)}</p>
