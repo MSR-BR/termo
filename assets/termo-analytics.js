@@ -2,6 +2,8 @@
   if (window.TermoAnalytics) return;
 
   const VERSION = "0702.1";
+  const GA_MEASUREMENT_ID = "G-NHEVHE096H";
+  const GA_SCRIPT_SELECTOR = 'script[data-termo-ga="gtag"]';
   const SESSION_KEY = "termo_analytics_session_v1";
   const DAILY_SESSION_KEY = "termo_analytics_session_day_v1";
   const QUEUE_LIMIT = 40;
@@ -27,6 +29,32 @@
   let flushInFlight = false;
   let authUserId = "";
   let authAccessToken = "";
+  let googleTagConfigured = false;
+
+  function initGoogleTag() {
+    if (!GA_MEASUREMENT_ID || typeof document === "undefined") return;
+
+    window.dataLayer = window.dataLayer || [];
+    if (typeof window.gtag !== "function") {
+      window.gtag = function () {
+        window.dataLayer.push(arguments);
+      };
+    }
+
+    if (!document.querySelector(GA_SCRIPT_SELECTOR)) {
+      const script = document.createElement("script");
+      script.async = true;
+      script.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(GA_MEASUREMENT_ID);
+      script.setAttribute("data-termo-ga", "gtag");
+      document.head.appendChild(script);
+    }
+
+    if (!googleTagConfigured) {
+      window.gtag("js", new Date());
+      window.gtag("config", GA_MEASUREMENT_ID);
+      googleTagConfigured = true;
+    }
+  }
 
   function getStorage(storageName) {
     try {
@@ -447,6 +475,8 @@
     flush: function () { return flush(); },
     getSessionId: getSessionId
   };
+
+  initGoogleTag();
 
   document.addEventListener("click", trackClick, true);
   window.addEventListener("termo-auth-state-change", handleAuthState);

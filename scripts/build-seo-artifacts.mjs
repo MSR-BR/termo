@@ -11,6 +11,7 @@ const dataDir = path.join(rootDir, "data");
 const SITE_URL = "https://termo-theta.vercel.app";
 const GITHUB_PAGES_URL = "https://msr-br.github.io/termo";
 const GITHUB_REPOSITORY_URL = "https://github.com/MSR-BR/termo";
+const ANALYTICS_ASSET_VERSION = "0702.1";
 const COURSE_TITLE = "Termodinâmica para Estudantes de Física";
 const AUTHOR_NAME = "Prof. Mario Reis";
 const PUBLISHER_NAME = "Instituto de Física — Universidade Federal Fluminense";
@@ -217,6 +218,10 @@ async function loadTopicMap() {
 
 function getRelativeAssetPath(filePath, assetName) {
   return toPosix(path.relative(path.dirname(filePath), path.join(rootDir, "assets", assetName))) || assetName;
+}
+
+function buildAnalyticsScriptTag(src) {
+  return `<script defer src="${src}?v=${ANALYTICS_ASSET_VERSION}"></script>`;
 }
 
 function getCanonicalUrl(relativePath) {
@@ -604,6 +609,7 @@ function buildContentPage(topicMap) {
   <link href="https://fonts.googleapis.com" rel="preconnect" />
   <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@400;600&display=swap" rel="stylesheet" />
+  ${buildAnalyticsScriptTag("assets/termo-analytics.js")}
   <style>
     :root {
       --bg: #FCFCFA;
@@ -963,6 +969,7 @@ function buildHomePage(topicMap) {
   <link href="https://fonts.googleapis.com" rel="preconnect" />
   <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@400;600&display=swap" rel="stylesheet" />
+  ${buildAnalyticsScriptTag("assets/termo-analytics.js")}
   <style>
     :root {
       --bg: #FCFCFA;
@@ -1423,6 +1430,7 @@ function buildGithubPagesBridge(topicMap) {
   <link href="https://fonts.googleapis.com" rel="preconnect" />
   <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@400;600&display=swap" rel="stylesheet" />
+  ${buildAnalyticsScriptTag(`${SITE_URL}/assets/termo-analytics.js`)}
   <style>
     :root {
       --bg: #FCFCFA;
