@@ -1984,10 +1984,6 @@
       scroll-snap-type: x proximity;
     }
 
-    .journey-section--quiz-strip {
-      min-width: 0;
-    }
-
     .journey-section-note {
       color: var(--muted);
       font-family: "Lora", Georgia, serif;
@@ -6017,7 +6013,6 @@
       const enabledQuizChapterIds = Array.isArray(profile?.featureFlags?.enabledQuizChapterIds)
         ? profile.featureFlags.enabledQuizChapterIds.map(function (value) { return String(value); })
         : [];
-      const masteryScore = Number(profile?.featureFlags?.masteryScore || 80);
       const currentStreak = Number(summary.currentStreak || 0);
       const xpTotal = Number(summary.xpTotal || 0);
       const level = Number(summary.level || 1);
@@ -6040,9 +6035,6 @@
       const nextLabel = normalizedNextAction.label;
       const nextReason = normalizedNextAction.reason;
       const activeChapters = chapters.filter(function (chapter) { return !chapter.disabled; });
-      const quizChapters = activeChapters.filter(function (chapter) {
-        return enabledQuizChapterIds.includes(chapter.id);
-      });
       const checklistChapterId = chooseJourneyChecklistChapterId({
         requestedChapterId: state.chapterId,
         recentStudiedItems,
@@ -6129,26 +6121,6 @@
               undefined,
               "Capítulo dominado significa 80% ou mais no simulado completo. Abrir a página do capítulo não conta domínio. Itens estudados contam apenas quando houver uma ação explícita de concluir/marcar uma seção; nesta fase, você pode ter domínio por simulado mesmo com itens estudados em zero."
             )}
-          </section>
-
-          <section class="journey-section journey-section--quiz-strip">
-            <div>
-              <div class="journey-section-title">Simulados por capítulo</div>
-              <div class="journey-section-note">
-                O simulado do capítulo libera depois que pelo menos 80% dos itens forem marcados como estudados.
-                ${masteryScore}% conta como domínio; 100% vira conquista.
-              </div>
-            </div>
-            <div class="journey-chapters journey-chapters--quiz-grid">
-              ${quizChapters.length
-                ? quizChapters.map(function (chapter) {
-                    return renderJourneyQuizRow(chapter, chapterProgress, {
-                      masteryScore,
-                      recentStudiedItems
-                    });
-                  }).join("")
-                : renderJourneyEmpty("Nenhum capítulo ativo está disponível para simulado nesta fatia ainda.")}
-            </div>
           </section>
 
           <section class="journey-columns">
