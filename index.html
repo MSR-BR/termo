@@ -5175,6 +5175,9 @@
       const isExcellent = isFullQuiz && score >= 100;
       const reviewCandidate = isFullQuiz ? getJourneyReviewCandidate(feedback) : null;
       const resultLabel = isFullQuiz ? "Resultado do simulado" : "Resultado da retomada";
+      const retryQuizHref = `index.html?view=journey&section=quiz&chapter=${quiz.chapterId || state.chapterId}`;
+      const primaryActionHref = nextAction.href || `index.html?view=chapters&chapter=${quiz.chapterId || state.chapterId}`;
+      const showRetryQuizButton = String(primaryActionHref) !== retryQuizHref;
 
       topicContainer.innerHTML = `
         <div class="journey-quiz">
@@ -5194,7 +5197,7 @@
               ${nextAction.reason ? ` Próximo passo: ${escapeHtml(nextAction.reason)}` : ""}
             </div>
             <div class="journey-quiz__actions" style="margin-top: 14px;">
-              <a class="saved-card__button saved-card__button--primary" href="${escapeHtml(nextAction.href || `index.html?view=chapters&chapter=${quiz.chapterId || state.chapterId}`)}">
+              <a class="saved-card__button saved-card__button--primary" href="${escapeHtml(primaryActionHref)}">
                 <i class="fa-solid fa-arrow-right"></i>
                 ${escapeHtml(nextAction.label || "Continuar estudo")}
               </a>
@@ -5202,10 +5205,12 @@
                 <i class="fa-solid fa-route"></i>
                 Voltar ao Estudo guiado
               </a>
-              <a class="saved-card__button" href="index.html?view=journey&section=quiz&chapter=${escapeHtml(quiz.chapterId || state.chapterId)}">
-                <i class="fa-solid fa-rotate-right"></i>
-                Refazer simulado
-              </a>
+              ${showRetryQuizButton ? `
+                <a class="saved-card__button" href="${escapeHtml(retryQuizHref)}">
+                  <i class="fa-solid fa-rotate-right"></i>
+                  Refazer simulado
+                </a>
+              ` : ""}
             </div>
           </section>
 
