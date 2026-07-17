@@ -1276,6 +1276,24 @@
       color: #166534;
     }
 
+    .topic-badge.study-status {
+      border: 1px solid #DDE8F6;
+      background: #FFFFFF;
+      color: var(--muted);
+    }
+
+    .topic-badge.study-status.is-studied {
+      border-color: #BFE4CC;
+      background: #DCFCE7;
+      color: #166534;
+    }
+
+    .topic-badge.study-status.is-pending {
+      border-color: #DDE8F6;
+      background: #F3F7FC;
+      color: #5F6F82;
+    }
+
     .empty-state {
       border: 1px dashed #C8D2DF;
       background: #F7F9FC;
@@ -3731,6 +3749,7 @@
       journeySection: requestedView === "journey" ? (params.get("section") || "") : "",
       simulatorId: requestedView === "simulators" ? "" : (params.get("sim") || ""),
       loggedIn: false,
+      userId: "",
       canReviewValidations: false,
       favoriteItems: [],
       favoriteExercises: [],
@@ -3740,6 +3759,7 @@
       selectedExerciseId: null,
       jsPdfPromise: null,
       chapterLoadToken: 0,
+      currentTopics: [],
       drawerSection: "chapters"
     };
 
@@ -4332,11 +4352,21 @@
 
     function renderTopicGrid(topics) {
       setLandingMode(false);
+      state.currentTopics = Array.isArray(topics) ? topics.map((topic) => ({ ...topic })) : [];
+      const studyMarkers = readLocalStudyMarkers();
       const grid = document.createElement("div");
       grid.className = "topic-grid";
 
       topics.forEach((topic) => {
+        const studied = isTopicMarkedStudied(topic, studyMarkers);
+        const studyBadge = `
+          <div class="topic-badge study-status ${studied ? "is-studied" : "is-pending"}">
+            <i class="fa-${studied ? "solid" : "regular"} ${studied ? "fa-circle-check" : "fa-circle"}"></i>
+            ${studied ? "Estudado" : "Não estudado"}
+          </div>
+        `;
         const badges = [
+          studyBadge,
           topic.simulatorId ? `<div class="topic-badge simulator-highlight"><i class="fa-solid fa-desktop"></i> Simulador ${escapeHtml(topic.simulatorId)}</div>` : "",
           topic.aiExercise ? `<div class="topic-badge ai-exercise"><i class="fa-solid fa-wand-magic-sparkles"></i> Exercício IA</div>` : ""
         ].filter(Boolean).join("");
@@ -4879,6 +4909,25 @@
 
     function pluralizePt(count, singular, plural) {
       return Number(count) === 1 ? singular : plural;
+    }
+
+    function readLocalStudyMarkers() {
+      if (!state.loggedIn || !state.userId) return {};
+
+      try {
+        const raw = window.localStorage?.getItem(`termoStudyMarkersV1:${state.userId}`) || "{}";
+        const parsed = JSON.parse(raw);
+        return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : {};
+      } catch (_error) {
+        return {};
+      }
+    }
+
+    function isTopicMarkedStudied(topic, markers) {
+      const chapterId = String(state.chapterId || "").padStart(2, "0");
+      const itemId = String(topic?.id || "").trim();
+      if (!chapterId || !itemId) return false;
+      return Boolean(markers[`${chapterId}:${itemId}`]);
     }
 
     async function fetchJourneyProfile(session) {
@@ -6166,6 +6215,7 @@
       });
 
       state.loggedIn = Boolean(session?.user);
+      state.userId = session?.user?.id || "";
       state.canReviewValidations = await canCurrentUserReviewValidations(session);
       await refreshFavoriteCollections();
 
@@ -6826,6 +6876,9 @@
 
           if (state.view === "chapters") {
             await renderPanelActions();
+            if (state.currentTopics.length) {
+              renderTopicGrid(state.currentTopics);
+            }
           }
         });
       }
@@ -6839,6 +6892,9 @@
         bindAuthStateListener();
         await activateView(state.view, state.chapterId);
         await refreshUserState();
+        if (state.view === "chapters" && state.currentTopics.length) {
+          renderTopicGrid(state.currentTopics);
+        }
       }
 
       if (document.readyState === "loading") {
