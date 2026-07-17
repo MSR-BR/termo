@@ -9,6 +9,8 @@
 revoke insert on public.gamification_event_log from authenticated;
 revoke insert, update on public.gamification_item_progress from authenticated;
 revoke insert on public.chapter_quiz_attempts from authenticated;
+revoke usage, select on sequence public.gamification_event_log_id_seq from public;
+revoke usage, select on sequence public.gamification_event_log_id_seq from anon;
 revoke usage, select on sequence public.gamification_event_log_id_seq from authenticated;
 
 drop policy if exists "Users can insert their own gamification event log" on public.gamification_event_log;

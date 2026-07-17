@@ -10,7 +10,7 @@ Keep gamification writes behind the TERMO API instead of allowing direct browser
 
 - Authenticated users can still read their own gamification profile, event log, studied items and quiz attempts.
 - Direct `insert`/`update` grants for authenticated users were removed from gamification write tables.
-- Direct sequence access for authenticated users was removed from the event log sequence.
+- Direct sequence access for public, anonymous and authenticated users was removed from the event log sequence.
 - Direct insert/update RLS policies for event log, item progress and quiz attempts were removed.
 - Server-side API handlers continue writing with the service role after validating the logged-in user and payload.
 

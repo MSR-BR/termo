@@ -106,6 +106,7 @@ revoke all on public.gamification_profiles from anon, authenticated;
 revoke all on public.gamification_event_log from anon, authenticated;
 revoke all on public.gamification_item_progress from anon, authenticated;
 revoke all on public.chapter_quiz_attempts from anon, authenticated;
+revoke usage, select on sequence public.gamification_event_log_id_seq from public, anon, authenticated;
 
 grant select on public.gamification_profiles to authenticated;
 grant select on public.gamification_event_log to authenticated;
