@@ -2039,9 +2039,7 @@
     }
 
     .journey-chapter__info {
-      position: absolute;
-      right: 12px;
-      top: 12px;
+      display: contents;
       z-index: 3;
     }
 
@@ -2058,6 +2056,9 @@
       height: 28px;
       justify-content: center;
       list-style: none;
+      position: absolute;
+      right: 12px;
+      top: 12px;
       width: 28px;
     }
 
@@ -2071,19 +2072,16 @@
     }
 
     .journey-chapter__info-panel {
-      background: #FFFFFF;
-      border: 1px solid #C7D8F3;
-      border-radius: 12px;
-      box-shadow: 0 14px 32px rgba(15, 23, 42, 0.14);
+      background: #F8FBFF;
+      border: 1px solid #DDE8F6;
+      border-radius: 10px;
       color: var(--muted);
       font-size: 13px;
       font-weight: 650;
+      grid-column: 1 / -1;
       line-height: 1.45;
-      min-width: min(240px, calc(100vw - 64px));
+      margin-top: 4px;
       padding: 12px;
-      position: absolute;
-      right: 0;
-      top: 34px;
     }
 
     .journey-chapter__actions {
@@ -6006,13 +6004,13 @@
     function renderJourneyProfile(profile) {
       const summary = profile?.summary || {};
       const nextAction = profile?.nextAction || {};
-      const badges = Array.isArray(profile?.recentBadges) ? profile.recentBadges : [];
       const missions = Array.isArray(profile?.missions) ? profile.missions : [];
       const chapterProgress = Array.isArray(profile?.chapterProgress) ? profile.chapterProgress : [];
       const recentStudiedItems = Array.isArray(profile?.recentStudiedItems) ? profile.recentStudiedItems : [];
       const enabledQuizChapterIds = Array.isArray(profile?.featureFlags?.enabledQuizChapterIds)
         ? profile.featureFlags.enabledQuizChapterIds.map(function (value) { return String(value); })
         : [];
+      const masteryScore = Number(profile?.featureFlags?.masteryScore || 80);
       const currentStreak = Number(summary.currentStreak || 0);
       const xpTotal = Number(summary.xpTotal || 0);
       const level = Number(summary.level || 1);
@@ -6035,19 +6033,12 @@
       const nextLabel = normalizedNextAction.label;
       const nextReason = normalizedNextAction.reason;
       const activeChapters = chapters.filter(function (chapter) { return !chapter.disabled; });
-      const checklistChapterId = chooseJourneyChecklistChapterId({
-        requestedChapterId: state.chapterId,
-        recentStudiedItems,
-        chapterProgress
+      const quizChapters = activeChapters.filter(function (chapter) {
+        return enabledQuizChapterIds.includes(chapter.id);
       });
       const studyOnlyChapters = activeChapters.filter(function (chapter) {
         return !enabledQuizChapterIds.includes(chapter.id);
       });
-      const badgeMarkup = badges.length
-        ? badges.slice(0, 4).map(function (badge) {
-            return renderJourneySideItem(badge.title || "Conquista liberada", badge.description || "Marco registrado na sua jornada.", "fa-award");
-          }).join("")
-        : renderJourneySideItem("Primeira conquista em aberto", "Conclua um item ou simulado para liberar seus primeiros marcos.", "fa-award");
       const missionMarkup = missions.length
         ? missions.slice(0, 4).map(function (mission) {
             return renderJourneySideItem(mission.title || mission.label || "Missão de estudo", mission.description || mission.note || "Uma tarefa curta para manter o ritmo.", "fa-bullseye");
@@ -6123,23 +6114,36 @@
             )}
           </section>
 
-          <section class="journey-columns">
-            <div class="journey-section">
-              ${studyOnlyChapters.length ? `
-                <div class="journey-section-title">Leitura sem simulado</div>
-                ${renderJourneyStudyCompactPanel(studyOnlyChapters)}
-              ` : ""}
-              <div class="journey-section-title" style="margin-top: 6px;">Checklist do capítulo</div>
-              <div class="journey-side-list">${renderJourneyChapterChecklist(checklistChapterId, chapterProgress, recentStudiedItems)}</div>
-              <div class="journey-section-title" style="margin-top: 6px;">Últimos itens estudados</div>
-              <div class="journey-side-list">${renderJourneyRecentStudyList(recentStudiedItems)}</div>
+          <section class="journey-section">
+            <div>
+              <div class="journey-section-title">Simulados por capítulo</div>
+              <div class="journey-section-note">
+                O simulado do capítulo libera depois que pelo menos 80% dos itens forem marcados como estudados.
+                ${masteryScore}% conta como domínio; 100% vira conquista.
+              </div>
             </div>
-            <aside class="journey-section">
-              <div class="journey-section-title">Foco curto</div>
-              <div class="journey-side-list">${missionMarkup}</div>
-              <div class="journey-section-title" style="margin-top: 6px;">Conquistas</div>
-              <div class="journey-side-list">${badgeMarkup}</div>
-            </aside>
+            <div class="journey-chapters journey-chapters--quiz-grid">
+              ${quizChapters.length
+                ? quizChapters.map(function (chapter) {
+                    return renderJourneyQuizRow(chapter, chapterProgress, {
+                      masteryScore,
+                      recentStudiedItems
+                    });
+                  }).join("")
+                : renderJourneyEmpty("Nenhum capítulo ativo está disponível para simulado nesta fatia ainda.")}
+            </div>
+          </section>
+
+          ${studyOnlyChapters.length ? `
+            <section class="journey-section">
+              <div class="journey-section-title">Leitura sem simulado</div>
+              ${renderJourneyStudyCompactPanel(studyOnlyChapters)}
+            </section>
+          ` : ""}
+
+          <section class="journey-section">
+            <div class="journey-section-title">Foco curto</div>
+            <div class="journey-side-list">${missionMarkup}</div>
           </section>
         </div>
       `;
