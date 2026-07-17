@@ -1977,6 +1977,7 @@
     }
 
     .journey-chapters--quiz-grid {
+      grid-auto-rows: 1fr;
       grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
     }
 
@@ -2005,9 +2006,10 @@
     }
 
     .journey-chapter--quiz-card {
-      align-content: start;
-      align-items: stretch;
+      align-content: stretch;
+      align-items: start;
       grid-template-columns: auto minmax(0, 1fr);
+      grid-template-rows: auto minmax(18px, 1fr) auto;
       min-height: 210px;
       position: relative;
       text-decoration: none;
@@ -2085,6 +2087,7 @@
       flex-wrap: wrap;
       gap: 8px;
       grid-column: 1 / -1;
+      grid-row: 3;
       justify-content: flex-start;
       margin-top: 12px;
     }
@@ -5659,6 +5662,9 @@
         : validationInfo.total
           ? `Valide ${validationInfo.required}/${validationInfo.total} itens com exercício para liberar o simulado do capítulo.`
           : "Este capítulo ainda não tem exercícios suficientes para liberar simulado.";
+      const infoNote = validationInfo.total
+        ? `${note} O número ${validationInfo.validatedCount}/${validationInfo.total} conta apenas as seções deste capítulo que têm exercício IA: o primeiro número são as seções já validadas por você; o segundo é o total de seções com exercício IA.`
+        : note;
       const actionHref = `index.html?view=journey&section=quiz&chapter=${encodeURIComponent(chapter.id)}&stage=after`;
       const statusChip = mastered
         ? `<span class="journey-chip journey-chip--success"><i class="fa-solid ${excellent ? "fa-crown" : "fa-circle-check"}"></i> ${excellent ? "Excelência" : "Dominado"}</span>`
@@ -5676,7 +5682,7 @@
         <article class="journey-chapter journey-chapter--quiz journey-chapter--quiz-card ${unlocked ? "" : "is-locked"}">
           <details class="journey-chapter__info">
             <summary aria-label="Ver regra do simulado">i</summary>
-            <div class="journey-chapter__info-panel">${escapeHtml(note)}</div>
+            <div class="journey-chapter__info-panel">${escapeHtml(infoNote)}</div>
           </details>
           <div class="journey-chapter__number">${escapeHtml(chapter.id)}</div>
           <div>
