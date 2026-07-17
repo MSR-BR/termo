@@ -2966,9 +2966,9 @@
             <i class="fa-solid fa-route"></i>
             <span>Estudo guiado</span>
           </a>
-          <a href="#" class="termo-auth-trigger index-back-button" data-termo-auth-button="true" aria-label="Abrir opções de login para salvar seu marcador de página">
-            <i class="fa-solid fa-bookmark"></i>
-            <span>Salvar progresso</span>
+          <a href="#" class="termo-auth-trigger index-back-button" data-termo-auth-button="true" aria-label="Entrar ou abrir opções da conta">
+            <i class="fa-solid fa-right-to-bracket"></i>
+            <span>Entrar</span>
           </a>
           <button type="button" class="termo-book-trigger index-back-button" data-termo-book-button="true" aria-label="Baixar PDF do livro em elaboração">
             <i class="fa-solid fa-file-pdf"></i>
@@ -5423,28 +5423,19 @@
       const bestScore = Number(progressRow.bestScore || progressRow.best_score || 0);
       const mastered = Boolean(progressRow.mastered || progressRow.isMastered);
       const excellent = Boolean(progressRow.excellent || progressRow.isExcellent);
-      const locked = Boolean(options.locked);
       const note = mastered
         ? `Capítulo dominado com ${bestScore}% ou mais; refazer serve como revisão rápida.`
-        : locked
-          ? studiedItems > 0
-            ? `Simulado libera quando o anterior chegar a ${options.masteryScore || 80}%; leitura já iniciada.`
-            : `Libera quando o simulado anterior chegar a ${options.masteryScore || 80}% de aproveitamento.`
         : studiedItems > 0
           ? `${studiedProgressText} antes do simulado.`
           : `Simulado de 5 questões. ${options.masteryScore || 80}% já conta como domínio; 100% vira conquista.`;
       const actionHref = `index.html?view=journey&section=quiz&chapter=${encodeURIComponent(chapter.id)}`;
       const statusChip = mastered
         ? `<span class="journey-chip journey-chip--success"><i class="fa-solid ${excellent ? "fa-crown" : "fa-circle-check"}"></i> ${excellent ? "Excelência" : "Dominado"}</span>`
-        : locked
-          ? `<span class="journey-chip journey-chip--warning"><i class="fa-solid fa-lock"></i> Libera após 80%</span>`
-          : `<span class="journey-chip journey-chip--success"><i class="fa-solid fa-list-check"></i> Simulado disponível</span>`;
+        : `<span class="journey-chip journey-chip--success"><i class="fa-solid fa-list-check"></i> Simulado disponível</span>`;
       const studyChip = studiedItems > 0
         ? `<span class="journey-chip journey-chip--quiet"><i class="fa-solid fa-book-open-reader"></i> ${escapeHtml(studiedProgressChipText)}</span>`
         : "";
-      const actionMarkup = locked
-        ? `<span class="saved-card__button" aria-disabled="true"><i class="fa-solid fa-lock"></i> Aguardando</span>`
-        : `<a class="saved-card__button" href="${escapeHtml(actionHref)}">
+      const actionMarkup = `<a class="saved-card__button" href="${escapeHtml(actionHref)}">
             <i class="fa-solid fa-arrow-right"></i>
             Abrir
           </a>`;
@@ -5581,15 +5572,12 @@
       }
     }
 
-    function chooseJourneyChecklistChapterId({ requestedChapterId, recentStudiedItems, nextAction, activeChapters, chapterProgress, quizChapters }) {
+    function chooseJourneyChecklistChapterId({ requestedChapterId, recentStudiedItems, chapterProgress }) {
       const requestedId = String(requestedChapterId || "").padStart(2, "0");
       if (requestedId && embeddedChapterData[requestedId]) return requestedId;
 
       const recentChapterId = String(recentStudiedItems[0]?.chapterId || recentStudiedItems[0]?.chapter_id || "").padStart(2, "0");
       if (recentChapterId && embeddedChapterData[recentChapterId]) return recentChapterId;
-
-      const nextChapterId = getJourneyChapterIdFromHref(nextAction?.href);
-      if (nextChapterId && embeddedChapterData[nextChapterId]) return nextChapterId;
 
       const startedChapter = chapterProgress.find(function (item) {
         return Number(item.studiedItems || item.studied_items || 0) > 0;
@@ -5597,11 +5585,7 @@
       const startedChapterId = String(startedChapter?.chapterId || startedChapter?.chapter_id || "").padStart(2, "0");
       if (startedChapterId && embeddedChapterData[startedChapterId]) return startedChapterId;
 
-      const quizChapterId = String(quizChapters[0]?.id || "").padStart(2, "0");
-      if (quizChapterId && embeddedChapterData[quizChapterId]) return quizChapterId;
-
-      const firstChapterId = String(activeChapters[0]?.id || "").padStart(2, "0");
-      return embeddedChapterData[firstChapterId] ? firstChapterId : "";
+      return "";
     }
 
     function buildJourneyStudiedItemIdSet(chapterId, progressRow, recentStudiedItems) {
@@ -5622,6 +5606,14 @@
 
     function renderJourneyChapterChecklist(chapterId, progress, recentStudiedItems) {
       const normalizedChapterId = String(chapterId || "").padStart(2, "0");
+      if (!chapterId) {
+        return renderJourneySideItem(
+          "Checklist ainda vazio",
+          "Abra um capítulo ou marque um item como estudado para o TERMO mostrar aqui o checklist certo para você.",
+          "fa-list-check"
+        );
+      }
+
       const chapter = chapters.find(function (item) {
         return item.id === normalizedChapterId;
       });
@@ -5690,10 +5682,29 @@
       const rawReason = String(nextAction?.reason || "A jornada usa seu último erro ou sua última retomada para sugerir o próximo passo.");
 
       return {
-        href: rawHref || "index.html?view=chapters&chapter=02",
+        href: rawHref || "index.html?view=chapters",
         label: rawLabel,
         reason: rawReason
       };
+    }
+
+    function hasJourneyActivity({ summary, chapterProgress, recentStudiedItems }) {
+      const xpTotal = Number(summary?.xpTotal || 0);
+      const currentStreak = Number(summary?.currentStreak || 0);
+      const studiedItems = Number(summary?.studiedItemsCount || 0);
+      const masteredChapters = Number(summary?.chaptersMasteredCount || 0);
+      const hasProgressRows = chapterProgress.some(function (item) {
+        return Number(item.studiedItems || item.studied_items || 0) > 0 ||
+          Number(item.bestScore || item.best_score || 0) > 0 ||
+          Boolean(item.mastered || item.isMastered);
+      });
+
+      return xpTotal > 0 ||
+        currentStreak > 0 ||
+        studiedItems > 0 ||
+        masteredChapters > 0 ||
+        recentStudiedItems.length > 0 ||
+        hasProgressRows;
     }
 
     function renderJourneyProfile(profile) {
@@ -5713,7 +5724,18 @@
       const levelProgress = clampPercent(summary.levelProgressPercent || 0);
       const studiedItems = Number(summary.studiedItemsCount || 0);
       const masteredChapters = Number(summary.chaptersMasteredCount || 0);
-      const normalizedNextAction = normalizeJourneyNextAction(nextAction);
+      const journeyHasActivity = hasJourneyActivity({
+        summary,
+        chapterProgress,
+        recentStudiedItems
+      });
+      const normalizedNextAction = journeyHasActivity
+        ? normalizeJourneyNextAction(nextAction)
+        : {
+            href: "index.html?view=chapters",
+            label: "Escolher primeiro capítulo",
+            reason: "Sua jornada ainda está zerada. Abra um capítulo, marque uma seção como estudada ou faça um simulado para o TERMO sugerir o próximo passo."
+          };
       const nextHref = normalizedNextAction.href;
       const nextLabel = normalizedNextAction.label;
       const nextReason = normalizedNextAction.reason;
@@ -5724,16 +5746,8 @@
       const checklistChapterId = chooseJourneyChecklistChapterId({
         requestedChapterId: state.chapterId,
         recentStudiedItems,
-        nextAction,
-        activeChapters,
-        chapterProgress,
-        quizChapters
+        chapterProgress
       });
-      const masteredChapterIds = new Set(chapterProgress.filter(function (item) {
-        return Boolean(item.mastered || item.isMastered);
-      }).map(function (item) {
-        return String(item.chapterId || item.chapter_id || "");
-      }));
       const studyOnlyChapters = activeChapters.filter(function (chapter) {
         return !enabledQuizChapterIds.includes(chapter.id);
       });
@@ -5816,19 +5830,16 @@
               <div>
                 <div class="journey-section-title">Simulados disponíveis agora</div>
                 <div class="journey-section-note">
-                  Nesta fase inicial, só ${quizChapters.length === 1 ? "o capítulo" : "os capítulos"}
+                  Nesta fase inicial, ${quizChapters.length === 1 ? "o capítulo" : "os capítulos"}
                   ${quizChapters.map(function (chapter) { return chapter.id; }).join(" e ") || "selecionados"}
                   ${quizChapters.length === 1 ? "tem" : "têm"} simulado publicado no catálogo versionado.
-                  ${masteryScore}% libera o próximo simulado; 100% vira conquista de excelência.
+                  ${masteryScore}% conta como domínio; 100% vira conquista de excelência.
                 </div>
               </div>
               <div class="journey-chapters">
                 ${quizChapters.length
-                  ? quizChapters.map(function (chapter, index) {
-                      const previousChapter = quizChapters[index - 1] || null;
-                      const locked = Boolean(previousChapter && !masteredChapterIds.has(previousChapter.id));
+                  ? quizChapters.map(function (chapter) {
                       return renderJourneyQuizRow(chapter, chapterProgress, {
-                        locked,
                         masteryScore
                       });
                     }).join("")

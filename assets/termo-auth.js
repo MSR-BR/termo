@@ -763,10 +763,10 @@
     }
 
     setButtonHtml(state.triggerButton, `
-      <i class="fa-solid fa-bookmark"></i>
-      <span>Salvar progresso</span>
+      <i class="fa-solid fa-right-to-bracket"></i>
+      <span>Entrar</span>
     `, "signed-out");
-    setButtonAttribute(state.triggerButton, "aria-label", "Abrir opcoes de login para salvar progresso");
+    setButtonAttribute(state.triggerButton, "aria-label", "Entrar ou abrir opcoes da conta");
   }
 
   function createFavoriteButton() {
