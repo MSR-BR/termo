@@ -108,10 +108,9 @@ revoke all on public.gamification_item_progress from anon, authenticated;
 revoke all on public.chapter_quiz_attempts from anon, authenticated;
 
 grant select on public.gamification_profiles to authenticated;
-grant select, insert on public.gamification_event_log to authenticated;
-grant select, insert, update on public.gamification_item_progress to authenticated;
-grant select, insert on public.chapter_quiz_attempts to authenticated;
-grant usage, select on sequence public.gamification_event_log_id_seq to authenticated;
+grant select on public.gamification_event_log to authenticated;
+grant select on public.gamification_item_progress to authenticated;
+grant select on public.chapter_quiz_attempts to authenticated;
 
 create or replace function public.set_gamification_profiles_updated_at()
 returns trigger
@@ -162,11 +161,6 @@ to authenticated
 using ((select auth.uid()) is not null and (select auth.uid()) = user_id);
 
 drop policy if exists "Users can insert their own gamification event log" on public.gamification_event_log;
-create policy "Users can insert their own gamification event log"
-on public.gamification_event_log
-for insert
-to authenticated
-with check ((select auth.uid()) is not null and (select auth.uid()) = user_id);
 
 drop policy if exists "Users can view their own item progress" on public.gamification_item_progress;
 create policy "Users can view their own item progress"
@@ -176,19 +170,7 @@ to authenticated
 using ((select auth.uid()) is not null and (select auth.uid()) = user_id);
 
 drop policy if exists "Users can insert their own item progress" on public.gamification_item_progress;
-create policy "Users can insert their own item progress"
-on public.gamification_item_progress
-for insert
-to authenticated
-with check ((select auth.uid()) is not null and (select auth.uid()) = user_id);
-
 drop policy if exists "Users can update their own item progress" on public.gamification_item_progress;
-create policy "Users can update their own item progress"
-on public.gamification_item_progress
-for update
-to authenticated
-using ((select auth.uid()) is not null and (select auth.uid()) = user_id)
-with check ((select auth.uid()) is not null and (select auth.uid()) = user_id);
 
 drop policy if exists "Users can view their own quiz attempts" on public.chapter_quiz_attempts;
 create policy "Users can view their own quiz attempts"
@@ -198,8 +180,3 @@ to authenticated
 using ((select auth.uid()) is not null and (select auth.uid()) = user_id);
 
 drop policy if exists "Users can insert their own quiz attempts" on public.chapter_quiz_attempts;
-create policy "Users can insert their own quiz attempts"
-on public.chapter_quiz_attempts
-for insert
-to authenticated
-with check ((select auth.uid()) is not null and (select auth.uid()) = user_id);

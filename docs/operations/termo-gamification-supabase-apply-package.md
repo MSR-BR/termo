@@ -25,7 +25,7 @@ Esse arquivo consolida:
 - indices;
 - triggers de `updated_at`;
 - RLS e policies;
-- grants explicitos para `authenticated`;
+- grants explicitos de leitura para `authenticated`;
 - grants explicitos para `service_role`;
 - helper interno em `private`;
 - RPCs publicas para consolidacao atomica.
@@ -73,7 +73,9 @@ Esse arquivo consolida:
   - `public.apply_gamification_event_atomic`
   - `public.record_chapter_quiz_attempt_atomic`
 - confirmar que RLS esta habilitado nas quatro tabelas;
-- confirmar que as policies de `authenticated` existem;
+- confirmar que as policies de leitura de `authenticated` existem;
+- confirmar que `authenticated` nao possui permissao direta de `insert`/`update`
+  nas tabelas de progresso, eventos e tentativas;
 - confirmar que `service_role` tem grants explicitos de uso necessarios.
 
 ### Validacao funcional sem RPC
