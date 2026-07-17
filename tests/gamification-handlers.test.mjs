@@ -65,6 +65,29 @@ test("chapter quiz GET returns published quiz without touching Supabase", async 
   assert.equal(response.body.quiz.questionCount, 5);
 });
 
+test("chapter quiz GET can generate AI quiz for any active chapter without touching Supabase", async function () {
+  const response = await handleChapterQuizRequest({
+    method: "GET",
+    query: {
+      chapterId: "01",
+      stage: "before"
+    },
+    env: {
+      ...BASE_ENV,
+      TERMO_AI_QUIZ_MOCK: "true"
+    }
+  });
+
+  assert.equal(response.status, 200);
+  assert.equal(response.body.ok, true);
+  assert.equal(response.body.source, "ai_generated_on_demand");
+  assert.equal(response.body.quiz.chapterId, "01");
+  assert.equal(response.body.quiz.questionCount, 5);
+  assert.match(response.body.quiz.quizKey, /^ai-cap01-before-/);
+  assert.equal(typeof response.body.quiz.quizToken, "string");
+  assert.ok(response.body.quiz.quizToken.length > 20);
+});
+
 test("gamification event uses RPC path when feature flag is enabled", async function () {
   const user = { id: "user-123", email: "mario@example.com" };
   const profileRow = {
@@ -147,6 +170,112 @@ test("gamification event uses RPC path when feature flag is enabled", async func
 
   assert.equal(calls.some(function (call) {
     return call.url.includes("/rest/v1/rpc/apply_gamification_event_atomic");
+  }), true);
+});
+
+test("AI generated chapter quiz can be submitted through signed token", async function () {
+  const generated = await handleChapterQuizRequest({
+    method: "GET",
+    query: {
+      chapterId: "01",
+      stage: "before"
+    },
+    env: {
+      ...BASE_ENV,
+      TERMO_AI_QUIZ_MOCK: "true"
+    }
+  });
+  const quiz = generated.body.quiz;
+  const user = { id: "user-ai-quiz", email: "mario@example.com" };
+  const profileRow = {
+    ...buildDefaultProfileRow(user.id),
+    user_id: user.id
+  };
+  const calls = [];
+
+  await withMockedFetch(async function (url, options = {}) {
+    calls.push({ url: String(url), method: options.method || "GET" });
+
+    if (String(url).endsWith("/auth/v1/user")) {
+      return createJsonResponse(user);
+    }
+
+    if (String(url).includes("/rest/v1/gamification_profiles")) {
+      return createJsonResponse([profileRow]);
+    }
+
+    if (String(url).includes("/rest/v1/chapter_quiz_attempts")) {
+      return createJsonResponse([]);
+    }
+
+    if (String(url).includes("/rest/v1/rpc/record_chapter_quiz_attempt_atomic")) {
+      const body = JSON.parse(String(options.body || "{}"));
+      assert.equal(body.p_quiz_key, quiz.quizKey);
+      assert.equal(body.p_chapter_id, "01");
+      assert.equal(body.p_attempt_type, "full_quiz");
+      assert.equal(body.p_score, 100);
+      assert.equal(body.p_xp_awarded, 45);
+      assert.equal(body.p_profile_patch.next_action_json.type, "next_chapter_quiz");
+      assert.match(body.p_profile_patch.next_action_json.href, /chapter=02/);
+
+      return createJsonResponse({
+        ok: true,
+        persisted: true,
+        deduped: false,
+        attempt_id: "attempt-ai-123",
+        event_id: 101,
+        profile: {
+          ...profileRow,
+          xp_total: 45,
+          level: 1,
+          current_streak: 1,
+          best_streak: 1,
+          last_active_on: "2026-07-17",
+          last_quiz_summary: body.p_profile_patch.last_quiz_summary,
+          next_action_json: body.p_profile_patch.next_action_json,
+          recent_badges_json: body.p_profile_patch.recent_badges_json,
+          chapters_mastered_count: body.p_profile_patch.chapters_mastered_count
+        }
+      });
+    }
+
+    throw new Error(`Unexpected fetch URL in test: ${url}`);
+  }, async function () {
+    const response = await handleChapterQuizRequest({
+      method: "POST",
+      headers: {
+        authorization: "Bearer access-token"
+      },
+      body: {
+        quizKey: quiz.quizKey,
+        chapterId: "01",
+        quizToken: quiz.quizToken,
+        attemptType: "full_quiz",
+        answers: quiz.questions.map(function (question) {
+          return {
+            questionId: question.questionId,
+            choice: "a"
+          };
+        }),
+        startedAt: "2026-07-17T10:00:00.000Z",
+        completedAt: "2026-07-17T10:05:00.000Z"
+      },
+      env: {
+        ...BASE_ENV,
+        TERMO_AI_QUIZ_MOCK: "true",
+        TERMO_GAMIFICATION_RPC_MODE: "true"
+      }
+    });
+
+    assert.equal(response.status, 200);
+    assert.equal(response.body.ok, true);
+    assert.equal(response.body.result.score, 100);
+    assert.equal(response.body.quiz.quizToken, quiz.quizToken);
+    assert.equal(response.body.nextAction.type, "next_chapter_quiz");
+  });
+
+  assert.equal(calls.some(function (call) {
+    return call.url.includes("/rest/v1/rpc/record_chapter_quiz_attempt_atomic");
   }), true);
 });
 

@@ -2070,6 +2070,47 @@
       color: var(--muted);
     }
 
+    .journey-compact-panel {
+      border: 1px solid #DDE8F6;
+      border-radius: 12px;
+      background: #F8FBFF;
+      padding: 12px;
+    }
+
+    .journey-compact-panel__summary {
+      color: var(--muted);
+      font-family: "Lora", Georgia, serif;
+      font-size: 13.5px;
+      line-height: 1.45;
+      margin-bottom: 10px;
+    }
+
+    .journey-compact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .journey-compact-link {
+      align-items: center;
+      background: #FFFFFF;
+      border: 1px solid #C7DAF4;
+      border-radius: 999px;
+      color: var(--blue);
+      display: inline-flex;
+      font-size: 12.5px;
+      font-weight: 800;
+      gap: 6px;
+      padding: 8px 11px;
+      text-decoration: none;
+    }
+
+    .journey-compact-link:hover {
+      border-color: #0B5EA8;
+      box-shadow: 0 5px 14px rgba(0, 75, 135, 0.10);
+      transform: translateY(-1px);
+    }
+
     .journey-side-item {
       border: 1px solid #DDE8F6;
       border-radius: 12px;
@@ -3747,6 +3788,7 @@
       view: viewIds.has(requestedView) ? requestedView : "chapters",
       chapterId: params.get("chapter") || "",
       journeySection: requestedView === "journey" ? (params.get("section") || "") : "",
+      quizStage: requestedView === "journey" ? (params.get("stage") || "") : "",
       simulatorId: requestedView === "simulators" ? "" : (params.get("sim") || ""),
       loggedIn: false,
       userId: "",
@@ -4959,8 +5001,10 @@
       return { ok: true, profile: body };
     }
 
-    async function fetchJourneyQuiz(chapterId) {
-      const response = await fetch(`/api/chapter-quiz?chapterId=${encodeURIComponent(chapterId)}`, {
+    async function fetchJourneyQuiz(chapterId, stage = "") {
+      const params = new URLSearchParams({ chapterId });
+      if (stage) params.set("stage", stage);
+      const response = await fetch(`/api/chapter-quiz?${params.toString()}`, {
         cache: "no-store",
         credentials: "same-origin"
       });
@@ -4996,6 +5040,7 @@
         body: JSON.stringify({
           quizKey: quiz.quizKey,
           chapterId: quiz.chapterId,
+          quizToken: quiz.quizToken || "",
           attemptType,
           answers,
           startedAt,
@@ -5236,8 +5281,8 @@
             <div class="journey-quiz__copy">
               ${isFullQuiz
                 ? (isMastered
-                    ? `Capítulo dominado: ${masteryScore}% já libera o próximo simulado.`
-                    : `Revisão recomendada: faltou chegar a ${masteryScore}% para liberar o próximo simulado.`)
+                    ? `Capítulo dominado: ${masteryScore}% já conta como domínio e ajuda a seguir o programa.`
+                    : `Revisão recomendada: faltou chegar a ${masteryScore}% para considerar o capítulo dominado.`)
                 : "Retomada curta registrada. Se acertou, ela vale um pequeno reforço de pontos e o próximo passo é tentar o simulado completo novamente."}
               ${isExcellent ? " Você também liberou a conquista de excelência por 100%." : ""}
               ${xpAwarded > 0
@@ -5350,17 +5395,18 @@
         return;
       }
 
-      topicContainer.innerHTML = `<div class="empty-state"><strong>Carregando simulado...</strong><br />Buscando as questões publicadas para o Capítulo ${escapeHtml(chapterId)}.</div>`;
+      const requestedStage = state.quizStage || "during";
+      topicContainer.innerHTML = `<div class="empty-state"><strong>Gerando simulado...</strong><br />Criando questões por IA para o Capítulo ${escapeHtml(chapterId)}.</div>`;
 
-      const result = await fetchJourneyQuiz(chapterId).catch(function (error) {
+      const result = await fetchJourneyQuiz(chapterId, requestedStage).catch(function (error) {
         return { ok: false, error };
       });
 
       if (!result.ok || !result.quiz) {
         topicContainer.innerHTML = `
           <div class="empty-state">
-            <strong>Simulado ainda não disponível.</strong><br />
-            ${escapeHtml(result.error || "Este capítulo ainda não tem quiz publicado no catálogo versionado.")}<br /><br />
+            <strong>Não foi possível gerar o simulado agora.</strong><br />
+            ${escapeHtml(result.error || "Tente novamente em alguns segundos. O simulado é criado por IA a partir do capítulo escolhido.")}<br /><br />
             <a class="saved-card__button" href="index.html?view=journey">
               <i class="fa-solid fa-arrow-left"></i>
               Voltar ao Estudo guiado
@@ -5380,7 +5426,7 @@
             <h2 class="journey-quiz__title">${escapeHtml(quiz.chapterCode || `Capítulo ${quiz.chapterId}`)} · ${escapeHtml(quiz.chapterTitle || "")}</h2>
             <div class="journey-quiz__copy">
               ${escapeHtml(quiz.note || "Responda as questões de múltipla escolha. A correção aparece ao final.")}
-              Este simulado tem ${Number(quiz.questionCount || quiz.questions?.length || 0)} questões e será salvo na sua jornada ao enviar.
+              Este simulado tem ${Number(quiz.questionCount || quiz.questions?.length || 0)} questões de múltipla escolha e será salvo na sua jornada ao enviar.
             </div>
           </section>
 
@@ -5410,6 +5456,18 @@
       }) || {};
     }
 
+    function getJourneyQuizStage({ studiedItems, mastered }) {
+      if (mastered) return "after";
+      if (Number(studiedItems || 0) > 0) return "during";
+      return "before";
+    }
+
+    function getJourneyQuizStageLabel(stage) {
+      if (stage === "before") return "diagnóstico inicial";
+      if (stage === "after") return "revisão final";
+      return "acompanhamento";
+    }
+
     function renderJourneyQuizRow(chapter, progress, options = {}) {
       const progressRow = getJourneyChapterProgress(chapter, progress);
       const studiedItems = Number(progressRow.studiedItems || progressRow.studied_items || 0);
@@ -5423,15 +5481,18 @@
       const bestScore = Number(progressRow.bestScore || progressRow.best_score || 0);
       const mastered = Boolean(progressRow.mastered || progressRow.isMastered);
       const excellent = Boolean(progressRow.excellent || progressRow.isExcellent);
+      const quizStage = getJourneyQuizStage({ studiedItems, mastered });
+      const quizStageLabel = getJourneyQuizStageLabel(quizStage);
       const note = mastered
         ? `Capítulo dominado com ${bestScore}% ou mais; refazer serve como revisão rápida.`
         : studiedItems > 0
-          ? `${studiedProgressText} antes do simulado.`
-          : `Simulado de 5 questões. ${options.masteryScore || 80}% já conta como domínio; 100% vira conquista.`;
-      const actionHref = `index.html?view=journey&section=quiz&chapter=${encodeURIComponent(chapter.id)}`;
+          ? `Simulado IA de acompanhamento: ${studiedProgressText}.`
+          : `Simulado IA de diagnóstico. ${options.masteryScore || 80}% já conta como domínio; 100% vira conquista.`;
+      const actionHref = `index.html?view=journey&section=quiz&chapter=${encodeURIComponent(chapter.id)}&stage=${encodeURIComponent(quizStage)}`;
       const statusChip = mastered
         ? `<span class="journey-chip journey-chip--success"><i class="fa-solid ${excellent ? "fa-crown" : "fa-circle-check"}"></i> ${excellent ? "Excelência" : "Dominado"}</span>`
-        : `<span class="journey-chip journey-chip--success"><i class="fa-solid fa-list-check"></i> Simulado disponível</span>`;
+        : `<span class="journey-chip journey-chip--success"><i class="fa-solid fa-wand-magic-sparkles"></i> Simulado IA</span>`;
+      const stageChip = `<span class="journey-chip journey-chip--quiet"><i class="fa-solid fa-route"></i> ${escapeHtml(quizStageLabel)}</span>`;
       const studyChip = studiedItems > 0
         ? `<span class="journey-chip journey-chip--quiet"><i class="fa-solid fa-book-open-reader"></i> ${escapeHtml(studiedProgressChipText)}</span>`
         : "";
@@ -5448,6 +5509,7 @@
             <div class="journey-chapter__note">${escapeHtml(note)}</div>
             <div class="journey-chip-list" style="margin-top: 8px;">
               ${statusChip}
+              ${stageChip}
               ${studyChip}
             </div>
           </div>
@@ -5492,6 +5554,30 @@
             Estudar
           </a>
         </article>
+      `;
+    }
+
+    function renderJourneyStudyCompactPanel(chaptersWithoutQuiz) {
+      if (!chaptersWithoutQuiz.length) {
+        return renderJourneyEmpty("Todos os capítulos ativos já podem gerar simulado por IA.");
+      }
+
+      return `
+        <div class="journey-compact-panel">
+          <div class="journey-compact-panel__summary">
+            Os demais capítulos continuam disponíveis para leitura. O simulado aparece aqui quando for publicado.
+          </div>
+          <div class="journey-compact-links">
+            ${chaptersWithoutQuiz.map(function (chapter) {
+              return `
+                <a class="journey-compact-link" href="index.html?view=chapters&chapter=${escapeHtml(chapter.id)}">
+                  <i class="fa-solid fa-book-open"></i>
+                  Cap. ${escapeHtml(chapter.id)}
+                </a>
+              `;
+            }).join("")}
+          </div>
+        </div>
       `;
     }
 
@@ -5608,8 +5694,8 @@
       const normalizedChapterId = String(chapterId || "").padStart(2, "0");
       if (!chapterId) {
         return renderJourneySideItem(
-          "Checklist ainda vazio",
-          "Abra um capítulo ou marque um item como estudado para o TERMO mostrar aqui o checklist certo para você.",
+          "Checklist aparece depois da escolha",
+          "Quando você abrir um capítulo ou marcar um item como estudado, este bloco mostrará exatamente o checklist daquele capítulo.",
           "fa-list-check"
         );
       }
@@ -5760,7 +5846,13 @@
         ? missions.slice(0, 4).map(function (mission) {
             return renderJourneySideItem(mission.title || mission.label || "Missão de estudo", mission.description || mission.note || "Uma tarefa curta para manter o ritmo.", "fa-bullseye");
           }).join("")
-        : renderJourneySideItem("Desafio do dia", "Na próxima fatia, este bloco nasce do último erro ou da última retomada registrada.", "fa-bullseye");
+        : renderJourneySideItem(
+            "Desafio do dia",
+            journeyHasActivity
+              ? "Assim que houver um erro ou retomada registrada, este bloco vira uma revisão curta daquele ponto."
+            : "Comece por um capítulo ou por um simulado IA. Depois disso, o TERMO passa a sugerir um desafio com base no seu histórico.",
+            "fa-bullseye"
+          );
 
       topicContainer.innerHTML = `
         <div class="journey-shell">
@@ -5828,12 +5920,11 @@
           <section class="journey-columns">
             <div class="journey-section">
               <div>
-                <div class="journey-section-title">Simulados disponíveis agora</div>
+                <div class="journey-section-title">Simulados por capítulo</div>
                 <div class="journey-section-note">
-                  Nesta fase inicial, ${quizChapters.length === 1 ? "o capítulo" : "os capítulos"}
-                  ${quizChapters.map(function (chapter) { return chapter.id; }).join(" e ") || "selecionados"}
-                  ${quizChapters.length === 1 ? "tem" : "têm"} simulado publicado no catálogo versionado.
-                  ${masteryScore}% conta como domínio; 100% vira conquista de excelência.
+                  Cada capítulo ativo do programa pode gerar um simulado por IA quando o aluno precisar:
+                  antes, durante ou depois do estudo.
+                  ${masteryScore}% conta como domínio; 100% vira conquista.
                 </div>
               </div>
               <div class="journey-chapters">
@@ -5843,21 +5934,14 @@
                         masteryScore
                       });
                     }).join("")
-                  : renderJourneyEmpty("Nenhum simulado está publicado nesta fatia ainda.")}
+                  : renderJourneyEmpty("Nenhum capítulo ativo está disponível para simulado nesta fatia ainda.")}
               </div>
-              <div style="margin-top: 10px;">
-                <div class="journey-section-title">Capítulos sem simulado ainda</div>
-                <div class="journey-section-note">
-                  Eles continuam disponíveis para leitura e retomada. O simulado não aparece porque ainda não foi integrado ao catálogo desta versão.
+              ${studyOnlyChapters.length ? `
+                <div style="margin-top: 10px;">
+                  <div class="journey-section-title">Leitura sem simulado</div>
                 </div>
-              </div>
-              <div class="journey-chapters">
-                ${studyOnlyChapters.length
-                  ? studyOnlyChapters.map(function (chapter) {
-                      return renderJourneyStudyRow(chapter, chapterProgress);
-                    }).join("")
-                  : renderJourneyEmpty("Todos os capítulos ativos já têm simulado publicado.")}
-              </div>
+                ${renderJourneyStudyCompactPanel(studyOnlyChapters)}
+              ` : ""}
             </div>
             <aside class="journey-section">
               <div class="journey-section-title">Foco curto</div>
