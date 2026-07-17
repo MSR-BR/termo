@@ -1782,6 +1782,570 @@
       transform: translateY(-1px);
     }
 
+    .journey-shell {
+      display: grid;
+      gap: 18px;
+    }
+
+    .journey-hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(240px, 0.65fr);
+      gap: 16px;
+      align-items: stretch;
+      border: 1px solid #DDE8F6;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #F6FAFF 0%, #FFFFFF 62%, #F8FCF9 100%);
+      padding: 18px;
+    }
+
+    .journey-hero__title {
+      color: var(--blue);
+      font-size: clamp(24px, 3.3vw, 36px);
+      font-weight: 800;
+      line-height: 1.12;
+      margin-bottom: 10px;
+    }
+
+    .journey-hero__copy {
+      color: var(--muted);
+      font-family: "Lora", Georgia, serif;
+      font-size: 15.5px;
+      line-height: 1.65;
+      max-width: 720px;
+    }
+
+    .journey-hero__action {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .journey-card {
+      border: 1px solid #DDE8F6;
+      border-radius: 16px;
+      background: #FFFFFF;
+      padding: 18px;
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.06);
+    }
+
+    .journey-card--next {
+      display: grid;
+      align-content: center;
+      gap: 10px;
+      border-color: #CFE8D8;
+      border-left: 4px solid #1F8A4C;
+      background: #F5FFF8;
+    }
+
+    .journey-card__kicker,
+    .journey-section-title {
+      color: var(--red);
+      font-family: "Inter", sans-serif;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .journey-card__title {
+      color: var(--blue);
+      font-size: 19px;
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    .journey-card__copy {
+      color: var(--muted);
+      font-family: "Lora", Georgia, serif;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .journey-metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .journey-metric {
+      min-width: 0;
+      border: 1px solid #DDE8F6;
+      border-radius: 12px;
+      background: #FFFFFF;
+      padding: 14px;
+    }
+
+    .journey-metric__label {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--muted);
+      font-size: 12.5px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .journey-metric__value {
+      color: var(--blue);
+      font-size: 30px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .journey-metric__hint {
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height: 1.35;
+      margin-top: 8px;
+    }
+
+    .journey-metric__info {
+      appearance: none;
+      border: 0;
+      border-radius: 999px;
+      background: #EAF2FD;
+      color: var(--blue);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      height: 20px;
+      margin-left: auto;
+      width: 20px;
+    }
+
+    .journey-metric__detail {
+      background: #F6FAFF;
+      border: 1px solid #DDE8F6;
+      border-radius: 12px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 650;
+      line-height: 1.45;
+      margin-top: 10px;
+      padding: 10px 12px;
+    }
+
+    .journey-progress {
+      height: 9px;
+      border-radius: 999px;
+      background: #E7EEF7;
+      overflow: hidden;
+      margin-top: 12px;
+    }
+
+    .journey-progress span {
+      display: block;
+      height: 100%;
+      width: var(--journey-progress, 0%);
+      border-radius: inherit;
+      background: linear-gradient(90deg, #0B5EA8, #1F8A4C);
+    }
+
+    .journey-columns {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 0.55fr);
+      gap: 16px;
+      align-items: start;
+    }
+
+    .journey-section,
+    .journey-chapters,
+    .journey-side-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .journey-section-note {
+      color: var(--muted);
+      font-family: "Lora", Georgia, serif;
+      font-size: 14px;
+      line-height: 1.55;
+      margin-top: 6px;
+    }
+
+    .journey-chapter {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      border: 1px solid #DDE8F6;
+      border-radius: 12px;
+      background: #FFFFFF;
+      padding: 14px;
+    }
+
+    .journey-chapter--quiz {
+      border-color: #BFE4CC;
+      background: #FBFFFC;
+    }
+
+    .journey-empty {
+      border: 1px solid #DDE8F6;
+      border-radius: 12px;
+      background: #FFFFFF;
+      color: var(--muted);
+      font-family: "Lora", Georgia, serif;
+      font-size: 14px;
+      line-height: 1.5;
+      padding: 14px;
+    }
+
+    .journey-chapter__number {
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #EAF2FD;
+      color: var(--blue);
+      font-weight: 800;
+    }
+
+    .journey-chapter__title {
+      color: var(--blue);
+      font-size: 15px;
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    .journey-chapter__note {
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height: 1.35;
+      margin-top: 4px;
+    }
+
+    .journey-chip-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .journey-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      border-radius: 999px;
+      background: #EAF2FD;
+      color: var(--blue);
+      padding: 7px 10px;
+      font-size: 12.5px;
+      font-weight: 800;
+    }
+
+    .journey-chip--success {
+      background: #DCFCE7;
+      color: #166534;
+    }
+
+    .journey-chip--warning {
+      background: #FFF7ED;
+      color: #9A3412;
+    }
+
+    .journey-chip--quiet {
+      background: #F3F6FA;
+      color: var(--muted);
+    }
+
+    .journey-side-item {
+      border: 1px solid #DDE8F6;
+      border-radius: 12px;
+      background: #FFFFFF;
+      padding: 14px;
+    }
+
+    .journey-side-item__title {
+      color: var(--blue);
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 5px;
+    }
+
+    .journey-side-item__copy {
+      color: var(--muted);
+      font-family: "Lora", Georgia, serif;
+      font-size: 13.5px;
+      line-height: 1.5;
+    }
+
+    .journey-side-item__link {
+      color: var(--blue);
+      display: inline-flex;
+      font-size: 12.5px;
+      font-weight: 800;
+      margin-top: 10px;
+      text-decoration: none;
+    }
+
+    .journey-side-item__link:hover {
+      text-decoration: underline;
+    }
+
+    .journey-checklist {
+      border: 1px solid #DDE8F6;
+      border-radius: 14px;
+      background: #FFFFFF;
+      padding: 14px;
+    }
+
+    .journey-checklist__top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .journey-checklist__title {
+      color: var(--blue);
+      font-size: 14.5px;
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    .journey-checklist__summary {
+      color: var(--muted);
+      font-size: 12.5px;
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
+    .journey-checklist__items {
+      display: grid;
+      gap: 7px;
+      max-height: 360px;
+      overflow: auto;
+      padding-right: 2px;
+    }
+
+    .journey-checklist__item {
+      border: 1px solid #E5EDF7;
+      border-radius: 10px;
+      color: var(--muted);
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      gap: 8px;
+      align-items: center;
+      padding: 9px 10px;
+      text-decoration: none;
+    }
+
+    .journey-checklist__item:hover {
+      border-color: #B9D2F2;
+      background: #F7FBFF;
+    }
+
+    .journey-checklist__item.is-studied {
+      border-color: #BFE4CC;
+      background: #FBFFFC;
+      color: #166534;
+    }
+
+    .journey-checklist__status {
+      align-items: center;
+      border-radius: 999px;
+      display: inline-flex;
+      height: 24px;
+      justify-content: center;
+      width: 24px;
+    }
+
+    .journey-checklist__item.is-studied .journey-checklist__status {
+      background: #DCFCE7;
+    }
+
+    .journey-checklist__name {
+      color: var(--blue);
+      font-size: 12.8px;
+      font-weight: 800;
+      line-height: 1.25;
+      min-width: 0;
+    }
+
+    .journey-checklist__item.is-studied .journey-checklist__name {
+      color: #166534;
+    }
+
+    .journey-checklist__label {
+      color: currentColor;
+      font-size: 11.5px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .journey-quiz {
+      display: grid;
+      gap: 16px;
+    }
+
+    .journey-quiz__header,
+    .journey-quiz__result {
+      border: 1px solid #DDE8F6;
+      border-radius: 16px;
+      background: #FFFFFF;
+      padding: 18px;
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.06);
+    }
+
+    .journey-quiz__eyebrow {
+      color: var(--red);
+      font-family: "Inter", sans-serif;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .journey-quiz__title {
+      color: var(--blue);
+      font-size: clamp(24px, 3vw, 34px);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-top: 6px;
+    }
+
+    .journey-quiz__copy {
+      color: var(--muted);
+      font-family: "Lora", Georgia, serif;
+      font-size: 15px;
+      line-height: 1.6;
+      margin-top: 8px;
+    }
+
+    .journey-quiz__form {
+      display: grid;
+      gap: 14px;
+    }
+
+    .journey-quiz-question {
+      border: 1px solid #DDE8F6;
+      border-radius: 14px;
+      background: #FFFFFF;
+      padding: 16px;
+    }
+
+    .journey-quiz-question__prompt {
+      color: var(--blue);
+      font-size: 15.5px;
+      font-weight: 800;
+      line-height: 1.35;
+    }
+
+    .journey-quiz-options {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .journey-quiz-option {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 10px;
+      align-items: start;
+      border: 1px solid #DDE8F6;
+      border-radius: 12px;
+      background: #F8FBFF;
+      color: var(--text);
+      cursor: pointer;
+      font-size: 14px;
+      line-height: 1.45;
+      padding: 10px 12px;
+      transition: border-color .18s ease, background .18s ease, transform .18s ease;
+    }
+
+    .journey-quiz-option:hover {
+      border-color: #8CB8E6;
+      background: #F1F7FF;
+      transform: translateY(-1px);
+    }
+
+    .journey-quiz-option input {
+      margin-top: 3px;
+      accent-color: var(--blue);
+    }
+
+    .journey-quiz__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .journey-quiz__error {
+      color: #B42318;
+      font-size: 13px;
+      font-weight: 800;
+      min-height: 18px;
+    }
+
+    .journey-quiz-feedback {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .journey-quiz-feedback__item {
+      border: 1px solid #DDE8F6;
+      border-radius: 12px;
+      background: #F8FBFF;
+      padding: 12px;
+    }
+
+    .journey-quiz-feedback__item.is-correct {
+      border-color: #BFE4CC;
+      background: #F5FFF8;
+    }
+
+    .journey-quiz-feedback__item.is-wrong {
+      border-color: #F4C7C3;
+      background: #FFF7F6;
+    }
+
+    .journey-quiz-feedback__title {
+      color: var(--blue);
+      font-weight: 800;
+      line-height: 1.35;
+    }
+
+    .journey-quiz-feedback__copy {
+      color: var(--muted);
+      font-family: "Lora", Georgia, serif;
+      font-size: 13.5px;
+      line-height: 1.5;
+      margin-top: 6px;
+    }
+
+    .journey-review-card {
+      border: 1px solid #F7D7A8;
+      border-left: 4px solid #D97706;
+      border-radius: 16px;
+      background: #FFFBEB;
+      padding: 18px;
+      box-shadow: 0 14px 30px rgba(146, 64, 14, 0.08);
+    }
+
+    .journey-review-card__title {
+      color: var(--blue);
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 1.25;
+      margin-top: 6px;
+    }
+
+    .journey-review-card__copy {
+      color: #7C4A03;
+      font-family: "Lora", Georgia, serif;
+      font-size: 14px;
+      line-height: 1.55;
+      margin-top: 8px;
+    }
+
     .validation-review-list {
       display: grid;
       gap: 14px;
@@ -2191,6 +2755,18 @@
       .discovery-action {
         justify-content: center;
       }
+      .journey-hero,
+      .journey-columns,
+      .journey-metrics {
+        grid-template-columns: 1fr;
+      }
+      .journey-chapter {
+        grid-template-columns: auto minmax(0, 1fr);
+      }
+      .journey-chapter .saved-card__button {
+        grid-column: 1 / -1;
+        justify-content: center;
+      }
       .saved-card__top {
         flex-direction: column;
       }
@@ -2217,6 +2793,7 @@
         grid-template-columns: repeat(auto-fit, minmax(112px, 1fr));
         gap: 8px;
       }
+      .header-tools .termo-journey-trigger,
       .header-tools .termo-auth-trigger,
       .header-tools .termo-book-trigger,
       .header-tools .termo-share-button {
@@ -2226,6 +2803,7 @@
         padding: 8px 10px;
         font-size: 12.5px;
       }
+      .header-tools .termo-journey-trigger span,
       .header-tools .termo-auth-trigger span,
       .header-tools .termo-book-trigger span,
       .header-tools .termo-share-button span {
@@ -2366,6 +2944,10 @@
           </div>
         </div>
         <div class="header-tools" data-termo-header-tools aria-label="Ações principais">
+          <a href="index.html?view=journey" class="termo-journey-trigger index-back-button" aria-label="Abrir estudo guiado">
+            <i class="fa-solid fa-route"></i>
+            <span>Estudo guiado</span>
+          </a>
           <a href="#" class="termo-auth-trigger index-back-button" data-termo-auth-button="true" aria-label="Abrir opções de login para salvar seu marcador de página">
             <i class="fa-solid fa-bookmark"></i>
             <span>Salvar progresso</span>
@@ -3085,6 +3667,12 @@
 
     const personalViews = [
       {
+        id: "journey",
+        label: "Estudo guiado",
+        icon: "fa-route",
+        note: "Veja pontos, sequência de estudo e próximo passo sugerido."
+      },
+      {
         id: "saved",
         label: "Meus exercícios",
         icon: "fa-book-bookmark",
@@ -3140,6 +3728,7 @@
     const state = {
       view: viewIds.has(requestedView) ? requestedView : "chapters",
       chapterId: params.get("chapter") || "",
+      journeySection: requestedView === "journey" ? (params.get("section") || "") : "",
       simulatorId: requestedView === "simulators" ? "" : (params.get("sim") || ""),
       loggedIn: false,
       canReviewValidations: false,
@@ -3253,7 +3842,7 @@
     }
 
     function getDrawerSectionForView(viewId) {
-      if (viewId === "saved" || viewId === "favorites" || viewId === "validation-review") return "personal";
+      if (viewId === "journey" || viewId === "saved" || viewId === "favorites" || viewId === "validation-review") return "personal";
       if (viewId === "simulators") return "extras";
       return "chapters";
     }
@@ -3273,6 +3862,11 @@
     const favoritesPanelCopy = {
       title: "Itens favoritos",
       description: "Guarde aqui tanto páginas do curso quanto exercícios salvos que você marcou com estrela."
+    };
+
+    const journeyPanelCopy = {
+      title: "Estudo guiado",
+      description: "Seu resumo de estudo em uma tela curta: pontos, sequência, próximo passo e capítulos que já podem receber simulado."
     };
 
     const simulatorsPanelCopy = {
@@ -3571,6 +4165,11 @@
       } else {
         url.searchParams.delete("sim");
       }
+      if (state.view === "journey" && state.journeySection) {
+        url.searchParams.set("section", state.journeySection);
+      } else {
+        url.searchParams.delete("section");
+      }
       window.history.replaceState({}, "", url);
     }
 
@@ -3775,6 +4374,10 @@
             <button type="button" class="discovery-card" data-role="open-drawer-section" data-section-id="chapters">
               <div class="discovery-card__title"><i class="fa-solid fa-list-ul"></i> Capítulos</div>
               <div class="discovery-card__meta">Abrir menu de capítulos</div>
+            </button>
+            <button type="button" class="discovery-card" data-role="open-view" data-view-id="journey">
+              <div class="discovery-card__title"><i class="fa-solid fa-route"></i> Estudo guiado</div>
+              <div class="discovery-card__meta">Ver progresso e próximo passo</div>
             </button>
             <a class="discovery-card" href="#" data-landing-login-target="index.html?view=saved">
               <div class="discovery-card__title"><i class="fa-solid fa-circle-user"></i> Área Pessoal</div>
@@ -4268,6 +4871,1018 @@
           }
         });
       });
+    }
+
+    function clampPercent(value) {
+      return Math.max(0, Math.min(100, Number(value || 0)));
+    }
+
+    function pluralizePt(count, singular, plural) {
+      return Number(count) === 1 ? singular : plural;
+    }
+
+    async function fetchJourneyProfile(session) {
+      const accessToken = session?.access_token || "";
+      if (!accessToken) {
+        return { ok: false, reason: "not_authenticated" };
+      }
+
+      const response = await fetch("/api/gamification-profile", {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        },
+        cache: "no-store",
+        credentials: "same-origin"
+      });
+      const body = await response.json().catch(function () {
+        return {};
+      });
+
+      if (!response.ok) {
+        return {
+          ok: false,
+          reason: "api_error",
+          status: response.status,
+          error: body.error || "Não foi possível carregar sua jornada."
+        };
+      }
+
+      return { ok: true, profile: body };
+    }
+
+    async function fetchJourneyQuiz(chapterId) {
+      const response = await fetch(`/api/chapter-quiz?chapterId=${encodeURIComponent(chapterId)}`, {
+        cache: "no-store",
+        credentials: "same-origin"
+      });
+      const body = await response.json().catch(function () {
+        return {};
+      });
+
+      if (!response.ok) {
+        return {
+          ok: false,
+          status: response.status,
+          error: body.error || "Simulado não encontrado."
+        };
+      }
+
+      return { ok: true, quiz: body.quiz };
+    }
+
+    async function submitJourneyQuiz({ session, quiz, answers, startedAt, attemptType = "full_quiz" }) {
+      const accessToken = session?.access_token || "";
+      if (!accessToken) {
+        return { ok: false, error: "Entre com Google para enviar o simulado." };
+      }
+
+      const response = await fetch("/api/chapter-quiz", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json"
+        },
+        cache: "no-store",
+        credentials: "same-origin",
+        body: JSON.stringify({
+          quizKey: quiz.quizKey,
+          chapterId: quiz.chapterId,
+          attemptType,
+          answers,
+          startedAt,
+          completedAt: new Date().toISOString()
+        })
+      });
+      const body = await response.json().catch(function () {
+        return {};
+      });
+
+      if (!response.ok) {
+        return {
+          ok: false,
+          status: response.status,
+          error: body.error || "Não foi possível enviar o simulado.",
+          details: body.details
+        };
+      }
+
+      return { ok: true, payload: body };
+    }
+
+    function renderJourneyMetric(label, value, hint, icon, progress, explanation = "") {
+      const progressMarkup = typeof progress === "number"
+        ? `<div class="journey-progress" aria-hidden="true"><span style="--journey-progress: ${clampPercent(progress)}%"></span></div>`
+        : "";
+      const tooltipId = `journeyMetricTip${String(label || "").replace(/[^a-z0-9]+/gi, "")}`;
+      return `
+        <article class="journey-metric">
+          <div class="journey-metric__label">
+            <i class="fa-solid ${escapeHtml(icon)}"></i>${escapeHtml(label)}
+            ${explanation ? `<button class="journey-metric__info" type="button" aria-label="Explicar ${escapeHtml(label)}" aria-expanded="false" aria-controls="${escapeHtml(tooltipId)}" data-role="toggle-metric-help"><i class="fa-solid fa-question"></i></button>` : ""}
+          </div>
+          <div class="journey-metric__value">${value}</div>
+          ${progressMarkup}
+          <div class="journey-metric__hint">${escapeHtml(hint)}</div>
+          ${explanation ? `<div class="journey-metric__detail" id="${escapeHtml(tooltipId)}" hidden>${escapeHtml(explanation)}</div>` : ""}
+        </article>
+      `;
+    }
+
+    function attachJourneyMetricHelpHandlers(scope) {
+      scope.querySelectorAll("[data-role='toggle-metric-help']").forEach(function (button) {
+        button.addEventListener("click", function () {
+          const targetId = button.getAttribute("aria-controls") || "";
+          const detail = targetId ? document.getElementById(targetId) : null;
+          if (!detail) return;
+
+          const willOpen = detail.hidden;
+          detail.hidden = !willOpen;
+          button.setAttribute("aria-expanded", willOpen ? "true" : "false");
+        });
+      });
+    }
+
+    function renderJourneyQuizQuestion(question, index) {
+      const options = Object.entries(question.options || {});
+
+      return `
+        <article class="journey-quiz-question">
+          <div class="journey-quiz-question__prompt">${index + 1}. ${escapeHtml(question.prompt)}</div>
+          <div class="journey-quiz-options">
+            ${options.map(function ([key, value]) {
+              const inputId = `journey-${question.questionId}-${key}`;
+              return `
+                <label class="journey-quiz-option" for="${escapeHtml(inputId)}">
+                  <input
+                    id="${escapeHtml(inputId)}"
+                    type="radio"
+                    name="${escapeHtml(question.questionId)}"
+                    value="${escapeHtml(key)}"
+                  />
+                  <span><strong>${escapeHtml(key.toUpperCase())}.</strong> ${escapeHtml(value)}</span>
+                </label>
+              `;
+            }).join("")}
+          </div>
+        </article>
+      `;
+    }
+
+    function escapeCssIdentifier(value) {
+      if (window.CSS && typeof window.CSS.escape === "function") {
+        return window.CSS.escape(String(value || ""));
+      }
+
+      return String(value || "").replace(/["\\]/g, "\\$&");
+    }
+
+    function collectJourneyQuizAnswers(form, quiz) {
+      const answers = [];
+      const unanswered = [];
+
+      (quiz.questions || []).forEach(function (question, index) {
+        const selected = form.querySelector(`input[name="${escapeCssIdentifier(question.questionId)}"]:checked`);
+        if (!selected) {
+          unanswered.push(index + 1);
+          return;
+        }
+
+        answers.push({
+          questionId: question.questionId,
+          choice: selected.value
+        });
+      });
+
+      return { answers, unanswered };
+    }
+
+    function getJourneyReviewCandidate(feedback) {
+      return feedback.find(function (item) {
+        return !item.isCorrect && item.reviewCheck && item.questionId;
+      }) || null;
+    }
+
+    function renderJourneyReviewCard(item) {
+      const reviewCheck = item.reviewCheck || {};
+      const options = Object.entries(reviewCheck.options || {});
+      if (!item || !reviewCheck.prompt || !options.length) return "";
+
+      return `
+        <section class="journey-review-card" aria-label="Retomada rápida">
+          <div class="journey-quiz__eyebrow">Retomada rápida</div>
+          <div class="journey-review-card__title">${escapeHtml(item.reviewTitle || "Revisar conceito-chave")}</div>
+          <div class="journey-review-card__copy">
+            ${escapeHtml(item.reviewWhy || "Antes de tentar de novo, fixe este ponto em uma checagem curta.")}
+          </div>
+          <form class="journey-quiz__form" data-role="journey-review-form" data-question-id="${escapeHtml(item.questionId)}" style="margin-top: 14px;">
+            <article class="journey-quiz-question">
+              <div class="journey-quiz-question__prompt">${escapeHtml(reviewCheck.prompt)}</div>
+              <div class="journey-quiz-options">
+                ${options.map(function ([key, value]) {
+                  const inputId = `journey-review-${item.questionId}-${key}`;
+                  return `
+                    <label class="journey-quiz-option" for="${escapeHtml(inputId)}">
+                      <input
+                        id="${escapeHtml(inputId)}"
+                        type="radio"
+                        name="journey-review-check"
+                        value="${escapeHtml(key)}"
+                      />
+                      <span><strong>${escapeHtml(key.toUpperCase())}.</strong> ${escapeHtml(value)}</span>
+                    </label>
+                  `;
+                }).join("")}
+              </div>
+            </article>
+            <div class="journey-quiz__actions">
+              <button class="saved-card__button saved-card__button--primary" data-role="journey-review-submit" type="submit">
+                <i class="fa-solid fa-bolt"></i>
+                Conferir retomada
+              </button>
+              ${item.reviewPath ? `<a class="saved-card__button" href="${escapeHtml(item.reviewPath)}"><i class="fa-solid fa-book-open"></i> Abrir trecho</a>` : ""}
+              <span class="journey-quiz__error" data-role="journey-review-error" aria-live="polite"></span>
+            </div>
+          </form>
+        </section>
+      `;
+    }
+
+    function attachJourneyReviewHandlers({ session, quiz }) {
+      const form = topicContainer.querySelector("[data-role='journey-review-form']");
+      const errorBox = topicContainer.querySelector("[data-role='journey-review-error']");
+      if (!form) return;
+
+      form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+        const submitButton = form.querySelector("[data-role='journey-review-submit']");
+        const selected = form.querySelector("input[name='journey-review-check']:checked");
+        const sourceQuestionId = form.getAttribute("data-question-id") || "";
+
+        if (!selected) {
+          if (errorBox) errorBox.textContent = "Escolha uma resposta para conferir a retomada.";
+          return;
+        }
+
+        try {
+          if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Conferindo...`;
+          }
+          if (errorBox) errorBox.textContent = "";
+
+          const result = await submitJourneyQuiz({
+            session,
+            quiz,
+            attemptType: "guided_review",
+            startedAt: new Date().toISOString(),
+            answers: [{
+              questionId: `${sourceQuestionId}:review`,
+              choice: selected.value
+            }]
+          });
+
+          if (!result.ok) {
+            if (errorBox) {
+              const details = Array.isArray(result.details) ? ` ${result.details.join(" ")}` : "";
+              errorBox.textContent = `${result.error || "Não foi possível conferir agora."}${details}`;
+            }
+            return;
+          }
+
+          renderJourneyQuizResult(result.payload, session);
+        } finally {
+          if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.innerHTML = `<i class="fa-solid fa-bolt"></i> Conferir retomada`;
+          }
+        }
+      });
+    }
+
+    function renderJourneyQuizResult(payload, session) {
+      const result = payload.result || {};
+      const attempt = payload.attempt || {};
+      const quiz = payload.quiz || {};
+      const nextAction = payload.nextAction || {};
+      const feedback = Array.isArray(result.feedback) ? result.feedback : [];
+      const score = Number(result.score || 0);
+      const correctCount = Number(result.correctCount || 0);
+      const questionCount = Number(result.questionCount || 0);
+      const xpAwarded = Number(attempt.xpAwarded || 0);
+      const masteryScore = Number(payload.profile?.featureFlags?.masteryScore || 80);
+      const isFullQuiz = attempt.attemptType === "full_quiz";
+      const isMastered = isFullQuiz && score >= masteryScore;
+      const isExcellent = isFullQuiz && score >= 100;
+      const reviewCandidate = isFullQuiz ? getJourneyReviewCandidate(feedback) : null;
+      const resultLabel = isFullQuiz ? "Resultado do simulado" : "Resultado da retomada";
+
+      topicContainer.innerHTML = `
+        <div class="journey-quiz">
+          <section class="journey-quiz__result">
+            <div class="journey-quiz__eyebrow">${resultLabel}</div>
+            <h2 class="journey-quiz__title">${correctCount}/${questionCount} acertos · ${score}%</h2>
+            <div class="journey-quiz__copy">
+              ${isFullQuiz
+                ? (isMastered
+                    ? `Capítulo dominado: ${masteryScore}% já libera o próximo simulado.`
+                    : `Revisão recomendada: faltou chegar a ${masteryScore}% para liberar o próximo simulado.`)
+                : "Retomada curta registrada. Se acertou, ela vale um pequeno reforço de pontos e o próximo passo é tentar o simulado completo novamente."}
+              ${isExcellent ? " Você também liberou a conquista de excelência por 100%." : ""}
+              ${xpAwarded > 0
+                ? ` Você ganhou ${xpAwarded} pontos de estudo.`
+                : "Tentativa registrada. Refazer depois da revisão ainda ajuda a consolidar o capítulo."}
+              ${nextAction.reason ? ` Próximo passo: ${escapeHtml(nextAction.reason)}` : ""}
+            </div>
+            <div class="journey-quiz__actions" style="margin-top: 14px;">
+              <a class="saved-card__button saved-card__button--primary" href="${escapeHtml(nextAction.href || `index.html?view=chapters&chapter=${quiz.chapterId || state.chapterId}`)}">
+                <i class="fa-solid fa-arrow-right"></i>
+                ${escapeHtml(nextAction.label || "Continuar estudo")}
+              </a>
+              <a class="saved-card__button" href="index.html?view=journey">
+                <i class="fa-solid fa-route"></i>
+                Voltar ao Estudo guiado
+              </a>
+              <a class="saved-card__button" href="index.html?view=journey&section=quiz&chapter=${escapeHtml(quiz.chapterId || state.chapterId)}">
+                <i class="fa-solid fa-rotate-right"></i>
+                Refazer simulado
+              </a>
+            </div>
+          </section>
+
+          ${reviewCandidate ? renderJourneyReviewCard(reviewCandidate) : ""}
+
+          <section class="journey-quiz-feedback" aria-label="Correção do simulado ${escapeHtml(quiz.chapterCode || "")}">
+            ${feedback.map(function (item, index) {
+              const selected = item.selectedChoice ? item.selectedChoice.toUpperCase() : "sem resposta";
+              const correct = item.correctChoice ? item.correctChoice.toUpperCase() : "";
+              return `
+                <article class="journey-quiz-feedback__item ${item.isCorrect ? "is-correct" : "is-wrong"}">
+                  <div class="journey-quiz-feedback__title">
+                    ${index + 1}. ${item.isCorrect ? "Correta" : "Revisar"} · sua resposta: ${escapeHtml(selected)}${correct ? ` · correta: ${escapeHtml(correct)}` : ""}
+                  </div>
+                  <div class="journey-quiz-feedback__copy">${escapeHtml(item.explanation || "")}</div>
+                  ${item.reviewTitle ? `<div class="journey-quiz-feedback__copy"><strong>Retomada sugerida:</strong> ${escapeHtml(item.reviewTitle)}</div>` : ""}
+                </article>
+              `;
+            }).join("")}
+          </section>
+        </div>
+      `;
+
+      if (reviewCandidate && session) {
+        attachJourneyReviewHandlers({ session, quiz });
+      }
+    }
+
+    function attachJourneyQuizHandlers({ session, quiz, startedAt }) {
+      const form = topicContainer.querySelector("[data-role='journey-quiz-form']");
+      const errorBox = topicContainer.querySelector("[data-role='journey-quiz-error']");
+      if (!form) return;
+
+      form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+        const submitButton = form.querySelector("[data-role='journey-quiz-submit']");
+        const collected = collectJourneyQuizAnswers(form, quiz);
+
+        if (collected.unanswered.length) {
+          if (errorBox) {
+            errorBox.textContent = `Responda antes de enviar: questão ${collected.unanswered.join(", ")}.`;
+          }
+          return;
+        }
+
+        try {
+          if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Corrigindo...`;
+          }
+          if (errorBox) errorBox.textContent = "";
+
+          const result = await submitJourneyQuiz({
+            session,
+            quiz,
+            answers: collected.answers,
+            startedAt
+          });
+
+          if (!result.ok) {
+            if (errorBox) {
+              const details = Array.isArray(result.details) ? ` ${result.details.join(" ")}` : "";
+              errorBox.textContent = `${result.error || "Não foi possível corrigir agora."}${details}`;
+            }
+            return;
+          }
+
+          renderJourneyQuizResult(result.payload, session);
+        } finally {
+          if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.innerHTML = `<i class="fa-solid fa-check"></i> Enviar simulado`;
+          }
+        }
+      });
+    }
+
+    async function renderJourneyQuiz(session) {
+      const chapterId = state.chapterId || "";
+
+      if (!chapterId) {
+        topicContainer.innerHTML = `
+          <div class="empty-state">
+            <strong>Escolha um capítulo com simulado.</strong><br />
+            Volte ao Estudo guiado e abra um dos simulados disponíveis.
+          </div>
+        `;
+        return;
+      }
+
+      topicContainer.innerHTML = `<div class="empty-state"><strong>Carregando simulado...</strong><br />Buscando as questões publicadas para o Capítulo ${escapeHtml(chapterId)}.</div>`;
+
+      const result = await fetchJourneyQuiz(chapterId).catch(function (error) {
+        return { ok: false, error };
+      });
+
+      if (!result.ok || !result.quiz) {
+        topicContainer.innerHTML = `
+          <div class="empty-state">
+            <strong>Simulado ainda não disponível.</strong><br />
+            ${escapeHtml(result.error || "Este capítulo ainda não tem quiz publicado no catálogo versionado.")}<br /><br />
+            <a class="saved-card__button" href="index.html?view=journey">
+              <i class="fa-solid fa-arrow-left"></i>
+              Voltar ao Estudo guiado
+            </a>
+          </div>
+        `;
+        return;
+      }
+
+      const quiz = result.quiz;
+      const startedAt = new Date().toISOString();
+
+      topicContainer.innerHTML = `
+        <div class="journey-quiz">
+          <section class="journey-quiz__header">
+            <div class="journey-quiz__eyebrow">Simulado guiado</div>
+            <h2 class="journey-quiz__title">${escapeHtml(quiz.chapterCode || `Capítulo ${quiz.chapterId}`)} · ${escapeHtml(quiz.chapterTitle || "")}</h2>
+            <div class="journey-quiz__copy">
+              ${escapeHtml(quiz.note || "Responda as questões de múltipla escolha. A correção aparece ao final.")}
+              Este simulado tem ${Number(quiz.questionCount || quiz.questions?.length || 0)} questões e será salvo na sua jornada ao enviar.
+            </div>
+          </section>
+
+          <form class="journey-quiz__form" data-role="journey-quiz-form">
+            ${(quiz.questions || []).map(renderJourneyQuizQuestion).join("")}
+            <div class="journey-quiz__actions">
+              <button class="saved-card__button saved-card__button--primary" data-role="journey-quiz-submit" type="submit">
+                <i class="fa-solid fa-check"></i>
+                Enviar simulado
+              </button>
+              <a class="saved-card__button" href="index.html?view=journey">
+                <i class="fa-solid fa-arrow-left"></i>
+                Voltar ao Estudo guiado
+              </a>
+              <span class="journey-quiz__error" data-role="journey-quiz-error" aria-live="polite"></span>
+            </div>
+          </form>
+        </div>
+      `;
+
+      attachJourneyQuizHandlers({ session, quiz, startedAt });
+    }
+
+    function getJourneyChapterProgress(chapter, progress) {
+      return progress.find(function (item) {
+        return String(item.chapterId || item.chapter_id || "") === chapter.id;
+      }) || {};
+    }
+
+    function renderJourneyQuizRow(chapter, progress, options = {}) {
+      const progressRow = getJourneyChapterProgress(chapter, progress);
+      const studiedItems = Number(progressRow.studiedItems || progressRow.studied_items || 0);
+      const totalItems = embeddedChapterData[chapter.id]?.topics?.length || 0;
+      const studiedProgressText = totalItems
+        ? `${studiedItems} de ${totalItems} ${pluralizePt(totalItems, "item", "itens")} estudados`
+        : `${studiedItems} ${pluralizePt(studiedItems, "item estudado", "itens estudados")}`;
+      const studiedProgressChipText = totalItems
+        ? `${studiedItems}/${totalItems} ${pluralizePt(totalItems, "item", "itens")} estudados`
+        : studiedProgressText;
+      const bestScore = Number(progressRow.bestScore || progressRow.best_score || 0);
+      const mastered = Boolean(progressRow.mastered || progressRow.isMastered);
+      const excellent = Boolean(progressRow.excellent || progressRow.isExcellent);
+      const locked = Boolean(options.locked);
+      const note = mastered
+        ? `Capítulo dominado com ${bestScore}% ou mais; refazer serve como revisão rápida.`
+        : locked
+          ? studiedItems > 0
+            ? `Simulado libera quando o anterior chegar a ${options.masteryScore || 80}%; leitura já iniciada.`
+            : `Libera quando o simulado anterior chegar a ${options.masteryScore || 80}% de aproveitamento.`
+        : studiedItems > 0
+          ? `${studiedProgressText} antes do simulado.`
+          : `Simulado de 5 questões. ${options.masteryScore || 80}% já conta como domínio; 100% vira conquista.`;
+      const actionHref = `index.html?view=journey&section=quiz&chapter=${encodeURIComponent(chapter.id)}`;
+      const statusChip = mastered
+        ? `<span class="journey-chip journey-chip--success"><i class="fa-solid ${excellent ? "fa-crown" : "fa-circle-check"}"></i> ${excellent ? "Excelência" : "Dominado"}</span>`
+        : locked
+          ? `<span class="journey-chip journey-chip--warning"><i class="fa-solid fa-lock"></i> Libera após 80%</span>`
+          : `<span class="journey-chip journey-chip--success"><i class="fa-solid fa-list-check"></i> Simulado disponível</span>`;
+      const studyChip = studiedItems > 0
+        ? `<span class="journey-chip journey-chip--quiet"><i class="fa-solid fa-book-open-reader"></i> ${escapeHtml(studiedProgressChipText)}</span>`
+        : "";
+      const actionMarkup = locked
+        ? `<span class="saved-card__button" aria-disabled="true"><i class="fa-solid fa-lock"></i> Aguardando</span>`
+        : `<a class="saved-card__button" href="${escapeHtml(actionHref)}">
+            <i class="fa-solid fa-arrow-right"></i>
+            Abrir
+          </a>`;
+
+      return `
+        <article class="journey-chapter journey-chapter--quiz">
+          <div class="journey-chapter__number">${escapeHtml(chapter.id)}</div>
+          <div>
+            <div class="journey-chapter__title">${escapeHtml(chapter.title)}</div>
+            <div class="journey-chapter__note">${escapeHtml(note)}</div>
+            <div class="journey-chip-list" style="margin-top: 8px;">
+              ${statusChip}
+              ${studyChip}
+            </div>
+          </div>
+          ${actionMarkup}
+        </article>
+      `;
+    }
+
+    function renderJourneyStudyRow(chapter, progress) {
+      const progressRow = getJourneyChapterProgress(chapter, progress);
+      const studiedItems = Number(progressRow.studiedItems || progressRow.studied_items || 0);
+      const totalItems = embeddedChapterData[chapter.id]?.topics?.length || 0;
+      const studiedProgressText = totalItems
+        ? `${studiedItems} de ${totalItems} ${pluralizePt(totalItems, "item", "itens")} estudados`
+        : `${studiedItems} ${pluralizePt(studiedItems, "item estudado", "itens estudados")}`;
+      const studiedProgressChipText = totalItems
+        ? `${studiedItems}/${totalItems} ${pluralizePt(totalItems, "item", "itens")} estudados`
+        : studiedProgressText;
+      const mastered = Boolean(progressRow.mastered || progressRow.isMastered);
+      const note = mastered
+        ? "Capítulo consolidado na jornada."
+        : studiedItems > 0
+          ? `${studiedProgressText}.`
+          : "Disponível para leitura; o simulado deste capítulo ainda não foi integrado.";
+      const actionHref = `index.html?view=chapters&chapter=${encodeURIComponent(chapter.id)}`;
+      const studyChip = studiedItems > 0
+        ? `<div class="journey-chip-list" style="margin-top: 8px;">
+            <span class="journey-chip journey-chip--quiet"><i class="fa-solid fa-book-open-reader"></i> ${escapeHtml(studiedProgressChipText)}</span>
+          </div>`
+        : "";
+
+      return `
+        <article class="journey-chapter">
+          <div class="journey-chapter__number">${escapeHtml(chapter.id)}</div>
+          <div>
+            <div class="journey-chapter__title">${escapeHtml(chapter.title)}</div>
+            <div class="journey-chapter__note">${escapeHtml(note)}</div>
+            ${studyChip}
+          </div>
+          <a class="saved-card__button" href="${escapeHtml(actionHref)}">
+            <i class="fa-solid fa-book-open"></i>
+            Estudar
+          </a>
+        </article>
+      `;
+    }
+
+    function getJourneyTopicMeta(chapterId, itemId) {
+      const normalizedChapterId = String(chapterId || "").padStart(2, "0");
+      const normalizedItemId = String(itemId || "").trim();
+      const topics = embeddedChapterData[normalizedChapterId]?.topics || [];
+      const topic = topics.find(function (entry) {
+        return String(entry.id || "").trim() === normalizedItemId;
+      }) || null;
+
+      return {
+        chapterId: normalizedChapterId,
+        itemId: normalizedItemId,
+        chapterTitle: chapters.find(function (chapter) {
+          return chapter.id === normalizedChapterId;
+        })?.title || `Capítulo ${Number(normalizedChapterId) || normalizedChapterId}`,
+        title: topic?.title || `Item ${normalizedItemId}`,
+        href: topic?.url || `index.html?view=chapters&chapter=${encodeURIComponent(normalizedChapterId)}`,
+        totalItems: topics.length
+      };
+    }
+
+    function formatJourneyDate(value) {
+      if (!value) return "data não registrada";
+      const parsed = new Date(value);
+      if (Number.isNaN(parsed.getTime())) return "data não registrada";
+
+      return parsed.toLocaleDateString("pt-BR", {
+        day: "2-digit",
+        month: "2-digit"
+      });
+    }
+
+    function renderJourneyStudiedItem(item) {
+      const meta = getJourneyTopicMeta(item.chapterId || item.chapter_id, item.itemId || item.item_id);
+      const completedAt = item.completedAt || item.completed_at || "";
+
+      return `
+        <article class="journey-side-item">
+          <div class="journey-side-item__title">
+            <i class="fa-solid fa-circle-check"></i>
+            ${escapeHtml(meta.itemId)} · ${escapeHtml(meta.title)}
+          </div>
+          <div class="journey-side-item__copy">
+            ${escapeHtml(meta.chapterTitle)} · estudado em ${escapeHtml(formatJourneyDate(completedAt))}
+          </div>
+          <a class="journey-side-item__link" href="${escapeHtml(meta.href)}">Abrir item</a>
+        </article>
+      `;
+    }
+
+    function renderJourneyRecentStudyList(items) {
+      if (!items.length) {
+        return renderJourneySideItem(
+          "Nenhum item marcado ainda",
+          "Abra uma página do capítulo e clique em Marcar estudado (+20) para construir seu histórico.",
+          "fa-circle-check"
+        );
+      }
+
+      return items.slice(0, 5).map(renderJourneyStudiedItem).join("");
+    }
+
+    function getJourneyChapterIdFromHref(href) {
+      const rawHref = String(href || "");
+      if (!rawHref) return "";
+
+      const slideMatch = rawHref.match(/capitulo-(\d{1,2})/i);
+      if (slideMatch) return slideMatch[1].padStart(2, "0");
+
+      try {
+        const parsed = new URL(rawHref, window.location.href);
+        const chapter = parsed.searchParams.get("chapter");
+        return chapter ? String(chapter).padStart(2, "0") : "";
+      } catch {
+        return "";
+      }
+    }
+
+    function chooseJourneyChecklistChapterId({ requestedChapterId, recentStudiedItems, nextAction, activeChapters, chapterProgress, quizChapters }) {
+      const requestedId = String(requestedChapterId || "").padStart(2, "0");
+      if (requestedId && embeddedChapterData[requestedId]) return requestedId;
+
+      const recentChapterId = String(recentStudiedItems[0]?.chapterId || recentStudiedItems[0]?.chapter_id || "").padStart(2, "0");
+      if (recentChapterId && embeddedChapterData[recentChapterId]) return recentChapterId;
+
+      const nextChapterId = getJourneyChapterIdFromHref(nextAction?.href);
+      if (nextChapterId && embeddedChapterData[nextChapterId]) return nextChapterId;
+
+      const startedChapter = chapterProgress.find(function (item) {
+        return Number(item.studiedItems || item.studied_items || 0) > 0;
+      });
+      const startedChapterId = String(startedChapter?.chapterId || startedChapter?.chapter_id || "").padStart(2, "0");
+      if (startedChapterId && embeddedChapterData[startedChapterId]) return startedChapterId;
+
+      const quizChapterId = String(quizChapters[0]?.id || "").padStart(2, "0");
+      if (quizChapterId && embeddedChapterData[quizChapterId]) return quizChapterId;
+
+      const firstChapterId = String(activeChapters[0]?.id || "").padStart(2, "0");
+      return embeddedChapterData[firstChapterId] ? firstChapterId : "";
+    }
+
+    function buildJourneyStudiedItemIdSet(chapterId, progressRow, recentStudiedItems) {
+      const studiedIds = new Set();
+      const chapterKey = String(chapterId || "").padStart(2, "0");
+      const rows = []
+        .concat(Array.isArray(progressRow?.recentStudiedItems) ? progressRow.recentStudiedItems : [])
+        .concat(Array.isArray(recentStudiedItems) ? recentStudiedItems : []);
+
+      rows.forEach(function (item) {
+        const itemChapterId = String(item.chapterId || item.chapter_id || "").padStart(2, "0");
+        const itemId = String(item.itemId || item.item_id || "").trim();
+        if (itemChapterId === chapterKey && itemId) studiedIds.add(itemId);
+      });
+
+      return studiedIds;
+    }
+
+    function renderJourneyChapterChecklist(chapterId, progress, recentStudiedItems) {
+      const normalizedChapterId = String(chapterId || "").padStart(2, "0");
+      const chapter = chapters.find(function (item) {
+        return item.id === normalizedChapterId;
+      });
+      const topics = embeddedChapterData[normalizedChapterId]?.topics || [];
+
+      if (!chapter || !topics.length) {
+        return renderJourneySideItem(
+          "Checklist indisponível",
+          "Ainda não há uma lista de itens publicada para este capítulo.",
+          "fa-list-check"
+        );
+      }
+
+      const progressRow = getJourneyChapterProgress(chapter, progress);
+      const studiedIds = buildJourneyStudiedItemIdSet(normalizedChapterId, progressRow, recentStudiedItems);
+      const studiedCount = Math.max(Number(progressRow.studiedItems || progressRow.studied_items || 0), studiedIds.size);
+      const totalItems = topics.length;
+      const summary = `${studiedCount}/${totalItems} ${pluralizePt(totalItems, "item", "itens")} estudados`;
+
+      return `
+        <article class="journey-checklist">
+          <div class="journey-checklist__top">
+            <div>
+              <div class="journey-checklist__title">Capítulo ${escapeHtml(normalizedChapterId)} · ${escapeHtml(chapter.title)}</div>
+              <div class="journey-checklist__summary">${escapeHtml(summary)}</div>
+            </div>
+            <a class="journey-side-item__link" href="index.html?view=chapters&chapter=${escapeHtml(normalizedChapterId)}">Abrir capítulo</a>
+          </div>
+          <div class="journey-checklist__items">
+            ${topics.map(function (topic) {
+              const itemId = String(topic.id || "").trim();
+              const studied = studiedIds.has(itemId);
+              const statusLabel = studied ? "Estudado" : "Pendente";
+              const icon = studied ? "fa-circle-check" : "fa-circle";
+              const href = topic.url || `index.html?view=chapters&chapter=${encodeURIComponent(normalizedChapterId)}`;
+
+              return `
+                <a class="journey-checklist__item ${studied ? "is-studied" : ""}" href="${escapeHtml(href)}" aria-label="${escapeHtml(`${itemId} ${topic.title || ""}: ${statusLabel}`)}">
+                  <span class="journey-checklist__status"><i class="fa-solid ${icon}"></i></span>
+                  <span class="journey-checklist__name">${escapeHtml(itemId)} · ${escapeHtml(topic.title || "Item do capítulo")}</span>
+                  <span class="journey-checklist__label">${statusLabel}</span>
+                </a>
+              `;
+            }).join("")}
+          </div>
+        </article>
+      `;
+    }
+
+    function renderJourneyEmpty(message) {
+      return `<div class="journey-empty">${escapeHtml(message)}</div>`;
+    }
+
+    function renderJourneySideItem(title, copy, icon) {
+      return `
+        <article class="journey-side-item">
+          <div class="journey-side-item__title"><i class="fa-solid ${escapeHtml(icon)}"></i> ${escapeHtml(title)}</div>
+          <div class="journey-side-item__copy">${escapeHtml(copy)}</div>
+        </article>
+      `;
+    }
+
+    function normalizeJourneyNextAction(nextAction) {
+      const rawHref = String(nextAction?.href || "");
+      const rawLabel = String(nextAction?.label || "Continuar estudo");
+      const rawReason = String(nextAction?.reason || "A jornada usa seu último erro ou sua última retomada para sugerir o próximo passo.");
+
+      return {
+        href: rawHref || "index.html?view=chapters&chapter=02",
+        label: rawLabel,
+        reason: rawReason
+      };
+    }
+
+    function renderJourneyProfile(profile) {
+      const summary = profile?.summary || {};
+      const nextAction = profile?.nextAction || {};
+      const badges = Array.isArray(profile?.recentBadges) ? profile.recentBadges : [];
+      const missions = Array.isArray(profile?.missions) ? profile.missions : [];
+      const chapterProgress = Array.isArray(profile?.chapterProgress) ? profile.chapterProgress : [];
+      const recentStudiedItems = Array.isArray(profile?.recentStudiedItems) ? profile.recentStudiedItems : [];
+      const enabledQuizChapterIds = Array.isArray(profile?.featureFlags?.enabledQuizChapterIds)
+        ? profile.featureFlags.enabledQuizChapterIds.map(function (value) { return String(value); })
+        : [];
+      const masteryScore = Number(profile?.featureFlags?.masteryScore || 80);
+      const currentStreak = Number(summary.currentStreak || 0);
+      const xpTotal = Number(summary.xpTotal || 0);
+      const level = Number(summary.level || 1);
+      const levelProgress = clampPercent(summary.levelProgressPercent || 0);
+      const studiedItems = Number(summary.studiedItemsCount || 0);
+      const masteredChapters = Number(summary.chaptersMasteredCount || 0);
+      const normalizedNextAction = normalizeJourneyNextAction(nextAction);
+      const nextHref = normalizedNextAction.href;
+      const nextLabel = normalizedNextAction.label;
+      const nextReason = normalizedNextAction.reason;
+      const activeChapters = chapters.filter(function (chapter) { return !chapter.disabled; });
+      const quizChapters = activeChapters.filter(function (chapter) {
+        return enabledQuizChapterIds.includes(chapter.id);
+      });
+      const checklistChapterId = chooseJourneyChecklistChapterId({
+        requestedChapterId: state.chapterId,
+        recentStudiedItems,
+        nextAction,
+        activeChapters,
+        chapterProgress,
+        quizChapters
+      });
+      const masteredChapterIds = new Set(chapterProgress.filter(function (item) {
+        return Boolean(item.mastered || item.isMastered);
+      }).map(function (item) {
+        return String(item.chapterId || item.chapter_id || "");
+      }));
+      const studyOnlyChapters = activeChapters.filter(function (chapter) {
+        return !enabledQuizChapterIds.includes(chapter.id);
+      });
+      const badgeMarkup = badges.length
+        ? badges.slice(0, 4).map(function (badge) {
+            return renderJourneySideItem(badge.title || "Conquista liberada", badge.description || "Marco registrado na sua jornada.", "fa-award");
+          }).join("")
+        : renderJourneySideItem("Primeira conquista em aberto", "Conclua um item ou simulado para liberar seus primeiros marcos.", "fa-award");
+      const missionMarkup = missions.length
+        ? missions.slice(0, 4).map(function (mission) {
+            return renderJourneySideItem(mission.title || mission.label || "Missão de estudo", mission.description || mission.note || "Uma tarefa curta para manter o ritmo.", "fa-bullseye");
+          }).join("")
+        : renderJourneySideItem("Desafio do dia", "Na próxima fatia, este bloco nasce do último erro ou da última retomada registrada.", "fa-bullseye");
+
+      topicContainer.innerHTML = `
+        <div class="journey-shell">
+          <section class="journey-hero">
+            <div>
+              <div class="journey-card__kicker">Área Pessoal</div>
+              <h2 class="journey-hero__title">Sua trilha de Termodinâmica</h2>
+              <div class="journey-hero__copy">
+                A jornada resume seu ritmo sem transformar estudo em distração: pontos indicam prática,
+                sequência mostra regularidade e o próximo passo aponta onde vale retomar.
+              </div>
+              <div class="journey-hero__action">
+                <a class="saved-card__button saved-card__button--primary" href="${escapeHtml(nextHref)}">
+                  <i class="fa-solid fa-arrow-right"></i>
+                  ${escapeHtml(nextLabel)}
+                </a>
+                <a class="saved-card__button" href="index.html?view=chapters">
+                  <i class="fa-solid fa-list-ul"></i>
+                  Ver capítulos
+                </a>
+              </div>
+            </div>
+            <aside class="journey-card journey-card--next">
+              <div class="journey-card__kicker">Próximo passo</div>
+              <div class="journey-card__title">${escapeHtml(nextLabel)}</div>
+              <div class="journey-card__copy">${escapeHtml(nextReason)}</div>
+            </aside>
+          </section>
+
+          <section class="journey-metrics" aria-label="Resumo da jornada">
+            ${renderJourneyMetric(
+              "Pontos de estudo",
+              xpTotal,
+              "Ganhos ao concluir itens, simulados e revisões.",
+              "fa-seedling",
+              levelProgress,
+              "Este número vem das atividades concluídas no TERMO. Regra atual: marcar um item como concluído vale 20 pontos; primeira tentativa de simulado completo vale 30; se essa primeira tentativa chegar a 80% ou mais, ganha mais 15; refazer simulado já feito vale no máximo 5; retomada curta correta vale 10."
+            )}
+            ${renderJourneyMetric(
+              "Nível",
+              level,
+              `${levelProgress}% até o próximo nível.`,
+              "fa-layer-group",
+              levelProgress,
+              "O nível é calculado a cada 100 pontos de estudo. Exemplo: 108 pontos coloca você no nível 2, com 8% do caminho até o nível 3."
+            )}
+            ${renderJourneyMetric(
+              "Sequência",
+              currentStreak,
+              `${currentStreak} ${pluralizePt(currentStreak, "dia", "dias")} com estudo registrado.`,
+              "fa-calendar-check",
+              undefined,
+              "Sequência conta dias diferentes com atividade registrada na jornada. Abrir uma página não basta; precisa concluir uma ação registrada, como enviar simulado, fazer retomada ou marcar item como concluído."
+            )}
+            ${renderJourneyMetric(
+              "Domínio",
+              masteredChapters,
+              `${studiedItems} ${pluralizePt(studiedItems, "item estudado", "itens estudados")} e ${masteredChapters} ${pluralizePt(masteredChapters, "capítulo dominado", "capítulos dominados")}.`,
+              "fa-book-open-reader",
+              undefined,
+              "Capítulo dominado significa 80% ou mais no simulado completo. Abrir a página do capítulo não conta domínio. Itens estudados contam apenas quando houver uma ação explícita de concluir/marcar uma seção; nesta fase, você pode ter domínio por simulado mesmo com itens estudados em zero."
+            )}
+          </section>
+
+          <section class="journey-columns">
+            <div class="journey-section">
+              <div>
+                <div class="journey-section-title">Simulados disponíveis agora</div>
+                <div class="journey-section-note">
+                  Nesta fase inicial, só ${quizChapters.length === 1 ? "o capítulo" : "os capítulos"}
+                  ${quizChapters.map(function (chapter) { return chapter.id; }).join(" e ") || "selecionados"}
+                  ${quizChapters.length === 1 ? "tem" : "têm"} simulado publicado no catálogo versionado.
+                  ${masteryScore}% libera o próximo simulado; 100% vira conquista de excelência.
+                </div>
+              </div>
+              <div class="journey-chapters">
+                ${quizChapters.length
+                  ? quizChapters.map(function (chapter, index) {
+                      const previousChapter = quizChapters[index - 1] || null;
+                      const locked = Boolean(previousChapter && !masteredChapterIds.has(previousChapter.id));
+                      return renderJourneyQuizRow(chapter, chapterProgress, {
+                        locked,
+                        masteryScore
+                      });
+                    }).join("")
+                  : renderJourneyEmpty("Nenhum simulado está publicado nesta fatia ainda.")}
+              </div>
+              <div style="margin-top: 10px;">
+                <div class="journey-section-title">Capítulos sem simulado ainda</div>
+                <div class="journey-section-note">
+                  Eles continuam disponíveis para leitura e retomada. O simulado não aparece porque ainda não foi integrado ao catálogo desta versão.
+                </div>
+              </div>
+              <div class="journey-chapters">
+                ${studyOnlyChapters.length
+                  ? studyOnlyChapters.map(function (chapter) {
+                      return renderJourneyStudyRow(chapter, chapterProgress);
+                    }).join("")
+                  : renderJourneyEmpty("Todos os capítulos ativos já têm simulado publicado.")}
+              </div>
+            </div>
+            <aside class="journey-section">
+              <div class="journey-section-title">Foco curto</div>
+              <div class="journey-side-list">${missionMarkup}</div>
+              <div class="journey-section-title" style="margin-top: 6px;">Checklist do capítulo</div>
+              <div class="journey-side-list">${renderJourneyChapterChecklist(checklistChapterId, chapterProgress, recentStudiedItems)}</div>
+              <div class="journey-section-title" style="margin-top: 6px;">Últimos itens estudados</div>
+              <div class="journey-side-list">${renderJourneyRecentStudyList(recentStudiedItems)}</div>
+              <div class="journey-section-title" style="margin-top: 6px;">Conquistas</div>
+              <div class="journey-side-list">${badgeMarkup}</div>
+            </aside>
+          </section>
+        </div>
+      `;
+
+      attachJourneyMetricHelpHandlers(topicContainer);
+    }
+
+    async function renderJourney() {
+      setLandingMode(false);
+      await ensureAuthModules();
+      const session = await window.TermoAuth?.getSession?.().catch(function () {
+        return null;
+      });
+      state.loggedIn = Boolean(session?.user);
+
+      panelKicker.textContent = "Área Pessoal";
+      panelTitle.textContent = journeyPanelCopy.title;
+      panelDescription.textContent = journeyPanelCopy.description;
+      setActiveChapter(state.chapterId);
+      setActivePersonal("journey");
+      setActiveExtra("");
+      panelActions.innerHTML = "";
+
+      if (!window.TermoAuth || typeof window.TermoAuth.isConfigured !== "function") {
+        topicContainer.innerHTML = `<div class="empty-state"><strong>Login ainda não carregado.</strong><br />Recarregue a página para abrir sua jornada.</div>`;
+        return;
+      }
+
+      const configured = await window.TermoAuth.isConfigured().catch(function () {
+        return false;
+      });
+
+      if (!configured) {
+        topicContainer.innerHTML = `
+          <div class="empty-state">
+            <strong>Estudo guiado está pronto para ser ativado.</strong><br />
+            Falta configurar as variáveis públicas do Supabase e do Google para o login opcional entrar em funcionamento.
+          </div>
+        `;
+        return;
+      }
+
+      if (!state.loggedIn) {
+        topicContainer.innerHTML = `
+          <div class="empty-state">
+            <strong>Entre com Google para abrir sua jornada.</strong><br />
+            O progresso persistente aparece apenas depois do login. Sem login, o TERMO evita buscar dados pessoais no Supabase.<br /><br />
+            <button class="saved-card__button saved-card__button--primary" data-role="open-login" type="button">
+              <i class="fa-solid fa-route"></i>
+              Entrar e abrir estudo guiado
+            </button>
+          </div>
+        `;
+        attachCommonHandlers(topicContainer);
+        return;
+      }
+
+      if (state.journeySection === "quiz") {
+        await renderJourneyQuiz(session);
+        return;
+      }
+
+      topicContainer.innerHTML = `<div class="empty-state"><strong>Carregando sua jornada...</strong><br />Buscando seu resumo de estudo.</div>`;
+
+      const result = await fetchJourneyProfile(session).catch(function (error) {
+        return { ok: false, reason: "unexpected_error", error };
+      });
+
+      if (!result.ok) {
+        topicContainer.innerHTML = `
+          <div class="empty-state">
+            <strong>Não foi possível carregar sua jornada.</strong><br />
+            ${escapeHtml(result.error || "Tente recarregar a página depois de alguns segundos.")}
+          </div>
+        `;
+        return;
+      }
+
+      renderJourneyProfile(result.profile);
     }
 
     function attachSavedListHandlers(scope) {
@@ -4937,6 +6552,12 @@
       state.drawerSection = getDrawerSectionForView(viewId);
       if (typeof chapterId !== "undefined") {
         state.chapterId = chapterId || "";
+      } else if (viewId === "journey") {
+        state.chapterId = "";
+        state.journeySection = "";
+      }
+      if (viewId !== "journey") {
+        state.journeySection = "";
       }
       if (typeof simulatorId !== "undefined") {
         state.simulatorId = simulatorId || "";
@@ -4948,6 +6569,11 @@
 
       if (viewId === "saved") {
         await renderSavedExercises();
+        return;
+      }
+
+      if (viewId === "journey") {
+        await renderJourney();
         return;
       }
 
@@ -5175,6 +6801,11 @@
 
           if (state.view === "saved") {
             await renderSavedExercises();
+            return;
+          }
+
+          if (state.view === "journey") {
+            await renderJourney();
             return;
           }
 

@@ -212,6 +212,47 @@
     return host;
   }
 
+  function findStepButton(anchor, direction) {
+    if (!anchor) return null;
+
+    const className = `.chapter-step-button--${direction}`;
+    const directSibling = direction === "prev"
+      ? anchor.previousElementSibling
+      : anchor.nextElementSibling;
+
+    if (directSibling?.matches?.(className)) return directSibling;
+
+    const host = anchor.parentElement?.classList?.contains("termo-share-inline")
+      ? anchor.parentElement
+      : null;
+
+    if (!host) return null;
+    return host.querySelector(className);
+  }
+
+  function arrangeStepButtons(anchor, host) {
+    if (!anchor || !host) return;
+
+    const previousButton = findStepButton(anchor, "prev");
+    const nextButton = findStepButton(anchor, "next");
+
+    if (anchor.parentElement !== host) {
+      host.appendChild(anchor);
+    }
+
+    if (previousButton && previousButton.parentElement !== host) {
+      host.insertBefore(previousButton, anchor);
+    } else if (previousButton && previousButton.nextElementSibling !== anchor) {
+      host.insertBefore(previousButton, anchor);
+    }
+
+    if (nextButton && nextButton.parentElement !== host) {
+      anchor.insertAdjacentElement("afterend", nextButton);
+    } else if (nextButton && anchor.nextElementSibling !== nextButton) {
+      anchor.insertAdjacentElement("afterend", nextButton);
+    }
+  }
+
   function getToolbarHost() {
     return document.querySelector("[data-termo-header-tools]");
   }
@@ -229,8 +270,9 @@
       if (referenceButton && referenceButton.parentNode) {
         host.appendChild(referenceButton);
       }
-      host.appendChild(anchor);
     }
+
+    arrangeStepButtons(anchor, host);
 
     let button = host.querySelector("[data-termo-share-button]");
     if (!button) {

@@ -4,6 +4,7 @@
     "dev": "node dev-server.mjs",
     "dev:vercel": "vercel dev",
     "check": "node scripts/check-content.mjs",
+    "test:gamification": "node --test tests/gamification-handlers.test.mjs",
     "seo": "node scripts/build-seo-artifacts.mjs",
     "upload:livro-pdf": "node scripts/upload-livro-pdf.mjs",
     "deploy": "vercel --prod"

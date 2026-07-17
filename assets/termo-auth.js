@@ -7,6 +7,8 @@
   const AUTH_SITE_URL = "https://termo-theta.vercel.app";
   const LANDING_LOGIN_TARGET_KEY = "termoLandingPostLoginTarget";
   const BOOK_PENDING_DOWNLOAD_KEY = "termoPendingBookPdfDownload";
+  const STUDY_MARKERS_STORAGE_KEY = "termoStudyMarkersV1";
+  const STUDY_ITEM_POINTS = 20;
   const BOOK_DEFAULT_FILENAME = "termodinamica-preprint.pdf";
   const BOOK_BUTTON_DEFAULT_HTML = '<i class="fa-solid fa-file-pdf"></i><span>PDF do livro</span>';
   const AUTH_CLEANUP_KEYS = [
@@ -47,9 +49,11 @@
     triggerButton: null,
     bookButton: null,
     favoriteButton: null,
+    studyMarkerButton: null,
     statusNode: null,
     session: null,
     bookDownloadInFlight: false,
+    studyMarkerInFlight: false,
     authListenerRegistered: false,
     triggerClickListenerRegistered: false,
     progressSignature: "",
@@ -243,8 +247,8 @@
     if (isIndexPage()) {
       return {
         kicker: "Acesso opcional",
-        title: "Salve seu marcador de página",
-        copy: "Entre com Google para salvar seu marcador de página, seus favoritos e seus exercícios sem bloquear o conteúdo."
+        title: "Abra seu estudo guiado",
+        copy: "Entre com Google para ver seu próximo passo, manter seus favoritos e guardar exercícios sem bloquear o conteúdo."
       };
     }
 
@@ -381,8 +385,8 @@
         <div class="termo-auth-body">
           <div class="termo-auth-copy">${context.copy}</div>
           <ul class="termo-auth-benefits">
-            <li><i class="fa-solid fa-bookmark"></i><span>Salvar seu marcador de página.</span></li>
-            <li><i class="fa-solid fa-star"></i><span>Guardar exercícios e favoritos.</span></li>
+            <li><i class="fa-solid fa-route"></i><span>Receber um próximo passo de estudo.</span></li>
+            <li><i class="fa-solid fa-bookmark"></i><span>Salvar marcador, exercícios e favoritos.</span></li>
           </ul>
           <div class="termo-auth-panel" data-termo-auth-panel></div>
           <div class="termo-auth-status" data-termo-auth-status></div>
@@ -469,9 +473,19 @@
     const pendingRoute = readPendingLoginRedirectRoute();
     const isHttp = current.protocol === "http:" || current.protocol === "https:";
     const isProduction = current.hostname === new URL(AUTH_SITE_URL).hostname;
+    const isLocalhost = /^(localhost|127\.0\.0\.1)$/i.test(current.hostname);
 
-    if (!pendingRoute && isHttp && isProduction) {
+    if (!pendingRoute && isHttp && (isProduction || isLocalhost)) {
       return cleanAuthParams(current).toString();
+    }
+
+    if (pendingRoute && isHttp && isLocalhost) {
+      const target = new URL(current.origin);
+      const routeUrl = new URL(pendingRoute, current.origin);
+      target.pathname = routeUrl.pathname;
+      target.search = routeUrl.search;
+      target.hash = routeUrl.hash;
+      return cleanAuthParams(target).toString();
     }
 
     const target = new URL(AUTH_SITE_URL);
@@ -523,6 +537,7 @@
     const chapterId = params.get("chapter") || "01";
 
     return {
+      journeyUrl: `/index.html?view=journey&chapter=${encodeURIComponent(chapterId)}`,
       savedUrl: `/index.html?view=saved&chapter=${encodeURIComponent(chapterId)}`,
       favoritesUrl: `/index.html?view=favorites&chapter=${encodeURIComponent(chapterId)}`
     };
@@ -530,7 +545,11 @@
 
   function navigateToPersonalArea(view) {
     const links = getProfileLinks();
-    const targetUrl = view === "favorites" ? links.favoritesUrl : links.savedUrl;
+    const targetUrl = view === "favorites"
+      ? links.favoritesUrl
+      : view === "journey"
+        ? links.journeyUrl
+        : links.savedUrl;
     window.location.assign(targetUrl);
   }
 
@@ -579,7 +598,7 @@
     const links = getProfileLinks();
 
     return `
-      <div class="termo-auth-panel-title">Você já está com seu marcador salvo</div>
+      <div class="termo-auth-panel-title">Sua área de estudo está ativa</div>
       <div class="termo-auth-account">
         ${avatarUrl ? `<img src="${escapeHtml(avatarUrl)}" alt="" class="termo-auth-account-avatar">` : `<div class="termo-auth-account-avatar"></div>`}
         <div>
@@ -590,6 +609,13 @@
       </div>
       ${savedPoint}
       <div class="termo-auth-shortcuts">
+        <a class="termo-auth-shortcut" href="${links.journeyUrl}" data-termo-auth-goto-journey>
+          <i class="fa-solid fa-route"></i>
+          <span>
+            <strong>Estudo guiado</strong>
+            <small>Veja pontos, sequência e o próximo passo sugerido.</small>
+          </span>
+        </a>
         <a class="termo-auth-shortcut" href="${links.savedUrl}" data-termo-auth-goto-saved>
           <i class="fa-solid fa-book-bookmark"></i>
           <span>
@@ -607,6 +633,7 @@
       </div>
       <div class="termo-auth-actions">
         <button type="button" class="termo-auth-secondary" data-termo-auth-signout>Sair</button>
+        <a class="termo-auth-secondary" href="${links.journeyUrl}" data-termo-auth-goto-journey>Continuar estudo</a>
         <button type="button" class="termo-auth-secondary" data-termo-auth-close>Continuar leitura</button>
       </div>
     `;
@@ -655,9 +682,15 @@
       panel.innerHTML = buildSignedInPanel(state.session.user);
       const closeButton = panel.querySelector("[data-termo-auth-close]");
       const signOutButton = panel.querySelector("[data-termo-auth-signout]");
+      const journeyButtons = panel.querySelectorAll("[data-termo-auth-goto-journey]");
       const savedButton = panel.querySelector("[data-termo-auth-goto-saved]");
       const favoritesButton = panel.querySelector("[data-termo-auth-goto-favorites]");
       if (closeButton) closeButton.addEventListener("click", closeModal);
+      journeyButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+          closeModal();
+        });
+      });
       if (savedButton) {
         savedButton.addEventListener("click", function () {
           closeModal();
@@ -791,6 +824,224 @@
     );
   }
 
+  function getStudyMarkerKey(context) {
+    if (!context?.chapterId || !context?.itemId) return "";
+    return `${context.chapterId}:${context.itemId}`;
+  }
+
+  function getStudyMarkersStorageKey() {
+    const userId = state.session?.user?.id || "anonymous";
+    return `${STUDY_MARKERS_STORAGE_KEY}:${userId}`;
+  }
+
+  function readStudyMarkers() {
+    try {
+      const raw = window.localStorage?.getItem(getStudyMarkersStorageKey()) || "{}";
+      const parsed = JSON.parse(raw);
+      return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : {};
+    } catch (_error) {
+      return {};
+    }
+  }
+
+  function writeStudyMarker(context) {
+    const key = getStudyMarkerKey(context);
+    if (!key) return;
+
+    try {
+      const markers = readStudyMarkers();
+      markers[key] = {
+        markedAt: new Date().toISOString(),
+        title: context.title || "",
+        pagePath: context.pagePath || ""
+      };
+      window.localStorage?.setItem(getStudyMarkersStorageKey(), JSON.stringify(markers));
+    } catch (_error) {
+      /* Local UI memory is optional; the server event is the source of truth. */
+    }
+  }
+
+  function hasLocalStudyMarker(context) {
+    const key = getStudyMarkerKey(context);
+    if (!key || !state.session?.user) return false;
+    return Boolean(readStudyMarkers()[key]);
+  }
+
+  function buildStudyMarkerIdempotencyKey(context) {
+    const userId = state.session?.user?.id || "anonymous";
+    const key = getStudyMarkerKey(context) || "unknown";
+    return `study_item_complete:${userId}:${key}`;
+  }
+
+  function setStudyMarkerButtonHtml(button, html, signature) {
+    setButtonHtml(button, html, signature);
+  }
+
+  function updateStudyMarkerVisual(button, status) {
+    const nextStatus = status || "idle";
+    button.setAttribute("data-termo-study-marker-status", nextStatus);
+    button.classList.toggle("is-marked", nextStatus === "marked");
+    button.classList.toggle("is-error", nextStatus === "error");
+  }
+
+  function setStudyMarkerFeedback(button, label, icon, status, durationMs) {
+    if (!button) return;
+    updateStudyMarkerVisual(button, status);
+    setStudyMarkerButtonHtml(
+      button,
+      `<i class="fa-solid ${icon || "fa-circle-check"}"></i><span>${escapeHtml(label)}</span>`,
+      `study-feedback:${label}:${icon || ""}:${status || ""}`
+    );
+
+    if (durationMs) {
+      window.clearTimeout(Number(button.getAttribute("data-termo-study-marker-timer") || 0));
+      button.setAttribute("data-termo-study-marker-timer", String(window.setTimeout(function () {
+        void refreshStudyMarkerButtonState();
+      }, durationMs)));
+    }
+  }
+
+  function updateStudyMarkerButton(context) {
+    if (!state.studyMarkerButton) return;
+
+    const button = state.studyMarkerButton;
+    if (!context) {
+      button.hidden = true;
+      return;
+    }
+
+    button.hidden = false;
+
+    if (state.studyMarkerInFlight) {
+      button.disabled = true;
+      setStudyMarkerFeedback(button, "Marcando...", "fa-spinner", "saving");
+      return;
+    }
+
+    button.disabled = false;
+
+    if (!state.session?.user) {
+      updateStudyMarkerVisual(button, "idle");
+      setStudyMarkerButtonHtml(
+        button,
+        `<i class="fa-solid fa-circle-check"></i><span>Entrar para marcar (+${STUDY_ITEM_POINTS})</span>`,
+        "study-signed-out"
+      );
+      setButtonAttribute(button, "aria-label", `Entrar para marcar este item como estudado e registrar ${STUDY_ITEM_POINTS} pontos`);
+      setButtonAttribute(button, "title", `Entre com Google para registrar este item estudado (+${STUDY_ITEM_POINTS} pontos uma vez)`);
+      return;
+    }
+
+    if (hasLocalStudyMarker(context)) {
+      updateStudyMarkerVisual(button, "marked");
+      setStudyMarkerButtonHtml(
+        button,
+        `<i class="fa-solid fa-circle-check"></i><span>Estudado (+${STUDY_ITEM_POINTS})</span>`,
+        `study-marked:${getStudyMarkerKey(context)}`
+      );
+      setButtonAttribute(button, "aria-label", `Item ja marcado como estudado. ${STUDY_ITEM_POINTS} pontos ja foram considerados uma vez.`);
+      setButtonAttribute(button, "title", `Este item ja foi marcado. Os +${STUDY_ITEM_POINTS} pontos nao sao duplicados.`);
+      return;
+    }
+
+    updateStudyMarkerVisual(button, "idle");
+    setStudyMarkerButtonHtml(
+      button,
+      `<i class="fa-regular fa-circle-check"></i><span>Marcar estudado (+${STUDY_ITEM_POINTS})</span>`,
+      `study-idle:${getStudyMarkerKey(context)}`
+    );
+    setButtonAttribute(button, "aria-label", `Marcar este item como estudado e registrar ${STUDY_ITEM_POINTS} pontos`);
+    setButtonAttribute(button, "title", `Registrar estudo deste item (+${STUDY_ITEM_POINTS} pontos uma vez)`);
+  }
+
+  async function refreshStudyMarkerButtonState() {
+    if (!state.studyMarkerButton) return;
+    const context = await resolveCurrentItemContext();
+    updateStudyMarkerButton(context);
+  }
+
+  async function markCurrentItemStudied(button) {
+    const context = await resolveCurrentItemContext();
+    if (!context) return;
+
+    if (!state.session?.user) {
+      openModal();
+      return;
+    }
+
+    if (hasLocalStudyMarker(context)) {
+      setStudyMarkerFeedback(button, `Já marcado (+${STUDY_ITEM_POINTS})`, "fa-circle-check", "marked", 1600);
+      return;
+    }
+
+    if (state.studyMarkerInFlight) return;
+
+    state.studyMarkerInFlight = true;
+    updateStudyMarkerButton(context);
+
+    try {
+      const token = state.session?.access_token || "";
+      if (!token) {
+        throw new Error("Sessao indisponivel.");
+      }
+
+      const occurredAt = new Date().toISOString();
+      const response = await fetch("/api/gamification-event", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          eventType: "study_item_complete",
+          idempotencyKey: buildStudyMarkerIdempotencyKey(context),
+          chapterId: context.chapterId,
+          itemId: context.itemId,
+          occurredAt,
+          payload: {
+            pagePath: context.pagePath || getCurrentPageReference(),
+            pageTitle: context.title || document.title || "",
+            label: context.label || "",
+            source: "chapter_study_marker"
+          }
+        })
+      });
+
+      const payload = await response.json().catch(function () {
+        return {};
+      });
+
+      if (!response.ok || !payload?.ok) {
+        throw new Error(payload?.error || "Nao foi possivel registrar o estudo.");
+      }
+
+      writeStudyMarker(context);
+
+      if (payload.reason === "item_already_studied" || payload.deduped || payload.awarded === false) {
+        setStudyMarkerFeedback(button, `Já marcado (+${STUDY_ITEM_POINTS})`, "fa-circle-check", "marked", 1800);
+      } else {
+        const xpDelta = Number(payload.xpDelta || 0);
+        setStudyMarkerFeedback(button, xpDelta > 0 ? `+${xpDelta} pontos` : "Estudado", "fa-circle-check", "marked", 2200);
+      }
+    } catch (_error) {
+      setStudyMarkerFeedback(button, "Tente de novo", "fa-triangle-exclamation", "error", 2200);
+    } finally {
+      state.studyMarkerInFlight = false;
+      window.setTimeout(function () {
+        void refreshStudyMarkerButtonState();
+      }, 2400);
+    }
+  }
+
+  function createStudyMarkerButton() {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "termo-study-marker-trigger";
+    button.setAttribute("data-termo-study-marker-button", "true");
+    button.hidden = true;
+    return button;
+  }
+
   async function refreshFavoriteButtonState() {
     if (!state.favoriteButton) return;
 
@@ -825,6 +1076,7 @@
       state.progressSignature = "";
       updateTriggerButton();
       await refreshFavoriteButtonState();
+      await refreshStudyMarkerButtonState();
       emitAuthState();
       return;
     }
@@ -836,6 +1088,7 @@
     }
     updateTriggerButton();
     await refreshFavoriteButtonState();
+    await refreshStudyMarkerButtonState();
     emitAuthState();
     maybeResumeBookDownload();
   }
@@ -872,6 +1125,7 @@
     const config = await fetchConfig();
     if (!config.authEnabled) {
       updateTriggerButton();
+      void refreshStudyMarkerButtonState();
       emitAuthState();
       return;
     }
@@ -887,6 +1141,7 @@
         }
         updateTriggerButton();
         void refreshFavoriteButtonState();
+        void refreshStudyMarkerButtonState();
         emitAuthState();
         if (state.session?.user) {
           void syncProgress(false);
@@ -906,6 +1161,7 @@
         state.session = null;
         state.progressSignature = "";
         updateTriggerButton();
+        void refreshStudyMarkerButtonState();
         emitAuthState();
       })
       .finally(function () {
@@ -1237,6 +1493,14 @@
         return;
       }
 
+      const studyMarkerButton = target.closest("[data-termo-study-marker-button]");
+      if (studyMarkerButton) {
+        event.preventDefault();
+        event.stopPropagation();
+        void markCurrentItemStudied(studyMarkerButton);
+        return;
+      }
+
       const button = target.closest("[data-termo-auth-button]");
       if (!button) return;
 
@@ -1274,10 +1538,52 @@
     };
   }
 
+  function findStepButton(anchor, direction) {
+    if (!anchor) return null;
+
+    const className = `.chapter-step-button--${direction}`;
+    const directSibling = direction === "prev"
+      ? anchor.previousElementSibling
+      : anchor.nextElementSibling;
+
+    if (directSibling?.matches?.(className)) return directSibling;
+
+    const host = anchor.parentElement?.classList?.contains("termo-share-inline")
+      ? anchor.parentElement
+      : null;
+
+    if (!host) return null;
+    return host.querySelector(className);
+  }
+
+  function arrangeStepButtons(anchor, host) {
+    if (!anchor || !host) return;
+
+    const previousStepButton = findStepButton(anchor, "prev");
+    const nextStepButton = findStepButton(anchor, "next");
+
+    if (anchor.parentElement !== host) {
+      host.appendChild(anchor);
+    }
+
+    if (previousStepButton && previousStepButton.parentElement !== host) {
+      host.insertBefore(previousStepButton, anchor);
+    } else if (previousStepButton && previousStepButton.nextElementSibling !== anchor) {
+      host.insertBefore(previousStepButton, anchor);
+    }
+
+    if (nextStepButton && nextStepButton.parentElement !== host) {
+      anchor.insertAdjacentElement("afterend", nextStepButton);
+    } else if (nextStepButton && anchor.nextElementSibling !== nextStepButton) {
+      anchor.insertAdjacentElement("afterend", nextStepButton);
+    }
+  }
+
   function ensureHost(anchor, referenceButton) {
     if (!anchor || !anchor.parentNode) return null;
 
     if (anchor.parentElement && anchor.parentElement.classList.contains("termo-share-inline")) {
+      arrangeStepButtons(anchor, anchor.parentElement);
       return anchor.parentElement;
     }
 
@@ -1292,7 +1598,8 @@
       host.appendChild(referenceButton);
     }
 
-    host.appendChild(anchor);
+    arrangeStepButtons(anchor, host);
+
     return host;
   }
 
@@ -1375,6 +1682,14 @@
     syncButtonMetrics(favoriteButton, referenceButton || host.querySelector(".index-back-button"));
     state.favoriteButton.hidden = true;
     void refreshFavoriteButtonState();
+
+    let studyMarkerButton = host.querySelector("[data-termo-study-marker-button]");
+    if (!studyMarkerButton) {
+      studyMarkerButton = createStudyMarkerButton();
+      host.appendChild(studyMarkerButton);
+    }
+    state.studyMarkerButton = studyMarkerButton;
+    void refreshStudyMarkerButtonState();
 
     return button;
   }
