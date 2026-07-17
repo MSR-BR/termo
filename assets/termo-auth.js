@@ -912,23 +912,15 @@
 
     button.hidden = false;
 
-    if (state.studyMarkerInFlight) {
-      button.disabled = true;
-      setStudyMarkerFeedback(button, "Marcando...", "fa-spinner", "saving");
-      return;
-    }
-
-    button.disabled = false;
-
     if (!state.session?.user) {
       updateStudyMarkerVisual(button, "idle");
       setStudyMarkerButtonHtml(
         button,
-        `<i class="fa-solid fa-circle-check"></i><span>Entrar para marcar (+${STUDY_ITEM_POINTS})</span>`,
+        `<i class="fa-solid fa-right-to-bracket"></i><span>Entrar para validar estudo</span>`,
         "study-signed-out"
       );
-      setButtonAttribute(button, "aria-label", `Entrar para marcar este item como estudado e registrar ${STUDY_ITEM_POINTS} pontos`);
-      setButtonAttribute(button, "title", `Entre com Google para registrar este item estudado (+${STUDY_ITEM_POINTS} pontos uma vez)`);
+      setButtonAttribute(button, "aria-label", "Entrar para validar o estudo deste item por exercício");
+      setButtonAttribute(button, "title", "Entre com Google para validar o estudo por exercício.");
       return;
     }
 
@@ -945,13 +937,14 @@
     }
 
     updateStudyMarkerVisual(button, "idle");
+    button.disabled = false;
     setStudyMarkerButtonHtml(
       button,
-      `<i class="fa-regular fa-circle-check"></i><span>Marcar estudado (+${STUDY_ITEM_POINTS})</span>`,
+      `<i class="fa-solid fa-list-check"></i><span>Validar estudo</span>`,
       `study-idle:${getStudyMarkerKey(context)}`
     );
-    setButtonAttribute(button, "aria-label", `Marcar este item como estudado e registrar ${STUDY_ITEM_POINTS} pontos`);
-    setButtonAttribute(button, "title", `Registrar estudo deste item (+${STUDY_ITEM_POINTS} pontos uma vez)`);
+    setButtonAttribute(button, "aria-label", "Validar este item por exercício antes de contar progresso");
+    setButtonAttribute(button, "title", "O item só conta como estudado depois de validação por exercício.");
   }
 
   async function refreshStudyMarkerButtonState() {
@@ -970,67 +963,18 @@
     }
 
     if (hasLocalStudyMarker(context)) {
-      setStudyMarkerFeedback(button, `Já marcado (+${STUDY_ITEM_POINTS})`, "fa-circle-check", "marked", 1600);
+      setStudyMarkerFeedback(button, "Validado", "fa-circle-check", "marked", 1600);
       return;
     }
 
-    if (state.studyMarkerInFlight) return;
-
-    state.studyMarkerInFlight = true;
-    updateStudyMarkerButton(context);
-
-    try {
-      const token = state.session?.access_token || "";
-      if (!token) {
-        throw new Error("Sessao indisponivel.");
-      }
-
-      const occurredAt = new Date().toISOString();
-      const response = await fetch("/api/gamification-event", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify({
-          eventType: "study_item_complete",
-          idempotencyKey: buildStudyMarkerIdempotencyKey(context),
-          chapterId: context.chapterId,
-          itemId: context.itemId,
-          occurredAt,
-          payload: {
-            pagePath: context.pagePath || getCurrentPageReference(),
-            pageTitle: context.title || document.title || "",
-            label: context.label || "",
-            source: "chapter_study_marker"
-          }
-        })
-      });
-
-      const payload = await response.json().catch(function () {
-        return {};
-      });
-
-      if (!response.ok || !payload?.ok) {
-        throw new Error(payload?.error || "Nao foi possivel registrar o estudo.");
-      }
-
-      writeStudyMarker(context);
-
-      if (payload.reason === "item_already_studied" || payload.deduped || payload.awarded === false) {
-        setStudyMarkerFeedback(button, `Já marcado (+${STUDY_ITEM_POINTS})`, "fa-circle-check", "marked", 1800);
-      } else {
-        const xpDelta = Number(payload.xpDelta || 0);
-        setStudyMarkerFeedback(button, xpDelta > 0 ? `+${xpDelta} pontos` : "Estudado", "fa-circle-check", "marked", 2200);
-      }
-    } catch (_error) {
-      setStudyMarkerFeedback(button, "Tente de novo", "fa-triangle-exclamation", "error", 2200);
-    } finally {
-      state.studyMarkerInFlight = false;
-      window.setTimeout(function () {
-        void refreshStudyMarkerButtonState();
-      }, 2400);
+    const exerciseBox = document.querySelector("#aiExerciseBox, [data-ai-exercise-root]");
+    if (exerciseBox && typeof exerciseBox.scrollIntoView === "function") {
+      exerciseBox.scrollIntoView({ behavior: "smooth", block: "center" });
+      setStudyMarkerFeedback(button, "Faça o exercício IA", "fa-list-check", "saving", 1800);
+      return;
     }
+
+    setStudyMarkerFeedback(button, "Exercício indisponível", "fa-triangle-exclamation", "error", 2200);
   }
 
   function createStudyMarkerButton() {

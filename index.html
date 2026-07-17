@@ -1976,6 +1976,10 @@
       gap: 12px;
     }
 
+    .journey-chapters--quiz-grid {
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    }
+
     .journey-section-note {
       color: var(--muted);
       font-family: "Lora", Georgia, serif;
@@ -1998,6 +2002,51 @@
     .journey-chapter--quiz {
       border-color: #BFE4CC;
       background: #FBFFFC;
+    }
+
+    .journey-chapter--quiz-card {
+      align-content: start;
+      align-items: stretch;
+      min-height: 190px;
+      position: relative;
+      text-decoration: none;
+      transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+    }
+
+    .journey-chapter--quiz-card:not(.is-locked):hover {
+      border-color: #1F8A4C;
+      box-shadow: 0 12px 26px rgba(31, 138, 76, 0.12);
+      transform: translateY(-2px);
+    }
+
+    .journey-chapter--quiz-card.is-locked {
+      background: #F8FAFC;
+      border-color: #DDE8F6;
+      opacity: 0.82;
+    }
+
+    .journey-chapter--quiz-card .journey-chapter__number {
+      margin-bottom: 6px;
+    }
+
+    .journey-chapter__action {
+      align-items: center;
+      align-self: end;
+      background: #DCFCE7;
+      border-radius: 999px;
+      color: #166534;
+      display: inline-flex;
+      font-size: 13px;
+      font-weight: 800;
+      gap: 7px;
+      justify-content: center;
+      margin-top: 12px;
+      padding: 9px 12px;
+    }
+
+    .journey-chapter__action.is-locked {
+      background: #EEF2F7;
+      color: var(--muted);
     }
 
     .journey-empty {
@@ -2821,6 +2870,9 @@
       }
       .journey-chapter {
         grid-template-columns: auto minmax(0, 1fr);
+      }
+      .journey-chapter--quiz-card {
+        grid-template-columns: 1fr;
       }
       .journey-chapter .saved-card__button {
         grid-column: 1 / -1;
@@ -5389,7 +5441,39 @@
         topicContainer.innerHTML = `
           <div class="empty-state">
             <strong>Escolha um capítulo com simulado.</strong><br />
-            Volte ao Estudo guiado e abra um dos simulados disponíveis.
+            Volte ao Estudo guiado e valide os exercícios IA do capítulo.
+          </div>
+        `;
+        return;
+      }
+
+      const profileResult = await fetchJourneyProfile(session).catch(function (error) {
+        return { ok: false, error };
+      });
+      if (!profileResult.ok) {
+        topicContainer.innerHTML = `
+          <div class="empty-state">
+            <strong>Não foi possível verificar seu progresso.</strong><br />
+            Recarregue a jornada antes de abrir o simulado do capítulo.
+          </div>
+        `;
+        return;
+      }
+
+      const access = getJourneyChapterQuizAccess(chapterId, profileResult.profile);
+      if (!access.canOpen) {
+        topicContainer.innerHTML = `
+          <div class="empty-state">
+            <strong>Simulado bloqueado por enquanto.</strong><br />
+            ${escapeHtml(access.reason)}<br /><br />
+            <a class="saved-card__button saved-card__button--primary" href="index.html?view=chapters&chapter=${escapeHtml(String(chapterId).padStart(2, "0"))}">
+              <i class="fa-solid fa-list-check"></i>
+              Validar exercícios do capítulo
+            </a>
+            <a class="saved-card__button" href="index.html?view=journey">
+              <i class="fa-solid fa-route"></i>
+              Voltar ao Estudo guiado
+            </a>
           </div>
         `;
         return;
@@ -5456,65 +5540,93 @@
       }) || {};
     }
 
-    function getJourneyQuizStage({ studiedItems, mastered }) {
-      if (mastered) return "after";
-      if (Number(studiedItems || 0) > 0) return "during";
-      return "before";
+    function getJourneyValidatableTopics(chapterId) {
+      return (embeddedChapterData[chapterId]?.topics || []).filter(function (topic) {
+        return Boolean(topic.aiExercise);
+      });
     }
 
-    function getJourneyQuizStageLabel(stage) {
-      if (stage === "before") return "diagnóstico inicial";
-      if (stage === "after") return "revisão final";
-      return "acompanhamento";
+    function getJourneyValidatedStudyInfo(chapter, progressRow, recentStudiedItems) {
+      const validatableTopics = getJourneyValidatableTopics(chapter.id);
+      const studiedIds = buildJourneyStudiedItemIdSet(chapter.id, progressRow, recentStudiedItems);
+      const validatedCount = validatableTopics.filter(function (topic) {
+        return studiedIds.has(String(topic.id || "").trim());
+      }).length;
+      const total = validatableTopics.length;
+      const required = total ? Math.ceil(total * 0.8) : 0;
+      const percent = total ? Math.round((validatedCount / total) * 100) : 0;
+
+      return {
+        total,
+        required,
+        validatedCount,
+        percent,
+        isReady: total > 0 && validatedCount >= required
+      };
+    }
+
+    function getJourneyChapterQuizAccess(chapterId, profile) {
+      const chapter = chapters.find(function (item) {
+        return item.id === String(chapterId || "").padStart(2, "0");
+      });
+      if (!chapter) return { canOpen: false, reason: "Capítulo não encontrado." };
+
+      const chapterProgress = Array.isArray(profile?.chapterProgress) ? profile.chapterProgress : [];
+      const recentStudiedItems = Array.isArray(profile?.recentStudiedItems) ? profile.recentStudiedItems : [];
+      const progressRow = getJourneyChapterProgress(chapter, chapterProgress);
+      const mastered = Boolean(progressRow.mastered || progressRow.isMastered);
+      const validationInfo = getJourneyValidatedStudyInfo(chapter, progressRow, recentStudiedItems);
+
+      return {
+        canOpen: mastered || validationInfo.isReady,
+        chapter,
+        validationInfo,
+        reason: validationInfo.total
+          ? `Valide ${validationInfo.required}/${validationInfo.total} itens com exercício IA para liberar este simulado.`
+          : "Este capítulo ainda não tem exercícios IA suficientes para liberar simulado."
+      };
     }
 
     function renderJourneyQuizRow(chapter, progress, options = {}) {
       const progressRow = getJourneyChapterProgress(chapter, progress);
-      const studiedItems = Number(progressRow.studiedItems || progressRow.studied_items || 0);
-      const totalItems = embeddedChapterData[chapter.id]?.topics?.length || 0;
-      const studiedProgressText = totalItems
-        ? `${studiedItems} de ${totalItems} ${pluralizePt(totalItems, "item", "itens")} estudados`
-        : `${studiedItems} ${pluralizePt(studiedItems, "item estudado", "itens estudados")}`;
-      const studiedProgressChipText = totalItems
-        ? `${studiedItems}/${totalItems} ${pluralizePt(totalItems, "item", "itens")} estudados`
-        : studiedProgressText;
       const bestScore = Number(progressRow.bestScore || progressRow.best_score || 0);
       const mastered = Boolean(progressRow.mastered || progressRow.isMastered);
       const excellent = Boolean(progressRow.excellent || progressRow.isExcellent);
-      const quizStage = getJourneyQuizStage({ studiedItems, mastered });
-      const quizStageLabel = getJourneyQuizStageLabel(quizStage);
+      const validationInfo = getJourneyValidatedStudyInfo(chapter, progressRow, options.recentStudiedItems || []);
+      const unlocked = mastered || validationInfo.isReady;
       const note = mastered
         ? `Capítulo dominado com ${bestScore}% ou mais; refazer serve como revisão rápida.`
-        : studiedItems > 0
-          ? `Simulado IA de acompanhamento: ${studiedProgressText}.`
-          : `Simulado IA de diagnóstico. ${options.masteryScore || 80}% já conta como domínio; 100% vira conquista.`;
-      const actionHref = `index.html?view=journey&section=quiz&chapter=${encodeURIComponent(chapter.id)}&stage=${encodeURIComponent(quizStage)}`;
+        : validationInfo.total
+          ? `Valide ${validationInfo.required}/${validationInfo.total} itens com exercício para liberar o simulado do capítulo.`
+          : "Este capítulo ainda não tem exercícios suficientes para liberar simulado.";
+      const actionHref = `index.html?view=journey&section=quiz&chapter=${encodeURIComponent(chapter.id)}&stage=after`;
       const statusChip = mastered
         ? `<span class="journey-chip journey-chip--success"><i class="fa-solid ${excellent ? "fa-crown" : "fa-circle-check"}"></i> ${excellent ? "Excelência" : "Dominado"}</span>`
-        : `<span class="journey-chip journey-chip--success"><i class="fa-solid fa-wand-magic-sparkles"></i> Simulado IA</span>`;
-      const stageChip = `<span class="journey-chip journey-chip--quiet"><i class="fa-solid fa-route"></i> ${escapeHtml(quizStageLabel)}</span>`;
-      const studyChip = studiedItems > 0
-        ? `<span class="journey-chip journey-chip--quiet"><i class="fa-solid fa-book-open-reader"></i> ${escapeHtml(studiedProgressChipText)}</span>`
+        : unlocked
+          ? `<span class="journey-chip journey-chip--success"><i class="fa-solid fa-wand-magic-sparkles"></i> Simulado IA</span>`
+          : `<span class="journey-chip journey-chip--quiet"><i class="fa-solid fa-lock"></i> Bloqueado</span>`;
+      const validationChip = validationInfo.total
+        ? `<span class="journey-chip journey-chip--quiet"><i class="fa-solid fa-list-check"></i> ${validationInfo.validatedCount}/${validationInfo.total} validados</span>`
         : "";
-      const actionMarkup = `<a class="saved-card__button" href="${escapeHtml(actionHref)}">
-            <i class="fa-solid fa-arrow-right"></i>
-            Abrir
-          </a>`;
+      const actionMarkup = unlocked
+        ? `<span class="journey-chapter__action"><i class="fa-solid fa-wand-magic-sparkles"></i> Simulado IA</span>`
+        : `<span class="journey-chapter__action is-locked"><i class="fa-solid fa-lock"></i> Valide exercícios</span>`;
+      const tagName = unlocked ? "a" : "article";
+      const hrefAttr = unlocked ? ` href="${escapeHtml(actionHref)}"` : "";
 
       return `
-        <article class="journey-chapter journey-chapter--quiz">
+        <${tagName} class="journey-chapter journey-chapter--quiz journey-chapter--quiz-card ${unlocked ? "" : "is-locked"}"${hrefAttr}>
           <div class="journey-chapter__number">${escapeHtml(chapter.id)}</div>
           <div>
             <div class="journey-chapter__title">${escapeHtml(chapter.title)}</div>
             <div class="journey-chapter__note">${escapeHtml(note)}</div>
             <div class="journey-chip-list" style="margin-top: 8px;">
               ${statusChip}
-              ${stageChip}
-              ${studyChip}
+              ${validationChip}
             </div>
           </div>
           ${actionMarkup}
-        </article>
+        </${tagName}>
       `;
     }
 
@@ -5634,7 +5746,7 @@
       if (!items.length) {
         return renderJourneySideItem(
           "Nenhum item marcado ainda",
-          "Abra uma página do capítulo e clique em Marcar estudado (+20) para construir seu histórico.",
+          "Abra uma página do capítulo e valide o exercício IA do item para construir seu histórico.",
           "fa-circle-check"
         );
       }
@@ -5695,7 +5807,7 @@
       if (!chapterId) {
         return renderJourneySideItem(
           "Checklist aparece depois da escolha",
-          "Quando você abrir um capítulo ou marcar um item como estudado, este bloco mostrará exatamente o checklist daquele capítulo.",
+          "Quando você abrir um capítulo ou validar um exercício IA, este bloco mostrará exatamente o checklist daquele capítulo.",
           "fa-list-check"
         );
       }
@@ -5820,7 +5932,7 @@
         : {
             href: "index.html?view=chapters",
             label: "Escolher primeiro capítulo",
-            reason: "Sua jornada ainda está zerada. Abra um capítulo, marque uma seção como estudada ou faça um simulado para o TERMO sugerir o próximo passo."
+            reason: "Sua jornada ainda está zerada. Abra um capítulo e valide exercícios IA para o TERMO sugerir o próximo passo."
           };
       const nextHref = normalizedNextAction.href;
       const nextLabel = normalizedNextAction.label;
@@ -5922,16 +6034,16 @@
               <div>
                 <div class="journey-section-title">Simulados por capítulo</div>
                 <div class="journey-section-note">
-                  Cada capítulo ativo do programa pode gerar um simulado por IA quando o aluno precisar:
-                  antes, durante ou depois do estudo.
+                  O simulado do capítulo libera depois que pelo menos 80% dos itens com exercício IA forem validados.
                   ${masteryScore}% conta como domínio; 100% vira conquista.
                 </div>
               </div>
-              <div class="journey-chapters">
+              <div class="journey-chapters journey-chapters--quiz-grid">
                 ${quizChapters.length
                   ? quizChapters.map(function (chapter) {
                       return renderJourneyQuizRow(chapter, chapterProgress, {
-                        masteryScore
+                        masteryScore,
+                        recentStudiedItems
                       });
                     }).join("")
                   : renderJourneyEmpty("Nenhum capítulo ativo está disponível para simulado nesta fatia ainda.")}
