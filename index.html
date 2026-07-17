@@ -2010,9 +2010,11 @@
 
     .journey-chapter--quiz-card {
       align-content: start;
-      align-items: center;
+      align-items: stretch;
+      display: flex;
       flex: 0 0 min(360px, 86vw);
-      grid-template-columns: auto minmax(0, 1fr);
+      flex-direction: column;
+      gap: 12px;
       min-height: 0;
       padding: 16px;
       position: relative;
@@ -2034,32 +2036,20 @@
       opacity: 1;
     }
 
-    .journey-chapter--quiz-card .journey-chapter__number {
-      margin-bottom: 0;
-    }
-
     .journey-chapter__info {
-      display: contents;
+      display: block;
       z-index: 3;
     }
 
     .journey-chapter__info summary {
       align-items: center;
-      background: #EAF2FD;
-      border: 0;
-      border-radius: 999px;
       color: var(--blue);
       cursor: pointer;
-      display: inline-flex;
-      font-size: 12px;
+      display: flex;
       font-weight: 800;
-      height: 28px;
-      justify-content: center;
+      justify-content: space-between;
       list-style: none;
-      position: absolute;
-      right: 12px;
-      top: 12px;
-      width: 28px;
+      min-height: 42px;
     }
 
     .journey-chapter__info summary::-webkit-details-marker {
@@ -2067,8 +2057,7 @@
     }
 
     .journey-chapter__info[open] summary {
-      background: var(--blue);
-      color: #FFFFFF;
+      color: var(--blue);
     }
 
     .journey-chapter__info-panel {
@@ -2078,10 +2067,25 @@
       color: var(--muted);
       font-size: 13px;
       font-weight: 650;
-      grid-column: 1 / -1;
       line-height: 1.45;
-      margin-top: 4px;
       padding: 12px;
+    }
+
+    .journey-chapter__info-icon {
+      align-items: center;
+      background: #EAF2FD;
+      border-radius: 999px;
+      color: var(--blue);
+      display: inline-flex;
+      font-size: 12px;
+      height: 28px;
+      justify-content: center;
+      width: 28px;
+    }
+
+    .journey-chapter__info[open] .journey-chapter__info-icon {
+      background: var(--blue);
+      color: #FFFFFF;
     }
 
     .journey-chapter__actions {
@@ -2089,9 +2093,8 @@
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      grid-column: 1 / -1;
-      justify-content: space-between;
-      margin-top: 4px;
+      justify-content: flex-start;
+      margin-top: auto;
     }
 
     .journey-chapter__action {
@@ -2138,7 +2141,7 @@
     }
 
     .journey-chapter__body {
-      padding-right: 34px;
+      padding-right: 0;
     }
 
     .journey-chapter__title {
@@ -5709,10 +5712,12 @@
       return `
         <article class="journey-chapter journey-chapter--quiz journey-chapter--quiz-card ${unlocked ? "" : "is-locked"}" style="--journey-progress: ${escapeHtml(validationInfo.percent)}%;">
           <details class="journey-chapter__info">
-            <summary aria-label="Ver regra do simulado">i</summary>
+            <summary aria-label="Ver regra do simulado">
+              <span class="journey-chapter__number">${escapeHtml(chapter.id)}</span>
+              <span class="journey-chapter__info-icon" aria-hidden="true">i</span>
+            </summary>
             <div class="journey-chapter__info-panel">${escapeHtml(infoNote)}</div>
           </details>
-          <div class="journey-chapter__number">${escapeHtml(chapter.id)}</div>
           <div class="journey-chapter__body">
             <div class="journey-chapter__title">${escapeHtml(chapter.title)}</div>
             <div class="journey-chapter__progress-label">${escapeHtml(progressLabel)}</div>
