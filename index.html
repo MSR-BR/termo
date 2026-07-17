@@ -5504,7 +5504,7 @@
         topicContainer.innerHTML = `
           <div class="empty-state">
             <strong>Escolha um capítulo com simulado.</strong><br />
-            Volte ao Estudo guiado e valide os exercícios IA do capítulo.
+            Volte ao Estudo guiado e marque os itens estudados do capítulo.
           </div>
         `;
         return;
@@ -5531,7 +5531,7 @@
             ${escapeHtml(access.reason)}<br /><br />
             <a class="saved-card__button saved-card__button--primary" href="index.html?view=chapters&chapter=${escapeHtml(String(chapterId).padStart(2, "0"))}">
               <i class="fa-solid fa-list-check"></i>
-              Validar exercícios do capítulo
+              Marcar itens do capítulo
             </a>
             <a class="saved-card__button" href="index.html?view=journey">
               <i class="fa-solid fa-route"></i>
@@ -5604,9 +5604,7 @@
     }
 
     function getJourneyValidatableTopics(chapterId) {
-      return (embeddedChapterData[chapterId]?.topics || []).filter(function (topic) {
-        return Boolean(topic.aiExercise);
-      });
+      return embeddedChapterData[chapterId]?.topics || [];
     }
 
     function getJourneyValidatedStudyInfo(chapter, progressRow, recentStudiedItems) {
@@ -5645,8 +5643,8 @@
         chapter,
         validationInfo,
         reason: validationInfo.total
-          ? `Valide ${validationInfo.required}/${validationInfo.total} itens com exercício IA para liberar este simulado.`
-          : "Este capítulo ainda não tem exercícios IA suficientes para liberar simulado."
+          ? `Marque ${validationInfo.required}/${validationInfo.total} itens como estudados para liberar este simulado.`
+          : "Este capítulo ainda não tem itens suficientes para liberar simulado."
       };
     }
 
@@ -5660,10 +5658,10 @@
       const note = mastered
         ? `Capítulo dominado com ${bestScore}% ou mais; refazer serve como revisão rápida.`
         : validationInfo.total
-          ? `Valide ${validationInfo.required}/${validationInfo.total} itens com exercício para liberar o simulado do capítulo.`
-          : "Este capítulo ainda não tem exercícios suficientes para liberar simulado.";
+          ? `Marque ${validationInfo.required}/${validationInfo.total} itens como estudados para liberar o simulado do capítulo.`
+          : "Este capítulo ainda não tem itens suficientes para liberar simulado.";
       const infoNote = validationInfo.total
-        ? `${note} O número ${validationInfo.validatedCount}/${validationInfo.total} conta apenas as seções deste capítulo que têm exercício IA: o primeiro número são as seções já validadas por você; o segundo é o total de seções com exercício IA.`
+        ? `${note} O número ${validationInfo.validatedCount}/${validationInfo.total} mostra os itens do capítulo: o primeiro número são os itens já marcados por você como estudados; o segundo é o total de itens publicados no capítulo.`
         : note;
       const actionHref = `index.html?view=journey&section=quiz&chapter=${encodeURIComponent(chapter.id)}&stage=after`;
       const statusChip = mastered
@@ -5672,11 +5670,11 @@
           ? `<span class="journey-chip journey-chip--success"><i class="fa-solid fa-wand-magic-sparkles"></i> Simulado IA</span>`
           : `<span class="journey-chip journey-chip--quiet"><i class="fa-solid fa-lock"></i> Bloqueado</span>`;
       const validationChip = validationInfo.total
-        ? `<span class="journey-chip journey-chip--quiet"><i class="fa-solid fa-list-check"></i> ${validationInfo.validatedCount}/${validationInfo.total} validados</span>`
+        ? `<span class="journey-chip journey-chip--quiet"><i class="fa-solid fa-list-check"></i> ${validationInfo.validatedCount}/${validationInfo.total} estudados</span>`
         : "";
       const actionMarkup = unlocked
         ? `<a class="journey-chapter__action" href="${escapeHtml(actionHref)}"><i class="fa-solid fa-wand-magic-sparkles"></i> Simulado IA</a>`
-        : `<span class="journey-chapter__action is-locked"><i class="fa-solid fa-lock"></i> Valide exercícios</span>`;
+        : `<span class="journey-chapter__action is-locked"><i class="fa-solid fa-lock"></i> Marque estudo</span>`;
 
       return `
         <article class="journey-chapter journey-chapter--quiz journey-chapter--quiz-card ${unlocked ? "" : "is-locked"}">
@@ -5815,7 +5813,7 @@
       if (!items.length) {
         return renderJourneySideItem(
           "Nenhum item marcado ainda",
-          "Abra uma página do capítulo e valide o exercício IA do item para construir seu histórico.",
+          "Abra uma página do capítulo e use o botão Validar estudo para construir seu histórico.",
           "fa-circle-check"
         );
       }
@@ -5876,7 +5874,7 @@
       if (!chapterId) {
         return renderJourneySideItem(
           "Checklist aparece depois da escolha",
-          "Quando você abrir um capítulo ou validar um exercício IA, este bloco mostrará exatamente o checklist daquele capítulo.",
+          "Quando você abrir um capítulo ou marcar um item como estudado, este bloco mostrará exatamente o checklist daquele capítulo.",
           "fa-list-check"
         );
       }
@@ -6001,7 +5999,7 @@
         : {
             href: "index.html?view=chapters",
             label: "Escolher primeiro capítulo",
-            reason: "Sua jornada ainda está zerada. Abra um capítulo e valide exercícios IA para o TERMO sugerir o próximo passo."
+            reason: "Sua jornada ainda está zerada. Abra um capítulo e marque itens como estudados para o TERMO sugerir o próximo passo."
           };
       const nextHref = normalizedNextAction.href;
       const nextLabel = normalizedNextAction.label;
@@ -6103,7 +6101,7 @@
               <div>
                 <div class="journey-section-title">Simulados por capítulo</div>
                 <div class="journey-section-note">
-                  O simulado do capítulo libera depois que pelo menos 80% dos itens com exercício IA forem validados.
+                  O simulado do capítulo libera depois que pelo menos 80% dos itens forem marcados como estudados.
                   ${masteryScore}% conta como domínio; 100% vira conquista.
                 </div>
               </div>

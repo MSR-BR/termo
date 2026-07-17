@@ -3,6 +3,7 @@
 
   const CONFIG_ENDPOINT = "/api/public-config";
   const BOOK_API_ENDPOINT = "/api/livro-pdf";
+  const GAMIFICATION_EVENT_ENDPOINT = "/api/gamification-event";
   const SUPABASE_ESM_URL = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
   const AUTH_SITE_URL = "https://termo-theta.vercel.app";
   const LANDING_LOGIN_TARGET_KEY = "termoLandingPostLoginTarget";
@@ -919,8 +920,8 @@
         `<i class="fa-solid fa-right-to-bracket"></i><span>Entrar para validar estudo</span>`,
         "study-signed-out"
       );
-      setButtonAttribute(button, "aria-label", "Entrar para validar o estudo deste item por exercício");
-      setButtonAttribute(button, "title", "Entre com Google para validar o estudo por exercício.");
+      setButtonAttribute(button, "aria-label", "Entrar para marcar este item como estudado");
+      setButtonAttribute(button, "title", "Entre com Google para registrar este item na sua jornada.");
       return;
     }
 
@@ -943,8 +944,8 @@
       `<i class="fa-solid fa-list-check"></i><span>Validar estudo</span>`,
       `study-idle:${getStudyMarkerKey(context)}`
     );
-    setButtonAttribute(button, "aria-label", "Validar este item por exercício antes de contar progresso");
-    setButtonAttribute(button, "title", "O item só conta como estudado depois de validação por exercício.");
+    setButtonAttribute(button, "aria-label", "Marcar este item como estudado");
+    setButtonAttribute(button, "title", `Marcar este item como estudado e registrar +${STUDY_ITEM_POINTS} pontos uma unica vez.`);
   }
 
   async function refreshStudyMarkerButtonState() {
@@ -967,14 +968,69 @@
       return;
     }
 
-    const exerciseBox = document.querySelector("#aiExerciseBox, [data-ai-exercise-root]");
-    if (exerciseBox && typeof exerciseBox.scrollIntoView === "function") {
-      exerciseBox.scrollIntoView({ behavior: "smooth", block: "center" });
-      setStudyMarkerFeedback(button, "Faça o exercício IA", "fa-list-check", "saving", 1800);
-      return;
-    }
+    if (state.studyMarkerInFlight) return;
 
-    setStudyMarkerFeedback(button, "Exercício indisponível", "fa-triangle-exclamation", "error", 2200);
+    state.studyMarkerInFlight = true;
+    if (button) button.disabled = true;
+    setStudyMarkerFeedback(button, "Salvando estudo", "fa-spinner fa-spin", "saving", 0);
+
+    try {
+      const occurredAt = new Date().toISOString();
+      const response = await fetch(GAMIFICATION_EVENT_ENDPOINT, {
+        method: "POST",
+        cache: "no-store",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${state.session.access_token}`
+        },
+        body: JSON.stringify({
+          eventType: "study_item_complete",
+          idempotencyKey: buildStudyMarkerIdempotencyKey(context),
+          chapterId: context.chapterId,
+          itemId: context.itemId,
+          occurredAt,
+          payload: {
+            title: context.title || "",
+            note: context.note || "",
+            pagePath: context.pagePath || context.url || ""
+          }
+        })
+      });
+
+      let payload = null;
+      try {
+        payload = await response.json();
+      } catch (_error) {
+        payload = null;
+      }
+
+      if (response.status === 401) {
+        setStudyMarkerFeedback(button, "Entre novamente", "fa-lock", "error", 2200);
+        openModal();
+        return;
+      }
+
+      if (!response.ok || !payload?.ok) {
+        throw new Error(payload?.error || "Nao foi possivel registrar este item.");
+      }
+
+      writeStudyMarker(context);
+      const label = payload.awarded === false ? "Já estudado" : `Estudado (+${STUDY_ITEM_POINTS})`;
+      setStudyMarkerFeedback(button, label, "fa-circle-check", "marked", 1800);
+      window.dispatchEvent(new CustomEvent("termo-study-item-marked", {
+        detail: {
+          chapterId: context.chapterId,
+          itemId: context.itemId,
+          xpDelta: Number(payload.xpDelta || 0),
+          awarded: Boolean(payload.awarded)
+        }
+      }));
+    } catch (_error) {
+      setStudyMarkerFeedback(button, "Tente de novo", "fa-triangle-exclamation", "error", 2400);
+    } finally {
+      state.studyMarkerInFlight = false;
+      if (button) button.disabled = false;
+    }
   }
 
   function createStudyMarkerButton() {
