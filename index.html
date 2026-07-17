@@ -1977,8 +1977,15 @@
     }
 
     .journey-chapters--quiz-grid {
-      grid-auto-rows: 1fr;
-      grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding: 2px 2px 8px;
+      scroll-snap-type: x proximity;
+    }
+
+    .journey-section--quiz-strip {
+      min-width: 0;
     }
 
     .journey-section-note {
@@ -2001,35 +2008,38 @@
     }
 
     .journey-chapter--quiz {
-      border-color: #BFE4CC;
-      background: #FBFFFC;
+      border-color: #DDE8F6;
+      background: #FFFFFF;
     }
 
     .journey-chapter--quiz-card {
-      align-content: stretch;
-      align-items: start;
+      align-content: start;
+      align-items: center;
+      flex: 0 0 min(360px, 86vw);
       grid-template-columns: auto minmax(0, 1fr);
-      grid-template-rows: auto minmax(18px, 1fr) auto;
-      min-height: 210px;
+      min-height: 0;
+      padding: 16px;
       position: relative;
+      scroll-snap-align: start;
       text-decoration: none;
+      box-shadow: 0 8px 22px rgba(15, 23, 42, 0.035);
       transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
     }
 
     .journey-chapter--quiz-card:not(.is-locked):hover {
-      border-color: #1F8A4C;
-      box-shadow: 0 12px 26px rgba(31, 138, 76, 0.12);
+      border-color: #A8DDBA;
+      box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
       transform: translateY(-2px);
     }
 
     .journey-chapter--quiz-card.is-locked {
-      background: #F8FAFC;
+      background: #FBFCFE;
       border-color: #DDE8F6;
-      opacity: 0.82;
+      opacity: 1;
     }
 
     .journey-chapter--quiz-card .journey-chapter__number {
-      margin-bottom: 6px;
+      margin-bottom: 0;
     }
 
     .journey-chapter__info {
@@ -2041,8 +2051,8 @@
 
     .journey-chapter__info summary {
       align-items: center;
-      background: #FFFFFF;
-      border: 1px solid #C7D8F3;
+      background: #EAF2FD;
+      border: 0;
       border-radius: 999px;
       color: var(--blue);
       cursor: pointer;
@@ -2082,14 +2092,12 @@
 
     .journey-chapter__actions {
       align-items: center;
-      align-self: end;
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
       grid-column: 1 / -1;
-      grid-row: 3;
-      justify-content: flex-start;
-      margin-top: 12px;
+      justify-content: space-between;
+      margin-top: 4px;
     }
 
     .journey-chapter__action {
@@ -2135,11 +2143,39 @@
       font-weight: 800;
     }
 
+    .journey-chapter__body {
+      padding-right: 34px;
+    }
+
     .journey-chapter__title {
       color: var(--blue);
       font-size: 15px;
       font-weight: 800;
       line-height: 1.25;
+    }
+
+    .journey-chapter__progress-label {
+      color: var(--muted);
+      font-size: 12.5px;
+      font-weight: 750;
+      margin-top: 8px;
+    }
+
+    .journey-chapter__mini-progress {
+      background: #E7EEF7;
+      border-radius: 999px;
+      height: 8px;
+      margin-top: 8px;
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .journey-chapter__mini-progress span {
+      background: linear-gradient(90deg, #0B5EA8, #1F8A4C);
+      border-radius: inherit;
+      display: block;
+      height: 100%;
+      width: var(--journey-progress, 0%);
     }
 
     .journey-chapter__note {
@@ -2935,7 +2971,7 @@
         grid-template-columns: auto minmax(0, 1fr);
       }
       .journey-chapter--quiz-card {
-        grid-template-columns: 1fr;
+        grid-template-columns: auto minmax(0, 1fr);
       }
       .journey-chapter .saved-card__button {
         grid-column: 1 / -1;
@@ -5667,30 +5703,29 @@
       const statusChip = mastered
         ? `<span class="journey-chip journey-chip--success"><i class="fa-solid ${excellent ? "fa-crown" : "fa-circle-check"}"></i> ${excellent ? "Excelência" : "Dominado"}</span>`
         : unlocked
-          ? `<span class="journey-chip journey-chip--success"><i class="fa-solid fa-wand-magic-sparkles"></i> Simulado IA</span>`
+          ? `<span class="journey-chip journey-chip--success"><i class="fa-solid fa-unlock"></i> Liberado</span>`
           : `<span class="journey-chip journey-chip--quiet"><i class="fa-solid fa-lock"></i> Bloqueado</span>`;
-      const validationChip = validationInfo.total
-        ? `<span class="journey-chip journey-chip--quiet"><i class="fa-solid fa-list-check"></i> ${validationInfo.validatedCount}/${validationInfo.total} estudados</span>`
-        : "";
+      const progressLabel = validationInfo.total
+        ? `${validationInfo.validatedCount}/${validationInfo.total} itens estudados`
+        : "Sem itens publicados";
       const actionMarkup = unlocked
         ? `<a class="journey-chapter__action" href="${escapeHtml(actionHref)}"><i class="fa-solid fa-wand-magic-sparkles"></i> Simulado IA</a>`
         : `<span class="journey-chapter__action is-locked"><i class="fa-solid fa-lock"></i> Marque estudo</span>`;
 
       return `
-        <article class="journey-chapter journey-chapter--quiz journey-chapter--quiz-card ${unlocked ? "" : "is-locked"}">
+        <article class="journey-chapter journey-chapter--quiz journey-chapter--quiz-card ${unlocked ? "" : "is-locked"}" style="--journey-progress: ${escapeHtml(validationInfo.percent)}%;">
           <details class="journey-chapter__info">
             <summary aria-label="Ver regra do simulado">i</summary>
             <div class="journey-chapter__info-panel">${escapeHtml(infoNote)}</div>
           </details>
           <div class="journey-chapter__number">${escapeHtml(chapter.id)}</div>
-          <div>
+          <div class="journey-chapter__body">
             <div class="journey-chapter__title">${escapeHtml(chapter.title)}</div>
-            <div class="journey-chip-list" style="margin-top: 10px;">
-              ${statusChip}
-              ${validationChip}
-            </div>
+            <div class="journey-chapter__progress-label">${escapeHtml(progressLabel)}</div>
+            <div class="journey-chapter__mini-progress" aria-hidden="true"><span></span></div>
           </div>
           <div class="journey-chapter__actions">
+            ${statusChip}
             ${actionMarkup}
           </div>
         </article>
@@ -6096,39 +6131,40 @@
             )}
           </section>
 
+          <section class="journey-section journey-section--quiz-strip">
+            <div>
+              <div class="journey-section-title">Simulados por capítulo</div>
+              <div class="journey-section-note">
+                O simulado do capítulo libera depois que pelo menos 80% dos itens forem marcados como estudados.
+                ${masteryScore}% conta como domínio; 100% vira conquista.
+              </div>
+            </div>
+            <div class="journey-chapters journey-chapters--quiz-grid">
+              ${quizChapters.length
+                ? quizChapters.map(function (chapter) {
+                    return renderJourneyQuizRow(chapter, chapterProgress, {
+                      masteryScore,
+                      recentStudiedItems
+                    });
+                  }).join("")
+                : renderJourneyEmpty("Nenhum capítulo ativo está disponível para simulado nesta fatia ainda.")}
+            </div>
+          </section>
+
           <section class="journey-columns">
             <div class="journey-section">
-              <div>
-                <div class="journey-section-title">Simulados por capítulo</div>
-                <div class="journey-section-note">
-                  O simulado do capítulo libera depois que pelo menos 80% dos itens forem marcados como estudados.
-                  ${masteryScore}% conta como domínio; 100% vira conquista.
-                </div>
-              </div>
-              <div class="journey-chapters journey-chapters--quiz-grid">
-                ${quizChapters.length
-                  ? quizChapters.map(function (chapter) {
-                      return renderJourneyQuizRow(chapter, chapterProgress, {
-                        masteryScore,
-                        recentStudiedItems
-                      });
-                    }).join("")
-                  : renderJourneyEmpty("Nenhum capítulo ativo está disponível para simulado nesta fatia ainda.")}
-              </div>
               ${studyOnlyChapters.length ? `
-                <div style="margin-top: 10px;">
-                  <div class="journey-section-title">Leitura sem simulado</div>
-                </div>
+                <div class="journey-section-title">Leitura sem simulado</div>
                 ${renderJourneyStudyCompactPanel(studyOnlyChapters)}
               ` : ""}
-            </div>
-            <aside class="journey-section">
-              <div class="journey-section-title">Foco curto</div>
-              <div class="journey-side-list">${missionMarkup}</div>
               <div class="journey-section-title" style="margin-top: 6px;">Checklist do capítulo</div>
               <div class="journey-side-list">${renderJourneyChapterChecklist(checklistChapterId, chapterProgress, recentStudiedItems)}</div>
               <div class="journey-section-title" style="margin-top: 6px;">Últimos itens estudados</div>
               <div class="journey-side-list">${renderJourneyRecentStudyList(recentStudiedItems)}</div>
+            </div>
+            <aside class="journey-section">
+              <div class="journey-section-title">Foco curto</div>
+              <div class="journey-side-list">${missionMarkup}</div>
               <div class="journey-section-title" style="margin-top: 6px;">Conquistas</div>
               <div class="journey-side-list">${badgeMarkup}</div>
             </aside>
