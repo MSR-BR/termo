@@ -248,8 +248,8 @@
     if (isIndexPage()) {
       return {
         kicker: "Acesso opcional",
-        title: "Abra seu estudo guiado",
-        copy: "Entre com Google para ver seu próximo passo, manter seus favoritos e guardar exercícios sem bloquear o conteúdo."
+        title: "Veja seus pontos e simulados",
+        copy: "Entre com Google para acompanhar sua pontuação, manter seus favoritos e guardar exercícios sem bloquear o conteúdo."
       };
     }
 
@@ -610,13 +610,6 @@
       </div>
       ${savedPoint}
       <div class="termo-auth-shortcuts">
-        <a class="termo-auth-shortcut" href="${links.journeyUrl}" data-termo-auth-goto-journey>
-          <i class="fa-solid fa-route"></i>
-          <span>
-            <strong>Estudo guiado</strong>
-            <small>Veja pontos, sequência e o próximo passo sugerido.</small>
-          </span>
-        </a>
         <a class="termo-auth-shortcut" href="${links.savedUrl}" data-termo-auth-goto-saved>
           <i class="fa-solid fa-book-bookmark"></i>
           <span>
@@ -634,7 +627,6 @@
       </div>
       <div class="termo-auth-actions">
         <button type="button" class="termo-auth-secondary" data-termo-auth-signout>Sair</button>
-        <a class="termo-auth-secondary" href="${links.journeyUrl}" data-termo-auth-goto-journey>Continuar estudo</a>
         <button type="button" class="termo-auth-secondary" data-termo-auth-close>Continuar leitura</button>
       </div>
     `;
@@ -683,15 +675,9 @@
       panel.innerHTML = buildSignedInPanel(state.session.user);
       const closeButton = panel.querySelector("[data-termo-auth-close]");
       const signOutButton = panel.querySelector("[data-termo-auth-signout]");
-      const journeyButtons = panel.querySelectorAll("[data-termo-auth-goto-journey]");
       const savedButton = panel.querySelector("[data-termo-auth-goto-saved]");
       const favoritesButton = panel.querySelector("[data-termo-auth-goto-favorites]");
       if (closeButton) closeButton.addEventListener("click", closeModal);
-      journeyButtons.forEach(function (button) {
-        button.addEventListener("click", function () {
-          closeModal();
-        });
-      });
       if (savedButton) {
         savedButton.addEventListener("click", function () {
           closeModal();

@@ -3176,7 +3176,7 @@
         grid-template-columns: repeat(auto-fit, minmax(112px, 1fr));
         gap: 8px;
       }
-      .header-tools .termo-journey-trigger,
+      .header-tools .termo-points-trigger,
       .header-tools .termo-auth-trigger,
       .header-tools .termo-book-trigger,
       .header-tools .termo-share-button {
@@ -3186,7 +3186,7 @@
         padding: 8px 10px;
         font-size: 12.5px;
       }
-      .header-tools .termo-journey-trigger span,
+      .header-tools .termo-points-trigger span,
       .header-tools .termo-auth-trigger span,
       .header-tools .termo-book-trigger span,
       .header-tools .termo-share-button span {
@@ -3271,12 +3271,12 @@
 })();
 </script>
 <link rel="stylesheet" href="assets/termo-share.css?v=0611.3">
-<link rel="stylesheet" href="assets/termo-auth.css?v=0625.2">
+<link rel="stylesheet" href="assets/termo-auth.css?v=0625.3">
 <script>
 (function () {
   const scripts = [
     "assets/termo-share.js?v=0611.3",
-    "assets/termo-auth.js?v=0625.2",
+    "assets/termo-auth.js?v=0625.3",
     "assets/termo-user-data.js?v=0611.3",
     "assets/termo-analytics.js?v=0702.1"
   ];
@@ -3327,9 +3327,9 @@
           </div>
         </div>
         <div class="header-tools" data-termo-header-tools aria-label="Ações principais">
-          <a href="index.html?view=journey" class="termo-journey-trigger index-back-button" aria-label="Abrir estudo guiado">
-            <i class="fa-solid fa-route"></i>
-            <span>Estudo guiado</span>
+          <a href="index.html?view=journey" class="termo-points-trigger index-back-button" data-role="header-points-button" aria-label="Abrir pontos e simulados">
+            <i class="fa-solid fa-seedling"></i>
+            <span data-role="header-points-label">Pontos</span>
           </a>
           <a href="#" class="termo-auth-trigger index-back-button" data-termo-auth-button="true" aria-label="Entrar ou abrir opções da conta">
             <i class="fa-solid fa-right-to-bracket"></i>
@@ -3415,11 +3415,25 @@
               </button>
               <div class="drawer-group-panel is-open" id="drawerPanelExtras">
                 <div class="extras-list" id="extrasList">
+                  <a class="extras-button" href="index.html?view=journey">
+                    <span class="extras-icon"><i class="fa-solid fa-seedling"></i></span>
+                    <span class="extras-text">
+                      <span class="extras-label">Pontos e simulados</span>
+                      <span class="extras-note">Veja sua pontuação, nível, sequência e simulados liberados.</span>
+                    </span>
+                  </a>
+                  <a class="extras-button" href="index.html?view=daily-challenge">
+                    <span class="extras-icon"><i class="fa-solid fa-bullseye"></i></span>
+                    <span class="extras-text">
+                      <span class="extras-label">Desafio do dia</span>
+                      <span class="extras-note">Responda uma questão curta baseada no que você já estudou.</span>
+                    </span>
+                  </a>
                   <a class="extras-button" href="index.html?view=simulators">
                     <span class="extras-icon"><i class="fa-solid fa-flask-vial"></i></span>
                     <span class="extras-text">
                       <span class="extras-label">Simuladores</span>
-                      <span class="extras-note">Abra a área com simuladores e recursos complementares.</span>
+                      <span class="extras-note">Abra laboratórios interativos e recursos complementares.</span>
                     </span>
                   </a>
                   <button type="button" class="extras-button" data-termo-book-button="true">
@@ -4050,12 +4064,6 @@
 
     const personalViews = [
       {
-        id: "journey",
-        label: "Estudo guiado",
-        icon: "fa-route",
-        note: "Veja pontos, sequência de estudo e próximo passo sugerido."
-      },
-      {
         id: "saved",
         label: "Meus exercícios",
         icon: "fa-book-bookmark",
@@ -4078,10 +4086,22 @@
 
     const extraViews = [
       {
+        id: "journey",
+        label: "Pontos e simulados",
+        icon: "fa-seedling",
+        note: "Veja sua pontuação, nível, sequência e simulados liberados."
+      },
+      {
+        id: "daily-challenge",
+        label: "Desafio do dia",
+        icon: "fa-bullseye",
+        note: "Uma questão curta baseada no que você já estudou."
+      },
+      {
         id: "simulators",
         label: "Simuladores",
         icon: "fa-flask-vial",
-        note: "Área reservada para os exploradores interativos."
+        note: "Laboratórios interativos e recursos complementares."
       }
     ];
 
@@ -4090,7 +4110,6 @@
       ...personalViews.map((view) => view.id),
       ...extraViews.map((view) => view.id)
     ]);
-
     const journeyStudyGuides = [
       {
         id: "sequential",
@@ -4133,7 +4152,7 @@
         title: "Revisão por erros",
         icon: "fa-route",
         summary: "Usa erros e retomadas para decidir onde vale estudar agora.",
-        description: "Bom para deixar o Estudo guiado mais inteligente. Quando houver erro em simulado ou retomada, o TERMO puxa o aluno para uma revisão curta antes de continuar o programa.",
+        description: "Bom para deixar o guia inteligente mais útil no futuro. Quando houver erro em simulado ou retomada, o TERMO puxa o aluno para uma revisão curta antes de continuar o programa.",
         planTitle: "Roteiro adaptativo por revisão",
         planItems: [
           "Detectar o último erro, retomada ou ponto fraco registrado.",
@@ -4162,6 +4181,8 @@
     const panelDescription = document.getElementById("panelDescription");
     const panelActions = document.getElementById("panelActions");
     const topicContainer = document.getElementById("topicContainer");
+    const headerPointsButton = document.querySelector('[data-role="header-points-button"]');
+    const headerPointsLabel = headerPointsButton?.querySelector('[data-role="header-points-label"]') || null;
     const params = new URLSearchParams(window.location.search);
     const requestedView = params.get("view");
 
@@ -4181,6 +4202,9 @@
       exerciseModal: null,
       selectedExerciseId: null,
       jsPdfPromise: null,
+      gamificationProfile: null,
+      gamificationProfileUserId: "",
+      gamificationProfilePromise: null,
       chapterLoadToken: 0,
       currentTopics: [],
       drawerSection: "chapters"
@@ -4285,7 +4309,9 @@
     }
 
     function getDrawerSectionForView(viewId) {
-      if (viewId === "journey" || viewId === "saved" || viewId === "favorites" || viewId === "validation-review") return "personal";
+      if (viewId === "saved" || viewId === "favorites" || viewId === "validation-review") return "personal";
+      if (viewId === "journey") return "extras";
+      if (viewId === "daily-challenge") return "extras";
       if (viewId === "simulators") return "extras";
       return "chapters";
     }
@@ -4308,8 +4334,13 @@
     };
 
     const journeyPanelCopy = {
-      title: "Estudo guiado",
-      description: "Seu resumo de estudo em uma tela curta: pontos, sequência, próximo passo e capítulos que já podem receber simulado."
+      title: "Pontos e simulados",
+      description: "Acompanhe seus pontos, nível, sequência de estudo e os simulados que já podem ser liberados."
+    };
+
+    const dailyChallengePanelCopy = {
+      title: "Desafio do dia",
+      description: "Responda uma pergunta curta de múltipla escolha sobre itens que você já marcou como estudados ou capítulos em que já fez simulado."
     };
 
     const simulatorsPanelCopy = {
@@ -4827,10 +4858,6 @@
             <button type="button" class="discovery-card" data-role="open-drawer-section" data-section-id="chapters">
               <div class="discovery-card__title"><i class="fa-solid fa-list-ul"></i> Capítulos</div>
               <div class="discovery-card__meta">Abrir menu de capítulos</div>
-            </button>
-            <button type="button" class="discovery-card" data-role="open-view" data-view-id="journey">
-              <div class="discovery-card__title"><i class="fa-solid fa-route"></i> Estudo guiado</div>
-              <div class="discovery-card__meta">Ver progresso e próximo passo</div>
             </button>
             <a class="discovery-card" href="#" data-landing-login-target="index.html?view=saved">
               <div class="discovery-card__title"><i class="fa-solid fa-circle-user"></i> Área Pessoal</div>
@@ -5375,11 +5402,96 @@
           ok: false,
           reason: "api_error",
           status: response.status,
-          error: body.error || "Aguardando plano de estudos."
+          error: body.error || "Aguardando pontos e simulados."
         };
       }
 
       return { ok: true, profile: body };
+    }
+
+    function getJourneyXpTotal(profile) {
+      return Number(profile?.summary?.xpTotal || 0);
+    }
+
+    function updateHeaderPointsButton(profile) {
+      if (!headerPointsButton || !headerPointsLabel) return;
+      const xpTotal = getJourneyXpTotal(profile);
+      const hasPoints = state.loggedIn && xpTotal > 0;
+      const label = hasPoints
+        ? `${xpTotal} ${pluralizePt(xpTotal, "ponto", "pontos")}`
+        : "Pontos";
+
+      headerPointsLabel.textContent = label;
+      headerPointsButton.classList.toggle("has-points", hasPoints);
+      headerPointsButton.setAttribute(
+        "aria-label",
+        hasPoints
+          ? `Abrir pontos e simulados. Você tem ${label}.`
+          : "Abrir pontos e simulados"
+      );
+    }
+
+    function setCachedGamificationProfile(profile, userId) {
+      state.gamificationProfile = profile || null;
+      state.gamificationProfileUserId = userId || state.userId || "";
+      updateHeaderPointsButton(state.gamificationProfile);
+    }
+
+    async function refreshHeaderPointsButton(options = {}) {
+      if (!headerPointsButton) return;
+      if (!state.loggedIn) {
+        state.gamificationProfile = null;
+        state.gamificationProfileUserId = "";
+        state.gamificationProfilePromise = null;
+        updateHeaderPointsButton(null);
+        return;
+      }
+
+      if (!options.force && state.gamificationProfile && state.gamificationProfileUserId === state.userId) {
+        updateHeaderPointsButton(state.gamificationProfile);
+        return;
+      }
+
+      if (state.gamificationProfilePromise) {
+        await state.gamificationProfilePromise;
+        return;
+      }
+
+      state.gamificationProfilePromise = (async function () {
+        const session = await window.TermoAuth?.getSession?.().catch(function () {
+          return null;
+        });
+        if (!session?.user) {
+          state.loggedIn = false;
+          state.userId = "";
+          setCachedGamificationProfile(null, "");
+          return;
+        }
+
+        const result = await fetchJourneyProfile(session).catch(function () {
+          return { ok: false };
+        });
+        if (result.ok && result.profile) {
+          setCachedGamificationProfile(result.profile, session.user.id || "");
+        } else {
+          updateHeaderPointsButton(state.gamificationProfile);
+        }
+      })().finally(function () {
+        state.gamificationProfilePromise = null;
+      });
+
+      await state.gamificationProfilePromise;
+    }
+
+    function applyHeaderPointsDelta(xpDelta) {
+      const delta = Number(xpDelta || 0);
+      if (!state.loggedIn || !delta || !state.gamificationProfile?.summary) return;
+      const summary = state.gamificationProfile.summary;
+      const nextXp = Math.max(0, Number(summary.xpTotal || 0) + delta);
+      summary.xpTotal = nextXp;
+      summary.level = Math.floor(nextXp / 100) + 1;
+      summary.levelProgressPercent = nextXp % 100;
+      updateHeaderPointsButton(state.gamificationProfile);
     }
 
     async function fetchJourneyQuiz(chapterId, stage = "") {
@@ -5531,6 +5643,213 @@
       return { answers, unanswered };
     }
 
+    function getDailyChallengeDateKey(date = new Date()) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    }
+
+    function getDailyChallengeStorageKey(userId, dateKey = getDailyChallengeDateKey()) {
+      return `termoDailyChallengeV1:${userId || "anonymous"}:${dateKey}`;
+    }
+
+    function hashDailyChallengeSeed(value) {
+      return String(value || "").split("").reduce(function (hash, char) {
+        return ((hash << 5) - hash + char.charCodeAt(0)) | 0;
+      }, 0);
+    }
+
+    function readDailyChallengeState(userId) {
+      try {
+        const raw = window.localStorage?.getItem(getDailyChallengeStorageKey(userId)) || "";
+        const parsed = raw ? JSON.parse(raw) : null;
+        return parsed && typeof parsed === "object" ? parsed : null;
+      } catch (_error) {
+        return null;
+      }
+    }
+
+    function writeDailyChallengeState(userId, challenge) {
+      try {
+        window.localStorage?.setItem(
+          getDailyChallengeStorageKey(userId),
+          JSON.stringify(challenge || {})
+        );
+      } catch (_error) {
+        return;
+      }
+    }
+
+    function getDailyChallengeEligibleChapters(profile) {
+      const quizChapters = getJourneyQuizChapters();
+      if (!quizChapters.length) return [];
+
+      const chapterProgress = Array.isArray(profile?.chapterProgress) ? profile.chapterProgress : [];
+      const recentStudiedItems = Array.isArray(profile?.recentStudiedItems) ? profile.recentStudiedItems : [];
+      const eligibleIds = new Set();
+
+      chapterProgress.forEach(function (row) {
+        const chapterId = String(row.chapterId || row.chapter_id || "").padStart(2, "0");
+        const hasStudiedItems = Number(row.studiedItems || row.studied_items || 0) > 0;
+        const hasQuizAttempt = Number(row.bestScore || row.best_score || 0) > 0 ||
+          Boolean(row.mastered || row.isMastered);
+
+        if (hasStudiedItems || hasQuizAttempt) {
+          eligibleIds.add(chapterId);
+        }
+      });
+
+      recentStudiedItems.forEach(function (item) {
+        const chapterId = String(item.chapterId || item.chapter_id || "").padStart(2, "0");
+        if (chapterId) eligibleIds.add(chapterId);
+      });
+
+      return quizChapters.filter(function (chapter) {
+        return eligibleIds.has(chapter.id);
+      });
+    }
+
+    function pickDailyChallengeChapter(profile, userId) {
+      const candidates = getDailyChallengeEligibleChapters(profile);
+      if (!candidates.length) return null;
+
+      const seed = hashDailyChallengeSeed(`${userId}:${getDailyChallengeDateKey()}:chapter`);
+      const index = Math.abs(seed) % candidates.length;
+      return candidates[index];
+    }
+
+    function pickDailyChallengeQuestion(quiz, userId) {
+      const questions = Array.isArray(quiz?.questions) ? quiz.questions : [];
+      if (!questions.length) return null;
+
+      const seed = hashDailyChallengeSeed(`${userId}:${getDailyChallengeDateKey()}:${quiz.quizKey}:question`);
+      return questions[Math.abs(seed) % questions.length] || questions[0];
+    }
+
+    function buildDailyChallengeFromQuiz(quiz, question, userId) {
+      return {
+        dateKey: getDailyChallengeDateKey(),
+        userId: userId || "",
+        startedAt: new Date().toISOString(),
+        completed: false,
+        quiz: {
+          quizKey: quiz.quizKey,
+          chapterId: quiz.chapterId,
+          chapterCode: quiz.chapterCode,
+          chapterTitle: quiz.chapterTitle,
+          note: quiz.note || "",
+          quizToken: quiz.quizToken || "",
+          questions: [question],
+          questionCount: 1
+        }
+      };
+    }
+
+    function renderDailyChallengeResult(challenge) {
+      const payload = challenge?.result || {};
+      const attempt = payload.attempt || {};
+      const result = payload.result || {};
+      const feedback = Array.isArray(result.feedback) ? result.feedback[0] : null;
+      const score = Number(result.score || attempt.score || 0);
+      const xpAwarded = Number(attempt.xpAwarded || 0);
+      const isCorrect = Boolean(feedback?.isCorrect);
+      const selected = feedback?.selectedChoice ? feedback.selectedChoice.toUpperCase() : "sem resposta";
+      const correct = feedback?.correctChoice ? feedback.correctChoice.toUpperCase() : "";
+
+      topicContainer.innerHTML = `
+        <div class="journey-quiz daily-challenge">
+          <section class="journey-quiz__result ${isCorrect ? "is-correct" : "is-wrong"}">
+            <div class="journey-quiz__eyebrow">Desafio respondido hoje</div>
+            <h2 class="journey-quiz__title">${isCorrect ? "Você acertou" : "Vale retomar este ponto"} · ${score}%</h2>
+            <div class="journey-quiz__copy">
+              ${isCorrect
+                ? `Boa: este desafio valeu ${xpAwarded || 10} pontos de estudo.`
+                : "A tentativa ficou registrada sem pontuar. A explicação abaixo ajuda a revisar antes de continuar."}
+              Amanhã o TERMO prepara outra pergunta curta.
+            </div>
+            <div class="journey-quiz__actions" style="margin-top: 14px;">
+              <a class="saved-card__button saved-card__button--primary" href="index.html?view=journey">
+                <i class="fa-solid fa-seedling"></i>
+                Ver pontos e simulados
+              </a>
+              ${feedback?.reviewPath ? `<a class="saved-card__button" href="${escapeHtml(feedback.reviewPath)}"><i class="fa-solid fa-book-open"></i> Retomar item</a>` : ""}
+            </div>
+          </section>
+
+          ${feedback ? `
+            <section class="journey-quiz-feedback" aria-label="Correção do desafio do dia">
+              <article class="journey-quiz-feedback__item ${isCorrect ? "is-correct" : "is-wrong"}">
+                <div class="journey-quiz-feedback__title">
+                  Sua resposta: ${escapeHtml(selected)}${correct ? ` · correta: ${escapeHtml(correct)}` : ""}
+                </div>
+                <div class="journey-quiz-feedback__copy">${escapeHtml(feedback.explanation || "")}</div>
+                ${feedback.reviewTitle ? `<div class="journey-quiz-feedback__copy"><strong>Retomada sugerida:</strong> ${escapeHtml(feedback.reviewTitle)}</div>` : ""}
+              </article>
+            </section>
+          ` : ""}
+        </div>
+      `;
+    }
+
+    function attachDailyChallengeHandlers({ session, challenge }) {
+      const form = topicContainer.querySelector("[data-role='daily-challenge-form']");
+      const errorBox = topicContainer.querySelector("[data-role='daily-challenge-error']");
+      if (!form) return;
+
+      form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+        const submitButton = form.querySelector("[data-role='daily-challenge-submit']");
+        const quiz = challenge.quiz || {};
+        const collected = collectJourneyQuizAnswers(form, quiz);
+
+        if (collected.unanswered.length) {
+          if (errorBox) errorBox.textContent = "Escolha uma resposta para enviar o desafio.";
+          return;
+        }
+
+        try {
+          if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Conferindo...`;
+          }
+          if (errorBox) errorBox.textContent = "";
+
+          const result = await submitJourneyQuiz({
+            session,
+            quiz,
+            answers: collected.answers,
+            startedAt: challenge.startedAt,
+            attemptType: "guided_review"
+          });
+
+          if (!result.ok) {
+            if (errorBox) {
+              const details = Array.isArray(result.details) ? ` ${result.details.join(" ")}` : "";
+              errorBox.textContent = `${result.error || "Não foi possível corrigir agora."}${details}`;
+            }
+            return;
+          }
+
+          const completedChallenge = {
+            ...challenge,
+            completed: true,
+            result: result.payload
+          };
+          writeDailyChallengeState(state.userId, completedChallenge);
+          if (result.payload?.profile) {
+            setCachedGamificationProfile(result.payload.profile, state.userId);
+          }
+          renderDailyChallengeResult(completedChallenge);
+        } finally {
+          if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.innerHTML = `<i class="fa-solid fa-check"></i> Enviar desafio`;
+          }
+        }
+      });
+    }
+
     function getJourneyReviewCandidate(feedback) {
       return feedback.find(function (item) {
         return !item.isCorrect && item.reviewCheck && item.questionId;
@@ -5635,6 +5954,9 @@
     }
 
     function renderJourneyQuizResult(payload, session) {
+      if (payload.profile) {
+        setCachedGamificationProfile(payload.profile, session?.user?.id || state.userId || "");
+      }
       const result = payload.result || {};
       const attempt = payload.attempt || {};
       const quiz = payload.quiz || {};
@@ -5677,8 +5999,8 @@
                 ${escapeHtml(nextAction.label || "Continuar estudo")}
               </a>
               <a class="saved-card__button" href="index.html?view=journey">
-                <i class="fa-solid fa-route"></i>
-                Voltar ao Estudo guiado
+                <i class="fa-solid fa-seedling"></i>
+                Voltar a pontos e simulados
               </a>
               ${showRetryQuizButton ? `
                 <a class="saved-card__button" href="${escapeHtml(retryQuizHref)}">
@@ -5771,7 +6093,7 @@
         topicContainer.innerHTML = `
           <div class="empty-state">
             <strong>Escolha um capítulo com simulado.</strong><br />
-            Volte ao Estudo guiado e marque os itens estudados do capítulo.
+            Volte a pontos e simulados e marque os itens estudados do capítulo.
           </div>
         `;
         return;
@@ -5782,7 +6104,7 @@
       });
       const profile = profileResult.ok
         ? profileResult.profile
-        : buildJourneyFallbackProfile("Aguardando plano de estudos.");
+        : buildJourneyFallbackProfile("Aguardando pontos e simulados.");
 
       const access = getJourneyChapterQuizAccess(chapterId, profile);
       if (!access.canOpen) {
@@ -5795,8 +6117,8 @@
               Marcar itens do capítulo
             </a>
             <a class="saved-card__button" href="index.html?view=journey">
-              <i class="fa-solid fa-route"></i>
-              Voltar ao Estudo guiado
+              <i class="fa-solid fa-seedling"></i>
+              Voltar a pontos e simulados
             </a>
           </div>
         `;
@@ -5817,7 +6139,7 @@
             ${escapeHtml(result.error || "Tente novamente em alguns segundos. O simulado é criado por IA a partir do capítulo escolhido.")}<br /><br />
             <a class="saved-card__button" href="index.html?view=journey">
               <i class="fa-solid fa-arrow-left"></i>
-              Voltar ao Estudo guiado
+              Voltar a pontos e simulados
             </a>
           </div>
         `;
@@ -5834,7 +6156,7 @@
             <h2 class="journey-quiz__title">${escapeHtml(quiz.chapterCode || `Capítulo ${quiz.chapterId}`)} · ${escapeHtml(quiz.chapterTitle || "")}</h2>
             <div class="journey-quiz__copy">
               ${escapeHtml(quiz.note || "Responda as questões de múltipla escolha. A correção aparece ao final.")}
-              Este simulado tem ${Number(quiz.questionCount || quiz.questions?.length || 0)} questões de múltipla escolha e será salvo na sua jornada ao enviar.
+              Este simulado tem ${Number(quiz.questionCount || quiz.questions?.length || 0)} questões de múltipla escolha e será salvo no seu progresso ao enviar.
             </div>
           </section>
 
@@ -5847,7 +6169,7 @@
               </button>
               <a class="saved-card__button" href="index.html?view=journey">
                 <i class="fa-solid fa-arrow-left"></i>
-                Voltar ao Estudo guiado
+                Voltar a pontos e simulados
               </a>
               <span class="journey-quiz__error" data-role="journey-quiz-error" aria-live="polite"></span>
             </div>
@@ -5864,8 +6186,16 @@
       }) || {};
     }
 
+    const JOURNEY_STUDY_ITEM_POINTS = 20;
+
     function getJourneyValidatableTopics(chapterId) {
       return embeddedChapterData[chapterId]?.topics || [];
+    }
+
+    function getJourneyQuizChapters() {
+      return chapters.filter(function (chapter) {
+        return !chapter.disabled && getJourneyValidatableTopics(chapter.id).length > 0;
+      });
     }
 
     function getJourneyValidatedStudyInfo(chapter, progressRow, recentStudiedItems) {
@@ -5887,6 +6217,78 @@
       };
     }
 
+    function isJourneyChapterMastered(progressRow) {
+      return Boolean(progressRow?.mastered || progressRow?.isMastered);
+    }
+
+    function getJourneyPreviousQuizChapter(chapter) {
+      const quizChapters = getJourneyQuizChapters();
+      const index = quizChapters.findIndex(function (item) {
+        return item.id === chapter.id;
+      });
+
+      return index > 0 ? quizChapters[index - 1] : null;
+    }
+
+    function getJourneyCumulativeUnlockPoints(chapter) {
+      const quizChapters = getJourneyQuizChapters();
+      const chapterIndex = quizChapters.findIndex(function (item) {
+        return item.id === chapter.id;
+      });
+      if (chapterIndex < 0) return 0;
+
+      return quizChapters.slice(0, chapterIndex + 1).reduce(function (total, item) {
+        const validatableCount = getJourneyValidatableTopics(item.id).length;
+        const requiredItems = validatableCount ? Math.ceil(validatableCount * 0.8) : 0;
+        return total + requiredItems * JOURNEY_STUDY_ITEM_POINTS;
+      }, 0);
+    }
+
+    function getJourneyChapterQuizGate(chapter, chapterProgress, recentStudiedItems, summary = {}) {
+      const progressRow = getJourneyChapterProgress(chapter, chapterProgress);
+      const mastered = isJourneyChapterMastered(progressRow);
+      const validationInfo = getJourneyValidatedStudyInfo(chapter, progressRow, recentStudiedItems);
+      const requiredPoints = getJourneyCumulativeUnlockPoints(chapter);
+      const xpTotal = Number(summary?.xpTotal || 0);
+      const pointsReady = requiredPoints > 0 && xpTotal >= requiredPoints;
+      const currentReady = mastered || pointsReady;
+      const previousChapter = getJourneyPreviousQuizChapter(chapter);
+      const previousProgressRow = previousChapter ? getJourneyChapterProgress(previousChapter, chapterProgress) : {};
+      const previousMastered = !previousChapter || isJourneyChapterMastered(previousProgressRow);
+      const canOpen = mastered || (previousMastered && currentReady);
+      let reason = "";
+      let lockedActionLabel = "Marque estudo";
+
+      if (!previousMastered && previousChapter) {
+        reason = `Domine o Capítulo ${previousChapter.id} antes de liberar este simulado.`;
+        lockedActionLabel = "Capítulo anterior";
+      } else if (!validationInfo.total) {
+        reason = "Este capítulo ainda não tem itens suficientes para liberar simulado.";
+      } else if (!currentReady) {
+        const remainingPoints = Math.max(0, requiredPoints - xpTotal);
+        reason = `Alcance mais ${remainingPoints} ${pluralizePt(remainingPoints, "ponto", "pontos")} no percurso para liberar este simulado.`;
+      } else if (mastered) {
+        reason = "Capítulo já dominado; refazer o simulado serve como revisão rápida.";
+      } else {
+        reason = `Simulado liberado: sua pontuação já alcançou o patamar deste ponto do percurso.`;
+      }
+
+      return {
+        canOpen,
+        currentReady,
+        mastered,
+        pointsReady,
+        previousChapter,
+        previousMastered,
+        requiredPoints,
+        xpTotal,
+        validationInfo,
+        progressRow,
+        reason,
+        lockedActionLabel
+      };
+    }
+
     function getJourneyChapterQuizAccess(chapterId, profile) {
       const chapter = chapters.find(function (item) {
         return item.id === String(chapterId || "").padStart(2, "0");
@@ -5895,34 +6297,32 @@
 
       const chapterProgress = Array.isArray(profile?.chapterProgress) ? profile.chapterProgress : [];
       const recentStudiedItems = Array.isArray(profile?.recentStudiedItems) ? profile.recentStudiedItems : [];
-      const progressRow = getJourneyChapterProgress(chapter, chapterProgress);
-      const mastered = Boolean(progressRow.mastered || progressRow.isMastered);
-      const validationInfo = getJourneyValidatedStudyInfo(chapter, progressRow, recentStudiedItems);
+      const gate = getJourneyChapterQuizGate(chapter, chapterProgress, recentStudiedItems, profile?.summary || {});
 
       return {
-        canOpen: mastered || validationInfo.isReady,
+        canOpen: gate.canOpen,
         chapter,
-        validationInfo,
-        reason: validationInfo.total
-          ? `Marque ${validationInfo.required}/${validationInfo.total} itens como estudados para liberar este simulado.`
-          : "Este capítulo ainda não tem itens suficientes para liberar simulado."
+        validationInfo: gate.validationInfo,
+        reason: gate.reason
       };
     }
 
     function renderJourneyQuizRow(chapter, progress, options = {}) {
-      const progressRow = getJourneyChapterProgress(chapter, progress);
+      const gate = getJourneyChapterQuizGate(chapter, progress, options.recentStudiedItems || [], options.summary || {});
+      const progressRow = gate.progressRow;
       const bestScore = Number(progressRow.bestScore || progressRow.best_score || 0);
-      const mastered = Boolean(progressRow.mastered || progressRow.isMastered);
+      const mastered = gate.mastered;
       const excellent = Boolean(progressRow.excellent || progressRow.isExcellent);
-      const validationInfo = getJourneyValidatedStudyInfo(chapter, progressRow, options.recentStudiedItems || []);
-      const unlocked = mastered || validationInfo.isReady;
+      const validationInfo = gate.validationInfo;
+      const unlocked = gate.canOpen;
+      const pointProgress = gate.requiredPoints
+        ? clampPercent(Math.round((Math.min(gate.xpTotal, gate.requiredPoints) / gate.requiredPoints) * 100))
+        : (unlocked ? 100 : 0);
       const note = mastered
         ? `Capítulo dominado com ${bestScore}% ou mais; refazer serve como revisão rápida.`
-        : validationInfo.total
-          ? `Marque ${validationInfo.required}/${validationInfo.total} itens como estudados para liberar o simulado do capítulo.`
-          : "Este capítulo ainda não tem itens suficientes para liberar simulado.";
-      const infoNote = validationInfo.total
-        ? `${note} O número ${validationInfo.validatedCount}/${validationInfo.total} mostra os itens do capítulo: o primeiro número são os itens já marcados por você como estudados; o segundo é o total de itens publicados no capítulo.`
+        : gate.reason;
+      const infoNote = gate.requiredPoints
+        ? `${note} O patamar deste card é ${gate.requiredPoints} pontos acumulados no percurso. Validar estudo, concluir simulados e fazer retomadas aumentam sua pontuação.`
         : note;
       const actionHref = `index.html?view=journey&section=quiz&chapter=${encodeURIComponent(chapter.id)}&stage=after`;
       const statusChip = mastered
@@ -5930,15 +6330,19 @@
         : unlocked
           ? `<span class="journey-chip journey-chip--success"><i class="fa-solid fa-unlock"></i> Liberado</span>`
           : `<span class="journey-chip journey-chip--quiet"><i class="fa-solid fa-lock"></i> Bloqueado</span>`;
-      const progressLabel = validationInfo.total
-        ? `${validationInfo.validatedCount}/${validationInfo.total} itens estudados`
-        : "Sem itens publicados";
+      const progressLabel = mastered
+        ? "Capítulo dominado"
+        : !gate.previousMastered && gate.previousChapter
+          ? `Domine o Cap. ${gate.previousChapter.id}`
+          : gate.requiredPoints
+            ? `${Math.min(gate.xpTotal, gate.requiredPoints)}/${gate.requiredPoints} pontos`
+            : "Aguardando percurso";
       const actionMarkup = unlocked
         ? `<a class="journey-chapter__action" href="${escapeHtml(actionHref)}"><i class="fa-solid fa-wand-magic-sparkles"></i> Simulado IA</a>`
-        : `<span class="journey-chapter__action is-locked"><i class="fa-solid fa-lock"></i> Marque estudo</span>`;
+        : `<span class="journey-chapter__action is-locked"><i class="fa-solid fa-lock"></i> ${escapeHtml(gate.lockedActionLabel)}</span>`;
 
       return `
-        <article class="journey-chapter journey-chapter--quiz journey-chapter--quiz-card ${unlocked ? "" : "is-locked"}" style="--journey-progress: ${escapeHtml(validationInfo.percent)}%;">
+        <article class="journey-chapter journey-chapter--quiz journey-chapter--quiz-card ${unlocked ? "" : "is-locked"}" style="--journey-progress: ${escapeHtml(pointProgress)}%;">
           <details class="journey-chapter__info">
             <summary aria-label="Ver regra do simulado">
               <span class="journey-chapter__number">${escapeHtml(chapter.id)}</span>
@@ -6278,7 +6682,7 @@
           masteryScore: 80,
           excellenceScore: 100
         },
-        syncWarning: errorMessage || "Aguardando plano de estudos. Escolha um guia e gere seu roteiro para começar.",
+        syncWarning: errorMessage || "",
         source: {
           mode: "local_fallback",
           details: "Fallback local usado quando o perfil sincronizado nao carrega."
@@ -6641,7 +7045,6 @@
 
     function renderJourneyProfile(profile) {
       const summary = profile?.summary || {};
-      const missions = Array.isArray(profile?.missions) ? profile.missions : [];
       const chapterProgress = Array.isArray(profile?.chapterProgress) ? profile.chapterProgress : [];
       const recentStudiedItems = Array.isArray(profile?.recentStudiedItems) ? profile.recentStudiedItems : [];
       const masteryScore = Number(profile?.featureFlags?.masteryScore || 80);
@@ -6651,55 +7054,17 @@
       const levelProgress = clampPercent(summary.levelProgressPercent || 0);
       const studiedItems = Number(summary.studiedItemsCount || 0);
       const masteredChapters = Number(summary.chaptersMasteredCount || 0);
-      const journeyHasActivity = hasJourneyActivity({
-        summary,
-        chapterProgress,
-        recentStudiedItems
-      });
-      const planState = loadJourneyStudyPlanState();
-      const selectedGuide = getJourneyStudyGuide(planState.selectedMethodId || planState.methodId || "sequential");
-      const startChapterId = normalizeJourneyStartChapterId(planState.startChapterId || "01");
-      const studiedRouteKeys = buildJourneyStudiedRouteKeySet(chapterProgress, recentStudiedItems);
-      const visiblePlan = getJourneyVisiblePlan({
-        selectedGuide,
-        startChapterId,
-        studiedKeys: studiedRouteKeys
-      });
-      const previousStep = visiblePlan.steps[0];
-      const suggestedStep = visiblePlan.steps[1];
-      const nextStep = visiblePlan.steps[2];
       const activeChapters = chapters.filter(function (chapter) { return !chapter.disabled; });
       const quizChapters = activeChapters.filter(function (chapter) {
         return getJourneyValidatableTopics(chapter.id).length > 0;
       });
-      const studyOnlyChapters = activeChapters.filter(function (chapter) {
-        return !getJourneyValidatableTopics(chapter.id).length;
-      });
-      const missionMarkup = missions.length
-        ? missions.slice(0, 4).map(function (mission) {
-            return renderJourneySideItem(mission.title || mission.label || "Missão de estudo", mission.description || mission.note || "Uma tarefa curta para manter o ritmo.", "fa-bullseye");
-          }).join("")
-        : renderJourneySideItem(
-            "Desafio do dia",
-            journeyHasActivity
-              ? "Assim que houver um erro ou retomada registrada, este bloco vira uma revisão curta daquele ponto."
-            : "Comece por um capítulo ou por um simulado IA. Depois disso, o TERMO passa a sugerir um desafio com base no seu histórico.",
-            "fa-bullseye"
-          );
       const syncWarningMarkup = profile?.syncWarning
         ? `<div class="journey-sync-warning"><i class="fa-solid fa-circle-info"></i> ${escapeHtml(profile.syncWarning)}</div>`
         : "";
 
       topicContainer.innerHTML = `
         <div class="journey-shell">
-          ${renderJourneyPlanBuilder(selectedGuide, visiblePlan, visiblePlan.startChapterId || startChapterId)}
           ${syncWarningMarkup}
-
-          <section class="journey-steps" aria-label="Roteiro de estudo">
-            ${renderJourneyStepCard("Passo anterior", previousStep, { icon: "fa-arrow-left", actionLabel: "Abrir" })}
-            ${renderJourneyStepCard("Passo sugerido", suggestedStep, { primary: true, icon: "fa-arrow-right", actionLabel: "Começar" })}
-            ${renderJourneyStepCard("Próximo passo", nextStep, { icon: "fa-forward-step", actionLabel: "Abrir" })}
-          </section>
 
           <section class="journey-metrics" aria-label="Resumo da jornada">
             ${renderJourneyMetric(
@@ -6708,7 +7073,7 @@
               "Ganhos ao concluir itens, simulados e revisões.",
               "fa-seedling",
               levelProgress,
-              "Este número vem das atividades concluídas no TERMO. Regra atual: marcar um item como concluído vale 20 pontos; primeira tentativa de simulado completo vale 30; se essa primeira tentativa chegar a 80% ou mais, ganha mais 15; refazer simulado já feito vale no máximo 5; retomada curta correta vale 10."
+              "Você ganha pontos quando valida estudo ou conclui atividades. Regra atual: validar uma seção estudada vale 20 pontos; fazer um simulado completo pela primeira vez vale 30; atingir 80% ou mais nesse simulado dá mais 15; refazer simulado já feito vale até 5; retomada curta correta vale 10."
             )}
             ${renderJourneyMetric(
               "Nível",
@@ -6724,7 +7089,7 @@
               `${currentStreak} ${pluralizePt(currentStreak, "dia", "dias")} com estudo registrado.`,
               "fa-calendar-check",
               undefined,
-              "Sequência conta dias diferentes com atividade registrada na jornada. Abrir uma página não basta; precisa concluir uma ação registrada, como enviar simulado, fazer retomada ou marcar item como concluído."
+              "Sequência conta dias diferentes com atividade registrada. Abrir uma página não basta; precisa validar estudo, enviar um simulado ou concluir uma retomada."
             )}
             ${renderJourneyMetric(
               "Domínio",
@@ -6732,7 +7097,7 @@
               `${studiedItems} ${pluralizePt(studiedItems, "item estudado", "itens estudados")} e ${masteredChapters} ${pluralizePt(masteredChapters, "capítulo dominado", "capítulos dominados")}.`,
               "fa-book-open-reader",
               undefined,
-              "Capítulo dominado significa 80% ou mais no simulado completo. Abrir a página do capítulo não conta domínio. Itens estudados contam apenas quando houver uma ação explícita de concluir/marcar uma seção; nesta fase, você pode ter domínio por simulado mesmo com itens estudados em zero."
+              "Capítulo dominado significa 80% ou mais no simulado completo. Abrir páginas não conta domínio; o progresso cresce quando você valida seções estudadas e conclui simulados."
             )}
           </section>
 
@@ -6740,8 +7105,8 @@
             <div>
               <div class="journey-section-title">Simulados por capítulo</div>
               <div class="journey-section-note">
-                O simulado do capítulo libera depois que pelo menos 80% dos itens forem marcados como estudados.
-                ${masteryScore}% conta como domínio; 100% vira conquista.
+                Os simulados são liberados em sequência conforme sua pontuação acumulada no percurso.
+                ${masteryScore}% ou mais no simulado conta como domínio.
               </div>
             </div>
             <div class="journey-chapters journey-chapters--quiz-grid">
@@ -6749,28 +7114,16 @@
                 ? quizChapters.map(function (chapter) {
                     return renderJourneyQuizRow(chapter, chapterProgress, {
                       masteryScore,
+                      summary,
                       recentStudiedItems
                     });
                   }).join("")
                 : renderJourneyEmpty("Nenhum capítulo ativo está disponível para simulado nesta fatia ainda.")}
             </div>
           </section>
-
-          ${studyOnlyChapters.length ? `
-            <section class="journey-section">
-              <div class="journey-section-title">Leitura sem simulado</div>
-              ${renderJourneyStudyCompactPanel(studyOnlyChapters)}
-            </section>
-          ` : ""}
-
-          <section class="journey-section">
-            <div class="journey-section-title">Foco curto</div>
-            <div class="journey-side-list">${missionMarkup}</div>
-          </section>
         </div>
       `;
 
-      attachJourneyPlanHandlers(profile);
       attachJourneyMetricHelpHandlers(topicContainer);
     }
 
@@ -6783,16 +7136,16 @@
       state.loggedIn = Boolean(session?.user);
       state.userId = session?.user?.id || "";
 
-      panelKicker.textContent = "Área Pessoal";
+      panelKicker.textContent = "Extras";
       panelTitle.textContent = journeyPanelCopy.title;
       panelDescription.textContent = journeyPanelCopy.description;
       setActiveChapter(state.chapterId);
-      setActivePersonal("journey");
-      setActiveExtra("");
+      setActivePersonal("");
+      setActiveExtra("journey");
       panelActions.innerHTML = "";
 
       if (!window.TermoAuth || typeof window.TermoAuth.isConfigured !== "function") {
-        topicContainer.innerHTML = `<div class="empty-state"><strong>Login ainda não carregado.</strong><br />Recarregue a página para abrir sua jornada.</div>`;
+        topicContainer.innerHTML = `<div class="empty-state"><strong>Login ainda não carregado.</strong><br />Recarregue a página para abrir seus pontos e simulados.</div>`;
         return;
       }
 
@@ -6803,7 +7156,7 @@
       if (!configured) {
         topicContainer.innerHTML = `
           <div class="empty-state">
-            <strong>Estudo guiado está pronto para ser ativado.</strong><br />
+            <strong>Pontos e simulados estão prontos para serem ativados.</strong><br />
             Falta configurar as variáveis públicas do Supabase e do Google para o login opcional entrar em funcionamento.
           </div>
         `;
@@ -6813,11 +7166,11 @@
       if (!state.loggedIn) {
         topicContainer.innerHTML = `
           <div class="empty-state">
-            <strong>Entre com Google para abrir sua jornada.</strong><br />
-            O progresso persistente aparece apenas depois do login. Sem login, o TERMO evita buscar dados pessoais no Supabase.<br /><br />
+            <strong>Entre com Google para ver seus pontos e simulados.</strong><br />
+            O progresso persistente aparece apenas depois do login. Sem login, o TERMO não busca seus dados pessoais.<br /><br />
             <button class="saved-card__button saved-card__button--primary" data-role="open-login" type="button">
-              <i class="fa-solid fa-route"></i>
-              Entrar e abrir estudo guiado
+              <i class="fa-brands fa-google"></i>
+              Entrar e ver pontos
             </button>
           </div>
         `;
@@ -6830,18 +7183,195 @@
         return;
       }
 
-      topicContainer.innerHTML = `<div class="empty-state"><strong>Carregando sua jornada...</strong><br />Buscando seu resumo de estudo.</div>`;
+      topicContainer.innerHTML = `<div class="empty-state"><strong>Carregando pontos e simulados...</strong><br />Buscando seu resumo de estudo.</div>`;
 
       const result = await fetchJourneyProfile(session).catch(function (error) {
         return { ok: false, reason: "unexpected_error", error };
       });
 
       if (!result.ok) {
-        renderJourneyProfile(buildJourneyFallbackProfile("Aguardando plano de estudos. Escolha um guia e gere seu roteiro para começar."));
+        renderJourneyProfile(buildJourneyFallbackProfile(""));
         return;
       }
 
+      setCachedGamificationProfile(result.profile, state.userId);
       renderJourneyProfile(result.profile);
+    }
+
+    async function renderDailyChallenge() {
+      setLandingMode(false);
+      await ensureAuthModules();
+      const session = await window.TermoAuth?.getSession?.().catch(function () {
+        return null;
+      });
+      state.loggedIn = Boolean(session?.user);
+      state.userId = session?.user?.id || "";
+
+      panelKicker.textContent = "Extras";
+      panelTitle.textContent = dailyChallengePanelCopy.title;
+      panelDescription.textContent = dailyChallengePanelCopy.description;
+      setActiveChapter(state.chapterId);
+      setActivePersonal("");
+      setActiveExtra("daily-challenge");
+      panelActions.innerHTML = "";
+
+      if (!window.TermoAuth || typeof window.TermoAuth.isConfigured !== "function") {
+        topicContainer.innerHTML = `<div class="empty-state"><strong>Login ainda não carregado.</strong><br />Recarregue a página para abrir o desafio do dia.</div>`;
+        return;
+      }
+
+      const configured = await window.TermoAuth.isConfigured().catch(function () {
+        return false;
+      });
+
+      if (!configured) {
+        topicContainer.innerHTML = `
+          <div class="empty-state">
+            <strong>Desafio do dia pronto para ser ativado.</strong><br />
+            Falta configurar as variáveis públicas do login para registrar pontos.
+          </div>
+        `;
+        return;
+      }
+
+      if (!state.loggedIn) {
+        topicContainer.innerHTML = `
+          <div class="empty-state">
+            <strong>Entre com Google para responder o desafio do dia.</strong><br />
+            O desafio precisa do login para registrar sua resposta e somar pontos quando houver acerto.<br /><br />
+            <button class="saved-card__button saved-card__button--primary" data-role="open-login" type="button">
+              <i class="fa-brands fa-google"></i>
+              Entrar e responder
+            </button>
+          </div>
+        `;
+        attachCommonHandlers(topicContainer);
+        return;
+      }
+
+      const savedChallenge = readDailyChallengeState(state.userId);
+      topicContainer.innerHTML = `<div class="empty-state"><strong>Preparando o desafio do dia...</strong><br />Escolhendo uma pergunta curta para sua revisão de hoje.</div>`;
+
+      const profileResult = await fetchJourneyProfile(session).catch(function (error) {
+        return { ok: false, error };
+      });
+      const profile = profileResult.ok
+        ? profileResult.profile
+        : buildJourneyFallbackProfile("Aguardando seu plano de pontos e simulados.");
+      const eligibleChapters = getDailyChallengeEligibleChapters(profile);
+
+      if (!eligibleChapters.length) {
+        topicContainer.innerHTML = `
+          <div class="empty-state">
+            <strong>Ainda não há desafio disponível.</strong><br />
+            O desafio do dia nasce de itens que você já marcou como estudados ou de capítulos em que você já fez simulado. Como sua conta ainda não tem esse histórico, marque um item como estudado ou conclua um simulado para liberar o primeiro desafio.
+          </div>
+        `;
+        return;
+      }
+
+      if (savedChallenge?.completed) {
+        renderDailyChallengeResult(savedChallenge);
+        return;
+      }
+
+      const savedChapter = savedChallenge?.quiz?.chapterId
+        ? chapters.find(function (item) {
+            return item.id === savedChallenge.quiz.chapterId;
+          })
+        : null;
+      const chapter = savedChapter && eligibleChapters.some(function (item) {
+        return item.id === savedChapter.id;
+      })
+        ? savedChapter
+        : pickDailyChallengeChapter(profile, state.userId);
+
+      if (!chapter) {
+        topicContainer.innerHTML = `
+          <div class="empty-state">
+            <strong>Desafio ainda indisponível.</strong><br />
+            Não encontramos item estudado ou simulado concluído suficiente para gerar uma pergunta curta agora.
+          </div>
+        `;
+        return;
+      }
+
+      let challenge = chapter === savedChapter ? savedChallenge : null;
+      if (!challenge?.quiz?.questions?.length) {
+        const quizResult = await fetchJourneyQuiz(chapter.id, "daily-challenge").catch(function (error) {
+          return { ok: false, error };
+        });
+
+        if (!quizResult.ok || !quizResult.quiz) {
+          topicContainer.innerHTML = `
+            <div class="empty-state">
+              <strong>Não foi possível gerar o desafio agora.</strong><br />
+              ${escapeHtml(quizResult.error || "Tente novamente em alguns segundos. A pergunta é criada por IA a partir do capítulo escolhido.")}<br /><br />
+              <a class="saved-card__button" href="index.html?view=journey">
+                <i class="fa-solid fa-seedling"></i>
+                Ver pontos e simulados
+              </a>
+            </div>
+          `;
+          return;
+        }
+
+        const question = pickDailyChallengeQuestion(quizResult.quiz, state.userId);
+        if (!question) {
+          topicContainer.innerHTML = `
+            <div class="empty-state">
+              <strong>Desafio sem pergunta disponível.</strong><br />
+              O capítulo escolhido não retornou uma pergunta válida.
+            </div>
+          `;
+          return;
+        }
+
+        challenge = buildDailyChallengeFromQuiz(quizResult.quiz, question, state.userId);
+        writeDailyChallengeState(state.userId, challenge);
+      }
+
+      const quiz = challenge.quiz || {};
+      const question = Array.isArray(quiz.questions) ? quiz.questions[0] : null;
+
+      if (!question) {
+        topicContainer.innerHTML = `
+          <div class="empty-state">
+            <strong>Desafio sem pergunta disponível.</strong><br />
+            Recarregue a página para gerar uma nova pergunta do dia.
+          </div>
+        `;
+        return;
+      }
+
+      topicContainer.innerHTML = `
+        <div class="journey-quiz daily-challenge">
+          <section class="journey-quiz__header">
+            <div class="journey-quiz__eyebrow">Desafio do dia</div>
+            <h2 class="journey-quiz__title">${escapeHtml(quiz.chapterCode || `Capítulo ${quiz.chapterId}`)} · pergunta curta</h2>
+            <div class="journey-quiz__copy">
+              Uma questão de múltipla escolha sobre um tema que você já marcou como estudado ou sobre um capítulo em que já fez simulado. Se acertar, ela vale 10 pontos de estudo e ajuda a liberar simulados mais rápido.
+            </div>
+          </section>
+
+          <form class="journey-quiz__form" data-role="daily-challenge-form">
+            ${renderJourneyQuizQuestion(question, 0)}
+            <div class="journey-quiz__actions">
+              <button class="saved-card__button saved-card__button--primary" data-role="daily-challenge-submit" type="submit">
+                <i class="fa-solid fa-check"></i>
+                Enviar desafio
+              </button>
+              <a class="saved-card__button" href="index.html?view=journey">
+                <i class="fa-solid fa-seedling"></i>
+                Ver pontos e simulados
+              </a>
+              <span class="journey-quiz__error" data-role="daily-challenge-error" aria-live="polite"></span>
+            </div>
+          </form>
+        </div>
+      `;
+
+      attachDailyChallengeHandlers({ session, challenge });
     }
 
     function attachSavedListHandlers(scope) {
@@ -7123,6 +7653,7 @@
       state.userId = session?.user?.id || "";
       state.canReviewValidations = await canCurrentUserReviewValidations(session);
       await refreshFavoriteCollections();
+      await refreshHeaderPointsButton();
 
       renderPersonalMenu();
       renderExtrasMenu();
@@ -7537,6 +8068,11 @@
         return;
       }
 
+      if (viewId === "daily-challenge") {
+        await renderDailyChallenge();
+        return;
+      }
+
       if (viewId === "favorites") {
         await renderFavorites();
         return;
@@ -7668,6 +8204,15 @@
         void activateView("saved");
       });
 
+      window.addEventListener("termo-study-item-marked", function (event) {
+        applyHeaderPointsDelta(event.detail?.xpDelta || 0);
+        if (state.view === "journey") {
+          void refreshHeaderPointsButton({ force: true }).then(function () {
+            return renderJourney();
+          });
+        }
+      });
+
       menuToggleButton.addEventListener("click", function (event) {
         event.preventDefault();
         if (menuDrawerOverlay.hidden || !menuDrawerOverlay.classList.contains("is-open")) {
@@ -7766,6 +8311,11 @@
 
           if (state.view === "journey") {
             await renderJourney();
+            return;
+          }
+
+          if (state.view === "daily-challenge") {
+            await renderDailyChallenge();
             return;
           }
 
@@ -7892,7 +8442,7 @@
 
           if (!existingScript) {
             const script = document.createElement("script");
-            script.src = "assets/termo-auth.js?v=0625.2";
+            script.src = "assets/termo-auth.js?v=0625.3";
             script.async = true;
             script.onerror = function () {
               if (settled) return;
