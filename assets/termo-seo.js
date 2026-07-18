@@ -3,7 +3,7 @@
   const COURSE_TITLE = "Termodinâmica para Estudantes de Física";
   const AUTHOR_NAME = "Prof. Mario Reis";
   const PUBLISHER_NAME = "Instituto de Física — Universidade Federal Fluminense";
-  const DEFAULT_DESCRIPTION = "Livro interativo de Termodinâmica com capítulos, exercícios automáticos por IA, simuladores, exemplos resolvidos e material didático do Prof. Mario Reis (IF-UFF).";
+  const DEFAULT_DESCRIPTION = "Livro interativo de Termodinâmica com capítulos, exercícios automáticos por IA, simulados por capítulo, pontos de estudo, desafio do dia, simuladores e material didático do Prof. Mario Reis (IF-UFF).";
   const CHAPTER_META = {
     "01": {
       title: "Conceitos Fundamentais",
@@ -31,7 +31,7 @@
     }
   };
 
-  const PRIVATE_VIEWS = new Set(["saved", "favorites", "validation-review"]);
+  const PRIVATE_VIEWS = new Set(["saved", "favorites", "validation-review", "journey", "daily-challenge"]);
 
   function isIndexPage() {
     return /(^|\/)index\.html$/i.test(window.location.pathname) || window.location.pathname === "/";
@@ -122,7 +122,7 @@
     if (PRIVATE_VIEWS.has(view)) {
       return {
         title: `Área pessoal | ${COURSE_TITLE}`,
-        description: "Área pessoal com exercícios salvos, favoritos e histórico de estudo do livro interativo de Termodinâmica.",
+        description: "Área pessoal com pontos, simulados, desafio do dia, exercícios salvos, favoritos e histórico de estudo do livro interativo de Termodinâmica.",
         canonical: buildCanonicalForIndex("chapters", ""),
         robots: "noindex,nofollow,noarchive",
         ogType: "website",
@@ -130,7 +130,7 @@
           "@context": "https://schema.org",
           "@type": "WebPage",
           name: `Área pessoal | ${COURSE_TITLE}`,
-          description: "Área pessoal de estudo.",
+          description: "Área pessoal de estudo, pontos e simulados.",
           isPartOf: {
             "@type": "WebSite",
             name: COURSE_TITLE,

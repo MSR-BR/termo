@@ -15,7 +15,7 @@ const ANALYTICS_ASSET_VERSION = "0702.1";
 const COURSE_TITLE = "Termodinâmica para Estudantes de Física";
 const AUTHOR_NAME = "Prof. Mario Reis";
 const PUBLISHER_NAME = "Instituto de Física — Universidade Federal Fluminense";
-const DEFAULT_SITE_DESCRIPTION = "Livro interativo de Termodinâmica com capítulos, exercícios automáticos por IA, simuladores, exemplos resolvidos e material didático do Prof. Mario Reis (IF-UFF).";
+const DEFAULT_SITE_DESCRIPTION = "Livro interativo de Termodinâmica com capítulos, exercícios automáticos por IA, simulados por capítulo, pontos de estudo, desafio do dia, simuladores e material didático do Prof. Mario Reis (IF-UFF).";
 const TODAY = process.env.SITEMAP_LASTMOD || todayInSaoPaulo();
 const SEO_ASSET_VERSION = process.env.SEO_ASSET_VERSION || TODAY.replaceAll("-", "");
 
@@ -571,7 +571,7 @@ function buildContentPage(topicMap) {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: `Mapa de Conteúdo | ${COURSE_TITLE}`,
-    description: "Mapa de capítulos, tópicos e simuladores do livro interativo de Termodinâmica.",
+    description: "Mapa de capítulos, tópicos, simulados, desafio do dia e simuladores do livro interativo de Termodinâmica.",
     url: `${SITE_URL}/conteudo.html`,
     inLanguage: "pt-BR",
     isPartOf: {
@@ -595,7 +595,7 @@ function buildContentPage(topicMap) {
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mapa de Conteúdo | Termodinâmica para Estudantes de Física</title>
-  <meta name="description" content="Mapa de conteúdo crawlável do livro interativo Termodinâmica para Estudantes de Física: capítulos, tópicos, simuladores e recursos principais." />
+  <meta name="description" content="Mapa de conteúdo crawlável do TERMO: capítulos, tópicos, exercícios por IA, simulados por capítulo, desafio do dia, simuladores e recursos principais." />
   <meta name="author" content="${escapeHtml(AUTHOR_NAME)}" />
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
   <meta name="googlebot" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
@@ -604,7 +604,7 @@ function buildContentPage(topicMap) {
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="${escapeHtml(COURSE_TITLE)}" />
   <meta property="og:title" content="Mapa de Conteúdo | ${escapeHtml(COURSE_TITLE)}" />
-  <meta property="og:description" content="Capítulos, tópicos e simuladores do livro interativo de Termodinâmica." />
+  <meta property="og:description" content="Capítulos, tópicos, simulados por capítulo, desafio do dia e simuladores do livro interativo de Termodinâmica." />
   <meta property="og:url" content="${SITE_URL}/conteudo.html" />
   <link href="https://fonts.googleapis.com" rel="preconnect" />
   <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
@@ -806,9 +806,11 @@ function buildContentPage(topicMap) {
       <a class="back-link" href="index.html">Voltar ao app</a>
       <p class="kicker">Mapa do site</p>
       <h1>Conteúdo do livro interativo de Termodinâmica</h1>
-      <p>Esta página reúne links diretos para os capítulos, tópicos e simuladores do projeto TERMO.</p>
+      <p>Esta página reúne links diretos para os capítulos, tópicos, simulados por capítulo, desafio do dia e simuladores do projeto TERMO.</p>
       <nav class="quick-links" aria-label="Atalhos de conteúdo">
         <a href="home.html">Apresentação</a>
+        <a href="index.html?view=journey">Pontos e simulados</a>
+        <a href="index.html?view=daily-challenge">Desafio do dia</a>
         ${chapters.map((chapter) => `<a href="#capitulo-${escapeHtml(chapter.id)}">Capítulo ${Number(chapter.id)}</a>`).join("\n        ")}
         <a href="#simuladores">Simuladores</a>
       </nav>
@@ -842,22 +844,22 @@ function buildHomePage(topicMap) {
 
   const routeCards = [
     {
-      label: "Menu principal",
+      label: "App e capítulos",
       title: "Abrir o app TERMO",
-      description: "Acesso direto ao livro interativo, com navegação por capítulos, simuladores, exercícios e recursos de estudo.",
+      description: "Acesso direto ao livro interativo, com capítulos, exercícios por IA, pontos e simulados.",
       href: "index.html"
     },
     {
-      label: "Mapa completo",
-      title: "Explorar todos os tópicos",
-      description: "Lista rastreável dos capítulos, seções e páginas de conteúdo do material de Termodinâmica.",
-      href: "conteudo.html"
+      label: "Pontos e simulados",
+      title: "Acompanhar desbloqueios",
+      description: "Veja sua pontuação, nível, sequência de estudo e simulados IA liberados por capítulo.",
+      href: "index.html?view=journey"
     },
     {
-      label: "Capítulos",
-      title: "Entrar pelo capítulo 1",
-      description: "Ponto de partida para os conceitos fundamentais: Lei Zero, temperatura, calor, trabalho e primeira lei.",
-      href: "index.html?view=chapters&chapter=01"
+      label: "Desafio do dia",
+      title: "Resolver revisão curta",
+      description: "Pergunta de múltipla escolha baseada em tópicos já estudados ou capítulos com simulado feito.",
+      href: "index.html?view=daily-challenge"
     },
     {
       label: "Simuladores",
@@ -1308,6 +1310,8 @@ function buildHomePage(topicMap) {
     <div class="wrap hero-content">
       <nav class="top-links" aria-label="Acessos principais">
         <a href="index.html">Abrir app</a>
+        <a href="index.html?view=journey">Pontos e simulados</a>
+        <a href="index.html?view=daily-challenge">Desafio do dia</a>
         <a href="conteudo.html">Mapa de conteúdo</a>
         <a href="#capitulos">Capítulos</a>
         <a href="#simuladores">Simuladores</a>
@@ -1321,6 +1325,7 @@ function buildHomePage(topicMap) {
       <div class="hero-stats" aria-label="Resumo do conteúdo">
         <div class="hero-stat"><strong>${chapters.length}</strong><span>capítulos disponíveis</span></div>
         <div class="hero-stat"><strong>${topicCount}</strong><span>tópicos com páginas diretas</span></div>
+        <div class="hero-stat"><strong>${chapters.length}</strong><span>simulados IA por capítulo</span></div>
         <div class="hero-stat"><strong>${simulatorCatalog.length}</strong><span>simuladores interativos</span></div>
       </div>
     </div>
@@ -1331,7 +1336,7 @@ function buildHomePage(topicMap) {
       <div class="section-header">
         <p class="section-label">Entrada rápida</p>
         <h2 id="rotas-principais">Rotas principais do projeto</h2>
-        <p>Escolha entre abrir a experiência completa do app, navegar por um mapa de conteúdo textual ou entrar diretamente nos capítulos e simuladores.</p>
+        <p>Escolha entre abrir a experiência completa, acompanhar pontos e simulados, fazer uma revisão curta ou entrar nos simuladores.</p>
       </div>
       <div class="intro-grid">
 ${routeCardMarkup}
@@ -1726,7 +1731,7 @@ function buildGithubPagesBridge(topicMap) {
         <article class="content-card">
           <p class="card-label">Landing oficial</p>
           <h3>Apresentação do TERMO</h3>
-          <p>Página estática com resumo do projeto, capítulos, simuladores e links diretos para o material didático.</p>
+          <p>Página estática com resumo do projeto, capítulos, pontos, simulados, desafio do dia, simuladores e links diretos para o material didático.</p>
           <div class="card-actions">
             <a href="${SITE_URL}/home.html">Abrir landing</a>
           </div>
@@ -1734,7 +1739,7 @@ function buildGithubPagesBridge(topicMap) {
         <article class="content-card">
           <p class="card-label">App</p>
           <h3>Livro interativo</h3>
-          <p>Interface principal para estudar capítulos, resolver exercícios e acessar recursos do curso.</p>
+          <p>Interface principal para estudar capítulos, resolver exercícios, acumular pontos e acessar simulados IA.</p>
           <div class="card-actions">
             <a href="${SITE_URL}/">Abrir app</a>
           </div>
@@ -1742,7 +1747,7 @@ function buildGithubPagesBridge(topicMap) {
         <article class="content-card">
           <p class="card-label">Mapa</p>
           <h3>Conteúdo rastreável</h3>
-          <p>Lista textual de páginas, seções e simuladores, pensada para navegação direta e descoberta por buscadores.</p>
+          <p>Lista textual de páginas, seções, simulados e simuladores, pensada para navegação direta e descoberta por buscadores.</p>
           <div class="card-actions">
             <a href="${SITE_URL}/conteudo.html">Abrir mapa</a>
           </div>

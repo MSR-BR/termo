@@ -7,7 +7,8 @@ non-trivial changes, then inspect the relevant source files directly.
 
 TERMO is an interactive Thermodynamics book for Physics students. It combines
 HTML chapters, conceptual summaries, figures, interactive simulators, AI
-exercises, protected book PDF download, and user data features.
+exercises, chapter quizzes, study points, daily challenge, protected book PDF
+download, and user data features.
 
 Production:
 - https://termo-theta.vercel.app
@@ -17,6 +18,8 @@ Remote repository:
 
 Public discovery / SEO entry points:
 - Official static landing: https://termo-theta.vercel.app/home.html
+- Points and chapter quizzes: https://termo-theta.vercel.app/index.html?view=journey
+- Daily challenge: https://termo-theta.vercel.app/index.html?view=daily-challenge
 - Crawlable content map: https://termo-theta.vercel.app/conteudo.html
 - Main sitemap: https://termo-theta.vercel.app/sitemap.xml
 - GitHub Pages bridge: https://msr-br.github.io/termo/
@@ -89,6 +92,10 @@ Known simulator mapping:
 - Deploy is on Vercel.
 - Auth, Storage, and part of the data layer use Supabase.
 - AI exercises use Gemini through the existing backend/API integration.
+- Gamification is intentionally lightweight for the first public version:
+  `Pontos e simulados` lives under `Extras`, the header shows the user's points,
+  chapter quizzes unlock in order, and `Desafio do dia` is a separate `Extras`
+  item based only on already-studied topics or chapters with quiz attempts.
 - The complete book PDF download is protected by login and shows a disclaimer
   before download.
 - Vercel Analytics is enabled. More detailed event tracking may be expanded.
@@ -101,7 +108,7 @@ Do not break:
 - simulator opening behavior;
 - SEO artifacts and canonical links.
 
-## SEO / Discovery State As Of 2026-07-04
+## SEO / Discovery State As Of 2026-07-18
 
 Google Search Console repeatedly failed on sitemap fetch / request indexing even
 when public URLs were live. The practical strategy moved away from relying on
@@ -114,6 +121,10 @@ Completed:
 - added a GitHub Pages bridge under `docs/index.html`;
 - configured GitHub Pages to publish `main` + `/docs`;
 - added a short `README.md` with public links.
+- updated landing, content map, GitHub Pages bridge, and runtime SEO copy to
+  mention points, chapter quizzes, daily challenge, and simulators;
+- kept personal progress routes such as `view=journey` and
+  `view=daily-challenge` as `noindex` runtime pages.
 
 Important commits:
 - `5560d5d` Simplify sitemap for Search Console
@@ -124,8 +135,9 @@ The GitHub Pages bridge intentionally declares:
 - canonical: `https://termo-theta.vercel.app/home.html`
 - public URL: `https://msr-br.github.io/termo/`
 
-Next marketing step requested by the user: plan Google Ads for TERMO after
-waiting roughly two weeks to observe Search Console / indexing effects.
+Marketing/ads note: public ads should continue using `home.html` as the main
+landing page. Personal routes are useful product destinations after login, but
+should not be treated as SEO landing pages.
 
 ## Working Rules For Codex
 

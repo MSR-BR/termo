@@ -2,6 +2,17 @@
 
 ## Visao Geral
 
+Status em 2026-07-18:
+
+- a versao publica inicial foi simplificada para `Pontos e simulados`;
+- `Estudo guiado` inteligente fica documentado como fase futura;
+- o cabecalho mostra pontos, nao um botao de estudo guiado;
+- `Pontos e simulados` e `Desafio do dia` ficam dentro de `Extras`;
+- simulados IA por capitulo sao liberados em ordem;
+- o desbloqueio visivel usa pontos e dominio do capitulo anterior;
+- o `Desafio do dia` usa apenas topicos ja estudados ou capitulos com simulado
+  ja realizado.
+
 A gamificacao do TERMO deve ser uma camada de coordenacao de comportamento, nao
 um enfeite visual.
 
@@ -48,17 +59,20 @@ Aplicacao pratica de escolha publica:
 
 ### 3. Crescer em camadas
 
-Primeiro:
+Primeira versao publica:
 
-- streak;
-- XP;
+- pontos de estudo;
+- sequencia;
 - dominio;
-- simulados;
-- badges;
-- missoes.
+- simulados por capitulo;
+- desafio do dia;
+- explicacoes simples nos botoes `?`.
 
 Depois:
 
+- estudo guiado inteligente;
+- badges;
+- missoes;
 - desafios coletivos;
 - prestigio por contribuicao;
 - ranking opt-in.
@@ -88,9 +102,10 @@ Arquivos integrados:
 - `assets/termo-user-data.js`
 - `assets/termo-analytics.js`
 
-Responsabilidades do cliente:
+Responsabilidades do cliente na versao atual:
 
-- renderizar o painel da jornada;
+- renderizar `Pontos e simulados`;
+- renderizar `Desafio do dia`;
 - capturar eventos elegiveis;
 - renderizar e corrigir fluxo de simulado;
 - enviar eventos para API;
@@ -460,14 +475,16 @@ motor central de regras.
 
 ### `index.html`
 
-Mudancas previstas:
+Estado atual:
 
-- nova view `journey` ou painel dentro de `personal`;
-- CTA de login da jornada;
+- rota tecnica `view=journey` reaproveitada com nome visivel
+  `Pontos e simulados`;
+- rota `view=daily-challenge` como item proprio de `Extras`;
+- CTA de login quando a area exige usuario autenticado;
 - resumo compacto para usuarios autenticados;
 - controle `Marcar item como estudado` em paginas elegiveis;
 - CTA `Resolver simulado do capitulo`;
-- configuracao `Receber desafio do dia por email`.
+- configuracao `Receber desafio do dia por email` permanece futura.
 
 ## Regras De Consolidacao
 
@@ -507,12 +524,13 @@ Ao registrar um evento elegivel:
 
 Um capitulo fica dominado quando:
 
-- todos os itens marcados como obrigatorios no capitulo estiverem em
-  `gamification_item_progress` como `studied`.
+- o aluno atinge `80%` ou mais no simulado completo do capitulo.
 
 Origem da lista de itens:
 
-- pode nascer de `data/` ou de um manifesto novo por capitulo.
+- a lista de secoes estudaveis nasce dos dados de capitulo ja usados pela UI;
+- marcar item como estudado continua gerando pontos e pode liberar o simulado,
+  mas nao substitui o dominio por simulado.
 
 ## Anti-Abuse
 
