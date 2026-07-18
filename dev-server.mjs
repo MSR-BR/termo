@@ -7,6 +7,9 @@ import {
   handleExerciseValidationAdminRequest,
   handleExerciseValidationRequest
 } from "./lib/exercicio-handler.mjs";
+import { handleChapterQuizRequest } from "./lib/chapter-quiz-handler.mjs";
+import { handleGamificationEventRequest } from "./lib/gamification-event-handler.mjs";
+import { handleGamificationProfileRequest } from "./lib/gamification-profile-handler.mjs";
 import { handleLivroPdfRequest } from "./lib/livro-pdf-handler.mjs";
 import { handlePublicConfigRequest } from "./lib/public-config-handler.mjs";
 
@@ -235,6 +238,59 @@ const server = http.createServer(async (req, res) => {
     });
 
     sendJson(res, response.status, response.body);
+    return;
+  }
+
+  if (requestUrl === "/api/gamification-profile") {
+    const response = await handleGamificationProfileRequest({
+      method: req.method,
+      headers: req.headers,
+      env: process.env
+    });
+
+    sendJson(res, response.status, response.body);
+    return;
+  }
+
+  if (requestUrl === "/api/gamification-event") {
+    try {
+      const body = req.method === "POST" ? await readJsonBody(req) : undefined;
+      const response = await handleGamificationEventRequest({
+        method: req.method,
+        headers: req.headers,
+        body,
+        env: process.env
+      });
+
+      sendJson(res, response.status, response.body);
+    } catch (error) {
+      sendJson(res, 400, {
+        error: "Nao foi possivel ler o evento de estudo.",
+        details: String(error)
+      });
+    }
+    return;
+  }
+
+  if (requestUrl.startsWith("/api/chapter-quiz")) {
+    try {
+      const url = new URL(requestUrl, `http://${host}:${port}`);
+      const body = req.method === "POST" ? await readJsonBody(req) : undefined;
+      const response = await handleChapterQuizRequest({
+        method: req.method,
+        headers: req.headers,
+        query: Object.fromEntries(url.searchParams.entries()),
+        body,
+        env: process.env
+      });
+
+      sendJson(res, response.status, response.body);
+    } catch (error) {
+      sendJson(res, 400, {
+        error: "Nao foi possivel ler a requisicao do simulado.",
+        details: String(error)
+      });
+    }
     return;
   }
 

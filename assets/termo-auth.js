@@ -1011,6 +1011,21 @@
       }
 
       if (!response.ok || !payload?.ok) {
+        const serverMessage = `${payload?.error || ""} ${payload?.details || ""}`.toLowerCase();
+        if (serverMessage.includes("gamificacao ainda nao configurada")) {
+          writeStudyMarker(context);
+          setStudyMarkerFeedback(button, "Estudado local", "fa-circle-check", "marked", 1800);
+          window.dispatchEvent(new CustomEvent("termo-study-item-marked", {
+            detail: {
+              chapterId: context.chapterId,
+              itemId: context.itemId,
+              xpDelta: 0,
+              awarded: false,
+              localOnly: true
+            }
+          }));
+          return;
+        }
         throw new Error(payload?.error || "Nao foi possivel registrar este item.");
       }
 

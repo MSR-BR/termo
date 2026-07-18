@@ -1805,40 +1805,6 @@
       gap: 18px;
     }
 
-    .journey-hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1.35fr) minmax(240px, 0.65fr);
-      gap: 16px;
-      align-items: stretch;
-      border: 1px solid #DDE8F6;
-      border-radius: 16px;
-      background: linear-gradient(135deg, #F6FAFF 0%, #FFFFFF 62%, #F8FCF9 100%);
-      padding: 18px;
-    }
-
-    .journey-hero__title {
-      color: var(--blue);
-      font-size: clamp(24px, 3.3vw, 36px);
-      font-weight: 800;
-      line-height: 1.12;
-      margin-bottom: 10px;
-    }
-
-    .journey-hero__copy {
-      color: var(--muted);
-      font-family: "Lora", Georgia, serif;
-      font-size: 15.5px;
-      line-height: 1.65;
-      max-width: 720px;
-    }
-
-    .journey-hero__action {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 16px;
-    }
-
     .journey-card {
       border: 1px solid #DDE8F6;
       border-radius: 16px;
@@ -1847,13 +1813,223 @@
       box-shadow: 0 14px 30px rgba(15, 23, 42, 0.06);
     }
 
-    .journey-card--next {
+    .journey-plan-card {
       display: grid;
-      align-content: center;
+      gap: 14px;
+      border: 1px solid #DDE8F6;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #F6FAFF 0%, #FFFFFF 58%, #F5FFF8 100%);
+      padding: 18px;
+      box-shadow: 0 16px 36px rgba(15, 23, 42, 0.07);
+    }
+
+    .journey-plan-card__top {
+      display: grid;
+      gap: 6px;
+    }
+
+    .journey-plan-card__title {
+      color: var(--blue);
+      font-size: clamp(22px, 2.7vw, 32px);
+      font-weight: 800;
+      line-height: 1.15;
+    }
+
+    .journey-plan-card__copy {
+      max-width: 860px;
+      color: var(--muted);
+      font-family: "Lora", Georgia, serif;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .journey-guide-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
       gap: 10px;
-      border-color: #CFE8D8;
-      border-left: 4px solid #1F8A4C;
+      max-width: 100%;
+      padding: 2px;
+    }
+
+    .journey-guide-option {
+      appearance: none;
+      -webkit-appearance: none;
+      display: grid;
+      gap: 6px;
+      min-height: 112px;
+      border: 1px solid #DDE8F6;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.86);
+      color: var(--blue);
+      padding: 14px;
+      text-align: left;
+      cursor: pointer;
+      box-shadow: 0 10px 22px rgba(15, 23, 42, 0.05);
+    }
+
+    .journey-guide-option.is-selected {
+      border-color: #A8DDBA;
+      background: #EEFFF4;
+      box-shadow: 0 14px 28px rgba(31, 138, 76, 0.11);
+    }
+
+    .journey-guide-option__title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 16px;
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    .journey-guide-option__summary {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .journey-guide-description {
+      border: 1px solid #CFE8D8;
+      border-radius: 14px;
       background: #F5FFF8;
+      color: var(--muted);
+      font-family: "Lora", Georgia, serif;
+      font-size: 14.5px;
+      line-height: 1.55;
+      padding: 14px;
+    }
+
+    .journey-start-chapter {
+      display: grid;
+      gap: 8px;
+      border: 1px solid #DDE8F6;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.82);
+      padding: 14px;
+    }
+
+    .journey-start-chapter.is-hidden {
+      display: none;
+    }
+
+    .journey-start-chapter label {
+      color: var(--blue);
+      font-family: "Inter", sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .journey-start-chapter select {
+      width: 100%;
+      border: 1px solid #C7D8F3;
+      border-radius: 12px;
+      background: #FFFFFF;
+      color: var(--blue);
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 10px 12px;
+    }
+
+    .journey-start-chapter__hint {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .journey-plan-card__actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .journey-plan-summary {
+      border: 1px solid #DDE8F6;
+      border-radius: 14px;
+      background: #FFFFFF;
+      overflow: hidden;
+    }
+
+    .journey-plan-summary__title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--blue);
+      font-family: "Inter", sans-serif;
+      font-weight: 800;
+      padding: 13px 14px;
+    }
+
+    .journey-plan-summary__body {
+      display: grid;
+      gap: 8px;
+      border-top: 1px solid #DDE8F6;
+      padding: 14px;
+    }
+
+    .journey-plan-summary__item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height: 1.45;
+    }
+
+    .journey-plan-summary__item strong {
+      color: var(--blue);
+    }
+
+    .journey-step-card.is-disabled {
+      border-color: #DDE8F6;
+      border-left-color: #C7D8F3;
+      background: #F8FBFF;
+    }
+
+    .journey-step-card.is-disabled .saved-card__button {
+      opacity: 0.65;
+      pointer-events: none;
+    }
+
+    .journey-sync-warning {
+      border: 1px dashed #C7D8F3;
+      border-radius: 14px;
+      background: #F8FBFF;
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height: 1.45;
+      padding: 12px 14px;
+    }
+
+    .journey-steps {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .journey-step-card {
+      display: grid;
+      align-content: start;
+      gap: 10px;
+      min-height: 150px;
+      border: 1px solid #CFE8D8;
+      border-left: 4px solid #1F8A4C;
+      border-radius: 16px;
+      background: #F5FFF8;
+      padding: 18px;
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.06);
+    }
+
+    .journey-step-card--suggested {
+      background: #EEFFF4;
+      border-color: #A8DDBA;
+      box-shadow: 0 16px 34px rgba(31, 138, 76, 0.10);
+    }
+
+    .journey-step-card__action {
+      margin-top: auto;
+      justify-self: start;
     }
 
     .journey-card__kicker,
@@ -2959,7 +3135,7 @@
       .discovery-action {
         justify-content: center;
       }
-      .journey-hero,
+      .journey-steps,
       .journey-columns,
       .journey-metrics {
         grid-template-columns: 1fr;
@@ -3914,6 +4090,63 @@
       ...personalViews.map((view) => view.id),
       ...extraViews.map((view) => view.id)
     ]);
+
+    const journeyStudyGuides = [
+      {
+        id: "sequential",
+        title: "Sequencial",
+        icon: "fa-list-ol",
+        summary: "Segue capítulo e seção em ordem, como um roteiro de aula.",
+        description: "Bom para a primeira versão e para quem quer previsibilidade: o TERMO conduz o aluno pelo programa, item por item, sem tentar ser esperto demais antes de ter histórico suficiente.",
+        planTitle: "Roteiro sequencial por capítulo",
+        planItems: [
+          "Começar pelo primeiro capítulo ativo ou pelo último ponto retomado.",
+          "Avançar item por item, marcando estudo apenas quando concluir a leitura.",
+          "Usar o simulado IA ao fechar uma etapa relevante do capítulo.",
+          "Seguir para o próximo capítulo quando houver domínio mínimo ou revisão suficiente."
+        ],
+        previousLabel: "Rever etapa anterior",
+        previousReason: "Retome o ponto imediatamente anterior do roteiro para reforçar a continuidade.",
+        nextLabel: "Avançar na sequência",
+        nextReason: "Depois do passo sugerido, siga para a próxima seção publicada do programa."
+      },
+      {
+        id: "mastery",
+        title: "Domínio por capítulo",
+        icon: "fa-medal",
+        summary: "Prioriza consolidar um capítulo antes de empurrar o aluno adiante.",
+        description: "Bom para estudo com meta: o aluno lê, valida estudo e usa simulados para confirmar domínio. O avanço deixa de ser só terminar páginas e passa a ser consolidar entendimento.",
+        planTitle: "Roteiro por domínio",
+        planItems: [
+          "Escolher um capítulo foco e concluir suas seções principais.",
+          "Marcar estudo nas seções concluídas para registrar progresso.",
+          "Fazer o simulado IA quando o capítulo estiver maduro.",
+          "Só tratar o capítulo como dominado quando o resultado indicar segurança."
+        ],
+        previousLabel: "Rever base do capítulo",
+        previousReason: "Volte ao último item estudado para estabilizar a base antes de testar domínio.",
+        nextLabel: "Consolidar capítulo",
+        nextReason: "Depois do passo sugerido, use o simulado IA para medir se o capítulo já está dominado."
+      },
+      {
+        id: "adaptive",
+        title: "Revisão por erros",
+        icon: "fa-route",
+        summary: "Usa erros e retomadas para decidir onde vale estudar agora.",
+        description: "Bom para deixar o Estudo guiado mais inteligente. Quando houver erro em simulado ou retomada, o TERMO puxa o aluno para uma revisão curta antes de continuar o programa.",
+        planTitle: "Roteiro adaptativo por revisão",
+        planItems: [
+          "Detectar o último erro, retomada ou ponto fraco registrado.",
+          "Sugerir uma revisão curta antes de seguir para conteúdo novo.",
+          "Refazer uma questão ou simulado quando a dúvida for resolvida.",
+          "Voltar ao roteiro sequencial quando não houver pendência ativa."
+        ],
+        previousLabel: "Rever último ponto fraco",
+        previousReason: "Use o erro ou a retomada mais recente como memória de estudo.",
+        nextLabel: "Voltar ao roteiro",
+        nextReason: "Depois da revisão curta, continue pelo próximo item do programa."
+      }
+    ];
 
     const chapterList = document.getElementById("chapterList");
     const personalList = document.getElementById("personalList");
@@ -5142,7 +5375,7 @@
           ok: false,
           reason: "api_error",
           status: response.status,
-          error: body.error || "Não foi possível carregar sua jornada."
+          error: body.error || "Aguardando plano de estudos."
         };
       }
 
@@ -5531,6 +5764,7 @@
     }
 
     async function renderJourneyQuiz(session) {
+      state.userId = session?.user?.id || "";
       const chapterId = state.chapterId || "";
 
       if (!chapterId) {
@@ -5546,17 +5780,11 @@
       const profileResult = await fetchJourneyProfile(session).catch(function (error) {
         return { ok: false, error };
       });
-      if (!profileResult.ok) {
-        topicContainer.innerHTML = `
-          <div class="empty-state">
-            <strong>Não foi possível verificar seu progresso.</strong><br />
-            Recarregue a jornada antes de abrir o simulado do capítulo.
-          </div>
-        `;
-        return;
-      }
+      const profile = profileResult.ok
+        ? profileResult.profile
+        : buildJourneyFallbackProfile("Aguardando plano de estudos.");
 
-      const access = getJourneyChapterQuizAccess(chapterId, profileResult.profile);
+      const access = getJourneyChapterQuizAccess(chapterId, profile);
       if (!access.canOpen) {
         topicContainer.innerHTML = `
           <div class="empty-state">
@@ -5900,7 +6128,28 @@
         if (itemChapterId === chapterKey && itemId) studiedIds.add(itemId);
       });
 
+      Object.keys(readLocalStudyMarkers()).forEach(function (key) {
+        const parts = key.split(":");
+        const itemChapterId = String(parts[0] || "").padStart(2, "0");
+        const itemId = String(parts[1] || "").trim();
+        if (itemChapterId === chapterKey && itemId) studiedIds.add(itemId);
+      });
+
       return studiedIds;
+    }
+
+    function buildJourneyStudiedRouteKeySet(chapterProgress, recentStudiedItems) {
+      const studiedKeys = new Set();
+
+      chapters.forEach(function (chapter) {
+        const progressRow = getJourneyChapterProgress(chapter, chapterProgress);
+        const itemIds = buildJourneyStudiedItemIdSet(chapter.id, progressRow, recentStudiedItems);
+        itemIds.forEach(function (itemId) {
+          studiedKeys.add(`${chapter.id}:${itemId}`);
+        });
+      });
+
+      return studiedKeys;
     }
 
     function renderJourneyChapterChecklist(chapterId, progress, recentStudiedItems) {
@@ -5987,6 +6236,75 @@
       };
     }
 
+    function buildJourneyFallbackProfile(errorMessage = "") {
+      return {
+        ok: true,
+        contractVersion: "local-fallback",
+        viewer: {
+          isAuthenticated: state.loggedIn,
+          userId: state.userId || "",
+          entryView: "journey",
+          defaultSection: "overview"
+        },
+        summary: {
+          xpTotal: 0,
+          level: 1,
+          levelProgressPercent: 0,
+          currentStreak: 0,
+          bestStreak: 0,
+          studiedItemsCount: 0,
+          chaptersMasteredCount: 0
+        },
+        nextAction: {
+          type: "choose_chapter",
+          label: "Escolher primeiro capítulo",
+          href: "index.html?view=chapters",
+          reason: "Abra um capítulo e valide seus estudos para o TERMO começar a sugerir o próximo passo."
+        },
+        missions: [],
+        recentBadges: [],
+        lastQuizResult: null,
+        chapterProgress: [],
+        recentStudiedItems: [],
+        preferences: {},
+        featureFlags: {
+          showJourney: true,
+          showDailyChallengeEmail: false,
+          enabledQuizChapterIds: chapters.filter(function (chapter) {
+            return !chapter.disabled;
+          }).map(function (chapter) {
+            return chapter.id;
+          }),
+          masteryScore: 80,
+          excellenceScore: 100
+        },
+        syncWarning: errorMessage || "Aguardando plano de estudos. Escolha um guia e gere seu roteiro para começar.",
+        source: {
+          mode: "local_fallback",
+          details: "Fallback local usado quando o perfil sincronizado nao carrega."
+        }
+      };
+    }
+
+    function resolveJourneyNextAction(profile) {
+      const summary = profile?.summary || {};
+      const chapterProgress = Array.isArray(profile?.chapterProgress) ? profile.chapterProgress : [];
+      const recentStudiedItems = Array.isArray(profile?.recentStudiedItems) ? profile.recentStudiedItems : [];
+      const journeyHasActivity = hasJourneyActivity({
+        summary,
+        chapterProgress,
+        recentStudiedItems
+      });
+
+      return journeyHasActivity
+        ? normalizeJourneyNextAction(profile?.nextAction || {})
+        : {
+            href: "index.html?view=chapters",
+            label: "Escolher primeiro capítulo",
+            reason: "Sua jornada ainda está zerada. Abra um capítulo e marque itens como estudados para o TERMO sugerir o próximo passo."
+          };
+    }
+
     function hasJourneyActivity({ summary, chapterProgress, recentStudiedItems }) {
       const xpTotal = Number(summary?.xpTotal || 0);
       const currentStreak = Number(summary?.currentStreak || 0);
@@ -6006,15 +6324,326 @@
         hasProgressRows;
     }
 
+    function getJourneyStudyGuide(methodId) {
+      return journeyStudyGuides.find(function (guide) {
+        return guide.id === methodId;
+      }) || journeyStudyGuides[0];
+    }
+
+    function getJourneyActiveChapters() {
+      return chapters.filter(function (chapter) {
+        return !chapter.disabled;
+      });
+    }
+
+    function normalizeJourneyStartChapterId(value) {
+      const activeChapters = getJourneyActiveChapters();
+      const activeIds = new Set(activeChapters.map(function (chapter) {
+        return chapter.id;
+      }));
+      const normalized = String(value || "").padStart(2, "0");
+
+      return activeIds.has(normalized) ? normalized : activeChapters[0]?.id || "01";
+    }
+
+    function getJourneyChapterTitle(chapterId) {
+      const normalized = normalizeJourneyStartChapterId(chapterId);
+      return chapters.find(function (chapter) {
+        return chapter.id === normalized;
+      })?.title || `Capítulo ${normalized}`;
+    }
+
+    function shouldShowJourneyStartChapter(guide) {
+      return guide?.id === "mastery" || guide?.id === "adaptive";
+    }
+
+    function getJourneyStudyPlanStorageKey() {
+      return `termoStudyGuidePlanV1:${state.userId || "anonymous"}`;
+    }
+
+    function loadJourneyStudyPlanState() {
+      try {
+        const raw = window.localStorage?.getItem(getJourneyStudyPlanStorageKey()) || "";
+        return raw ? JSON.parse(raw) : {};
+      } catch {
+        return {};
+      }
+    }
+
+    function saveJourneyStudyPlanState(value) {
+      try {
+        window.localStorage?.setItem(getJourneyStudyPlanStorageKey(), JSON.stringify(value));
+      } catch {
+        // O plano continua funcionando na sessão mesmo se o navegador bloquear localStorage.
+      }
+    }
+
+    function buildJourneyRouteTopics(startChapterId) {
+      const activeChapters = getJourneyActiveChapters();
+      const startId = normalizeJourneyStartChapterId(startChapterId || "01");
+      const startIndex = Math.max(0, activeChapters.findIndex(function (chapter) {
+        return chapter.id === startId;
+      }));
+      const orderedChapters = activeChapters.slice(startIndex).concat(activeChapters.slice(0, startIndex));
+
+      return orderedChapters.flatMap(function (chapter) {
+        const topics = embeddedChapterData[chapter.id]?.topics || [];
+        return topics.map(function (topic) {
+          const itemId = String(topic.id || "").trim();
+          return {
+            chapterId: chapter.id,
+            chapterTitle: chapter.title,
+            itemId,
+            title: topic.title || `Seção ${itemId}`,
+            href: topic.url || `index.html?view=chapters&chapter=${encodeURIComponent(chapter.id)}`,
+            note: topic.note || ""
+          };
+        });
+      });
+    }
+
+    function formatJourneyRouteLabel(topic) {
+      if (!topic) return "Roteiro indisponível";
+      return `Cap. ${Number(topic.chapterId)} · Seção ${topic.itemId}`;
+    }
+
+    function formatJourneyRouteReason(topic, prefix = "") {
+      if (!topic) return "Ainda não há seção publicada para este roteiro.";
+      const title = `${topic.itemId} · ${topic.title}`;
+      return prefix ? `${prefix} ${title}.` : title;
+    }
+
+    function buildJourneyStudyPlan(guide, options = {}) {
+      const generatedAt = new Date().toISOString();
+      const startChapterId = normalizeJourneyStartChapterId(
+        shouldShowJourneyStartChapter(guide) ? (options.startChapterId || "01") : "01"
+      );
+      const startChapterTitle = getJourneyChapterTitle(startChapterId);
+      const routeTopics = buildJourneyRouteTopics(startChapterId);
+      const studiedKeys = options.studiedKeys instanceof Set ? options.studiedKeys : new Set();
+      const firstPendingIndex = routeTopics.findIndex(function (topic) {
+        return !studiedKeys.has(`${topic.chapterId}:${topic.itemId}`);
+      });
+      const suggestedIndex = firstPendingIndex === -1 ? routeTopics.length - 1 : firstPendingIndex;
+      const suggestedTopic = suggestedIndex >= 0 ? routeTopics[suggestedIndex] : null;
+      const nextTopic = suggestedIndex >= 0 ? routeTopics[suggestedIndex + 1] || null : null;
+      const previousTopic = suggestedIndex > 0 ? routeTopics[suggestedIndex - 1] : null;
+      const summaryIntro = guide.id === "sequential"
+        ? "Roteiro sequencial começando pelo início do curso."
+        : `Roteiro começando pelo Capítulo ${startChapterId}: ${startChapterTitle}.`;
+      const summaryItems = [
+        summaryIntro,
+        ...routeTopics.slice(0, 4).map(function (topic) {
+          return `${formatJourneyRouteLabel(topic)} · ${topic.title}`;
+        })
+      ];
+      const previousStep = previousTopic
+        ? {
+            label: formatJourneyRouteLabel(previousTopic),
+            href: previousTopic.href,
+            reason: formatJourneyRouteReason(previousTopic, "Retome")
+          }
+        : {
+            label: "Início do plano",
+            href: "",
+            reason: "Ainda não há passo anterior; este roteiro começa pelo passo sugerido."
+          };
+      const items = [
+        previousStep,
+        suggestedTopic
+          ? {
+              label: formatJourneyRouteLabel(suggestedTopic),
+              href: suggestedTopic.href,
+              reason: formatJourneyRouteReason(suggestedTopic, "Estude agora")
+            }
+          : {
+              label: "Escolher capítulo",
+              href: "index.html?view=chapters",
+              reason: "Não há seção publicada para este roteiro ainda."
+            },
+        nextTopic
+          ? {
+              label: formatJourneyRouteLabel(nextTopic),
+              href: nextTopic.href,
+              reason: formatJourneyRouteReason(nextTopic, "Depois, avance para")
+            }
+          : {
+          label: "Fechar etapa",
+          href: suggestedTopic?.href || "index.html?view=chapters",
+          reason: firstPendingIndex === -1
+            ? "Todos os itens deste roteiro já aparecem como estudados."
+            : "Este é o último item disponível neste recorte do roteiro."
+        }
+      ];
+
+      return {
+        methodId: guide.id,
+        title: guide.planTitle,
+        generatedAt,
+        startChapterId,
+        summaryItems,
+        steps: items
+      };
+    }
+
+    function getJourneyVisiblePlan({ selectedGuide, startChapterId, studiedKeys }) {
+      return buildJourneyStudyPlan(selectedGuide, {
+        startChapterId,
+        studiedKeys
+      });
+    }
+
+    function renderJourneyPlanSummary(plan) {
+      return `
+        <div class="journey-plan-summary">
+          <div class="journey-plan-summary__title">
+            <i class="fa-solid fa-clipboard-list"></i>
+            Plano resumido: ${escapeHtml(plan.title)}
+          </div>
+          <div class="journey-plan-summary__body">
+            ${plan.summaryItems.map(function (item, index) {
+              return `
+                <div class="journey-plan-summary__item">
+                  <strong>${index + 1}.</strong>
+                  <span>${escapeHtml(item)}</span>
+                </div>
+              `;
+            }).join("")}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderJourneyStartChapterPicker(selectedGuide, startChapterId) {
+      const isVisible = shouldShowJourneyStartChapter(selectedGuide);
+      const activeChapters = getJourneyActiveChapters();
+
+      return `
+        <div class="journey-start-chapter ${isVisible ? "" : "is-hidden"}" data-role="journey-start-chapter">
+          <label for="journeyStartChapter">Capítulo para começar</label>
+          <select id="journeyStartChapter" data-role="journey-start-chapter-select">
+            ${activeChapters.map(function (chapter) {
+              const selected = chapter.id === startChapterId;
+              return `<option value="${escapeHtml(chapter.id)}" ${selected ? "selected" : ""}>Capítulo ${escapeHtml(chapter.id)} · ${escapeHtml(chapter.title)}</option>`;
+            }).join("")}
+          </select>
+          <div class="journey-start-chapter__hint">
+            Para este tipo de guia, você escolhe o capítulo inicial e o TERMO continua o roteiro em sequência.
+          </div>
+        </div>
+      `;
+    }
+
+    function renderJourneyPlanBuilder(selectedGuide, plan, startChapterId) {
+      return `
+        <section class="journey-plan-card" data-role="journey-plan-card" data-selected-guide="${escapeHtml(selectedGuide.id)}">
+          <div class="journey-plan-card__top">
+            <div class="journey-card__kicker">Escolha do guia</div>
+            <div class="journey-plan-card__title">Como você quer ser guiado?</div>
+            <div class="journey-plan-card__copy">
+              Escolha uma metodologia para o TERMO montar o roteiro. O plano organiza seus próximos passos
+              e pode ser ajustado conforme seu ritmo de estudo.
+            </div>
+          </div>
+          <div class="journey-guide-list" role="listbox" aria-label="Tipos de guia de estudo">
+            ${journeyStudyGuides.map(function (guide) {
+              const selected = guide.id === selectedGuide.id;
+              return `
+                <button
+                  class="journey-guide-option ${selected ? "is-selected" : ""}"
+                  data-role="journey-guide-option"
+                  data-guide-id="${escapeHtml(guide.id)}"
+                  type="button"
+                  role="option"
+                  aria-selected="${selected ? "true" : "false"}"
+                >
+                  <span class="journey-guide-option__title">
+                    <i class="fa-solid ${escapeHtml(guide.icon)}"></i>
+                    ${escapeHtml(guide.title)}
+                  </span>
+                  <span class="journey-guide-option__summary">${escapeHtml(guide.summary)}</span>
+                </button>
+              `;
+            }).join("")}
+          </div>
+          <div class="journey-guide-description" data-role="journey-guide-description">
+            ${escapeHtml(selectedGuide.description)}
+          </div>
+          ${renderJourneyStartChapterPicker(selectedGuide, startChapterId)}
+          ${renderJourneyPlanSummary(plan)}
+        </section>
+      `;
+    }
+
+    function attachJourneyPlanHandlers(profile) {
+      const planCard = topicContainer.querySelector('[data-role="journey-plan-card"]');
+      if (!planCard) return;
+
+      const description = planCard.querySelector('[data-role="journey-guide-description"]');
+      const startChapter = planCard.querySelector('[data-role="journey-start-chapter"]');
+      const startChapterSelect = planCard.querySelector('[data-role="journey-start-chapter-select"]');
+      const optionButtons = Array.from(planCard.querySelectorAll('[data-role="journey-guide-option"]'));
+
+      optionButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+          const guide = getJourneyStudyGuide(button.dataset.guideId || "");
+          planCard.dataset.selectedGuide = guide.id;
+          optionButtons.forEach(function (item) {
+            const selected = item === button;
+            item.classList.toggle("is-selected", selected);
+            item.setAttribute("aria-selected", selected ? "true" : "false");
+          });
+          if (description) description.textContent = guide.description;
+          if (startChapter) {
+            startChapter.classList.toggle("is-hidden", !shouldShowJourneyStartChapter(guide));
+          }
+
+          saveJourneyStudyPlanState({
+            selectedMethodId: guide.id,
+            methodId: guide.id,
+            startChapterId: normalizeJourneyStartChapterId(startChapterSelect?.value || "01")
+          });
+          renderJourneyProfile(profile);
+        });
+      });
+
+      if (startChapterSelect) {
+        startChapterSelect.addEventListener("change", function () {
+          const currentState = loadJourneyStudyPlanState();
+          saveJourneyStudyPlanState({
+            selectedMethodId: currentState.selectedMethodId || planCard.dataset.selectedGuide || "sequential",
+            methodId: currentState.selectedMethodId || planCard.dataset.selectedGuide || "sequential",
+            startChapterId: normalizeJourneyStartChapterId(startChapterSelect.value || "01")
+          });
+          renderJourneyProfile(profile);
+        });
+      }
+    }
+
+    function renderJourneyStepCard(kicker, step, options = {}) {
+      const isPrimary = Boolean(options.primary);
+      const hasHref = Boolean(step?.href);
+      const icon = options.icon || "fa-arrow-right";
+      const actionLabel = options.actionLabel || "Abrir";
+
+      return `
+        <article class="journey-step-card ${isPrimary ? "journey-step-card--suggested" : ""} ${hasHref ? "" : "is-disabled"}">
+          <div class="journey-card__kicker">${escapeHtml(kicker)}</div>
+          <div class="journey-card__title">${escapeHtml(step?.label || "Roteiro")}</div>
+          <div class="journey-card__copy">${escapeHtml(step?.reason || "")}</div>
+          <a class="saved-card__button ${isPrimary ? "saved-card__button--primary" : ""} journey-step-card__action" href="${escapeHtml(step?.href || "#")}">
+            <i class="fa-solid ${escapeHtml(hasHref ? icon : "fa-circle-pause")}"></i>
+            ${escapeHtml(hasHref ? actionLabel : "No início")}
+          </a>
+        </article>
+      `;
+    }
+
     function renderJourneyProfile(profile) {
       const summary = profile?.summary || {};
-      const nextAction = profile?.nextAction || {};
       const missions = Array.isArray(profile?.missions) ? profile.missions : [];
       const chapterProgress = Array.isArray(profile?.chapterProgress) ? profile.chapterProgress : [];
       const recentStudiedItems = Array.isArray(profile?.recentStudiedItems) ? profile.recentStudiedItems : [];
-      const enabledQuizChapterIds = Array.isArray(profile?.featureFlags?.enabledQuizChapterIds)
-        ? profile.featureFlags.enabledQuizChapterIds.map(function (value) { return String(value); })
-        : [];
       const masteryScore = Number(profile?.featureFlags?.masteryScore || 80);
       const currentStreak = Number(summary.currentStreak || 0);
       const xpTotal = Number(summary.xpTotal || 0);
@@ -6027,22 +6656,24 @@
         chapterProgress,
         recentStudiedItems
       });
-      const normalizedNextAction = journeyHasActivity
-        ? normalizeJourneyNextAction(nextAction)
-        : {
-            href: "index.html?view=chapters",
-            label: "Escolher primeiro capítulo",
-            reason: "Sua jornada ainda está zerada. Abra um capítulo e marque itens como estudados para o TERMO sugerir o próximo passo."
-          };
-      const nextHref = normalizedNextAction.href;
-      const nextLabel = normalizedNextAction.label;
-      const nextReason = normalizedNextAction.reason;
+      const planState = loadJourneyStudyPlanState();
+      const selectedGuide = getJourneyStudyGuide(planState.selectedMethodId || planState.methodId || "sequential");
+      const startChapterId = normalizeJourneyStartChapterId(planState.startChapterId || "01");
+      const studiedRouteKeys = buildJourneyStudiedRouteKeySet(chapterProgress, recentStudiedItems);
+      const visiblePlan = getJourneyVisiblePlan({
+        selectedGuide,
+        startChapterId,
+        studiedKeys: studiedRouteKeys
+      });
+      const previousStep = visiblePlan.steps[0];
+      const suggestedStep = visiblePlan.steps[1];
+      const nextStep = visiblePlan.steps[2];
       const activeChapters = chapters.filter(function (chapter) { return !chapter.disabled; });
       const quizChapters = activeChapters.filter(function (chapter) {
-        return enabledQuizChapterIds.includes(chapter.id);
+        return getJourneyValidatableTopics(chapter.id).length > 0;
       });
       const studyOnlyChapters = activeChapters.filter(function (chapter) {
-        return !enabledQuizChapterIds.includes(chapter.id);
+        return !getJourneyValidatableTopics(chapter.id).length;
       });
       const missionMarkup = missions.length
         ? missions.slice(0, 4).map(function (mission) {
@@ -6055,33 +6686,19 @@
             : "Comece por um capítulo ou por um simulado IA. Depois disso, o TERMO passa a sugerir um desafio com base no seu histórico.",
             "fa-bullseye"
           );
+      const syncWarningMarkup = profile?.syncWarning
+        ? `<div class="journey-sync-warning"><i class="fa-solid fa-circle-info"></i> ${escapeHtml(profile.syncWarning)}</div>`
+        : "";
 
       topicContainer.innerHTML = `
         <div class="journey-shell">
-          <section class="journey-hero">
-            <div>
-              <div class="journey-card__kicker">Área Pessoal</div>
-              <h2 class="journey-hero__title">Sua trilha de Termodinâmica</h2>
-              <div class="journey-hero__copy">
-                A jornada resume seu ritmo sem transformar estudo em distração: pontos indicam prática,
-                sequência mostra regularidade e o próximo passo aponta onde vale retomar.
-              </div>
-              <div class="journey-hero__action">
-                <a class="saved-card__button saved-card__button--primary" href="${escapeHtml(nextHref)}">
-                  <i class="fa-solid fa-arrow-right"></i>
-                  ${escapeHtml(nextLabel)}
-                </a>
-                <a class="saved-card__button" href="index.html?view=chapters">
-                  <i class="fa-solid fa-list-ul"></i>
-                  Ver capítulos
-                </a>
-              </div>
-            </div>
-            <aside class="journey-card journey-card--next">
-              <div class="journey-card__kicker">Próximo passo</div>
-              <div class="journey-card__title">${escapeHtml(nextLabel)}</div>
-              <div class="journey-card__copy">${escapeHtml(nextReason)}</div>
-            </aside>
+          ${renderJourneyPlanBuilder(selectedGuide, visiblePlan, visiblePlan.startChapterId || startChapterId)}
+          ${syncWarningMarkup}
+
+          <section class="journey-steps" aria-label="Roteiro de estudo">
+            ${renderJourneyStepCard("Passo anterior", previousStep, { icon: "fa-arrow-left", actionLabel: "Abrir" })}
+            ${renderJourneyStepCard("Passo sugerido", suggestedStep, { primary: true, icon: "fa-arrow-right", actionLabel: "Começar" })}
+            ${renderJourneyStepCard("Próximo passo", nextStep, { icon: "fa-forward-step", actionLabel: "Abrir" })}
           </section>
 
           <section class="journey-metrics" aria-label="Resumo da jornada">
@@ -6153,6 +6770,7 @@
         </div>
       `;
 
+      attachJourneyPlanHandlers(profile);
       attachJourneyMetricHelpHandlers(topicContainer);
     }
 
@@ -6163,6 +6781,7 @@
         return null;
       });
       state.loggedIn = Boolean(session?.user);
+      state.userId = session?.user?.id || "";
 
       panelKicker.textContent = "Área Pessoal";
       panelTitle.textContent = journeyPanelCopy.title;
@@ -6218,12 +6837,7 @@
       });
 
       if (!result.ok) {
-        topicContainer.innerHTML = `
-          <div class="empty-state">
-            <strong>Não foi possível carregar sua jornada.</strong><br />
-            ${escapeHtml(result.error || "Tente recarregar a página depois de alguns segundos.")}
-          </div>
-        `;
+        renderJourneyProfile(buildJourneyFallbackProfile("Aguardando plano de estudos. Escolha um guia e gere seu roteiro para começar."));
         return;
       }
 
