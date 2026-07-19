@@ -2598,6 +2598,28 @@
       margin-top: 8px;
     }
 
+    .journey-quiz__disclaimer {
+      background: #FFF7F5;
+      border-left: 4px solid var(--red);
+      border-radius: 12px;
+      color: var(--text);
+      font-family: "Lora", Georgia, serif;
+      font-size: 13.8px;
+      line-height: 1.55;
+      margin-top: 14px;
+      padding: 12px 14px;
+    }
+
+    .journey-quiz__disclaimer strong {
+      color: var(--text);
+      font-weight: 800;
+    }
+
+    .journey-quiz__disclaimer a {
+      color: var(--blue);
+      font-weight: 800;
+    }
+
     .journey-quiz__form {
       display: grid;
       gap: 14px;
@@ -6605,6 +6627,12 @@
               ${escapeHtml(quiz.note || "Responda as questões de múltipla escolha. A correção aparece ao final.")}
               Este simulado tem ${Number(quiz.questionCount || quiz.questions?.length || 0)} questões de múltipla escolha e será salvo no seu progresso ao enviar.
             </div>
+            <div class="journey-quiz__disclaimer">
+              <strong>Aviso importante:</strong> todo o conteúdo didático das páginas e do livro associado foi criado pelo autor do material.
+              Este simulado é um experimento didático; as questões, alternativas e explicações são geradas automaticamente por IA e
+              <strong>podem conter erros conceituais, matemáticos ou pedagógicos</strong>. Erros detectados podem ser relatados abaixo ou enviados para
+              <a href="mailto:marioreis@id.uff.br">marioreis@id.uff.br</a>.
+            </div>
           </section>
 
           <form class="journey-quiz__form" data-role="journey-quiz-form">
@@ -7802,6 +7830,12 @@
             <h2 class="journey-quiz__title">${escapeHtml(quiz.chapterCode || `Capítulo ${quiz.chapterId}`)} · pergunta curta</h2>
             <div class="journey-quiz__copy">
               Uma questão de múltipla escolha sobre um tema que você já marcou como estudado ou sobre um capítulo em que já fez simulado. Se acertar, ela vale 10 pontos de estudo e ajuda a liberar simulados mais rápido.
+            </div>
+            <div class="journey-quiz__disclaimer">
+              <strong>Aviso importante:</strong> todo o conteúdo didático das páginas e do livro associado foi criado pelo autor do material.
+              O desafio do dia é um experimento didático; a pergunta, as alternativas e a explicação são geradas automaticamente por IA e
+              <strong>podem conter erros conceituais, matemáticos ou pedagógicos</strong>. Erros detectados podem ser relatados abaixo ou enviados para
+              <a href="mailto:marioreis@id.uff.br">marioreis@id.uff.br</a>.
             </div>
           </section>
 
