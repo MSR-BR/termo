@@ -5756,6 +5756,10 @@
     }
 
     function buildJourneyQuizValidationSolution({ result = {}, feedback = [] } = {}) {
+      if (!Array.isArray(feedback) || !feedback.length) {
+        return "Relato enviado antes da correção do simulado. O gabarito e as explicações ainda não estavam exibidos para o aluno.";
+      }
+
       const lines = [
         `Resultado: ${Number(result.correctCount || 0)}/${Number(result.questionCount || 0)} acertos (${Number(result.score || 0)}%).`
       ];
@@ -6369,7 +6373,8 @@
       const questionCount = Number(result.questionCount || 0);
       const xpAwarded = Number(attempt.xpAwarded || 0);
       const masteryScore = Number(payload.profile?.featureFlags?.masteryScore || 80);
-      const isFullQuiz = attempt.attemptType === "full_quiz";
+      const attemptType = attempt.attemptType || attempt.attempt_type || "full_quiz";
+      const isFullQuiz = attemptType === "full_quiz";
       const isMastered = isFullQuiz && score >= masteryScore;
       const isExcellent = isFullQuiz && score >= 100;
       const reviewCandidate = isFullQuiz ? getJourneyReviewCandidate(feedback) : null;
@@ -6582,10 +6587,13 @@
               <span class="journey-quiz__error" data-role="journey-quiz-error" aria-live="polite"></span>
             </div>
           </form>
+
+          ${renderJourneyQuizValidationPanel(quiz)}
         </div>
       `;
 
       attachJourneyQuizHandlers({ session, quiz, startedAt });
+      attachJourneyQuizValidationHandlers({ session, quiz, result: null, feedback: [] });
       void typesetJourneyQuiz(topicContainer);
     }
 
