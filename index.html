@@ -2706,15 +2706,36 @@
       border-radius: 16px;
       background: #FFFFFF;
       margin-top: 16px;
-      padding: 14px;
+      overflow: hidden;
     }
 
-    .journey-quiz-report__intro {
+    .journey-quiz-report__summary {
       align-items: center;
+      color: var(--blue);
+      cursor: pointer;
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      font-weight: 800;
+      gap: 8px;
       justify-content: space-between;
+      list-style: none;
+      padding: 12px 14px;
+    }
+
+    .journey-quiz-report__summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .journey-quiz-report__summary::after {
+      color: var(--muted);
+      content: "abrir";
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .journey-quiz-report[open] .journey-quiz-report__summary::after {
+      content: "fechar";
     }
 
     .journey-quiz-report__copy {
@@ -2730,8 +2751,7 @@
       border-top: 1px solid #E6EEF8;
       display: grid;
       gap: 12px;
-      margin-top: 12px;
-      padding-top: 12px;
+      padding: 12px 14px 14px;
     }
 
     .journey-quiz-report__grid {
@@ -5755,9 +5775,9 @@
       }).join("\n\n");
     }
 
-    function buildJourneyQuizValidationSolution({ result = {}, feedback = [] } = {}) {
+    function buildJourneyQuizValidationSolution({ result = {}, feedback = [], reportLabel = "simulado" } = {}) {
       if (!Array.isArray(feedback) || !feedback.length) {
-        return "Relato enviado antes da correção do simulado. O gabarito e as explicações ainda não estavam exibidos para o aluno.";
+        return `Relato enviado antes da correção do ${reportLabel}. O gabarito e as explicações ainda não estavam exibidos para o aluno.`;
       }
 
       const lines = [
@@ -5779,21 +5799,19 @@
       return lines.join("\n\n");
     }
 
-    function renderJourneyQuizValidationPanel(quiz = {}) {
+    function renderJourneyQuizValidationPanel(quiz = {}, options = {}) {
       const suffix = `journey-${String(quiz.quizKey || quiz.chapterId || "quiz").replace(/[^a-z0-9]+/gi, "-")}`;
+      const kind = options.kind || "quiz";
+      const summaryTitle = options.summaryTitle || "Relatar problema neste simulado";
+      const summaryCopy = options.summaryCopy || "Opcional: avise se encontrar erro conceitual, gabarito estranho ou fórmula mal apresentada.";
       return `
-        <section class="journey-quiz-report" data-role="journey-quiz-report" data-validation-suffix="${escapeHtml(suffix)}">
-          <div class="journey-quiz-report__intro">
-            <p class="journey-quiz-report__copy">
-              Encontrou erro conceitual, gabarito estranho ou fórmula mal apresentada? Envie para revisão do professor.
-            </p>
-            <button class="saved-card__button" type="button" data-role="toggle-journey-quiz-report" aria-expanded="false">
-              <i class="fa-solid fa-triangle-exclamation"></i>
-              Relatar erro do simulado
-            </button>
-          </div>
+        <details class="journey-quiz-report" data-role="journey-quiz-report" data-validation-suffix="${escapeHtml(suffix)}" data-report-kind="${escapeHtml(kind)}">
+          <summary class="journey-quiz-report__summary">
+            <span><i class="fa-solid fa-triangle-exclamation"></i> ${escapeHtml(summaryTitle)}</span>
+            <span class="journey-quiz-report__copy">${escapeHtml(summaryCopy)}</span>
+          </summary>
 
-          <div class="journey-quiz-report__panel" data-role="journey-quiz-report-panel" hidden>
+          <div class="journey-quiz-report__panel" data-role="journey-quiz-report-panel">
             <div class="journey-quiz-report__grid">
               <div class="journey-quiz-report__group">
                 <div class="journey-quiz-report__label">Enunciado ou alternativas contêm erro?</div>
@@ -5858,7 +5876,7 @@
               <span class="journey-quiz-report__status" data-role="journey-quiz-report-status" aria-live="polite"></span>
             </div>
           </div>
-        </section>
+        </details>
       `;
     }
 
@@ -5872,16 +5890,9 @@
 
     function attachJourneyQuizValidationHandlers({ session, quiz, result, feedback }) {
       const report = topicContainer.querySelector("[data-role='journey-quiz-report']");
-      const toggle = report?.querySelector("[data-role='toggle-journey-quiz-report']");
       const panel = report?.querySelector("[data-role='journey-quiz-report-panel']");
       const submit = report?.querySelector("[data-role='submit-journey-quiz-report']");
-      if (!report || !toggle || !panel || !submit) return;
-
-      toggle.addEventListener("click", function () {
-        const nextOpen = panel.hidden;
-        panel.hidden = !nextOpen;
-        toggle.setAttribute("aria-expanded", String(nextOpen));
-      });
+      if (!report || !panel || !submit) return;
 
       submit.addEventListener("click", async function () {
         const suffix = report.dataset.validationSuffix || "";
@@ -5917,8 +5928,13 @@
           submit.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Enviando...`;
           setJourneyQuizReportStatus(report, "Enviando para revisão do professor...", "");
 
+          const reportKind = report.dataset.reportKind || "quiz";
+          const isDailyChallengeReport = reportKind === "daily-challenge";
           const chapterId = String(quiz.chapterId || state.chapterId || "").padStart(2, "0");
-          const pagePath = `index.html?view=journey&section=quiz&chapter=${chapterId}`;
+          const pagePath = isDailyChallengeReport
+            ? "index.html?view=daily-challenge"
+            : `index.html?view=journey&section=quiz&chapter=${chapterId}`;
+          const reportLabel = isDailyChallengeReport ? "desafio do dia" : "simulado";
           const response = await fetch("/api/exercicio-validacao", {
             method: "POST",
             headers: {
@@ -5927,18 +5943,20 @@
             },
             body: JSON.stringify({
               chapterId,
-              itemId: `simulado-${chapterId}`,
-              exerciseId: quiz.quizKey || `simulado-${chapterId}`,
+              itemId: isDailyChallengeReport ? `desafio-${chapterId}` : `simulado-${chapterId}`,
+              exerciseId: quiz.quizKey || (isDailyChallengeReport ? `desafio-${chapterId}` : `simulado-${chapterId}`),
               pagePath,
               pageUrl: pagePath,
-              pageTitle: `${quiz.chapterCode || `Capítulo ${chapterId}`} · ${quiz.chapterTitle || "Simulado"}`,
-              pageSubtitle: "Simulado de múltipla escolha",
+              pageTitle: isDailyChallengeReport
+                ? `Desafio do dia · ${quiz.chapterCode || `Capítulo ${chapterId}`}`
+                : `${quiz.chapterCode || `Capítulo ${chapterId}`} · ${quiz.chapterTitle || "Simulado"}`,
+              pageSubtitle: isDailyChallengeReport ? "Desafio do dia de múltipla escolha" : "Simulado de múltipla escolha",
               pageContent: quiz.note || "",
-              difficulty: "simulado",
+              difficulty: isDailyChallengeReport ? "desafio" : "simulado",
               savedExerciseId: "",
-              exerciseTitle: `Simulado ${quiz.chapterCode || chapterId}`,
+              exerciseTitle: isDailyChallengeReport ? `Desafio do dia ${quiz.chapterCode || chapterId}` : `Simulado ${quiz.chapterCode || chapterId}`,
               statement: buildJourneyQuizValidationStatement(quiz),
-              solution: buildJourneyQuizValidationSolution({ result, feedback }),
+              solution: buildJourneyQuizValidationSolution({ result, feedback, reportLabel }),
               statementStatus,
               solutionStatus,
               statementNote: statementStatus === "sim" ? note : "",
@@ -6152,11 +6170,12 @@
       };
     }
 
-    function renderDailyChallengeResult(challenge) {
+    function renderDailyChallengeResult(challenge, session = null) {
       const payload = challenge?.result || {};
       const attempt = payload.attempt || {};
       const result = payload.result || {};
       const feedback = Array.isArray(result.feedback) ? result.feedback[0] : null;
+      const quiz = challenge?.quiz || payload.quiz || {};
       const score = Number(result.score || attempt.score || 0);
       const xpAwarded = Number(attempt.xpAwarded || 0);
       const isCorrect = Boolean(feedback?.isCorrect);
@@ -6194,8 +6213,23 @@
               </article>
             </section>
           ` : ""}
+
+          ${renderJourneyQuizValidationPanel(quiz, {
+            kind: "daily-challenge",
+            summaryTitle: "Relatar problema no desafio do dia",
+            summaryCopy: "Opcional: avise se a pergunta, alternativa, gabarito ou explicação parecerem incorretos."
+          })}
         </div>
       `;
+
+      if (session) {
+        attachJourneyQuizValidationHandlers({
+          session,
+          quiz,
+          result,
+          feedback: feedback ? [feedback] : []
+        });
+      }
     }
 
     function attachDailyChallengeHandlers({ session, challenge }) {
@@ -6246,7 +6280,7 @@
           if (result.payload?.profile) {
             setCachedGamificationProfile(result.payload.profile, state.userId);
           }
-          renderDailyChallengeResult(completedChallenge);
+          renderDailyChallengeResult(completedChallenge, session);
         } finally {
           if (submitButton) {
             submitButton.disabled = false;
@@ -7688,7 +7722,7 @@
       }
 
       if (savedChallenge?.completed) {
-        renderDailyChallengeResult(savedChallenge);
+        renderDailyChallengeResult(savedChallenge, session);
         return;
       }
 
@@ -7785,10 +7819,17 @@
               <span class="journey-quiz__error" data-role="daily-challenge-error" aria-live="polite"></span>
             </div>
           </form>
+
+          ${renderJourneyQuizValidationPanel(quiz, {
+            kind: "daily-challenge",
+            summaryTitle: "Relatar problema no desafio do dia",
+            summaryCopy: "Opcional: avise se a pergunta, alternativa, gabarito ou fórmula parecerem incorretos."
+          })}
         </div>
       `;
 
       attachDailyChallengeHandlers({ session, challenge });
+      attachJourneyQuizValidationHandlers({ session, quiz, result: null, feedback: [] });
       void typesetJourneyQuiz(topicContainer);
     }
 
