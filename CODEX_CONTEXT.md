@@ -92,6 +92,15 @@ Known simulator mapping:
 - Deploy is on Vercel.
 - Auth, Storage, and part of the data layer use Supabase.
 - AI exercises use Gemini through the existing backend/API integration.
+- The technical AI exercise reference index lives at
+  `docs/exercicios-ia-indice-referencias.html`. It is shown in the app Extras
+  menu only for the admin email `marioreis@id.uff.br`. Regenerate it whenever
+  the app HTML content or the book PDF changes.
+- AI exercise error reports reuse `exercise_validation_reports`. Student reports
+  include a simple problem type; the professor can approve reports as memory,
+  reject them, or set `review_status = disabled` to keep the history while
+  removing that correction from future AI context. Only approved confirmed
+  errors with `avoid_propagation = true` are loaded into generation memory.
 - Gamification is intentionally lightweight for the first public version:
   `Pontos e simulados` lives under `Extras`, the header shows the user's points,
   chapter quizzes unlock in order, and `Desafio do dia` is a separate `Extras`
@@ -150,6 +159,14 @@ Before editing:
 After editing:
 - run `npm run check`;
 - run targeted syntax checks when touching JS, such as `node --check path`;
+- when changing the book PDF, chapter HTML, or AI exercise references, run
+  `npm run extract:book-sections`, `npm run build:book-topic-index`,
+  `npm run docs:ai-exercise-index`, `npm run validate:book-corpus`, and
+  `npm run validate:book-topic-index`;
+- when changing the AI exercise context package, run `npm run smoke:ai-context`
+  to inspect the prompt context for representative sections;
+- when changing generated exercise math handling, run
+  `npm run smoke:math-contract`;
 - review `git diff`;
 - for visual work, start `npm run dev` and inspect the affected page when useful.
 

@@ -323,6 +323,24 @@
   min-height:78px;
 }
 
+.termo-exercise__validation-group--wide{
+  display:block;
+  margin-top:14px;
+}
+
+.termo-exercise__validation-select{
+  width:100%;
+  min-height:42px;
+  border:1px solid #D7E3F4;
+  border-radius:12px;
+  padding:9px 12px;
+  font-family:"Inter",sans-serif;
+  font-size:.94rem;
+  font-weight:700;
+  color:var(--exercise-text);
+  background:#F8FBFF;
+}
+
 .termo-exercise__validation-actions{
   margin-top:14px;
 }

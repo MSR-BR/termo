@@ -806,6 +806,9 @@
     host.querySelectorAll('[data-role="validation-note"]').forEach(function (input) {
       input.value = "";
     });
+    host.querySelectorAll('[data-role="validation-error-type"]').forEach(function (input) {
+      input.value = "";
+    });
     host.querySelectorAll(".termo-exercise__validation-note-box").forEach(function (box) {
       box.hidden = true;
     });
@@ -850,9 +853,16 @@
     const solutionStatus = host.querySelector(`input[name="solution-validation-${host.dataset.exerciseIdSuffix}"]:checked`)?.value || "";
     const statementNote = (host.querySelector('[data-role="statement-note"]')?.value || "").trim();
     const solutionNote = (host.querySelector('[data-role="solution-note"]')?.value || "").trim();
+    const errorType = (host.querySelector('[data-role="validation-error-type"]')?.value || "").trim();
+    const hasReportedError = statementStatus === "sim" || solutionStatus === "sim";
 
     if (!statementStatus || !solutionStatus) {
       setValidationStatus(host, "Preencha a avaliação do enunciado e da solução.", "warning");
+      return;
+    }
+
+    if (hasReportedError && !errorType) {
+      setValidationStatus(host, "Escolha o tipo principal de problema encontrado.", "warning");
       return;
     }
 
@@ -899,6 +909,12 @@
           solutionStatus,
           statementNote,
           solutionNote,
+          errorType,
+          model: state.exercise.model || "",
+          sourceReferences: state.exercise.sourceReferences || [],
+          contextPackageMeta: state.exercise.contextPackageMeta || {},
+          mathContract: state.exercise.mathContract || null,
+          mathContractOk: state.exercise.mathContractOk === true,
           language: "pt-BR"
         })
       });
@@ -922,7 +938,8 @@
       trackAnalytics("exercise_validation_success", {
         difficulty: state.exercise.difficulty || "",
         statement_status: statementStatus,
-        solution_status: solutionStatus
+        solution_status: solutionStatus,
+        error_type: errorType
       });
     } catch (error) {
       console.warn("Nao foi possivel enviar a validacao do exercicio.", error);
@@ -1011,7 +1028,7 @@
             <i class="fa-solid fa-graduation-cap"></i>
             Relato de validação do exercício
           </div>
-          <div class="termo-exercise__validation-copy">Marque se o enunciado ou a solução contêm erros. Se marcar <strong>sim</strong>, descreva o problema em uma única frase.</div>
+          <div class="termo-exercise__validation-copy">Marque se o enunciado ou a solução contêm erros. Se marcar <strong>sim</strong>, escolha o tipo de problema e descreva em uma frase.</div>
         </div>
 
         <div class="termo-exercise__validation-grid">
@@ -1057,6 +1074,19 @@
             </div>
           </div>
         </div>
+
+        <label class="termo-exercise__validation-group termo-exercise__validation-group--wide">
+          <span class="termo-exercise__validation-label">Tipo principal de problema, se houver erro</span>
+          <select class="termo-exercise__validation-select" data-role="validation-error-type">
+            <option value="">Escolher apenas se marcou erro</option>
+            <option value="conceitual">Erro conceitual</option>
+            <option value="latex">Fórmula/equação mal apresentada</option>
+            <option value="alternativa">Alternativa ou gabarito incorreto</option>
+            <option value="explicacao">Explicação insuficiente</option>
+            <option value="fora_do_conteudo">Fora do conteúdo estudado</option>
+            <option value="outro">Outro problema</option>
+          </select>
+        </label>
 
         <div class="termo-exercise__validation-actions">
           <button class="termo-exercise__btn termo-exercise__btn--validation-submit" data-role="submit-validation" type="button">
@@ -1156,7 +1186,12 @@
         statement: cleanData.statement || "",
         solution: cleanData.solution || "",
         difficulty: difficulty.value,
-        context: ctx
+        context: ctx,
+        model: data.model || "",
+        sourceReferences: Array.isArray(data.sourceReferences) ? data.sourceReferences : [],
+        contextPackageMeta: data.contextPackageMeta || {},
+        mathContract: data.mathContract || null,
+        mathContractOk: data.mathContractOk === true
       };
       hostState.saveResult = await persistExercise(host, buildExerciseRecord(ctx, cleanData, difficulty.value));
       trackAnalytics("exercise_generate_success", {

@@ -2891,6 +2891,19 @@
       margin-top: 14px;
     }
 
+    .validation-review-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 0 0 18px;
+    }
+
+    .validation-review-toolbar .saved-card__button.is-active {
+      background: #EAF3FF;
+      border-color: #B8D3F7;
+      color: var(--blue);
+    }
+
     .footer {
       max-width: 1280px;
       width: 100%;
@@ -4210,11 +4223,13 @@
       simulatorId: requestedView === "simulators" ? "" : (params.get("sim") || ""),
       loggedIn: false,
       userId: "",
+      userEmail: "",
       canReviewValidations: false,
       favoriteItems: [],
       favoriteExercises: [],
       savedExercises: [],
       validationReports: [],
+      validationReviewStatus: "pending",
       exerciseModal: null,
       selectedExerciseId: null,
       jsPdfPromise: null,
@@ -4772,6 +4787,22 @@
         });
         extrasList.appendChild(button);
       });
+
+      if (isAiExerciseIndexAdmin()) {
+        const adminIndexLink = document.createElement("a");
+        adminIndexLink.className = "extras-button";
+        adminIndexLink.href = "docs/exercicios-ia-indice-referencias.html";
+        adminIndexLink.target = "_blank";
+        adminIndexLink.rel = "noreferrer";
+        adminIndexLink.innerHTML = `
+          <span class="extras-icon"><i class="fa-solid fa-diagram-project"></i></span>
+          <span class="extras-text">
+            <span class="extras-label">Índice IA</span>
+            <span class="extras-note">Referência técnica dos exercícios IA e trechos do livro.</span>
+          </span>
+        `;
+        extrasList.appendChild(adminIndexLink);
+      }
 
       const bookButton = document.createElement("button");
       bookButton.type = "button";
@@ -7486,6 +7517,41 @@
       return labels[value] || "Não informado";
     }
 
+    function validationReviewStatusLabel(value) {
+      const labels = {
+        pending: "Pendentes",
+        approved: "Memórias ativas",
+        disabled: "Desativadas",
+        rejected: "Rejeitadas"
+      };
+      return labels[value] || labels.pending;
+    }
+
+    function validationReviewStatusDescription(value) {
+      const descriptions = {
+        pending: "Relatos novos aguardando decisão do professor.",
+        approved: "Relatos aprovados que entram como orientação para próximas gerações.",
+        disabled: "Relatos preservados no histórico, mas removidos do contexto da IA.",
+        rejected: "Relatos que foram revisados e não entram na memória da IA."
+      };
+      return descriptions[value] || descriptions.pending;
+    }
+
+    function renderValidationReviewToolbar(activeStatus) {
+      const statuses = ["pending", "approved", "disabled", "rejected"];
+      return `
+        <div class="validation-review-toolbar" aria-label="Filtrar validações">
+          ${statuses.map(function (status) {
+            return `
+              <button class="saved-card__button ${status === activeStatus ? "is-active" : ""}" data-role="validation-review-status" data-status="${escapeHtml(status)}" type="button">
+                ${escapeHtml(validationReviewStatusLabel(status))}
+              </button>
+            `;
+          }).join("")}
+        </div>
+      `;
+    }
+
     function renderValidationChoicePill(label, value) {
       return `
         <span class="validation-review-card__choice">
@@ -7504,11 +7570,19 @@
     }
 
     function renderValidationReportItem(report) {
+      const reviewStatus = report.review_status || "pending";
       const issueLabels = [
         report.statement_status === "sim" ? "Enunciado com possível erro" : "",
         report.solution_status === "sim" ? "Solução com possível erro" : ""
       ].filter(Boolean);
       const notes = [report.statement_note, report.solution_note].filter(Boolean).join(" / ");
+      const reviewSummary = [report.ai_review_summary, report.ai_correction_advice].filter(Boolean).join(" / ");
+      const primaryActionLabel = reviewStatus === "disabled" || reviewStatus === "rejected"
+        ? "Ativar como memória"
+        : "Aprovar como memória";
+      const showApproveAction = reviewStatus !== "approved";
+      const showDisableAction = reviewStatus === "approved";
+      const showRejectAction = reviewStatus !== "rejected";
 
       return `
         <article class="validation-review-card" data-report-id="${escapeHtml(report.id)}">
@@ -7518,6 +7592,7 @@
                 <span class="saved-chip"><i class="fa-solid fa-fingerprint"></i>${escapeHtml(report.exercise_id || "Sem ID")}</span>
                 <span class="saved-chip"><i class="fa-solid fa-layer-group"></i>${escapeHtml(report.item_id || report.chapter_id || "Curso")}</span>
                 <span class="saved-chip"><i class="fa-solid fa-clock-rotate-left"></i>${escapeHtml(formatDate(report.created_at))}</span>
+                <span class="saved-chip"><i class="fa-solid fa-database"></i>${escapeHtml(validationReviewStatusLabel(reviewStatus))}</span>
               </div>
               <div class="validation-review-card__title">${escapeHtml(report.exercise_title || "Exercício")}</div>
               <div class="validation-review-card__source">${escapeHtml(report.page_title || "Página do curso")}</div>
@@ -7529,7 +7604,8 @@
             ${renderValidationChoicePill("Solução", report.solution_status)}
           </div>
           ${notes ? `<div class="validation-review-card__note">${escapeHtml(notes)}</div>` : ""}
-          <div class="validation-review-card__decision-help">Aprovar ou rejeitar aqui avalia o relato enviado pelo usuário. Não é uma certificação pública do exercício inteiro.</div>
+          ${reviewSummary ? `<div class="validation-review-card__note">${escapeHtml(reviewSummary)}</div>` : ""}
+          <div class="validation-review-card__decision-help">Aprovar transforma o relato em memória para próximas gerações. Desativar mantém o histórico, mas remove essa orientação da memória usada pela IA.</div>
           <details class="validation-review-card__details">
             <summary>Ver enunciado e solução</summary>
             <div class="validation-review-card__section">
@@ -7546,14 +7622,18 @@
             <textarea data-role="review-admin-note" rows="2" maxlength="280" placeholder="Opcional: registre uma orientação curta para a IA."></textarea>
           </label>
           <div class="validation-review-card__actions">
-            <button class="saved-card__button saved-card__button--primary" data-role="review-validation" data-decision="approved" type="button">
+            ${showApproveAction ? `<button class="saved-card__button saved-card__button--primary" data-role="review-validation" data-decision="approved" type="button">
               <i class="fa-solid fa-check"></i>
-              Aprovar relato
-            </button>
-            <button class="saved-card__button" data-role="review-validation" data-decision="rejected" type="button">
+              ${escapeHtml(primaryActionLabel)}
+            </button>` : ""}
+            ${showDisableAction ? `<button class="saved-card__button" data-role="review-validation" data-decision="disabled" type="button">
+              <i class="fa-solid fa-ban"></i>
+              Desativar memória
+            </button>` : ""}
+            ${showRejectAction ? `<button class="saved-card__button" data-role="review-validation" data-decision="rejected" type="button">
               <i class="fa-solid fa-xmark"></i>
-              Rejeitar relato
-            </button>
+              Rejeitar
+            </button>` : ""}
             <a class="saved-card__button" href="${escapeHtml(normalizeAppRelativeUrl(report.page_path || report.page_url))}" target="_blank" rel="noopener noreferrer">
               <i class="fa-solid fa-arrow-up-right-from-square"></i>
               Abrir página
@@ -7565,6 +7645,13 @@
     }
 
     function attachValidationReviewHandlers(scope) {
+      scope.querySelectorAll('[data-role="validation-review-status"]').forEach((button) => {
+        button.addEventListener("click", function () {
+          state.validationReviewStatus = button.dataset.status || "pending";
+          void renderValidationReview();
+        });
+      });
+
       scope.querySelectorAll(".validation-review-card__details").forEach((details) => {
         details.addEventListener("toggle", function () {
           if (details.open) {
@@ -7657,6 +7744,10 @@
       return validatorEmails.includes(email);
     }
 
+    function isAiExerciseIndexAdmin() {
+      return String(state.userEmail || "").trim().toLowerCase() === "marioreis@id.uff.br";
+    }
+
     async function refreshUserState() {
       const sessionPromise = window.TermoAuth && typeof window.TermoAuth.getSession === "function"
         ? window.TermoAuth.getSession()
@@ -7667,6 +7758,7 @@
 
       state.loggedIn = Boolean(session?.user);
       state.userId = session?.user?.id || "";
+      state.userEmail = session?.user?.email || "";
       state.canReviewValidations = await canCurrentUserReviewValidations(session);
       await refreshFavoriteCollections();
       await refreshHeaderPointsButton();
@@ -7886,9 +7978,11 @@
       });
       state.loggedIn = Boolean(session?.user);
       state.canReviewValidations = await canCurrentUserReviewValidations(session);
+      state.validationReviewStatus = state.validationReviewStatus || "pending";
+      const activeStatus = state.validationReviewStatus;
       panelKicker.textContent = "Área Pessoal";
-      panelTitle.textContent = "Validações pendentes";
-      panelDescription.textContent = "Revise os relatos enviados pelos usuários e decida quais comentários devem ser aproveitados na melhoria das próximas gerações.";
+      panelTitle.textContent = "Validação dos exercícios IA";
+      panelDescription.textContent = "Revise relatos enviados pelos usuários e controle quais correções entram na memória usada pelas próximas gerações.";
       setActiveChapter(state.chapterId);
       setActivePersonal("validation-review");
       setActiveExtra("");
@@ -7914,19 +8008,25 @@
         return;
       }
 
-      topicContainer.innerHTML = `<div class="empty-state"><strong>Carregando relatos pendentes...</strong><br />Buscando validações enviadas pelos usuários.</div>`;
+      topicContainer.innerHTML = `
+        ${renderValidationReviewToolbar(activeStatus)}
+        <div class="empty-state"><strong>Carregando relatos...</strong><br />${escapeHtml(validationReviewStatusDescription(activeStatus))}</div>
+      `;
+      attachValidationReviewHandlers(topicContainer);
 
-      const result = await window.TermoUserData.listValidationReports({ status: "pending" }).catch(function (error) {
+      const result = await window.TermoUserData.listValidationReports({ status: activeStatus }).catch(function (error) {
         return { ok: false, error, reports: [] };
       });
 
       if (!result.ok) {
         topicContainer.innerHTML = `
+          ${renderValidationReviewToolbar(activeStatus)}
           <div class="empty-state">
             <strong>Não foi possível carregar as validações.</strong><br />
             Verifique as políticas RLS da tabela <code>exercise_validation_reports</code>.
           </div>
         `;
+        attachValidationReviewHandlers(topicContainer);
         return;
       }
 
@@ -7934,15 +8034,20 @@
 
       if (!state.validationReports.length) {
         topicContainer.innerHTML = `
+          ${renderValidationReviewToolbar(activeStatus)}
           <div class="empty-state">
-            <strong>Nenhuma validação pendente.</strong><br />
-            Novos relatos enviados pelos usuários aparecerão aqui.
+            <strong>Nenhum relato em ${escapeHtml(validationReviewStatusLabel(activeStatus).toLowerCase())}.</strong><br />
+            ${escapeHtml(validationReviewStatusDescription(activeStatus))}
           </div>
         `;
+        attachValidationReviewHandlers(topicContainer);
         return;
       }
 
-      topicContainer.innerHTML = `<div class="validation-review-list">${state.validationReports.map(renderValidationReportItem).join("")}</div>`;
+      topicContainer.innerHTML = `
+        ${renderValidationReviewToolbar(activeStatus)}
+        <div class="validation-review-list">${state.validationReports.map(renderValidationReportItem).join("")}</div>
+      `;
       attachValidationReviewHandlers(topicContainer);
       await typesetValidationReview(topicContainer);
     }

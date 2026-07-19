@@ -1,0 +1,3318 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>TERMO · Indice de Exercicios IA e Referencias</title>
+  <style>
+    :root {
+      --blue: #004f8f;
+      --red: #b33a32;
+      --green: #16824a;
+      --ink: #21364d;
+      --muted: #5f7186;
+      --line: #d9e7f8;
+      --wash: #f6f9fd;
+      --yellow: #fff8e6;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: linear-gradient(135deg, #eef6ff 0%, #fff 42%, #f7fbf4 100%);
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.45;
+    }
+    main { width: min(1320px, calc(100vw - 32px)); margin: 32px auto 64px; }
+    header, section, .notice {
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      box-shadow: 0 22px 60px rgba(0, 79, 143, 0.08);
+    }
+    header { padding: 30px; }
+    .eyebrow {
+      color: var(--red);
+      font: 800 14px/1.2 system-ui, sans-serif;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+    h1, h2, h3 { color: var(--blue); margin: 0; }
+    h1 { font: 850 clamp(34px, 6vw, 62px)/1.02 system-ui, sans-serif; margin-top: 8px; }
+    h2 { font: 850 clamp(28px, 4vw, 44px)/1.05 system-ui, sans-serif; }
+    h3 { font: 850 22px/1.12 system-ui, sans-serif; }
+    p { color: var(--muted); font-size: 19px; }
+    code {
+      background: #eef5ff;
+      border: 1px solid #d7e8ff;
+      border-radius: 8px;
+      color: var(--blue);
+      padding: 2px 6px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    nav { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+    nav a, .card-topline a {
+      border: 1px solid #bcd4f5;
+      border-radius: 999px;
+      color: var(--blue);
+      padding: 10px 14px;
+      text-decoration: none;
+      font: 800 15px/1 system-ui, sans-serif;
+      background: #fff;
+    }
+    .notice {
+      margin-top: 22px;
+      padding: 22px;
+      background: var(--yellow);
+      border-color: #f1d38c;
+    }
+    .notice strong { color: #7a4f00; }
+    section { margin-top: 26px; padding: 26px; }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .summary-card {
+      background: var(--wash);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 16px;
+      font-family: system-ui, sans-serif;
+    }
+    .summary-card strong { display: block; color: var(--blue); font-size: 32px; }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .section-card, .topic-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 18px;
+    }
+    .card-topline {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      color: var(--muted);
+      font: 800 12px/1.2 system-ui, sans-serif;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .topic-lines { display: grid; gap: 10px; margin: 14px 0; }
+    .topic-lines strong {
+      display: block;
+      margin-bottom: 6px;
+      font: 800 13px/1.2 system-ui, sans-serif;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .badge {
+      display: inline-block;
+      margin: 3px 5px 3px 0;
+      border-radius: 999px;
+      padding: 7px 10px;
+      font: 800 13px/1 system-ui, sans-serif;
+      background: #eaf7ef;
+      color: #126b3c;
+      border: 1px solid #b8e6c6;
+    }
+    .badge.advanced {
+      background: #fff4df;
+      color: #855500;
+      border-color: #efd09a;
+    }
+    .muted { color: var(--muted); }
+    details {
+      border-top: 1px solid var(--line);
+      margin-top: 14px;
+      padding-top: 12px;
+    }
+    summary {
+      cursor: pointer;
+      color: var(--blue);
+      font: 850 16px/1.2 system-ui, sans-serif;
+    }
+    li { margin: 10px 0; }
+    li span, li small { display: block; color: var(--muted); }
+    .topic-card ul { padding-left: 20px; }
+    .topic-card a { color: var(--blue); font-weight: 800; text-decoration: none; }
+    @media (max-width: 760px) {
+      header, section, .notice { border-radius: 22px; padding: 20px; }
+      .card-grid { grid-template-columns: 1fr; }
+      .card-topline { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="eyebrow">TERMO · Referencia tecnica</div>
+      <h1>Indice de exercicios IA e referencias</h1>
+      <p>Este arquivo documenta o mapa entre secoes do app, referencias canonicas do PDF e temas transversais usados para orientar exercicios e simulados por IA.</p>
+      <nav>
+        <a href="#manutencao">Manutencao obrigatoria</a>
+        <a href="#indice-principal">Indice principal por secao</a>
+        <a href="#indice-transversal">Indice transversal por tema</a>
+      </nav>
+    </header>
+
+    <aside class="notice" id="manutencao">
+      <div class="eyebrow">Manutencao obrigatoria</div>
+      <h2>Atualizar quando o app ou o PDF mudarem</h2>
+      <p><strong>Importante:</strong> se o conteudo das paginas HTML do app ou o PDF do livro forem atualizados, este indice deve ser regenerado antes de alterar prompts, exercicios IA ou simulados.</p>
+      <p>Fluxo recomendado: <code>npm run extract:book-sections</code>, <code>npm run build:book-topic-index</code>, <code>npm run docs:ai-exercise-index</code>, depois validar com <code>npm run validate:book-corpus</code> e <code>npm run validate:book-topic-index</code>.</p>
+    </aside>
+
+    <section>
+      <div class="eyebrow">Resumo</div>
+      <h2>Estado deste indice</h2>
+      <p>Gerado em 2026-07-19T14:36:05.061Z a partir de <code>data/book-section-corpus.json</code> e <code>data/book-topic-index.json</code>.</p>
+      <div class="summary-grid">
+        <div class="summary-card"><strong>61</strong>secoes do app indexadas</div>
+        <div class="summary-card"><strong>44</strong>temas transversais</div>
+        <div class="summary-card"><strong>137</strong>paginas no PDF fonte</div>
+      </div>
+    </section>
+
+    <section id="indice-principal">
+      <div class="eyebrow">Indice principal</div>
+      <h2>Secoes do app e referencias canonicas</h2>
+      <p>Use este indice para conferir qual trecho do PDF ancora cada exercicio de secao. Os temas em verde sao contexto padrao; os temas em amarelo sao apenas apoio avancado.</p>
+      <div class="card-grid">
+    <article class="section-card" id="sec-1.1">
+      <div class="card-topline">
+        <span>Cap. 01 · 1.1</span>
+        <a href="../slides/capitulo-01/page_2.html">Abrir pagina</a>
+      </div>
+      <h3>Lei Zero da Termodinamica</h3>
+      <p><strong>Topico principal:</strong> <code>lei-zero</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">temperatura-termometria</span><span class="badge default">equilibrio</span></div>
+        <div><strong>Apoio avancado</strong><span class="muted">Nenhum.</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Lei Zero da Termodinâmica</strong>
+      <span>PDF p.7</span>
+      <small>Conceitos Fundamentais</small>
+      <small>PDF section 2.1 introduces the Zeroth Law and thermometry.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-1.2">
+      <div class="card-topline">
+        <span>Cap. 01 · 1.2</span>
+        <a href="../slides/capitulo-01/page_3.html">Abrir pagina</a>
+      </div>
+      <h3>Metodos de Medicao de Temperatura</h3>
+      <p><strong>Topico principal:</strong> <code>medicao-temperatura</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">temperatura-termometria</span></div>
+        <div><strong>Apoio avancado</strong><span class="muted">Nenhum.</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Métodos de Medição de Temperatura</strong>
+      <span>PDF p.7-8</span>
+      <small>Conceitos Fundamentais</small>
+      <small>Temperature measurement methods appear in the continuation of PDF section 2.1.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-1.3">
+      <div class="card-topline">
+        <span>Cap. 01 · 1.3</span>
+        <a href="../slides/capitulo-01/page_4.html">Abrir pagina</a>
+      </div>
+      <h3>Escalas Termometricas</h3>
+      <p><strong>Topico principal:</strong> <code>escalas-termometricas</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">temperatura-termometria</span></div>
+        <div><strong>Apoio avancado</strong><span class="muted">Nenhum.</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Escalas Termométricas</strong>
+      <span>PDF p.8-9</span>
+      <small>Conceitos Fundamentais</small>
+      <small>Thermometric scales are discussed before Example 2.1.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-1.4">
+      <div class="card-topline">
+        <span>Cap. 01 · 1.4</span>
+        <a href="../slides/capitulo-01/page_5.html">Abrir pagina</a>
+      </div>
+      <h3>Relacao entre Escalas</h3>
+      <p><strong>Topico principal:</strong> <code>conversao-escalas</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">temperatura-termometria</span></div>
+        <div><strong>Apoio avancado</strong><span class="muted">Nenhum.</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Relação entre Escalas</strong>
+      <span>PDF p.9</span>
+      <small>Conceitos Fundamentais</small>
+      <small>Example 2.1 derives the Celsius-Fahrenheit relation.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-1.5">
+      <div class="card-topline">
+        <span>Cap. 01 · 1.5</span>
+        <a href="../slides/capitulo-01/page_6.html">Abrir pagina</a>
+      </div>
+      <h3>Sistemas Termodinamicos</h3>
+      <p><strong>Topico principal:</strong> <code>sistemas-termodinamicos</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">estado-termodinamico</span></div>
+        <div><strong>Apoio avancado</strong><span class="muted">Nenhum.</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Classificação dos Sistemas Termodinâmicos</strong>
+      <span>PDF p.9-10</span>
+      <small>Conceitos Fundamentais</small>
+      <small>PDF section 2.2 classifies open, closed and isolated systems.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-1.6">
+      <div class="card-topline">
+        <span>Cap. 01 · 1.6</span>
+        <a href="../slides/capitulo-01/page_7.html">Abrir pagina</a>
+      </div>
+      <h3>Transformacoes Termodinamicas</h3>
+      <p><strong>Topico principal:</strong> <code>transformacoes-termodinamicas</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">estado-termodinamico</span></div>
+        <div><strong>Apoio avancado</strong><span class="muted">Nenhum.</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Transformações Termodinâmicas</strong>
+      <span>PDF p.10-11</span>
+      <small>Conceitos Fundamentais</small>
+      <small>PDF section 2.3 discusses reversibility and equilibrium in thermodynamic transformations.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-1.7">
+      <div class="card-topline">
+        <span>Cap. 01 · 1.7</span>
+        <a href="../slides/capitulo-01/page_8.html">Abrir pagina</a>
+      </div>
+      <h3>Estados, Variaveis e Funcoes de Estado</h3>
+      <p><strong>Topico principal:</strong> <code>funcoes-de-estado</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">estado-termodinamico</span></div>
+        <div><strong>Apoio avancado</strong><span class="muted">Nenhum.</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Estados Termodinâmicos e Funções de Estado</strong>
+      <span>PDF p.11</span>
+      <small>Conceitos Fundamentais</small>
+      <small>PDF section 2.4 defines thermodynamic states and state functions.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-1.8">
+      <div class="card-topline">
+        <span>Cap. 01 · 1.8</span>
+        <a href="../slides/capitulo-01/page_9.html">Abrir pagina</a>
+      </div>
+      <h3>Calor</h3>
+      <p><strong>Topico principal:</strong> <code>calor</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">calor-fundamentos</span></div>
+        <div><strong>Apoio avancado</strong><span class="badge advanced">calor</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Calor</strong>
+      <span>PDF p.11-12</span>
+      <small>Conceitos Fundamentais</small>
+      <small>PDF section 2.5 introduces heat and sign conventions.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-1.9">
+      <div class="card-topline">
+        <span>Cap. 01 · 1.9</span>
+        <a href="../slides/capitulo-01/page_10.html">Abrir pagina</a>
+      </div>
+      <h3>Exemplo: Aquecendo um Bloco de Cobre</h3>
+      <p><strong>Topico principal:</strong> <code>calor-sensivel</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">calor-fundamentos</span></div>
+        <div><strong>Apoio avancado</strong><span class="badge advanced">calor</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Exemplo: Aquecendo um Bloco de Cobre</strong>
+      <span>PDF p.12-13</span>
+      <small>Conceitos Fundamentais</small>
+      <small>The copper heating example appears around Examples 2.3 and 2.4.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-1.10">
+      <div class="card-topline">
+        <span>Cap. 01 · 1.10</span>
+        <a href="../slides/capitulo-01/page_11.html">Abrir pagina</a>
+      </div>
+      <h3>Exemplo: Equilibrio Termico</h3>
+      <p><strong>Topico principal:</strong> <code>equilibrio-termico</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">calor-fundamentos</span><span class="badge default">equilibrio</span></div>
+        <div><strong>Apoio avancado</strong><span class="badge advanced">calor</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Exemplo: Equilíbrio Térmico</strong>
+      <span>PDF p.13</span>
+      <small>Conceitos Fundamentais</small>
+      <small>Example 2.4 covers thermal equilibrium between bodies.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-1.11">
+      <div class="card-topline">
+        <span>Cap. 01 · 1.11</span>
+        <a href="../slides/capitulo-01/page_12.html">Abrir pagina</a>
+      </div>
+      <h3>Gas Ideal</h3>
+      <p><strong>Topico principal:</strong> <code>gas-ideal</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">gas-ideal-fundamentos</span></div>
+        <div><strong>Apoio avancado</strong><span class="badge advanced">gas-ideal</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Gás Ideal</strong>
+      <span>PDF p.13-14</span>
+      <small>Conceitos Fundamentais</small>
+      <small>PDF section 2.6 gives the qualitative ideal-gas arguments.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-1.12">
+      <div class="card-topline">
+        <span>Cap. 01 · 1.12</span>
+        <a href="../slides/capitulo-01/page_13.html">Abrir pagina</a>
+      </div>
+      <h3>Trabalho Termodinamico</h3>
+      <p><strong>Topico principal:</strong> <code>trabalho-termodinamico</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">trabalho-fundamentos</span></div>
+        <div><strong>Apoio avancado</strong><span class="badge advanced">trabalho</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Trabalho Termodinâmico</strong>
+      <span>PDF p.14-16</span>
+      <small>Conceitos Fundamentais</small>
+      <small>PDF section 2.7 and Example 2.5 discuss thermodynamic work.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-1.13">
+      <div class="card-topline">
+        <span>Cap. 01 · 1.13</span>
+        <a href="../slides/capitulo-01/page_14.html">Abrir pagina</a>
+      </div>
+      <h3>Exemplo: Trabalho Isotermico</h3>
+      <p><strong>Topico principal:</strong> <code>trabalho-isotermico</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">trabalho-fundamentos</span><span class="badge default">gas-ideal-fundamentos</span></div>
+        <div><strong>Apoio avancado</strong><span class="badge advanced">trabalho</span><span class="badge advanced">gas-ideal</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Exemplo: Trabalho Isotérmico</strong>
+      <span>PDF p.15-16</span>
+      <small>Conceitos Fundamentais</small>
+      <small>Example 2.5 covers isothermal expansion/compression work.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-1.14">
+      <div class="card-topline">
+        <span>Cap. 01 · 1.14</span>
+        <a href="../slides/capitulo-01/page_15.html">Abrir pagina</a>
+      </div>
+      <h3>Variaveis Conjugadas, Intensivas e Extensivas</h3>
+      <p><strong>Topico principal:</strong> <code>variaveis-conjugadas</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">variaveis-conjugadas</span></div>
+        <div><strong>Apoio avancado</strong><span class="muted">Nenhum.</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Variáveis Conjugadas, Intensivas e Extensivas</strong>
+      <span>PDF p.15-17</span>
+      <small>Conceitos Fundamentais</small>
+      <small>PDF section 2.8 discusses conjugate, intensive and extensive variables.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-1.15">
+      <div class="card-topline">
+        <span>Cap. 01 · 1.15</span>
+        <a href="../slides/capitulo-01/page_16.html">Abrir pagina</a>
+      </div>
+      <h3>Energia Interna</h3>
+      <p><strong>Topico principal:</strong> <code>energia-interna</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">energia-interna</span><span class="badge default">primeira-lei</span></div>
+        <div><strong>Apoio avancado</strong><span class="muted">Nenhum.</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Energia Interna</strong>
+      <span>PDF p.17</span>
+      <small>Conceitos Fundamentais</small>
+      <small>PDF section 2.9 introduces internal energy.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-1.16">
+      <div class="card-topline">
+        <span>Cap. 01 · 1.16</span>
+        <a href="../slides/capitulo-01/page_17.html">Abrir pagina</a>
+      </div>
+      <h3>Primeira Lei da Termodinamica</h3>
+      <p><strong>Topico principal:</strong> <code>primeira-lei</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">primeira-lei</span><span class="badge default">energia-interna</span></div>
+        <div><strong>Apoio avancado</strong><span class="muted">Nenhum.</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Primeira Lei da Termodinâmica</strong>
+      <span>PDF p.17-18</span>
+      <small>Conceitos Fundamentais</small>
+      <small>PDF section 2.10 states the First Law.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-1.17">
+      <div class="card-topline">
+        <span>Cap. 01 · 1.17</span>
+        <a href="../slides/capitulo-01/page_18.html">Abrir pagina</a>
+      </div>
+      <h3>Exemplo: Aplicacao da Primeira Lei</h3>
+      <p><strong>Topico principal:</strong> <code>aplicacao-primeira-lei</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">primeira-lei</span></div>
+        <div><strong>Apoio avancado</strong><span class="muted">Nenhum.</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Exemplo: Aplicação da Primeira Lei</strong>
+      <span>PDF p.18</span>
+      <small>Conceitos Fundamentais</small>
+      <small>Example 2.6 applies the First Law to an isothermal ideal-gas process.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-1.18">
+      <div class="card-topline">
+        <span>Cap. 01 · 1.18</span>
+        <a href="../slides/capitulo-01/page_19.html">Abrir pagina</a>
+      </div>
+      <h3>Entropia e Desigualdade de Clausius</h3>
+      <p><strong>Topico principal:</strong> <code>entropia-clausius</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">entropia-termodinamica</span></div>
+        <div><strong>Apoio avancado</strong><span class="badge advanced">entropia</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Entropia e Desigualdade de Clausius</strong>
+      <span>PDF p.18-19</span>
+      <small>Conceitos Fundamentais</small>
+      <small>PDF section 2.11 introduces entropy and Clausius' inequality.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-1.19">
+      <div class="card-topline">
+        <span>Cap. 01 · 1.19</span>
+        <a href="../slides/capitulo-01/page_20.html">Abrir pagina</a>
+      </div>
+      <h3>Capacidade Calorifica</h3>
+      <p><strong>Topico principal:</strong> <code>capacidade-calorifica</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">capacidade-calorifica</span><span class="badge default">calor-fundamentos</span></div>
+        <div><strong>Apoio avancado</strong><span class="badge advanced">calor</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Capacidade Calorífica</strong>
+      <span>PDF p.19-20</span>
+      <small>Conceitos Fundamentais</small>
+      <small>PDF section 2.12 discusses heat capacity.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-2.1">
+      <div class="card-topline">
+        <span>Cap. 02 · 2.1</span>
+        <a href="../slides/capitulo-02/page_1.html">Abrir pagina</a>
+      </div>
+      <h3>Potenciais Termodinamicos e Transformacoes de Legendre</h3>
+      <p><strong>Topico principal:</strong> <code>transformada-legendre</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">potenciais-termodinamicos</span><span class="badge default">variaveis-conjugadas</span></div>
+        <div><strong>Apoio avancado</strong><span class="badge advanced">trabalho</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Potenciais Termodinâmicos e Transformações de Legendre</strong>
+      <span>PDF p.25</span>
+      <small>Potenciais Termodinamicos e Aplicacoes</small>
+      <small>Intro and process conditions in PDF section 3.1.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-2.2">
+      <div class="card-topline">
+        <span>Cap. 02 · 2.2</span>
+        <a href="../slides/capitulo-02/page_2.html">Abrir pagina</a>
+      </div>
+      <h3>Entropia e Energia Interna</h3>
+      <p><strong>Topico principal:</strong> <code>representacao-energia-interna</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">potenciais-termodinamicos</span><span class="badge default">energia-interna</span><span class="badge default">entropia-termodinamica</span><span class="badge default">primeira-lei</span><span class="badge default">variaveis-conjugadas</span></div>
+        <div><strong>Apoio avancado</strong><span class="badge advanced">entropia</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Entropia e Energia Interna</strong>
+      <span>PDF p.25-26</span>
+      <small>Potenciais Termodinamicos e Aplicacoes</small>
+      <small>Entropy and internal energy bridge in PDF sections 3.2 and 3.3.1.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-2.3">
+      <div class="card-topline">
+        <span>Cap. 02 · 2.3</span>
+        <a href="../slides/capitulo-02/page_3.html">Abrir pagina</a>
+      </div>
+      <h3>Energia Livre de Helmholtz</h3>
+      <p><strong>Topico principal:</strong> <code>helmholtz</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">helmholtz</span><span class="badge default">potenciais-termodinamicos</span></div>
+        <div><strong>Apoio avancado</strong><span class="muted">Nenhum.</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Energia Livre de Helmholtz</strong>
+      <span>PDF p.26-28</span>
+      <small>Potenciais Termodinamicos e Aplicacoes</small>
+      <small>Helmholtz starts in PDF section 3.3.2 and continues through Example 3.1.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-2.4">
+      <div class="card-topline">
+        <span>Cap. 02 · 2.4</span>
+        <a href="../slides/capitulo-02/page_4.html">Abrir pagina</a>
+      </div>
+      <h3>Entalpia e Calor Isobarico</h3>
+      <p><strong>Topico principal:</strong> <code>entalpia</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">entalpia</span><span class="badge default">potenciais-termodinamicos</span><span class="badge default">calor-entalpia</span><span class="badge default">capacidade-calorifica</span></div>
+        <div><strong>Apoio avancado</strong><span class="badge advanced">calor</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Entalpia e Calor Isobárico</strong>
+      <span>PDF p.28-30</span>
+      <small>Potenciais Termodinamicos e Aplicacoes</small>
+      <small>Enthalpy starts in PDF section 3.3.3 and includes Examples 3.2 and 3.3.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-2.5">
+      <div class="card-topline">
+        <span>Cap. 02 · 2.5</span>
+        <a href="../slides/capitulo-02/page_5.html">Abrir pagina</a>
+      </div>
+      <h3>Energia Livre de Gibbs</h3>
+      <p><strong>Topico principal:</strong> <code>gibbs</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">gibbs</span><span class="badge default">potenciais-termodinamicos</span><span class="badge default">equilibrio</span></div>
+        <div><strong>Apoio avancado</strong><span class="muted">Nenhum.</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Energia Livre de Gibbs e Espontaneidade</strong>
+      <span>PDF p.30-31</span>
+      <small>Potenciais Termodinamicos e Aplicacoes</small>
+      <small>Gibbs starts in PDF section 3.3.4 and includes Example 3.4.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-2.6">
+      <div class="card-topline">
+        <span>Cap. 02 · 2.6</span>
+        <a href="../slides/capitulo-02/page_6.html">Abrir pagina</a>
+      </div>
+      <h3>Grand Potential</h3>
+      <p><strong>Topico principal:</strong> <code>grand-potential</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">potenciais-termodinamicos</span></div>
+        <div><strong>Apoio avancado</strong><span class="muted">Nenhum.</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Grand Potential e Sistemas Abertos</strong>
+      <span>PDF p.31-32</span>
+      <small>Potenciais Termodinamicos e Aplicacoes</small>
+      <small>Grand potential starts in PDF section 3.3.5.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-2.7">
+      <div class="card-topline">
+        <span>Cap. 02 · 2.7</span>
+        <a href="../slides/capitulo-02/page_7.html">Abrir pagina</a>
+      </div>
+      <h3>Variaveis Conjugadas Mecanicas e Magneticas</h3>
+      <p><strong>Topico principal:</strong> <code>conjugadas-mecanicas-magneticas</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">variaveis-conjugadas</span></div>
+        <div><strong>Apoio avancado</strong><span class="muted">Nenhum.</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Variáveis Conjugadas Mecânicas e Magnéticas</strong>
+      <span>PDF p.32</span>
+      <small>Potenciais Termodinamicos e Aplicacoes</small>
+      <small>Magnetic conjugate variables are in PDF section 3.3.6.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-2.8">
+      <div class="card-topline">
+        <span>Cap. 02 · 2.8</span>
+        <a href="../slides/capitulo-02/page_8.html">Abrir pagina</a>
+      </div>
+      <h3>Relacoes de Maxwell e Retangulo Termodinamico</h3>
+      <p><strong>Topico principal:</strong> <code>relacoes-maxwell</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">potenciais-termodinamicos</span><span class="badge default">maxwell-relacoes</span><span class="badge default">variaveis-conjugadas</span></div>
+        <div><strong>Apoio avancado</strong><span class="muted">Nenhum.</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Relacoes de Maxwell</strong>
+      <span>PDF p.32-34</span>
+      <small>Potenciais Termodinamicos e Aplicacoes</small>
+      <small>Primary reference for Maxwell relations.</small>
+    </li>
+  
+    <li>
+      <strong>Retangulo termodinamico</strong>
+      <span>PDF p.34-35</span>
+      <small>Potenciais Termodinamicos e Aplicacoes</small>
+      <small>Secondary reference used by the app page together with Maxwell relations.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-2.9">
+      <div class="card-topline">
+        <span>Cap. 02 · 2.9</span>
+        <a href="../slides/capitulo-02/page_9.html">Abrir pagina</a>
+      </div>
+      <h3>Tabela de Potenciais</h3>
+      <p><strong>Topico principal:</strong> <code>tabela-potenciais</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">potenciais-termodinamicos</span><span class="badge default">entalpia</span></div>
+        <div><strong>Apoio avancado</strong><span class="muted">Nenhum.</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Tabela Resumo dos Potenciais Termodinâmicos</strong>
+      <span>PDF p.34-35</span>
+      <small>Potenciais Termodinamicos e Aplicacoes</small>
+      <small>Thermodynamic rectangle summary table and final synthesis.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-3.1">
+      <div class="card-topline">
+        <span>Cap. 03 · 3.1</span>
+        <a href="../slides/capitulo-03/page_2.html">Abrir pagina</a>
+      </div>
+      <h3>Entropia, Gibbs e a Visao por Ensembles</h3>
+      <p><strong>Topico principal:</strong> <code>ensembles-gibbs</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">estatistica-ensembles</span><span class="badge default">entropia-estatistica</span><span class="badge default">equilibrio</span></div>
+        <div><strong>Apoio avancado</strong><span class="badge advanced">entropia</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Entropia, Gibbs e a Visão por Ensembles</strong>
+      <span>PDF p.37-38</span>
+      <small>Termodinamica Estatistica</small>
+      <small>PDF section 4.1 introduces entropy, Gibbs entropy and ensembles.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-3.2">
+      <div class="card-topline">
+        <span>Cap. 03 · 3.2</span>
+        <a href="../slides/capitulo-03/page_5.html">Abrir pagina</a>
+      </div>
+      <h3>Ensemble Micro-Canonico e Formula de Boltzmann</h3>
+      <p><strong>Topico principal:</strong> <code>microcanonico-boltzmann</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">estatistica-ensembles</span><span class="badge default">boltzmann</span><span class="badge default">entropia-estatistica</span></div>
+        <div><strong>Apoio avancado</strong><span class="badge advanced">entropia</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Ensemble Micro-Canônico e Fórmula de Boltzmann</strong>
+      <span>PDF p.38-39</span>
+      <small>Termodinamica Estatistica</small>
+      <small>PDF section 4.2 defines the microcanonical ensemble and Boltzmann entropy.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-3.3">
+      <div class="card-topline">
+        <span>Cap. 03 · 3.3</span>
+        <a href="../slides/capitulo-03/page_7.html">Abrir pagina</a>
+      </div>
+      <h3>Ensemble Canonico, Distribuicao de Boltzmann e Parametro Beta</h3>
+      <p><strong>Topico principal:</strong> <code>canonico-boltzmann-beta</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">estatistica-ensembles</span><span class="badge default">boltzmann</span><span class="badge default">funcao-particao</span></div>
+        <div><strong>Apoio avancado</strong><span class="muted">Nenhum.</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Ensemble Canônico, Distribuição de Boltzmann e Parâmetro Beta</strong>
+      <span>PDF p.39-40</span>
+      <small>Termodinamica Estatistica</small>
+      <small>PDF section 4.3 derives the canonical ensemble and Boltzmann distribution.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-3.4">
+      <div class="card-topline">
+        <span>Cap. 03 · 3.4</span>
+        <a href="../slides/capitulo-03/page_10.html">Abrir pagina</a>
+      </div>
+      <h3>Energia Livre de Helmholtz e Energia Interna Estatistica</h3>
+      <p><strong>Topico principal:</strong> <code>helmholtz-estatistica</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">funcao-particao</span><span class="badge default">helmholtz</span><span class="badge default">energia-interna</span><span class="badge default">potenciais-termodinamicos</span></div>
+        <div><strong>Apoio avancado</strong><span class="muted">Nenhum.</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Energia Livre de Helmholtz e Energia Interna Estatística</strong>
+      <span>PDF p.39-40</span>
+      <small>Termodinamica Estatistica</small>
+      <small>PDF section 4.3.1 connects partition function, Helmholtz free energy and internal energy.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-3.5">
+      <div class="card-topline">
+        <span>Cap. 03 · 3.5</span>
+        <a href="../slides/capitulo-03/page_12.html">Abrir pagina</a>
+      </div>
+      <h3>Particulas Distinguiveis, Indistinguiveis e Paradoxo de Gibbs</h3>
+      <p><strong>Topico principal:</strong> <code>paradoxo-gibbs</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">indistinguibilidade</span></div>
+        <div><strong>Apoio avancado</strong><span class="muted">Nenhum.</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Partículas Distinguíveis, Indistinguíveis e Paradoxo de Gibbs</strong>
+      <span>PDF p.40-41</span>
+      <small>Termodinamica Estatistica</small>
+      <small>PDF section 4.4 discusses distinguishability and the Gibbs paradox.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-3.6">
+      <div class="card-topline">
+        <span>Cap. 03 · 3.6</span>
+        <a href="../slides/capitulo-03/page_14.html">Abrir pagina</a>
+      </div>
+      <h3>Exemplo I: Gas Ideal Monoatomico - Funcao de Particao</h3>
+      <p><strong>Topico principal:</strong> <code>funcao-particao-gas-ideal</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">funcao-particao</span><span class="badge default">gas-ideal-estatistico</span><span class="badge default">indistinguibilidade</span></div>
+        <div><strong>Apoio avancado</strong><span class="badge advanced">gas-ideal</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Exemplo I: Gás Ideal Monoatômico — Função de Partição</strong>
+      <span>PDF p.41-42</span>
+      <small>Termodinamica Estatistica</small>
+      <small>PDF section 4.5.1 builds the ideal-gas partition function.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-3.7">
+      <div class="card-topline">
+        <span>Cap. 03 · 3.7</span>
+        <a href="../slides/capitulo-03/page_16.html">Abrir pagina</a>
+      </div>
+      <h3>Exemplo I: Gas Ideal Monoatomico - Energia Livre</h3>
+      <p><strong>Topico principal:</strong> <code>sackur-tetrode</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">funcao-particao</span><span class="badge default">gas-ideal-estatistico</span><span class="badge default">helmholtz</span><span class="badge default">energia-interna</span><span class="badge default">indistinguibilidade</span></div>
+        <div><strong>Apoio avancado</strong><span class="badge advanced">gas-ideal</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Exemplo I: Gás Ideal Monoatômico — Energia Livre e Sackur-Tetrode</strong>
+      <span>PDF p.42-43</span>
+      <small>Termodinamica Estatistica</small>
+      <small>PDF sections 4.5.2 and 4.5.3 connect Helmholtz free energy, equation of state, energy and entropy.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-3.8">
+      <div class="card-topline">
+        <span>Cap. 03 · 3.8</span>
+        <a href="../slides/capitulo-03/page_18.html">Abrir pagina</a>
+      </div>
+      <h3>Exemplo II: Paramagnetismo Quantico</h3>
+      <p><strong>Topico principal:</strong> <code>paramagnetismo-quantico</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">paramagnetismo</span><span class="badge default">funcao-particao</span></div>
+        <div><strong>Apoio avancado</strong><span class="muted">Nenhum.</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Exemplo II: Paramagnetismo Quântico</strong>
+      <span>PDF p.44-47</span>
+      <small>Termodinamica Estatistica</small>
+      <small>PDF section 4.6 develops the quantum paramagnetism example.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-3.9">
+      <div class="card-topline">
+        <span>Cap. 03 · 3.9</span>
+        <a href="../slides/capitulo-03/page_20.html">Abrir pagina</a>
+      </div>
+      <h3>Exemplo III: Paramagnetismo Classico</h3>
+      <p><strong>Topico principal:</strong> <code>paramagnetismo-classico</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">paramagnetismo</span><span class="badge default">funcao-particao</span></div>
+        <div><strong>Apoio avancado</strong><span class="muted">Nenhum.</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Exemplo III: Paramagnetismo Clássico</strong>
+      <span>PDF p.48</span>
+      <small>Termodinamica Estatistica</small>
+      <small>PDF section 4.7 develops the classical paramagnetism example.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-3.10">
+      <div class="card-topline">
+        <span>Cap. 03 · 3.10</span>
+        <a href="../slides/capitulo-03/page_21.html">Abrir pagina</a>
+      </div>
+      <h3>Terceira Lei da Termodinamica</h3>
+      <p><strong>Topico principal:</strong> <code>terceira-lei</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">terceira-lei</span><span class="badge default">paramagnetismo</span></div>
+        <div><strong>Apoio avancado</strong><span class="muted">Nenhum.</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Terceira Lei e Limites do Modelo Clássico</strong>
+      <span>PDF p.49-50</span>
+      <small>Termodinamica Estatistica</small>
+      <small>PDF section 4.8 discusses the Third Law and the low-temperature limit.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-3.11">
+      <div class="card-topline">
+        <span>Cap. 03 · 3.11</span>
+        <a href="../slides/capitulo-03/page_23.html">Abrir pagina</a>
+      </div>
+      <h3>Capacidade Calorifica em Solidos</h3>
+      <p><strong>Topico principal:</strong> <code>capacidade-calorifica-solidos</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">capacidade-calorifica</span><span class="badge default">funcao-particao</span><span class="badge default">terceira-lei</span></div>
+        <div><strong>Apoio avancado</strong><span class="muted">Nenhum.</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Exemplo IV: Capacidade Calorífica em Sólidos</strong>
+      <span>PDF p.51-54</span>
+      <small>Termodinamica Estatistica</small>
+      <small>PDF section 4.9 covers heat capacity in solids, Dulong-Petit and Einstein's model.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-4.1">
+      <div class="card-topline">
+        <span>Cap. 04 · 4.1</span>
+        <a href="../slides/capitulo-04/page_1.html">Abrir pagina</a>
+      </div>
+      <h3>Gas Real e Limites do Modelo Ideal</h3>
+      <p><strong>Topico principal:</strong> <code>gas-real-limite-ideal</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">transicoes-de-fase</span><span class="badge default">van-der-waals</span></div>
+        <div><strong>Apoio avancado</strong><span class="badge advanced">gas-ideal</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Validade do Gás Ideal e Introdução ao Gás de Van der Waals</strong>
+      <span>PDF p.63</span>
+      <small>Transicoes de Fase</small>
+      <small>PDF section 5.1 opens with why the ideal gas fails and motivates Van der Waals.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-4.2">
+      <div class="card-topline">
+        <span>Cap. 04 · 4.2</span>
+        <a href="../slides/capitulo-04/page_2.html">Abrir pagina</a>
+      </div>
+      <h3>Equacao de Estado de Van der Waals</h3>
+      <p><strong>Topico principal:</strong> <code>equacao-van-der-waals</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">transicoes-de-fase</span><span class="badge default">van-der-waals</span></div>
+        <div><strong>Apoio avancado</strong><span class="muted">Nenhum.</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Equação de Estado de Van der Waals</strong>
+      <span>PDF p.63-64</span>
+      <small>Transicoes de Fase</small>
+      <small>PDF section 5.1.1 introduces the Van der Waals equation of state.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-4.3">
+      <div class="card-topline">
+        <span>Cap. 04 · 4.3</span>
+        <a href="../slides/capitulo-04/page_6.html">Abrir pagina</a>
+      </div>
+      <h3>Ponto Critico no Modelo de Van der Waals</h3>
+      <p><strong>Topico principal:</strong> <code>ponto-critico</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">ponto-critico</span><span class="badge default">transicoes-de-fase</span><span class="badge default">van-der-waals</span></div>
+        <div><strong>Apoio avancado</strong><span class="muted">Nenhum.</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Ponto Crítico</strong>
+      <span>PDF p.64-65</span>
+      <small>Transicoes de Fase</small>
+      <small>Critical parameters are derived immediately before reduced variables.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-4.4">
+      <div class="card-topline">
+        <span>Cap. 04 · 4.4</span>
+        <a href="../slides/capitulo-04/page_7.html">Abrir pagina</a>
+      </div>
+      <h3>Variaveis Reduzidas e Lei dos Estados Correspondentes</h3>
+      <p><strong>Topico principal:</strong> <code>variaveis-reduzidas</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">transicoes-de-fase</span><span class="badge default">van-der-waals</span><span class="badge default">ponto-critico</span></div>
+        <div><strong>Apoio avancado</strong><span class="muted">Nenhum.</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Equação de Estado Reduzida</strong>
+      <span>PDF p.65-66</span>
+      <small>Transicoes de Fase</small>
+      <small>PDF section 5.1.2 defines reduced variables and the reduced equation of state.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-4.5">
+      <div class="card-topline">
+        <span>Cap. 04 · 4.5</span>
+        <a href="../slides/capitulo-04/page_9.html">Abrir pagina</a>
+      </div>
+      <h3>Regiao Instavel e Condicao Espinodal</h3>
+      <p><strong>Topico principal:</strong> <code>espinodal</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">transicoes-de-fase</span><span class="badge default">van-der-waals</span><span class="badge default">estabilidade-mecanica</span></div>
+        <div><strong>Apoio avancado</strong><span class="muted">Nenhum.</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Instabilidade Mecânica e Espinodal</strong>
+      <span>PDF p.66</span>
+      <small>Transicoes de Fase</small>
+      <small>PDF section 5.1.3 defines the spinodal and mechanical instability.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-4.6">
+      <div class="card-topline">
+        <span>Cap. 04 · 4.6</span>
+        <a href="../slides/capitulo-04/page_11.html">Abrir pagina</a>
+      </div>
+      <h3>Energia Livre de Helmholtz e Gibbs</h3>
+      <p><strong>Topico principal:</strong> <code>energia-livre-fases</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">transicoes-de-fase</span><span class="badge default">potenciais-termodinamicos</span><span class="badge default">helmholtz</span><span class="badge default">gibbs</span><span class="badge default">equilibrio</span><span class="badge default">estabilidade-mecanica</span></div>
+        <div><strong>Apoio avancado</strong><span class="muted">Nenhum.</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Energia Livre de Helmholtz e Gibbs</strong>
+      <span>PDF p.67-69</span>
+      <small>Transicoes de Fase</small>
+      <small>PDF section 5.1.4 discusses Helmholtz/Gibbs free energy and stability.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-4.7">
+      <div class="card-topline">
+        <span>Cap. 04 · 4.7</span>
+        <a href="../slides/capitulo-04/page_13.html">Abrir pagina</a>
+      </div>
+      <h3>Construcao de Maxwell</h3>
+      <p><strong>Topico principal:</strong> <code>construcao-maxwell</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">construcao-maxwell</span><span class="badge default">transicoes-de-fase</span><span class="badge default">gibbs</span><span class="badge default">equilibrio</span><span class="badge default">coexistencia-fases</span></div>
+        <div><strong>Apoio avancado</strong><span class="muted">Nenhum.</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Construção de Maxwell</strong>
+      <span>PDF p.68-71</span>
+      <small>Transicoes de Fase</small>
+      <small>PDF section 5.1.5 derives Maxwell's construction and shows the coexistence isotherm.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-4.8">
+      <div class="card-topline">
+        <span>Cap. 04 · 4.8</span>
+        <a href="../slides/capitulo-04/page_16.html">Abrir pagina</a>
+      </div>
+      <h3>Superaquecimento e Super-resfriamento</h3>
+      <p><strong>Topico principal:</strong> <code>metaestabilidade</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">transicoes-de-fase</span><span class="badge default">van-der-waals</span><span class="badge default">estabilidade-mecanica</span><span class="badge default">coexistencia-fases</span></div>
+        <div><strong>Apoio avancado</strong><span class="muted">Nenhum.</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Superaquecimento e Super-resfriamento</strong>
+      <span>PDF p.71-72</span>
+      <small>Transicoes de Fase</small>
+      <small>PDF section 5.1.6 discusses superheating, supercooling and metastability.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-4.9">
+      <div class="card-topline">
+        <span>Cap. 04 · 4.9</span>
+        <a href="../slides/capitulo-04/page_17.html">Abrir pagina</a>
+      </div>
+      <h3>Calor Latente e Equacao de Clausius-Clapeyron</h3>
+      <p><strong>Topico principal:</strong> <code>clausius-clapeyron</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">transicoes-de-fase</span><span class="badge default">coexistencia-fases</span><span class="badge default">gibbs</span><span class="badge default">entalpia</span><span class="badge default">calor-entalpia</span><span class="badge default">capacidade-calorifica</span></div>
+        <div><strong>Apoio avancado</strong><span class="badge advanced">calor</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Calor Latente e Equação de Clausius-Clapeyron</strong>
+      <span>PDF p.72-74</span>
+      <small>Transicoes de Fase</small>
+      <small>PDF section 5.1.7 covers latent heat and the Clausius-Clapeyron equation.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-4.10">
+      <div class="card-topline">
+        <span>Cap. 04 · 4.10</span>
+        <a href="../slides/capitulo-04/page_20.html">Abrir pagina</a>
+      </div>
+      <h3>Compressibilidade Isotermica</h3>
+      <p><strong>Topico principal:</strong> <code>compressibilidade-isotermica</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">transicoes-de-fase</span><span class="badge default">van-der-waals</span><span class="badge default">ponto-critico</span><span class="badge default">estabilidade-mecanica</span></div>
+        <div><strong>Apoio avancado</strong><span class="muted">Nenhum.</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Compressibilidade Isotérmica</strong>
+      <span>PDF p.74-75</span>
+      <small>Transicoes de Fase</small>
+      <small>PDF section 5.1.8 introduces isothermal compressibility.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-4.11">
+      <div class="card-topline">
+        <span>Cap. 04 · 4.11</span>
+        <a href="../slides/capitulo-04/page_21.html">Abrir pagina</a>
+      </div>
+      <h3>Coeficiente de Expansao Termica</h3>
+      <p><strong>Topico principal:</strong> <code>expansao-termica</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">transicoes-de-fase</span><span class="badge default">van-der-waals</span><span class="badge default">ponto-critico</span></div>
+        <div><strong>Apoio avancado</strong><span class="muted">Nenhum.</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Expansão Térmica</strong>
+      <span>PDF p.76-77</span>
+      <small>Transicoes de Fase</small>
+      <small>PDF section 5.1.8 also derives the thermal expansion coefficient.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-6.1">
+      <div class="card-topline">
+        <span>Cap. 06 · 6.1</span>
+        <a href="../slides/capitulo-06/page_1.html">Abrir pagina</a>
+      </div>
+      <h3>Maquinas Termicas e Refrigeradores</h3>
+      <p><strong>Topico principal:</strong> <code>maquinas-refrigeradores</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">ciclos-termodinamicos</span><span class="badge default">maquinas-termicas</span><span class="badge default">refrigeradores</span></div>
+        <div><strong>Apoio avancado</strong><span class="badge advanced">calor</span><span class="badge advanced">trabalho</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Máquinas Térmicas e Refrigeradores</strong>
+      <span>PDF p.95-96</span>
+      <small>Ciclos Termodinamicos</small>
+      <small>PDF section 7.1 introduces operating modes for heat engines and refrigerators.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-6.2">
+      <div class="card-topline">
+        <span>Cap. 06 · 6.2</span>
+        <a href="../slides/capitulo-06/page_2.html">Abrir pagina</a>
+      </div>
+      <h3>Ciclo de Carnot como Maquina Termica</h3>
+      <p><strong>Topico principal:</strong> <code>carnot-maquina-termica</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">ciclos-termodinamicos</span><span class="badge default">carnot</span><span class="badge default">maquinas-termicas</span></div>
+        <div><strong>Apoio avancado</strong><span class="muted">Nenhum.</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Ciclo de Carnot como Máquina Térmica</strong>
+      <span>PDF p.95-98</span>
+      <small>Ciclos Termodinamicos</small>
+      <small>PDF section 7.2.1 describes the Carnot heat-engine stages.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-6.3">
+      <div class="card-topline">
+        <span>Cap. 06 · 6.3</span>
+        <a href="../slides/capitulo-06/page_3.html">Abrir pagina</a>
+      </div>
+      <h3>Energia Interna, Calor e Trabalho</h3>
+      <p><strong>Topico principal:</strong> <code>primeira-lei-em-ciclos</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">ciclos-termodinamicos</span><span class="badge default">primeira-lei</span><span class="badge default">energia-interna</span><span class="badge default">calor-em-ciclos</span><span class="badge default">trabalho-em-ciclos</span><span class="badge default">entropia-termodinamica</span></div>
+        <div><strong>Apoio avancado</strong><span class="badge advanced">calor</span><span class="badge advanced">trabalho</span><span class="badge advanced">entropia</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Energia Interna, Calor e Trabalho</strong>
+      <span>PDF p.98-99</span>
+      <small>Ciclos Termodinamicos</small>
+      <small>PDF section 7.2.2 discusses energy, heat and work in the Carnot cycle.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-6.4">
+      <div class="card-topline">
+        <span>Cap. 06 · 6.4</span>
+        <a href="../slides/capitulo-06/page_4.html">Abrir pagina</a>
+      </div>
+      <h3>Eficiencia Geral e Eficiencia de Carnot</h3>
+      <p><strong>Topico principal:</strong> <code>eficiencia-carnot</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">ciclos-termodinamicos</span><span class="badge default">carnot</span><span class="badge default">maquinas-termicas</span><span class="badge default">eficiencia-cop</span></div>
+        <div><strong>Apoio avancado</strong><span class="muted">Nenhum.</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Eficiência Geral e Eficiência de Carnot</strong>
+      <span>PDF p.99-100</span>
+      <small>Ciclos Termodinamicos</small>
+      <small>PDF sections 7.2.3 and 7.2.4 derive efficiency and the ideal-gas Carnot result.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-6.5">
+      <div class="card-topline">
+        <span>Cap. 06 · 6.5</span>
+        <a href="../slides/capitulo-06/page_5.html">Abrir pagina</a>
+      </div>
+      <h3>Exemplo: Maquina de Carnot</h3>
+      <p><strong>Topico principal:</strong> <code>exemplo-maquina-carnot</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">ciclos-termodinamicos</span><span class="badge default">carnot</span><span class="badge default">maquinas-termicas</span><span class="badge default">eficiencia-cop</span><span class="badge default">gas-ideal-ciclos</span><span class="badge default">calor-em-ciclos</span><span class="badge default">trabalho-em-ciclos</span><span class="badge default">primeira-lei</span></div>
+        <div><strong>Apoio avancado</strong><span class="badge advanced">gas-ideal</span><span class="badge advanced">calor</span><span class="badge advanced">trabalho</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Exemplo: Máquina de Carnot</strong>
+      <span>PDF p.101-102</span>
+      <small>Ciclos Termodinamicos</small>
+      <small>Example 7.1 is the numerical Carnot heat-engine example.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-6.6">
+      <div class="card-topline">
+        <span>Cap. 06 · 6.6</span>
+        <a href="../slides/capitulo-06/page_6.html">Abrir pagina</a>
+      </div>
+      <h3>Ciclo de Carnot como Refrigerador</h3>
+      <p><strong>Topico principal:</strong> <code>carnot-refrigerador</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">ciclos-termodinamicos</span><span class="badge default">carnot</span><span class="badge default">refrigeradores</span><span class="badge default">eficiencia-cop</span></div>
+        <div><strong>Apoio avancado</strong><span class="muted">Nenhum.</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Ciclo de Carnot como Refrigerador</strong>
+      <span>PDF p.102-107</span>
+      <small>Ciclos Termodinamicos</small>
+      <small>PDF section 7.3 discusses the Carnot cycle as a refrigerator.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-6.7">
+      <div class="card-topline">
+        <span>Cap. 06 · 6.7</span>
+        <a href="../slides/capitulo-06/page_7.html">Abrir pagina</a>
+      </div>
+      <h3>Exemplo: Refrigerador de Carnot</h3>
+      <p><strong>Topico principal:</strong> <code>exemplo-refrigerador-carnot</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">ciclos-termodinamicos</span><span class="badge default">carnot</span><span class="badge default">refrigeradores</span><span class="badge default">eficiencia-cop</span><span class="badge default">gas-ideal-ciclos</span><span class="badge default">calor-em-ciclos</span></div>
+        <div><strong>Apoio avancado</strong><span class="badge advanced">gas-ideal</span><span class="badge advanced">calor</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Exemplo: Refrigerador de Carnot</strong>
+      <span>PDF p.107-108</span>
+      <small>Ciclos Termodinamicos</small>
+      <small>Example 7.2 is the numerical Carnot refrigerator example.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-6.8">
+      <div class="card-topline">
+        <span>Cap. 06 · 6.8</span>
+        <a href="../slides/capitulo-06/page_8.html">Abrir pagina</a>
+      </div>
+      <h3>Ciclo de Stirling sem Regenerador</h3>
+      <p><strong>Topico principal:</strong> <code>stirling-sem-regenerador</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">ciclos-termodinamicos</span><span class="badge default">stirling</span><span class="badge default">maquinas-termicas</span><span class="badge default">eficiencia-cop</span><span class="badge default">trabalho-em-ciclos</span></div>
+        <div><strong>Apoio avancado</strong><span class="badge advanced">trabalho</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Ciclo de Stirling sem Regenerador</strong>
+      <span>PDF p.108-111</span>
+      <small>Ciclos Termodinamicos</small>
+      <small>PDF section 7.4.1 and 7.4.2 describe the Stirling cycle without regenerator.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-6.9">
+      <div class="card-topline">
+        <span>Cap. 06 · 6.9</span>
+        <a href="../slides/capitulo-06/page_9.html">Abrir pagina</a>
+      </div>
+      <h3>Producao de Entropia no Stirling sem Regenerador</h3>
+      <p><strong>Topico principal:</strong> <code>producao-entropia-stirling</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">ciclos-termodinamicos</span><span class="badge default">stirling</span><span class="badge default">entropia-termodinamica</span></div>
+        <div><strong>Apoio avancado</strong><span class="badge advanced">entropia</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Produção de Entropia no Stirling sem Regenerador</strong>
+      <span>PDF p.112-113</span>
+      <small>Ciclos Termodinamicos</small>
+      <small>PDF section 7.4.3 discusses entropy production in Stirling without regenerator.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-6.10">
+      <div class="card-topline">
+        <span>Cap. 06 · 6.10</span>
+        <a href="../slides/capitulo-06/page_10.html">Abrir pagina</a>
+      </div>
+      <h3>Motor de Stirling com Regenerador Tipo Alfa</h3>
+      <p><strong>Topico principal:</strong> <code>stirling-regenerador-alfa</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">ciclos-termodinamicos</span><span class="badge default">stirling</span><span class="badge default">maquinas-termicas</span></div>
+        <div><strong>Apoio avancado</strong><span class="muted">Nenhum.</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Motor de Stirling com Regenerador Tipo Alfa</strong>
+      <span>PDF p.113-115</span>
+      <small>Ciclos Termodinamicos</small>
+      <small>PDF section 7.5 introduces the Stirling engine with an alpha-type regenerator.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  
+    <article class="section-card" id="sec-6.11">
+      <div class="card-topline">
+        <span>Cap. 06 · 6.11</span>
+        <a href="../slides/capitulo-06/page_11.html">Abrir pagina</a>
+      </div>
+      <h3>Exemplo: Motor Stirling Alfa</h3>
+      <p><strong>Topico principal:</strong> <code>exemplo-stirling-alfa</code></p>
+      <div class="topic-lines">
+        <div><strong>Indice transversal padrao</strong><span class="badge default">ciclos-termodinamicos</span><span class="badge default">stirling</span><span class="badge default">maquinas-termicas</span><span class="badge default">eficiencia-cop</span><span class="badge default">trabalho-em-ciclos</span><span class="badge default">primeira-lei</span></div>
+        <div><strong>Apoio avancado</strong><span class="badge advanced">trabalho</span></div>
+      </div>
+      <details>
+        <summary>Referencias canonicas do PDF</summary>
+        <ul>
+    <li>
+      <strong>Exemplo: Motor Stirling Alfa</strong>
+      <span>PDF p.115-126</span>
+      <small>Ciclos Termodinamicos</small>
+      <small>PDF sections 7.5.3 and 7.5.4 develop the alpha Stirling engine stages and balances.</small>
+    </li>
+  </ul>
+      </details>
+    </article>
+  </div>
+    </section>
+
+    <section id="indice-transversal">
+      <div class="eyebrow">Indice transversal</div>
+      <h2>Temas e fragmentos relacionados</h2>
+      <p>Use este indice para revisar quais secoes podem apoiar exercicios mais complexos. Temas marcados como apoio avancado nao devem ser usados automaticamente em exercicios simples.</p>
+      <div class="card-grid">
+    <article class="topic-card" id="topic-calor">
+      <div class="card-topline">
+        <span>Apoio avancado</span>
+        <span>7 secoes</span>
+      </div>
+      <h3>Calor e trocas termicas</h3>
+      <p><code>calor</code></p>
+      <ul>
+    <li>
+      <a href="#sec-1.8">1.8 · Calor</a>
+      <span>PDF p.11-12</span>
+      <small>topico principal</small>
+    </li>
+  
+    <li>
+      <a href="#sec-1.9">1.9 · Exemplo: Aquecendo um Bloco de Cobre</a>
+      <span>PDF p.12-13</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-1.10">1.10 · Exemplo: Equilibrio Termico</a>
+      <span>PDF p.13</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-2.4">2.4 · Entalpia e Calor Isobarico</a>
+      <span>PDF p.28-30</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.3">6.3 · Energia Interna, Calor e Trabalho</a>
+      <span>PDF p.98-99</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.5">6.5 · Exemplo: Maquina de Carnot</a>
+      <span>PDF p.101-102</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.7">6.7 · Exemplo: Refrigerador de Carnot</a>
+      <span>PDF p.107-108</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-entropia">
+      <div class="card-topline">
+        <span>Apoio avancado</span>
+        <span>6 secoes</span>
+      </div>
+      <h3>Entropia, irreversibilidade e Segunda Lei</h3>
+      <p><code>entropia</code></p>
+      <ul>
+    <li>
+      <a href="#sec-1.18">1.18 · Entropia e Desigualdade de Clausius</a>
+      <span>PDF p.18-19</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-2.2">2.2 · Entropia e Energia Interna</a>
+      <span>PDF p.25-26</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-3.1">3.1 · Entropia, Gibbs e a Visao por Ensembles</a>
+      <span>PDF p.37-38</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-3.2">3.2 · Ensemble Micro-Canonico e Formula de Boltzmann</a>
+      <span>PDF p.38-39</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.3">6.3 · Energia Interna, Calor e Trabalho</a>
+      <span>PDF p.98-99</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.9">6.9 · Producao de Entropia no Stirling sem Regenerador</a>
+      <span>PDF p.112-113</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-gas-ideal">
+      <div class="card-topline">
+        <span>Apoio avancado</span>
+        <span>7 secoes</span>
+      </div>
+      <h3>Gas ideal e aplicacoes</h3>
+      <p><code>gas-ideal</code></p>
+      <ul>
+    <li>
+      <a href="#sec-1.11">1.11 · Gas Ideal</a>
+      <span>PDF p.13-14</span>
+      <small>topico principal</small>
+    </li>
+  
+    <li>
+      <a href="#sec-1.13">1.13 · Exemplo: Trabalho Isotermico</a>
+      <span>PDF p.15-16</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-3.6">3.6 · Exemplo I: Gas Ideal Monoatomico - Funcao de Particao</a>
+      <span>PDF p.41-42</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-3.7">3.7 · Exemplo I: Gas Ideal Monoatomico - Energia Livre</a>
+      <span>PDF p.42-43</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-4.1">4.1 · Gas Real e Limites do Modelo Ideal</a>
+      <span>PDF p.63</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.5">6.5 · Exemplo: Maquina de Carnot</a>
+      <span>PDF p.101-102</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.7">6.7 · Exemplo: Refrigerador de Carnot</a>
+      <span>PDF p.107-108</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-trabalho">
+      <div class="card-topline">
+        <span>Apoio avancado</span>
+        <span>7 secoes</span>
+      </div>
+      <h3>Trabalho termodinamico</h3>
+      <p><code>trabalho</code></p>
+      <ul>
+    <li>
+      <a href="#sec-1.12">1.12 · Trabalho Termodinamico</a>
+      <span>PDF p.14-16</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-1.13">1.13 · Exemplo: Trabalho Isotermico</a>
+      <span>PDF p.15-16</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-2.1">2.1 · Potenciais Termodinamicos e Transformacoes de Legendre</a>
+      <span>PDF p.25</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.3">6.3 · Energia Interna, Calor e Trabalho</a>
+      <span>PDF p.98-99</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.5">6.5 · Exemplo: Maquina de Carnot</a>
+      <span>PDF p.101-102</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.8">6.8 · Ciclo de Stirling sem Regenerador</a>
+      <span>PDF p.108-111</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.11">6.11 · Exemplo: Motor Stirling Alfa</a>
+      <span>PDF p.115-126</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-boltzmann">
+      <div class="card-topline">
+        <span>Padrao</span>
+        <span>2 secoes</span>
+      </div>
+      <h3>Boltzmann, probabilidades e parametro beta</h3>
+      <p><code>boltzmann</code></p>
+      <ul>
+    <li>
+      <a href="#sec-3.2">3.2 · Ensemble Micro-Canonico e Formula de Boltzmann</a>
+      <span>PDF p.38-39</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-3.3">3.3 · Ensemble Canonico, Distribuicao de Boltzmann e Parametro Beta</a>
+      <span>PDF p.39-40</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-calor-em-ciclos">
+      <div class="card-topline">
+        <span>Padrao</span>
+        <span>3 secoes</span>
+      </div>
+      <h3>Calor em ciclos termodinamicos</h3>
+      <p><code>calor-em-ciclos</code></p>
+      <ul>
+    <li>
+      <a href="#sec-6.3">6.3 · Energia Interna, Calor e Trabalho</a>
+      <span>PDF p.98-99</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.5">6.5 · Exemplo: Maquina de Carnot</a>
+      <span>PDF p.101-102</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.7">6.7 · Exemplo: Refrigerador de Carnot</a>
+      <span>PDF p.107-108</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-calor-entalpia">
+      <div class="card-topline">
+        <span>Padrao</span>
+        <span>2 secoes</span>
+      </div>
+      <h3>Calor em entalpia e transicoes</h3>
+      <p><code>calor-entalpia</code></p>
+      <ul>
+    <li>
+      <a href="#sec-2.4">2.4 · Entalpia e Calor Isobarico</a>
+      <span>PDF p.28-30</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-4.9">4.9 · Calor Latente e Equacao de Clausius-Clapeyron</a>
+      <span>PDF p.72-74</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-calor-fundamentos">
+      <div class="card-topline">
+        <span>Padrao</span>
+        <span>4 secoes</span>
+      </div>
+      <h3>Calor em fundamentos</h3>
+      <p><code>calor-fundamentos</code></p>
+      <ul>
+    <li>
+      <a href="#sec-1.8">1.8 · Calor</a>
+      <span>PDF p.11-12</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-1.9">1.9 · Exemplo: Aquecendo um Bloco de Cobre</a>
+      <span>PDF p.12-13</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-1.10">1.10 · Exemplo: Equilibrio Termico</a>
+      <span>PDF p.13</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-1.19">1.19 · Capacidade Calorifica</a>
+      <span>PDF p.19-20</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-capacidade-calorifica">
+      <div class="card-topline">
+        <span>Padrao</span>
+        <span>4 secoes</span>
+      </div>
+      <h3>Capacidade calorifica e calores especificos</h3>
+      <p><code>capacidade-calorifica</code></p>
+      <ul>
+    <li>
+      <a href="#sec-1.19">1.19 · Capacidade Calorifica</a>
+      <span>PDF p.19-20</span>
+      <small>topico principal</small>
+    </li>
+  
+    <li>
+      <a href="#sec-2.4">2.4 · Entalpia e Calor Isobarico</a>
+      <span>PDF p.28-30</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-3.11">3.11 · Capacidade Calorifica em Solidos</a>
+      <span>PDF p.51-54</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-4.9">4.9 · Calor Latente e Equacao de Clausius-Clapeyron</a>
+      <span>PDF p.72-74</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-carnot">
+      <div class="card-topline">
+        <span>Padrao</span>
+        <span>5 secoes</span>
+      </div>
+      <h3>Ciclo de Carnot</h3>
+      <p><code>carnot</code></p>
+      <ul>
+    <li>
+      <a href="#sec-6.2">6.2 · Ciclo de Carnot como Maquina Termica</a>
+      <span>PDF p.95-98</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.4">6.4 · Eficiencia Geral e Eficiencia de Carnot</a>
+      <span>PDF p.99-100</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.5">6.5 · Exemplo: Maquina de Carnot</a>
+      <span>PDF p.101-102</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.6">6.6 · Ciclo de Carnot como Refrigerador</a>
+      <span>PDF p.102-107</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.7">6.7 · Exemplo: Refrigerador de Carnot</a>
+      <span>PDF p.107-108</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-ciclos-termodinamicos">
+      <div class="card-topline">
+        <span>Padrao</span>
+        <span>11 secoes</span>
+      </div>
+      <h3>Ciclos termodinamicos</h3>
+      <p><code>ciclos-termodinamicos</code></p>
+      <ul>
+    <li>
+      <a href="#sec-6.1">6.1 · Maquinas Termicas e Refrigeradores</a>
+      <span>PDF p.95-96</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.2">6.2 · Ciclo de Carnot como Maquina Termica</a>
+      <span>PDF p.95-98</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.3">6.3 · Energia Interna, Calor e Trabalho</a>
+      <span>PDF p.98-99</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.4">6.4 · Eficiencia Geral e Eficiencia de Carnot</a>
+      <span>PDF p.99-100</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.5">6.5 · Exemplo: Maquina de Carnot</a>
+      <span>PDF p.101-102</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.6">6.6 · Ciclo de Carnot como Refrigerador</a>
+      <span>PDF p.102-107</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.7">6.7 · Exemplo: Refrigerador de Carnot</a>
+      <span>PDF p.107-108</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.8">6.8 · Ciclo de Stirling sem Regenerador</a>
+      <span>PDF p.108-111</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.9">6.9 · Producao de Entropia no Stirling sem Regenerador</a>
+      <span>PDF p.112-113</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.10">6.10 · Motor de Stirling com Regenerador Tipo Alfa</a>
+      <span>PDF p.113-115</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.11">6.11 · Exemplo: Motor Stirling Alfa</a>
+      <span>PDF p.115-126</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-coexistencia-fases">
+      <div class="card-topline">
+        <span>Padrao</span>
+        <span>3 secoes</span>
+      </div>
+      <h3>Coexistencia de fases e calor latente</h3>
+      <p><code>coexistencia-fases</code></p>
+      <ul>
+    <li>
+      <a href="#sec-4.7">4.7 · Construcao de Maxwell</a>
+      <span>PDF p.68-71</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-4.8">4.8 · Superaquecimento e Super-resfriamento</a>
+      <span>PDF p.71-72</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-4.9">4.9 · Calor Latente e Equacao de Clausius-Clapeyron</a>
+      <span>PDF p.72-74</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-construcao-maxwell">
+      <div class="card-topline">
+        <span>Padrao</span>
+        <span>1 secoes</span>
+      </div>
+      <h3>Construcao de Maxwell</h3>
+      <p><code>construcao-maxwell</code></p>
+      <ul>
+    <li>
+      <a href="#sec-4.7">4.7 · Construcao de Maxwell</a>
+      <span>PDF p.68-71</span>
+      <small>topico principal</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-eficiencia-cop">
+      <div class="card-topline">
+        <span>Padrao</span>
+        <span>6 secoes</span>
+      </div>
+      <h3>Eficiencia e coeficiente de performance</h3>
+      <p><code>eficiencia-cop</code></p>
+      <ul>
+    <li>
+      <a href="#sec-6.4">6.4 · Eficiencia Geral e Eficiencia de Carnot</a>
+      <span>PDF p.99-100</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.5">6.5 · Exemplo: Maquina de Carnot</a>
+      <span>PDF p.101-102</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.6">6.6 · Ciclo de Carnot como Refrigerador</a>
+      <span>PDF p.102-107</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.7">6.7 · Exemplo: Refrigerador de Carnot</a>
+      <span>PDF p.107-108</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.8">6.8 · Ciclo de Stirling sem Regenerador</a>
+      <span>PDF p.108-111</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.11">6.11 · Exemplo: Motor Stirling Alfa</a>
+      <span>PDF p.115-126</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-energia-interna">
+      <div class="card-topline">
+        <span>Padrao</span>
+        <span>6 secoes</span>
+      </div>
+      <h3>Energia interna</h3>
+      <p><code>energia-interna</code></p>
+      <ul>
+    <li>
+      <a href="#sec-1.15">1.15 · Energia Interna</a>
+      <span>PDF p.17</span>
+      <small>topico principal</small>
+    </li>
+  
+    <li>
+      <a href="#sec-1.16">1.16 · Primeira Lei da Termodinamica</a>
+      <span>PDF p.17-18</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-2.2">2.2 · Entropia e Energia Interna</a>
+      <span>PDF p.25-26</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-3.4">3.4 · Energia Livre de Helmholtz e Energia Interna Estatistica</a>
+      <span>PDF p.39-40</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-3.7">3.7 · Exemplo I: Gas Ideal Monoatomico - Energia Livre</a>
+      <span>PDF p.42-43</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.3">6.3 · Energia Interna, Calor e Trabalho</a>
+      <span>PDF p.98-99</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-entalpia">
+      <div class="card-topline">
+        <span>Padrao</span>
+        <span>3 secoes</span>
+      </div>
+      <h3>Entalpia</h3>
+      <p><code>entalpia</code></p>
+      <ul>
+    <li>
+      <a href="#sec-2.4">2.4 · Entalpia e Calor Isobarico</a>
+      <span>PDF p.28-30</span>
+      <small>topico principal</small>
+    </li>
+  
+    <li>
+      <a href="#sec-2.9">2.9 · Tabela de Potenciais</a>
+      <span>PDF p.34-35</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-4.9">4.9 · Calor Latente e Equacao de Clausius-Clapeyron</a>
+      <span>PDF p.72-74</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-entropia-estatistica">
+      <div class="card-topline">
+        <span>Padrao</span>
+        <span>2 secoes</span>
+      </div>
+      <h3>Entropia estatistica</h3>
+      <p><code>entropia-estatistica</code></p>
+      <ul>
+    <li>
+      <a href="#sec-3.1">3.1 · Entropia, Gibbs e a Visao por Ensembles</a>
+      <span>PDF p.37-38</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-3.2">3.2 · Ensemble Micro-Canonico e Formula de Boltzmann</a>
+      <span>PDF p.38-39</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-entropia-termodinamica">
+      <div class="card-topline">
+        <span>Padrao</span>
+        <span>4 secoes</span>
+      </div>
+      <h3>Entropia termodinamica e Segunda Lei</h3>
+      <p><code>entropia-termodinamica</code></p>
+      <ul>
+    <li>
+      <a href="#sec-1.18">1.18 · Entropia e Desigualdade de Clausius</a>
+      <span>PDF p.18-19</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-2.2">2.2 · Entropia e Energia Interna</a>
+      <span>PDF p.25-26</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.3">6.3 · Energia Interna, Calor e Trabalho</a>
+      <span>PDF p.98-99</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.9">6.9 · Producao de Entropia no Stirling sem Regenerador</a>
+      <span>PDF p.112-113</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-equilibrio">
+      <div class="card-topline">
+        <span>Padrao</span>
+        <span>6 secoes</span>
+      </div>
+      <h3>Equilibrio termico e equilibrio termodinamico</h3>
+      <p><code>equilibrio</code></p>
+      <ul>
+    <li>
+      <a href="#sec-1.1">1.1 · Lei Zero da Termodinamica</a>
+      <span>PDF p.7</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-1.10">1.10 · Exemplo: Equilibrio Termico</a>
+      <span>PDF p.13</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-2.5">2.5 · Energia Livre de Gibbs</a>
+      <span>PDF p.30-31</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-3.1">3.1 · Entropia, Gibbs e a Visao por Ensembles</a>
+      <span>PDF p.37-38</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-4.6">4.6 · Energia Livre de Helmholtz e Gibbs</a>
+      <span>PDF p.67-69</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-4.7">4.7 · Construcao de Maxwell</a>
+      <span>PDF p.68-71</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-estabilidade-mecanica">
+      <div class="card-topline">
+        <span>Padrao</span>
+        <span>4 secoes</span>
+      </div>
+      <h3>Estabilidade mecanica, espinodal e metaestabilidade</h3>
+      <p><code>estabilidade-mecanica</code></p>
+      <ul>
+    <li>
+      <a href="#sec-4.5">4.5 · Regiao Instavel e Condicao Espinodal</a>
+      <span>PDF p.66</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-4.6">4.6 · Energia Livre de Helmholtz e Gibbs</a>
+      <span>PDF p.67-69</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-4.8">4.8 · Superaquecimento e Super-resfriamento</a>
+      <span>PDF p.71-72</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-4.10">4.10 · Compressibilidade Isotermica</a>
+      <span>PDF p.74-75</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-estado-termodinamico">
+      <div class="card-topline">
+        <span>Padrao</span>
+        <span>4 secoes</span>
+      </div>
+      <h3>Estado, sistema, processo e funcao de estado</h3>
+      <p><code>estado-termodinamico</code></p>
+      <ul>
+    <li>
+      <a href="#sec-1.5">1.5 · Sistemas Termodinamicos</a>
+      <span>PDF p.9-10</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-1.6">1.6 · Transformacoes Termodinamicas</a>
+      <span>PDF p.10-11</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-1.7">1.7 · Estados, Variaveis e Funcoes de Estado</a>
+      <span>PDF p.11</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-1.14">1.14 · Variaveis Conjugadas, Intensivas e Extensivas</a>
+      <span>PDF p.15-17</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-estatistica-ensembles">
+      <div class="card-topline">
+        <span>Padrao</span>
+        <span>3 secoes</span>
+      </div>
+      <h3>Termodinamica estatistica e ensembles</h3>
+      <p><code>estatistica-ensembles</code></p>
+      <ul>
+    <li>
+      <a href="#sec-3.1">3.1 · Entropia, Gibbs e a Visao por Ensembles</a>
+      <span>PDF p.37-38</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-3.2">3.2 · Ensemble Micro-Canonico e Formula de Boltzmann</a>
+      <span>PDF p.38-39</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-3.3">3.3 · Ensemble Canonico, Distribuicao de Boltzmann e Parametro Beta</a>
+      <span>PDF p.39-40</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-funcao-particao">
+      <div class="card-topline">
+        <span>Padrao</span>
+        <span>7 secoes</span>
+      </div>
+      <h3>Funcao de particao</h3>
+      <p><code>funcao-particao</code></p>
+      <ul>
+    <li>
+      <a href="#sec-3.3">3.3 · Ensemble Canonico, Distribuicao de Boltzmann e Parametro Beta</a>
+      <span>PDF p.39-40</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-3.4">3.4 · Energia Livre de Helmholtz e Energia Interna Estatistica</a>
+      <span>PDF p.39-40</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-3.6">3.6 · Exemplo I: Gas Ideal Monoatomico - Funcao de Particao</a>
+      <span>PDF p.41-42</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-3.7">3.7 · Exemplo I: Gas Ideal Monoatomico - Energia Livre</a>
+      <span>PDF p.42-43</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-3.8">3.8 · Exemplo II: Paramagnetismo Quantico</a>
+      <span>PDF p.44-47</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-3.9">3.9 · Exemplo III: Paramagnetismo Classico</a>
+      <span>PDF p.48</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-3.11">3.11 · Capacidade Calorifica em Solidos</a>
+      <span>PDF p.51-54</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-gas-ideal-ciclos">
+      <div class="card-topline">
+        <span>Padrao</span>
+        <span>2 secoes</span>
+      </div>
+      <h3>Gas ideal em ciclos</h3>
+      <p><code>gas-ideal-ciclos</code></p>
+      <ul>
+    <li>
+      <a href="#sec-6.5">6.5 · Exemplo: Maquina de Carnot</a>
+      <span>PDF p.101-102</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.7">6.7 · Exemplo: Refrigerador de Carnot</a>
+      <span>PDF p.107-108</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-gas-ideal-estatistico">
+      <div class="card-topline">
+        <span>Padrao</span>
+        <span>2 secoes</span>
+      </div>
+      <h3>Gas ideal em termodinamica estatistica</h3>
+      <p><code>gas-ideal-estatistico</code></p>
+      <ul>
+    <li>
+      <a href="#sec-3.6">3.6 · Exemplo I: Gas Ideal Monoatomico - Funcao de Particao</a>
+      <span>PDF p.41-42</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-3.7">3.7 · Exemplo I: Gas Ideal Monoatomico - Energia Livre</a>
+      <span>PDF p.42-43</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-gas-ideal-fundamentos">
+      <div class="card-topline">
+        <span>Padrao</span>
+        <span>2 secoes</span>
+      </div>
+      <h3>Gas ideal em fundamentos</h3>
+      <p><code>gas-ideal-fundamentos</code></p>
+      <ul>
+    <li>
+      <a href="#sec-1.11">1.11 · Gas Ideal</a>
+      <span>PDF p.13-14</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-1.13">1.13 · Exemplo: Trabalho Isotermico</a>
+      <span>PDF p.15-16</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-gibbs">
+      <div class="card-topline">
+        <span>Padrao</span>
+        <span>4 secoes</span>
+      </div>
+      <h3>Energia livre de Gibbs</h3>
+      <p><code>gibbs</code></p>
+      <ul>
+    <li>
+      <a href="#sec-2.5">2.5 · Energia Livre de Gibbs</a>
+      <span>PDF p.30-31</span>
+      <small>topico principal</small>
+    </li>
+  
+    <li>
+      <a href="#sec-4.6">4.6 · Energia Livre de Helmholtz e Gibbs</a>
+      <span>PDF p.67-69</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-4.7">4.7 · Construcao de Maxwell</a>
+      <span>PDF p.68-71</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-4.9">4.9 · Calor Latente e Equacao de Clausius-Clapeyron</a>
+      <span>PDF p.72-74</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-helmholtz">
+      <div class="card-topline">
+        <span>Padrao</span>
+        <span>4 secoes</span>
+      </div>
+      <h3>Energia livre de Helmholtz</h3>
+      <p><code>helmholtz</code></p>
+      <ul>
+    <li>
+      <a href="#sec-2.3">2.3 · Energia Livre de Helmholtz</a>
+      <span>PDF p.26-28</span>
+      <small>topico principal</small>
+    </li>
+  
+    <li>
+      <a href="#sec-3.4">3.4 · Energia Livre de Helmholtz e Energia Interna Estatistica</a>
+      <span>PDF p.39-40</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-3.7">3.7 · Exemplo I: Gas Ideal Monoatomico - Energia Livre</a>
+      <span>PDF p.42-43</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-4.6">4.6 · Energia Livre de Helmholtz e Gibbs</a>
+      <span>PDF p.67-69</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-indistinguibilidade">
+      <div class="card-topline">
+        <span>Padrao</span>
+        <span>3 secoes</span>
+      </div>
+      <h3>Indistinguibilidade e paradoxo de Gibbs</h3>
+      <p><code>indistinguibilidade</code></p>
+      <ul>
+    <li>
+      <a href="#sec-3.5">3.5 · Particulas Distinguiveis, Indistinguiveis e Paradoxo de Gibbs</a>
+      <span>PDF p.40-41</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-3.6">3.6 · Exemplo I: Gas Ideal Monoatomico - Funcao de Particao</a>
+      <span>PDF p.41-42</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-3.7">3.7 · Exemplo I: Gas Ideal Monoatomico - Energia Livre</a>
+      <span>PDF p.42-43</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-maquinas-termicas">
+      <div class="card-topline">
+        <span>Padrao</span>
+        <span>7 secoes</span>
+      </div>
+      <h3>Maquinas termicas</h3>
+      <p><code>maquinas-termicas</code></p>
+      <ul>
+    <li>
+      <a href="#sec-6.1">6.1 · Maquinas Termicas e Refrigeradores</a>
+      <span>PDF p.95-96</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.2">6.2 · Ciclo de Carnot como Maquina Termica</a>
+      <span>PDF p.95-98</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.4">6.4 · Eficiencia Geral e Eficiencia de Carnot</a>
+      <span>PDF p.99-100</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.5">6.5 · Exemplo: Maquina de Carnot</a>
+      <span>PDF p.101-102</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.8">6.8 · Ciclo de Stirling sem Regenerador</a>
+      <span>PDF p.108-111</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.10">6.10 · Motor de Stirling com Regenerador Tipo Alfa</a>
+      <span>PDF p.113-115</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.11">6.11 · Exemplo: Motor Stirling Alfa</a>
+      <span>PDF p.115-126</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-maxwell-relacoes">
+      <div class="card-topline">
+        <span>Padrao</span>
+        <span>1 secoes</span>
+      </div>
+      <h3>Relacoes de Maxwell</h3>
+      <p><code>maxwell-relacoes</code></p>
+      <ul>
+    <li>
+      <a href="#sec-2.8">2.8 · Relacoes de Maxwell e Retangulo Termodinamico</a>
+      <span>PDF p.32-35</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-paramagnetismo">
+      <div class="card-topline">
+        <span>Padrao</span>
+        <span>3 secoes</span>
+      </div>
+      <h3>Paramagnetismo estatistico</h3>
+      <p><code>paramagnetismo</code></p>
+      <ul>
+    <li>
+      <a href="#sec-3.8">3.8 · Exemplo II: Paramagnetismo Quantico</a>
+      <span>PDF p.44-47</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-3.9">3.9 · Exemplo III: Paramagnetismo Classico</a>
+      <span>PDF p.48</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-3.10">3.10 · Terceira Lei da Termodinamica</a>
+      <span>PDF p.49-50</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-ponto-critico">
+      <div class="card-topline">
+        <span>Padrao</span>
+        <span>4 secoes</span>
+      </div>
+      <h3>Ponto critico e variaveis reduzidas</h3>
+      <p><code>ponto-critico</code></p>
+      <ul>
+    <li>
+      <a href="#sec-4.3">4.3 · Ponto Critico no Modelo de Van der Waals</a>
+      <span>PDF p.64-65</span>
+      <small>topico principal</small>
+    </li>
+  
+    <li>
+      <a href="#sec-4.4">4.4 · Variaveis Reduzidas e Lei dos Estados Correspondentes</a>
+      <span>PDF p.65-66</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-4.10">4.10 · Compressibilidade Isotermica</a>
+      <span>PDF p.74-75</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-4.11">4.11 · Coeficiente de Expansao Termica</a>
+      <span>PDF p.76-77</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-potenciais-termodinamicos">
+      <div class="card-topline">
+        <span>Padrao</span>
+        <span>10 secoes</span>
+      </div>
+      <h3>Potenciais termodinamicos</h3>
+      <p><code>potenciais-termodinamicos</code></p>
+      <ul>
+    <li>
+      <a href="#sec-2.1">2.1 · Potenciais Termodinamicos e Transformacoes de Legendre</a>
+      <span>PDF p.25</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-2.2">2.2 · Entropia e Energia Interna</a>
+      <span>PDF p.25-26</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-2.3">2.3 · Energia Livre de Helmholtz</a>
+      <span>PDF p.26-28</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-2.4">2.4 · Entalpia e Calor Isobarico</a>
+      <span>PDF p.28-30</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-2.5">2.5 · Energia Livre de Gibbs</a>
+      <span>PDF p.30-31</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-2.6">2.6 · Grand Potential</a>
+      <span>PDF p.31-32</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-2.8">2.8 · Relacoes de Maxwell e Retangulo Termodinamico</a>
+      <span>PDF p.32-35</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-2.9">2.9 · Tabela de Potenciais</a>
+      <span>PDF p.34-35</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-3.4">3.4 · Energia Livre de Helmholtz e Energia Interna Estatistica</a>
+      <span>PDF p.39-40</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-4.6">4.6 · Energia Livre de Helmholtz e Gibbs</a>
+      <span>PDF p.67-69</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-primeira-lei">
+      <div class="card-topline">
+        <span>Padrao</span>
+        <span>7 secoes</span>
+      </div>
+      <h3>Primeira Lei e balanco de energia</h3>
+      <p><code>primeira-lei</code></p>
+      <ul>
+    <li>
+      <a href="#sec-1.15">1.15 · Energia Interna</a>
+      <span>PDF p.17</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-1.16">1.16 · Primeira Lei da Termodinamica</a>
+      <span>PDF p.17-18</span>
+      <small>topico principal</small>
+    </li>
+  
+    <li>
+      <a href="#sec-1.17">1.17 · Exemplo: Aplicacao da Primeira Lei</a>
+      <span>PDF p.18</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-2.2">2.2 · Entropia e Energia Interna</a>
+      <span>PDF p.25-26</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.3">6.3 · Energia Interna, Calor e Trabalho</a>
+      <span>PDF p.98-99</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.5">6.5 · Exemplo: Maquina de Carnot</a>
+      <span>PDF p.101-102</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.11">6.11 · Exemplo: Motor Stirling Alfa</a>
+      <span>PDF p.115-126</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-refrigeradores">
+      <div class="card-topline">
+        <span>Padrao</span>
+        <span>3 secoes</span>
+      </div>
+      <h3>Refrigeradores termodinamicos</h3>
+      <p><code>refrigeradores</code></p>
+      <ul>
+    <li>
+      <a href="#sec-6.1">6.1 · Maquinas Termicas e Refrigeradores</a>
+      <span>PDF p.95-96</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.6">6.6 · Ciclo de Carnot como Refrigerador</a>
+      <span>PDF p.102-107</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.7">6.7 · Exemplo: Refrigerador de Carnot</a>
+      <span>PDF p.107-108</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-stirling">
+      <div class="card-topline">
+        <span>Padrao</span>
+        <span>4 secoes</span>
+      </div>
+      <h3>Ciclo de Stirling</h3>
+      <p><code>stirling</code></p>
+      <ul>
+    <li>
+      <a href="#sec-6.8">6.8 · Ciclo de Stirling sem Regenerador</a>
+      <span>PDF p.108-111</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.9">6.9 · Producao de Entropia no Stirling sem Regenerador</a>
+      <span>PDF p.112-113</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.10">6.10 · Motor de Stirling com Regenerador Tipo Alfa</a>
+      <span>PDF p.113-115</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.11">6.11 · Exemplo: Motor Stirling Alfa</a>
+      <span>PDF p.115-126</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-temperatura-termometria">
+      <div class="card-topline">
+        <span>Padrao</span>
+        <span>4 secoes</span>
+      </div>
+      <h3>Temperatura e termometria</h3>
+      <p><code>temperatura-termometria</code></p>
+      <ul>
+    <li>
+      <a href="#sec-1.1">1.1 · Lei Zero da Termodinamica</a>
+      <span>PDF p.7</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-1.2">1.2 · Metodos de Medicao de Temperatura</a>
+      <span>PDF p.7-8</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-1.3">1.3 · Escalas Termometricas</a>
+      <span>PDF p.8-9</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-1.4">1.4 · Relacao entre Escalas</a>
+      <span>PDF p.9</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-terceira-lei">
+      <div class="card-topline">
+        <span>Padrao</span>
+        <span>2 secoes</span>
+      </div>
+      <h3>Terceira Lei da Termodinamica</h3>
+      <p><code>terceira-lei</code></p>
+      <ul>
+    <li>
+      <a href="#sec-3.10">3.10 · Terceira Lei da Termodinamica</a>
+      <span>PDF p.49-50</span>
+      <small>topico principal</small>
+    </li>
+  
+    <li>
+      <a href="#sec-3.11">3.11 · Capacidade Calorifica em Solidos</a>
+      <span>PDF p.51-54</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-trabalho-em-ciclos">
+      <div class="card-topline">
+        <span>Padrao</span>
+        <span>4 secoes</span>
+      </div>
+      <h3>Trabalho em ciclos termodinamicos</h3>
+      <p><code>trabalho-em-ciclos</code></p>
+      <ul>
+    <li>
+      <a href="#sec-6.3">6.3 · Energia Interna, Calor e Trabalho</a>
+      <span>PDF p.98-99</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.5">6.5 · Exemplo: Maquina de Carnot</a>
+      <span>PDF p.101-102</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.8">6.8 · Ciclo de Stirling sem Regenerador</a>
+      <span>PDF p.108-111</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-6.11">6.11 · Exemplo: Motor Stirling Alfa</a>
+      <span>PDF p.115-126</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-trabalho-fundamentos">
+      <div class="card-topline">
+        <span>Padrao</span>
+        <span>2 secoes</span>
+      </div>
+      <h3>Trabalho em fundamentos</h3>
+      <p><code>trabalho-fundamentos</code></p>
+      <ul>
+    <li>
+      <a href="#sec-1.12">1.12 · Trabalho Termodinamico</a>
+      <span>PDF p.14-16</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-1.13">1.13 · Exemplo: Trabalho Isotermico</a>
+      <span>PDF p.15-16</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-transicoes-de-fase">
+      <div class="card-topline">
+        <span>Padrao</span>
+        <span>11 secoes</span>
+      </div>
+      <h3>Transicoes de fase</h3>
+      <p><code>transicoes-de-fase</code></p>
+      <ul>
+    <li>
+      <a href="#sec-4.1">4.1 · Gas Real e Limites do Modelo Ideal</a>
+      <span>PDF p.63</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-4.2">4.2 · Equacao de Estado de Van der Waals</a>
+      <span>PDF p.63-64</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-4.3">4.3 · Ponto Critico no Modelo de Van der Waals</a>
+      <span>PDF p.64-65</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-4.4">4.4 · Variaveis Reduzidas e Lei dos Estados Correspondentes</a>
+      <span>PDF p.65-66</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-4.5">4.5 · Regiao Instavel e Condicao Espinodal</a>
+      <span>PDF p.66</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-4.6">4.6 · Energia Livre de Helmholtz e Gibbs</a>
+      <span>PDF p.67-69</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-4.7">4.7 · Construcao de Maxwell</a>
+      <span>PDF p.68-71</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-4.8">4.8 · Superaquecimento e Super-resfriamento</a>
+      <span>PDF p.71-72</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-4.9">4.9 · Calor Latente e Equacao de Clausius-Clapeyron</a>
+      <span>PDF p.72-74</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-4.10">4.10 · Compressibilidade Isotermica</a>
+      <span>PDF p.74-75</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-4.11">4.11 · Coeficiente de Expansao Termica</a>
+      <span>PDF p.76-77</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-van-der-waals">
+      <div class="card-topline">
+        <span>Padrao</span>
+        <span>10 secoes</span>
+      </div>
+      <h3>Gas de Van der Waals</h3>
+      <p><code>van-der-waals</code></p>
+      <ul>
+    <li>
+      <a href="#sec-4.1">4.1 · Gas Real e Limites do Modelo Ideal</a>
+      <span>PDF p.63</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-4.2">4.2 · Equacao de Estado de Van der Waals</a>
+      <span>PDF p.63-64</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-4.3">4.3 · Ponto Critico no Modelo de Van der Waals</a>
+      <span>PDF p.64-65</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-4.4">4.4 · Variaveis Reduzidas e Lei dos Estados Correspondentes</a>
+      <span>PDF p.65-66</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-4.5">4.5 · Regiao Instavel e Condicao Espinodal</a>
+      <span>PDF p.66</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-4.6">4.6 · Energia Livre de Helmholtz e Gibbs</a>
+      <span>PDF p.67-69</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-4.7">4.7 · Construcao de Maxwell</a>
+      <span>PDF p.68-71</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-4.8">4.8 · Superaquecimento e Super-resfriamento</a>
+      <span>PDF p.71-72</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-4.10">4.10 · Compressibilidade Isotermica</a>
+      <span>PDF p.74-75</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-4.11">4.11 · Coeficiente de Expansao Termica</a>
+      <span>PDF p.76-77</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  
+    <article class="topic-card" id="topic-variaveis-conjugadas">
+      <div class="card-topline">
+        <span>Padrao</span>
+        <span>5 secoes</span>
+      </div>
+      <h3>Variaveis conjugadas, intensivas e extensivas</h3>
+      <p><code>variaveis-conjugadas</code></p>
+      <ul>
+    <li>
+      <a href="#sec-1.14">1.14 · Variaveis Conjugadas, Intensivas e Extensivas</a>
+      <span>PDF p.15-17</span>
+      <small>topico principal</small>
+    </li>
+  
+    <li>
+      <a href="#sec-2.1">2.1 · Potenciais Termodinamicos e Transformacoes de Legendre</a>
+      <span>PDF p.25</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-2.2">2.2 · Entropia e Energia Interna</a>
+      <span>PDF p.25-26</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-2.7">2.7 · Variaveis Conjugadas Mecanicas e Magneticas</a>
+      <span>PDF p.32</span>
+      <small>relacionado</small>
+    </li>
+  
+    <li>
+      <a href="#sec-2.8">2.8 · Relacoes de Maxwell e Retangulo Termodinamico</a>
+      <span>PDF p.32-35</span>
+      <small>relacionado</small>
+    </li>
+  </ul>
+    </article>
+  </div>
+    </section>
+  </main>
+</body>
+</html>

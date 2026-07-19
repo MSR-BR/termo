@@ -1,0 +1,303 @@
+{
+  "version": "2026-07-19-ai-02-topic-zero",
+  "description": "Topic-zero taxonomy for TERMO AI exercises. Every app section becomes an indexable topic entry; transversal topics group concepts that appear in more than one section or chapter.",
+  "sourceCorpus": "data/book-section-corpus.json",
+  "scope": {
+    "chapters": ["01", "02", "03", "04", "06"],
+    "appSectionCount": 61,
+    "note": "Chapter 05 has no published app sections in this version."
+  },
+  "transversalTopics": [
+    {
+      "id": "temperatura-termometria",
+      "label": "Temperatura e termometria",
+      "sections": ["1.1", "1.2", "1.3", "1.4"]
+    },
+    {
+      "id": "estado-termodinamico",
+      "label": "Estado, sistema, processo e funcao de estado",
+      "sections": ["1.5", "1.6", "1.7", "1.14"]
+    },
+    {
+      "id": "equilibrio",
+      "label": "Equilibrio termico e equilibrio termodinamico",
+      "sections": ["1.1", "1.10", "2.5", "3.1", "4.6", "4.7"]
+    },
+    {
+      "id": "calor",
+      "label": "Calor e trocas termicas",
+      "usage": "advanced-support",
+      "sections": ["1.8", "1.9", "1.10", "2.4", "6.3", "6.5", "6.7"]
+    },
+    {
+      "id": "calor-fundamentos",
+      "label": "Calor em fundamentos",
+      "sections": ["1.8", "1.9", "1.10", "1.19"]
+    },
+    {
+      "id": "calor-entalpia",
+      "label": "Calor em entalpia e transicoes",
+      "sections": ["2.4", "4.9"]
+    },
+    {
+      "id": "calor-em-ciclos",
+      "label": "Calor em ciclos termodinamicos",
+      "sections": ["6.3", "6.5", "6.7"]
+    },
+    {
+      "id": "trabalho",
+      "label": "Trabalho termodinamico",
+      "usage": "advanced-support",
+      "sections": ["1.12", "1.13", "2.1", "6.3", "6.5", "6.8", "6.11"]
+    },
+    {
+      "id": "trabalho-fundamentos",
+      "label": "Trabalho em fundamentos",
+      "sections": ["1.12", "1.13"]
+    },
+    {
+      "id": "trabalho-em-ciclos",
+      "label": "Trabalho em ciclos termodinamicos",
+      "sections": ["6.3", "6.5", "6.8", "6.11"]
+    },
+    {
+      "id": "primeira-lei",
+      "label": "Primeira Lei e balanco de energia",
+      "sections": ["1.15", "1.16", "1.17", "2.2", "6.3", "6.5", "6.11"]
+    },
+    {
+      "id": "entropia",
+      "label": "Entropia, irreversibilidade e Segunda Lei",
+      "usage": "advanced-support",
+      "sections": ["1.18", "2.2", "3.1", "3.2", "6.3", "6.9"]
+    },
+    {
+      "id": "entropia-termodinamica",
+      "label": "Entropia termodinamica e Segunda Lei",
+      "sections": ["1.18", "2.2", "6.3", "6.9"]
+    },
+    {
+      "id": "entropia-estatistica",
+      "label": "Entropia estatistica",
+      "sections": ["3.1", "3.2"]
+    },
+    {
+      "id": "energia-interna",
+      "label": "Energia interna",
+      "sections": ["1.15", "1.16", "2.2", "3.4", "3.7", "6.3"]
+    },
+    {
+      "id": "capacidade-calorifica",
+      "label": "Capacidade calorifica e calores especificos",
+      "sections": ["1.19", "2.4", "3.11", "4.9"]
+    },
+    {
+      "id": "gas-ideal",
+      "label": "Gas ideal e aplicacoes",
+      "usage": "advanced-support",
+      "sections": ["1.11", "1.13", "3.6", "3.7", "4.1", "6.5", "6.7"]
+    },
+    {
+      "id": "gas-ideal-fundamentos",
+      "label": "Gas ideal em fundamentos",
+      "sections": ["1.11", "1.13"]
+    },
+    {
+      "id": "gas-ideal-estatistico",
+      "label": "Gas ideal em termodinamica estatistica",
+      "sections": ["3.6", "3.7"]
+    },
+    {
+      "id": "gas-ideal-ciclos",
+      "label": "Gas ideal em ciclos",
+      "sections": ["6.5", "6.7"]
+    },
+    {
+      "id": "variaveis-conjugadas",
+      "label": "Variaveis conjugadas, intensivas e extensivas",
+      "sections": ["1.14", "2.1", "2.2", "2.7", "2.8"]
+    },
+    {
+      "id": "potenciais-termodinamicos",
+      "label": "Potenciais termodinamicos",
+      "sections": ["2.1", "2.2", "2.3", "2.4", "2.5", "2.6", "2.8", "2.9", "3.4", "4.6"]
+    },
+    {
+      "id": "helmholtz",
+      "label": "Energia livre de Helmholtz",
+      "sections": ["2.3", "3.4", "3.7", "4.6"]
+    },
+    {
+      "id": "gibbs",
+      "label": "Energia livre de Gibbs",
+      "sections": ["2.5", "4.6", "4.7", "4.9"]
+    },
+    {
+      "id": "entalpia",
+      "label": "Entalpia",
+      "sections": ["2.4", "2.9", "4.9"]
+    },
+    {
+      "id": "maxwell-relacoes",
+      "label": "Relacoes de Maxwell",
+      "sections": ["2.8"]
+    },
+    {
+      "id": "construcao-maxwell",
+      "label": "Construcao de Maxwell",
+      "sections": ["4.7"]
+    },
+    {
+      "id": "estatistica-ensembles",
+      "label": "Termodinamica estatistica e ensembles",
+      "sections": ["3.1", "3.2", "3.3"]
+    },
+    {
+      "id": "boltzmann",
+      "label": "Boltzmann, probabilidades e parametro beta",
+      "sections": ["3.2", "3.3"]
+    },
+    {
+      "id": "funcao-particao",
+      "label": "Funcao de particao",
+      "sections": ["3.3", "3.4", "3.6", "3.7", "3.8", "3.9", "3.11"]
+    },
+    {
+      "id": "indistinguibilidade",
+      "label": "Indistinguibilidade e paradoxo de Gibbs",
+      "sections": ["3.5", "3.6", "3.7"]
+    },
+    {
+      "id": "paramagnetismo",
+      "label": "Paramagnetismo estatistico",
+      "sections": ["3.8", "3.9", "3.10"]
+    },
+    {
+      "id": "terceira-lei",
+      "label": "Terceira Lei da Termodinamica",
+      "sections": ["3.10", "3.11"]
+    },
+    {
+      "id": "transicoes-de-fase",
+      "label": "Transicoes de fase",
+      "sections": ["4.1", "4.2", "4.3", "4.4", "4.5", "4.6", "4.7", "4.8", "4.9", "4.10", "4.11"]
+    },
+    {
+      "id": "van-der-waals",
+      "label": "Gas de Van der Waals",
+      "sections": ["4.1", "4.2", "4.3", "4.4", "4.5", "4.6", "4.7", "4.8", "4.10", "4.11"]
+    },
+    {
+      "id": "ponto-critico",
+      "label": "Ponto critico e variaveis reduzidas",
+      "sections": ["4.3", "4.4", "4.10", "4.11"]
+    },
+    {
+      "id": "estabilidade-mecanica",
+      "label": "Estabilidade mecanica, espinodal e metaestabilidade",
+      "sections": ["4.5", "4.6", "4.8", "4.10"]
+    },
+    {
+      "id": "coexistencia-fases",
+      "label": "Coexistencia de fases e calor latente",
+      "sections": ["4.7", "4.8", "4.9"]
+    },
+    {
+      "id": "ciclos-termodinamicos",
+      "label": "Ciclos termodinamicos",
+      "sections": ["6.1", "6.2", "6.3", "6.4", "6.5", "6.6", "6.7", "6.8", "6.9", "6.10", "6.11"]
+    },
+    {
+      "id": "carnot",
+      "label": "Ciclo de Carnot",
+      "sections": ["6.2", "6.4", "6.5", "6.6", "6.7"]
+    },
+    {
+      "id": "stirling",
+      "label": "Ciclo de Stirling",
+      "sections": ["6.8", "6.9", "6.10", "6.11"]
+    },
+    {
+      "id": "maquinas-termicas",
+      "label": "Maquinas termicas",
+      "sections": ["6.1", "6.2", "6.4", "6.5", "6.8", "6.10", "6.11"]
+    },
+    {
+      "id": "refrigeradores",
+      "label": "Refrigeradores termodinamicos",
+      "sections": ["6.1", "6.6", "6.7"]
+    },
+    {
+      "id": "eficiencia-cop",
+      "label": "Eficiencia e coeficiente de performance",
+      "sections": ["6.4", "6.5", "6.6", "6.7", "6.8", "6.11"]
+    }
+  ],
+  "sectionTopics": [
+    {"sectionId": "1.1", "chapterId": "01", "itemId": "1.1", "title": "Lei Zero da Termodinamica", "primaryTopic": "lei-zero", "topicTags": ["temperatura-termometria", "equilibrio"]},
+    {"sectionId": "1.2", "chapterId": "01", "itemId": "1.2", "title": "Metodos de Medicao de Temperatura", "primaryTopic": "medicao-temperatura", "topicTags": ["temperatura-termometria"]},
+    {"sectionId": "1.3", "chapterId": "01", "itemId": "1.3", "title": "Escalas Termometricas", "primaryTopic": "escalas-termometricas", "topicTags": ["temperatura-termometria"]},
+    {"sectionId": "1.4", "chapterId": "01", "itemId": "1.4", "title": "Relacao entre Escalas", "primaryTopic": "conversao-escalas", "topicTags": ["temperatura-termometria"]},
+    {"sectionId": "1.5", "chapterId": "01", "itemId": "1.5", "title": "Sistemas Termodinamicos", "primaryTopic": "sistemas-termodinamicos", "topicTags": ["estado-termodinamico"]},
+    {"sectionId": "1.6", "chapterId": "01", "itemId": "1.6", "title": "Transformacoes Termodinamicas", "primaryTopic": "transformacoes-termodinamicas", "topicTags": ["estado-termodinamico"]},
+    {"sectionId": "1.7", "chapterId": "01", "itemId": "1.7", "title": "Estados, Variaveis e Funcoes de Estado", "primaryTopic": "funcoes-de-estado", "topicTags": ["estado-termodinamico", "variaveis-conjugadas"]},
+    {"sectionId": "1.8", "chapterId": "01", "itemId": "1.8", "title": "Calor", "primaryTopic": "calor", "topicTags": ["calor-fundamentos"], "advancedTopicTags": ["calor"]},
+    {"sectionId": "1.9", "chapterId": "01", "itemId": "1.9", "title": "Exemplo: Aquecendo um Bloco de Cobre", "primaryTopic": "calor-sensivel", "topicTags": ["calor-fundamentos", "capacidade-calorifica"], "advancedTopicTags": ["calor"]},
+    {"sectionId": "1.10", "chapterId": "01", "itemId": "1.10", "title": "Exemplo: Equilibrio Termico", "primaryTopic": "equilibrio-termico", "topicTags": ["calor-fundamentos", "equilibrio"], "advancedTopicTags": ["calor"]},
+    {"sectionId": "1.11", "chapterId": "01", "itemId": "1.11", "title": "Gas Ideal", "primaryTopic": "gas-ideal", "topicTags": ["gas-ideal-fundamentos"], "advancedTopicTags": ["gas-ideal"]},
+    {"sectionId": "1.12", "chapterId": "01", "itemId": "1.12", "title": "Trabalho Termodinamico", "primaryTopic": "trabalho-termodinamico", "topicTags": ["trabalho-fundamentos"], "advancedTopicTags": ["trabalho"]},
+    {"sectionId": "1.13", "chapterId": "01", "itemId": "1.13", "title": "Exemplo: Trabalho Isotermico", "primaryTopic": "trabalho-isotermico", "topicTags": ["trabalho-fundamentos", "gas-ideal-fundamentos"], "advancedTopicTags": ["trabalho", "gas-ideal"]},
+    {"sectionId": "1.14", "chapterId": "01", "itemId": "1.14", "title": "Variaveis Conjugadas, Intensivas e Extensivas", "primaryTopic": "variaveis-conjugadas", "topicTags": ["variaveis-conjugadas"]},
+    {"sectionId": "1.15", "chapterId": "01", "itemId": "1.15", "title": "Energia Interna", "primaryTopic": "energia-interna", "topicTags": ["energia-interna", "primeira-lei"]},
+    {"sectionId": "1.16", "chapterId": "01", "itemId": "1.16", "title": "Primeira Lei da Termodinamica", "primaryTopic": "primeira-lei", "topicTags": ["primeira-lei", "energia-interna"]},
+    {"sectionId": "1.17", "chapterId": "01", "itemId": "1.17", "title": "Exemplo: Aplicacao da Primeira Lei", "primaryTopic": "aplicacao-primeira-lei", "topicTags": ["primeira-lei"]},
+    {"sectionId": "1.18", "chapterId": "01", "itemId": "1.18", "title": "Entropia e Desigualdade de Clausius", "primaryTopic": "entropia-clausius", "topicTags": ["entropia-termodinamica"], "advancedTopicTags": ["entropia"]},
+    {"sectionId": "1.19", "chapterId": "01", "itemId": "1.19", "title": "Capacidade Calorifica", "primaryTopic": "capacidade-calorifica", "topicTags": ["capacidade-calorifica", "calor-fundamentos"], "advancedTopicTags": ["calor"]},
+
+    {"sectionId": "2.1", "chapterId": "02", "itemId": "2.1", "title": "Potenciais Termodinamicos e Transformacoes de Legendre", "primaryTopic": "transformada-legendre", "topicTags": ["potenciais-termodinamicos", "variaveis-conjugadas"], "advancedTopicTags": ["trabalho"]},
+    {"sectionId": "2.2", "chapterId": "02", "itemId": "2.2", "title": "Entropia e Energia Interna", "primaryTopic": "representacao-energia-interna", "topicTags": ["potenciais-termodinamicos", "energia-interna", "entropia-termodinamica", "primeira-lei", "variaveis-conjugadas"], "advancedTopicTags": ["entropia"]},
+    {"sectionId": "2.3", "chapterId": "02", "itemId": "2.3", "title": "Energia Livre de Helmholtz", "primaryTopic": "helmholtz", "topicTags": ["potenciais-termodinamicos", "helmholtz"]},
+    {"sectionId": "2.4", "chapterId": "02", "itemId": "2.4", "title": "Entalpia e Calor Isobarico", "primaryTopic": "entalpia", "topicTags": ["potenciais-termodinamicos", "entalpia", "calor-entalpia", "capacidade-calorifica"], "advancedTopicTags": ["calor"]},
+    {"sectionId": "2.5", "chapterId": "02", "itemId": "2.5", "title": "Energia Livre de Gibbs", "primaryTopic": "gibbs", "topicTags": ["potenciais-termodinamicos", "gibbs", "equilibrio"]},
+    {"sectionId": "2.6", "chapterId": "02", "itemId": "2.6", "title": "Grand Potential", "primaryTopic": "grand-potential", "topicTags": ["potenciais-termodinamicos"]},
+    {"sectionId": "2.7", "chapterId": "02", "itemId": "2.7", "title": "Variaveis Conjugadas Mecanicas e Magneticas", "primaryTopic": "conjugadas-mecanicas-magneticas", "topicTags": ["variaveis-conjugadas"]},
+    {"sectionId": "2.8", "chapterId": "02", "itemId": "2.8", "title": "Relacoes de Maxwell e Retangulo Termodinamico", "primaryTopic": "relacoes-maxwell", "topicTags": ["potenciais-termodinamicos", "maxwell-relacoes", "variaveis-conjugadas"]},
+    {"sectionId": "2.9", "chapterId": "02", "itemId": "2.9", "title": "Tabela de Potenciais", "primaryTopic": "tabela-potenciais", "topicTags": ["potenciais-termodinamicos", "helmholtz", "gibbs", "entalpia"]},
+
+    {"sectionId": "3.1", "chapterId": "03", "itemId": "3.1", "title": "Entropia, Gibbs e a Visao por Ensembles", "primaryTopic": "ensembles-gibbs", "topicTags": ["estatistica-ensembles", "entropia-estatistica", "equilibrio"], "advancedTopicTags": ["entropia"]},
+    {"sectionId": "3.2", "chapterId": "03", "itemId": "3.2", "title": "Ensemble Micro-Canonico e Formula de Boltzmann", "primaryTopic": "microcanonico-boltzmann", "topicTags": ["estatistica-ensembles", "boltzmann", "entropia-estatistica"], "advancedTopicTags": ["entropia"]},
+    {"sectionId": "3.3", "chapterId": "03", "itemId": "3.3", "title": "Ensemble Canonico, Distribuicao de Boltzmann e Parametro Beta", "primaryTopic": "canonico-boltzmann-beta", "topicTags": ["estatistica-ensembles", "boltzmann", "funcao-particao"]},
+    {"sectionId": "3.4", "chapterId": "03", "itemId": "3.4", "title": "Energia Livre de Helmholtz e Energia Interna Estatistica", "primaryTopic": "helmholtz-estatistica", "topicTags": ["funcao-particao", "helmholtz", "energia-interna", "potenciais-termodinamicos"]},
+    {"sectionId": "3.5", "chapterId": "03", "itemId": "3.5", "title": "Particulas Distinguiveis, Indistinguiveis e Paradoxo de Gibbs", "primaryTopic": "paradoxo-gibbs", "topicTags": ["indistinguibilidade"]},
+    {"sectionId": "3.6", "chapterId": "03", "itemId": "3.6", "title": "Exemplo I: Gas Ideal Monoatomico - Funcao de Particao", "primaryTopic": "funcao-particao-gas-ideal", "topicTags": ["funcao-particao", "gas-ideal-estatistico", "indistinguibilidade"], "advancedTopicTags": ["gas-ideal"]},
+    {"sectionId": "3.7", "chapterId": "03", "itemId": "3.7", "title": "Exemplo I: Gas Ideal Monoatomico - Energia Livre", "primaryTopic": "sackur-tetrode", "topicTags": ["funcao-particao", "gas-ideal-estatistico", "helmholtz", "energia-interna", "indistinguibilidade"], "advancedTopicTags": ["gas-ideal"]},
+    {"sectionId": "3.8", "chapterId": "03", "itemId": "3.8", "title": "Exemplo II: Paramagnetismo Quantico", "primaryTopic": "paramagnetismo-quantico", "topicTags": ["paramagnetismo", "funcao-particao"]},
+    {"sectionId": "3.9", "chapterId": "03", "itemId": "3.9", "title": "Exemplo III: Paramagnetismo Classico", "primaryTopic": "paramagnetismo-classico", "topicTags": ["paramagnetismo", "funcao-particao"]},
+    {"sectionId": "3.10", "chapterId": "03", "itemId": "3.10", "title": "Terceira Lei da Termodinamica", "primaryTopic": "terceira-lei", "topicTags": ["terceira-lei", "paramagnetismo"]},
+    {"sectionId": "3.11", "chapterId": "03", "itemId": "3.11", "title": "Capacidade Calorifica em Solidos", "primaryTopic": "capacidade-calorifica-solidos", "topicTags": ["capacidade-calorifica", "funcao-particao", "terceira-lei"]},
+
+    {"sectionId": "4.1", "chapterId": "04", "itemId": "4.1", "title": "Gas Real e Limites do Modelo Ideal", "primaryTopic": "gas-real-limite-ideal", "topicTags": ["transicoes-de-fase", "van-der-waals"], "advancedTopicTags": ["gas-ideal"]},
+    {"sectionId": "4.2", "chapterId": "04", "itemId": "4.2", "title": "Equacao de Estado de Van der Waals", "primaryTopic": "equacao-van-der-waals", "topicTags": ["transicoes-de-fase", "van-der-waals"]},
+    {"sectionId": "4.3", "chapterId": "04", "itemId": "4.3", "title": "Ponto Critico no Modelo de Van der Waals", "primaryTopic": "ponto-critico", "topicTags": ["transicoes-de-fase", "van-der-waals", "ponto-critico"]},
+    {"sectionId": "4.4", "chapterId": "04", "itemId": "4.4", "title": "Variaveis Reduzidas e Lei dos Estados Correspondentes", "primaryTopic": "variaveis-reduzidas", "topicTags": ["transicoes-de-fase", "van-der-waals", "ponto-critico"]},
+    {"sectionId": "4.5", "chapterId": "04", "itemId": "4.5", "title": "Regiao Instavel e Condicao Espinodal", "primaryTopic": "espinodal", "topicTags": ["transicoes-de-fase", "van-der-waals", "estabilidade-mecanica"]},
+    {"sectionId": "4.6", "chapterId": "04", "itemId": "4.6", "title": "Energia Livre de Helmholtz e Gibbs", "primaryTopic": "energia-livre-fases", "topicTags": ["transicoes-de-fase", "potenciais-termodinamicos", "helmholtz", "gibbs", "equilibrio", "estabilidade-mecanica"]},
+    {"sectionId": "4.7", "chapterId": "04", "itemId": "4.7", "title": "Construcao de Maxwell", "primaryTopic": "construcao-maxwell", "topicTags": ["transicoes-de-fase", "construcao-maxwell", "gibbs", "equilibrio", "coexistencia-fases"]},
+    {"sectionId": "4.8", "chapterId": "04", "itemId": "4.8", "title": "Superaquecimento e Super-resfriamento", "primaryTopic": "metaestabilidade", "topicTags": ["transicoes-de-fase", "van-der-waals", "estabilidade-mecanica", "coexistencia-fases"]},
+    {"sectionId": "4.9", "chapterId": "04", "itemId": "4.9", "title": "Calor Latente e Equacao de Clausius-Clapeyron", "primaryTopic": "clausius-clapeyron", "topicTags": ["transicoes-de-fase", "coexistencia-fases", "gibbs", "entalpia", "calor-entalpia", "capacidade-calorifica"], "advancedTopicTags": ["calor"]},
+    {"sectionId": "4.10", "chapterId": "04", "itemId": "4.10", "title": "Compressibilidade Isotermica", "primaryTopic": "compressibilidade-isotermica", "topicTags": ["transicoes-de-fase", "van-der-waals", "ponto-critico", "estabilidade-mecanica"]},
+    {"sectionId": "4.11", "chapterId": "04", "itemId": "4.11", "title": "Coeficiente de Expansao Termica", "primaryTopic": "expansao-termica", "topicTags": ["transicoes-de-fase", "van-der-waals", "ponto-critico"]},
+
+    {"sectionId": "6.1", "chapterId": "06", "itemId": "6.1", "title": "Maquinas Termicas e Refrigeradores", "primaryTopic": "maquinas-refrigeradores", "topicTags": ["ciclos-termodinamicos", "maquinas-termicas", "refrigeradores"], "advancedTopicTags": ["calor", "trabalho"]},
+    {"sectionId": "6.2", "chapterId": "06", "itemId": "6.2", "title": "Ciclo de Carnot como Maquina Termica", "primaryTopic": "carnot-maquina-termica", "topicTags": ["ciclos-termodinamicos", "carnot", "maquinas-termicas"]},
+    {"sectionId": "6.3", "chapterId": "06", "itemId": "6.3", "title": "Energia Interna, Calor e Trabalho", "primaryTopic": "primeira-lei-em-ciclos", "topicTags": ["ciclos-termodinamicos", "primeira-lei", "energia-interna", "calor-em-ciclos", "trabalho-em-ciclos", "entropia-termodinamica"], "advancedTopicTags": ["calor", "trabalho", "entropia"]},
+    {"sectionId": "6.4", "chapterId": "06", "itemId": "6.4", "title": "Eficiencia Geral e Eficiencia de Carnot", "primaryTopic": "eficiencia-carnot", "topicTags": ["ciclos-termodinamicos", "carnot", "maquinas-termicas", "eficiencia-cop"]},
+    {"sectionId": "6.5", "chapterId": "06", "itemId": "6.5", "title": "Exemplo: Maquina de Carnot", "primaryTopic": "exemplo-maquina-carnot", "topicTags": ["ciclos-termodinamicos", "carnot", "maquinas-termicas", "eficiencia-cop", "gas-ideal-ciclos", "calor-em-ciclos", "trabalho-em-ciclos", "primeira-lei"], "advancedTopicTags": ["gas-ideal", "calor", "trabalho"]},
+    {"sectionId": "6.6", "chapterId": "06", "itemId": "6.6", "title": "Ciclo de Carnot como Refrigerador", "primaryTopic": "carnot-refrigerador", "topicTags": ["ciclos-termodinamicos", "carnot", "refrigeradores", "eficiencia-cop"]},
+    {"sectionId": "6.7", "chapterId": "06", "itemId": "6.7", "title": "Exemplo: Refrigerador de Carnot", "primaryTopic": "exemplo-refrigerador-carnot", "topicTags": ["ciclos-termodinamicos", "carnot", "refrigeradores", "eficiencia-cop", "gas-ideal-ciclos", "calor-em-ciclos"], "advancedTopicTags": ["gas-ideal", "calor"]},
+    {"sectionId": "6.8", "chapterId": "06", "itemId": "6.8", "title": "Ciclo de Stirling sem Regenerador", "primaryTopic": "stirling-sem-regenerador", "topicTags": ["ciclos-termodinamicos", "stirling", "maquinas-termicas", "eficiencia-cop", "trabalho-em-ciclos"], "advancedTopicTags": ["trabalho"]},
+    {"sectionId": "6.9", "chapterId": "06", "itemId": "6.9", "title": "Producao de Entropia no Stirling sem Regenerador", "primaryTopic": "producao-entropia-stirling", "topicTags": ["ciclos-termodinamicos", "stirling", "entropia-termodinamica"], "advancedTopicTags": ["entropia"]},
+    {"sectionId": "6.10", "chapterId": "06", "itemId": "6.10", "title": "Motor de Stirling com Regenerador Tipo Alfa", "primaryTopic": "stirling-regenerador-alfa", "topicTags": ["ciclos-termodinamicos", "stirling", "maquinas-termicas"]},
+    {"sectionId": "6.11", "chapterId": "06", "itemId": "6.11", "title": "Exemplo: Motor Stirling Alfa", "primaryTopic": "exemplo-stirling-alfa", "topicTags": ["ciclos-termodinamicos", "stirling", "maquinas-termicas", "eficiencia-cop", "trabalho-em-ciclos", "primeira-lei"], "advancedTopicTags": ["trabalho"]}
+  ]
+}
