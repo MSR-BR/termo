@@ -15,6 +15,7 @@
     "build:book-topic-index": "node scripts/build-book-topic-index.mjs",
     "validate:book-topic-index": "node scripts/validate-book-topic-index.mjs",
     "smoke:ai-context": "node scripts/smoke-ai-context-package.mjs",
+    "smoke:ai-quiz-context": "node scripts/smoke-ai-chapter-quiz-context.mjs",
     "smoke:math-contract": "node scripts/smoke-math-contract.mjs",
     "seo": "node scripts/build-seo-artifacts.mjs",
     "upload:livro-pdf": "node scripts/upload-livro-pdf.mjs",

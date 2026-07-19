@@ -101,6 +101,11 @@ Known simulator mapping:
   reject them, or set `review_status = disabled` to keep the history while
   removing that correction from future AI context. Only approved confirmed
   errors with `avoid_propagation = true` are loaded into generation memory.
+- AI chapter quizzes use the same book corpus and topic index strategy as section
+  exercises. The quiz prompt receives chapter-level PDF excerpts, app topics, and
+  thematic metadata; generated quiz math is checked before the quiz token is
+  accepted. Use `npm run smoke:ai-quiz-context` after changing quiz generation,
+  book corpus, topic index, or chapter data.
 - Gamification is intentionally lightweight for the first public version:
   `Pontos e simulados` lives under `Extras`, the header shows the user's points,
   chapter quizzes unlock in order, and `Desafio do dia` is a separate `Extras`
@@ -165,6 +170,7 @@ After editing:
   `npm run validate:book-topic-index`;
 - when changing the AI exercise context package, run `npm run smoke:ai-context`
   to inspect the prompt context for representative sections;
+- when changing AI chapter quizzes, run `npm run smoke:ai-quiz-context`;
 - when changing generated exercise math handling, run
   `npm run smoke:math-contract`;
 - review `git diff`;

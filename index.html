@@ -5142,6 +5142,28 @@
       }
     }
 
+    async function typesetJourneyQuiz(root, attempts = 0) {
+      const elements = Array.from((root || document).querySelectorAll(".journey-quiz"));
+      if (!elements.length) return;
+
+      if (!window.MathJax || typeof window.MathJax.typesetPromise !== "function") {
+        if (attempts >= 8) return;
+        window.setTimeout(function () {
+          void typesetJourneyQuiz(root, attempts + 1);
+        }, 300);
+        return;
+      }
+
+      try {
+        if (typeof window.MathJax.typesetClear === "function") {
+          window.MathJax.typesetClear(elements);
+        }
+        await window.MathJax.typesetPromise(elements);
+      } catch (error) {
+        console.warn("Nao foi possivel compor as equacoes no simulado.", error);
+      }
+    }
+
     async function shareExercise(exercise) {
       const title = `Exercício salvo · ${exercise.exercise_title || "Exercício"}`;
       const text = buildExercisePlainText(exercise);
@@ -6081,6 +6103,7 @@
       if (reviewCandidate && session) {
         attachJourneyReviewHandlers({ session, quiz });
       }
+      void typesetJourneyQuiz(topicContainer);
     }
 
     function attachJourneyQuizHandlers({ session, quiz, startedAt }) {
@@ -6225,6 +6248,7 @@
       `;
 
       attachJourneyQuizHandlers({ session, quiz, startedAt });
+      void typesetJourneyQuiz(topicContainer);
     }
 
     function getJourneyChapterProgress(chapter, progress) {
@@ -7419,6 +7443,7 @@
       `;
 
       attachDailyChallengeHandlers({ session, challenge });
+      void typesetJourneyQuiz(topicContainer);
     }
 
     function attachSavedListHandlers(scope) {

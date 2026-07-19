@@ -856,7 +856,7 @@ exercicios. Para "apagar um erro da memoria", o professor muda o relato para
 
 ## Change AI-06 - Simulados Por Capitulo Usando O Corpus Do Livro
 
-Status: planejado.
+Status: implementado localmente em primeira versao.
 
 ### O Que Muda
 
@@ -869,23 +869,32 @@ apenas o resumo de `data/capitulo-XX.json`.
 2. backend carrega os topicos do capitulo;
 3. backend monta um contexto canonico com trechos do livro por secao;
 4. IA gera perguntas usando definicoes e equacoes do livro;
-5. resultado guarda referencias das secoes usadas.
+5. backend valida o contrato matematico das perguntas, alternativas, explicacoes
+   e retomadas;
+6. se o contrato matematico falhar, uma chamada curta tenta reparar apenas a
+   formatacao;
+7. resultado guarda referencias das secoes usadas no token do simulado.
 
 ### Cuidado Com Tamanho Do Prompt
 
 Para nao estourar contexto nem custo:
 
 - limitar caracteres por secao;
-- priorizar secoes com exercicio IA e topicos centrais;
+- enviar todos os topicos ativos do capitulo, com excertos limitados por item;
 - usar resumo/excerpt do corpus quando o conteudo completo for longo;
-- nao enviar o livro inteiro.
+- nao enviar o livro inteiro em uma unica chamada;
+- usar `smoke:ai-quiz-context` para conferir tamanho e cobertura.
 
 ### Arquivos Provaveis
 
 - `lib/gamification-ai-quiz.mjs`;
 - `lib/book-section-corpus.mjs`;
-- `lib/chapter-quiz-handler.mjs`;
-- `data/book-section-corpus.json`.
+- `lib/book-topic-index.mjs`;
+- `lib/math-format-validator.mjs`;
+- `index.html`;
+- `scripts/smoke-ai-chapter-quiz-context.mjs`;
+- `data/book-section-corpus.json`;
+- `data/book-topic-index.json`.
 
 ### Validacao
 
@@ -893,7 +902,9 @@ Para nao estourar contexto nem custo:
   Maxwell conforme o corpus.
 - Perguntas nao misturam criterio de espontaneidade de Gibbs com trabalho
   isotermico de Helmholtz.
-- Cada pergunta tem `sourceSections` ou referencia interna equivalente.
+- Cada quiz guarda `sourceReferences` e `contextPackageMeta`.
+- `npm run smoke:ai-quiz-context` passa para capitulos ativos.
+- MathJax renderiza o simulado e a correcao no frontend.
 
 ## Change AI-07 - Validacao Conceitual Antes De Exibir
 
