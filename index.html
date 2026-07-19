@@ -2701,6 +2701,109 @@
       margin-top: 6px;
     }
 
+    .journey-quiz-report {
+      border: 1px solid #DDE8F6;
+      border-radius: 16px;
+      background: #FFFFFF;
+      margin-top: 16px;
+      padding: 14px;
+    }
+
+    .journey-quiz-report__intro {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: space-between;
+    }
+
+    .journey-quiz-report__copy {
+      color: var(--muted);
+      font-family: "Lora", Georgia, serif;
+      font-size: 13.5px;
+      line-height: 1.5;
+      margin: 0;
+      max-width: 680px;
+    }
+
+    .journey-quiz-report__panel {
+      border-top: 1px solid #E6EEF8;
+      display: grid;
+      gap: 12px;
+      margin-top: 12px;
+      padding-top: 12px;
+    }
+
+    .journey-quiz-report__grid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .journey-quiz-report__group {
+      display: grid;
+      gap: 8px;
+    }
+
+    .journey-quiz-report__label {
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .journey-quiz-report__options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .journey-quiz-report__option {
+      align-items: center;
+      background: #F6F9FD;
+      border: 1px solid #DDE8F6;
+      border-radius: 999px;
+      color: var(--muted);
+      cursor: pointer;
+      display: inline-flex;
+      font-size: 13px;
+      font-weight: 800;
+      gap: 6px;
+      padding: 8px 10px;
+    }
+
+    .journey-quiz-report__option input {
+      accent-color: var(--blue);
+    }
+
+    .journey-quiz-report__select,
+    .journey-quiz-report__note {
+      border: 1px solid #DDE8F6;
+      border-radius: 12px;
+      color: var(--text);
+      font: inherit;
+      padding: 10px 12px;
+      width: 100%;
+    }
+
+    .journey-quiz-report__note {
+      min-height: 76px;
+      resize: vertical;
+    }
+
+    .journey-quiz-report__status {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .journey-quiz-report__status.is-error {
+      color: #B42318;
+    }
+
+    .journey-quiz-report__status.is-success {
+      color: #187A3B;
+    }
+
     .journey-review-card {
       border: 1px solid #F7D7A8;
       border-left: 4px solid #D97706;
@@ -5625,6 +5728,236 @@
       return { ok: true, payload: body };
     }
 
+    async function readJourneyApiPayload(response) {
+      const contentType = (response.headers.get("content-type") || "").toLowerCase();
+      if (contentType.includes("application/json")) {
+        return response.json().catch(function () {
+          return {};
+        });
+      }
+      const text = await response.text().catch(function () {
+        return "";
+      });
+      return { error: text || `HTTP ${response.status}` };
+    }
+
+    function buildJourneyQuizValidationStatement(quiz = {}) {
+      const questions = Array.isArray(quiz.questions) ? quiz.questions : [];
+      return questions.map(function (question, index) {
+        const options = question.options || {};
+        return [
+          `Questao ${index + 1}: ${question.prompt || ""}`,
+          `A) ${options.a || ""}`,
+          `B) ${options.b || ""}`,
+          `C) ${options.c || ""}`,
+          `D) ${options.d || ""}`
+        ].join("\n");
+      }).join("\n\n");
+    }
+
+    function buildJourneyQuizValidationSolution({ result = {}, feedback = [] } = {}) {
+      const lines = [
+        `Resultado: ${Number(result.correctCount || 0)}/${Number(result.questionCount || 0)} acertos (${Number(result.score || 0)}%).`
+      ];
+
+      feedback.forEach(function (item, index) {
+        const selected = item.selectedChoice ? String(item.selectedChoice).toUpperCase() : "sem resposta";
+        const correct = item.correctChoice ? String(item.correctChoice).toUpperCase() : "";
+        lines.push([
+          `Questao ${index + 1}: ${item.isCorrect ? "correta" : "revisar"}`,
+          `Resposta do aluno: ${selected}`,
+          correct ? `Gabarito: ${correct}` : "",
+          item.explanation ? `Explicacao: ${item.explanation}` : "",
+          item.reviewTitle ? `Retomada sugerida: ${item.reviewTitle}` : ""
+        ].filter(Boolean).join("\n"));
+      });
+
+      return lines.join("\n\n");
+    }
+
+    function renderJourneyQuizValidationPanel(quiz = {}) {
+      const suffix = `journey-${String(quiz.quizKey || quiz.chapterId || "quiz").replace(/[^a-z0-9]+/gi, "-")}`;
+      return `
+        <section class="journey-quiz-report" data-role="journey-quiz-report" data-validation-suffix="${escapeHtml(suffix)}">
+          <div class="journey-quiz-report__intro">
+            <p class="journey-quiz-report__copy">
+              Encontrou erro conceitual, gabarito estranho ou fórmula mal apresentada? Envie para revisão do professor.
+            </p>
+            <button class="saved-card__button" type="button" data-role="toggle-journey-quiz-report" aria-expanded="false">
+              <i class="fa-solid fa-triangle-exclamation"></i>
+              Relatar erro do simulado
+            </button>
+          </div>
+
+          <div class="journey-quiz-report__panel" data-role="journey-quiz-report-panel" hidden>
+            <div class="journey-quiz-report__grid">
+              <div class="journey-quiz-report__group">
+                <div class="journey-quiz-report__label">Enunciado ou alternativas contêm erro?</div>
+                <div class="journey-quiz-report__options">
+                  <label class="journey-quiz-report__option">
+                    <input type="radio" name="journey-statement-${escapeHtml(suffix)}" value="sim" data-role="journey-validation-choice">
+                    Sim
+                  </label>
+                  <label class="journey-quiz-report__option">
+                    <input type="radio" name="journey-statement-${escapeHtml(suffix)}" value="nao" data-role="journey-validation-choice">
+                    Não
+                  </label>
+                  <label class="journey-quiz-report__option">
+                    <input type="radio" name="journey-statement-${escapeHtml(suffix)}" value="nao_sei" data-role="journey-validation-choice">
+                    Não sei
+                  </label>
+                </div>
+              </div>
+
+              <div class="journey-quiz-report__group">
+                <div class="journey-quiz-report__label">Gabarito ou explicação contêm erro?</div>
+                <div class="journey-quiz-report__options">
+                  <label class="journey-quiz-report__option">
+                    <input type="radio" name="journey-solution-${escapeHtml(suffix)}" value="sim" data-role="journey-validation-choice">
+                    Sim
+                  </label>
+                  <label class="journey-quiz-report__option">
+                    <input type="radio" name="journey-solution-${escapeHtml(suffix)}" value="nao" data-role="journey-validation-choice">
+                    Não
+                  </label>
+                  <label class="journey-quiz-report__option">
+                    <input type="radio" name="journey-solution-${escapeHtml(suffix)}" value="nao_sei" data-role="journey-validation-choice">
+                    Não sei
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <label class="journey-quiz-report__group">
+              <span class="journey-quiz-report__label">Tipo principal de problema, se houver erro</span>
+              <select class="journey-quiz-report__select" data-role="journey-validation-error-type">
+                <option value="">Escolher apenas se marcou erro</option>
+                <option value="conceitual">Erro conceitual</option>
+                <option value="latex">Fórmula/equação mal apresentada</option>
+                <option value="alternativa">Alternativa ou gabarito incorreto</option>
+                <option value="explicacao">Explicação insuficiente</option>
+                <option value="fora_do_conteudo">Fora do conteúdo estudado</option>
+                <option value="outro">Outro problema</option>
+              </select>
+            </label>
+
+            <label class="journey-quiz-report__group">
+              <span class="journey-quiz-report__label">Descreva o problema em uma frase</span>
+              <textarea class="journey-quiz-report__note" data-role="journey-validation-note" maxlength="220" placeholder="Ex.: a alternativa correta parece ser B, mas o gabarito marcou A."></textarea>
+            </label>
+
+            <div class="journey-quiz__actions">
+              <button class="saved-card__button saved-card__button--primary" type="button" data-role="submit-journey-quiz-report">
+                <i class="fa-solid fa-paper-plane"></i>
+                Enviar relato
+              </button>
+              <span class="journey-quiz-report__status" data-role="journey-quiz-report-status" aria-live="polite"></span>
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    function setJourneyQuizReportStatus(panel, message, type = "") {
+      const status = panel?.querySelector("[data-role='journey-quiz-report-status']");
+      if (!status) return;
+      status.textContent = message || "";
+      status.classList.toggle("is-error", type === "error");
+      status.classList.toggle("is-success", type === "success");
+    }
+
+    function attachJourneyQuizValidationHandlers({ session, quiz, result, feedback }) {
+      const report = topicContainer.querySelector("[data-role='journey-quiz-report']");
+      const toggle = report?.querySelector("[data-role='toggle-journey-quiz-report']");
+      const panel = report?.querySelector("[data-role='journey-quiz-report-panel']");
+      const submit = report?.querySelector("[data-role='submit-journey-quiz-report']");
+      if (!report || !toggle || !panel || !submit) return;
+
+      toggle.addEventListener("click", function () {
+        const nextOpen = panel.hidden;
+        panel.hidden = !nextOpen;
+        toggle.setAttribute("aria-expanded", String(nextOpen));
+      });
+
+      submit.addEventListener("click", async function () {
+        const suffix = report.dataset.validationSuffix || "";
+        const accessToken = session?.access_token || "";
+        const statementStatus = report.querySelector(`input[name="journey-statement-${suffix}"]:checked`)?.value || "";
+        const solutionStatus = report.querySelector(`input[name="journey-solution-${suffix}"]:checked`)?.value || "";
+        const errorType = (report.querySelector("[data-role='journey-validation-error-type']")?.value || "").trim();
+        const note = (report.querySelector("[data-role='journey-validation-note']")?.value || "").trim();
+        const hasReportedError = statementStatus === "sim" || solutionStatus === "sim";
+
+        if (!accessToken) {
+          setJourneyQuizReportStatus(report, "Entre com Google para enviar o relato.", "error");
+          return;
+        }
+
+        if (!statementStatus || !solutionStatus) {
+          setJourneyQuizReportStatus(report, "Marque enunciado/alternativas e gabarito/explicação.", "error");
+          return;
+        }
+
+        if (hasReportedError && !errorType) {
+          setJourneyQuizReportStatus(report, "Escolha o tipo principal de problema.", "error");
+          return;
+        }
+
+        if (hasReportedError && !note) {
+          setJourneyQuizReportStatus(report, "Descreva o problema em uma frase.", "error");
+          return;
+        }
+
+        try {
+          submit.disabled = true;
+          submit.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Enviando...`;
+          setJourneyQuizReportStatus(report, "Enviando para revisão do professor...", "");
+
+          const chapterId = String(quiz.chapterId || state.chapterId || "").padStart(2, "0");
+          const pagePath = `index.html?view=journey&section=quiz&chapter=${chapterId}`;
+          const response = await fetch("/api/exercicio-validacao", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`
+            },
+            body: JSON.stringify({
+              chapterId,
+              itemId: `simulado-${chapterId}`,
+              exerciseId: quiz.quizKey || `simulado-${chapterId}`,
+              pagePath,
+              pageUrl: pagePath,
+              pageTitle: `${quiz.chapterCode || `Capítulo ${chapterId}`} · ${quiz.chapterTitle || "Simulado"}`,
+              pageSubtitle: "Simulado de múltipla escolha",
+              pageContent: quiz.note || "",
+              difficulty: "simulado",
+              savedExerciseId: "",
+              exerciseTitle: `Simulado ${quiz.chapterCode || chapterId}`,
+              statement: buildJourneyQuizValidationStatement(quiz),
+              solution: buildJourneyQuizValidationSolution({ result, feedback }),
+              statementStatus,
+              solutionStatus,
+              statementNote: statementStatus === "sim" ? note : "",
+              solutionNote: solutionStatus === "sim" ? note : "",
+              errorType,
+              language: "pt-BR"
+            })
+          });
+          const payload = await readJourneyApiPayload(response);
+          if (!response.ok) {
+            throw new Error(payload?.error || payload?.details?.message || `Erro HTTP ${response.status}`);
+          }
+
+          setJourneyQuizReportStatus(report, payload.summary || "Relato enviado para revisão do professor.", "success");
+        } catch (error) {
+          setJourneyQuizReportStatus(report, error?.message || "Não foi possível enviar o relato agora.", "error");
+        } finally {
+          submit.disabled = false;
+          submit.innerHTML = `<i class="fa-solid fa-paper-plane"></i> Enviar relato`;
+        }
+      });
+    }
+
     function renderJourneyMetric(label, value, hint, icon, progress, explanation = "") {
       const progressMarkup = typeof progress === "number"
         ? `<div class="journey-progress" aria-hidden="true"><span style="--journey-progress: ${clampPercent(progress)}%"></span></div>`
@@ -6097,11 +6430,16 @@
               `;
             }).join("")}
           </section>
+
+          ${isFullQuiz ? renderJourneyQuizValidationPanel(quiz) : ""}
         </div>
       `;
 
       if (reviewCandidate && session) {
         attachJourneyReviewHandlers({ session, quiz });
+      }
+      if (isFullQuiz && session) {
+        attachJourneyQuizValidationHandlers({ session, quiz, result, feedback });
       }
       void typesetJourneyQuiz(topicContainer);
     }
