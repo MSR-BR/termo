@@ -23,7 +23,7 @@
   <link href="https://fonts.googleapis.com" rel="preconnect" />
   <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@400;600&display=swap" rel="stylesheet" />
-  <script defer src="assets/termo-analytics.js?v=0702.1"></script>
+  <script defer src="assets/termo-analytics.js?v=0731.1"></script>
   <style>
     :root {
       --bg: #FCFCFA;
@@ -321,6 +321,10 @@
       font-size: 14px;
     }
 
+    .mobile-study-cta {
+      display: none;
+    }
+
     @media (max-width: 980px) {
       .intro-grid,
       .simulator-grid {
@@ -353,6 +357,40 @@
       .card-actions a {
         min-height: 34px;
       }
+
+      .mobile-study-cta {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 2px 12px;
+        align-items: center;
+        margin-top: 20px;
+        border-radius: 16px;
+        padding: 16px 18px;
+        background: var(--blue);
+        box-shadow: var(--shadow);
+        color: #FFFFFF;
+      }
+
+      .mobile-study-cta:hover {
+        text-decoration: none;
+      }
+
+      .mobile-study-cta__title {
+        font-size: 18px;
+        font-weight: 800;
+      }
+
+      .mobile-study-cta__detail {
+        color: rgba(255, 255, 255, 0.86);
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .mobile-study-cta__arrow {
+        grid-column: 2;
+        grid-row: 1 / span 2;
+        font-size: 22px;
+      }
     }
   </style>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Termodinâmica para Estudantes de Física | Livro interativo de Termodinâmica","description":"Livro interativo de Termodinâmica com capítulos, exercícios automáticos por IA, simulados por capítulo, pontos de estudo, desafio do dia, simuladores e material didático do Prof. Mario Reis (IF-UFF).","url":"https://termo-theta.vercel.app/home.html","inLanguage":"pt-BR","about":{"@type":"Course","name":"Termodinâmica para Estudantes de Física","description":"Livro interativo de Termodinâmica com capítulos, exercícios automáticos por IA, simulados por capítulo, pontos de estudo, desafio do dia, simuladores e material didático do Prof. Mario Reis (IF-UFF).","provider":{"@type":"CollegeOrUniversity","name":"Instituto de Física — Universidade Federal Fluminense"},"creator":{"@type":"Person","name":"Prof. Mario Reis"}},"mainEntity":[{"@type":"LearningResource","name":"Capítulo 1 — Conceitos Fundamentais","description":"Conceitos fundamentais da Termodinâmica: equilíbrio térmico, temperatura, escalas, calor, trabalho e primeira lei.","url":"https://termo-theta.vercel.app/conteudo.html#capitulo-01"},{"@type":"LearningResource","name":"Capítulo 2 — Potenciais Termodinâmicos e Aplicações","description":"Potenciais termodinâmicos, transformações de Legendre, energia livre, entalpia, relações de Maxwell e aplicações.","url":"https://termo-theta.vercel.app/conteudo.html#capitulo-02"},{"@type":"LearningResource","name":"Capítulo 3 — Termodinâmica Estatística","description":"Termodinâmica estatística com ensembles, entropia, distribuição de Boltzmann, gás ideal e exemplos quânticos e clássicos.","url":"https://termo-theta.vercel.app/conteudo.html#capitulo-03"},{"@type":"LearningResource","name":"Capítulo 4 — Transições de Fase","description":"Transições de fase, gás de Van der Waals, ponto crítico, estabilidade, coexistência e construção de Maxwell.","url":"https://termo-theta.vercel.app/conteudo.html#capitulo-04"},{"@type":"LearningResource","name":"Capítulo 6 — Ciclos Termodinâmicos","description":"Ciclos termodinâmicos, máquinas térmicas, eficiência, refrigeradores e transformações cíclicas.","url":"https://termo-theta.vercel.app/conteudo.html#capitulo-06"}]}</script>
@@ -384,6 +422,12 @@
   </header>
 
   <main class="wrap">
+    <a class="mobile-study-cta" href="index.html?view=chapters&amp;chapter=01" aria-label="Começar a estudar o Capítulo 1: Conceitos fundamentais">
+      <span class="mobile-study-cta__title">Começar a estudar</span>
+      <span class="mobile-study-cta__detail">Capítulo 1 · Conceitos fundamentais</span>
+      <span class="mobile-study-cta__arrow" aria-hidden="true">→</span>
+    </a>
+
     <section class="section-block" aria-labelledby="rotas-principais">
       <div class="section-header">
         <p class="section-label">Entrada rápida</p>

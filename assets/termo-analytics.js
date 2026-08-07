@@ -1,11 +1,13 @@
 (function () {
   if (window.TermoAnalytics) return;
 
-  const VERSION = "0702.1";
+  const VERSION = "0731.1";
   const GA_MEASUREMENT_ID = "G-NHEVHE096H";
   const GA_SCRIPT_SELECTOR = 'script[data-termo-ga="gtag"]';
   const SESSION_KEY = "termo_analytics_session_v1";
   const DAILY_SESSION_KEY = "termo_analytics_session_day_v1";
+  const STUDY_ACTIVATION_KEY = "termo_analytics_study_activation_v1";
+  const STUDY_ACTIVATION_WINDOW_MS = 30 * 60 * 1000;
   const QUEUE_LIMIT = 40;
   const BATCH_SIZE = 10;
   const FLUSH_DELAY_MS = 1800;
@@ -175,6 +177,30 @@
     return output;
   }
 
+  function sendGoogleEvent(eventName, properties) {
+    if (typeof window.gtag !== "function") return;
+    window.gtag("event", eventName, {
+      ...cleanProperties(properties),
+      send_to: GA_MEASUREMENT_ID
+    });
+  }
+
+  function trackStudyActivation(sourceEvent, properties) {
+    const now = Date.now();
+    const previous = Number(storageGet("localStorage", STUDY_ACTIVATION_KEY) || 0);
+    if (previous && now - previous < STUDY_ACTIVATION_WINDOW_MS) return;
+    storageSet("localStorage", STUDY_ACTIVATION_KEY, String(now));
+    track("study_activation", {
+      ...cleanProperties(properties),
+      activation_source: sourceEvent
+    });
+  }
+
+  function trackActivation(eventName, properties) {
+    track(eventName, properties);
+    trackStudyActivation(eventName, properties);
+  }
+
   function textFromSelector(selector) {
     const node = document.querySelector(selector);
     return node ? String(node.textContent || "").trim() : "";
@@ -332,6 +358,19 @@
     const name = String(eventName || "").trim().toLowerCase();
     if (!EVENT_NAME_PATTERN.test(name)) return;
     const context = getContext();
+    if ([
+      "termo_open_app",
+      "chapter_start",
+      "exercise_start",
+      "simulator_start",
+      "quiz_start",
+      "study_activation"
+    ].includes(name)) {
+      sendGoogleEvent(name, {
+        ...context,
+        ...cleanProperties(properties)
+      });
+    }
     queue.push({
       ...context,
       event_name: name,
@@ -367,6 +406,27 @@
     if (storageGet("sessionStorage", key) === "1") return;
     storageSet("sessionStorage", key, "1");
     track("simulator_page_open", { simulator_id: simulatorId });
+    trackActivation("simulator_start", {
+      simulator_id: simulatorId,
+      entry_method: "page_open"
+    });
+  }
+
+  function trackChapterPageOpen() {
+    if (!/\/capitulo-\d+\/page_\d+\.html$/i.test(window.location.pathname)) return;
+    const chapter = inferChapterContext();
+    if (!chapter.chapter_id) return;
+    const key = "termo_analytics_chapter_start_" + chapter.chapter_id;
+    const now = Date.now();
+    const previous = Number(storageGet("localStorage", key) || 0);
+    if (previous && now - previous < STUDY_ACTIVATION_WINDOW_MS) return;
+    storageSet("localStorage", key, String(now));
+    trackActivation("chapter_start", {
+      chapter_id: chapter.chapter_id,
+      item_id: chapter.item_id || null,
+      page_id: chapter.page_id || null,
+      entry_method: "page_open"
+    });
   }
 
   function nearestElement(target, selector) {
@@ -416,9 +476,11 @@
     const generateButton = nearestElement(target, '[data-role="generate"]');
     if (generateButton) {
       const host = generateButton.closest(".termo-exercise");
-      track("exercise_generate_click", {
+      const properties = {
         difficulty: host?.querySelector('[data-role="difficulty"]')?.value || ""
-      });
+      };
+      track("exercise_generate_click", properties);
+      trackActivation("exercise_start", properties);
       return;
     }
 
@@ -443,6 +505,21 @@
     const link = nearestElement(target, "a[href]");
     if (link) {
       const href = link.getAttribute("href") || "";
+      let destination = null;
+      try { destination = new URL(href, window.location.href); } catch (_error) { destination = null; }
+
+      if (
+        window.location.pathname.endsWith("/home.html") &&
+        destination &&
+        destination.host === window.location.host &&
+        destination.pathname.endsWith("/index.html")
+      ) {
+        track("termo_open_app", {
+          destination_path: (destination.pathname + destination.search).slice(0, 180),
+          label: String(link.textContent || link.getAttribute("aria-label") || "").trim().slice(0, 80)
+        });
+      }
+
       const simulatorId = simulatorIdFromUrl(href);
       if (simulatorId || href.includes("msr-br.github.io/Termodinamica/")) {
         let targetHost = "";
@@ -472,6 +549,7 @@
 
   window.TermoAnalytics = {
     track: track,
+    trackActivation: trackActivation,
     flush: function () { return flush(); },
     getSessionId: getSessionId
   };
@@ -495,12 +573,14 @@
       void refreshAuthState().finally(function () {
         trackDailySession();
         trackSimulatorPageOpen();
+        trackChapterPageOpen();
       });
     }, { once: true });
   } else {
     void refreshAuthState().finally(function () {
       trackDailySession();
       trackSimulatorPageOpen();
+      trackChapterPageOpen();
     });
   }
 

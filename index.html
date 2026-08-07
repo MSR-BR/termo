@@ -3392,7 +3392,50 @@
         line-height: 1.65;
       }
     }
-  </style>
+  .home-study-cta {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.25rem 1rem;
+    align-items: center;
+    margin: 1.25rem 0 1.5rem;
+    padding: 1.1rem 1.2rem;
+    color: #ffffff;
+    background: linear-gradient(135deg, #07589a, #0b76bd);
+    border: 1px solid #07589a;
+    border-radius: 1.1rem;
+    box-shadow: 0 0.75rem 1.5rem rgba(7, 88, 154, 0.2);
+    text-decoration: none;
+  }
+
+  .home-study-cta__label,
+  .home-study-cta__detail {
+    grid-column: 1;
+  }
+
+  .home-study-cta__label {
+    font-size: clamp(1.25rem, 4vw, 1.55rem);
+    font-weight: 800;
+    line-height: 1.15;
+  }
+
+  .home-study-cta__detail {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  .home-study-cta__arrow {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    font-size: 1.75rem;
+    font-weight: 700;
+  }
+
+  .home-study-cta:focus-visible {
+    outline: 3px solid #f3c14b;
+    outline-offset: 3px;
+  }
+</style>
 <script>
 (function () {
   if (window.__termoPreviewRedirect) return;
@@ -3436,7 +3479,7 @@
     "assets/termo-share.js?v=0611.3",
     "assets/termo-auth.js?v=0625.3",
     "assets/termo-user-data.js?v=0611.3",
-    "assets/termo-analytics.js?v=0702.1"
+    "assets/termo-analytics.js?v=0731.1"
   ];
 
   scripts.forEach(function (src) {
@@ -6618,6 +6661,13 @@
       const quiz = result.quiz;
       const startedAt = new Date().toISOString();
 
+      window.TermoAnalytics?.trackActivation?.("quiz_start", {
+        chapter_id: quiz.chapterId || chapterId,
+        quiz_key: quiz.quizKey || "",
+        quiz_stage: requestedStage,
+        question_count: Number(quiz.questionCount || quiz.questions?.length || 0)
+      });
+
       topicContainer.innerHTML = `
         <div class="journey-quiz">
           <section class="journey-quiz__header">
@@ -8624,6 +8674,13 @@
       }
 
       syncUrl();
+
+      if (viewId === "chapters" && state.chapterId) {
+        window.TermoAnalytics?.trackActivation?.("chapter_start", {
+          chapter_id: state.chapterId,
+          entry_method: "app_navigation"
+        });
+      }
 
       if (viewId === "saved") {
         await renderSavedExercises();
