@@ -3194,6 +3194,20 @@
       text-decoration: underline;
     }
 
+    .info-modal__body--document {
+      padding: 0;
+      display: block;
+      min-height: min(68vh, 620px);
+    }
+
+    .info-modal__document {
+      display: block;
+      width: 100%;
+      height: min(68vh, 620px);
+      border: 0;
+      background: #FFFFFF;
+    }
+
     code {
       background: #EEF3FC;
       padding: 2px 5px;
@@ -3741,9 +3755,9 @@
       <div class="footer-links" aria-label="Informações institucionais">
         <a class="footer-link" href="conteudo.html">Conteúdo</a>
         <span class="footer-divider" aria-hidden="true">•</span>
-        <a class="footer-link" href="termos.html">Termos de Uso</a>
+        <a class="footer-link" href="termos.html" data-info-modal-open="terms">Termos de Uso</a>
         <span class="footer-divider" aria-hidden="true">•</span>
-        <a class="footer-link" href="privacidade.html">Privacidade</a>
+        <a class="footer-link" href="privacidade.html" data-info-modal-open="privacy">Privacidade</a>
         <span class="footer-divider" aria-hidden="true">•</span>
         <button type="button" class="footer-link" data-info-modal-open="support">Suporte</button>
       </div>
@@ -3956,17 +3970,15 @@
       window.__termoInfoModalsReady = true;
 
       const modalContent = {
+        terms: {
+          kicker: "Documento",
+          title: "Termos de Uso",
+          documentUrl: "termos.html"
+        },
         privacy: {
-          kicker: "Informação legal",
+          kicker: "Documento",
           title: "Privacidade",
-          body: `
-            <p>Este app utiliza o login com Google apenas para identificar a conta do usuário e habilitar recursos opcionais de estudo, como <strong>marcador de página</strong>, lista de exercícios salvos, itens favoritos e envio de validações.</p>
-            <p>Ao entrar com Google, o sistema pode receber e armazenar somente os dados básicos autorizados por você no processo de autenticação, como <strong>nome, endereço de e-mail e imagem de perfil</strong>. Esses dados são usados exclusivamente para autenticação, personalização mínima da experiência e sincronização do histórico entre dispositivos.</p>
-            <p>Além disso, o app pode armazenar dados gerados durante o uso, como exercícios criados, favoritos, relatórios de validação e o último ponto de leitura. Esses registros existem para apoiar o estudo, permitir continuidade da navegação e melhorar a qualidade acadêmica do material.</p>
-            <p>Os dados são tratados com apoio da infraestrutura técnica utilizada pelo projeto, incluindo serviços de autenticação, banco de dados e hospedagem. Eles <strong>não são vendidos</strong>, não são usados para publicidade personalizada e não são compartilhados fora do contexto técnico necessário ao funcionamento do app.</p>
-            <p>O navegador também pode manter informações locais, como sessão ativa, preferências e estado temporário da interface, para melhorar a experiência do usuário.</p>
-            <p>Se você desejar corrigir, revisar ou solicitar exclusão dos dados associados à sua conta, entre em contato pelo e-mail <a href="mailto:marioreis@id.uff.br">marioreis@id.uff.br</a>. Você também pode revogar o acesso do Google nas configurações da sua conta Google.</p>
-          `
+          documentUrl: "privacidade.html"
         },
         support: {
           kicker: "Contato",
@@ -3995,7 +4007,10 @@
         if (!overlay || !content) return;
         kicker.textContent = content.kicker;
         title.textContent = content.title;
-        body.innerHTML = content.body;
+        body.classList.toggle("info-modal__body--document", Boolean(content.documentUrl));
+        body.innerHTML = content.documentUrl
+          ? `<iframe class="info-modal__document" src="${content.documentUrl}" title="${content.title}"></iframe>`
+          : content.body;
         overlay.hidden = false;
         window.requestAnimationFrame(function () {
           overlay.classList.add("is-open");
@@ -4005,6 +4020,8 @@
       function closeInfoModal() {
         if (!overlay) return;
         overlay.classList.remove("is-open");
+        body.classList.remove("info-modal__body--document");
+        body.innerHTML = "";
         window.setTimeout(function () {
           if (!overlay.classList.contains("is-open")) overlay.hidden = true;
         }, 180);
