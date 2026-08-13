@@ -534,6 +534,20 @@
   line-height:1.5;
 }
 
+.termo-auth-legal{
+  margin-top:18px;
+  padding:14px;
+  border:1px solid rgba(0,75,135,.12);
+  border-radius:14px;
+  background:#F8FBFF;
+}
+
+.termo-auth-legal-title{color:#123A63;font-family:"Inter",sans-serif;font-size:.92rem;font-weight:800;margin-bottom:8px}
+.termo-auth-legal-copy{color:#526476;font-family:"Inter",sans-serif;font-size:.84rem;line-height:1.45;margin:8px 0}
+.termo-auth-check{display:flex;align-items:flex-start;gap:9px;color:#334155;font-family:"Inter",sans-serif;font-size:.86rem;line-height:1.45;margin:10px 0;cursor:pointer}
+.termo-auth-check input{margin-top:4px;accent-color:#004B87}
+.termo-auth-check a{color:#0B5EA8;font-weight:700}
+
 .termo-auth-actions{
   margin-top:18px;
   display:flex;

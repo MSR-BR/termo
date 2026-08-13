@@ -4,6 +4,7 @@
   const CONFIG_ENDPOINT = "/api/public-config";
   const BOOK_API_ENDPOINT = "/api/livro-pdf";
   const GAMIFICATION_EVENT_ENDPOINT = "/api/gamification-event";
+  const LEGAL_PREFERENCES_ENDPOINT = "/api/legal-preferences";
   const SUPABASE_ESM_URL = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
   const AUTH_SITE_URL = "https://termo-theta.vercel.app";
   const LANDING_LOGIN_TARGET_KEY = "termoLandingPostLoginTarget";
@@ -64,6 +65,7 @@
     itemContextCacheKey: "",
     itemContext: undefined,
     itemContextPromise: null,
+    legalPreferences: null,
     bootPromise: null,
     readyPromise: null,
     resolveReady: null
@@ -625,11 +627,88 @@
           </span>
         </a>
       </div>
+      <section class="termo-auth-legal" data-termo-auth-legal></section>
       <div class="termo-auth-actions">
         <button type="button" class="termo-auth-secondary" data-termo-auth-signout>Sair</button>
         <button type="button" class="termo-auth-secondary" data-termo-auth-close>Continuar leitura</button>
       </div>
     `;
+  }
+
+  function trackLegalEvent(name, properties) {
+    window.TermoAnalytics?.track?.(name, properties || {});
+  }
+
+  async function fetchLegalPreferences() {
+    const accessToken = state.session?.access_token || "";
+    if (!accessToken) return null;
+    const response = await fetch(LEGAL_PREFERENCES_ENDPOINT, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+      credentials: "same-origin",
+      cache: "no-store"
+    });
+    if (!response.ok) return null;
+    return response.json();
+  }
+
+  async function saveLegalPreferences(payload) {
+    const accessToken = state.session?.access_token || "";
+    if (!accessToken) throw new Error("not_authenticated");
+    const response = await fetch(LEGAL_PREFERENCES_ENDPOINT, {
+      method: "PUT",
+      headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" },
+      credentials: "same-origin",
+      body: JSON.stringify(payload)
+    });
+    if (!response.ok) throw new Error("legal_preferences_save_failed");
+    return response.json();
+  }
+
+  function renderLegalPreferences(host, preferences) {
+    if (!host) return;
+    const accepted = Boolean(preferences?.termsAcceptedAt && preferences?.privacyAcknowledgedAt);
+    const optedIn = preferences?.emailUpdatesOptedIn !== false;
+    host.innerHTML = `
+      <div class="termo-auth-legal-title">Comunicações e privacidade</div>
+      ${accepted ? "" : `<p class="termo-auth-legal-copy">Para usar recursos vinculados à conta, leia e confirme os <a href="/termos.html" target="_blank" rel="noopener">Termos de Uso</a> e a <a href="/privacidade.html" target="_blank" rel="noopener">Política de Privacidade</a>.</p>`}
+      <label class="termo-auth-check">
+        <input type="checkbox" data-termo-auth-accept-legal ${accepted ? "checked disabled" : ""}>
+        <span>Li e aceito os <a href="/termos.html" target="_blank" rel="noopener">Termos de Uso</a> e estou ciente da <a href="/privacidade.html" target="_blank" rel="noopener">Política de Privacidade</a>.</span>
+      </label>
+      <label class="termo-auth-check">
+        <input type="checkbox" data-termo-auth-email-updates ${optedIn ? "checked" : ""}>
+        <span>Quero receber novidades e recursos do TERMO por e-mail.</span>
+      </label>
+      <p class="termo-auth-legal-copy">Essa preferência é opcional e pode ser alterada aqui a qualquer momento.</p>
+      <button type="button" class="termo-auth-secondary" data-termo-auth-save-legal>Salvar preferências</button>
+    `;
+    const saveButton = host.querySelector("[data-termo-auth-save-legal]");
+    saveButton?.addEventListener("click", async function () {
+      const acceptLegal = host.querySelector("[data-termo-auth-accept-legal]");
+      const emailUpdates = host.querySelector("[data-termo-auth-email-updates]");
+      if (!accepted && !acceptLegal?.checked) {
+        setStatus("Confirme os documentos para salvar suas preferências.", true);
+        return;
+      }
+      saveButton.disabled = true;
+      try {
+        const next = await saveLegalPreferences({
+          acceptDocuments: !accepted && Boolean(acceptLegal?.checked),
+          emailUpdatesOptedIn: Boolean(emailUpdates?.checked)
+        });
+        state.legalPreferences = next;
+        if (!accepted) trackLegalEvent("terms_accepted", { terms_version: next.termsCurrentVersion || "" });
+        if (!accepted) trackLegalEvent("privacy_acknowledged", { privacy_version: next.privacyCurrentVersion || "" });
+        if (optedIn !== Boolean(next.emailUpdatesOptedIn)) {
+          trackLegalEvent("email_updates_preference_changed", { opted_in: Boolean(next.emailUpdatesOptedIn) });
+        }
+        renderLegalPreferences(host, next);
+        setStatus("Preferências salvas.");
+      } catch (_error) {
+        setStatus("Não foi possível salvar suas preferências agora.", true);
+        saveButton.disabled = false;
+      }
+    });
   }
 
   async function startGoogleOAuth() {
@@ -673,6 +752,13 @@
 
     if (state.session?.user) {
       panel.innerHTML = buildSignedInPanel(state.session.user);
+      const legalHost = panel.querySelector("[data-termo-auth-legal]");
+      fetchLegalPreferences().then(function (preferences) {
+        state.legalPreferences = preferences;
+        renderLegalPreferences(legalHost, preferences);
+      }).catch(function () {
+        if (legalHost) legalHost.innerHTML = '<p class="termo-auth-legal-copy">Não foi possível carregar preferências agora.</p>';
+      });
       const closeButton = panel.querySelector("[data-termo-auth-close]");
       const signOutButton = panel.querySelector("[data-termo-auth-signout]");
       const savedButton = panel.querySelector("[data-termo-auth-goto-saved]");

@@ -364,7 +364,11 @@
       "exercise_start",
       "simulator_start",
       "quiz_start",
-      "study_activation"
+      "study_activation",
+      "terms_accepted",
+      "privacy_acknowledged",
+      "email_updates_preference_changed",
+      "home_study_cta_click"
     ].includes(name)) {
       sendGoogleEvent(name, {
         ...context,
@@ -518,6 +522,9 @@
           destination_path: (destination.pathname + destination.search).slice(0, 180),
           label: String(link.textContent || link.getAttribute("aria-label") || "").trim().slice(0, 80)
         });
+        if (link.classList.contains("mobile-study-cta")) {
+          track("home_study_cta_click", { destination_path: (destination.pathname + destination.search).slice(0, 180) });
+        }
       }
 
       const simulatorId = simulatorIdFromUrl(href);
