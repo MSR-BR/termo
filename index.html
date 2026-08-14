@@ -1800,6 +1800,70 @@
       transform: translateY(-1px);
     }
 
+    .communication-form {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .communication-form__field {
+      display: grid;
+      gap: 7px;
+      color: #334155;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .communication-form__field input,
+    .communication-form__field textarea,
+    .communication-form__field select {
+      width: 100%;
+      box-sizing: border-box;
+      border: 1px solid #C7D8F3;
+      border-radius: 10px;
+      background: #FFFFFF;
+      color: #142b44;
+      padding: 10px 12px;
+      font: inherit;
+      font-weight: 500;
+    }
+
+    .communication-form__field textarea {
+      min-height: 150px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+
+    .communication-audience {
+      border: 1px solid #DDE8F6;
+      border-radius: 12px;
+      background: #F8FBFF;
+      padding: 12px;
+    }
+
+    .communication-audience__list {
+      display: grid;
+      gap: 7px;
+      max-height: 190px;
+      overflow: auto;
+      margin-top: 10px;
+    }
+
+    .communication-audience__recipient {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #334155;
+      font-size: 13px;
+    }
+
+    .communication-confirmation {
+      border: 1px solid #F5C46C;
+      border-radius: 12px;
+      background: #FFF9EC;
+      padding: 14px;
+    }
+
     .journey-shell {
       display: grid;
       gap: 18px;
@@ -4594,8 +4658,8 @@
     };
 
     const emailTestPanelCopy = {
-      title: "Envio de e-mail",
-      description: "Confira o remetente, a aparência e a resposta do canal de comunicação antes de qualquer envio aos inscritos."
+      title: "Comunicação",
+      description: "Prepare novidades para os inscritos, confira o público autorizado e teste a mensagem antes de qualquer envio real."
     };
 
     const journeyPanelCopy = {
@@ -8649,6 +8713,29 @@
       return body;
     }
 
+    async function requestEmailCampaign(payload) {
+      const session = await window.TermoAuth?.getSession?.().catch(function () {
+        return null;
+      });
+      const accessToken = session?.access_token || "";
+      if (!accessToken) throw new Error("not_authenticated");
+
+      const response = await fetch("/api/email-campaign", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json"
+        },
+        credentials: "same-origin",
+        body: JSON.stringify(payload)
+      });
+      const body = await response.json().catch(function () {
+        return {};
+      });
+      if (!response.ok) throw new Error(body.error || "email_campaign_failed");
+      return body;
+    }
+
     async function renderCommunication() {
       setLandingMode(false);
       await ensureAuthModules();
@@ -8678,29 +8765,161 @@
 
       topicContainer.innerHTML = `
         <article class="saved-card">
-          <div class="saved-card__meta"><i class="fa-solid fa-shield-halved"></i> Teste restrito</div>
-          <h3 class="saved-card__title">Teste do canal de e-mail</h3>
-          <p class="saved-card__summary">O teste envia uma única mensagem para <strong>marioreis@id.uff.br</strong>, com remetente <strong>TERMO &lt;contatos@termo.app.br&gt;</strong>. Nenhum inscrito é incluído.</p>
-          <div class="saved-card__actions">
-            <button class="saved-card__button saved-card__button--primary" data-role="send-email-test" type="button">
-              <i class="fa-solid fa-paper-plane"></i>
-              Enviar teste
-            </button>
-          </div>
-          <div class="saved-card__status" data-role="email-test-status" aria-live="polite"></div>
+          <div class="saved-card__meta"><i class="fa-solid fa-shield-halved"></i> Administração restrita</div>
+          <h3 class="saved-card__title">Preparar comunicação</h3>
+          <p class="saved-card__summary">Somente usuários com a preferência de novidades ativa podem entrar no público. Primeiro envie um teste para você; o envio real exige revisão e a confirmação <strong>ENVIAR</strong>.</p>
+          <form class="communication-form" data-role="communication-form">
+            <label class="communication-form__field">Público
+              <select data-role="communication-audience-type">
+                <option value="all_opted_in">Todos os inscritos com opt-in</option>
+                <option value="selected_users">Selecionar destinatários</option>
+              </select>
+            </label>
+            <div class="communication-audience" data-role="communication-audience" aria-live="polite">
+              <strong>O público ainda não foi carregado.</strong>
+              <div class="saved-card__actions">
+                <button class="saved-card__button" data-role="load-communication-audience" type="button"><i class="fa-solid fa-users"></i> Conferir destinatários</button>
+              </div>
+            </div>
+            <label class="communication-form__field">Assunto
+              <input data-role="communication-subject" maxlength="140" value="Novidades no TERMO" required />
+            </label>
+            <label class="communication-form__field">Mensagem
+              <textarea data-role="communication-message" maxlength="5000" required>O TERMO ganhou novas formas de apoiar seus estudos: exercícios gerados por IA, simuladores interativos e uma área pessoal para acompanhar sua jornada.
+
+Entre no ambiente para explorar os recursos disponíveis para o seu progresso.</textarea>
+            </label>
+            <label class="communication-form__field">Texto do botão <span>(opcional)</span>
+              <input data-role="communication-cta-label" maxlength="80" value="Abrir o TERMO" />
+            </label>
+            <label class="communication-form__field">Link do botão <span>(opcional)</span>
+              <input data-role="communication-cta-url" maxlength="2048" value="https://termo-theta.vercel.app/index.html?utm_source=email&utm_medium=owned&utm_campaign=novidades" />
+            </label>
+            <div class="saved-card__actions">
+              <button class="saved-card__button" data-role="send-communication-test" type="button"><i class="fa-solid fa-flask"></i> Enviar teste para mim</button>
+              <button class="saved-card__button saved-card__button--primary" data-role="review-communication-send" type="button"><i class="fa-solid fa-eye"></i> Revisar envio</button>
+            </div>
+            <div class="saved-card__status" data-role="communication-status" aria-live="polite"></div>
+          </form>
+          <section class="communication-confirmation" data-role="communication-confirmation" hidden>
+            <strong>Confirmação de envio</strong>
+            <p data-role="communication-confirmation-copy">Confira o público antes de liberar o envio.</p>
+            <label class="communication-form__field">Digite ENVIAR para confirmar
+              <input data-role="communication-confirmation-text" autocomplete="off" />
+            </label>
+            <div class="saved-card__actions">
+              <button class="saved-card__button saved-card__button--primary" data-role="confirm-communication-send" type="button"><i class="fa-solid fa-paper-plane"></i> Enviar para o público</button>
+              <button class="saved-card__button" data-role="cancel-communication-send" type="button">Cancelar</button>
+            </div>
+          </section>
         </article>
       `;
 
-      const button = topicContainer.querySelector('[data-role="send-email-test"]');
-      const status = topicContainer.querySelector('[data-role="email-test-status"]');
-      button?.addEventListener("click", async function () {
-        button.disabled = true;
-        status.textContent = "Enviando e-mail de teste...";
+      const form = topicContainer.querySelector('[data-role="communication-form"]');
+      const status = topicContainer.querySelector('[data-role="communication-status"]');
+      const audienceBox = topicContainer.querySelector('[data-role="communication-audience"]');
+      const audienceType = topicContainer.querySelector('[data-role="communication-audience-type"]');
+      const confirmation = topicContainer.querySelector('[data-role="communication-confirmation"]');
+      const confirmationCopy = topicContainer.querySelector('[data-role="communication-confirmation-copy"]');
+      let recipients = [];
+
+      function getDraft() {
+        return {
+          audienceType: audienceType.value,
+          recipientIds: Array.from(topicContainer.querySelectorAll('[data-role="communication-recipient"]:checked')).map(function (input) { return input.value; }),
+          subject: topicContainer.querySelector('[data-role="communication-subject"]').value,
+          message: topicContainer.querySelector('[data-role="communication-message"]').value,
+          ctaLabel: topicContainer.querySelector('[data-role="communication-cta-label"]').value,
+          ctaUrl: topicContainer.querySelector('[data-role="communication-cta-url"]').value
+        };
+      }
+
+      function selectedRecipientCount() {
+        if (audienceType.value === "all_opted_in") return recipients.length;
+        return topicContainer.querySelectorAll('[data-role="communication-recipient"]:checked').length;
+      }
+
+      function renderAudience() {
+        if (!recipients.length) {
+          audienceBox.innerHTML = "<strong>Nenhum usuário com opt-in de novidades foi encontrado.</strong>";
+          return;
+        }
+        const selectable = audienceType.value === "selected_users";
+        audienceBox.innerHTML = `
+          <strong>${recipients.length} destinatário(s) com opt-in ativo.</strong>
+          <div class="communication-audience__list">
+            ${recipients.map(function (recipient) {
+              return `<label class="communication-audience__recipient"><input data-role="communication-recipient" type="checkbox" value="${escapeHtml(recipient.id)}" ${selectable ? "checked" : "checked disabled"} /> ${escapeHtml(recipient.email)}</label>`;
+            }).join("")}
+          </div>
+        `;
+      }
+
+      async function loadAudience() {
+        status.textContent = "Carregando destinatários autorizados...";
         try {
-          const result = await sendAdminEmailTest();
-          status.textContent = `Teste enviado para ${result.destination || "marioreis@id.uff.br"}.`;
-        } catch (_error) {
-          status.textContent = "Não foi possível enviar o teste. Confira a configuração e tente novamente.";
+          const result = await requestEmailCampaign({ action: "audience", ...getDraft() });
+          recipients = Array.isArray(result.recipients) ? result.recipients : [];
+          renderAudience();
+          status.textContent = `${recipients.length} destinatário(s) elegível(is) carregado(s).`;
+        } catch (error) {
+          status.textContent = error?.message || "Não foi possível carregar os destinatários.";
+        }
+      }
+
+      topicContainer.querySelector('[data-role="load-communication-audience"]')?.addEventListener("click", loadAudience);
+      audienceType.addEventListener("change", function () {
+        if (recipients.length) renderAudience();
+        confirmation.hidden = true;
+      });
+
+      topicContainer.querySelector('[data-role="send-communication-test"]')?.addEventListener("click", async function (event) {
+        const button = event.currentTarget;
+        button.disabled = true;
+        status.textContent = "Enviando teste para marioreis@id.uff.br...";
+        try {
+          const result = await requestEmailCampaign({ action: "test", ...getDraft() });
+          status.textContent = `Teste enviado para ${result.destination || "marioreis@id.uff.br"}. Nenhum inscrito recebeu a mensagem.`;
+        } catch (error) {
+          status.textContent = error?.message || "Não foi possível enviar o teste.";
+        } finally {
+          button.disabled = false;
+        }
+      });
+
+      topicContainer.querySelector('[data-role="review-communication-send"]')?.addEventListener("click", async function () {
+        if (!recipients.length) await loadAudience();
+        const count = selectedRecipientCount();
+        if (!count) {
+          status.textContent = "Não há destinatários selecionados para revisão.";
+          return;
+        }
+        confirmationCopy.textContent = `Você está prestes a enviar esta mensagem para ${count} destinatário(s) com opt-in. Isso não pode ser desfeito.`;
+        confirmation.hidden = false;
+        confirmation.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      });
+
+      topicContainer.querySelector('[data-role="cancel-communication-send"]')?.addEventListener("click", function () {
+        confirmation.hidden = true;
+      });
+
+      topicContainer.querySelector('[data-role="confirm-communication-send"]')?.addEventListener("click", async function (event) {
+        const button = event.currentTarget;
+        const count = selectedRecipientCount();
+        button.disabled = true;
+        status.textContent = "Enviando comunicação...";
+        try {
+          const result = await requestEmailCampaign({
+            action: "send",
+            ...getDraft(),
+            confirmRecipientCount: count,
+            confirmationText: topicContainer.querySelector('[data-role="communication-confirmation-text"]').value
+          });
+          status.textContent = `Envio concluído: ${result.deliveredCount || 0} entregue(s), ${result.failedCount || 0} com falha.`;
+          confirmation.hidden = true;
+        } catch (error) {
+          status.textContent = error?.message || "Não foi possível enviar a comunicação.";
+        } finally {
           button.disabled = false;
         }
       });
