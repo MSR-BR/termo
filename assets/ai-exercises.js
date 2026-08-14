@@ -987,7 +987,7 @@
         <strong>Aviso importante:</strong> todo o conteúdo didático das páginas e do livro associado foi criado pelo autor do material.
         O aplicativo de criação de exercícios é um experimento didático; os exercícios e soluções serão gerados automaticamente por IA e
         <strong>podem conter erros conceituais, matemáticos ou pedagógicos</strong>. Erros detectados devem ser comunicados para
-        <a href="mailto:marioreis@id.uff.br">marioreis@id.uff.br</a>.
+        <a href="mailto:contatos@termo.app.br">contatos@termo.app.br</a>.
       </div>
 
       <div class="termo-exercise__save-status" data-role="save-status" hidden></div>
