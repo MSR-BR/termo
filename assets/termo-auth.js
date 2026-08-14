@@ -5,7 +5,6 @@
   const BOOK_API_ENDPOINT = "/api/livro-pdf";
   const GAMIFICATION_EVENT_ENDPOINT = "/api/gamification-event";
   const LEGAL_PREFERENCES_ENDPOINT = "/api/legal-preferences";
-  const EMAIL_TEST_ENDPOINT = "/api/email-test";
   const SUPABASE_ESM_URL = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
   const AUTH_SITE_URL = "https://termo-theta.vercel.app";
   const LANDING_LOGIN_TARGET_KEY = "termoLandingPostLoginTarget";
@@ -600,22 +599,6 @@
       ? `<div class="termo-auth-muted">Último marcador salvo: ${savedLabel ? `${escapeHtml(savedLabel)} · ` : ""}${escapeHtml(savedTitle)}</div>`
       : "";
     const links = getProfileLinks();
-    const validatorEmails = Array.isArray(state.config?.validatorEmails)
-      ? state.config.validatorEmails.map(function (value) {
-        return String(value || "").trim().toLowerCase();
-      })
-      : [];
-    const isValidator = validatorEmails.includes(String(email || "").trim().toLowerCase());
-    const emailTestPanel = isValidator ? `
-      <section class="termo-auth-email-test">
-        <div>
-          <strong>Teste do e-mail TERMO</strong>
-          <small>Envia uma única mensagem de teste para esta conta; nenhum inscrito é incluído.</small>
-        </div>
-        <button type="button" class="termo-auth-secondary" data-termo-auth-send-email-test>Enviar teste</button>
-      </section>
-    ` : "";
-
     return `
       <div class="termo-auth-panel-title">Sua área de estudo está ativa</div>
       <div class="termo-auth-account">
@@ -644,7 +627,6 @@
         </a>
       </div>
       <section class="termo-auth-legal" data-termo-auth-legal></section>
-      ${emailTestPanel}
       <div class="termo-auth-actions">
         <button type="button" class="termo-auth-secondary" data-termo-auth-signout>Sair</button>
         <button type="button" class="termo-auth-secondary" data-termo-auth-close>Continuar leitura</button>
@@ -678,18 +660,6 @@
       body: JSON.stringify(payload)
     });
     if (!response.ok) throw new Error("legal_preferences_save_failed");
-    return response.json();
-  }
-
-  async function sendEmailTest() {
-    const accessToken = state.session?.access_token || "";
-    if (!accessToken) throw new Error("not_authenticated");
-    const response = await fetch(EMAIL_TEST_ENDPOINT, {
-      method: "POST",
-      headers: { Authorization: `Bearer ${accessToken}` },
-      credentials: "same-origin"
-    });
-    if (!response.ok) throw new Error("email_test_failed");
     return response.json();
   }
 
@@ -792,7 +762,6 @@
       const signOutButton = panel.querySelector("[data-termo-auth-signout]");
       const savedButton = panel.querySelector("[data-termo-auth-goto-saved]");
       const favoritesButton = panel.querySelector("[data-termo-auth-goto-favorites]");
-      const emailTestButton = panel.querySelector("[data-termo-auth-send-email-test]");
       if (closeButton) closeButton.addEventListener("click", closeModal);
       if (savedButton) {
         savedButton.addEventListener("click", function () {
@@ -802,19 +771,6 @@
       if (favoritesButton) {
         favoritesButton.addEventListener("click", function () {
           closeModal();
-        });
-      }
-      if (emailTestButton) {
-        emailTestButton.addEventListener("click", async function () {
-          emailTestButton.disabled = true;
-          setStatus("Enviando e-mail de teste...");
-          try {
-            const result = await sendEmailTest();
-            setStatus(`Teste enviado para ${result.destination || "a sua conta"}.`);
-          } catch (_error) {
-            setStatus("Não foi possível enviar o teste. Confira o Resend e tente novamente.", true);
-            emailTestButton.disabled = false;
-          }
         });
       }
       if (signOutButton) {

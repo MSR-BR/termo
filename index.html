@@ -3662,6 +3662,16 @@
               </div>
             </section>
 
+            <section class="drawer-group" id="adminDrawerGroup" data-drawer-group="admin" hidden>
+              <button type="button" class="drawer-group-trigger is-open" data-drawer-trigger="admin" aria-expanded="true" aria-controls="drawerPanelAdmin">
+                <span class="drawer-group-title"><i class="fa-solid fa-shield-halved"></i> Administração</span>
+                <i class="fa-solid fa-chevron-down drawer-group-indicator" aria-hidden="true"></i>
+              </button>
+              <div class="drawer-group-panel is-open" id="drawerPanelAdmin">
+                <div class="extras-list" id="adminList"></div>
+              </div>
+            </section>
+
             <section class="drawer-group" data-drawer-group="chapters">
               <button type="button" class="drawer-group-trigger is-open" data-drawer-trigger="chapters" aria-expanded="true" aria-controls="drawerPanelChapters">
                 <span class="drawer-group-title"><i class="fa-solid fa-list-ul"></i> Capítulos</span>
@@ -4311,12 +4321,20 @@
         icon: "fa-star",
         note: "Atalhos rápidos para os itens do curso que você marcou com estrela."
       },
+    ];
+
+    const adminViews = [
       {
         id: "validation-review",
         label: "Validações pendentes",
         icon: "fa-clipboard-check",
-        note: "Revisar relatos enviados pelos usuários.",
-        requiresValidator: true
+        note: "Revisar relatos enviados pelos usuários."
+      },
+      {
+        id: "communication",
+        label: "Comunicação",
+        icon: "fa-envelope-circle-check",
+        note: "Preparar e testar o canal de e-mail do TERMO."
       }
     ];
 
@@ -4344,6 +4362,7 @@
     const viewIds = new Set([
       "chapters",
       ...personalViews.map((view) => view.id),
+      ...adminViews.map((view) => view.id),
       ...extraViews.map((view) => view.id)
     ]);
     const journeyStudyGuides = [
@@ -4408,6 +4427,8 @@
     const personalHint = document.getElementById("personalHint");
     const personalDrawerActions = document.getElementById("personalDrawerActions");
     const extrasList = document.getElementById("extrasList");
+    const adminDrawerGroup = document.getElementById("adminDrawerGroup");
+    const adminList = document.getElementById("adminList");
     const menuToggleButton = document.getElementById("menuToggleButton");
     const menuDrawerOverlay = document.getElementById("menuDrawerOverlay");
     const menuDrawerClose = document.getElementById("menuDrawerClose");
@@ -4547,7 +4568,8 @@
     }
 
     function getDrawerSectionForView(viewId) {
-      if (viewId === "saved" || viewId === "favorites" || viewId === "validation-review") return "personal";
+      if (viewId === "saved" || viewId === "favorites") return "personal";
+      if (viewId === "validation-review" || viewId === "communication") return "admin";
       if (viewId === "journey") return "extras";
       if (viewId === "daily-challenge") return "extras";
       if (viewId === "simulators") return "extras";
@@ -4569,6 +4591,11 @@
     const favoritesPanelCopy = {
       title: "Itens favoritos",
       description: "Guarde aqui tanto páginas do curso quanto exercícios salvos que você marcou com estrela."
+    };
+
+    const emailTestPanelCopy = {
+      title: "Envio de e-mail",
+      description: "Confira o remetente, a aparência e a resposta do canal de comunicação antes de qualquer envio aos inscritos."
     };
 
     const journeyPanelCopy = {
@@ -4995,22 +5022,6 @@
         extrasList.appendChild(button);
       });
 
-      if (isAiExerciseIndexAdmin()) {
-        const adminIndexLink = document.createElement("a");
-        adminIndexLink.className = "extras-button";
-        adminIndexLink.href = "docs/exercicios-ia-indice-referencias.html";
-        adminIndexLink.target = "_blank";
-        adminIndexLink.rel = "noreferrer";
-        adminIndexLink.innerHTML = `
-          <span class="extras-icon"><i class="fa-solid fa-diagram-project"></i></span>
-          <span class="extras-text">
-            <span class="extras-label">Índice IA</span>
-            <span class="extras-note">Referência técnica dos exercícios IA e trechos do livro.</span>
-          </span>
-        `;
-        extrasList.appendChild(adminIndexLink);
-      }
-
       const bookButton = document.createElement("button");
       bookButton.type = "button";
       bookButton.className = "extras-button";
@@ -5023,6 +5034,45 @@
         </span>
       `;
       extrasList.appendChild(bookButton);
+    }
+
+    function renderAdminMenu() {
+      adminList.innerHTML = "";
+      adminDrawerGroup.hidden = !state.canReviewValidations;
+      if (!state.canReviewValidations) return;
+
+      adminViews.forEach((view) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = `extras-button${state.view === view.id ? " active" : ""}`;
+        button.dataset.viewId = view.id;
+        button.innerHTML = `
+          <span class="extras-icon"><i class="fa-solid ${view.icon}"></i></span>
+          <span class="extras-text">
+            <span class="extras-label">${view.label}</span>
+            <span class="extras-note">${view.note}</span>
+          </span>
+        `;
+        button.addEventListener("click", function () {
+          closeDrawer();
+          void activateView(view.id);
+        });
+        adminList.appendChild(button);
+      });
+
+      const adminIndexLink = document.createElement("a");
+      adminIndexLink.className = "extras-button";
+      adminIndexLink.href = "docs/exercicios-ia-indice-referencias.html";
+      adminIndexLink.target = "_blank";
+      adminIndexLink.rel = "noreferrer";
+      adminIndexLink.innerHTML = `
+        <span class="extras-icon"><i class="fa-solid fa-diagram-project"></i></span>
+        <span class="extras-text">
+          <span class="extras-label">Índice IA</span>
+          <span class="extras-note">Referência técnica dos exercícios IA e trechos do livro.</span>
+        </span>
+      `;
+      adminList.appendChild(adminIndexLink);
     }
 
     function setActiveChapter(id) {
@@ -5045,7 +5095,18 @@
         button.classList.toggle("active", button.dataset.viewId === viewId);
       });
       if (viewId) {
+        adminList.querySelectorAll(".extras-button").forEach((button) => button.classList.remove("active"));
         setDrawerSection("personal");
+      }
+    }
+
+    function setActiveAdmin(viewId) {
+      adminList.querySelectorAll(".extras-button").forEach((button) => {
+        button.classList.toggle("active", button.dataset.viewId === viewId);
+      });
+      if (viewId) {
+        document.querySelectorAll(".personal-button").forEach((button) => button.classList.remove("active"));
+        setDrawerSection("admin");
       }
     }
 
@@ -8280,6 +8341,7 @@
 
       renderPersonalMenu();
       renderExtrasMenu();
+      renderAdminMenu();
       await renderPanelActions();
     }
 
@@ -8499,7 +8561,8 @@
       panelTitle.textContent = "Validação dos exercícios IA";
       panelDescription.textContent = "Revise relatos enviados pelos usuários e controle quais correções entram na memória usada pelas próximas gerações.";
       setActiveChapter(state.chapterId);
-      setActivePersonal("validation-review");
+      setActivePersonal("");
+      setActiveAdmin("validation-review");
       setActiveExtra("");
       panelActions.innerHTML = "";
 
@@ -8565,6 +8628,82 @@
       `;
       attachValidationReviewHandlers(topicContainer);
       await typesetValidationReview(topicContainer);
+    }
+
+    async function sendAdminEmailTest() {
+      const session = await window.TermoAuth?.getSession?.().catch(function () {
+        return null;
+      });
+      const accessToken = session?.access_token || "";
+      if (!accessToken) throw new Error("not_authenticated");
+
+      const response = await fetch("/api/email-test", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${accessToken}` },
+        credentials: "same-origin"
+      });
+      const body = await response.json().catch(function () {
+        return {};
+      });
+      if (!response.ok) throw new Error(body.error || "email_test_failed");
+      return body;
+    }
+
+    async function renderCommunication() {
+      setLandingMode(false);
+      await ensureAuthModules();
+      const session = await window.TermoAuth?.getSession?.().catch(function () {
+        return null;
+      });
+      state.loggedIn = Boolean(session?.user);
+      state.canReviewValidations = await canCurrentUserReviewValidations(session);
+      panelKicker.textContent = "Área Pessoal";
+      panelTitle.textContent = emailTestPanelCopy.title;
+      panelDescription.textContent = emailTestPanelCopy.description;
+      setActiveChapter(state.chapterId);
+      setActivePersonal("");
+      setActiveAdmin("communication");
+      setActiveExtra("");
+      panelActions.innerHTML = "";
+
+      if (!state.loggedIn || !state.canReviewValidations) {
+        topicContainer.innerHTML = `
+          <div class="empty-state">
+            <strong>Área restrita.</strong><br />
+            O teste de e-mail está disponível apenas para o administrador do TERMO.
+          </div>
+        `;
+        return;
+      }
+
+      topicContainer.innerHTML = `
+        <article class="saved-card">
+          <div class="saved-card__meta"><i class="fa-solid fa-shield-halved"></i> Teste restrito</div>
+          <h3 class="saved-card__title">Teste do canal de e-mail</h3>
+          <p class="saved-card__summary">O teste envia uma única mensagem para <strong>marioreis@id.uff.br</strong>, com remetente <strong>TERMO &lt;contatos@termo.app.br&gt;</strong>. Nenhum inscrito é incluído.</p>
+          <div class="saved-card__actions">
+            <button class="saved-card__button saved-card__button--primary" data-role="send-email-test" type="button">
+              <i class="fa-solid fa-paper-plane"></i>
+              Enviar teste
+            </button>
+          </div>
+          <div class="saved-card__status" data-role="email-test-status" aria-live="polite"></div>
+        </article>
+      `;
+
+      const button = topicContainer.querySelector('[data-role="send-email-test"]');
+      const status = topicContainer.querySelector('[data-role="email-test-status"]');
+      button?.addEventListener("click", async function () {
+        button.disabled = true;
+        status.textContent = "Enviando e-mail de teste...";
+        try {
+          const result = await sendAdminEmailTest();
+          status.textContent = `Teste enviado para ${result.destination || "marioreis@id.uff.br"}.`;
+        } catch (_error) {
+          status.textContent = "Não foi possível enviar o teste. Confira a configuração e tente novamente.";
+          button.disabled = false;
+        }
+      });
     }
 
     function attachSimulatorFrameAutoResize(frame) {
@@ -8723,6 +8862,11 @@
 
       if (viewId === "validation-review") {
         await renderValidationReview();
+        return;
+      }
+
+      if (viewId === "communication") {
+        await renderCommunication();
         return;
       }
 
@@ -8972,6 +9116,11 @@
             return;
           }
 
+          if (state.view === "communication") {
+            await renderCommunication();
+            return;
+          }
+
           if (state.view === "chapters") {
             await renderPanelActions();
             if (state.currentTopics.length) {
@@ -8986,6 +9135,7 @@
         renderChapterMenu();
         renderPersonalMenu();
         renderExtrasMenu();
+        renderAdminMenu();
         setDrawerSection(state.drawerSection);
         bindAuthStateListener();
         await activateView(state.view, state.chapterId);
