@@ -66,6 +66,7 @@
     itemContext: undefined,
     itemContextPromise: null,
     legalPreferences: null,
+    legalPromptCheckedForUserId: "",
     bootPromise: null,
     readyPromise: null,
     resolveReady: null
@@ -665,11 +666,16 @@
 
   function renderLegalPreferences(host, preferences) {
     if (!host) return;
-    const accepted = Boolean(preferences?.termsAcceptedAt && preferences?.privacyAcknowledgedAt);
+    const accepted = Boolean(
+      preferences?.termsAcceptedAt &&
+      preferences?.privacyAcknowledgedAt &&
+      preferences?.termsVersion === preferences?.termsCurrentVersion &&
+      preferences?.privacyVersion === preferences?.privacyCurrentVersion
+    );
     const optedIn = preferences?.emailUpdatesOptedIn !== false;
     host.innerHTML = `
       <div class="termo-auth-legal-title">Comunicações e privacidade</div>
-      ${accepted ? "" : `<p class="termo-auth-legal-copy">Para usar recursos vinculados à conta, leia e confirme os <a href="/termos.html" target="_blank" rel="noopener">Termos de Uso</a> e a <a href="/privacidade.html" target="_blank" rel="noopener">Política de Privacidade</a>.</p>`}
+      ${accepted ? "" : `<p class="termo-auth-legal-copy">Antes de usar os recursos vinculados à conta, leia e confirme os <a href="/termos.html" target="_blank" rel="noopener">Termos de Uso</a> e a <a href="/privacidade.html" target="_blank" rel="noopener">Política de Privacidade</a>. A escolha de receber novidades é separada e opcional.</p>`}
       <label class="termo-auth-check">
         <input type="checkbox" data-termo-auth-accept-legal ${accepted ? "checked disabled" : ""}>
         <span>Li e aceito os <a href="/termos.html" target="_blank" rel="noopener">Termos de Uso</a> e estou ciente da <a href="/privacidade.html" target="_blank" rel="noopener">Política de Privacidade</a>.</span>
@@ -708,6 +714,31 @@
         saveButton.disabled = false;
       }
     });
+  }
+
+  function hasCurrentLegalAcceptance(preferences) {
+    return Boolean(
+      preferences?.termsAcceptedAt &&
+      preferences?.privacyAcknowledgedAt &&
+      preferences?.termsVersion === preferences?.termsCurrentVersion &&
+      preferences?.privacyVersion === preferences?.privacyCurrentVersion
+    );
+  }
+
+  async function promptForLegalPreferencesIfNeeded() {
+    const userId = String(state.session?.user?.id || "");
+    if (!userId || state.legalPromptCheckedForUserId === userId) return;
+    state.legalPromptCheckedForUserId = userId;
+
+    try {
+      const preferences = await fetchLegalPreferences();
+      state.legalPreferences = preferences;
+      if (!hasCurrentLegalAcceptance(preferences)) {
+        openModal();
+      }
+    } catch (_error) {
+      // A área continua acessível se a preferência estiver temporariamente indisponível.
+    }
   }
 
   async function startGoogleOAuth() {
@@ -1171,6 +1202,7 @@
     state.session = result?.data?.session || null;
     if (!state.session?.user) {
       state.progressSignature = "";
+      state.legalPromptCheckedForUserId = "";
     }
     updateTriggerButton();
     await refreshFavoriteButtonState();
@@ -1224,6 +1256,7 @@
         state.session = session || null;
         if (!state.session?.user) {
           state.progressSignature = "";
+          state.legalPromptCheckedForUserId = "";
         }
         updateTriggerButton();
         void refreshFavoriteButtonState();
@@ -1241,6 +1274,7 @@
     sanitizeAuthUrl();
     if (state.session?.user) {
       void syncProgress(false);
+      void promptForLegalPreferencesIfNeeded();
     }
     })()
       .catch(function () {
