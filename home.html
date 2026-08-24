@@ -325,6 +325,10 @@
       display: none;
     }
 
+    .mobile-study-path {
+      display: none;
+    }
+
     @media (max-width: 980px) {
       .intro-grid,
       .simulator-grid {
@@ -391,6 +395,36 @@
         grid-row: 1 / span 2;
         font-size: 22px;
       }
+
+      .mobile-study-path {
+        display: grid;
+        gap: 8px;
+        margin-top: 14px;
+        padding: 0;
+        list-style: none;
+      }
+
+      .mobile-study-path li {
+        display: flex;
+        gap: 9px;
+        align-items: flex-start;
+        color: rgba(255, 255, 255, 0.92);
+        font-size: 13px;
+        font-weight: 650;
+        line-height: 1.35;
+      }
+
+      .mobile-study-path strong {
+        display: inline-grid;
+        flex: 0 0 auto;
+        width: 20px;
+        height: 20px;
+        place-items: center;
+        border: 1px solid rgba(255, 255, 255, 0.55);
+        border-radius: 50%;
+        color: #FFFFFF;
+        font-size: 11px;
+      }
     }
   </style>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Termodinâmica para Estudantes de Física | Livro interativo de Termodinâmica","description":"Livro interativo de Termodinâmica com capítulos, exercícios automáticos por IA, simulados por capítulo, pontos de estudo, desafio do dia, simuladores e material didático do Prof. Mario Reis (IF-UFF).","url":"https://termo-theta.vercel.app/home.html","inLanguage":"pt-BR","about":{"@type":"Course","name":"Termodinâmica para Estudantes de Física","description":"Livro interativo de Termodinâmica com capítulos, exercícios automáticos por IA, simulados por capítulo, pontos de estudo, desafio do dia, simuladores e material didático do Prof. Mario Reis (IF-UFF).","provider":{"@type":"CollegeOrUniversity","name":"Instituto de Física — Universidade Federal Fluminense"},"creator":{"@type":"Person","name":"Prof. Mario Reis"}},"mainEntity":[{"@type":"LearningResource","name":"Capítulo 1 — Conceitos Fundamentais","description":"Conceitos fundamentais da Termodinâmica: equilíbrio térmico, temperatura, escalas, calor, trabalho e primeira lei.","url":"https://termo-theta.vercel.app/conteudo.html#capitulo-01"},{"@type":"LearningResource","name":"Capítulo 2 — Potenciais Termodinâmicos e Aplicações","description":"Potenciais termodinâmicos, transformações de Legendre, energia livre, entalpia, relações de Maxwell e aplicações.","url":"https://termo-theta.vercel.app/conteudo.html#capitulo-02"},{"@type":"LearningResource","name":"Capítulo 3 — Termodinâmica Estatística","description":"Termodinâmica estatística com ensembles, entropia, distribuição de Boltzmann, gás ideal e exemplos quânticos e clássicos.","url":"https://termo-theta.vercel.app/conteudo.html#capitulo-03"},{"@type":"LearningResource","name":"Capítulo 4 — Transições de Fase","description":"Transições de fase, gás de Van der Waals, ponto crítico, estabilidade, coexistência e construção de Maxwell.","url":"https://termo-theta.vercel.app/conteudo.html#capitulo-04"},{"@type":"LearningResource","name":"Capítulo 6 — Ciclos Termodinâmicos","description":"Ciclos termodinâmicos, máquinas térmicas, eficiência, refrigeradores e transformações cíclicas.","url":"https://termo-theta.vercel.app/conteudo.html#capitulo-06"}]}</script>
@@ -417,6 +451,11 @@
         <span class="mobile-study-cta__detail">Capítulo 1 · Conceitos fundamentais</span>
         <span class="mobile-study-cta__arrow" aria-hidden="true">→</span>
       </a>
+      <ol class="mobile-study-path" aria-label="Como estudar no TERMO">
+        <li><strong>1</strong><span>Leia o Capítulo 1 no seu ritmo.</span></li>
+        <li><strong>2</strong><span>Pratique com exercícios gerados por IA.</span></li>
+        <li><strong>3</strong><span>Desbloqueie simulados à medida que avança.</span></li>
+      </ol>
       <div class="hero-stats" aria-label="Resumo do conteúdo">
         <div class="hero-stat"><strong>5</strong><span>capítulos disponíveis</span></div>
         <div class="hero-stat"><strong>61</strong><span>tópicos com páginas diretas</span></div>
