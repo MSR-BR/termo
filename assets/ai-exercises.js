@@ -28,6 +28,14 @@
     }
   }
 
+  function trackActivationAnalytics(eventName, properties) {
+    try {
+      window.TermoAnalytics?.trackActivation?.(eventName, properties || {});
+    } catch (_error) {
+      /* analytics must never block exercise generation */
+    }
+  }
+
   function getHostState(host) {
     if (!host.__termoExerciseState) {
       host.__termoExerciseState = {
@@ -1194,7 +1202,7 @@
         mathContractOk: data.mathContractOk === true
       };
       hostState.saveResult = await persistExercise(host, buildExerciseRecord(ctx, cleanData, difficulty.value));
-      trackAnalytics("exercise_generate_success", {
+      trackActivationAnalytics("exercise_generate_success", {
         difficulty: difficulty.value,
         exercise_id: cleanData.exerciseId || "",
         validation_memory_count: Number(data.validationMemoryCount || 0)

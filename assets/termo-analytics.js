@@ -1,7 +1,7 @@
 (function () {
   if (window.TermoAnalytics) return;
 
-  const VERSION = "0731.1";
+  const VERSION = "0824.1";
   const GA_MEASUREMENT_ID = "G-NHEVHE096H";
   const GA_SCRIPT_SELECTOR = 'script[data-termo-ga="gtag"]';
   const SESSION_KEY = "termo_analytics_session_v1";
@@ -13,6 +13,8 @@
   const FLUSH_DELAY_MS = 1800;
   const FLUSH_INTERVAL_MS = 15000;
   const EVENT_NAME_PATTERN = /^[a-z0-9_]{2,80}$/;
+  const STUDY_ACTIVATION_SOURCES = new Set(["chapter_start", "exercise_generate_success"]);
+  const SENSITIVE_PROPERTY_NAME_PATTERN = /(^|_)(?:email|e_mail|name|full_name|first_name|last_name|phone|telephone|mobile|address|street|zipcode|postal_code|cpf|cnpj|document|password|passwd|secret|token|access_token|refresh_token|authorization|cookie|user_id)(_|$)/i;
   const SIMULATOR_BY_FILE = {
     termometros: "S01",
     eqtermico: "S02",
@@ -138,14 +140,6 @@
     }
   }
 
-  function getUtm(name) {
-    try {
-      return (new URL(window.location.href).searchParams.get(name) || "").slice(0, 80);
-    } catch (_error) {
-      return "";
-    }
-  }
-
   function cleanScalar(value) {
     if (value === null || typeof value === "undefined") return null;
     if (typeof value === "boolean") return value;
@@ -161,7 +155,7 @@
     const output = {};
     Object.keys(source).slice(0, 18).forEach(function (key) {
       const safeKey = String(key || "").replace(/[^a-zA-Z0-9_:-]/g, "_").slice(0, 60);
-      if (!safeKey) return;
+      if (!safeKey || SENSITIVE_PROPERTY_NAME_PATTERN.test(safeKey)) return;
       const value = source[key];
       if (Array.isArray(value)) {
         output[safeKey] = value.slice(0, 8).map(cleanScalar).filter(function (item) { return item !== null && item !== ""; });
@@ -186,6 +180,7 @@
   }
 
   function trackStudyActivation(sourceEvent, properties) {
+    if (!STUDY_ACTIVATION_SOURCES.has(sourceEvent)) return;
     const now = Date.now();
     const previous = Number(storageGet("localStorage", STUDY_ACTIVATION_KEY) || 0);
     if (previous && now - previous < STUDY_ACTIVATION_WINDOW_MS) return;
@@ -252,12 +247,13 @@
       page_id: chapter.page_id || null,
       simulator_id: inferSimulatorId() || null,
       path: getSafePath(),
-      referrer_host: getReferrerHost() || null,
-      utm_source: getUtm("utm_source") || null,
-      utm_medium: getUtm("utm_medium") || null,
-      utm_campaign: getUtm("utm_campaign") || null,
-      utm_content: getUtm("utm_content") || null
+      referrer_host: getReferrerHost() || null
     };
+  }
+
+  function getGoogleContext(context) {
+    const { user_id: _userId, ...anonymousContext } = context || {};
+    return anonymousContext;
   }
 
   async function getPublicConfig() {
@@ -362,6 +358,8 @@
       "termo_open_app",
       "chapter_start",
       "exercise_start",
+      "exercise_generate_success",
+      "login_success",
       "simulator_start",
       "quiz_start",
       "study_activation",
@@ -371,7 +369,7 @@
       "home_study_cta_click"
     ].includes(name)) {
       sendGoogleEvent(name, {
-        ...context,
+        ...getGoogleContext(context),
         ...cleanProperties(properties)
       });
     }
@@ -410,7 +408,7 @@
     if (storageGet("sessionStorage", key) === "1") return;
     storageSet("sessionStorage", key, "1");
     track("simulator_page_open", { simulator_id: simulatorId });
-    trackActivation("simulator_start", {
+    track("simulator_start", {
       simulator_id: simulatorId,
       entry_method: "page_open"
     });
@@ -484,7 +482,7 @@
         difficulty: host?.querySelector('[data-role="difficulty"]')?.value || ""
       };
       track("exercise_generate_click", properties);
-      trackActivation("exercise_start", properties);
+      track("exercise_start", properties);
       return;
     }
 
