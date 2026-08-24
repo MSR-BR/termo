@@ -6,6 +6,7 @@
   const GA_SCRIPT_SELECTOR = 'script[data-termo-ga="gtag"]';
   const SESSION_KEY = "termo_analytics_session_v1";
   const DAILY_SESSION_KEY = "termo_analytics_session_day_v1";
+  const LOGIN_PENDING_KEY = "termo_auth_login_pending_v1";
   const STUDY_ACTIVATION_KEY = "termo_analytics_study_activation_v1";
   const STUDY_ACTIVATION_WINDOW_MS = 30 * 60 * 1000;
   const QUEUE_LIMIT = 40;
@@ -83,6 +84,16 @@
     if (!storage) return;
     try {
       storage.setItem(key, value);
+    } catch (_error) {
+      /* ignore storage errors */
+    }
+  }
+
+  function storageRemove(storageName, key) {
+    const storage = getStorage(storageName);
+    if (!storage) return;
+    try {
+      storage.removeItem(key);
     } catch (_error) {
       /* ignore storage errors */
     }
@@ -544,12 +555,25 @@
     authUserId = session?.user?.id || event?.detail?.user?.id || "";
     authAccessToken = session?.access_token || "";
     if (authUserId && authUserId !== previousUserId) {
-      const key = "termo_analytics_login_" + authUserId;
-      if (storageGet("sessionStorage", key) !== "1") {
-        storageSet("sessionStorage", key, "1");
-        track("login_success", {});
-      }
+      trackLoginSuccess();
     }
+  }
+
+  function trackLoginSuccess(options) {
+    if (!authUserId) return;
+    const pendingLogin = storageGet("sessionStorage", LOGIN_PENDING_KEY) === "1";
+    if (options?.requirePending && !pendingLogin) return;
+
+    const key = "termo_analytics_login_" + authUserId;
+    if (pendingLogin) {
+      storageRemove("sessionStorage", LOGIN_PENDING_KEY);
+      storageSet("sessionStorage", key, "1");
+      track("login_success", {});
+      return;
+    }
+    if (storageGet("sessionStorage", key) === "1") return;
+    storageSet("sessionStorage", key, "1");
+    track("login_success", {});
   }
 
   window.TermoAnalytics = {
@@ -576,6 +600,7 @@
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", function () {
       void refreshAuthState().finally(function () {
+        trackLoginSuccess({ requirePending: true });
         trackDailySession();
         trackSimulatorPageOpen();
         trackChapterPageOpen();
@@ -583,6 +608,7 @@
     }, { once: true });
   } else {
     void refreshAuthState().finally(function () {
+      trackLoginSuccess({ requirePending: true });
       trackDailySession();
       trackSimulatorPageOpen();
       trackChapterPageOpen();

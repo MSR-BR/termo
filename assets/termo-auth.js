@@ -7,6 +7,7 @@
   const LEGAL_PREFERENCES_ENDPOINT = "/api/legal-preferences";
   const SUPABASE_ESM_URL = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
   const AUTH_SITE_URL = "https://termo-theta.vercel.app";
+  const LOGIN_PENDING_KEY = "termo_auth_login_pending_v1";
   const LANDING_LOGIN_TARGET_KEY = "termoLandingPostLoginTarget";
   const BOOK_PENDING_DOWNLOAD_KEY = "termoPendingBookPdfDownload";
   const STUDY_MARKERS_STORAGE_KEY = "termoStudyMarkersV1";
@@ -749,18 +750,33 @@
       throw new Error("Autenticacao indisponivel.");
     }
 
-    const result = await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: {
-        redirectTo: buildCleanRedirectUrl(),
-        queryParams: {
-          prompt: "select_account"
-        }
-      }
-    });
+    try {
+      window.sessionStorage.setItem(LOGIN_PENDING_KEY, "1");
+    } catch (_error) {
+      // O login continua mesmo quando o armazenamento da sessão está indisponível.
+    }
 
-    if (result.error) {
-      throw result.error;
+    try {
+      const result = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: buildCleanRedirectUrl(),
+          queryParams: {
+            prompt: "select_account"
+          }
+        }
+      });
+
+      if (result.error) {
+        throw result.error;
+      }
+    } catch (error) {
+      try {
+        window.sessionStorage.removeItem(LOGIN_PENDING_KEY);
+      } catch (_error) {
+        // Não há marcador para limpar quando o armazenamento está indisponível.
+      }
+      throw error;
     }
   }
 

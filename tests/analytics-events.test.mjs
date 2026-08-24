@@ -4,9 +4,10 @@ import test from "node:test";
 import vm from "node:vm";
 
 const analyticsSource = await readFile(new URL("../assets/termo-analytics.js", import.meta.url), "utf8");
+const authSource = await readFile(new URL("../assets/termo-auth.js", import.meta.url), "utf8");
 const exercisesSource = await readFile(new URL("../assets/ai-exercises.js", import.meta.url), "utf8");
 
-function bootAnalytics() {
+function bootAnalytics(options = {}) {
   const localValues = new Map();
   const sessionValues = new Map();
   const storage = function (values) {
@@ -31,6 +32,13 @@ function bootAnalytics() {
     setInterval() { return 1; },
     addEventListener() {}
   };
+  if (options.session) {
+    window.TermoAuth = {
+      getSession() { return Promise.resolve(options.session); }
+    };
+  }
+  if (options.pendingLogin) sessionValues.set("termo_auth_login_pending_v1", "1");
+  if (options.previousLoginUserId) sessionValues.set("termo_analytics_login_" + options.previousLoginUserId, "1");
   const document = {
     referrer: "",
     readyState: "complete",
@@ -53,7 +61,11 @@ function bootAnalytics() {
     fetch: async function () { return { ok: true, json: async function () { return {}; } }; }
   });
   vm.runInContext(analyticsSource, context);
-  return { window, localValues };
+  return { window, localValues, sessionValues };
+}
+
+function flushPromises() {
+  return new Promise(function (resolve) { setImmediate(resolve); });
 }
 
 function googleEvents(window) {
@@ -129,4 +141,21 @@ test("GA4 payload excludes direct identifiers and raw custom UTM parameters", fu
   assert.equal(login.properties.access_token, undefined);
   assert.equal(login.properties.utm_source, undefined);
   assert.equal(login.properties.utm_campaign, undefined);
+});
+
+test("OAuth return emits login success once, while a restored session does not", async function () {
+  const session = { access_token: "access-token", user: { id: "user-123" } };
+  const oauthReturn = bootAnalytics({ session, pendingLogin: true, previousLoginUserId: "user-123" });
+  await flushPromises();
+  assert.equal(googleEvents(oauthReturn.window).filter(function (event) { return event.name === "login_success"; }).length, 1);
+  assert.equal(oauthReturn.sessionValues.has("termo_auth_login_pending_v1"), false);
+
+  const restoredSession = bootAnalytics({ session });
+  await flushPromises();
+  assert.equal(googleEvents(restoredSession.window).filter(function (event) { return event.name === "login_success"; }).length, 0);
+});
+
+test("Google OAuth records and clears the pending-login marker on failure", function () {
+  assert.match(authSource, /sessionStorage\.setItem\(LOGIN_PENDING_KEY, "1"\)/);
+  assert.match(authSource, /sessionStorage\.removeItem\(LOGIN_PENDING_KEY\)/);
 });
