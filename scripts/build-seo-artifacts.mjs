@@ -16,6 +16,15 @@ const COURSE_TITLE = "Termodinâmica para Estudantes de Física";
 const AUTHOR_NAME = "Prof. Mario Reis";
 const PUBLISHER_NAME = "Instituto de Física — Universidade Federal Fluminense";
 const DEFAULT_SITE_DESCRIPTION = "Livro interativo de Termodinâmica com capítulos, exercícios automáticos por IA, simulados por capítulo, pontos de estudo, desafio do dia, simuladores e material didático do Prof. Mario Reis (IF-UFF).";
+const APP_TITLE = "TERMO — App de Termodinâmica | Capítulos, exercícios e simuladores";
+const APP_DESCRIPTION = "App gratuito de Termodinâmica para estudantes de Física, com capítulos interativos, exercícios por IA, simulados científicos, pontos e trilhas de estudo.";
+const HOME_TITLE = "Termodinâmica para Estudantes de Física — Livro interativo | TERMO";
+const HOME_DESCRIPTION = "Livro interativo gratuito de Termodinâmica do Prof. Mario Reis (IF-UFF), com teoria, capítulos, exercícios, simulados e recursos para estudantes de Física.";
+const AUTHOR_SAME_AS = [
+  "https://profmarioreis.wordpress.com/thermodynamics/",
+  "https://international.uff.br/pesquisas-de-destaque/",
+  "https://www.uff.br/informe/professor-da-uff-lanca-livro-didatico-sobre-mecanica-quantica/"
+];
 const TODAY = process.env.SITEMAP_LASTMOD || todayInSaoPaulo();
 const SEO_ASSET_VERSION = process.env.SEO_ASSET_VERSION || TODAY.replaceAll("-", "");
 
@@ -265,8 +274,8 @@ function inferPageMeta(relativePath, html, topicMap) {
 
   if (isIndex) {
     return {
-      title: `${COURSE_TITLE} | Livro interativo de Termodinâmica`,
-      description: DEFAULT_SITE_DESCRIPTION,
+      title: APP_TITLE,
+      description: APP_DESCRIPTION,
       canonical: `${SITE_URL}/`,
       robots: "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1",
       ogType: "website",
@@ -274,7 +283,8 @@ function inferPageMeta(relativePath, html, topicMap) {
         {
           "@context": "https://schema.org",
           "@type": "WebSite",
-          name: COURSE_TITLE,
+          name: "TERMO",
+          alternateName: COURSE_TITLE,
           url: `${SITE_URL}/`,
           inLanguage: "pt-BR"
         },
@@ -289,7 +299,8 @@ function inferPageMeta(relativePath, html, topicMap) {
           },
           creator: {
             "@type": "Person",
-            name: AUTHOR_NAME
+            name: AUTHOR_NAME,
+            sameAs: AUTHOR_SAME_AS
           },
           url: `${SITE_URL}/`
         }
@@ -921,21 +932,22 @@ function buildHomePage(topicMap) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    name: `${COURSE_TITLE} | Livro interativo de Termodinâmica`,
-    description: DEFAULT_SITE_DESCRIPTION,
+    name: HOME_TITLE,
+    description: HOME_DESCRIPTION,
     url: `${SITE_URL}/home.html`,
     inLanguage: "pt-BR",
     about: {
       "@type": "Course",
       name: COURSE_TITLE,
-      description: DEFAULT_SITE_DESCRIPTION,
+      description: HOME_DESCRIPTION,
       provider: {
         "@type": "CollegeOrUniversity",
         name: PUBLISHER_NAME
       },
       creator: {
         "@type": "Person",
-        name: AUTHOR_NAME
+        name: AUTHOR_NAME,
+        sameAs: AUTHOR_SAME_AS
       }
     },
     mainEntity: chapters.map((chapter) => ({
@@ -951,8 +963,8 @@ function buildHomePage(topicMap) {
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>${escapeHtml(COURSE_TITLE)} | Livro interativo de Termodinâmica</title>
-  <meta name="description" content="${escapeHtml(DEFAULT_SITE_DESCRIPTION)}" />
+  <title>${escapeHtml(HOME_TITLE)}</title>
+  <meta name="description" content="${escapeHtml(HOME_DESCRIPTION)}" />
   <meta name="author" content="${escapeHtml(AUTHOR_NAME)}" />
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
   <meta name="googlebot" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
@@ -960,13 +972,13 @@ function buildHomePage(topicMap) {
   <meta property="og:locale" content="pt_BR" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="${escapeHtml(COURSE_TITLE)}" />
-  <meta property="og:title" content="${escapeHtml(COURSE_TITLE)} | Livro interativo de Termodinâmica" />
-  <meta property="og:description" content="${escapeHtml(DEFAULT_SITE_DESCRIPTION)}" />
+  <meta property="og:title" content="${escapeHtml(HOME_TITLE)}" />
+  <meta property="og:description" content="${escapeHtml(HOME_DESCRIPTION)}" />
   <meta property="og:url" content="${SITE_URL}/home.html" />
   <meta property="og:image" content="${SITE_URL}/${heroImage}" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="${escapeHtml(COURSE_TITLE)}" />
-  <meta name="twitter:description" content="${escapeHtml(DEFAULT_SITE_DESCRIPTION)}" />
+  <meta name="twitter:title" content="${escapeHtml(HOME_TITLE)}" />
+  <meta name="twitter:description" content="${escapeHtml(HOME_DESCRIPTION)}" />
   <meta name="twitter:image" content="${SITE_URL}/${heroImage}" />
   <link href="https://fonts.googleapis.com" rel="preconnect" />
   <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />

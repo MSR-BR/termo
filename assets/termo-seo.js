@@ -4,6 +4,13 @@
   const AUTHOR_NAME = "Prof. Mario Reis";
   const PUBLISHER_NAME = "Instituto de Física — Universidade Federal Fluminense";
   const DEFAULT_DESCRIPTION = "Livro interativo de Termodinâmica com capítulos, exercícios automáticos por IA, simulados por capítulo, pontos de estudo, desafio do dia, simuladores e material didático do Prof. Mario Reis (IF-UFF).";
+  const APP_TITLE = "TERMO — App de Termodinâmica | Capítulos, exercícios e simuladores";
+  const APP_DESCRIPTION = "App gratuito de Termodinâmica para estudantes de Física, com capítulos interativos, exercícios por IA, simulados científicos, pontos e trilhas de estudo.";
+  const AUTHOR_SAME_AS = [
+    "https://profmarioreis.wordpress.com/thermodynamics/",
+    "https://international.uff.br/pesquisas-de-destaque/",
+    "https://www.uff.br/informe/professor-da-uff-lanca-livro-didatico-sobre-mecanica-quantica/"
+  ];
   const CHAPTER_META = {
     "01": {
       title: "Conceitos Fundamentais",
@@ -192,8 +199,8 @@
     }
 
     return {
-      title: `${COURSE_TITLE} | Livro interativo de Termodinâmica`,
-      description: DEFAULT_DESCRIPTION,
+      title: APP_TITLE,
+      description: APP_DESCRIPTION,
       canonical: buildCanonicalForIndex(view, chapterId),
       robots: "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1",
       ogType: "website",
@@ -201,7 +208,8 @@
         {
           "@context": "https://schema.org",
           "@type": "WebSite",
-          name: COURSE_TITLE,
+          name: "TERMO",
+          alternateName: COURSE_TITLE,
           url: SITE_URL,
           inLanguage: "pt-BR"
         },
@@ -216,7 +224,8 @@
           },
           creator: {
             "@type": "Person",
-            name: AUTHOR_NAME
+            name: AUTHOR_NAME,
+            sameAs: AUTHOR_SAME_AS
           },
           url: SITE_URL
         }

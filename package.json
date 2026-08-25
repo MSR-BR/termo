@@ -6,6 +6,7 @@
     "check": "node scripts/check-content.mjs",
     "test:analytics": "node --test tests/analytics-events.test.mjs",
     "test:gamification": "node --test tests/gamification-handlers.test.mjs",
+    "test:seo": "node --test tests/seo-artifacts.test.mjs",
     "extract:book-sections": "node scripts/extract-book-sections.mjs",
     "extract:book-pdfs": "node scripts/build-book-reference-pdfs.mjs",
     "review:book-corpus": "node scripts/build-book-reference-review-page.mjs",
