@@ -2,10 +2,9 @@
 
 ## Estado
 
-**C6, C7, C8, a implantação do teste C9 e a preparação técnica da C10 foram
-autorizadas e concluídas em 4 de setembro de 2026. O C9 permanece em observação
-até 17 de setembro de 2026. A publicação da C10 aguarda autenticação da Vercel;
-C11 a C13 continuam somente como propostas, sem autorização para execução.**
+**C6, C7, C8, a implantação do teste C9 e a C10 foram autorizadas e concluídas
+em 4 de setembro de 2026. O C9 permanece em observação até 17 de setembro de
+2026. C11 a C13 continuam somente como propostas, sem autorização para execução.**
 
 As changes serão revisadas pelo responsável e, se aprovadas, executadas uma a
 uma. Qualquer alteração em produção, Google Ads, GA4, Supabase, LinkedIn ou
@@ -325,8 +324,8 @@ sessões.
   metadados, dados estruturados e ligações internas;
 - configurado redirecionamento permanente de `/home.html/home.html` para
   `/home.html`;
-- testes locais aprovados; publicação pendente porque a sessão da Vercel CLI
-  respondeu `Not authorized`;
+- testes locais aprovados e publicação confirmada na Vercel após o push para a
+  branch principal;
 - registro: `docs/operations/termo-c10-seo-2026-09-04.md`.
 
 ---
@@ -500,7 +499,7 @@ Cada item abaixo exige uma autorização separada:
 - [x] C7 — funil e relatório (concluída em 4 de setembro de 2026);
 - [x] C8 — termos/negativas e estrutura do Ads (concluída em 4 de setembro de 2026);
 - [x] C9 — teste de anúncio no Google Ads (ativo; avaliação pendente até 17/09/2026);
-- [ ] C10 — SEO e páginas de entrada (implementada e testada; publicação pendente);
+- [x] C10 — SEO e páginas de entrada (publicada em 4 de setembro de 2026);
 - [ ] C11 — publicação no LinkedIn;
 - [ ] C12 — preparação e envio de e-mail consentido;
 - [ ] C13 — acompanhamento e decisão.
