@@ -1,6 +1,11 @@
 {
   "redirects": [
     {
+      "source": "/linkedin",
+      "destination": "/?utm_source=linkedin&utm_medium=organic_social&utm_campaign=termo_launch_2026&utm_content=post_c11",
+      "permanent": false
+    },
+    {
       "source": "/home.html/home.html",
       "destination": "/home.html",
       "permanent": true

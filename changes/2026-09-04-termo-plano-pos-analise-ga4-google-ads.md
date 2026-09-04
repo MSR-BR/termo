@@ -379,6 +379,13 @@ uma única página principal.
 - GA4 reconhece LinkedIn/social sem registrar PII;
 - acompanhar impressões, cliques, sessões engajadas e ativações por 14 dias.
 
+### Preparação em 4 de setembro de 2026
+
+- texto final, link único com UTM e arte 1200 × 627 px preparados;
+- prévia: `marketing/termo-linkedin-c11.png`;
+- texto e medição: `marketing/c11-linkedin-post-2026-09-04.md`;
+- publicação pendente de confirmação explícita do responsável.
+
 ---
 
 ## C12 — E-mail para usuários que autorizaram comunicações
@@ -500,7 +507,7 @@ Cada item abaixo exige uma autorização separada:
 - [x] C8 — termos/negativas e estrutura do Ads (concluída em 4 de setembro de 2026);
 - [x] C9 — teste de anúncio no Google Ads (ativo; avaliação pendente até 17/09/2026);
 - [x] C10 — SEO e páginas de entrada (publicada em 4 de setembro de 2026);
-- [ ] C11 — publicação no LinkedIn;
+- [ ] C11 — publicação no LinkedIn (conteúdo preparado; publicação pendente);
 - [ ] C12 — preparação e envio de e-mail consentido;
 - [ ] C13 — acompanhamento e decisão.
 
