@@ -321,10 +321,7 @@
       font-size: 14px;
     }
 
-    .mobile-study-cta {
-      display: none;
-    }
-
+    .mobile-study-cta,
     .mobile-study-path {
       display: none;
     }
@@ -375,56 +372,13 @@
         color: #FFFFFF;
       }
 
-      .mobile-study-cta:hover {
-        text-decoration: none;
-      }
-
-      .mobile-study-cta__title {
-        font-size: 18px;
-        font-weight: 800;
-      }
-
-      .mobile-study-cta__detail {
-        color: rgba(255, 255, 255, 0.86);
-        font-size: 13px;
-        font-weight: 600;
-      }
-
-      .mobile-study-cta__arrow {
-        grid-column: 2;
-        grid-row: 1 / span 2;
-        font-size: 22px;
-      }
-
-      .mobile-study-path {
-        display: grid;
-        gap: 8px;
-        margin-top: 14px;
-        padding: 0;
-        list-style: none;
-      }
-
-      .mobile-study-path li {
-        display: flex;
-        gap: 9px;
-        align-items: flex-start;
-        color: rgba(255, 255, 255, 0.92);
-        font-size: 13px;
-        font-weight: 650;
-        line-height: 1.35;
-      }
-
-      .mobile-study-path strong {
-        display: inline-grid;
-        flex: 0 0 auto;
-        width: 20px;
-        height: 20px;
-        place-items: center;
-        border: 1px solid rgba(255, 255, 255, 0.55);
-        border-radius: 50%;
-        color: #FFFFFF;
-        font-size: 11px;
-      }
+      .mobile-study-cta:hover { text-decoration: none; }
+      .mobile-study-cta__title { font-size: 18px; font-weight: 800; }
+      .mobile-study-cta__detail { color: rgba(255,255,255,.86); font-size: 13px; font-weight: 600; }
+      .mobile-study-cta__arrow { grid-column: 2; grid-row: 1 / span 2; font-size: 22px; }
+      .mobile-study-path { display: grid; gap: 8px; margin-top: 14px; padding: 0; list-style: none; }
+      .mobile-study-path li { display: flex; gap: 9px; align-items: flex-start; color: rgba(255,255,255,.92); font-size: 13px; font-weight: 650; line-height: 1.35; }
+      .mobile-study-path strong { display: inline-grid; flex: 0 0 auto; width: 20px; height: 20px; place-items: center; border: 1px solid rgba(255,255,255,.55); border-radius: 50%; color: #FFFFFF; font-size: 11px; }
     }
   </style>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Termodinâmica para Estudantes de Física — Livro interativo | TERMO","description":"Livro interativo gratuito de Termodinâmica do Prof. Mario Reis (IF-UFF), com teoria, capítulos, exercícios, simulados e recursos para estudantes de Física.","url":"https://termo-theta.vercel.app/home.html","inLanguage":"pt-BR","about":{"@type":"Course","name":"Termodinâmica para Estudantes de Física","description":"Livro interativo gratuito de Termodinâmica do Prof. Mario Reis (IF-UFF), com teoria, capítulos, exercícios, simulados e recursos para estudantes de Física.","provider":{"@type":"CollegeOrUniversity","name":"Instituto de Física — Universidade Federal Fluminense"},"creator":{"@type":"Person","name":"Prof. Mario Reis","sameAs":["https://profmarioreis.wordpress.com/thermodynamics/","https://international.uff.br/pesquisas-de-destaque/","https://www.uff.br/informe/professor-da-uff-lanca-livro-didatico-sobre-mecanica-quantica/"]}},"mainEntity":[{"@type":"LearningResource","name":"Capítulo 1 — Conceitos Fundamentais","description":"Conceitos fundamentais da Termodinâmica: equilíbrio térmico, temperatura, escalas, calor, trabalho e primeira lei.","url":"https://termo-theta.vercel.app/conteudo.html#capitulo-01"},{"@type":"LearningResource","name":"Capítulo 2 — Potenciais Termodinâmicos e Aplicações","description":"Potenciais termodinâmicos, transformações de Legendre, energia livre, entalpia, relações de Maxwell e aplicações.","url":"https://termo-theta.vercel.app/conteudo.html#capitulo-02"},{"@type":"LearningResource","name":"Capítulo 3 — Termodinâmica Estatística","description":"Termodinâmica estatística com ensembles, entropia, distribuição de Boltzmann, gás ideal e exemplos quânticos e clássicos.","url":"https://termo-theta.vercel.app/conteudo.html#capitulo-03"},{"@type":"LearningResource","name":"Capítulo 4 — Transições de Fase","description":"Transições de fase, gás de Van der Waals, ponto crítico, estabilidade, coexistência e construção de Maxwell.","url":"https://termo-theta.vercel.app/conteudo.html#capitulo-04"},{"@type":"LearningResource","name":"Capítulo 6 — Ciclos Termodinâmicos","description":"Ciclos termodinâmicos, máquinas térmicas, eficiência, refrigeradores e transformações cíclicas.","url":"https://termo-theta.vercel.app/conteudo.html#capitulo-06"}]}</script>
@@ -490,8 +444,18 @@
         </article>
         <article class="route-card">
           <p class="card-label">Simuladores</p>
-          <h3><a href="index.html?view=simulators">Ver recursos interativos</a></h3>
+          <h3><a href="simuladores-de-termodinamica.html">Ver recursos interativos</a></h3>
           <p>Catálogo de simulações para escalas termométricas, equilíbrio térmico, Maxwell, Van der Waals, Carnot e Stirling.</p>
+        </article>
+        <article class="route-card">
+          <p class="card-label">Guia de estudo</p>
+          <h3><a href="leis-da-termodinamica.html">Leis da Termodinâmica</a></h3>
+          <p>Uma rota orientada pela Lei Zero, Primeira, Segunda e Terceira Leis, com acesso aos tópicos do livro.</p>
+        </article>
+        <article class="route-card">
+          <p class="card-label">Prática</p>
+          <h3><a href="exercicios-de-termodinamica.html">Exercícios de Termodinâmica</a></h3>
+          <p>Entenda como praticar por capítulo, revisar conceitos e acompanhar o avanço dentro do TERMO.</p>
         </article>
       </div>
     </section>

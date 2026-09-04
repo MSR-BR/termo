@@ -5,6 +5,11 @@ import test from "node:test";
 const rootHtml = await readFile(new URL("../index.html", import.meta.url), "utf8");
 const homeHtml = await readFile(new URL("../home.html", import.meta.url), "utf8");
 const sitemapXml = await readFile(new URL("../sitemap.xml", import.meta.url), "utf8");
+const intentPages = await Promise.all([
+  "leis-da-termodinamica.html",
+  "exercicios-de-termodinamica.html",
+  "simuladores-de-termodinamica.html"
+].map(async (file) => ({ file, html: await readFile(new URL(`../${file}`, import.meta.url), "utf8") })));
 
 function matchContent(html, expression, label) {
   const match = html.match(expression);
@@ -53,4 +58,18 @@ test("sitemap lista app e home uma única vez", function () {
   assert.equal(locations.filter((url) => url === "https://termo-theta.vercel.app/").length, 1);
   assert.equal(locations.filter((url) => url === "https://termo-theta.vercel.app/home.html").length, 1);
   assert.equal(new Set(locations).size, locations.length);
+  for (const { file } of intentPages) {
+    assert.equal(locations.filter((url) => url === `https://termo-theta.vercel.app/${file}`).length, 1);
+  }
+});
+
+test("páginas de intenção têm metadados, H1 e ligações internas", function () {
+  for (const { file, html } of intentPages) {
+    assert.equal(canonical(html), `https://termo-theta.vercel.app/${file}`);
+    assert.match(html, /<h1[^>]*>[^<]+<\/h1>/i);
+    assert.match(html, /href="home\.html"/);
+    assert.match(html, /href="conteudo\.html/);
+    assert.match(html, /href="index\.html/);
+    assert.match(html, /application\/ld\+json/);
+  }
 });

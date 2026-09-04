@@ -11,7 +11,7 @@ const dataDir = path.join(rootDir, "data");
 const SITE_URL = "https://termo-theta.vercel.app";
 const GITHUB_PAGES_URL = "https://msr-br.github.io/termo";
 const GITHUB_REPOSITORY_URL = "https://github.com/MSR-BR/termo";
-const ANALYTICS_ASSET_VERSION = "0702.1";
+const ANALYTICS_ASSET_VERSION = "0731.1";
 const COURSE_TITLE = "Termodinâmica para Estudantes de Física";
 const AUTHOR_NAME = "Prof. Mario Reis";
 const PUBLISHER_NAME = "Instituto de Física — Universidade Federal Fluminense";
@@ -26,7 +26,7 @@ const AUTHOR_SAME_AS = [
   "https://www.uff.br/informe/professor-da-uff-lanca-livro-didatico-sobre-mecanica-quantica/"
 ];
 const TODAY = process.env.SITEMAP_LASTMOD || todayInSaoPaulo();
-const SEO_ASSET_VERSION = process.env.SEO_ASSET_VERSION || TODAY.replaceAll("-", "");
+const SEO_ASSET_VERSION = process.env.SEO_ASSET_VERSION || "20260718";
 
 const simulatorCatalog = [
   {
@@ -453,6 +453,9 @@ function collectSitemapUrls(topicMap, htmlFiles) {
   urls.add(`${SITE_URL}/`);
   urls.add(`${SITE_URL}/home.html`);
   urls.add(`${SITE_URL}/conteudo.html`);
+  urls.add(`${SITE_URL}/leis-da-termodinamica.html`);
+  urls.add(`${SITE_URL}/exercicios-de-termodinamica.html`);
+  urls.add(`${SITE_URL}/simuladores-de-termodinamica.html`);
   urls.add(`${SITE_URL}/simulators/index.html`);
 
   const activeChapterIds = new Set();
@@ -876,7 +879,19 @@ function buildHomePage(topicMap) {
       label: "Simuladores",
       title: "Ver recursos interativos",
       description: "Catálogo de simulações para escalas termométricas, equilíbrio térmico, Maxwell, Van der Waals, Carnot e Stirling.",
-      href: "index.html?view=simulators"
+      href: "simuladores-de-termodinamica.html"
+    },
+    {
+      label: "Guia de estudo",
+      title: "Leis da Termodinâmica",
+      description: "Uma rota orientada pela Lei Zero, Primeira, Segunda e Terceira Leis, com acesso aos tópicos do livro.",
+      href: "leis-da-termodinamica.html"
+    },
+    {
+      label: "Prática",
+      title: "Exercícios de Termodinâmica",
+      description: "Entenda como praticar por capítulo, revisar conceitos e acompanhar o avanço dentro do TERMO.",
+      href: "exercicios-de-termodinamica.html"
     }
   ];
 
@@ -1281,6 +1296,11 @@ function buildHomePage(topicMap) {
       font-size: 14px;
     }
 
+    .mobile-study-cta,
+    .mobile-study-path {
+      display: none;
+    }
+
     @media (max-width: 980px) {
       .intro-grid,
       .simulator-grid {
@@ -1313,6 +1333,27 @@ function buildHomePage(topicMap) {
       .card-actions a {
         min-height: 34px;
       }
+
+      .mobile-study-cta {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 2px 12px;
+        align-items: center;
+        margin-top: 20px;
+        border-radius: 16px;
+        padding: 16px 18px;
+        background: var(--blue);
+        box-shadow: var(--shadow);
+        color: #FFFFFF;
+      }
+
+      .mobile-study-cta:hover { text-decoration: none; }
+      .mobile-study-cta__title { font-size: 18px; font-weight: 800; }
+      .mobile-study-cta__detail { color: rgba(255,255,255,.86); font-size: 13px; font-weight: 600; }
+      .mobile-study-cta__arrow { grid-column: 2; grid-row: 1 / span 2; font-size: 22px; }
+      .mobile-study-path { display: grid; gap: 8px; margin-top: 14px; padding: 0; list-style: none; }
+      .mobile-study-path li { display: flex; gap: 9px; align-items: flex-start; color: rgba(255,255,255,.92); font-size: 13px; font-weight: 650; line-height: 1.35; }
+      .mobile-study-path strong { display: inline-grid; flex: 0 0 auto; width: 20px; height: 20px; place-items: center; border: 1px solid rgba(255,255,255,.55); border-radius: 50%; color: #FFFFFF; font-size: 11px; }
     }
   </style>
   <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
@@ -1334,6 +1375,16 @@ function buildHomePage(topicMap) {
       <p class="kicker">Livro interativo aberto</p>
       <h1>${escapeHtml(COURSE_TITLE)}</h1>
       <p>${escapeHtml(DEFAULT_SITE_DESCRIPTION)}</p>
+      <a class="mobile-study-cta" href="index.html?view=chapters&amp;chapter=01" aria-label="Começar a estudar o Capítulo 1: Conceitos fundamentais">
+        <span class="mobile-study-cta__title">Começar a estudar</span>
+        <span class="mobile-study-cta__detail">Capítulo 1 · Conceitos fundamentais</span>
+        <span class="mobile-study-cta__arrow" aria-hidden="true">→</span>
+      </a>
+      <ol class="mobile-study-path" aria-label="Como estudar no TERMO">
+        <li><strong>1</strong><span>Leia o Capítulo 1 no seu ritmo.</span></li>
+        <li><strong>2</strong><span>Pratique com exercícios gerados por IA.</span></li>
+        <li><strong>3</strong><span>Desbloqueie simulados à medida que avança.</span></li>
+      </ol>
       <div class="hero-stats" aria-label="Resumo do conteúdo">
         <div class="hero-stat"><strong>${chapters.length}</strong><span>capítulos disponíveis</span></div>
         <div class="hero-stat"><strong>${topicCount}</strong><span>tópicos com páginas diretas</span></div>
@@ -1377,7 +1428,7 @@ ${simulatorCards}
       </div>
     </section>
 
-    <p class="footer-note">${escapeHtml(COURSE_TITLE)} é um projeto didático de ${escapeHtml(AUTHOR_NAME)} no ${escapeHtml(PUBLISHER_NAME)}.</p>
+    <p class="footer-note">${escapeHtml(COURSE_TITLE)} é um projeto didático de ${escapeHtml(AUTHOR_NAME)} no ${escapeHtml(PUBLISHER_NAME)}. · <a href="termos.html">Termos de Uso</a> · <a href="privacidade.html">Privacidade</a></p>
   </main>
 </body>
 </html>
