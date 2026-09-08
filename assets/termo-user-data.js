@@ -257,6 +257,42 @@
     };
   }
 
+  async function listAppRatings() {
+    const token = await getAccessToken();
+    if (!token) return { ok: false, reason: "not_authenticated", ratings: [] };
+    const response = await fetch("/api/app-rating", {
+      headers: { Authorization: `Bearer ${token}` },
+      credentials: "same-origin",
+      cache: "no-store"
+    });
+    const payload = await readApiPayload(response);
+    if (!response.ok) {
+      return { ok: false, reason: "query_failed", error: payload, ratings: [] };
+    }
+    return {
+      ok: true,
+      summary: payload.summary || { total: 0, average: 0, withFeedback: 0, distribution: {} },
+      ratings: Array.isArray(payload.ratings) ? payload.ratings : []
+    };
+  }
+
+  async function deleteAppRating(id) {
+    const token = await getAccessToken();
+    if (!token) return { ok: false, reason: "not_authenticated" };
+    const response = await fetch("/api/app-rating", {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+      },
+      credentials: "same-origin",
+      body: JSON.stringify({ id })
+    });
+    const payload = await readApiPayload(response);
+    if (!response.ok) return { ok: false, reason: "delete_failed", error: payload };
+    return { ok: true };
+  }
+
   function buildFavoriteItemKey(chapterId, itemId) {
     const normalizedChapterId = String(chapterId || "").padStart(2, "0");
     const normalizedItemId = String(itemId || "").trim();
@@ -464,6 +500,8 @@
     updateFavorite,
     listValidationReports,
     reviewValidationReport,
+    listAppRatings,
+    deleteAppRating,
     listFavoriteItems,
     toggleFavoriteItem,
     listFavoriteChapters,

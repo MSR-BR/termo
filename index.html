@@ -3551,13 +3551,15 @@
 </script>
 <link rel="stylesheet" href="assets/termo-share.css?v=0611.3">
 <link rel="stylesheet" href="assets/termo-auth.css?v=0625.3">
+<link rel="stylesheet" href="assets/termo-rating.css?v=0831.1">
 <script>
 (function () {
   const scripts = [
     "assets/termo-share.js?v=0611.3",
     "assets/termo-auth.js?v=0625.3",
     "assets/termo-user-data.js?v=0611.3",
-    "assets/termo-analytics.js?v=0731.1"
+    "assets/termo-analytics.js?v=0731.1",
+    "assets/termo-rating.js?v=0831.1"
   ];
 
   scripts.forEach(function (src) {
@@ -3577,14 +3579,14 @@
 <link rel="canonical" href="https://termo-theta.vercel.app/"/>
 <meta property="og:locale" content="pt_BR"/>
 <meta property="og:type" content="website"/>
-<meta property="og:site_name" content="TERMO"/>
+<meta property="og:site_name" content="Termodinâmica para Estudantes de Física"/>
 <meta property="og:title" content="TERMO — App de Termodinâmica | Capítulos, exercícios e simuladores"/>
 <meta property="og:description" content="App gratuito de Termodinâmica para estudantes de Física, com capítulos interativos, exercícios por IA, simulados científicos, pontos e trilhas de estudo."/>
 <meta property="og:url" content="https://termo-theta.vercel.app/"/>
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="TERMO — App de Termodinâmica | Capítulos, exercícios e simuladores"/>
 <meta name="twitter:description" content="App gratuito de Termodinâmica para estudantes de Física, com capítulos interativos, exercícios por IA, simulados científicos, pontos e trilhas de estudo."/>
-<script type="application/ld+json">[{"@context":"https://schema.org","@type":"WebSite","name":"TERMO","alternateName":"Termodinâmica para Estudantes de Física","url":"https://termo-theta.vercel.app/","inLanguage":"pt-BR"},{"@context":"https://schema.org","@type":"Course","name":"Termodinâmica para Estudantes de Física","description":"App gratuito de Termodinâmica para estudantes de Física, com capítulos interativos, exercícios por IA, simulados científicos, pontos e trilhas de estudo.","provider":{"@type":"CollegeOrUniversity","name":"Instituto de Física — Universidade Federal Fluminense"},"creator":{"@type":"Person","name":"Prof. Mario Reis","sameAs":["https://profmarioreis.wordpress.com/thermodynamics/","https://international.uff.br/pesquisas-de-destaque/","https://www.uff.br/informe/professor-da-uff-lanca-livro-didatico-sobre-mecanica-quantica/"]},"url":"https://termo-theta.vercel.app/"}]</script>
+<script type="application/ld+json">[{"@context":"https://schema.org","@type":"WebSite","name":"TERMO","alternateName":"Termodinâmica para Estudantes de Física","url":"https://termo-theta.vercel.app/","inLanguage":"pt-BR"},{"@context":"https://schema.org","@type":"Course","name":"Termodinâmica para Estudantes de Física","description":"Livro interativo de Termodinâmica com capítulos, exercícios automáticos por IA, simulados por capítulo, pontos de estudo, desafio do dia, simuladores e material didático do Prof. Mario Reis (IF-UFF).","provider":{"@type":"CollegeOrUniversity","name":"Instituto de Física — Universidade Federal Fluminense"},"creator":{"@type":"Person","name":"Prof. Mario Reis","sameAs":["https://profmarioreis.wordpress.com/thermodynamics/","https://international.uff.br/pesquisas-de-destaque/","https://www.uff.br/informe/professor-da-uff-lanca-livro-didatico-sobre-mecanica-quantica/"]},"url":"https://termo-theta.vercel.app/"}]</script>
 <!-- termo-seo:end -->
 <script defer src="assets/termo-seo.js?v=20260718"></script>
 </head>
@@ -4395,6 +4397,12 @@
         note: "Revisar relatos enviados pelos usuários."
       },
       {
+        id: "rating-management",
+        label: "Avaliações do app",
+        icon: "fa-star-half-stroke",
+        note: "Consultar notas, média e comentários dos usuários."
+      },
+      {
         id: "communication",
         label: "Comunicação",
         icon: "fa-envelope-circle-check",
@@ -4633,7 +4641,7 @@
 
     function getDrawerSectionForView(viewId) {
       if (viewId === "saved" || viewId === "favorites") return "personal";
-      if (viewId === "validation-review" || viewId === "communication") return "admin";
+      if (viewId === "validation-review" || viewId === "rating-management" || viewId === "communication") return "admin";
       if (viewId === "journey") return "extras";
       if (viewId === "daily-challenge") return "extras";
       if (viewId === "simulators") return "extras";
@@ -8694,6 +8702,113 @@
       await typesetValidationReview(topicContainer);
     }
 
+    function renderRatingDistribution(summary) {
+      const total = Number(summary?.total || 0);
+      const distribution = summary?.distribution || {};
+      return [5, 4, 3, 2, 1].map(function (rating) {
+        const count = Number(distribution[rating] || 0);
+        const percent = total ? Math.round((count / total) * 100) : 0;
+        return `
+          <div class="rating-admin-distribution__row">
+            <span>${rating} ★</span>
+            <span class="rating-admin-distribution__track"><span style="width:${percent}%"></span></span>
+            <strong>${count}</strong>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function formatRatingDate(value) {
+      const date = new Date(value || "");
+      if (Number.isNaN(date.getTime())) return "Data indisponível";
+      return new Intl.DateTimeFormat("pt-BR", {
+        dateStyle: "short",
+        timeStyle: "short"
+      }).format(date);
+    }
+
+    function renderRatingCard(rating) {
+      const stars = "★".repeat(Math.max(0, Math.min(5, Number(rating.rating || 0)))) + "☆".repeat(Math.max(0, 5 - Number(rating.rating || 0)));
+      return `
+        <article class="saved-card rating-admin-card" data-rating-id="${escapeHtml(rating.id)}">
+          <div class="rating-admin-card__top">
+            <strong class="rating-admin-card__stars" aria-label="${escapeHtml(rating.rating)} de 5 estrelas">${stars}</strong>
+            <span>${escapeHtml(formatRatingDate(rating.updatedAt))}</span>
+          </div>
+          ${rating.feedback ? `<blockquote>${escapeHtml(rating.feedback)}</blockquote>` : `<p class="saved-card__status">Sem comentário.</p>`}
+          <div class="saved-card__meta">
+            ${escapeHtml(rating.pagePath || "Página não informada")} · visita ${escapeHtml(rating.visitCount)} · ${escapeHtml(rating.contentViewCount)} conteúdos
+          </div>
+          <div class="saved-card__actions">
+            <button class="saved-card__button" data-role="delete-app-rating" data-rating-id="${escapeHtml(rating.id)}" type="button">
+              <i class="fa-solid fa-trash-can"></i> Excluir
+            </button>
+          </div>
+        </article>
+      `;
+    }
+
+    async function renderRatingManagement() {
+      setLandingMode(false);
+      await ensureAuthModules();
+      const session = await window.TermoAuth?.getSession?.().catch(function () { return null; });
+      state.loggedIn = Boolean(session?.user);
+      state.canReviewValidations = await canCurrentUserReviewValidations(session);
+      panelKicker.textContent = "Administração";
+      panelTitle.textContent = "Avaliações do aplicativo";
+      panelDescription.textContent = "Acompanhe a satisfação dos usuários e gerencie comentários recebidos.";
+      setActiveChapter(state.chapterId);
+      setActivePersonal("");
+      setActiveAdmin("rating-management");
+      setActiveExtra("");
+      panelActions.innerHTML = "";
+
+      if (!state.loggedIn || !state.canReviewValidations) {
+        topicContainer.innerHTML = `<div class="empty-state"><strong>Área restrita.</strong><br />Entre com a conta administrativa autorizada.</div>`;
+        return;
+      }
+
+      topicContainer.innerHTML = `<div class="empty-state"><strong>Carregando avaliações...</strong></div>`;
+      const result = await window.TermoUserData.listAppRatings().catch(function (error) {
+        return { ok: false, error, ratings: [] };
+      });
+      if (!result.ok) {
+        topicContainer.innerHTML = `<div class="empty-state"><strong>Não foi possível carregar as avaliações.</strong><br />Verifique a migração e a configuração do servidor.</div>`;
+        return;
+      }
+
+      const summary = result.summary || {};
+      const ratings = result.ratings || [];
+      topicContainer.innerHTML = `
+        <section class="rating-admin-summary" aria-label="Resumo das avaliações">
+          <article><strong>${escapeHtml(Number(summary.average || 0).toFixed(2))}</strong><span>Média de 5</span></article>
+          <article><strong>${escapeHtml(summary.total || 0)}</strong><span>Avaliações</span></article>
+          <article><strong>${escapeHtml(summary.withFeedback || 0)}</strong><span>Comentários</span></article>
+        </section>
+        <section class="rating-admin-distribution" aria-label="Distribuição das notas">
+          ${renderRatingDistribution(summary)}
+        </section>
+        <div class="rating-admin-list">
+          ${ratings.length ? ratings.map(renderRatingCard).join("") : `<div class="empty-state"><strong>Ainda não há avaliações.</strong></div>`}
+        </div>
+      `;
+
+      topicContainer.querySelectorAll('[data-role="delete-app-rating"]').forEach(function (button) {
+        button.addEventListener("click", async function () {
+          const ratingId = button.dataset.ratingId;
+          if (!window.confirm("Excluir permanentemente esta avaliação?")) return;
+          button.disabled = true;
+          const deleted = await window.TermoUserData.deleteAppRating(ratingId).catch(function () { return { ok: false }; });
+          if (!deleted.ok) {
+            button.disabled = false;
+            window.alert("Não foi possível excluir a avaliação.");
+            return;
+          }
+          await renderRatingManagement();
+        });
+      });
+    }
+
     async function sendAdminEmailTest() {
       const session = await window.TermoAuth?.getSession?.().catch(function () {
         return null;
@@ -9084,6 +9199,11 @@ Entre no ambiente para explorar os recursos disponíveis para o seu progresso.</
         return;
       }
 
+      if (viewId === "rating-management") {
+        await renderRatingManagement();
+        return;
+      }
+
       if (viewId === "communication") {
         await renderCommunication();
         return;
@@ -9332,6 +9452,11 @@ Entre no ambiente para explorar os recursos disponíveis para o seu progresso.</
 
           if (state.view === "validation-review") {
             await renderValidationReview();
+            return;
+          }
+
+          if (state.view === "rating-management") {
+            await renderRatingManagement();
             return;
           }
 

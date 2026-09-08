@@ -7,3 +7,4 @@ assets/termo-gamification-prototype.css
 assets/termo-gamification-prototype.js
 output/pdf/book-reference/
 tmp/
+.DS_Store

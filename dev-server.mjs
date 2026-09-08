@@ -12,6 +12,7 @@ import { handleGamificationEventRequest } from "./lib/gamification-event-handler
 import { handleGamificationProfileRequest } from "./lib/gamification-profile-handler.mjs";
 import { handleLivroPdfRequest } from "./lib/livro-pdf-handler.mjs";
 import { handlePublicConfigRequest } from "./lib/public-config-handler.mjs";
+import { handleAppRatingRequest } from "./lib/app-rating-handler.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -166,6 +167,25 @@ const server = http.createServer(async (req, res) => {
 
   if (requestUrl.startsWith("/_vercel/insights/")) {
     sendText(res, 200, "", "application/javascript; charset=utf-8");
+    return;
+  }
+
+  if (requestUrl === "/api/app-rating") {
+    try {
+      const body = ["POST", "DELETE"].includes(req.method) ? await readJsonBody(req) : undefined;
+      const response = await handleAppRatingRequest({
+        method: req.method,
+        headers: req.headers,
+        body,
+        env: process.env
+      });
+      sendJson(res, response.status, response.body);
+    } catch (error) {
+      sendJson(res, 400, {
+        error: "Nao foi possivel ler a avaliacao.",
+        details: String(error)
+      });
+    }
     return;
   }
 

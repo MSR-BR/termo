@@ -5,6 +5,7 @@
     "dev:vercel": "vercel dev",
     "check": "node scripts/check-content.mjs",
     "test:analytics": "node --test tests/analytics-events.test.mjs",
+    "test:ratings": "node --test tests/app-rating.test.mjs",
     "test:gamification": "node --test tests/gamification-handlers.test.mjs",
     "test:seo": "node --test tests/seo-artifacts.test.mjs",
     "extract:book-sections": "node scripts/extract-book-sections.mjs",
