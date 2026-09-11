@@ -267,6 +267,7 @@ function inferPageMeta(relativePath, html, topicMap) {
   const currentTitle = cleanPageTitle(titleMatch ? titleMatch[1] : COURSE_TITLE);
   const normalizedRelativePath = relativePath.replace(/^\/+/, "");
   const isIndex = normalizedRelativePath === "index.html";
+  const isSearch = normalizedRelativePath === "search.html";
   const isInstructions = normalizedRelativePath === "INSTRUCOES_SNIPPET.html";
   const isSource = normalizedRelativePath.includes("/source/");
   const topic = topicMap.get(normalizedRelativePath);
@@ -305,6 +306,32 @@ function inferPageMeta(relativePath, html, topicMap) {
           url: `${SITE_URL}/`
         }
       ]
+    };
+  }
+
+  if (isSearch) {
+    const searchTitle = "Buscar conteúdo | TERMO";
+    const searchDescription = "Busque nas seções publicadas e revisadas do livro interativo TERMO por capítulo, número, título, descrição ou tema.";
+    return {
+      title: searchTitle,
+      description: searchDescription,
+      canonical: `${SITE_URL}/search.html`,
+      robots: "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1",
+      ogType: "website",
+      jsonLd: {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        name: searchTitle,
+        description: searchDescription,
+        url: `${SITE_URL}/search.html`,
+        inLanguage: "pt-BR",
+        isPartOf: { "@type": "WebSite", name: "TERMO", url: `${SITE_URL}/` },
+        potentialAction: {
+          "@type": "SearchAction",
+          target: { "@type": "EntryPoint", urlTemplate: `${SITE_URL}/search.html?q={search_term_string}` },
+          "query-input": "required name=search_term_string"
+        }
+      }
     };
   }
 
@@ -453,6 +480,7 @@ function collectSitemapUrls(topicMap, htmlFiles) {
   urls.add(`${SITE_URL}/`);
   urls.add(`${SITE_URL}/home.html`);
   urls.add(`${SITE_URL}/conteudo.html`);
+  urls.add(`${SITE_URL}/search.html`);
   urls.add(`${SITE_URL}/leis-da-termodinamica.html`);
   urls.add(`${SITE_URL}/exercicios-de-termodinamica.html`);
   urls.add(`${SITE_URL}/simuladores-de-termodinamica.html`);
@@ -825,6 +853,7 @@ function buildContentPage(topicMap) {
         <a href="home.html">Apresentação</a>
         <a href="index.html?view=journey">Pontos e simulados</a>
         <a href="index.html?view=daily-challenge">Desafio do dia</a>
+        <a href="search.html">Buscar conteúdo</a>
         ${chapters.map((chapter) => `<a href="#capitulo-${escapeHtml(chapter.id)}">Capítulo ${Number(chapter.id)}</a>`).join("\n        ")}
         <a href="#simuladores">Simuladores</a>
       </nav>
@@ -1366,6 +1395,7 @@ function buildHomePage(topicMap) {
         <a href="index.html?view=journey">Pontos e simulados</a>
         <a href="index.html?view=daily-challenge">Desafio do dia</a>
         <a href="conteudo.html">Mapa de conteúdo</a>
+        <a href="search.html">Buscar conteúdo</a>
         <a href="#capitulos">Capítulos</a>
         <a href="#simuladores">Simuladores</a>
       </nav>

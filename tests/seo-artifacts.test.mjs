@@ -5,6 +5,7 @@ import test from "node:test";
 const rootHtml = await readFile(new URL("../index.html", import.meta.url), "utf8");
 const homeHtml = await readFile(new URL("../home.html", import.meta.url), "utf8");
 const sitemapXml = await readFile(new URL("../sitemap.xml", import.meta.url), "utf8");
+const searchHtml = await readFile(new URL("../search.html", import.meta.url), "utf8");
 const intentPages = await Promise.all([
   "leis-da-termodinamica.html",
   "exercicios-de-termodinamica.html",
@@ -72,4 +73,12 @@ test("páginas de intenção têm metadados, H1 e ligações internas", function
     assert.match(html, /href="index\.html/);
     assert.match(html, /application\/ld\+json/);
   }
+});
+
+test("busca pública tem canonical, SearchAction e está no sitemap", function () {
+  assert.equal(title(searchHtml), "Buscar conteúdo | TERMO");
+  assert.equal(canonical(searchHtml), "https://termo-theta.vercel.app/search.html");
+  assert.match(searchHtml, /"@type":"SearchAction"/);
+  assert.match(searchHtml, /data\/termo-published-search-index\.json/);
+  assert.match(sitemapXml, /<loc>https:\/\/termo-theta\.vercel\.app\/search\.html<\/loc>/);
 });

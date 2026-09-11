@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Buscar conteúdo | TERMO</title>
+  <meta name="description" content="Busque nas seções publicadas e revisadas do livro interativo TERMO por capítulo, número, título, descrição ou tema." />
+  <meta name="author" content="Prof. Mario Reis" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <meta name="googlebot" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <meta name="theme-color" content="#004B87" />
+  <link rel="canonical" href="https://termo-theta.vercel.app/search.html" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Termodinâmica para Estudantes de Física" />
+  <meta property="og:title" content="Buscar conteúdo | TERMO" />
+  <meta property="og:description" content="Pesquise apenas nas seções publicadas e revisadas do livro interativo TERMO." />
+  <meta property="og:url" content="https://termo-theta.vercel.app/search.html" />
+  <meta property="og:image" content="https://termo-theta.vercel.app/assets/termo-logo.png" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Buscar conteúdo | TERMO" />
+  <meta name="twitter:description" content="Pesquise apenas nas seções publicadas e revisadas do livro interativo TERMO." />
+  <meta name="twitter:image" content="https://termo-theta.vercel.app/assets/termo-logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Lora:wght@400;600&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/termo-search.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Buscar conteúdo | TERMO","description":"Busca pública nas seções publicadas e revisadas do livro interativo TERMO.","url":"https://termo-theta.vercel.app/search.html","inLanguage":"pt-BR","isPartOf":{"@type":"WebSite","name":"TERMO","url":"https://termo-theta.vercel.app/"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://termo-theta.vercel.app/search.html?q={search_term_string}"},"query-input":"required name=search_term_string"}}</script>
+</head>
+<body>
+  <main class="search-shell">
+    <nav class="search-nav" aria-label="Navegação principal">
+      <a class="search-brand" href="home.html"><img src="assets/termo-logo.png" alt="" /><span>TERMO</span></a>
+      <div class="search-nav-links"><a href="home.html">Voltar à apresentação</a><a href="index.html?view=chapters">Abrir app de leitura</a></div>
+    </nav>
+    <section class="search-hero" aria-labelledby="search-title">
+      <p class="eyebrow">Material publicado e revisado</p>
+      <h1 id="search-title">Buscar conteúdo</h1>
+      <p class="lede">Encontre uma seção pelo número, título, capítulo, descrição ou tema. Materiais em preparação não fazem parte desta busca.</p>
+      <label class="search-label" for="searchInput">Pesquisar nas seções publicadas</label>
+      <input id="searchInput" class="search-input" type="search" autocomplete="off" inputmode="search" placeholder="Ex.: entropia, Carnot ou seção 2.8" aria-describedby="searchHelp searchStatus" autofocus />
+      <span id="searchHelp" hidden>Digite para filtrar os resultados automaticamente.</span>
+      <p class="search-status" id="searchStatus" role="status" aria-live="polite" aria-atomic="true">Carregando seções…</p>
+      <div class="results" id="searchResults" aria-label="Resultados da busca"></div>
+    </section>
+  </main>
+  <script>
+    (() => {
+      const input = document.querySelector("#searchInput");
+      const status = document.querySelector("#searchStatus");
+      const results = document.querySelector("#searchResults");
+      const initialParams = new URLSearchParams(window.location.search);
+      let sections = [];
+
+      const normalize = (value) => String(value || "").toLocaleLowerCase("pt-BR").normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      const escapeHtml = (value) => String(value || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+      const searchableText = (section) => normalize([`capítulo ${Number(section.chapterId)}`, `capitulo ${Number(section.chapterId)}`, section.chapterTitle, section.chapterDescription, `seção ${section.sectionId}`, `secao ${section.sectionId}`, section.sectionId, section.title, section.summary, ...(section.keywords || [])].join(" "));
+
+      function matchesQuery(section, query) {
+        const words = normalize(query).split(/\s+/).filter(Boolean);
+        const haystack = searchableText(section);
+        return words.every((word) => haystack.includes(word));
+      }
+
+      function render() {
+        const rawQuery = input.value.trim();
+        const matches = rawQuery ? sections.filter((section) => matchesQuery(section, rawQuery)).slice(0, 40) : sections.slice(0, 12);
+        status.textContent = rawQuery
+          ? `${matches.length} ${matches.length === 1 ? "seção encontrada" : "seções encontradas"}.`
+          : `Sugestões iniciais: ${matches.length} seções publicadas. Digite para refinar.`;
+        results.innerHTML = matches.length
+          ? matches.map((section) => {
+              const keywords = Array.isArray(section.keywords) && section.keywords.length
+                ? `<p class="result-keywords">Temas: ${escapeHtml(section.keywords.join(" · "))}</p>`
+                : "";
+              return `<a class="result-card" href="${escapeHtml(section.url)}"><div class="result-meta">Capítulo ${Number(section.chapterId)} · Seção ${escapeHtml(section.sectionId)}</div><div class="result-title">${escapeHtml(section.title)}</div><p class="result-summary">${escapeHtml(section.summary)}</p>${keywords}</a>`;
+            }).join("")
+          : '<p class="empty">Nenhuma seção publicada corresponde a esta busca. Tente outro termo, tema ou número de seção.</p>';
+
+        const url = new URL(window.location.href);
+        if (rawQuery) url.searchParams.set("q", rawQuery); else url.searchParams.delete("q");
+        window.history.replaceState({}, "", url);
+      }
+
+      fetch("data/termo-published-search-index.json")
+        .then((response) => response.ok ? response.json() : Promise.reject(new Error("index")))
+        .then((data) => {
+          sections = Array.isArray(data.sections) ? data.sections : [];
+          input.value = initialParams.get("q") || "";
+          render();
+        })
+        .catch(() => {
+          status.textContent = "A busca está temporariamente indisponível.";
+          results.innerHTML = '<p class="search-error">Não foi possível carregar o índice público. Tente novamente mais tarde.</p>';
+        });
+
+      input.addEventListener("input", render);
+    })();
+  </script>
+</body>
+</html>

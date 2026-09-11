@@ -8,6 +8,8 @@
     "test:ratings": "node --test tests/app-rating.test.mjs",
     "test:gamification": "node --test tests/gamification-handlers.test.mjs",
     "test:seo": "node --test tests/seo-artifacts.test.mjs",
+    "build:search-index": "node scripts/build-termo-published-search-index.mjs",
+    "validate:search-index": "node scripts/validate-termo-published-search-index.mjs",
     "extract:book-sections": "node scripts/extract-book-sections.mjs",
     "extract:book-pdfs": "node scripts/build-book-reference-pdfs.mjs",
     "review:book-corpus": "node scripts/build-book-reference-review-page.mjs",

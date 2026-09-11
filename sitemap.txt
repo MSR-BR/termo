@@ -1,6 +1,7 @@
 https://termo-theta.vercel.app/
 https://termo-theta.vercel.app/home.html
 https://termo-theta.vercel.app/conteudo.html
+https://termo-theta.vercel.app/search.html
 https://termo-theta.vercel.app/leis-da-termodinamica.html
 https://termo-theta.vercel.app/exercicios-de-termodinamica.html
 https://termo-theta.vercel.app/simuladores-de-termodinamica.html

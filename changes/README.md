@@ -1,6 +1,10 @@
 # TERMO Changes
 
-Esta pasta guarda planos de mudanca para iniciativas maiores.
+Esta pasta preserva o histórico legado de planos de mudança do TERMO.
+
+Novas Changes devem ser criadas em `.specs/changes/NNN-slug/`, usando o modelo
+reutilizável e o roadmap daquele diretório. Não mover, renomear ou reformatar os
+documentos históricos somente para adequá-los ao padrão novo.
 
 Cada arquivo deve responder:
 
@@ -10,8 +14,10 @@ Cada arquivo deve responder:
 - como validar;
 - quais riscos precisam ser monitorados.
 
-Uso sugerido:
+Convenção histórica desta pasta:
 
 - um arquivo por iniciativa;
 - nome com data + assunto;
 - manter foco em execucao, rollout e riscos.
+
+Consulte `TERMO_CHANGE_PROGRAM.md` para o programa T25–T30.

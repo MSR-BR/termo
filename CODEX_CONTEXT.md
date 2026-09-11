@@ -10,6 +10,49 @@ HTML chapters, conceptual summaries, figures, interactive simulators, AI
 exercises, chapter quizzes, study points, daily challenge, protected book PDF
 download, and user data features.
 
+Project classification:
+- `INTERACTIVE_BOOK + EDUCATIONAL_MATERIAL + APP`
+
+## Governance Baseline
+
+The active methodology reference is the Pó Mágico repository
+`git@github.com:MSR-BR/po-magico.git`, file
+`po_magico_v20260910.003.md`, verified at revision
+`270f01439d7b54181ce32817e94add3f54cb2862` (2026-09-10). The reference is
+external: do not copy it into this repository or modify its preserved source
+version as part of ordinary TERMO work.
+
+New material initiatives use the canonical Change structure under
+`.specs/changes/NNN-slug/`. The existing dated records under `changes/` are a
+preserved legacy execution history and must not be moved, renamed, or rewritten
+only to match the new convention. Before assigning a number, inspect both
+locations and the roadmap in `.specs/changes/README.md`.
+
+Every material Change must record separately:
+- planned model route, reasoning level, justification, and allowed fallback;
+- actual model and reasoning only when exposed by verifiable runtime evidence;
+- unavailable telemetry as `not exposed` or `not measured`, never as an estimate;
+- tests, gates, failures, corrections, deployment status, and pending human decisions.
+
+The reusable structure lives at `.specs/changes/_template/`. A Change is complete
+only after its applicable acceptance criteria and validation gates pass. Do not
+commit, push, deploy, mutate a remote provider, or close a human-controlled
+editorial decision without explicit authorization.
+
+Canonical project sources include:
+- chapter publication and navigation: `data/capitulo-*.json` plus existing app
+  routing and rendered section files;
+- book corpus and AI provenance: generated corpus, topic taxonomy/index, and
+  their builders and validators;
+- public discovery: `home.html`, `conteudo.html`, `search.html`, SEO builder,
+  canonical metadata, robots, and sitemaps;
+- product behavior: `index.html`, shared assets, APIs, tests, and Supabase
+  migrations applicable to the flow.
+
+When sources disagree, stop and document the conflict instead of silently
+selecting the most convenient source. Chapter 5 remains blocked until an
+explicit editorial decision and synchronized validation make it public.
+
 Production:
 - https://termo-theta.vercel.app
 
@@ -91,7 +134,22 @@ Known simulator mapping:
 
 - Deploy is on Vercel.
 - Auth, Storage, and part of the data layer use Supabase.
+- Supabase remote work requires verification of the signed-in provider identity,
+  organization, and exact TERMO project reference before mutation. Validate
+  schema, grants, RLS, indexes, API exposure, and server-side authorization.
 - AI exercises use Gemini through the existing backend/API integration.
+- Gemini credentials and privileged prompts remain server-side. Never expose
+  secrets or treat a model response as canonical educational content without
+  the existing source and validation controls.
+- GA4 measures product behavior and acquisition after arrival. Do not send free
+  text, email, or personal data as analytics properties, and keep its evidence
+  distinct from Search Console and Google Ads data.
+- Resend supports the existing consent-based email flows. Send only to recipients
+  whose current legal preference authorizes email, and preserve delivery and
+  suppression controls.
+- Vercel hosts public and server routes. Environment variables, production
+  aliases, and deployments are remote mutations and require exact-project
+  verification plus explicit deployment authorization.
 - The technical AI exercise reference index lives at
   `docs/exercicios-ia-indice-referencias.html`. It is shown in the app Extras
   menu only for the admin email `marioreis@id.uff.br`. Regenerate it whenever

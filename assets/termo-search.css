@@ -1,0 +1,69 @@
+:root {
+  color-scheme: light;
+  --bg: #fcfcfa;
+  --panel: #ffffff;
+  --text: #263747;
+  --muted: #5d6d7e;
+  --blue: #004b87;
+  --blue-dark: #102a43;
+  --blue-soft: #e8f0fe;
+  --red: #b03a2e;
+  --border: #d6e0eb;
+  --focus: #f3c14b;
+  --shadow: 0 8px 24px rgba(15, 23, 42, 0.07);
+}
+
+* { box-sizing: border-box; }
+html { max-width: 100%; overflow-x: hidden; scroll-behavior: smooth; }
+body {
+  margin: 0;
+  min-width: 320px;
+  max-width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: linear-gradient(145deg, #f3f8fd 0%, var(--bg) 42%, #fff8f4 100%);
+  color: var(--text);
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+a { color: var(--blue); }
+a:focus-visible, input:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.search-shell { width: min(960px, calc(100% - 32px)); max-width: 100%; margin: 0 auto; padding: 28px 0 56px; }
+.search-nav { display: flex; min-width: 0; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 38px; }
+.search-brand { display: inline-flex; align-items: center; gap: 10px; color: var(--blue); font-weight: 800; text-decoration: none; }
+.search-brand img { width: 72px; height: auto; border-radius: 8px; }
+.search-nav-links { display: flex; min-width: 0; flex-wrap: wrap; gap: 10px; }
+.search-nav-links a { min-width: 0; border: 1px solid #c7d8f3; border-radius: 999px; padding: 9px 13px; background: #fff; font-size: .86rem; font-weight: 700; overflow-wrap: anywhere; text-decoration: none; }
+
+.search-hero { min-width: 0; max-width: 780px; }
+.eyebrow { margin: 0 0 8px; color: var(--red); font-size: .77rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; }
+h1 { margin: 0; color: var(--blue); font-size: clamp(2.1rem, 6vw, 3.6rem); letter-spacing: -.04em; line-height: 1.05; overflow-wrap: anywhere; }
+.lede { margin: 14px 0 25px; color: var(--muted); font-family: "Lora", Georgia, serif; font-size: 1.08rem; line-height: 1.65; overflow-wrap: anywhere; }
+.search-label { display: block; margin-bottom: 8px; color: var(--blue-dark); font-size: .92rem; font-weight: 800; }
+.search-input { width: 100%; border: 2px solid #b8cee6; border-radius: 12px; background: #fff; color: var(--text); font: inherit; font-size: 1.05rem; padding: 15px 16px; }
+.search-input:focus { border-color: var(--blue); box-shadow: 0 0 0 4px rgba(0, 75, 135, .12); outline: 0; }
+.search-status { min-height: 1.4em; margin: 15px 0; color: var(--muted); font-size: .9rem; }
+.results { display: grid; min-width: 0; gap: 12px; margin-top: 18px; }
+.result-card { display: block; min-width: 0; max-width: 100%; border: 1px solid var(--border); border-left: 4px solid var(--blue); border-radius: 10px; background: var(--panel); box-shadow: var(--shadow); color: inherit; padding: 17px 19px; overflow-wrap: anywhere; text-decoration: none; transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease; }
+.result-card:hover, .result-card:focus-visible { border-color: #8db4da; box-shadow: 0 11px 27px rgba(15, 23, 42, .11); transform: translateY(-1px); }
+.result-meta { color: var(--red); font-size: .76rem; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; }
+.result-title { margin: 6px 0; color: var(--blue); font-size: 1.12rem; font-weight: 800; line-height: 1.3; }
+.result-summary { margin: 0; color: var(--muted); font-family: "Lora", Georgia, serif; line-height: 1.55; }
+.result-keywords { margin: 10px 0 0; color: #53677a; font-size: .78rem; font-weight: 650; }
+.empty, .search-error { border: 1px solid #e2c9bd; border-radius: 10px; background: #fff8f4; color: #704137; padding: 17px 19px; line-height: 1.5; }
+
+@media (max-width: 600px) {
+  .search-shell { width: min(100% - 24px, 960px); padding-top: 18px; }
+  .search-nav { align-items: flex-start; margin-bottom: 28px; }
+  .search-nav-links { display: grid; width: 100%; grid-template-columns: 1fr; }
+  .search-nav-links a { text-align: center; }
+  .result-card { padding: 15px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+}

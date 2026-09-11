@@ -1,0 +1,890 @@
+{
+  "generatedAt": "2026-09-11T21:23:42.300Z",
+  "source": "data/capitulo-*.json",
+  "publishedChapterIds": [
+    "01",
+    "02",
+    "03",
+    "04",
+    "06"
+  ],
+  "sections": [
+    {
+      "chapterId": "01",
+      "chapterTitle": "Conceitos Fundamentais",
+      "chapterDescription": "Resumo visual dos conceitos fundamentais da Termodinâmica, organizado a partir das páginas HTML do Capítulo 1.",
+      "sectionId": "1.1",
+      "title": "Lei Zero da Termodinâmica",
+      "summary": "Equilíbrio térmico, temperatura e termometria.",
+      "url": "slides/capitulo-01/page_2.html",
+      "keywords": [
+        "Temperatura e termometria",
+        "Equilibrio termico e equilibrio termodinamico"
+      ]
+    },
+    {
+      "chapterId": "01",
+      "chapterTitle": "Conceitos Fundamentais",
+      "chapterDescription": "Resumo visual dos conceitos fundamentais da Termodinâmica, organizado a partir das páginas HTML do Capítulo 1.",
+      "sectionId": "1.2",
+      "title": "Métodos de Medição de Temperatura",
+      "summary": "Termômetros, sensores térmicos e medição sem contato.",
+      "url": "slides/capitulo-01/page_3.html",
+      "keywords": [
+        "Temperatura e termometria"
+      ]
+    },
+    {
+      "chapterId": "01",
+      "chapterTitle": "Conceitos Fundamentais",
+      "chapterDescription": "Resumo visual dos conceitos fundamentais da Termodinâmica, organizado a partir das páginas HTML do Capítulo 1.",
+      "sectionId": "1.3",
+      "title": "Escalas Termométricas",
+      "summary": "Celsius, Fahrenheit, Kelvin e zero absoluto.",
+      "url": "slides/capitulo-01/page_4.html",
+      "keywords": [
+        "Temperatura e termometria"
+      ]
+    },
+    {
+      "chapterId": "01",
+      "chapterTitle": "Conceitos Fundamentais",
+      "chapterDescription": "Resumo visual dos conceitos fundamentais da Termodinâmica, organizado a partir das páginas HTML do Capítulo 1.",
+      "sectionId": "1.4",
+      "title": "Relação entre Escalas",
+      "summary": "Conversão entre escalas termométricas e exemplo resolvido.",
+      "url": "slides/capitulo-01/page_5.html",
+      "keywords": [
+        "Temperatura e termometria"
+      ]
+    },
+    {
+      "chapterId": "01",
+      "chapterTitle": "Conceitos Fundamentais",
+      "chapterDescription": "Resumo visual dos conceitos fundamentais da Termodinâmica, organizado a partir das páginas HTML do Capítulo 1.",
+      "sectionId": "1.5",
+      "title": "Classificação dos Sistemas Termodinâmicos",
+      "summary": "Sistemas abertos, fechados e isolados.",
+      "url": "slides/capitulo-01/page_6.html",
+      "keywords": [
+        "Estado, sistema, processo e funcao de estado"
+      ]
+    },
+    {
+      "chapterId": "01",
+      "chapterTitle": "Conceitos Fundamentais",
+      "chapterDescription": "Resumo visual dos conceitos fundamentais da Termodinâmica, organizado a partir das páginas HTML do Capítulo 1.",
+      "sectionId": "1.6",
+      "title": "Transformações Termodinâmicas",
+      "summary": "Processos quasi-estáticos, reversíveis e irreversíveis.",
+      "url": "slides/capitulo-01/page_7.html",
+      "keywords": [
+        "Estado, sistema, processo e funcao de estado"
+      ]
+    },
+    {
+      "chapterId": "01",
+      "chapterTitle": "Conceitos Fundamentais",
+      "chapterDescription": "Resumo visual dos conceitos fundamentais da Termodinâmica, organizado a partir das páginas HTML do Capítulo 1.",
+      "sectionId": "1.7",
+      "title": "Estados Termodinâmicos e Funções de Estado",
+      "summary": "Estado termodinâmico, variáveis e funções de estado.",
+      "url": "slides/capitulo-01/page_8.html",
+      "keywords": [
+        "Estado, sistema, processo e funcao de estado",
+        "Variaveis conjugadas, intensivas e extensivas"
+      ]
+    },
+    {
+      "chapterId": "01",
+      "chapterTitle": "Conceitos Fundamentais",
+      "chapterDescription": "Resumo visual dos conceitos fundamentais da Termodinâmica, organizado a partir das páginas HTML do Capítulo 1.",
+      "sectionId": "1.8",
+      "title": "Calor",
+      "summary": "Definição, convenção de sinais e calorimetria.",
+      "url": "slides/capitulo-01/page_9.html",
+      "keywords": [
+        "Calor em fundamentos",
+        "Calor e trocas termicas"
+      ]
+    },
+    {
+      "chapterId": "01",
+      "chapterTitle": "Conceitos Fundamentais",
+      "chapterDescription": "Resumo visual dos conceitos fundamentais da Termodinâmica, organizado a partir das páginas HTML do Capítulo 1.",
+      "sectionId": "1.9",
+      "title": "Exemplo: Aquecendo um Bloco de Cobre",
+      "summary": "Aplicação da equação do calor sensível.",
+      "url": "slides/capitulo-01/page_10.html",
+      "keywords": [
+        "Calor em fundamentos",
+        "Capacidade calorifica e calores especificos",
+        "Calor e trocas termicas"
+      ]
+    },
+    {
+      "chapterId": "01",
+      "chapterTitle": "Conceitos Fundamentais",
+      "chapterDescription": "Resumo visual dos conceitos fundamentais da Termodinâmica, organizado a partir das páginas HTML do Capítulo 1.",
+      "sectionId": "1.10",
+      "title": "Exemplo: Equilíbrio Térmico",
+      "summary": "Troca de calor entre corpos até o equilíbrio.",
+      "url": "slides/capitulo-01/page_11.html",
+      "keywords": [
+        "Calor em fundamentos",
+        "Equilibrio termico e equilibrio termodinamico",
+        "Calor e trocas termicas"
+      ]
+    },
+    {
+      "chapterId": "01",
+      "chapterTitle": "Conceitos Fundamentais",
+      "chapterDescription": "Resumo visual dos conceitos fundamentais da Termodinâmica, organizado a partir das páginas HTML do Capítulo 1.",
+      "sectionId": "1.11",
+      "title": "Gás Ideal",
+      "summary": "Argumentos qualitativos e equação de estado.",
+      "url": "slides/capitulo-01/page_12.html",
+      "keywords": [
+        "Gas ideal em fundamentos",
+        "Gas ideal e aplicacoes"
+      ]
+    },
+    {
+      "chapterId": "01",
+      "chapterTitle": "Conceitos Fundamentais",
+      "chapterDescription": "Resumo visual dos conceitos fundamentais da Termodinâmica, organizado a partir das páginas HTML do Capítulo 1.",
+      "sectionId": "1.12",
+      "title": "Trabalho Termodinâmico",
+      "summary": "Trabalho de expansão e compressão: dW = -P dV.",
+      "url": "slides/capitulo-01/page_13.html",
+      "keywords": [
+        "Trabalho em fundamentos",
+        "Trabalho termodinamico"
+      ]
+    },
+    {
+      "chapterId": "01",
+      "chapterTitle": "Conceitos Fundamentais",
+      "chapterDescription": "Resumo visual dos conceitos fundamentais da Termodinâmica, organizado a partir das páginas HTML do Capítulo 1.",
+      "sectionId": "1.13",
+      "title": "Exemplo: Trabalho Isotérmico",
+      "summary": "Cálculo do trabalho na expansão ou compressão isotérmica.",
+      "url": "slides/capitulo-01/page_14.html",
+      "keywords": [
+        "Trabalho em fundamentos",
+        "Gas ideal em fundamentos",
+        "Trabalho termodinamico",
+        "Gas ideal e aplicacoes"
+      ]
+    },
+    {
+      "chapterId": "01",
+      "chapterTitle": "Conceitos Fundamentais",
+      "chapterDescription": "Resumo visual dos conceitos fundamentais da Termodinâmica, organizado a partir das páginas HTML do Capítulo 1.",
+      "sectionId": "1.14",
+      "title": "Variáveis Conjugadas, Intensivas e Extensivas",
+      "summary": "Pares conjugados e propriedades intensivas/extensivas.",
+      "url": "slides/capitulo-01/page_15.html",
+      "keywords": [
+        "Variaveis conjugadas, intensivas e extensivas"
+      ]
+    },
+    {
+      "chapterId": "01",
+      "chapterTitle": "Conceitos Fundamentais",
+      "chapterDescription": "Resumo visual dos conceitos fundamentais da Termodinâmica, organizado a partir das páginas HTML do Capítulo 1.",
+      "sectionId": "1.15",
+      "title": "Energia Interna",
+      "summary": "Definição e componentes microscópicos da energia interna.",
+      "url": "slides/capitulo-01/page_16.html",
+      "keywords": [
+        "Energia interna",
+        "Primeira Lei e balanco de energia"
+      ]
+    },
+    {
+      "chapterId": "01",
+      "chapterTitle": "Conceitos Fundamentais",
+      "chapterDescription": "Resumo visual dos conceitos fundamentais da Termodinâmica, organizado a partir das páginas HTML do Capítulo 1.",
+      "sectionId": "1.16",
+      "title": "Primeira Lei da Termodinâmica",
+      "summary": "Conservação de energia em sistemas termodinâmicos.",
+      "url": "slides/capitulo-01/page_17.html",
+      "keywords": [
+        "Primeira Lei e balanco de energia",
+        "Energia interna"
+      ]
+    },
+    {
+      "chapterId": "01",
+      "chapterTitle": "Conceitos Fundamentais",
+      "chapterDescription": "Resumo visual dos conceitos fundamentais da Termodinâmica, organizado a partir das páginas HTML do Capítulo 1.",
+      "sectionId": "1.17",
+      "title": "Exemplo: Aplicação da Primeira Lei",
+      "summary": "Exemplo resolvido com calor, trabalho e variação da energia interna.",
+      "url": "slides/capitulo-01/page_18.html",
+      "keywords": [
+        "Primeira Lei e balanco de energia"
+      ]
+    },
+    {
+      "chapterId": "01",
+      "chapterTitle": "Conceitos Fundamentais",
+      "chapterDescription": "Resumo visual dos conceitos fundamentais da Termodinâmica, organizado a partir das páginas HTML do Capítulo 1.",
+      "sectionId": "1.18",
+      "title": "Entropia e Desigualdade de Clausius",
+      "summary": "Introdução à entropia, irreversibilidade e desigualdade de Clausius.",
+      "url": "slides/capitulo-01/page_19.html",
+      "keywords": [
+        "Entropia termodinamica e Segunda Lei",
+        "Entropia, irreversibilidade e Segunda Lei"
+      ]
+    },
+    {
+      "chapterId": "01",
+      "chapterTitle": "Conceitos Fundamentais",
+      "chapterDescription": "Resumo visual dos conceitos fundamentais da Termodinâmica, organizado a partir das páginas HTML do Capítulo 1.",
+      "sectionId": "1.19",
+      "title": "Capacidade Calorífica",
+      "summary": "Capacidades caloríficas, calor específico e processos isocóricos.",
+      "url": "slides/capitulo-01/page_20.html",
+      "keywords": [
+        "Capacidade calorifica e calores especificos",
+        "Calor em fundamentos",
+        "Calor e trocas termicas"
+      ]
+    },
+    {
+      "chapterId": "02",
+      "chapterTitle": "Potenciais Termodinâmicos e Aplicações",
+      "chapterDescription": "Capítulo 2 — Potenciais Termodinâmicos e Aplicações. Conteúdo reorganizado por blocos conceituais, preservando o material dos HTMLs originais, exceto os exercícios finais.",
+      "sectionId": "2.1",
+      "title": "Potenciais Termodinâmicos e Transformações de Legendre",
+      "summary": "Objetivos do capítulo, condições dos processos, ideia de potencial termodinâmico e mudança de variáveis naturais.",
+      "url": "slides/capitulo-02/page_1.html",
+      "keywords": [
+        "Potenciais termodinamicos",
+        "Variaveis conjugadas, intensivas e extensivas",
+        "Trabalho termodinamico"
+      ]
+    },
+    {
+      "chapterId": "02",
+      "chapterTitle": "Potenciais Termodinâmicos e Aplicações",
+      "chapterDescription": "Capítulo 2 — Potenciais Termodinâmicos e Aplicações. Conteúdo reorganizado por blocos conceituais, preservando o material dos HTMLs originais, exceto os exercícios finais.",
+      "sectionId": "2.2",
+      "title": "Entropia e Energia Interna",
+      "summary": "Entropia como função de estado, energia interna como potencial fundamental e identificação de variáveis conjugadas.",
+      "url": "slides/capitulo-02/page_2.html",
+      "keywords": [
+        "Potenciais termodinamicos",
+        "Energia interna",
+        "Entropia termodinamica e Segunda Lei",
+        "Primeira Lei e balanco de energia",
+        "Variaveis conjugadas, intensivas e extensivas",
+        "Entropia, irreversibilidade e Segunda Lei"
+      ]
+    },
+    {
+      "chapterId": "02",
+      "chapterTitle": "Potenciais Termodinâmicos e Aplicações",
+      "chapterDescription": "Capítulo 2 — Potenciais Termodinâmicos e Aplicações. Conteúdo reorganizado por blocos conceituais, preservando o material dos HTMLs originais, exceto os exercícios finais.",
+      "sectionId": "2.3",
+      "title": "Energia Livre de Helmholtz",
+      "summary": "Definição, diferencial, variáveis naturais e interpretação física. Inclui exercícios automáticos por IA.",
+      "url": "slides/capitulo-02/page_3.html",
+      "keywords": [
+        "Potenciais termodinamicos",
+        "Energia livre de Helmholtz"
+      ]
+    },
+    {
+      "chapterId": "02",
+      "chapterTitle": "Potenciais Termodinâmicos e Aplicações",
+      "chapterDescription": "Capítulo 2 — Potenciais Termodinâmicos e Aplicações. Conteúdo reorganizado por blocos conceituais, preservando o material dos HTMLs originais, exceto os exercícios finais.",
+      "sectionId": "2.4",
+      "title": "Entalpia e Calor Isobárico",
+      "summary": "Definição de entalpia, calor a pressão constante, aquecimento isobárico e processos endotérmicos/exotérmicos. Inclui exercícios automáticos por IA.",
+      "url": "slides/capitulo-02/page_4.html",
+      "keywords": [
+        "Potenciais termodinamicos",
+        "Entalpia",
+        "Calor em entalpia e transicoes",
+        "Capacidade calorifica e calores especificos",
+        "Calor e trocas termicas"
+      ]
+    },
+    {
+      "chapterId": "02",
+      "chapterTitle": "Potenciais Termodinâmicos e Aplicações",
+      "chapterDescription": "Capítulo 2 — Potenciais Termodinâmicos e Aplicações. Conteúdo reorganizado por blocos conceituais, preservando o material dos HTMLs originais, exceto os exercícios finais.",
+      "sectionId": "2.5",
+      "title": "Energia Livre de Gibbs e Espontaneidade",
+      "summary": "Definição de Gibbs, critério de espontaneidade, equilíbrio e exemplo da sublimação do CO₂. Inclui exercícios automáticos por IA.",
+      "url": "slides/capitulo-02/page_5.html",
+      "keywords": [
+        "Potenciais termodinamicos",
+        "Energia livre de Gibbs",
+        "Equilibrio termico e equilibrio termodinamico"
+      ]
+    },
+    {
+      "chapterId": "02",
+      "chapterTitle": "Potenciais Termodinâmicos e Aplicações",
+      "chapterDescription": "Capítulo 2 — Potenciais Termodinâmicos e Aplicações. Conteúdo reorganizado por blocos conceituais, preservando o material dos HTMLs originais, exceto os exercícios finais.",
+      "sectionId": "2.6",
+      "title": "Grand Potential e Sistemas Abertos",
+      "summary": "Definição, diferencial, variáveis naturais e interpretação física do grand potential.",
+      "url": "slides/capitulo-02/page_6.html",
+      "keywords": [
+        "Potenciais termodinamicos"
+      ]
+    },
+    {
+      "chapterId": "02",
+      "chapterTitle": "Potenciais Termodinâmicos e Aplicações",
+      "chapterDescription": "Capítulo 2 — Potenciais Termodinâmicos e Aplicações. Conteúdo reorganizado por blocos conceituais, preservando o material dos HTMLs originais, exceto os exercícios finais.",
+      "sectionId": "2.7",
+      "title": "Variáveis Conjugadas Mecânicas e Magnéticas",
+      "summary": "Analogias entre pressão-volume e campo magnético-magnetização.",
+      "url": "slides/capitulo-02/page_7.html",
+      "keywords": [
+        "Variaveis conjugadas, intensivas e extensivas"
+      ]
+    },
+    {
+      "chapterId": "02",
+      "chapterTitle": "Potenciais Termodinâmicos e Aplicações",
+      "chapterDescription": "Capítulo 2 — Potenciais Termodinâmicos e Aplicações. Conteúdo reorganizado por blocos conceituais, preservando o material dos HTMLs originais, exceto os exercícios finais.",
+      "sectionId": "2.8",
+      "title": "Relações de Maxwell e Retângulo Termodinâmico",
+      "summary": "Fundamentos matemáticos, relações principais, aplicação ao gás ideal, retângulo termodinâmico e simulador interativo. Inclui exercícios automáticos por IA.",
+      "url": "slides/capitulo-02/page_8.html",
+      "keywords": [
+        "Potenciais termodinamicos",
+        "Relacoes de Maxwell",
+        "Variaveis conjugadas, intensivas e extensivas"
+      ]
+    },
+    {
+      "chapterId": "02",
+      "chapterTitle": "Potenciais Termodinâmicos e Aplicações",
+      "chapterDescription": "Capítulo 2 — Potenciais Termodinâmicos e Aplicações. Conteúdo reorganizado por blocos conceituais, preservando o material dos HTMLs originais, exceto os exercícios finais.",
+      "sectionId": "2.9",
+      "title": "Tabela Resumo dos Potenciais Termodinâmicos",
+      "summary": "Síntese final com definições, variáveis naturais, processos ideais e interpretações físicas dos potenciais.",
+      "url": "slides/capitulo-02/page_9.html",
+      "keywords": [
+        "Potenciais termodinamicos",
+        "Energia livre de Helmholtz",
+        "Energia livre de Gibbs",
+        "Entalpia"
+      ]
+    },
+    {
+      "chapterId": "03",
+      "chapterTitle": "Termodinâmica Estatística",
+      "chapterDescription": "Capítulo 3 — Termodinâmica Estatística. Índice organizado por blocos conceituais maiores para facilitar a navegação no app, tomando como base o conjunto de 26 HTMLs do material original. Nesta fase, cada tópico aponta para a primeira página do bloco correspondente; depois ajustamos os HTMLs com a mesma linguagem visual e responsividade dos capítulos já publicados.",
+      "sectionId": "3.1",
+      "title": "Entropia, Gibbs e a Visão por Ensembles",
+      "summary": "Panorama histórico da entropia, formulação de Gibbs e Jaynes e introdução ao conceito de ensemble estatístico.",
+      "url": "slides/capitulo-03/page_2.html",
+      "keywords": [
+        "Termodinamica estatistica e ensembles",
+        "Entropia estatistica",
+        "Equilibrio termico e equilibrio termodinamico",
+        "Entropia, irreversibilidade e Segunda Lei"
+      ]
+    },
+    {
+      "chapterId": "03",
+      "chapterTitle": "Termodinâmica Estatística",
+      "chapterDescription": "Capítulo 3 — Termodinâmica Estatística. Índice organizado por blocos conceituais maiores para facilitar a navegação no app, tomando como base o conjunto de 26 HTMLs do material original. Nesta fase, cada tópico aponta para a primeira página do bloco correspondente; depois ajustamos os HTMLs com a mesma linguagem visual e responsividade dos capítulos já publicados.",
+      "sectionId": "3.2",
+      "title": "Ensemble Micro-Canônico e Fórmula de Boltzmann",
+      "summary": "Sistema isolado, postulado da equiprobabilidade e derivação da relação de Boltzmann.",
+      "url": "slides/capitulo-03/page_5.html",
+      "keywords": [
+        "Termodinamica estatistica e ensembles",
+        "Boltzmann, probabilidades e parametro beta",
+        "Entropia estatistica",
+        "Entropia, irreversibilidade e Segunda Lei"
+      ]
+    },
+    {
+      "chapterId": "03",
+      "chapterTitle": "Termodinâmica Estatística",
+      "chapterDescription": "Capítulo 3 — Termodinâmica Estatística. Índice organizado por blocos conceituais maiores para facilitar a navegação no app, tomando como base o conjunto de 26 HTMLs do material original. Nesta fase, cada tópico aponta para a primeira página do bloco correspondente; depois ajustamos os HTMLs com a mesma linguagem visual e responsividade dos capítulos já publicados.",
+      "sectionId": "3.3",
+      "title": "Ensemble Canônico, Distribuição de Boltzmann e Parâmetro Beta",
+      "summary": "Contato com reservatório térmico, distribuição de Boltzmann, função de partição e significado físico do parâmetro beta.",
+      "url": "slides/capitulo-03/page_7.html",
+      "keywords": [
+        "Termodinamica estatistica e ensembles",
+        "Boltzmann, probabilidades e parametro beta",
+        "Funcao de particao"
+      ]
+    },
+    {
+      "chapterId": "03",
+      "chapterTitle": "Termodinâmica Estatística",
+      "chapterDescription": "Capítulo 3 — Termodinâmica Estatística. Índice organizado por blocos conceituais maiores para facilitar a navegação no app, tomando como base o conjunto de 26 HTMLs do material original. Nesta fase, cada tópico aponta para a primeira página do bloco correspondente; depois ajustamos os HTMLs com a mesma linguagem visual e responsividade dos capítulos já publicados.",
+      "sectionId": "3.4",
+      "title": "Energia Livre de Helmholtz e Energia Interna Estatística",
+      "summary": "Relação entre função de partição, energia livre de Helmholtz e energia interna como média estatística.",
+      "url": "slides/capitulo-03/page_10.html",
+      "keywords": [
+        "Funcao de particao",
+        "Energia livre de Helmholtz",
+        "Energia interna",
+        "Potenciais termodinamicos"
+      ]
+    },
+    {
+      "chapterId": "03",
+      "chapterTitle": "Termodinâmica Estatística",
+      "chapterDescription": "Capítulo 3 — Termodinâmica Estatística. Índice organizado por blocos conceituais maiores para facilitar a navegação no app, tomando como base o conjunto de 26 HTMLs do material original. Nesta fase, cada tópico aponta para a primeira página do bloco correspondente; depois ajustamos os HTMLs com a mesma linguagem visual e responsividade dos capítulos já publicados.",
+      "sectionId": "3.5",
+      "title": "Partículas Distinguíveis, Indistinguíveis e Paradoxo de Gibbs",
+      "summary": "Contagem de microestados, extensividade e correção por N fatorial para partículas indistinguíveis.",
+      "url": "slides/capitulo-03/page_12.html",
+      "keywords": [
+        "Indistinguibilidade e paradoxo de Gibbs"
+      ]
+    },
+    {
+      "chapterId": "03",
+      "chapterTitle": "Termodinâmica Estatística",
+      "chapterDescription": "Capítulo 3 — Termodinâmica Estatística. Índice organizado por blocos conceituais maiores para facilitar a navegação no app, tomando como base o conjunto de 26 HTMLs do material original. Nesta fase, cada tópico aponta para a primeira página do bloco correspondente; depois ajustamos os HTMLs com a mesma linguagem visual e responsividade dos capítulos já publicados.",
+      "sectionId": "3.6",
+      "title": "Exemplo I: Gás Ideal Monoatômico — Função de Partição",
+      "summary": "Construção da função de partição do gás ideal e papel do comprimento de onda térmico de de Broglie.",
+      "url": "slides/capitulo-03/page_14.html",
+      "keywords": [
+        "Funcao de particao",
+        "Gas ideal em termodinamica estatistica",
+        "Indistinguibilidade e paradoxo de Gibbs",
+        "Gas ideal e aplicacoes"
+      ]
+    },
+    {
+      "chapterId": "03",
+      "chapterTitle": "Termodinâmica Estatística",
+      "chapterDescription": "Capítulo 3 — Termodinâmica Estatística. Índice organizado por blocos conceituais maiores para facilitar a navegação no app, tomando como base o conjunto de 26 HTMLs do material original. Nesta fase, cada tópico aponta para a primeira página do bloco correspondente; depois ajustamos os HTMLs com a mesma linguagem visual e responsividade dos capítulos já publicados.",
+      "sectionId": "3.7",
+      "title": "Exemplo I: Gás Ideal Monoatômico — Energia Livre e Sackur-Tetrode",
+      "summary": "Energia livre, equação de estado, energia interna e entropia do gás ideal na formulação de Sackur-Tetrode.",
+      "url": "slides/capitulo-03/page_16.html",
+      "keywords": [
+        "Funcao de particao",
+        "Gas ideal em termodinamica estatistica",
+        "Energia livre de Helmholtz",
+        "Energia interna",
+        "Indistinguibilidade e paradoxo de Gibbs",
+        "Gas ideal e aplicacoes"
+      ]
+    },
+    {
+      "chapterId": "03",
+      "chapterTitle": "Termodinâmica Estatística",
+      "chapterDescription": "Capítulo 3 — Termodinâmica Estatística. Índice organizado por blocos conceituais maiores para facilitar a navegação no app, tomando como base o conjunto de 26 HTMLs do material original. Nesta fase, cada tópico aponta para a primeira página do bloco correspondente; depois ajustamos os HTMLs com a mesma linguagem visual e responsividade dos capítulos já publicados.",
+      "sectionId": "3.8",
+      "title": "Exemplo II: Paramagnetismo Quântico",
+      "summary": "Modelo de spin, magnetização estatística e função de Brillouin.",
+      "url": "slides/capitulo-03/page_18.html",
+      "keywords": [
+        "Paramagnetismo estatistico",
+        "Funcao de particao"
+      ]
+    },
+    {
+      "chapterId": "03",
+      "chapterTitle": "Termodinâmica Estatística",
+      "chapterDescription": "Capítulo 3 — Termodinâmica Estatística. Índice organizado por blocos conceituais maiores para facilitar a navegação no app, tomando como base o conjunto de 26 HTMLs do material original. Nesta fase, cada tópico aponta para a primeira página do bloco correspondente; depois ajustamos os HTMLs com a mesma linguagem visual e responsividade dos capítulos já publicados.",
+      "sectionId": "3.9",
+      "title": "Exemplo III: Paramagnetismo Clássico",
+      "summary": "Limite clássico dos momentos magnéticos e interpretação via função de Langevin.",
+      "url": "slides/capitulo-03/page_20.html",
+      "keywords": [
+        "Paramagnetismo estatistico",
+        "Funcao de particao"
+      ]
+    },
+    {
+      "chapterId": "03",
+      "chapterTitle": "Termodinâmica Estatística",
+      "chapterDescription": "Capítulo 3 — Termodinâmica Estatística. Índice organizado por blocos conceituais maiores para facilitar a navegação no app, tomando como base o conjunto de 26 HTMLs do material original. Nesta fase, cada tópico aponta para a primeira página do bloco correspondente; depois ajustamos os HTMLs com a mesma linguagem visual e responsividade dos capítulos já publicados.",
+      "sectionId": "3.10",
+      "title": "Terceira Lei e Limites do Modelo Clássico",
+      "summary": "Postulado de Nernst, zero absoluto, entropia residual e falha do tratamento clássico em baixas temperaturas.",
+      "url": "slides/capitulo-03/page_21.html",
+      "keywords": [
+        "Terceira Lei da Termodinamica",
+        "Paramagnetismo estatistico"
+      ]
+    },
+    {
+      "chapterId": "03",
+      "chapterTitle": "Termodinâmica Estatística",
+      "chapterDescription": "Capítulo 3 — Termodinâmica Estatística. Índice organizado por blocos conceituais maiores para facilitar a navegação no app, tomando como base o conjunto de 26 HTMLs do material original. Nesta fase, cada tópico aponta para a primeira página do bloco correspondente; depois ajustamos os HTMLs com a mesma linguagem visual e responsividade dos capítulos já publicados.",
+      "sectionId": "3.11",
+      "title": "Exemplo IV: Capacidade Calorífica em Sólidos",
+      "summary": "Dulong-Petit, sólido de Einstein, quantização da vibração e calor específico em diferentes regimes.",
+      "url": "slides/capitulo-03/page_23.html",
+      "keywords": [
+        "Capacidade calorifica e calores especificos",
+        "Funcao de particao",
+        "Terceira Lei da Termodinamica"
+      ]
+    },
+    {
+      "chapterId": "04",
+      "chapterTitle": "Transições de Fase",
+      "chapterDescription": "Capítulo 4 — Transições de Fase. Gás de Van der Waals, validade do gás ideal, ponto crítico, coexistência líquido-vapor, construção de Maxwell e respostas termodinâmicas próximas à transição de fase.",
+      "sectionId": "4.1",
+      "title": "Validade do Gás Ideal e Introdução ao Gás de Van der Waals",
+      "summary": "Discussão qualitativa sobre quando o gás ideal deixa de funcionar e por que o modelo de Van der Waals introduz volume molecular finito e interações atrativas.",
+      "url": "slides/capitulo-04/page_1.html",
+      "keywords": [
+        "Transicoes de fase",
+        "Gas de Van der Waals",
+        "Gas ideal e aplicacoes"
+      ]
+    },
+    {
+      "chapterId": "04",
+      "chapterTitle": "Transições de Fase",
+      "chapterDescription": "Capítulo 4 — Transições de Fase. Gás de Van der Waals, validade do gás ideal, ponto crítico, coexistência líquido-vapor, construção de Maxwell e respostas termodinâmicas próximas à transição de fase.",
+      "sectionId": "4.2",
+      "title": "Equação de Estado de Van der Waals",
+      "summary": "Motivação para gases reais, correções de volume e pressão, e forma final da equação de estado.",
+      "url": "slides/capitulo-04/page_2.html",
+      "keywords": [
+        "Transicoes de fase",
+        "Gas de Van der Waals"
+      ]
+    },
+    {
+      "chapterId": "04",
+      "chapterTitle": "Transições de Fase",
+      "chapterDescription": "Capítulo 4 — Transições de Fase. Gás de Van der Waals, validade do gás ideal, ponto crítico, coexistência líquido-vapor, construção de Maxwell e respostas termodinâmicas próximas à transição de fase.",
+      "sectionId": "4.3",
+      "title": "Ponto Crítico",
+      "summary": "Condições críticas do gás de Van der Waals e interpretação física do ponto crítico.",
+      "url": "slides/capitulo-04/page_6.html",
+      "keywords": [
+        "Transicoes de fase",
+        "Gas de Van der Waals",
+        "Ponto critico e variaveis reduzidas"
+      ]
+    },
+    {
+      "chapterId": "04",
+      "chapterTitle": "Transições de Fase",
+      "chapterDescription": "Capítulo 4 — Transições de Fase. Gás de Van der Waals, validade do gás ideal, ponto crítico, coexistência líquido-vapor, construção de Maxwell e respostas termodinâmicas próximas à transição de fase.",
+      "sectionId": "4.4",
+      "title": "Equação de Estado Reduzida",
+      "summary": "Variáveis reduzidas, universalidade da equação de Van der Waals e fator de compressibilidade crítico.",
+      "url": "slides/capitulo-04/page_7.html",
+      "keywords": [
+        "Transicoes de fase",
+        "Gas de Van der Waals",
+        "Ponto critico e variaveis reduzidas"
+      ]
+    },
+    {
+      "chapterId": "04",
+      "chapterTitle": "Transições de Fase",
+      "chapterDescription": "Capítulo 4 — Transições de Fase. Gás de Van der Waals, validade do gás ideal, ponto crítico, coexistência líquido-vapor, construção de Maxwell e respostas termodinâmicas próximas à transição de fase.",
+      "sectionId": "4.5",
+      "title": "Instabilidade Mecânica e Espinodal",
+      "summary": "Isotermas reduzidas, regiões instáveis e a curva espinodal nas transições líquido-vapor.",
+      "url": "slides/capitulo-04/page_9.html",
+      "keywords": [
+        "Transicoes de fase",
+        "Gas de Van der Waals",
+        "Estabilidade mecanica, espinodal e metaestabilidade"
+      ]
+    },
+    {
+      "chapterId": "04",
+      "chapterTitle": "Transições de Fase",
+      "chapterDescription": "Capítulo 4 — Transições de Fase. Gás de Van der Waals, validade do gás ideal, ponto crítico, coexistência líquido-vapor, construção de Maxwell e respostas termodinâmicas próximas à transição de fase.",
+      "sectionId": "4.6",
+      "title": "Energia Livre de Helmholtz e Gibbs",
+      "summary": "Critérios de estabilidade e coexistência de fases a partir das energias livres de Helmholtz e Gibbs.",
+      "url": "slides/capitulo-04/page_11.html",
+      "keywords": [
+        "Transicoes de fase",
+        "Potenciais termodinamicos",
+        "Energia livre de Helmholtz",
+        "Energia livre de Gibbs",
+        "Equilibrio termico e equilibrio termodinamico",
+        "Estabilidade mecanica, espinodal e metaestabilidade"
+      ]
+    },
+    {
+      "chapterId": "04",
+      "chapterTitle": "Transições de Fase",
+      "chapterDescription": "Capítulo 4 — Transições de Fase. Gás de Van der Waals, validade do gás ideal, ponto crítico, coexistência líquido-vapor, construção de Maxwell e respostas termodinâmicas próximas à transição de fase.",
+      "sectionId": "4.7",
+      "title": "Construção de Maxwell",
+      "summary": "Regra das áreas iguais, coexistência líquido-vapor, regra da alavanca e aplicação ao dióxido de carbono.",
+      "url": "slides/capitulo-04/page_13.html",
+      "keywords": [
+        "Transicoes de fase",
+        "Construcao de Maxwell",
+        "Energia livre de Gibbs",
+        "Equilibrio termico e equilibrio termodinamico",
+        "Coexistencia de fases e calor latente"
+      ]
+    },
+    {
+      "chapterId": "04",
+      "chapterTitle": "Transições de Fase",
+      "chapterDescription": "Capítulo 4 — Transições de Fase. Gás de Van der Waals, validade do gás ideal, ponto crítico, coexistência líquido-vapor, construção de Maxwell e respostas termodinâmicas próximas à transição de fase.",
+      "sectionId": "4.8",
+      "title": "Superaquecimento e Super-resfriamento",
+      "summary": "Estados metaestáveis, nucleação e limites de estabilidade em transições de fase.",
+      "url": "slides/capitulo-04/page_16.html",
+      "keywords": [
+        "Transicoes de fase",
+        "Gas de Van der Waals",
+        "Estabilidade mecanica, espinodal e metaestabilidade",
+        "Coexistencia de fases e calor latente"
+      ]
+    },
+    {
+      "chapterId": "04",
+      "chapterTitle": "Transições de Fase",
+      "chapterDescription": "Capítulo 4 — Transições de Fase. Gás de Van der Waals, validade do gás ideal, ponto crítico, coexistência líquido-vapor, construção de Maxwell e respostas termodinâmicas próximas à transição de fase.",
+      "sectionId": "4.9",
+      "title": "Calor Latente e Equação de Clausius-Clapeyron",
+      "summary": "Calor latente, inclinação da curva de coexistência e aplicações da equação de Clausius-Clapeyron.",
+      "url": "slides/capitulo-04/page_17.html",
+      "keywords": [
+        "Transicoes de fase",
+        "Coexistencia de fases e calor latente",
+        "Energia livre de Gibbs",
+        "Entalpia",
+        "Calor em entalpia e transicoes",
+        "Capacidade calorifica e calores especificos",
+        "Calor e trocas termicas"
+      ]
+    },
+    {
+      "chapterId": "04",
+      "chapterTitle": "Transições de Fase",
+      "chapterDescription": "Capítulo 4 — Transições de Fase. Gás de Van der Waals, validade do gás ideal, ponto crítico, coexistência líquido-vapor, construção de Maxwell e respostas termodinâmicas próximas à transição de fase.",
+      "sectionId": "4.10",
+      "title": "Compressibilidade Isotérmica",
+      "summary": "Resposta volumétrica à pressão, divergência no ponto crítico e interpretação da compressibilidade isotérmica.",
+      "url": "slides/capitulo-04/page_20.html",
+      "keywords": [
+        "Transicoes de fase",
+        "Gas de Van der Waals",
+        "Ponto critico e variaveis reduzidas",
+        "Estabilidade mecanica, espinodal e metaestabilidade"
+      ]
+    },
+    {
+      "chapterId": "04",
+      "chapterTitle": "Transições de Fase",
+      "chapterDescription": "Capítulo 4 — Transições de Fase. Gás de Van der Waals, validade do gás ideal, ponto crítico, coexistência líquido-vapor, construção de Maxwell e respostas termodinâmicas próximas à transição de fase.",
+      "sectionId": "4.11",
+      "title": "Expansão Térmica",
+      "summary": "Coeficiente de expansão térmica, resposta à temperatura e comportamento próximo ao ponto crítico.",
+      "url": "slides/capitulo-04/page_21.html",
+      "keywords": [
+        "Transicoes de fase",
+        "Gas de Van der Waals",
+        "Ponto critico e variaveis reduzidas"
+      ]
+    },
+    {
+      "chapterId": "06",
+      "chapterTitle": "Ciclos Termodinâmicos",
+      "chapterDescription": "Capítulo 6 — Ciclos Termodinâmicos. Máquinas térmicas, refrigeradores, Carnot e Stirling, com balanços de energia, entropia, eficiência, CoP e exemplos numéricos no padrão editorial do Capítulo 2.",
+      "sectionId": "6.1",
+      "title": "Máquinas Térmicas e Refrigeradores",
+      "summary": "Modos de operação de um ciclo termodinâmico, fluxos de energia e distinção entre produzir trabalho e transportar calor.",
+      "url": "slides/capitulo-06/page_1.html",
+      "keywords": [
+        "Ciclos termodinamicos",
+        "Maquinas termicas",
+        "Refrigeradores termodinamicos",
+        "Calor e trocas termicas",
+        "Trabalho termodinamico"
+      ]
+    },
+    {
+      "chapterId": "06",
+      "chapterTitle": "Ciclos Termodinâmicos",
+      "chapterDescription": "Capítulo 6 — Ciclos Termodinâmicos. Máquinas térmicas, refrigeradores, Carnot e Stirling, com balanços de energia, entropia, eficiência, CoP e exemplos numéricos no padrão editorial do Capítulo 2.",
+      "sectionId": "6.2",
+      "title": "Ciclo de Carnot como Máquina Térmica",
+      "summary": "As quatro etapas reversíveis do ciclo de Carnot e a interpretação física de cada troca de calor e trabalho.",
+      "url": "slides/capitulo-06/page_2.html",
+      "keywords": [
+        "Ciclos termodinamicos",
+        "Ciclo de Carnot",
+        "Maquinas termicas"
+      ]
+    },
+    {
+      "chapterId": "06",
+      "chapterTitle": "Ciclos Termodinâmicos",
+      "chapterDescription": "Capítulo 6 — Ciclos Termodinâmicos. Máquinas térmicas, refrigeradores, Carnot e Stirling, com balanços de energia, entropia, eficiência, CoP e exemplos numéricos no padrão editorial do Capítulo 2.",
+      "sectionId": "6.3",
+      "title": "Energia Interna, Calor e Trabalho",
+      "summary": "Primeira Lei no ciclo, balanço entre calor e trabalho, Segunda Lei, enunciado de Kelvin e caso do gás ideal.",
+      "url": "slides/capitulo-06/page_3.html",
+      "keywords": [
+        "Ciclos termodinamicos",
+        "Primeira Lei e balanco de energia",
+        "Energia interna",
+        "Calor em ciclos termodinamicos",
+        "Trabalho em ciclos termodinamicos",
+        "Entropia termodinamica e Segunda Lei",
+        "Calor e trocas termicas",
+        "Trabalho termodinamico",
+        "Entropia, irreversibilidade e Segunda Lei"
+      ]
+    },
+    {
+      "chapterId": "06",
+      "chapterTitle": "Ciclos Termodinâmicos",
+      "chapterDescription": "Capítulo 6 — Ciclos Termodinâmicos. Máquinas térmicas, refrigeradores, Carnot e Stirling, com balanços de energia, entropia, eficiência, CoP e exemplos numéricos no padrão editorial do Capítulo 2.",
+      "sectionId": "6.4",
+      "title": "Eficiência Geral e Eficiência de Carnot",
+      "summary": "Eficiência geral de máquinas térmicas, limite de Carnot e derivação explícita para gases ideais.",
+      "url": "slides/capitulo-06/page_4.html",
+      "keywords": [
+        "Ciclos termodinamicos",
+        "Ciclo de Carnot",
+        "Maquinas termicas",
+        "Eficiencia e coeficiente de performance"
+      ]
+    },
+    {
+      "chapterId": "06",
+      "chapterTitle": "Ciclos Termodinâmicos",
+      "chapterDescription": "Capítulo 6 — Ciclos Termodinâmicos. Máquinas térmicas, refrigeradores, Carnot e Stirling, com balanços de energia, entropia, eficiência, CoP e exemplos numéricos no padrão editorial do Capítulo 2.",
+      "sectionId": "6.5",
+      "title": "Exemplo: Máquina de Carnot",
+      "summary": "Cálculo de calores, trabalho líquido, volumes intermediários e eficiência para um gás ideal monoatômico.",
+      "url": "slides/capitulo-06/page_5.html",
+      "keywords": [
+        "Ciclos termodinamicos",
+        "Ciclo de Carnot",
+        "Maquinas termicas",
+        "Eficiencia e coeficiente de performance",
+        "Gas ideal em ciclos",
+        "Calor em ciclos termodinamicos",
+        "Trabalho em ciclos termodinamicos",
+        "Primeira Lei e balanco de energia",
+        "Gas ideal e aplicacoes",
+        "Calor e trocas termicas",
+        "Trabalho termodinamico"
+      ]
+    },
+    {
+      "chapterId": "06",
+      "chapterTitle": "Ciclos Termodinâmicos",
+      "chapterDescription": "Capítulo 6 — Ciclos Termodinâmicos. Máquinas térmicas, refrigeradores, Carnot e Stirling, com balanços de energia, entropia, eficiência, CoP e exemplos numéricos no padrão editorial do Capítulo 2.",
+      "sectionId": "6.6",
+      "title": "Ciclo de Carnot como Refrigerador",
+      "summary": "Percurso inverso do ciclo, trabalho externo positivo e coeficiente de performance ideal.",
+      "url": "slides/capitulo-06/page_6.html",
+      "keywords": [
+        "Ciclos termodinamicos",
+        "Ciclo de Carnot",
+        "Refrigeradores termodinamicos",
+        "Eficiencia e coeficiente de performance"
+      ]
+    },
+    {
+      "chapterId": "06",
+      "chapterTitle": "Ciclos Termodinâmicos",
+      "chapterDescription": "Capítulo 6 — Ciclos Termodinâmicos. Máquinas térmicas, refrigeradores, Carnot e Stirling, com balanços de energia, entropia, eficiência, CoP e exemplos numéricos no padrão editorial do Capítulo 2.",
+      "sectionId": "6.7",
+      "title": "Exemplo: Refrigerador de Carnot",
+      "summary": "Aplicação numérica do CoP e interpretação do trabalho necessário para remover calor do reservatório frio.",
+      "url": "slides/capitulo-06/page_7.html",
+      "keywords": [
+        "Ciclos termodinamicos",
+        "Ciclo de Carnot",
+        "Refrigeradores termodinamicos",
+        "Eficiencia e coeficiente de performance",
+        "Gas ideal em ciclos",
+        "Calor em ciclos termodinamicos",
+        "Gas ideal e aplicacoes",
+        "Calor e trocas termicas"
+      ]
+    },
+    {
+      "chapterId": "06",
+      "chapterTitle": "Ciclos Termodinâmicos",
+      "chapterDescription": "Capítulo 6 — Ciclos Termodinâmicos. Máquinas térmicas, refrigeradores, Carnot e Stirling, com balanços de energia, entropia, eficiência, CoP e exemplos numéricos no padrão editorial do Capítulo 2.",
+      "sectionId": "6.8",
+      "title": "Ciclo de Stirling sem Regenerador",
+      "summary": "Processos isotérmicos e isocóricos, origem do trabalho líquido e motivo da eficiência ficar abaixo de Carnot.",
+      "url": "slides/capitulo-06/page_8.html",
+      "keywords": [
+        "Ciclos termodinamicos",
+        "Ciclo de Stirling",
+        "Maquinas termicas",
+        "Eficiencia e coeficiente de performance",
+        "Trabalho em ciclos termodinamicos",
+        "Trabalho termodinamico"
+      ]
+    },
+    {
+      "chapterId": "06",
+      "chapterTitle": "Ciclos Termodinâmicos",
+      "chapterDescription": "Capítulo 6 — Ciclos Termodinâmicos. Máquinas térmicas, refrigeradores, Carnot e Stirling, com balanços de energia, entropia, eficiência, CoP e exemplos numéricos no padrão editorial do Capítulo 2.",
+      "sectionId": "6.9",
+      "title": "Produção de Entropia no Stirling sem Regenerador",
+      "summary": "Irreversibilidade nas isocóricas, gradientes térmicos finitos e perda de eficiência por produção de entropia.",
+      "url": "slides/capitulo-06/page_9.html",
+      "keywords": [
+        "Ciclos termodinamicos",
+        "Ciclo de Stirling",
+        "Entropia termodinamica e Segunda Lei",
+        "Entropia, irreversibilidade e Segunda Lei"
+      ]
+    },
+    {
+      "chapterId": "06",
+      "chapterTitle": "Ciclos Termodinâmicos",
+      "chapterDescription": "Capítulo 6 — Ciclos Termodinâmicos. Máquinas térmicas, refrigeradores, Carnot e Stirling, com balanços de energia, entropia, eficiência, CoP e exemplos numéricos no padrão editorial do Capítulo 2.",
+      "sectionId": "6.10",
+      "title": "Motor de Stirling com Regenerador Tipo Alfa",
+      "summary": "Arquitetura com dois cilindros, defasagem de pistões e papel termodinâmico do regenerador.",
+      "url": "slides/capitulo-06/page_10.html",
+      "keywords": [
+        "Ciclos termodinamicos",
+        "Ciclo de Stirling",
+        "Maquinas termicas"
+      ]
+    },
+    {
+      "chapterId": "06",
+      "chapterTitle": "Ciclos Termodinâmicos",
+      "chapterDescription": "Capítulo 6 — Ciclos Termodinâmicos. Máquinas térmicas, refrigeradores, Carnot e Stirling, com balanços de energia, entropia, eficiência, CoP e exemplos numéricos no padrão editorial do Capítulo 2.",
+      "sectionId": "6.11",
+      "title": "Exemplo: Motor Stirling Alfa",
+      "summary": "Cálculo de volumes, calores, trabalho líquido e eficiência para um motor Stirling alfa com regenerador ideal.",
+      "url": "slides/capitulo-06/page_11.html",
+      "keywords": [
+        "Ciclos termodinamicos",
+        "Ciclo de Stirling",
+        "Maquinas termicas",
+        "Eficiencia e coeficiente de performance",
+        "Trabalho em ciclos termodinamicos",
+        "Primeira Lei e balanco de energia",
+        "Trabalho termodinamico"
+      ]
+    }
+  ]
+}
