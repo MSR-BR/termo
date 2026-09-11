@@ -21,6 +21,5 @@
 
 ## Publicação
 
-- Commit: não realizado.
-- Push: não realizado.
-- Deploy: não realizado e não aplicável a esta Change documental.
+- Commit e push: realizados no ciclo autorizado de CPD iniciado em 2026-09-11.
+- Deploy: publicado junto com a Change 026; a T25 não altera o runtime.

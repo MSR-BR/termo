@@ -12,8 +12,8 @@ concorrentes com o mesmo número.
 
 | Change | Nome canônico | Rota planejada | Fallback | Estado |
 |---|---|---|---|---|
-| 025 | `025-po-magico-governance-baseline` | `gpt-5.6-terra / medium` | `gpt-5.6-sol / medium` | completa localmente; não publicada |
-| 026 | `026-busca-publica-conteudo-revisado` | `gpt-5.6-terra / medium` | `gpt-5.6-sol / medium` | completa localmente; pronta para publicação |
+| 025 | `025-po-magico-governance-baseline` | `gpt-5.6-terra / medium` | `gpt-5.6-sol / medium` | publicada |
+| 026 | `026-busca-publica-conteudo-revisado` | `gpt-5.6-terra / medium` | `gpt-5.6-sol / medium` | publicada |
 | 027 | `027-registry-editorial-explicito` | `gpt-5.6-sol / medium` | `gpt-5.6-sol / high` | planejada |
 | 028 | `028-manifesto-fontes-exercicios-ia` | `gpt-5.6-sol / high` | `gpt-5.6-sol / xhigh` | planejada |
 | 029 | `029-atividade-individual-simuladores` | `gpt-5.6-sol / medium` | `gpt-5.6-sol / high` | planejada |

@@ -9,4 +9,4 @@
 - [x] Gates aplicáveis aprovados.
 - [x] Rota planejada e evidência real separadas.
 - [x] Nenhuma decisão editorial pendente.
-- [ ] Commit, push e deploy concluídos.
+- [x] Commit, push e deploy concluídos.
