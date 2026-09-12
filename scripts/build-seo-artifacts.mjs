@@ -21,6 +21,9 @@ const APP_TITLE = "TERMO — App de Termodinâmica | Capítulos, exercícios e s
 const APP_DESCRIPTION = "App gratuito de Termodinâmica para estudantes de Física, com capítulos interativos, exercícios por IA, simulados científicos, pontos e trilhas de estudo.";
 const HOME_TITLE = "Termodinâmica para Estudantes de Física — Livro interativo | TERMO";
 const HOME_DESCRIPTION = "Livro interativo gratuito de Termodinâmica do Prof. Mario Reis (IF-UFF), com teoria, capítulos, exercícios, simulados e recursos para estudantes de Física.";
+const PROMO_VIDEO_PATH = "assets/videos/termo-apresentacao.mp4";
+const PROMO_VIDEO_POSTER_PATH = "assets/videos/termo-apresentacao-poster.png";
+const PROMO_VIDEO_DURATION = "PT1M6S";
 const AUTHOR_SAME_AS = [
   "https://profmarioreis.wordpress.com/thermodynamics/",
   "https://international.uff.br/pesquisas-de-destaque/",
@@ -1006,6 +1009,17 @@ function buildHomePage(topicMap) {
         sameAs: AUTHOR_SAME_AS
       }
     },
+    subjectOf: {
+      "@type": "VideoObject",
+      name: "Conheça o TERMO — Termodinâmica para Estudantes de Física",
+      description: "Apresentação em vídeo do livro interativo TERMO, com capítulos, exercícios por IA, simulados e recursos de estudo de Termodinâmica.",
+      thumbnailUrl: `${SITE_URL}/${PROMO_VIDEO_POSTER_PATH}`,
+      uploadDate: "2026-09-12",
+      duration: PROMO_VIDEO_DURATION,
+      contentUrl: `${SITE_URL}/${PROMO_VIDEO_PATH}`,
+      embedUrl: `${SITE_URL}/home.html#video-apresentacao`,
+      inLanguage: "pt-BR"
+    },
     mainEntity: chapters.map((chapter) => ({
       "@type": "LearningResource",
       name: `Capítulo ${Number(chapter.id)} — ${chapter.title}`,
@@ -1203,6 +1217,96 @@ function buildHomePage(topicMap) {
       font-size: 13px;
     }
 
+    .promo-video {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 380px);
+      gap: clamp(24px, 5vw, 64px);
+      align-items: center;
+      overflow: hidden;
+      border-radius: 20px;
+      padding: clamp(24px, 5vw, 52px);
+      background:
+        radial-gradient(circle at 90% 10%, rgba(245, 194, 186, 0.24), transparent 34%),
+        linear-gradient(135deg, var(--blue-dark), var(--blue));
+      box-shadow: 0 18px 44px rgba(16, 42, 67, 0.16);
+      color: #FFFFFF;
+    }
+
+    .promo-video__copy {
+      display: grid;
+      gap: 14px;
+      align-content: center;
+      max-width: 620px;
+    }
+
+    .promo-video__copy .section-label {
+      color: #F5C2BA;
+    }
+
+    .promo-video__copy h2 {
+      max-width: 620px;
+      font-size: clamp(28px, 4.4vw, 48px);
+      line-height: 1.08;
+    }
+
+    .promo-video__copy p {
+      color: #EAF0F7;
+      font-family: "Lora", Georgia, serif;
+      font-size: clamp(16px, 2vw, 19px);
+    }
+
+    .promo-video__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .promo-video__actions a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      border: 1px solid rgba(255, 255, 255, 0.46);
+      border-radius: 999px;
+      padding: 10px 16px;
+      background: #FFFFFF;
+      color: var(--blue-dark);
+    }
+
+    .promo-video__actions a:hover {
+      text-decoration: none;
+      background: #F8FAFC;
+    }
+
+    .promo-video__media {
+      width: min(100%, 360px);
+      justify-self: center;
+      margin: 0;
+    }
+
+    .promo-video__media video {
+      display: block;
+      width: 100%;
+      aspect-ratio: 576 / 976;
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      border-radius: 18px;
+      background: #08192B;
+      box-shadow: 0 20px 42px rgba(0, 0, 0, 0.28);
+    }
+
+    .promo-video__media figcaption {
+      margin-top: 10px;
+      color: #DCE7F1;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .promo-video a:focus-visible,
+    .promo-video video:focus-visible {
+      outline: 3px solid #FFFFFF;
+      outline-offset: 4px;
+    }
+
     main {
       padding: 22px 0 48px;
     }
@@ -1369,6 +1473,16 @@ function buildHomePage(topicMap) {
         grid-template-columns: 1fr;
       }
 
+      .promo-video {
+        grid-template-columns: 1fr;
+        border-radius: 16px;
+        padding: 22px 18px;
+      }
+
+      .promo-video__media {
+        width: min(100%, 320px);
+      }
+
       .top-links a,
       .quick-links a,
       .card-actions a {
@@ -1437,6 +1551,25 @@ function buildHomePage(topicMap) {
   </header>
 
   <main class="wrap">
+    <section class="section-block promo-video" id="video-apresentacao" aria-labelledby="video-apresentacao-heading">
+      <div class="promo-video__copy">
+        <p class="section-label">Apresentação em vídeo</p>
+        <h2 id="video-apresentacao-heading">Conheça o TERMO em pouco mais de um minuto</h2>
+        <p id="video-apresentacao-descricao">Veja como o livro interativo conecta leitura, exercícios por IA, simulados científicos e acompanhamento do estudo.</p>
+        <div class="promo-video__actions">
+          <a href="index.html">Abrir o app TERMO</a>
+          <a href="search.html">Buscar no conteúdo</a>
+        </div>
+      </div>
+      <figure class="promo-video__media">
+        <video controls playsinline preload="metadata" poster="${PROMO_VIDEO_POSTER_PATH}" aria-label="Vídeo de apresentação do TERMO" aria-describedby="video-apresentacao-descricao">
+          <source src="${PROMO_VIDEO_PATH}" type="video/mp4" />
+          Seu navegador não consegue reproduzir este vídeo. <a href="${PROMO_VIDEO_PATH}">Abra o arquivo MP4</a>.
+        </video>
+        <figcaption>Apresentação do livro interativo Termodinâmica para Estudantes de Física.</figcaption>
+      </figure>
+    </section>
+
     <section class="section-block" aria-labelledby="rotas-principais">
       <div class="section-header">
         <p class="section-label">Entrada rápida</p>

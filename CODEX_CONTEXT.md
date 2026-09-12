@@ -68,6 +68,14 @@ Public discovery / SEO entry points:
 - GitHub Pages bridge: https://msr-br.github.io/termo/
 - GitHub Pages bridge sitemap: https://msr-br.github.io/termo/sitemap.xml
 
+The official landing includes the public presentation video at
+`assets/videos/termo-apresentacao.mp4`, with its derived poster beside it. The
+canonical generator is `scripts/build-seo-artifacts.mjs`; edit the generator,
+not only `home.html`, so future SEO rebuilds preserve the video block and its
+`VideoObject` metadata. The video does not autoplay and is not yet approved for
+paid advertising or social campaigns. Reconsider those uses only after a later
+GA4 and Google Ads review.
+
 ## Repository Shape
 
 - `index.html`: main application shell and view controller.

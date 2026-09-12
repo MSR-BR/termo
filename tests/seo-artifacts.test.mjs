@@ -1,11 +1,13 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { readFile, stat } from "node:fs/promises";
 import test from "node:test";
 
 const rootHtml = await readFile(new URL("../index.html", import.meta.url), "utf8");
 const homeHtml = await readFile(new URL("../home.html", import.meta.url), "utf8");
 const sitemapXml = await readFile(new URL("../sitemap.xml", import.meta.url), "utf8");
 const searchHtml = await readFile(new URL("../search.html", import.meta.url), "utf8");
+const promoVideoStat = await stat(new URL("../assets/videos/termo-apresentacao.mp4", import.meta.url));
+const promoPosterStat = await stat(new URL("../assets/videos/termo-apresentacao-poster.png", import.meta.url));
 const intentPages = await Promise.all([
   "leis-da-termodinamica.html",
   "exercicios-de-termodinamica.html",
@@ -52,6 +54,17 @@ test("dados estruturados conectam TERMO, curso e autor", function () {
   assert.match(rootHtml, /"sameAs":\[[^\]]*international\.uff\.br/);
   assert.match(homeHtml, /"@type":"WebPage"/);
   assert.match(homeHtml, /"sameAs":\[[^\]]*www\.uff\.br/);
+});
+
+test("landing preserva o vídeo de apresentação e seus metadados", function () {
+  assert.match(homeHtml, /<video\s+controls\s+playsinline\s+preload="metadata"/);
+  assert.doesNotMatch(homeHtml, /<video[^>]+autoplay/i);
+  assert.match(homeHtml, /assets\/videos\/termo-apresentacao\.mp4/);
+  assert.match(homeHtml, /assets\/videos\/termo-apresentacao-poster\.png/);
+  assert.match(homeHtml, /"@type":"VideoObject"/);
+  assert.match(homeHtml, /"duration":"PT1M6S"/);
+  assert.ok(promoVideoStat.size > 0);
+  assert.ok(promoPosterStat.size > 0);
 });
 
 test("sitemap lista app e home uma única vez", function () {
