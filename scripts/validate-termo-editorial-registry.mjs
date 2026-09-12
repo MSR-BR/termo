@@ -165,7 +165,9 @@ for (const url of sitemapLocations) {
 
 if (!exerciseHandler.includes("isAiExerciseEligible")) fail("API de exercícios não aplica o registry editorial.");
 if (!exerciseClient.includes("termo-editorial-registry.json")) fail("Cliente de exercícios não consulta o registry editorial.");
-if (!exerciseIndexBuilder.includes("aiExerciseEligible")) fail("Catálogo de exercícios não filtra elegibilidade editorial.");
+if (!exerciseIndexBuilder.includes("ai-exercise-source-manifest.json")) {
+  fail("Catálogo de exercícios não deriva do manifesto vinculado à elegibilidade editorial.");
+}
 if (!quizGenerator.includes("getEditorialRegistry")) fail("Catálogo de simulados IA não consulta o registry editorial.");
 
 const chapterFive = registryChapterById.get("05");

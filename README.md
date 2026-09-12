@@ -23,16 +23,21 @@ A primeira versão pública da gamificação usa uma estrutura simples: o estuda
 
 ## Índice Técnico Dos Exercícios IA
 
-O arquivo `docs/exercicios-ia-indice-referencias.html` documenta o índice principal por seção do app e o índice transversal por tema usados como referência para exercícios IA e simulados.
+O arquivo `data/ai-exercise-source-manifest.json` registra a proveniência e o
+estado de revisão de cada seção autorizada para exercícios IA. O arquivo
+`docs/exercicios-ia-indice-referencias.html` apresenta esse manifesto junto ao
+índice principal por seção e ao índice transversal por tema.
 
 Sempre que o PDF do livro ou as páginas HTML do app forem atualizados, regenere o corpus e esse índice antes de alterar prompts ou lógica de geração IA:
 
 ```bash
 npm run extract:book-sections
 npm run build:book-topic-index
+npm run build:ai-source-manifest
 npm run docs:ai-exercise-index
 npm run validate:book-corpus
 npm run validate:book-topic-index
+npm run validate:ai-source-manifest
 npm run smoke:ai-context
 npm run smoke:math-contract
 ```

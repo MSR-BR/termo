@@ -24,9 +24,9 @@ const samples = [
   },
   {
     chapterId: "04",
-    itemId: "4.1",
-    pagePath: "/slides/capitulo-04/page_1.html",
-    pageTitle: "Gas Real e Limites do Modelo Ideal",
+    itemId: "4.2",
+    pagePath: "/slides/capitulo-04/page_2.html",
+    pageTitle: "Equação de Estado de Van der Waals",
     difficulty: "medio"
   }
 ];
@@ -39,6 +39,8 @@ for (const sample of samples) {
   console.log(`${contextPackage.sectionId || sample.itemId} - ${sample.pageTitle}`);
   console.log(JSON.stringify({
     sectionId: contextPackage.sectionId,
+    sourceManifestReady: contextPackage.meta.sourceManifestReady,
+    sourceReviewStatus: contextPackage.meta.sourceReviewStatus,
     hasPrimaryBookSource: contextPackage.meta.hasPrimaryBookSource,
     hasTeachingSource: contextPackage.meta.hasTeachingSource,
     topicIndexFound: contextPackage.meta.topicIndexFound,

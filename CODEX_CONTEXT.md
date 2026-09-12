@@ -164,6 +164,17 @@ Known simulator mapping:
 - Gemini credentials and privileged prompts remain server-side. Never expose
   secrets or treat a model response as canonical educational content without
   the existing source and validation controls.
+- The canonical AI exercise provenance artifact is
+  `data/ai-exercise-source-manifest.json`. It is generated from the editorial
+  registry, book corpus, and topic index with
+  `npm run build:ai-source-manifest`, then audited with
+  `npm run validate:ai-source-manifest`. Only entries that are editorially
+  eligible, `approved`, linked to a physical HTML page, mapped to PDF pages, and
+  connected to a thematic reference may enter the section-exercise prompt.
+- When an approved manifest entry exists, its URL and local HTML are canonical
+  for the teaching context. Page text, title, subtitle, or path supplied by the
+  browser must not override or supplement that reviewed source. A missing or
+  incomplete manifest fails closed before Gemini is called.
 - GA4 measures product behavior and acquisition after arrival. Do not send free
   text, email, or personal data as analytics properties, and keep its evidence
   distinct from Search Console and Google Ads data.
@@ -251,6 +262,8 @@ After editing:
   `npm run validate:book-topic-index`;
 - when changing the AI exercise context package, run `npm run smoke:ai-context`
   to inspect the prompt context for representative sections;
+- when changing chapter data, the book corpus, topic index, or AI exercise
+  eligibility, rebuild and validate `data/ai-exercise-source-manifest.json`;
 - when changing AI chapter quizzes, run `npm run smoke:ai-quiz-context`;
 - when changing generated exercise math handling, run
   `npm run smoke:math-contract`;

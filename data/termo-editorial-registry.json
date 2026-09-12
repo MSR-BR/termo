@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-11T23:53:53.167Z",
+  "generatedAt": "2026-09-12T01:27:06.111Z",
   "policySource": "data/termo-editorial-policy.json",
   "contentSource": "data/capitulo-*.json",
   "chapters": [

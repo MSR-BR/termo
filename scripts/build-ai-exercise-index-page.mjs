@@ -4,7 +4,7 @@ import { resolve } from "node:path";
 const ROOT_DIR = process.cwd();
 const TOPIC_INDEX_PATH = resolve(ROOT_DIR, "data/book-topic-index.json");
 const CORPUS_PATH = resolve(ROOT_DIR, "data/book-section-corpus.json");
-const EDITORIAL_REGISTRY_PATH = resolve(ROOT_DIR, "data/termo-editorial-registry.json");
+const SOURCE_MANIFEST_PATH = resolve(ROOT_DIR, "data/ai-exercise-source-manifest.json");
 const OUTPUT_DIR = resolve(ROOT_DIR, "docs");
 const OUTPUT_PATH = resolve(OUTPUT_DIR, "exercicios-ia-indice-referencias.html");
 
@@ -21,6 +21,12 @@ function pageRange(reference = {}) {
   const end = Number(reference.pageEnd || 0) || 0;
   if (!start) return "PDF sem pagina";
   return `PDF p.${start}${end && end !== start ? `-${end}` : ""}`;
+}
+
+function reviewStatusLabel(status = "") {
+  if (status === "approved") return "aprovado";
+  if (status === "needs_review") return "revisão pendente";
+  return status || "ausente";
 }
 
 function formatRefs(references = []) {
@@ -42,8 +48,10 @@ function topicBadge(topicId, topicById) {
   return `<span class="badge ${usage}">${escapeHtml(topicId)}</span>`;
 }
 
-function sectionRow(section, topicById) {
+function sectionRow(section, topicById, manifestBySection) {
   const refs = section.canonicalReference?.references || [];
+  const manifest = manifestBySection.get(section.sectionId) || {};
+  const bookSource = manifest.bookSource || {};
   const defaultTopics = (section.transversalTopics || []).map((topicId) => topicBadge(topicId, topicById)).join("");
   const advancedTopics = (section.advancedSupportTopics || []).map((topicId) => topicBadge(topicId, topicById)).join("");
 
@@ -54,6 +62,7 @@ function sectionRow(section, topicById) {
         <a href="../${escapeHtml(section.pagePath)}">Abrir pagina</a>
       </div>
       <h3>${escapeHtml(section.title)}</h3>
+      <p><strong>Manifesto:</strong> ${escapeHtml(reviewStatusLabel(manifest.reviewStatus))} · ${escapeHtml(bookSource.fileName || "PDF não identificado")} · ${escapeHtml(pageRange(bookSource))}</p>
       <p><strong>Topico principal:</strong> <code>${escapeHtml(section.primaryTopic)}</code></p>
       <div class="topic-lines">
         <div><strong>Indice transversal padrao</strong>${defaultTopics || "<span class=\"muted\">Nenhum.</span>"}</div>
@@ -97,16 +106,17 @@ function main() {
   if (!existsSync(CORPUS_PATH)) {
     throw new Error(`Corpus canonico nao encontrado: ${CORPUS_PATH}`);
   }
-  if (!existsSync(EDITORIAL_REGISTRY_PATH)) {
-    throw new Error(`Registry editorial nao encontrado: ${EDITORIAL_REGISTRY_PATH}`);
+  if (!existsSync(SOURCE_MANIFEST_PATH)) {
+    throw new Error(`Manifesto de fontes nao encontrado: ${SOURCE_MANIFEST_PATH}`);
   }
 
   const topicIndex = JSON.parse(readFileSync(TOPIC_INDEX_PATH, "utf8"));
   const corpus = JSON.parse(readFileSync(CORPUS_PATH, "utf8"));
-  const editorialRegistry = JSON.parse(readFileSync(EDITORIAL_REGISTRY_PATH, "utf8"));
+  const sourceManifest = JSON.parse(readFileSync(SOURCE_MANIFEST_PATH, "utf8"));
+  const manifestBySection = new Map((sourceManifest.sections || []).map((section) => [section.sectionId, section]));
   const eligibleSectionIds = new Set(
-    (editorialRegistry.sections || [])
-      .filter((section) => section.publicAvailable && section.aiExerciseEligible)
+    (sourceManifest.sections || [])
+      .filter((section) => section.eligible && section.reviewStatus === "approved")
       .map((section) => section.sectionId)
   );
   const topics = (Array.isArray(topicIndex.topics) ? topicIndex.topics : [])
@@ -123,7 +133,7 @@ function main() {
   const principalIndex = sections
     .slice()
     .sort((a, b) => a.sectionId.localeCompare(b.sectionId, "pt-BR", { numeric: true }))
-    .map((section) => sectionRow(section, topicById))
+    .map((section) => sectionRow(section, topicById, manifestBySection))
     .join("");
 
   const transversalIndex = topics
@@ -297,7 +307,7 @@ function main() {
     <header>
       <div class="eyebrow">TERMO · Referencia tecnica</div>
       <h1>Indice de exercicios IA e referencias</h1>
-      <p>Este arquivo documenta o mapa entre secoes do app, referencias canonicas do PDF e temas transversais usados para orientar exercicios e simulados por IA.</p>
+      <p>Este arquivo documenta o mapa entre secoes aprovadas no manifesto, referencias canonicas do PDF e temas transversais usados para orientar exercicios e simulados por IA.</p>
       <nav>
         <a href="#manutencao">Manutencao obrigatoria</a>
         <a href="#indice-principal">Indice principal por secao</a>
@@ -309,13 +319,13 @@ function main() {
       <div class="eyebrow">Manutencao obrigatoria</div>
       <h2>Atualizar quando o app ou o PDF mudarem</h2>
       <p><strong>Importante:</strong> se o conteudo das paginas HTML do app ou o PDF do livro forem atualizados, este indice deve ser regenerado antes de alterar prompts, exercicios IA ou simulados.</p>
-      <p>Fluxo recomendado: <code>npm run extract:book-sections</code>, <code>npm run build:book-topic-index</code>, <code>npm run docs:ai-exercise-index</code>, depois validar com <code>npm run validate:book-corpus</code> e <code>npm run validate:book-topic-index</code>.</p>
+      <p>Fluxo recomendado: <code>npm run extract:book-sections</code>, <code>npm run build:book-topic-index</code>, <code>npm run build:ai-source-manifest</code>, <code>npm run docs:ai-exercise-index</code>, depois validar com <code>npm run validate:book-corpus</code>, <code>npm run validate:book-topic-index</code> e <code>npm run validate:ai-source-manifest</code>.</p>
     </aside>
 
     <section>
       <div class="eyebrow">Resumo</div>
       <h2>Estado deste indice</h2>
-      <p>Gerado em ${escapeHtml(generatedAt)} a partir de <code>data/book-section-corpus.json</code>, <code>data/book-topic-index.json</code> e <code>data/termo-editorial-registry.json</code>.</p>
+      <p>Gerado em ${escapeHtml(generatedAt)} a partir de <code>data/ai-exercise-source-manifest.json</code>, <code>data/book-section-corpus.json</code> e <code>data/book-topic-index.json</code>.</p>
       <div class="summary-grid">
         <div class="summary-card"><strong>${escapeHtml(sections.length)}</strong>secoes elegiveis para exercicios IA</div>
         <div class="summary-card"><strong>${escapeHtml(topics.length)}</strong>temas transversais elegiveis</div>

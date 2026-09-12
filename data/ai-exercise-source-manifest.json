@@ -1,0 +1,1934 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-12T01:27:06.149Z",
+  "description": "Manifesto de proveniência das seções autorizadas para exercícios IA do TERMO.",
+  "sources": {
+    "editorialRegistry": "data/termo-editorial-registry.json",
+    "bookCorpus": "data/book-section-corpus.json",
+    "topicIndex": "data/book-topic-index.json"
+  },
+  "bookPdf": {
+    "fileName": "termodinamica-preprint.pdf",
+    "sourceField": "data/book-section-corpus.json#pdfSource",
+    "pageCount": 137,
+    "delivery": "protected"
+  },
+  "eligibleSectionCount": 43,
+  "sections": [
+    {
+      "chapterId": "01",
+      "chapterTitle": "Conceitos Fundamentais",
+      "sectionId": "1.1",
+      "title": "Lei Zero da Termodinâmica",
+      "url": "slides/capitulo-01/page_2.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "2",
+        "pdfChapterTitle": "Conceitos Fundamentais",
+        "pageStart": 7,
+        "pageEnd": 7,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "01:1.1:1",
+            "label": "Lei Zero da Termodinâmica",
+            "pdfChapterNumber": "2",
+            "pdfChapterTitle": "Conceitos Fundamentais",
+            "pageStart": 7,
+            "pageEnd": 7,
+            "extractionSources": [
+              "pdftotext"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "lei-zero",
+        "transversalTopics": [
+          "temperatura-termometria",
+          "equilibrio"
+        ],
+        "advancedSupportTopics": []
+      }
+    },
+    {
+      "chapterId": "01",
+      "chapterTitle": "Conceitos Fundamentais",
+      "sectionId": "1.3",
+      "title": "Escalas Termométricas",
+      "url": "slides/capitulo-01/page_4.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "2",
+        "pdfChapterTitle": "Conceitos Fundamentais",
+        "pageStart": 8,
+        "pageEnd": 9,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "01:1.3:1",
+            "label": "Escalas Termométricas",
+            "pdfChapterNumber": "2",
+            "pdfChapterTitle": "Conceitos Fundamentais",
+            "pageStart": 8,
+            "pageEnd": 9,
+            "extractionSources": [
+              "pdftotext"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "escalas-termometricas",
+        "transversalTopics": [
+          "temperatura-termometria"
+        ],
+        "advancedSupportTopics": []
+      }
+    },
+    {
+      "chapterId": "01",
+      "chapterTitle": "Conceitos Fundamentais",
+      "sectionId": "1.4",
+      "title": "Relação entre Escalas",
+      "url": "slides/capitulo-01/page_5.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "2",
+        "pdfChapterTitle": "Conceitos Fundamentais",
+        "pageStart": 9,
+        "pageEnd": 9,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "01:1.4:1",
+            "label": "Relação entre Escalas",
+            "pdfChapterNumber": "2",
+            "pdfChapterTitle": "Conceitos Fundamentais",
+            "pageStart": 9,
+            "pageEnd": 9,
+            "extractionSources": [
+              "pdftotext"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "conversao-escalas",
+        "transversalTopics": [
+          "temperatura-termometria"
+        ],
+        "advancedSupportTopics": []
+      }
+    },
+    {
+      "chapterId": "01",
+      "chapterTitle": "Conceitos Fundamentais",
+      "sectionId": "1.8",
+      "title": "Calor",
+      "url": "slides/capitulo-01/page_9.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "2",
+        "pdfChapterTitle": "Conceitos Fundamentais",
+        "pageStart": 11,
+        "pageEnd": 12,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "01:1.8:1",
+            "label": "Calor",
+            "pdfChapterNumber": "2",
+            "pdfChapterTitle": "Conceitos Fundamentais",
+            "pageStart": 11,
+            "pageEnd": 12,
+            "extractionSources": [
+              "pdfplumber-fallback"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "calor",
+        "transversalTopics": [
+          "calor-fundamentos"
+        ],
+        "advancedSupportTopics": [
+          "calor"
+        ]
+      }
+    },
+    {
+      "chapterId": "01",
+      "chapterTitle": "Conceitos Fundamentais",
+      "sectionId": "1.9",
+      "title": "Exemplo: Aquecendo um Bloco de Cobre",
+      "url": "slides/capitulo-01/page_10.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "2",
+        "pdfChapterTitle": "Conceitos Fundamentais",
+        "pageStart": 12,
+        "pageEnd": 13,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "01:1.9:1",
+            "label": "Exemplo: Aquecendo um Bloco de Cobre",
+            "pdfChapterNumber": "2",
+            "pdfChapterTitle": "Conceitos Fundamentais",
+            "pageStart": 12,
+            "pageEnd": 13,
+            "extractionSources": [
+              "pdfplumber-fallback"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "calor-sensivel",
+        "transversalTopics": [
+          "calor-fundamentos"
+        ],
+        "advancedSupportTopics": [
+          "calor"
+        ]
+      }
+    },
+    {
+      "chapterId": "01",
+      "chapterTitle": "Conceitos Fundamentais",
+      "sectionId": "1.10",
+      "title": "Exemplo: Equilíbrio Térmico",
+      "url": "slides/capitulo-01/page_11.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "2",
+        "pdfChapterTitle": "Conceitos Fundamentais",
+        "pageStart": 13,
+        "pageEnd": 13,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "01:1.10:1",
+            "label": "Exemplo: Equilíbrio Térmico",
+            "pdfChapterNumber": "2",
+            "pdfChapterTitle": "Conceitos Fundamentais",
+            "pageStart": 13,
+            "pageEnd": 13,
+            "extractionSources": [
+              "pdfplumber-fallback"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "equilibrio-termico",
+        "transversalTopics": [
+          "calor-fundamentos",
+          "equilibrio"
+        ],
+        "advancedSupportTopics": [
+          "calor"
+        ]
+      }
+    },
+    {
+      "chapterId": "01",
+      "chapterTitle": "Conceitos Fundamentais",
+      "sectionId": "1.13",
+      "title": "Exemplo: Trabalho Isotérmico",
+      "url": "slides/capitulo-01/page_14.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "2",
+        "pdfChapterTitle": "Conceitos Fundamentais",
+        "pageStart": 15,
+        "pageEnd": 16,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "01:1.13:1",
+            "label": "Exemplo: Trabalho Isotérmico",
+            "pdfChapterNumber": "2",
+            "pdfChapterTitle": "Conceitos Fundamentais",
+            "pageStart": 15,
+            "pageEnd": 16,
+            "extractionSources": [
+              "pdfplumber-fallback"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "trabalho-isotermico",
+        "transversalTopics": [
+          "trabalho-fundamentos",
+          "gas-ideal-fundamentos"
+        ],
+        "advancedSupportTopics": [
+          "trabalho",
+          "gas-ideal"
+        ]
+      }
+    },
+    {
+      "chapterId": "01",
+      "chapterTitle": "Conceitos Fundamentais",
+      "sectionId": "1.17",
+      "title": "Exemplo: Aplicação da Primeira Lei",
+      "url": "slides/capitulo-01/page_18.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "2",
+        "pdfChapterTitle": "Conceitos Fundamentais",
+        "pageStart": 18,
+        "pageEnd": 18,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "01:1.17:1",
+            "label": "Exemplo: Aplicação da Primeira Lei",
+            "pdfChapterNumber": "2",
+            "pdfChapterTitle": "Conceitos Fundamentais",
+            "pageStart": 18,
+            "pageEnd": 18,
+            "extractionSources": [
+              "pdfplumber-fallback"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "aplicacao-primeira-lei",
+        "transversalTopics": [
+          "primeira-lei"
+        ],
+        "advancedSupportTopics": []
+      }
+    },
+    {
+      "chapterId": "02",
+      "chapterTitle": "Potenciais Termodinâmicos e Aplicações",
+      "sectionId": "2.3",
+      "title": "Energia Livre de Helmholtz",
+      "url": "slides/capitulo-02/page_3.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "3",
+        "pdfChapterTitle": "Potenciais Termodinamicos e Aplicacoes",
+        "pageStart": 26,
+        "pageEnd": 28,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "02:2.3:1",
+            "label": "Energia Livre de Helmholtz",
+            "pdfChapterNumber": "3",
+            "pdfChapterTitle": "Potenciais Termodinamicos e Aplicacoes",
+            "pageStart": 26,
+            "pageEnd": 28,
+            "extractionSources": [
+              "pdftotext"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "helmholtz",
+        "transversalTopics": [
+          "helmholtz",
+          "potenciais-termodinamicos"
+        ],
+        "advancedSupportTopics": []
+      }
+    },
+    {
+      "chapterId": "02",
+      "chapterTitle": "Potenciais Termodinâmicos e Aplicações",
+      "sectionId": "2.4",
+      "title": "Entalpia e Calor Isobárico",
+      "url": "slides/capitulo-02/page_4.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "3",
+        "pdfChapterTitle": "Potenciais Termodinamicos e Aplicacoes",
+        "pageStart": 28,
+        "pageEnd": 30,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "02:2.4:1",
+            "label": "Entalpia e Calor Isobárico",
+            "pdfChapterNumber": "3",
+            "pdfChapterTitle": "Potenciais Termodinamicos e Aplicacoes",
+            "pageStart": 28,
+            "pageEnd": 30,
+            "extractionSources": [
+              "pdftotext"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "entalpia",
+        "transversalTopics": [
+          "entalpia",
+          "potenciais-termodinamicos",
+          "calor-entalpia",
+          "capacidade-calorifica"
+        ],
+        "advancedSupportTopics": [
+          "calor"
+        ]
+      }
+    },
+    {
+      "chapterId": "02",
+      "chapterTitle": "Potenciais Termodinâmicos e Aplicações",
+      "sectionId": "2.5",
+      "title": "Energia Livre de Gibbs e Espontaneidade",
+      "url": "slides/capitulo-02/page_5.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "3",
+        "pdfChapterTitle": "Potenciais Termodinamicos e Aplicacoes",
+        "pageStart": 30,
+        "pageEnd": 31,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "02:2.5:1",
+            "label": "Energia Livre de Gibbs e Espontaneidade",
+            "pdfChapterNumber": "3",
+            "pdfChapterTitle": "Potenciais Termodinamicos e Aplicacoes",
+            "pageStart": 30,
+            "pageEnd": 31,
+            "extractionSources": [
+              "pdftotext"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "gibbs",
+        "transversalTopics": [
+          "gibbs",
+          "potenciais-termodinamicos",
+          "equilibrio"
+        ],
+        "advancedSupportTopics": []
+      }
+    },
+    {
+      "chapterId": "02",
+      "chapterTitle": "Potenciais Termodinâmicos e Aplicações",
+      "sectionId": "2.8",
+      "title": "Relações de Maxwell e Retângulo Termodinâmico",
+      "url": "slides/capitulo-02/page_8.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "3",
+        "pdfChapterTitle": "Potenciais Termodinamicos e Aplicacoes",
+        "pageStart": 32,
+        "pageEnd": 35,
+        "referenceCount": 2,
+        "references": [
+          {
+            "id": "02:2.8:1",
+            "label": "Relacoes de Maxwell",
+            "pdfChapterNumber": "3",
+            "pdfChapterTitle": "Potenciais Termodinamicos e Aplicacoes",
+            "pageStart": 32,
+            "pageEnd": 34,
+            "extractionSources": [
+              "pdftotext"
+            ],
+            "needsReview": false
+          },
+          {
+            "id": "02:2.8:2",
+            "label": "Retangulo termodinamico",
+            "pdfChapterNumber": "3",
+            "pdfChapterTitle": "Potenciais Termodinamicos e Aplicacoes",
+            "pageStart": 34,
+            "pageEnd": 35,
+            "extractionSources": [
+              "pdftotext"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "relacoes-maxwell",
+        "transversalTopics": [
+          "potenciais-termodinamicos",
+          "maxwell-relacoes",
+          "variaveis-conjugadas"
+        ],
+        "advancedSupportTopics": []
+      }
+    },
+    {
+      "chapterId": "03",
+      "chapterTitle": "Termodinâmica Estatística",
+      "sectionId": "3.1",
+      "title": "Entropia, Gibbs e a Visão por Ensembles",
+      "url": "slides/capitulo-03/page_2.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "4",
+        "pdfChapterTitle": "Termodinamica Estatistica",
+        "pageStart": 37,
+        "pageEnd": 38,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "03:3.1:1",
+            "label": "Entropia, Gibbs e a Visão por Ensembles",
+            "pdfChapterNumber": "4",
+            "pdfChapterTitle": "Termodinamica Estatistica",
+            "pageStart": 37,
+            "pageEnd": 38,
+            "extractionSources": [
+              "pdftotext"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "ensembles-gibbs",
+        "transversalTopics": [
+          "estatistica-ensembles",
+          "entropia-estatistica",
+          "equilibrio"
+        ],
+        "advancedSupportTopics": [
+          "entropia"
+        ]
+      }
+    },
+    {
+      "chapterId": "03",
+      "chapterTitle": "Termodinâmica Estatística",
+      "sectionId": "3.2",
+      "title": "Ensemble Micro-Canônico e Fórmula de Boltzmann",
+      "url": "slides/capitulo-03/page_5.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "4",
+        "pdfChapterTitle": "Termodinamica Estatistica",
+        "pageStart": 38,
+        "pageEnd": 39,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "03:3.2:1",
+            "label": "Ensemble Micro-Canônico e Fórmula de Boltzmann",
+            "pdfChapterNumber": "4",
+            "pdfChapterTitle": "Termodinamica Estatistica",
+            "pageStart": 38,
+            "pageEnd": 39,
+            "extractionSources": [
+              "pdftotext"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "microcanonico-boltzmann",
+        "transversalTopics": [
+          "estatistica-ensembles",
+          "boltzmann",
+          "entropia-estatistica"
+        ],
+        "advancedSupportTopics": [
+          "entropia"
+        ]
+      }
+    },
+    {
+      "chapterId": "03",
+      "chapterTitle": "Termodinâmica Estatística",
+      "sectionId": "3.3",
+      "title": "Ensemble Canônico, Distribuição de Boltzmann e Parâmetro Beta",
+      "url": "slides/capitulo-03/page_7.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "4",
+        "pdfChapterTitle": "Termodinamica Estatistica",
+        "pageStart": 39,
+        "pageEnd": 40,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "03:3.3:1",
+            "label": "Ensemble Canônico, Distribuição de Boltzmann e Parâmetro Beta",
+            "pdfChapterNumber": "4",
+            "pdfChapterTitle": "Termodinamica Estatistica",
+            "pageStart": 39,
+            "pageEnd": 40,
+            "extractionSources": [
+              "pdftotext"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "canonico-boltzmann-beta",
+        "transversalTopics": [
+          "estatistica-ensembles",
+          "boltzmann",
+          "funcao-particao"
+        ],
+        "advancedSupportTopics": []
+      }
+    },
+    {
+      "chapterId": "03",
+      "chapterTitle": "Termodinâmica Estatística",
+      "sectionId": "3.4",
+      "title": "Energia Livre de Helmholtz e Energia Interna Estatística",
+      "url": "slides/capitulo-03/page_10.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "4",
+        "pdfChapterTitle": "Termodinamica Estatistica",
+        "pageStart": 39,
+        "pageEnd": 40,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "03:3.4:1",
+            "label": "Energia Livre de Helmholtz e Energia Interna Estatística",
+            "pdfChapterNumber": "4",
+            "pdfChapterTitle": "Termodinamica Estatistica",
+            "pageStart": 39,
+            "pageEnd": 40,
+            "extractionSources": [
+              "pdftotext"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "helmholtz-estatistica",
+        "transversalTopics": [
+          "funcao-particao",
+          "helmholtz",
+          "energia-interna",
+          "potenciais-termodinamicos"
+        ],
+        "advancedSupportTopics": []
+      }
+    },
+    {
+      "chapterId": "03",
+      "chapterTitle": "Termodinâmica Estatística",
+      "sectionId": "3.5",
+      "title": "Partículas Distinguíveis, Indistinguíveis e Paradoxo de Gibbs",
+      "url": "slides/capitulo-03/page_12.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "4",
+        "pdfChapterTitle": "Termodinamica Estatistica",
+        "pageStart": 40,
+        "pageEnd": 41,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "03:3.5:1",
+            "label": "Partículas Distinguíveis, Indistinguíveis e Paradoxo de Gibbs",
+            "pdfChapterNumber": "4",
+            "pdfChapterTitle": "Termodinamica Estatistica",
+            "pageStart": 40,
+            "pageEnd": 41,
+            "extractionSources": [
+              "pdftotext"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "paradoxo-gibbs",
+        "transversalTopics": [
+          "indistinguibilidade"
+        ],
+        "advancedSupportTopics": []
+      }
+    },
+    {
+      "chapterId": "03",
+      "chapterTitle": "Termodinâmica Estatística",
+      "sectionId": "3.6",
+      "title": "Exemplo I: Gás Ideal Monoatômico — Função de Partição",
+      "url": "slides/capitulo-03/page_14.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "4",
+        "pdfChapterTitle": "Termodinamica Estatistica",
+        "pageStart": 41,
+        "pageEnd": 42,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "03:3.6:1",
+            "label": "Exemplo I: Gás Ideal Monoatômico — Função de Partição",
+            "pdfChapterNumber": "4",
+            "pdfChapterTitle": "Termodinamica Estatistica",
+            "pageStart": 41,
+            "pageEnd": 42,
+            "extractionSources": [
+              "pdftotext"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "funcao-particao-gas-ideal",
+        "transversalTopics": [
+          "funcao-particao",
+          "gas-ideal-estatistico",
+          "indistinguibilidade"
+        ],
+        "advancedSupportTopics": [
+          "gas-ideal"
+        ]
+      }
+    },
+    {
+      "chapterId": "03",
+      "chapterTitle": "Termodinâmica Estatística",
+      "sectionId": "3.7",
+      "title": "Exemplo I: Gás Ideal Monoatômico — Energia Livre e Sackur-Tetrode",
+      "url": "slides/capitulo-03/page_16.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "4",
+        "pdfChapterTitle": "Termodinamica Estatistica",
+        "pageStart": 42,
+        "pageEnd": 43,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "03:3.7:1",
+            "label": "Exemplo I: Gás Ideal Monoatômico — Energia Livre e Sackur-Tetrode",
+            "pdfChapterNumber": "4",
+            "pdfChapterTitle": "Termodinamica Estatistica",
+            "pageStart": 42,
+            "pageEnd": 43,
+            "extractionSources": [
+              "pdftotext"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "sackur-tetrode",
+        "transversalTopics": [
+          "funcao-particao",
+          "gas-ideal-estatistico",
+          "helmholtz",
+          "energia-interna",
+          "indistinguibilidade"
+        ],
+        "advancedSupportTopics": [
+          "gas-ideal"
+        ]
+      }
+    },
+    {
+      "chapterId": "03",
+      "chapterTitle": "Termodinâmica Estatística",
+      "sectionId": "3.8",
+      "title": "Exemplo II: Paramagnetismo Quântico",
+      "url": "slides/capitulo-03/page_18.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "4",
+        "pdfChapterTitle": "Termodinamica Estatistica",
+        "pageStart": 44,
+        "pageEnd": 47,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "03:3.8:1",
+            "label": "Exemplo II: Paramagnetismo Quântico",
+            "pdfChapterNumber": "4",
+            "pdfChapterTitle": "Termodinamica Estatistica",
+            "pageStart": 44,
+            "pageEnd": 47,
+            "extractionSources": [
+              "pdfplumber-fallback",
+              "pdftotext"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "paramagnetismo-quantico",
+        "transversalTopics": [
+          "paramagnetismo",
+          "funcao-particao"
+        ],
+        "advancedSupportTopics": []
+      }
+    },
+    {
+      "chapterId": "03",
+      "chapterTitle": "Termodinâmica Estatística",
+      "sectionId": "3.9",
+      "title": "Exemplo III: Paramagnetismo Clássico",
+      "url": "slides/capitulo-03/page_20.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "4",
+        "pdfChapterTitle": "Termodinamica Estatistica",
+        "pageStart": 48,
+        "pageEnd": 48,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "03:3.9:1",
+            "label": "Exemplo III: Paramagnetismo Clássico",
+            "pdfChapterNumber": "4",
+            "pdfChapterTitle": "Termodinamica Estatistica",
+            "pageStart": 48,
+            "pageEnd": 48,
+            "extractionSources": [
+              "pdfplumber-fallback"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "paramagnetismo-classico",
+        "transversalTopics": [
+          "paramagnetismo",
+          "funcao-particao"
+        ],
+        "advancedSupportTopics": []
+      }
+    },
+    {
+      "chapterId": "03",
+      "chapterTitle": "Termodinâmica Estatística",
+      "sectionId": "3.10",
+      "title": "Terceira Lei e Limites do Modelo Clássico",
+      "url": "slides/capitulo-03/page_21.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "4",
+        "pdfChapterTitle": "Termodinamica Estatistica",
+        "pageStart": 49,
+        "pageEnd": 50,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "03:3.10:1",
+            "label": "Terceira Lei e Limites do Modelo Clássico",
+            "pdfChapterNumber": "4",
+            "pdfChapterTitle": "Termodinamica Estatistica",
+            "pageStart": 49,
+            "pageEnd": 50,
+            "extractionSources": [
+              "pdfplumber-fallback"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "terceira-lei",
+        "transversalTopics": [
+          "terceira-lei",
+          "paramagnetismo"
+        ],
+        "advancedSupportTopics": []
+      }
+    },
+    {
+      "chapterId": "03",
+      "chapterTitle": "Termodinâmica Estatística",
+      "sectionId": "3.11",
+      "title": "Exemplo IV: Capacidade Calorífica em Sólidos",
+      "url": "slides/capitulo-03/page_23.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "4",
+        "pdfChapterTitle": "Termodinamica Estatistica",
+        "pageStart": 51,
+        "pageEnd": 54,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "03:3.11:1",
+            "label": "Exemplo IV: Capacidade Calorífica em Sólidos",
+            "pdfChapterNumber": "4",
+            "pdfChapterTitle": "Termodinamica Estatistica",
+            "pageStart": 51,
+            "pageEnd": 54,
+            "extractionSources": [
+              "pdfplumber-fallback",
+              "pdftotext"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "capacidade-calorifica-solidos",
+        "transversalTopics": [
+          "capacidade-calorifica",
+          "funcao-particao",
+          "terceira-lei"
+        ],
+        "advancedSupportTopics": []
+      }
+    },
+    {
+      "chapterId": "04",
+      "chapterTitle": "Transições de Fase",
+      "sectionId": "4.2",
+      "title": "Equação de Estado de Van der Waals",
+      "url": "slides/capitulo-04/page_2.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "5",
+        "pdfChapterTitle": "Transicoes de Fase",
+        "pageStart": 63,
+        "pageEnd": 64,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "04:4.2:1",
+            "label": "Equação de Estado de Van der Waals",
+            "pdfChapterNumber": "5",
+            "pdfChapterTitle": "Transicoes de Fase",
+            "pageStart": 63,
+            "pageEnd": 64,
+            "extractionSources": [
+              "pdfplumber-fallback"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "equacao-van-der-waals",
+        "transversalTopics": [
+          "transicoes-de-fase",
+          "van-der-waals"
+        ],
+        "advancedSupportTopics": []
+      }
+    },
+    {
+      "chapterId": "04",
+      "chapterTitle": "Transições de Fase",
+      "sectionId": "4.3",
+      "title": "Ponto Crítico",
+      "url": "slides/capitulo-04/page_6.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "5",
+        "pdfChapterTitle": "Transicoes de Fase",
+        "pageStart": 64,
+        "pageEnd": 65,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "04:4.3:1",
+            "label": "Ponto Crítico",
+            "pdfChapterNumber": "5",
+            "pdfChapterTitle": "Transicoes de Fase",
+            "pageStart": 64,
+            "pageEnd": 65,
+            "extractionSources": [
+              "pdfplumber-fallback"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "ponto-critico",
+        "transversalTopics": [
+          "ponto-critico",
+          "transicoes-de-fase",
+          "van-der-waals"
+        ],
+        "advancedSupportTopics": []
+      }
+    },
+    {
+      "chapterId": "04",
+      "chapterTitle": "Transições de Fase",
+      "sectionId": "4.4",
+      "title": "Equação de Estado Reduzida",
+      "url": "slides/capitulo-04/page_7.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "5",
+        "pdfChapterTitle": "Transicoes de Fase",
+        "pageStart": 65,
+        "pageEnd": 66,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "04:4.4:1",
+            "label": "Equação de Estado Reduzida",
+            "pdfChapterNumber": "5",
+            "pdfChapterTitle": "Transicoes de Fase",
+            "pageStart": 65,
+            "pageEnd": 66,
+            "extractionSources": [
+              "pdfplumber-fallback"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "variaveis-reduzidas",
+        "transversalTopics": [
+          "transicoes-de-fase",
+          "van-der-waals",
+          "ponto-critico"
+        ],
+        "advancedSupportTopics": []
+      }
+    },
+    {
+      "chapterId": "04",
+      "chapterTitle": "Transições de Fase",
+      "sectionId": "4.5",
+      "title": "Instabilidade Mecânica e Espinodal",
+      "url": "slides/capitulo-04/page_9.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "5",
+        "pdfChapterTitle": "Transicoes de Fase",
+        "pageStart": 66,
+        "pageEnd": 66,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "04:4.5:1",
+            "label": "Instabilidade Mecânica e Espinodal",
+            "pdfChapterNumber": "5",
+            "pdfChapterTitle": "Transicoes de Fase",
+            "pageStart": 66,
+            "pageEnd": 66,
+            "extractionSources": [
+              "pdfplumber-fallback"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "espinodal",
+        "transversalTopics": [
+          "transicoes-de-fase",
+          "van-der-waals",
+          "estabilidade-mecanica"
+        ],
+        "advancedSupportTopics": []
+      }
+    },
+    {
+      "chapterId": "04",
+      "chapterTitle": "Transições de Fase",
+      "sectionId": "4.6",
+      "title": "Energia Livre de Helmholtz e Gibbs",
+      "url": "slides/capitulo-04/page_11.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "5",
+        "pdfChapterTitle": "Transicoes de Fase",
+        "pageStart": 67,
+        "pageEnd": 69,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "04:4.6:1",
+            "label": "Energia Livre de Helmholtz e Gibbs",
+            "pdfChapterNumber": "5",
+            "pdfChapterTitle": "Transicoes de Fase",
+            "pageStart": 67,
+            "pageEnd": 69,
+            "extractionSources": [
+              "pdftotext"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "energia-livre-fases",
+        "transversalTopics": [
+          "transicoes-de-fase",
+          "potenciais-termodinamicos",
+          "helmholtz",
+          "gibbs",
+          "equilibrio",
+          "estabilidade-mecanica"
+        ],
+        "advancedSupportTopics": []
+      }
+    },
+    {
+      "chapterId": "04",
+      "chapterTitle": "Transições de Fase",
+      "sectionId": "4.7",
+      "title": "Construção de Maxwell",
+      "url": "slides/capitulo-04/page_13.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "5",
+        "pdfChapterTitle": "Transicoes de Fase",
+        "pageStart": 68,
+        "pageEnd": 71,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "04:4.7:1",
+            "label": "Construção de Maxwell",
+            "pdfChapterNumber": "5",
+            "pdfChapterTitle": "Transicoes de Fase",
+            "pageStart": 68,
+            "pageEnd": 71,
+            "extractionSources": [
+              "pdftotext"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "construcao-maxwell",
+        "transversalTopics": [
+          "construcao-maxwell",
+          "transicoes-de-fase",
+          "gibbs",
+          "equilibrio",
+          "coexistencia-fases"
+        ],
+        "advancedSupportTopics": []
+      }
+    },
+    {
+      "chapterId": "04",
+      "chapterTitle": "Transições de Fase",
+      "sectionId": "4.8",
+      "title": "Superaquecimento e Super-resfriamento",
+      "url": "slides/capitulo-04/page_16.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "5",
+        "pdfChapterTitle": "Transicoes de Fase",
+        "pageStart": 71,
+        "pageEnd": 72,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "04:4.8:1",
+            "label": "Superaquecimento e Super-resfriamento",
+            "pdfChapterNumber": "5",
+            "pdfChapterTitle": "Transicoes de Fase",
+            "pageStart": 71,
+            "pageEnd": 72,
+            "extractionSources": [
+              "pdftotext"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "metaestabilidade",
+        "transversalTopics": [
+          "transicoes-de-fase",
+          "van-der-waals",
+          "estabilidade-mecanica",
+          "coexistencia-fases"
+        ],
+        "advancedSupportTopics": []
+      }
+    },
+    {
+      "chapterId": "04",
+      "chapterTitle": "Transições de Fase",
+      "sectionId": "4.9",
+      "title": "Calor Latente e Equação de Clausius-Clapeyron",
+      "url": "slides/capitulo-04/page_17.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "5",
+        "pdfChapterTitle": "Transicoes de Fase",
+        "pageStart": 72,
+        "pageEnd": 74,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "04:4.9:1",
+            "label": "Calor Latente e Equação de Clausius-Clapeyron",
+            "pdfChapterNumber": "5",
+            "pdfChapterTitle": "Transicoes de Fase",
+            "pageStart": 72,
+            "pageEnd": 74,
+            "extractionSources": [
+              "pdftotext"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "clausius-clapeyron",
+        "transversalTopics": [
+          "transicoes-de-fase",
+          "coexistencia-fases",
+          "gibbs",
+          "entalpia",
+          "calor-entalpia",
+          "capacidade-calorifica"
+        ],
+        "advancedSupportTopics": [
+          "calor"
+        ]
+      }
+    },
+    {
+      "chapterId": "04",
+      "chapterTitle": "Transições de Fase",
+      "sectionId": "4.10",
+      "title": "Compressibilidade Isotérmica",
+      "url": "slides/capitulo-04/page_20.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "5",
+        "pdfChapterTitle": "Transicoes de Fase",
+        "pageStart": 74,
+        "pageEnd": 75,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "04:4.10:1",
+            "label": "Compressibilidade Isotérmica",
+            "pdfChapterNumber": "5",
+            "pdfChapterTitle": "Transicoes de Fase",
+            "pageStart": 74,
+            "pageEnd": 75,
+            "extractionSources": [
+              "pdftotext"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "compressibilidade-isotermica",
+        "transversalTopics": [
+          "transicoes-de-fase",
+          "van-der-waals",
+          "ponto-critico",
+          "estabilidade-mecanica"
+        ],
+        "advancedSupportTopics": []
+      }
+    },
+    {
+      "chapterId": "04",
+      "chapterTitle": "Transições de Fase",
+      "sectionId": "4.11",
+      "title": "Expansão Térmica",
+      "url": "slides/capitulo-04/page_21.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "5",
+        "pdfChapterTitle": "Transicoes de Fase",
+        "pageStart": 76,
+        "pageEnd": 77,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "04:4.11:1",
+            "label": "Expansão Térmica",
+            "pdfChapterNumber": "5",
+            "pdfChapterTitle": "Transicoes de Fase",
+            "pageStart": 76,
+            "pageEnd": 77,
+            "extractionSources": [
+              "pdftotext"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "expansao-termica",
+        "transversalTopics": [
+          "transicoes-de-fase",
+          "van-der-waals",
+          "ponto-critico"
+        ],
+        "advancedSupportTopics": []
+      }
+    },
+    {
+      "chapterId": "06",
+      "chapterTitle": "Ciclos Termodinâmicos",
+      "sectionId": "6.1",
+      "title": "Máquinas Térmicas e Refrigeradores",
+      "url": "slides/capitulo-06/page_1.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "7",
+        "pdfChapterTitle": "Ciclos Termodinamicos",
+        "pageStart": 95,
+        "pageEnd": 96,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "06:6.1:1",
+            "label": "Máquinas Térmicas e Refrigeradores",
+            "pdfChapterNumber": "7",
+            "pdfChapterTitle": "Ciclos Termodinamicos",
+            "pageStart": 95,
+            "pageEnd": 96,
+            "extractionSources": [
+              "pdftotext"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "maquinas-refrigeradores",
+        "transversalTopics": [
+          "ciclos-termodinamicos",
+          "maquinas-termicas",
+          "refrigeradores"
+        ],
+        "advancedSupportTopics": [
+          "calor",
+          "trabalho"
+        ]
+      }
+    },
+    {
+      "chapterId": "06",
+      "chapterTitle": "Ciclos Termodinâmicos",
+      "sectionId": "6.2",
+      "title": "Ciclo de Carnot como Máquina Térmica",
+      "url": "slides/capitulo-06/page_2.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "7",
+        "pdfChapterTitle": "Ciclos Termodinamicos",
+        "pageStart": 95,
+        "pageEnd": 98,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "06:6.2:1",
+            "label": "Ciclo de Carnot como Máquina Térmica",
+            "pdfChapterNumber": "7",
+            "pdfChapterTitle": "Ciclos Termodinamicos",
+            "pageStart": 95,
+            "pageEnd": 98,
+            "extractionSources": [
+              "pdftotext"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "carnot-maquina-termica",
+        "transversalTopics": [
+          "ciclos-termodinamicos",
+          "carnot",
+          "maquinas-termicas"
+        ],
+        "advancedSupportTopics": []
+      }
+    },
+    {
+      "chapterId": "06",
+      "chapterTitle": "Ciclos Termodinâmicos",
+      "sectionId": "6.3",
+      "title": "Energia Interna, Calor e Trabalho",
+      "url": "slides/capitulo-06/page_3.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "7",
+        "pdfChapterTitle": "Ciclos Termodinamicos",
+        "pageStart": 98,
+        "pageEnd": 99,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "06:6.3:1",
+            "label": "Energia Interna, Calor e Trabalho",
+            "pdfChapterNumber": "7",
+            "pdfChapterTitle": "Ciclos Termodinamicos",
+            "pageStart": 98,
+            "pageEnd": 99,
+            "extractionSources": [
+              "pdftotext"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "primeira-lei-em-ciclos",
+        "transversalTopics": [
+          "ciclos-termodinamicos",
+          "primeira-lei",
+          "energia-interna",
+          "calor-em-ciclos",
+          "trabalho-em-ciclos",
+          "entropia-termodinamica"
+        ],
+        "advancedSupportTopics": [
+          "calor",
+          "trabalho",
+          "entropia"
+        ]
+      }
+    },
+    {
+      "chapterId": "06",
+      "chapterTitle": "Ciclos Termodinâmicos",
+      "sectionId": "6.4",
+      "title": "Eficiência Geral e Eficiência de Carnot",
+      "url": "slides/capitulo-06/page_4.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "7",
+        "pdfChapterTitle": "Ciclos Termodinamicos",
+        "pageStart": 99,
+        "pageEnd": 100,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "06:6.4:1",
+            "label": "Eficiência Geral e Eficiência de Carnot",
+            "pdfChapterNumber": "7",
+            "pdfChapterTitle": "Ciclos Termodinamicos",
+            "pageStart": 99,
+            "pageEnd": 100,
+            "extractionSources": [
+              "pdftotext"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "eficiencia-carnot",
+        "transversalTopics": [
+          "ciclos-termodinamicos",
+          "carnot",
+          "maquinas-termicas",
+          "eficiencia-cop"
+        ],
+        "advancedSupportTopics": []
+      }
+    },
+    {
+      "chapterId": "06",
+      "chapterTitle": "Ciclos Termodinâmicos",
+      "sectionId": "6.5",
+      "title": "Exemplo: Máquina de Carnot",
+      "url": "slides/capitulo-06/page_5.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "7",
+        "pdfChapterTitle": "Ciclos Termodinamicos",
+        "pageStart": 101,
+        "pageEnd": 102,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "06:6.5:1",
+            "label": "Exemplo: Máquina de Carnot",
+            "pdfChapterNumber": "7",
+            "pdfChapterTitle": "Ciclos Termodinamicos",
+            "pageStart": 101,
+            "pageEnd": 102,
+            "extractionSources": [
+              "pdftotext"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "exemplo-maquina-carnot",
+        "transversalTopics": [
+          "ciclos-termodinamicos",
+          "carnot",
+          "maquinas-termicas",
+          "eficiencia-cop",
+          "gas-ideal-ciclos",
+          "calor-em-ciclos",
+          "trabalho-em-ciclos",
+          "primeira-lei"
+        ],
+        "advancedSupportTopics": [
+          "gas-ideal",
+          "calor",
+          "trabalho"
+        ]
+      }
+    },
+    {
+      "chapterId": "06",
+      "chapterTitle": "Ciclos Termodinâmicos",
+      "sectionId": "6.6",
+      "title": "Ciclo de Carnot como Refrigerador",
+      "url": "slides/capitulo-06/page_6.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "7",
+        "pdfChapterTitle": "Ciclos Termodinamicos",
+        "pageStart": 102,
+        "pageEnd": 107,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "06:6.6:1",
+            "label": "Ciclo de Carnot como Refrigerador",
+            "pdfChapterNumber": "7",
+            "pdfChapterTitle": "Ciclos Termodinamicos",
+            "pageStart": 102,
+            "pageEnd": 107,
+            "extractionSources": [
+              "pdftotext"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "carnot-refrigerador",
+        "transversalTopics": [
+          "ciclos-termodinamicos",
+          "carnot",
+          "refrigeradores",
+          "eficiencia-cop"
+        ],
+        "advancedSupportTopics": []
+      }
+    },
+    {
+      "chapterId": "06",
+      "chapterTitle": "Ciclos Termodinâmicos",
+      "sectionId": "6.7",
+      "title": "Exemplo: Refrigerador de Carnot",
+      "url": "slides/capitulo-06/page_7.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "7",
+        "pdfChapterTitle": "Ciclos Termodinamicos",
+        "pageStart": 107,
+        "pageEnd": 108,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "06:6.7:1",
+            "label": "Exemplo: Refrigerador de Carnot",
+            "pdfChapterNumber": "7",
+            "pdfChapterTitle": "Ciclos Termodinamicos",
+            "pageStart": 107,
+            "pageEnd": 108,
+            "extractionSources": [
+              "pdftotext"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "exemplo-refrigerador-carnot",
+        "transversalTopics": [
+          "ciclos-termodinamicos",
+          "carnot",
+          "refrigeradores",
+          "eficiencia-cop",
+          "gas-ideal-ciclos",
+          "calor-em-ciclos"
+        ],
+        "advancedSupportTopics": [
+          "gas-ideal",
+          "calor"
+        ]
+      }
+    },
+    {
+      "chapterId": "06",
+      "chapterTitle": "Ciclos Termodinâmicos",
+      "sectionId": "6.8",
+      "title": "Ciclo de Stirling sem Regenerador",
+      "url": "slides/capitulo-06/page_8.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "7",
+        "pdfChapterTitle": "Ciclos Termodinamicos",
+        "pageStart": 108,
+        "pageEnd": 111,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "06:6.8:1",
+            "label": "Ciclo de Stirling sem Regenerador",
+            "pdfChapterNumber": "7",
+            "pdfChapterTitle": "Ciclos Termodinamicos",
+            "pageStart": 108,
+            "pageEnd": 111,
+            "extractionSources": [
+              "pdftotext"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "stirling-sem-regenerador",
+        "transversalTopics": [
+          "ciclos-termodinamicos",
+          "stirling",
+          "maquinas-termicas",
+          "eficiencia-cop",
+          "trabalho-em-ciclos"
+        ],
+        "advancedSupportTopics": [
+          "trabalho"
+        ]
+      }
+    },
+    {
+      "chapterId": "06",
+      "chapterTitle": "Ciclos Termodinâmicos",
+      "sectionId": "6.10",
+      "title": "Motor de Stirling com Regenerador Tipo Alfa",
+      "url": "slides/capitulo-06/page_10.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "7",
+        "pdfChapterTitle": "Ciclos Termodinamicos",
+        "pageStart": 113,
+        "pageEnd": 115,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "06:6.10:1",
+            "label": "Motor de Stirling com Regenerador Tipo Alfa",
+            "pdfChapterNumber": "7",
+            "pdfChapterTitle": "Ciclos Termodinamicos",
+            "pageStart": 113,
+            "pageEnd": 115,
+            "extractionSources": [
+              "pdftotext"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "stirling-regenerador-alfa",
+        "transversalTopics": [
+          "ciclos-termodinamicos",
+          "stirling",
+          "maquinas-termicas"
+        ],
+        "advancedSupportTopics": []
+      }
+    },
+    {
+      "chapterId": "06",
+      "chapterTitle": "Ciclos Termodinâmicos",
+      "sectionId": "6.11",
+      "title": "Exemplo: Motor Stirling Alfa",
+      "url": "slides/capitulo-06/page_11.html",
+      "editorialStatus": "published",
+      "reviewStatus": "approved",
+      "eligible": true,
+      "bookSource": {
+        "fileName": "termodinamica-preprint.pdf",
+        "corpusFile": "data/book-section-corpus.json",
+        "pdfChapterNumber": "7",
+        "pdfChapterTitle": "Ciclos Termodinamicos",
+        "pageStart": 115,
+        "pageEnd": 126,
+        "referenceCount": 1,
+        "references": [
+          {
+            "id": "06:6.11:1",
+            "label": "Exemplo: Motor Stirling Alfa",
+            "pdfChapterNumber": "7",
+            "pdfChapterTitle": "Ciclos Termodinamicos",
+            "pageStart": 115,
+            "pageEnd": 126,
+            "extractionSources": [
+              "pdftotext",
+              "pdfplumber-fallback"
+            ],
+            "needsReview": false
+          }
+        ]
+      },
+      "thematicReference": {
+        "indexFile": "data/book-topic-index.json",
+        "primaryTopic": "exemplo-stirling-alfa",
+        "transversalTopics": [
+          "ciclos-termodinamicos",
+          "stirling",
+          "maquinas-termicas",
+          "eficiencia-cop",
+          "trabalho-em-ciclos",
+          "primeira-lei"
+        ],
+        "advancedSupportTopics": [
+          "trabalho"
+        ]
+      }
+    }
+  ]
+}
