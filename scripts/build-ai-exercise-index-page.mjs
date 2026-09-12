@@ -4,6 +4,7 @@ import { resolve } from "node:path";
 const ROOT_DIR = process.cwd();
 const TOPIC_INDEX_PATH = resolve(ROOT_DIR, "data/book-topic-index.json");
 const CORPUS_PATH = resolve(ROOT_DIR, "data/book-section-corpus.json");
+const EDITORIAL_REGISTRY_PATH = resolve(ROOT_DIR, "data/termo-editorial-registry.json");
 const OUTPUT_DIR = resolve(ROOT_DIR, "docs");
 const OUTPUT_PATH = resolve(OUTPUT_DIR, "exercicios-ia-indice-referencias.html");
 
@@ -96,11 +97,26 @@ function main() {
   if (!existsSync(CORPUS_PATH)) {
     throw new Error(`Corpus canonico nao encontrado: ${CORPUS_PATH}`);
   }
+  if (!existsSync(EDITORIAL_REGISTRY_PATH)) {
+    throw new Error(`Registry editorial nao encontrado: ${EDITORIAL_REGISTRY_PATH}`);
+  }
 
   const topicIndex = JSON.parse(readFileSync(TOPIC_INDEX_PATH, "utf8"));
   const corpus = JSON.parse(readFileSync(CORPUS_PATH, "utf8"));
-  const topics = Array.isArray(topicIndex.topics) ? topicIndex.topics : [];
-  const sections = Array.isArray(topicIndex.sectionIndex) ? topicIndex.sectionIndex : [];
+  const editorialRegistry = JSON.parse(readFileSync(EDITORIAL_REGISTRY_PATH, "utf8"));
+  const eligibleSectionIds = new Set(
+    (editorialRegistry.sections || [])
+      .filter((section) => section.publicAvailable && section.aiExerciseEligible)
+      .map((section) => section.sectionId)
+  );
+  const topics = (Array.isArray(topicIndex.topics) ? topicIndex.topics : [])
+    .map((topic) => {
+      const fragments = (topic.fragments || []).filter((fragment) => eligibleSectionIds.has(fragment.sectionId));
+      return { ...topic, fragments, sectionCount: new Set(fragments.map((fragment) => fragment.sectionId)).size };
+    })
+    .filter((topic) => topic.fragments.length > 0);
+  const sections = (Array.isArray(topicIndex.sectionIndex) ? topicIndex.sectionIndex : [])
+    .filter((section) => eligibleSectionIds.has(section.sectionId));
   const topicById = new Map(topics.map((topic) => [topic.id, topic]));
   const generatedAt = new Date().toISOString();
 
@@ -299,10 +315,10 @@ function main() {
     <section>
       <div class="eyebrow">Resumo</div>
       <h2>Estado deste indice</h2>
-      <p>Gerado em ${escapeHtml(generatedAt)} a partir de <code>data/book-section-corpus.json</code> e <code>data/book-topic-index.json</code>.</p>
+      <p>Gerado em ${escapeHtml(generatedAt)} a partir de <code>data/book-section-corpus.json</code>, <code>data/book-topic-index.json</code> e <code>data/termo-editorial-registry.json</code>.</p>
       <div class="summary-grid">
-        <div class="summary-card"><strong>${escapeHtml(topicIndex.sectionCount || sections.length)}</strong>secoes do app indexadas</div>
-        <div class="summary-card"><strong>${escapeHtml(topicIndex.topicCount || topics.length)}</strong>temas transversais</div>
+        <div class="summary-card"><strong>${escapeHtml(sections.length)}</strong>secoes elegiveis para exercicios IA</div>
+        <div class="summary-card"><strong>${escapeHtml(topics.length)}</strong>temas transversais elegiveis</div>
         <div class="summary-card"><strong>${escapeHtml(corpus.pageCount || "")}</strong>paginas no PDF fonte</div>
       </div>
     </section>

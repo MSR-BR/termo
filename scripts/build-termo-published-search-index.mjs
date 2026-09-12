@@ -6,20 +6,20 @@ const __filename = fileURLToPath(import.meta.url);
 const rootDir = path.resolve(path.dirname(__filename), "..");
 const destination = path.join(rootDir, "data", "termo-published-search-index.json");
 const taxonomyPath = path.join(rootDir, "data", "book-topic-taxonomy.json");
-
-const publishedChapters = [
-  { id: "01", title: "Conceitos Fundamentais" },
-  { id: "02", title: "Potenciais Termodinâmicos e Aplicações" },
-  { id: "03", title: "Termodinâmica Estatística" },
-  { id: "04", title: "Transições de Fase" },
-  { id: "06", title: "Ciclos Termodinâmicos" }
-];
+const registryPath = path.join(rootDir, "data", "termo-editorial-registry.json");
 
 function unique(values) {
   return values.filter((value, index, list) => value && list.indexOf(value) === index);
 }
 
 const taxonomy = JSON.parse(await readFile(taxonomyPath, "utf8"));
+const registry = JSON.parse(await readFile(registryPath, "utf8"));
+const chapterById = new Map((registry.chapters || []).map((chapter) => [chapter.chapterId, chapter]));
+const searchableSectionIds = new Set(
+  (registry.sections || [])
+    .filter((section) => section.publicAvailable && section.searchEligible)
+    .map((section) => section.sectionId)
+);
 const topicLabels = new Map(
   (taxonomy.transversalTopics || []).map((topic) => [String(topic.id || ""), String(topic.label || "").trim()])
 );
@@ -28,12 +28,13 @@ const taxonomyBySection = new Map(
 );
 const sections = [];
 
-for (const chapterMeta of publishedChapters) {
-  const sourcePath = path.join(rootDir, "data", `capitulo-${chapterMeta.id}.json`);
+for (const chapterMeta of (registry.chapters || []).filter((chapter) => chapter.publicAvailable && chapter.searchEligible)) {
+  const sourcePath = path.join(rootDir, chapterMeta.dataFile);
   const chapter = JSON.parse(await readFile(sourcePath, "utf8"));
 
   for (const topic of Array.isArray(chapter.topics) ? chapter.topics : []) {
     const sectionId = String(topic.id || "").trim();
+    if (!searchableSectionIds.has(sectionId)) continue;
     const title = String(topic.title || "").trim();
     const url = String(topic.url || "").replace(/^\/+/, "").trim();
     if (!sectionId || !title || !url) continue;
@@ -52,7 +53,7 @@ for (const chapterMeta of publishedChapters) {
     const keywords = unique(keywordIds.map((id) => topicLabels.get(id)).filter(Boolean));
 
     sections.push({
-      chapterId: chapterMeta.id,
+      chapterId: chapterMeta.chapterId,
       chapterTitle: chapterMeta.title,
       chapterDescription: String(chapter.description || "").trim(),
       sectionId,
@@ -64,13 +65,14 @@ for (const chapterMeta of publishedChapters) {
   }
 }
 
-if (sections.some((section) => section.chapterId === "05" || section.url.includes("capitulo-05"))) {
-  throw new Error("O índice público não pode conter o Capítulo 5.");
+const unexpectedSections = sections.filter((section) => !searchableSectionIds.has(section.sectionId));
+if (unexpectedSections.length || sections.length !== searchableSectionIds.size) {
+  throw new Error("O índice público diverge do registry editorial.");
 }
 
 await writeFile(
   destination,
-  `${JSON.stringify({ generatedAt: new Date().toISOString(), source: "data/capitulo-*.json", publishedChapterIds: publishedChapters.map(({ id }) => id), sections }, null, 2)}\n`,
+  `${JSON.stringify({ generatedAt: new Date().toISOString(), source: "data/capitulo-*.json + data/termo-editorial-registry.json", publishedChapterIds: Array.from(chapterById.values()).filter((chapter) => chapter.publicAvailable && chapter.searchEligible).map((chapter) => chapter.chapterId), sections }, null, 2)}\n`,
   "utf8"
 );
 

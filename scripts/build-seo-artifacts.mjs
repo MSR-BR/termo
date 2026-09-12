@@ -7,6 +7,7 @@ const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, "..");
 const slidesDir = path.join(rootDir, "slides");
 const dataDir = path.join(rootDir, "data");
+const editorialRegistryPath = path.join(dataDir, "termo-editorial-registry.json");
 
 const SITE_URL = "https://termo-theta.vercel.app";
 const GITHUB_PAGES_URL = "https://msr-br.github.io/termo";
@@ -198,10 +199,13 @@ async function collectHtmlFiles(dir, bucket = []) {
   return bucket;
 }
 
-async function loadTopicMap() {
+async function loadTopicMap(editorialRegistry) {
   const entries = await readdir(dataDir);
   const chapterFiles = entries.filter((fileName) => /^capitulo-\d+\.json$/.test(fileName)).sort();
   const topicMap = new Map();
+  const sectionEligibility = new Map(
+    (editorialRegistry.sections || []).map((section) => [section.sectionId, section])
+  );
 
   for (const fileName of chapterFiles) {
     const chapterId = fileName.match(/^capitulo-(\d+)\.json$/)?.[1] || "";
@@ -210,6 +214,8 @@ async function loadTopicMap() {
     const topics = Array.isArray(parsed?.topics) ? parsed.topics : [];
 
     for (const topic of topics) {
+      const editorial = sectionEligibility.get(String(topic.id || "").trim());
+      if (!editorial?.publicAvailable || !editorial?.seoEligible) continue;
       const normalizedUrl = String(topic.url || "").replace(/^\/+/, "");
       if (!normalizedUrl) continue;
       topicMap.set(normalizedUrl, {
@@ -475,8 +481,13 @@ async function writeRobotsFile() {
   await writeFile(path.join(rootDir, "robots.txt"), `${content}\n`, "utf8");
 }
 
-function collectSitemapUrls(topicMap, htmlFiles) {
+function collectSitemapUrls(topicMap, htmlFiles, editorialRegistry) {
   const urls = new Set();
+  const seoChapterIds = new Set(
+    (editorialRegistry.chapters || [])
+      .filter((chapter) => chapter.publicAvailable && chapter.seoEligible)
+      .map((chapter) => chapter.chapterId)
+  );
   urls.add(`${SITE_URL}/`);
   urls.add(`${SITE_URL}/home.html`);
   urls.add(`${SITE_URL}/conteudo.html`);
@@ -495,7 +506,7 @@ function collectSitemapUrls(topicMap, htmlFiles) {
   for (const filePath of htmlFiles) {
     const relativePath = toPosix(path.relative(rootDir, filePath));
     const chapterId = getSlideChapterId(relativePath);
-    if (chapterId) activeChapterIds.add(chapterId);
+    if (chapterId && seoChapterIds.has(chapterId)) activeChapterIds.add(chapterId);
   }
 
   for (const [relativeUrl] of topicMap.entries()) {
@@ -508,7 +519,8 @@ function collectSitemapUrls(topicMap, htmlFiles) {
 
   for (const filePath of htmlFiles) {
     const relativePath = toPosix(path.relative(rootDir, filePath));
-    if (!getSlideChapterId(relativePath)) continue;
+    const chapterId = getSlideChapterId(relativePath);
+    if (!chapterId || !seoChapterIds.has(chapterId)) continue;
     urls.add(`${SITE_URL}/${relativePath}`);
   }
 
@@ -534,8 +546,8 @@ function buildUrlsetXml(urls) {
   return xml;
 }
 
-async function writeSitemaps(topicMap, htmlFiles) {
-  const urls = collectSitemapUrls(topicMap, htmlFiles);
+async function writeSitemaps(topicMap, htmlFiles, editorialRegistry) {
+  const urls = collectSitemapUrls(topicMap, htmlFiles, editorialRegistry);
   const pageSitemapXml = buildUrlsetXml(urls);
   const sitemapText = `${Array.from(urls).join("\n")}\n`;
 
@@ -550,7 +562,7 @@ function buildChapterSections(topicMap) {
 
   for (const [relativeUrl, topic] of topicMap.entries()) {
     const chapterId = topic.chapterId || getSlideChapterId(relativeUrl);
-    if (!chapterId || chapterId === "05") continue;
+    if (!chapterId) continue;
 
     if (!chapters.has(chapterId)) {
       chapters.set(chapterId, {
@@ -1902,7 +1914,8 @@ async function writeGithubPagesBridge(topicMap) {
   await writeFile(path.join(docsDir, "sitemap.xml"), `${sitemapXml}\n`, "utf8");
 }
 
-const topicMap = await loadTopicMap();
+const editorialRegistry = JSON.parse(await readFile(editorialRegistryPath, "utf8"));
+const topicMap = await loadTopicMap(editorialRegistry);
 const htmlFiles = [path.join(rootDir, "index.html"), path.join(rootDir, "INSTRUCOES_SNIPPET.html"), ...(await collectHtmlFiles(slidesDir))];
 
 for (const filePath of htmlFiles) {
@@ -1913,6 +1926,6 @@ await writeHomePage(topicMap);
 await writeContentPage(topicMap);
 await writeGithubPagesBridge(topicMap);
 await writeRobotsFile();
-await writeSitemaps(topicMap, htmlFiles);
+await writeSitemaps(topicMap, htmlFiles, editorialRegistry);
 
 console.log(`SEO atualizado em ${htmlFiles.length} HTMLs, home.html, conteudo.html, docs/index.html, robots.txt, sitemap.xml, sitemap.txt e cópias de compatibilidade.`);

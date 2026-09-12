@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-11T21:23:42.300Z",
-  "source": "data/capitulo-*.json",
+  "generatedAt": "2026-09-11T23:53:52.804Z",
+  "source": "data/capitulo-*.json + data/termo-editorial-registry.json",
   "publishedChapterIds": [
     "01",
     "02",

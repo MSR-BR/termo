@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-09-11",
+  "statusValues": ["published", "planned", "blocked"],
+  "derivation": {
+    "sectionMetadata": "data/capitulo-*.json",
+    "sectionStatus": "inherits chapter status unless overridden",
+    "publicAvailability": "inherits chapter publicAvailable unless overridden",
+    "searchEligibility": "chapter and section must both be public and search eligible",
+    "seoEligibility": "chapter and section must both be public and SEO eligible",
+    "aiExerciseEligibility": "chapter must be public and AI eligible, and topic.aiExercise must be true"
+  },
+  "chapters": [
+    {
+      "chapterId": "01",
+      "title": "Conceitos Fundamentais",
+      "dataFile": "data/capitulo-01.json",
+      "status": "published",
+      "publicAvailable": true,
+      "searchEligible": true,
+      "seoEligible": true,
+      "aiExerciseEligible": true
+    },
+    {
+      "chapterId": "02",
+      "title": "Potenciais Termodinâmicos e Aplicações",
+      "dataFile": "data/capitulo-02.json",
+      "status": "published",
+      "publicAvailable": true,
+      "searchEligible": true,
+      "seoEligible": true,
+      "aiExerciseEligible": true
+    },
+    {
+      "chapterId": "03",
+      "title": "Termodinâmica Estatística",
+      "dataFile": "data/capitulo-03.json",
+      "status": "published",
+      "publicAvailable": true,
+      "searchEligible": true,
+      "seoEligible": true,
+      "aiExerciseEligible": true
+    },
+    {
+      "chapterId": "04",
+      "title": "Transições de Fase",
+      "dataFile": "data/capitulo-04.json",
+      "status": "published",
+      "publicAvailable": true,
+      "searchEligible": true,
+      "seoEligible": true,
+      "aiExerciseEligible": true
+    },
+    {
+      "chapterId": "05",
+      "title": "Processos Termodinâmicos",
+      "dataFile": "data/capitulo-05.json",
+      "status": "blocked",
+      "publicAvailable": false,
+      "searchEligible": false,
+      "seoEligible": false,
+      "aiExerciseEligible": false,
+      "blockedReason": "Capítulo em preparação editorial; publicação ainda não autorizada."
+    },
+    {
+      "chapterId": "06",
+      "title": "Ciclos Termodinâmicos",
+      "dataFile": "data/capitulo-06.json",
+      "status": "published",
+      "publicAvailable": true,
+      "searchEligible": true,
+      "seoEligible": true,
+      "aiExerciseEligible": true
+    }
+  ],
+  "sectionOverrides": {}
+}

@@ -6,6 +6,20 @@
   const mathLikePattern =
     /(?:\\[A-Za-z]+|[A-Za-z]_[A-Za-z0-9]+|[A-Za-z]\^[A-Za-z0-9]+|\b(?:sum|ln|exp|lim|frac|partial|sin|cos|tan|sinh|cosh)\b|[=+\-*/^_]|[Σ∑∂ΔΩβλμ→≤≥±≠∞])/;
   const DEFAULT_VALIDATOR_EMAILS = ["marioreis@id.uff.br"];
+  const scriptUrl = document.currentScript?.src || window.location.href;
+  const editorialRegistryUrl = new URL("../data/termo-editorial-registry.json", scriptUrl).href;
+  let editorialRegistryPromise = null;
+
+  function loadEditorialRegistry() {
+    if (!editorialRegistryPromise) {
+      editorialRegistryPromise = fetch(editorialRegistryUrl, { credentials: "same-origin" })
+        .then(function (response) {
+          if (!response.ok) throw new Error(`Registry editorial indisponível (${response.status}).`);
+          return response.json();
+        });
+    }
+    return editorialRegistryPromise;
+  }
 
   function sanitizeGeneratedExerciseText(value) {
     return String(value || "")
@@ -1319,11 +1333,29 @@
     void refreshValidationVisibility(host);
   }
 
-  function autoMount(root) {
+  async function autoMount(root) {
     const scope = root || document;
-    scope.querySelectorAll("[data-termo-ai-exercise]").forEach(function (host) {
-      mount(host);
-    });
+    const hosts = Array.from(scope.querySelectorAll("[data-termo-ai-exercise]"));
+    hosts.forEach(function (host) { host.hidden = true; });
+
+    try {
+      const registry = await loadEditorialRegistry();
+      const chapter = getChapterMeta();
+      const eligible = (registry.sections || []).some(function (section) {
+        return section.chapterId === chapter.chapterId &&
+          section.sectionId === chapter.itemId &&
+          section.publicAvailable === true &&
+          section.aiExerciseEligible === true;
+      });
+      if (!eligible) return;
+
+      hosts.forEach(function (host) {
+        host.hidden = false;
+        mount(host);
+      });
+    } catch (error) {
+      console.warn("TERMO: exercício IA ocultado porque o registry editorial não pôde ser validado.", error);
+    }
   }
 
   window.TermoAIExercise = {

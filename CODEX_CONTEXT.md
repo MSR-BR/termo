@@ -87,6 +87,29 @@ Public discovery / SEO entry points:
 
 Chapter 5 is intentionally disabled in the menu.
 
+## Editorial Registry
+
+The human-maintained publication policy is
+`data/termo-editorial-policy.json`. The generated, explicit registry consumed by
+the application and maintenance scripts is
+`data/termo-editorial-registry.json`; rebuild it with
+`npm run build:editorial-registry` and validate it with
+`npm run validate:editorial-registry`.
+
+The registry is the synchronization boundary for chapter and section status,
+public availability, search eligibility, SEO eligibility, and AI exercise
+eligibility. Search, sitemap generation, AI exercise catalogs, the exercise API,
+and chapter quiz catalogs must derive their allowlists from it rather than from
+new hardcoded chapter lists.
+
+For a published chapter, section-level AI exercise eligibility is derived from
+the canonical `aiExercise: true` field in `data/capitulo-*.json`. A visible HTML
+exercise host does not grant eligibility by itself. The browser hides an
+ineligible host, and the server rejects a request for an ineligible section.
+Chapter 5 is explicitly blocked in every public dimension and must include a
+documented reason until a new editorial decision changes the policy and all
+generated artifacts pass validation.
+
 ## Visual And Content Conventions
 
 - Treat chapter 2 as the source of truth for chapter layout, structure, and
