@@ -11,6 +11,6 @@
 - [x] Capítulo 5 bloqueado.
 - [x] Testes direcionados aprovados.
 - [x] Teste local no navegador aprovado.
-- [ ] Commit autorizado.
-- [ ] Push autorizado.
-- [ ] Deploy autorizado e validado.
+- [x] Commit autorizado.
+- [x] Push autorizado.
+- [x] Deploy autorizado e validado.

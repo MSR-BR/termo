@@ -20,4 +20,18 @@ Executada localmente em 2026-09-11.
 | Varredura de segredos | aprovada; nenhuma credencial incorporada |
 | Navegador: seção 2.3 | exercício IA visível e operável |
 | Navegador: seção 6.9 | conteúdo visível e exercício IA ausente |
-| Produção | não publicada nesta etapa |
+| Produção | publicada e validada em `https://termo.app.br` |
+
+Publicação em 2026-09-11:
+
+- commit de implementação: `1e1aaf0`;
+- deployment: `dpl_2k4ZBCgPAe6RK8zKNts3tynxdRsR`;
+- estado Vercel: `READY`;
+- aliases confirmados: `https://termo.app.br` e
+  `https://termo-theta.vercel.app`;
+- respostas públicas do registry, busca e páginas 2.3 e 6.9: HTTP 200;
+- tentativa de exercício para 6.9: HTTP 403 com
+  `section_not_ai_eligible`;
+- navegador em produção: exercício presente em 2.3, ausente em 6.9 e conteúdo
+  didático preservado;
+- logs de erro do novo deployment: nenhum encontrado no período verificado.

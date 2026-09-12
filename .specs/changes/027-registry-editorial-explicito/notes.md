@@ -19,3 +19,6 @@
   rejeitá-las; 43 seções permanecem elegíveis.
 - Decisão editorial futura possível: revisar individualmente as 18 seções
   públicas hoje inelegíveis antes de alterar seus dados canônicos.
+- CPD autorizado e concluído em 2026-09-11. A implementação foi publicada pelo
+  commit `1e1aaf0` no deployment Vercel
+  `dpl_2k4ZBCgPAe6RK8zKNts3tynxdRsR`.
