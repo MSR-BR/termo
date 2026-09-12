@@ -11,4 +11,4 @@
 - [x] Não há segredo ou conteúdo bloqueado no diff.
 - [x] Migration aplicada e testada no projeto Supabase TERMO.
 - [ ] Fluxo autenticado validado contra a base remota.
-- [ ] Commit, push e deploy autorizados e concluídos.
+- [x] Commit, push e deploy autorizados e concluídos.

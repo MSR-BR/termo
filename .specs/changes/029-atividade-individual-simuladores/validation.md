@@ -32,6 +32,14 @@
   execução da função, mas sem `INSERT` direto.
 - Commit de implementação: `5524e8b`; push e deploy ainda não realizados neste
   ponto do registro.
+- Commit de registro da migration: `2912552`; ambos enviados para `main`.
+- Deploy de produção: `dpl_8Zrx91xmH2yun6uqdLDsATQLLPSr`, estado `READY`,
+  com alias `https://termo.app.br`.
+- Smoke test de produção: HTML HTTP 200, marcação T29 e versão nova do módulo de
+  dados presentes; catálogo visível e simulador aberto em nova aba.
+- Teste anônimo pela Data API: leitura da tabela e execução da RPC recusadas com
+  HTTP 401, sem criar atividade.
+- Validação final com sessão autenticada real permanece pendente.
 
 ## Modelo realmente observado
 

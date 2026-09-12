@@ -13,5 +13,5 @@
 - [ ] Teste RLS executado contra banco preparado.
 - [ ] Validação autenticada remota concluída.
 - [x] Commit autorizado e criado.
-- [ ] Push autorizado.
-- [ ] Deploy autorizado e validado.
+- [x] Push autorizado e concluído.
+- [x] Deploy autorizado e validado.
