@@ -142,6 +142,12 @@ Simulator pages should keep the shared pattern:
 - version information;
 - opened from the app in a new tab.
 
+Authenticated simulator activity is stored separately from aggregate analytics
+in `public.simulator_activity`. The browser records it only through the atomic
+`record_simulator_open` RPC, and the user reads only their own rows through RLS.
+Anonymous simulator use remains unrestricted and does not create identifiable
+activity. Opening a simulator does not award gamification points.
+
 Known simulator mapping:
 - `S01`: chapter 1, section 1.3, `slides/capitulo-01/page_4.html`
 - `S02`: chapter 1, section 1.10, `slides/capitulo-01/page_11.html`

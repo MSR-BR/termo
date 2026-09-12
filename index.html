@@ -2066,6 +2066,99 @@
       padding: 12px 14px;
     }
 
+    .journey-simulator-summary {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .journey-simulator-summary span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid #CFE8D8;
+      border-radius: 999px;
+      background: #F5FFF8;
+      color: #17663A;
+      padding: 6px 10px;
+      font-size: 12.5px;
+      font-weight: 800;
+    }
+
+    .journey-simulator-activity {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .journey-simulator-item {
+      display: grid;
+      gap: 9px;
+      border: 1px solid #DDE8F6;
+      border-radius: 14px;
+      background: #FFFFFF;
+      padding: 15px;
+    }
+
+    .journey-simulator-item__top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .journey-simulator-item__code {
+      color: var(--red);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+    }
+
+    .journey-simulator-item__title {
+      color: var(--blue);
+      font-size: 16px;
+      font-weight: 800;
+      line-height: 1.3;
+    }
+
+    .journey-simulator-item__count {
+      flex: 0 0 auto;
+      border-radius: 999px;
+      background: #EAF2FD;
+      color: var(--blue);
+      padding: 5px 9px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .journey-simulator-item__dates {
+      display: grid;
+      gap: 3px;
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height: 1.4;
+    }
+
+    .journey-simulator-item__link {
+      justify-self: start;
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .journey-simulator-item__link:hover {
+      text-decoration: underline;
+    }
+
+    .journey-simulator-item__link:focus-visible {
+      outline: 3px solid rgba(0, 75, 135, 0.25);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
     .journey-steps {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -3557,7 +3650,7 @@
   const scripts = [
     "assets/termo-share.js?v=0611.3",
     "assets/termo-auth.js?v=0625.3",
-    "assets/termo-user-data.js?v=0611.3",
+    "assets/termo-user-data.js?v=0911.1",
     "assets/termo-analytics.js?v=0731.1",
     "assets/termo-rating.js?v=0831.1"
   ];
@@ -7731,7 +7824,88 @@
       `;
     }
 
-    function renderJourneyProfile(profile) {
+    function formatSimulatorActivityDate(value) {
+      if (!value) return "data não disponível";
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return "data não disponível";
+      return new Intl.DateTimeFormat("pt-BR", {
+        dateStyle: "short",
+        timeStyle: "short"
+      }).format(date);
+    }
+
+    function renderJourneySimulatorActivity(result) {
+      if (!result?.ok) {
+        return `
+          <section class="journey-section" aria-labelledby="journeySimulatorActivityTitle">
+            <div>
+              <div class="journey-section-title" id="journeySimulatorActivityTitle">Seus simuladores</div>
+              <div class="journey-section-note">
+                O histórico privado não pôde ser carregado agora. Os simuladores continuam disponíveis normalmente.
+              </div>
+            </div>
+          </section>
+        `;
+      }
+
+      const activities = Array.isArray(result.activities) ? result.activities : [];
+      const totalOpenings = activities.reduce(function (sum, activity) {
+        return sum + Math.max(0, Number(activity.openCount || 0));
+      }, 0);
+
+      return `
+        <section class="journey-section" aria-labelledby="journeySimulatorActivityTitle">
+          <div>
+            <div class="journey-section-title" id="journeySimulatorActivityTitle">Seus simuladores</div>
+            <div class="journey-section-note">
+              Histórico privado das suas aberturas. Abrir simuladores não gera pontos automaticamente.
+            </div>
+            <div class="journey-simulator-summary" aria-label="Resumo do histórico de simuladores">
+              <span><i class="fa-solid fa-desktop" aria-hidden="true"></i>${activities.length} ${pluralizePt(activities.length, "simulador", "simuladores")}</span>
+              <span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>${totalOpenings} ${pluralizePt(totalOpenings, "abertura", "aberturas")}</span>
+            </div>
+          </div>
+          ${activities.length
+            ? `<div class="journey-simulator-activity">
+                ${activities.map(function (activity) {
+                  const simulator = simulatorsBySlug[activity.simulatorSlug] || {
+                    id: activity.simulatorId,
+                    slug: activity.simulatorSlug,
+                    title: activity.simulatorTitle,
+                    standaloneUrl: activity.simulatorPath
+                  };
+                  const openCount = Math.max(0, Number(activity.openCount || 0));
+                  return `
+                    <article class="journey-simulator-item">
+                      <div class="journey-simulator-item__top">
+                        <div>
+                          <div class="journey-simulator-item__code">${escapeHtml(simulator.id)}</div>
+                          <div class="journey-simulator-item__title">${escapeHtml(simulator.title)}</div>
+                        </div>
+                        <span class="journey-simulator-item__count">${openCount}×</span>
+                      </div>
+                      <div class="journey-simulator-item__dates">
+                        <span>Primeira abertura: ${escapeHtml(formatSimulatorActivityDate(activity.firstOpenedAt))}</span>
+                        <span>Última abertura: ${escapeHtml(formatSimulatorActivityDate(activity.lastOpenedAt))}</span>
+                      </div>
+                      <a
+                        class="journey-simulator-item__link"
+                        href="${escapeHtml(simulator.standaloneUrl)}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        data-role="record-simulator-open"
+                        data-simulator-slug="${escapeHtml(simulator.slug)}"
+                      >Abrir novamente <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i></a>
+                    </article>
+                  `;
+                }).join("")}
+              </div>`
+            : `<div class="journey-empty">Você ainda não abriu um simulador enquanto estava conectado. Escolha um no catálogo para iniciar seu histórico.</div>`}
+        </section>
+      `;
+    }
+
+    function renderJourneyProfile(profile, simulatorActivityResult) {
       const summary = profile?.summary || {};
       const chapterProgress = Array.isArray(profile?.chapterProgress) ? profile.chapterProgress : [];
       const recentStudiedItems = Array.isArray(profile?.recentStudiedItems) ? profile.recentStudiedItems : [];
@@ -7789,6 +7963,8 @@
             )}
           </section>
 
+          ${renderJourneySimulatorActivity(simulatorActivityResult)}
+
           <section class="journey-section">
             <div>
               <div class="journey-section-title">Simulados por capítulo</div>
@@ -7813,6 +7989,7 @@
       `;
 
       attachJourneyMetricHelpHandlers(topicContainer);
+      attachSimulatorActivityHandlers(topicContainer);
     }
 
     async function renderJourney() {
@@ -7873,17 +8050,26 @@
 
       topicContainer.innerHTML = `<div class="empty-state"><strong>Carregando pontos e simulados...</strong><br />Buscando seu resumo de estudo.</div>`;
 
-      const result = await fetchJourneyProfile(session).catch(function (error) {
-        return { ok: false, reason: "unexpected_error", error };
-      });
+      const simulatorActivityPromise = typeof window.TermoUserData?.listSimulatorActivity === "function"
+        ? window.TermoUserData.listSimulatorActivity({ limit: 20 }).catch(function (error) {
+            return { ok: false, reason: "unexpected_error", error, activities: [] };
+          })
+        : Promise.resolve({ ok: false, reason: "user_data_unavailable", activities: [] });
+
+      const [result, simulatorActivityResult] = await Promise.all([
+        fetchJourneyProfile(session).catch(function (error) {
+          return { ok: false, reason: "unexpected_error", error };
+        }),
+        simulatorActivityPromise
+      ]);
 
       if (!result.ok) {
-        renderJourneyProfile(buildJourneyFallbackProfile(""));
+        renderJourneyProfile(buildJourneyFallbackProfile(""), simulatorActivityResult);
         return;
       }
 
       setCachedGamificationProfile(result.profile, state.userId);
-      renderJourneyProfile(result.profile);
+      renderJourneyProfile(result.profile, simulatorActivityResult);
     }
 
     async function renderDailyChallenge() {
@@ -9071,6 +9257,29 @@ Entre no ambiente para explorar os recursos disponíveis para o seu progresso.</
       });
     }
 
+    function attachSimulatorActivityHandlers(root) {
+      if (!root) return;
+
+      root.querySelectorAll("[data-role='record-simulator-open']").forEach(function (link) {
+        if (link.dataset.simulatorActivityBound === "true") return;
+        link.dataset.simulatorActivityBound = "true";
+
+        link.addEventListener("click", function () {
+          const simulator = simulatorsBySlug[String(link.dataset.simulatorSlug || "")];
+          if (!simulator) return;
+
+          void ensureAuthModules()
+            .then(function (modules) {
+              if (!modules.userData || typeof modules.userData.recordSimulatorOpen !== "function") return null;
+              return modules.userData.recordSimulatorOpen(simulator);
+            })
+            .catch(function () {
+              // A abertura do simulador nunca depende da persistência privada.
+            });
+        });
+      });
+    }
+
     function renderSimulatorCatalog() {
       topicContainer.innerHTML = `
         <div class="simulator-grid">
@@ -9096,6 +9305,8 @@ Entre no ambiente para explorar os recursos disponíveis para o seu progresso.</
                     href="${escapeHtml(simulator.standaloneUrl)}"
                     target="_blank"
                     rel="noopener noreferrer"
+                    data-role="record-simulator-open"
+                    data-simulator-slug="${escapeHtml(simulator.slug)}"
                   >
                     <i class="fa-solid fa-arrow-right"></i>
                     <span>Abrir simulador</span>
@@ -9107,6 +9318,8 @@ Entre no ambiente para explorar os recursos disponíveis para o seu progresso.</
           }).join("")}
         </div>
       `;
+
+      attachSimulatorActivityHandlers(topicContainer);
     }
 
     function renderSimulatorDetail(simulator) {
@@ -9121,7 +9334,7 @@ Entre no ambiente para explorar os recursos disponíveis para o seu progresso.</
                 <i class="fa-solid fa-arrow-left"></i>
                 <span>Voltar ao catálogo</span>
               </a>
-              <a class="simulator-detail__button simulator-detail__button--primary" href="${escapeHtml(simulator.standaloneUrl)}" target="_blank" rel="noopener noreferrer">
+              <a class="simulator-detail__button simulator-detail__button--primary" href="${escapeHtml(simulator.standaloneUrl)}" target="_blank" rel="noopener noreferrer" data-role="record-simulator-open" data-simulator-slug="${escapeHtml(simulator.slug)}">
                 <i class="fa-solid fa-up-right-from-square"></i>
                 <span>Abrir em nova aba sem cabeçalho</span>
               </a>
@@ -9134,6 +9347,7 @@ Entre no ambiente para explorar os recursos disponíveis para o seu progresso.</
       `;
 
       attachSimulatorFrameAutoResize(topicContainer.querySelector("#simulatorEmbeddedFrame"));
+      attachSimulatorActivityHandlers(topicContainer);
     }
 
     function renderSimulators() {

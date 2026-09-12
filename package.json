@@ -10,6 +10,7 @@
     "test:seo": "node --test tests/seo-artifacts.test.mjs",
     "test:editorial": "node --test tests/editorial-registry.test.mjs",
     "test:ai-source-manifest": "node --test tests/ai-exercise-source-manifest.test.mjs",
+    "test:simulator-activity": "node --test tests/simulator-activity.test.mjs",
     "build:editorial-registry": "node scripts/build-termo-editorial-registry.mjs",
     "validate:editorial-registry": "node scripts/validate-termo-editorial-registry.mjs",
     "build:ai-source-manifest": "npm run build:editorial-registry && node scripts/build-ai-exercise-source-manifest.mjs",

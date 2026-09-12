@@ -2,6 +2,7 @@
   if (window.TermoUserData) return;
 
   const TABLE_NAME = "saved_exercises";
+  const SIMULATOR_ACTIVITY_TABLE = "simulator_activity";
   const FAVORITE_ITEMS_KEY = "termo_favorite_items";
   const MAX_FAVORITE_ITEMS = 120;
 
@@ -168,6 +169,110 @@
     }
 
     return { ok: true, record: data };
+  }
+
+  function normalizeSimulatorActivityInput(input) {
+    const record = input || {};
+    const simulatorId = String(record.id || record.simulatorId || "").trim().toUpperCase();
+    const simulatorSlug = String(record.slug || record.simulatorSlug || "").trim().toLowerCase();
+    const simulatorTitle = String(record.title || record.simulatorTitle || "").replace(/\s+/g, " ").trim();
+    const simulatorPath = String(record.standaloneUrl || record.path || record.simulatorPath || "")
+      .split(/[?#]/)[0]
+      .replace(/^\/+/, "")
+      .trim();
+
+    if (!/^S\d{2}$/.test(simulatorId)) return null;
+    if (!/^[a-z0-9][a-z0-9_-]{0,79}$/.test(simulatorSlug)) return null;
+    if (!simulatorTitle || simulatorTitle.length > 160) return null;
+    if (simulatorPath !== `simulators/${simulatorSlug}.html`) return null;
+
+    return {
+      simulatorId,
+      simulatorSlug,
+      simulatorTitle,
+      simulatorPath
+    };
+  }
+
+  function normalizeSimulatorActivityRow(row) {
+    return {
+      simulatorId: String(row?.simulator_id || ""),
+      simulatorSlug: String(row?.simulator_slug || ""),
+      simulatorTitle: String(row?.simulator_title || ""),
+      simulatorPath: String(row?.simulator_path || ""),
+      firstOpenedAt: row?.first_opened_at || null,
+      lastOpenedAt: row?.last_opened_at || null,
+      openCount: Math.max(0, Number(row?.open_count || 0))
+    };
+  }
+
+  async function recordSimulatorOpen(input) {
+    const normalized = normalizeSimulatorActivityInput(input);
+    if (!normalized) {
+      return { ok: false, reason: "invalid_simulator" };
+    }
+
+    const supabase = await ensureSupabase();
+    const session = await getSession();
+
+    if (!supabase) {
+      return { ok: false, reason: "auth_not_configured" };
+    }
+
+    if (!session?.user?.id || session.user.is_anonymous) {
+      return { ok: false, reason: "not_authenticated" };
+    }
+
+    const { data, error } = await supabase
+      .rpc("record_simulator_open", {
+        p_simulator_id: normalized.simulatorId,
+        p_simulator_slug: normalized.simulatorSlug,
+        p_simulator_title: normalized.simulatorTitle,
+        p_simulator_path: normalized.simulatorPath
+      })
+      .single();
+
+    if (error) {
+      return { ok: false, reason: "record_failed", error };
+    }
+
+    const activity = normalizeSimulatorActivityRow(data);
+    window.dispatchEvent(new CustomEvent("termo-simulator-activity-change", {
+      detail: { activity }
+    }));
+
+    return { ok: true, activity };
+  }
+
+  async function listSimulatorActivity(options) {
+    const config = options || {};
+    const limit = Math.min(50, Math.max(1, Number(config.limit || 20)));
+    const supabase = await ensureSupabase();
+    const session = await getSession();
+
+    if (!supabase) {
+      return { ok: false, reason: "auth_not_configured", activities: [] };
+    }
+
+    if (!session?.user?.id || session.user.is_anonymous) {
+      return { ok: false, reason: "not_authenticated", activities: [] };
+    }
+
+    const { data, error } = await supabase
+      .from(SIMULATOR_ACTIVITY_TABLE)
+      .select("simulator_id, simulator_slug, simulator_title, simulator_path, first_opened_at, last_opened_at, open_count")
+      .eq("user_id", session.user.id)
+      .order("last_opened_at", { ascending: false })
+      .limit(limit);
+
+    if (error) {
+      return { ok: false, reason: "query_failed", error, activities: [] };
+    }
+
+    return {
+      ok: true,
+      activities: (data || []).map(normalizeSimulatorActivityRow)
+    };
   }
 
   async function readApiPayload(response) {
@@ -502,6 +607,8 @@
     reviewValidationReport,
     listAppRatings,
     deleteAppRating,
+    recordSimulatorOpen,
+    listSimulatorActivity,
     listFavoriteItems,
     toggleFavoriteItem,
     listFavoriteChapters,

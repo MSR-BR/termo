@@ -16,7 +16,7 @@ concorrentes com o mesmo número.
 | 026 | `026-busca-publica-conteudo-revisado` | `gpt-5.6-terra / medium` | `gpt-5.6-sol / medium` | publicada |
 | 027 | `027-registry-editorial-explicito` | `gpt-5.6-sol / medium` | `gpt-5.6-sol / high` | publicada |
 | 028 | `028-manifesto-fontes-exercicios-ia` | `gpt-5.6-sol / high` | `gpt-5.6-sol / xhigh` | publicada |
-| 029 | `029-atividade-individual-simuladores` | `gpt-5.6-sol / medium` | `gpt-5.6-sol / high` | planejada |
+| 029 | `029-atividade-individual-simuladores` | `gpt-5.6-sol / medium` | `gpt-5.6-sol / high` | em validação local; migration não aplicada |
 | 030 | `030-auditoria-paridade-termo-quantum` | `gpt-5.6-sol / high` | `gpt-5.6-sol / xhigh` | planejada |
 
 Os documentos datados em `changes/` constituem o histórico anterior e não são
