@@ -6,11 +6,11 @@
 - [x] `npm run test:simulator-activity`
 - [x] `npm run test:analytics`
 - [x] `npm run test:gamification`
-- [ ] `npx supabase test db`
+- [x] teste RLS equivalente executado no Supabase TERMO
 - [x] `git diff --check`
 - [x] revisão do diff, SQL, RLS e segredos
 - [x] validação visual desktop/mobile e por teclado do fluxo público/anônimo
-- [ ] validação autenticada contra o Supabase TERMO
+- [x] validação autenticada contra o Supabase TERMO
 
 ## Evidência de execução
 
@@ -39,7 +39,16 @@
   dados presentes; catálogo visível e simulador aberto em nova aba.
 - Teste anônimo pela Data API: leitura da tabela e execução da RPC recusadas com
   HTTP 401, sem criar atividade.
-- Validação final com sessão autenticada real permanece pendente.
+- Em 2026-09-12, uma sessão Google real registrou o simulador S01; a jornada
+  exibiu primeira e última abertura e a repetição elevou a contagem de 1 para 2,
+  sem alterar os 690 pontos existentes e sem erros no console do navegador.
+- O teste autenticado foi realizado na sessão ativa
+  `mario.reis.junior@gmail.com`; a conta `marioreis@id.uff.br` não estava ativa
+  no TERMO durante essa validação.
+- Isolamento RLS remoto validado com dois usuários temporários: cada identidade
+  enxergou somente a própria linha, os incrementos 2× e 1× foram preservados e a
+  transação foi revertida integralmente ao final.
+- T29 encerrada sem pendências funcionais em 2026-09-12.
 
 ## Modelo realmente observado
 

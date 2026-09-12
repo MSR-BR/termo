@@ -13,7 +13,6 @@
 - O registro ocorre no clique do catálogo/jornada e nunca impede a abertura da
   nova aba quando Supabase, sessão ou rede falham.
 - O GA4 continua independente e não foi modificado.
-- Status de publicação: implementação local; sem commit, push, deploy ou mutation
-  remota do Supabase.
-- Decisão humana pendente: autorizar aplicação da migration e validação no projeto
-  Supabase TERMO antes do CPD.
+- Status de publicação: migration aplicada, implementação publicada e fluxo
+  anônimo/autenticado validado em produção.
+- Decisões humanas pendentes: nenhuma para a T29.

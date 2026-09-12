@@ -10,8 +10,8 @@
 - [x] Visitante e falha de persistência permanecem sem bloqueio.
 - [x] Ausência de pontos automáticos preservada.
 - [x] Migration aplicada no Supabase TERMO.
-- [ ] Teste RLS executado contra banco preparado.
-- [ ] Validação autenticada remota concluída.
+- [x] Teste RLS executado contra banco preparado.
+- [x] Validação autenticada remota concluída.
 - [x] Commit autorizado e criado.
 - [x] Push autorizado e concluído.
 - [x] Deploy autorizado e validado.

@@ -10,5 +10,5 @@
 - [x] Analytics agregado não foi alterado e seus testes continuam passando.
 - [x] Não há segredo ou conteúdo bloqueado no diff.
 - [x] Migration aplicada e testada no projeto Supabase TERMO.
-- [ ] Fluxo autenticado validado contra a base remota.
+- [x] Fluxo autenticado validado contra a base remota.
 - [x] Commit, push e deploy autorizados e concluídos.
