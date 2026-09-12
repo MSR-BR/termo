@@ -6,7 +6,7 @@
 - [x] O bloco possui título, descrição, legenda e links úteis.
 - [x] O player é alcançável e operável por teclado.
 - [x] O gerador SEO preserva o bloco e publica metadata de vídeo válida.
-- [ ] O vídeo e a capa respondem HTTP 200 no ambiente publicado.
-- [ ] A reprodução foi validada na landing publicada.
+- [x] O vídeo e a capa respondem HTTP 200 no ambiente publicado.
+- [x] A reprodução foi validada na landing publicada.
 - [x] O uso em anúncios e redes sociais permanece explicitamente pendente.
 - [x] Não há segredo, dado pessoal novo ou conteúdo bloqueado no diff.

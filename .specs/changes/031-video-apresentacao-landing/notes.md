@@ -13,6 +13,9 @@
 - Nenhum novo evento de GA4 foi adicionado nesta Change.
 - Google Ads, LinkedIn e outras campanhas serão considerados somente depois da
   próxima análise estatística.
-- Commit: não realizado.
-- Push: não realizado.
-- Deploy: não realizado.
+- Commit funcional: `33ab38e573999e8f199cd9bd81da658ed70672ab`.
+- Push: concluído em `origin/main`.
+- Publicação: concluída e validada em `https://termo.app.br/`.
+- Execução de publicação observada no GitHub Pages: `34724901151`, sucesso.
+- O domínio público respondeu pela Vercel e serviu o MP4 e a capa com os tipos
+  MIME esperados.

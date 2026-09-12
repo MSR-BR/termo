@@ -10,4 +10,5 @@
 - [x] Validação visual e por teclado concluída.
 - [x] Uso publicitário futuro registrado.
 - [x] Modelo real registrado somente como não exposto.
-- [x] Commit, push e deploy registrados como não realizados.
+- [x] Commit, push e publicação concluídos e registrados.
+- [x] Landing, vídeo e capa validados no domínio público.

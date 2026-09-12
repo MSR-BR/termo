@@ -11,7 +11,7 @@
 - [x] revisão do diff e de segredos
 - [x] validação visual desktop/mobile e por teclado
 - [x] smoke HTTP local do vídeo e da capa
-- [ ] validação de produção após deploy autorizado
+- [x] validação de produção após deploy autorizado
 
 ## Evidência de execução
 
@@ -38,7 +38,17 @@
 - Revisão visual: capa legível, conteúdo sem corte e coerente com as cores da
   landing.
 - `git diff --check`: aprovado.
-- Produção: não executada; depende de CPD autorizado.
+- Commit funcional: `33ab38e573999e8f199cd9bd81da658ed70672ab`.
+- Push: `main` enviada para `origin/main` em 2026-09-12.
+- Automação GitHub Pages: execução `34724901151`, concluída com sucesso.
+- Produção: `https://termo.app.br/home.html#video-apresentacao` carregada pela
+  Vercel; landing, MP4 e capa responderam HTTP 200, com `video/mp4` e
+  `image/png` corretos.
+- Navegador em produção: duração 65,566667 s, quadro 576 × 976, controles
+  ativos, autoplay desligado, metadata `VideoObject` presente e nenhum erro no
+  console.
+- Reprodução em produção: o tempo avançou após o acionamento e o player voltou
+  ao estado pausado no segundo acionamento.
 
 ## Modelo realmente observado
 
