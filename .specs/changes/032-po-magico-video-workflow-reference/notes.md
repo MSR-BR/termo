@@ -7,4 +7,6 @@
 - O Pó Mágico é mantido no repositório próprio e não é copiado para o TERMO.
 - Esta Change é exclusivamente documental e não altera o runtime.
 - Commit/push do Pó Mágico: concluídos em `9d634d2`.
-- Commit/push/publicação do TERMO: pendentes neste registro inicial.
+- Commit funcional do TERMO: `1ff718c513478fdaca78eaa2a9ebe94ddd27d213`.
+- Push do TERMO: concluído em `origin/main`.
+- Publicação documental: concluída pela execução `34725973102`.

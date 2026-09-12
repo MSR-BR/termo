@@ -9,4 +9,4 @@
 - [x] Referência fixa do TERMO atualizada.
 - [x] Rota planejada e rota observada registradas separadamente.
 - [x] Gates finais do TERMO aprovados.
-- [ ] CPD do TERMO concluído.
+- [x] CPD do TERMO concluído.

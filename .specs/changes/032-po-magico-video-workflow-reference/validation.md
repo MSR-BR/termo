@@ -10,7 +10,7 @@
 - [x] confirmação do arquivo na revisão externa;
 - [x] `npm run check` no TERMO;
 - [x] revisão de segredos e `git diff --check` no TERMO;
-- [ ] confirmação da revisão final publicada.
+- [x] confirmação da revisão final publicada.
 
 ## Evidência disponível
 
@@ -26,3 +26,10 @@
   encontrado no escopo.
 - Modelo e reasoning reais: `não expostos`.
 - Tokens, custo e latência: `não medidos`.
+- Commit funcional do TERMO:
+  `1ff718c513478fdaca78eaa2a9ebe94ddd27d213`.
+- Push: `origin/main`, concluído em 2026-09-12.
+- Publicação GitHub Pages: execução `34725973102`, deployment `6415631167`,
+  estado final `success`.
+- Impacto de runtime: nenhum; a Change modifica somente documentação e
+  governança versionada.

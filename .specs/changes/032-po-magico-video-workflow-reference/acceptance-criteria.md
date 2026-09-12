@@ -8,4 +8,4 @@
 - [x] A revisão `9d634d2c2957dca2c61380f4665f2da019d6ae99` existe no remoto.
 - [x] As referências duráveis do TERMO apontam para o mesmo arquivo e revisão.
 - [x] Nenhum arquivo funcional do TERMO foi modificado.
-- [ ] Commit, push e publicação da atualização no TERMO concluídos.
+- [x] Commit, push e publicação da atualização no TERMO concluídos.
