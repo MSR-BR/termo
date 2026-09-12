@@ -17,8 +17,8 @@ Project classification:
 
 The active methodology reference is the Pó Mágico repository
 `git@github.com:MSR-BR/po-magico.git`, file
-`po_magico_v20260910.003.md`, verified at revision
-`270f01439d7b54181ce32817e94add3f54cb2862` (2026-09-10). The reference is
+`po_magico_v20260912.002.md`, verified at revision
+`9d634d2c2957dca2c61380f4665f2da019d6ae99` (2026-09-12). The reference is
 external: do not copy it into this repository or modify its preserved source
 version as part of ordinary TERMO work.
 

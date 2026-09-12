@@ -19,6 +19,7 @@ concorrentes com o mesmo número.
 | 029 | `029-atividade-individual-simuladores` | `gpt-5.6-sol / medium` | `gpt-5.6-sol / high` | publicada e validada |
 | 030 | `030-auditoria-paridade-termo-quantum` | `gpt-5.6-sol / high` | `gpt-5.6-sol / xhigh` | planejada |
 | 031 | `031-video-apresentacao-landing` | `gpt-5.6-terra / medium` | `gpt-5.6-sol / medium` | publicada e validada em produção |
+| 032 | `032-po-magico-video-workflow-reference` | `gpt-5.6-terra / medium` | `gpt-5.6-sol / medium` | validada localmente; publicação pendente |
 
 Os documentos datados em `changes/` constituem o histórico anterior e não são
 renumerados. A busca pública já implementada localmente será reconciliada como

@@ -1,17 +1,22 @@
 # Referência metodológica do Pó Mágico
 
 - Repositório: `git@github.com:MSR-BR/po-magico.git`
-- Arquivo ativo: `po_magico_v20260910.003.md`
-- Revisão verificada: `270f01439d7b54181ce32817e94add3f54cb2862`
-- Data da revisão: 2026-09-10
-- Assunto da revisão: `docs: learn Sol Ultra route from translation`
-- Verificado em: 2026-09-11
+- Arquivo ativo: `po_magico_v20260912.002.md`
+- Revisão verificada: `9d634d2c2957dca2c61380f4665f2da019d6ae99`
+- Data da revisão: 2026-09-12
+- Assunto da revisão: `docs: learn TERMO landing video workflow`
+- Verificado em: 2026-09-12
 
 ## Uso no TERMO
 
 O TERMO adota a classificação
 `INTERACTIVE_BOOK + EDUCATIONAL_MATERIAL + APP` e aplica o sistema de Changes,
 os gates e a política adaptativa de modelos do arquivo indicado acima.
+
+A revisão atual também incorpora o aprendizado validado da Change 031 sobre
+preservação da mídia original, integração do vídeo pela fonte canônica da
+landing, acessibilidade, metadata `VideoObject`, verificação de reprodução no
+domínio público e separação entre publicação, campanhas e analytics.
 
 Esta referência aponta para uma fonte externa preservada. Atualizações futuras
 do Pó Mágico exigem uma Change própria que registre o novo arquivo e a nova
