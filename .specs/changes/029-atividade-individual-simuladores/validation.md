@@ -25,8 +25,13 @@
 - Viewport móvel: `scrollWidth = clientWidth = 390`; nenhum transbordamento horizontal.
 - Abertura em nova aba preservada nos links de simuladores; falhas de registro não bloqueiam a navegação.
 - `npx supabase test db --local supabase/tests/simulator_activity_rls_test.sql`: não executado porque não há stack Supabase local disponível em `127.0.0.1:54322`.
-- Migration remota: não aplicada; exige autorização explícita.
-- Commit, push e deploy: não realizados.
+- Migration remota: aplicada em 2026-09-11 no projeto TERMO
+  (`guifkjjuxsdgwjlhkmnx`) pelo editor SQL do painel autenticado.
+- Verificação remota: tabela existente, RLS habilitada, uma policy; `anon` sem
+  `SELECT`, `INSERT` ou execução da função; `authenticated` com `SELECT` e
+  execução da função, mas sem `INSERT` direto.
+- Commit de implementação: `5524e8b`; push e deploy ainda não realizados neste
+  ponto do registro.
 
 ## Modelo realmente observado
 

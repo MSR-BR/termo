@@ -9,9 +9,9 @@
 - [x] Jornada e catálogo integrados.
 - [x] Visitante e falha de persistência permanecem sem bloqueio.
 - [x] Ausência de pontos automáticos preservada.
-- [ ] Migration aplicada no Supabase TERMO.
+- [x] Migration aplicada no Supabase TERMO.
 - [ ] Teste RLS executado contra banco preparado.
 - [ ] Validação autenticada remota concluída.
-- [ ] Commit autorizado.
+- [x] Commit autorizado e criado.
 - [ ] Push autorizado.
 - [ ] Deploy autorizado e validado.
