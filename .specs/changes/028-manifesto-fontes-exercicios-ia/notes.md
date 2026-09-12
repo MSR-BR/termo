@@ -16,3 +16,6 @@
 - A memória de erros confirmados continua filtrada por `avoid_propagation = true`
   e `review_status = approved`.
 - Decisões humanas pendentes: nenhuma para as 43 seções atualmente elegíveis.
+- CPD autorizado pelo usuário e concluído em 2026-09-11.
+- Implementação publicada a partir do commit `51106a1` no deployment
+  `dpl_NV4QUp1cRJWYzsnbmm1LL7MXiMh5`.

@@ -10,6 +10,6 @@
 - [x] Memória de correções preservada.
 - [x] Página técnica sincronizada.
 - [x] Testes de falha fechada aprovados.
-- [ ] Commit autorizado.
-- [ ] Push autorizado.
-- [ ] Deploy autorizado e validado.
+- [x] Commit autorizado.
+- [x] Push autorizado.
+- [x] Deploy autorizado e validado.

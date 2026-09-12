@@ -28,4 +28,20 @@ Executada localmente em 2026-09-11.
 | Sintaxe JS/MJS e JSON | aprovada |
 | `git diff --check` e whitespace | aprovados |
 | Varredura de segredos e caminhos pessoais | aprovada |
-| Produção | não publicada nesta etapa |
+| Produção | publicada e validada em 2026-09-11 |
+
+## Publicação
+
+- Commit de implementação: `51106a1` (`feat: add AI exercise source manifest`).
+- Deployment Vercel: `dpl_NV4QUp1cRJWYzsnbmm1LL7MXiMh5`.
+- Estado: `READY`, alvo `production`.
+- Build: concluído em 3 s.
+- URL de produção: `https://termo.app.br`.
+- Aliases confirmados: `termo.app.br`, `termo-theta.vercel.app` e
+  `termo-msr-brs-projects.vercel.app`.
+- Manifesto publicado: HTTP 200; 43 entradas, 43 aprovadas, nenhuma do
+  capítulo 5 e nenhum caminho pessoal absoluto.
+- Índice técnico publicado: HTTP 200.
+- API em seção inelegível (`04` / `4.1`): HTTP 403 com
+  `section_not_ai_eligible`, sem chamada ao provedor de IA.
+- Logs de erro após a publicação: nenhum registro encontrado.
