@@ -4,11 +4,15 @@
   const STORAGE_KEY = "termo_app_rating_v1";
   const VISIT_GAP_MS = 30 * 60 * 1000;
   const DISMISS_MS = 30 * 24 * 60 * 60 * 1000;
+  const FAILURE_COOLDOWN_MS = 60 * 60 * 1000;
   const OPEN_DELAY_MS = 5000;
   const MAX_TRACKED_PAGES = 30;
   let selectedRating = 0;
   let activeDialog = null;
   let previousFocus = null;
+  let openTimer = 0;
+  let cachedAccessToken = "";
+  let cachedRatedStatus = null;
 
   function readState() {
     try {
@@ -25,13 +29,6 @@
     } catch (_error) {
       /* A avaliacao continua funcionando na sessao atual sem persistencia local. */
     }
-  }
-
-  function createVisitorToken() {
-    if (window.crypto && typeof window.crypto.randomUUID === "function") {
-      return window.crypto.randomUUID().replace(/-/g, "");
-    }
-    return "tr_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2, 18);
   }
 
   function pageReference() {
@@ -52,7 +49,6 @@
   function updateVisitState() {
     const now = Date.now();
     const state = readState();
-    if (!state.visitorToken) state.visitorToken = createVisitorToken();
     if (!state.lastSeenAt || now - Number(state.lastSeenAt) >= VISIT_GAP_MS) {
       state.visitCount = Number(state.visitCount || 0) + 1;
       state.pagesThisVisit = [];
@@ -73,6 +69,7 @@
   function isEligible(state) {
     if (state.ratedAt) return false;
     if (Number(state.dismissedUntil || 0) > Date.now()) return false;
+    if (Number(state.submitFailedUntil || 0) > Date.now()) return false;
     const visits = Number(state.visitCount || 0);
     const contentViews = Number(state.contentViewCount || 0);
     return visits >= 3 || (visits >= 2 && contentViews >= 2);
@@ -82,6 +79,48 @@
     if (window.TermoAnalytics && typeof window.TermoAnalytics.track === "function") {
       window.TermoAnalytics.track(eventName, properties || {});
     }
+  }
+
+  async function getAuthenticatedSession() {
+    const startedAt = Date.now();
+    while ((!window.TermoAuth || typeof window.TermoAuth.getSession !== "function") && Date.now() - startedAt < 5000) {
+      await new Promise(function (resolve) {
+        window.setTimeout(resolve, 50);
+      });
+    }
+    if (!window.TermoAuth || typeof window.TermoAuth.getSession !== "function") return null;
+    return window.TermoAuth.getSession().catch(function () {
+      return null;
+    });
+  }
+
+  async function hasExistingRating(accessToken) {
+    if (cachedAccessToken === accessToken && typeof cachedRatedStatus === "boolean") {
+      return cachedRatedStatus;
+    }
+    const response = await fetch("/api/app-rating?scope=status", {
+      headers: { Authorization: `Bearer ${accessToken}` },
+      credentials: "same-origin",
+      cache: "no-store"
+    });
+    if (!response.ok) throw new Error("rating_status_failed");
+    const payload = await response.json().catch(function () {
+      return {};
+    });
+    if (typeof payload.rated !== "boolean") throw new Error("rating_status_invalid");
+    cachedAccessToken = accessToken;
+    cachedRatedStatus = payload.rated;
+    return payload.rated;
+  }
+
+  function rememberCompletedRating(rating) {
+    const state = readState();
+    state.ratedAt = state.ratedAt || Date.now();
+    if (rating) state.rating = rating;
+    delete state.dismissedUntil;
+    delete state.submitFailedUntil;
+    writeState(state);
+    cachedRatedStatus = true;
   }
 
   function closeDialog() {
@@ -154,11 +193,16 @@
 
     const state = readState();
     try {
+      const session = await getAuthenticatedSession();
+      if (!session?.access_token) throw new Error("rating_auth_required");
       const response = await fetch("/api/app-rating", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          Authorization: `Bearer ${session.access_token}`,
+          "Content-Type": "application/json"
+        },
+        credentials: "same-origin",
         body: JSON.stringify({
-          visitorToken: state.visitorToken,
           rating: selectedRating,
           feedback: feedback.value,
           pagePath: pageReference(),
@@ -168,17 +212,17 @@
       });
       if (!response.ok) throw new Error("rating_submit_failed");
 
-      state.ratedAt = Date.now();
-      state.rating = selectedRating;
-      delete state.dismissedUntil;
-      writeState(state);
+      cachedAccessToken = session.access_token;
+      rememberCompletedRating(selectedRating);
       track("rating_submitted", { rating: selectedRating, has_feedback: Boolean(feedback.value.trim()) });
       status.textContent = "Obrigado! Sua opinião ajuda a melhorar o TERMO.";
       window.setTimeout(closeDialog, 1300);
     } catch (_error) {
+      state.submitFailedUntil = Date.now() + FAILURE_COOLDOWN_MS;
+      writeState(state);
       submit.disabled = false;
       dismissButton.disabled = false;
-      status.textContent = "Não foi possível enviar agora. Tente novamente.";
+      status.textContent = "Não foi possível enviar agora. Você pode tentar novamente nesta tela.";
     }
   }
 
@@ -190,7 +234,7 @@
       '<section class="termo-rating-dialog" role="dialog" aria-modal="true" aria-labelledby="termo-rating-title" aria-describedby="termo-rating-copy">',
       '  <p class="termo-rating-eyebrow">Sua experiência</p>',
       '  <h2 class="termo-rating-title" id="termo-rating-title">Como você avalia o TERMO?</h2>',
-      '  <p class="termo-rating-copy" id="termo-rating-copy">Escolha de 1 a 5 estrelas. Sua resposta é anônima e leva poucos segundos.</p>',
+      '  <p class="termo-rating-copy" id="termo-rating-copy">Escolha de 1 a 5 estrelas. Não armazenamos seu nome ou e-mail junto à avaliação.</p>',
       '  <div class="termo-rating-stars" role="group" aria-label="Escolha uma nota de 1 a 5">',
       [1, 2, 3, 4, 5].map(function (value) {
         return '<button class="termo-rating-star" type="button" data-termo-rating-star="' + value + '" aria-label="' + value + (value === 1 ? ' estrela' : ' estrelas') + '" aria-pressed="false">★</button>';
@@ -221,10 +265,24 @@
     return backdrop;
   }
 
-  function openDialog() {
+  async function openDialog() {
     if (activeDialog || document.querySelector("[data-termo-rating-backdrop]")) return;
     const state = readState();
     if (!isEligible(state)) return;
+    const session = await getAuthenticatedSession();
+    if (!session?.access_token) return;
+    let alreadyRated = false;
+    try {
+      alreadyRated = await hasExistingRating(session.access_token);
+    } catch (_error) {
+      return;
+    }
+    if (alreadyRated) {
+      rememberCompletedRating();
+      return;
+    }
+    if (activeDialog || document.querySelector("[data-termo-rating-backdrop]")) return;
+    if (!isEligible(readState())) return;
     previousFocus = document.activeElement;
     activeDialog = buildDialog();
     document.body.appendChild(activeDialog);
@@ -236,14 +294,27 @@
     });
   }
 
+  function scheduleOpen(delay) {
+    window.clearTimeout(openTimer);
+    openTimer = window.setTimeout(function () {
+      void openDialog();
+    }, delay);
+  }
+
   function boot() {
     const state = updateVisitState();
     if (!isEligible(state)) return;
-    window.setTimeout(openDialog, OPEN_DELAY_MS);
+    scheduleOpen(OPEN_DELAY_MS);
   }
 
+  window.addEventListener("termo-auth-state-change", function (event) {
+    if (event.detail?.session?.access_token && isEligible(readState())) {
+      scheduleOpen(OPEN_DELAY_MS);
+    }
+  });
+
   window.TermoRating = {
-    open: openDialog,
+    open: function () { return openDialog(); },
     isEligible: function () { return isEligible(readState()); }
   };
 

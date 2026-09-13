@@ -4,6 +4,7 @@ export default async function handler(req, res) {
   const response = await handleAppRatingRequest({
     method: req.method,
     headers: req.headers,
+    query: req.query,
     body: req.body,
     env: process.env
   });
