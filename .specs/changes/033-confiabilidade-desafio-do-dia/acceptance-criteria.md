@@ -13,4 +13,4 @@
 - [x] Simulados completos continuam com cinco perguntas.
 - [x] `npm run check`, testes focados, smokes e `git diff --check` passam.
 - [x] Nenhum segredo ou conteúdo bloqueado aparece no diff.
-- [x] Commit, push e deploy permanecem não realizados.
+- [x] Commit, push e deploy realizados somente após autorização explícita do usuário.

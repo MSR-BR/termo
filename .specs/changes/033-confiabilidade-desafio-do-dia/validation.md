@@ -26,6 +26,8 @@
 - Interface: rota local carregada corretamente no estado sem login, sem overlay nem erro de console, sem rolagem horizontal em 390 px e com ação de login alcançável por teclado. O estado de contingência foi validado pela API local e o estado de falha por teste controlado; não havia sessão autenticada local para repetir visualmente a jornada completa.
 - Falha encontrada: a versão anterior pedia cinco perguntas, convertia a modalidade em `during`, só tinha catálogo estático para dois capítulos e mostrava o erro técnico.
 - Correção aplicada: modalidade própria de uma pergunta, reparo de baixa temperatura, contingência editorial assinada, diagnóstico seguro, `502` e nova tentativa com intervalo.
+- Publicação: commit funcional `d88ed9a` enviado a `origin/main`; deploy Vercel `dpl_BdKtJR2KMb7SPAt4hMXKLfS8TpMy` concluído como `Ready` e associado a `termo.app.br` e `termo-theta.vercel.app`.
+- Produção: o endpoint canônico respondeu `200` em aproximadamente 2,5 s, com `questionCount: 1`, `chapterId: 01`, token assinado e fonte `ai_generated_on_demand`. A consulta aos logs da janela de publicação não encontrou respostas 5xx.
 
 ## Modelo realmente observado
 

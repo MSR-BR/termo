@@ -15,6 +15,6 @@ Tornar o desafio do dia resiliente a respostas matemáticas inválidas ou a indi
 
 ## Limites
 
-- Fora do escopo: avaliação do app, Supabase, pontos, autenticação, capítulos, SEO, landing, simuladores e deploy.
+- Fora do escopo funcional: avaliação do app, Supabase, pontos, autenticação, capítulos, SEO, landing e simuladores. O deploy foi executado depois, como etapa de liberação autorizada.
 - Dependências: registro editorial, dados estruturados dos capítulos, corpus, índice temático e API Gemini já existentes.
-- Decisões humanas necessárias: nenhuma para a implementação local; publicação depende de autorização posterior.
+- Decisões humanas necessárias: nenhuma pendente; a publicação posterior foi autorizada explicitamente.

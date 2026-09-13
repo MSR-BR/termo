@@ -13,4 +13,4 @@
 ## Riscos que impedem conclusão
 
 - Nenhum risco bloqueia a implementação local.
-- Publicação e teste autenticado em produção permanecem dependentes de autorização explícita.
+- A publicação foi autorizada e concluída; a jornada visual autenticada integral permanece como verificação complementar, sem bloquear o contrato funcional já validado em produção.

@@ -11,4 +11,6 @@
 - [x] Correção e contingência registradas.
 - [x] Modelo real não inferido sem evidência.
 - [x] Decisões humanas pendentes registradas.
-- [x] Deploy registrado como não realizado.
+- [x] Commit funcional `d88ed9a` enviado a `origin/main`.
+- [x] Deploy de produção `dpl_BdKtJR2KMb7SPAt4hMXKLfS8TpMy` confirmado como `Ready`.
+- [x] Endpoint do desafio validado no domínio canônico após a publicação.

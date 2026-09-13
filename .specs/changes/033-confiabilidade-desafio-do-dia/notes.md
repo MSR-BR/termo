@@ -17,12 +17,12 @@
 
 ## Decisões humanas pendentes
 
-- Autorizar ou não commit, push e deploy.
-- Após publicação, executar uma jornada autenticada real no domínio canônico.
+- Repetir oportunamente a jornada visual completa com uma sessão autenticada real no domínio canônico; o contrato funcional da geração já foi validado em produção.
 
 ## Status de publicação
 
-- Commit: não realizado.
-- Push: não realizado.
-- Deploy: não realizado.
+- Commit funcional: `d88ed9a` (`fix: make daily challenge resilient`).
+- Push: enviado a `origin/main` em 2026-09-13.
+- Deploy: produção `dpl_BdKtJR2KMb7SPAt4hMXKLfS8TpMy`, estado `Ready`, aliases `termo.app.br` e `termo-theta.vercel.app`.
+- Validação pós-deploy: `GET /api/chapter-quiz?chapterId=01&stage=daily-challenge` respondeu `200`, com uma pergunta, token assinado e fonte `ai_generated_on_demand`; nenhuma resposta 5xx foi encontrada nos logs da janela de publicação.
 - Estado local: implementado e validado.

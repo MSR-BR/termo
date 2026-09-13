@@ -10,4 +10,4 @@
 8. [x] Criar estado amigável de falha, intervalo e botão de nova tentativa.
 9. [x] Validar todos os capítulos elegíveis e a exclusão do capítulo 5.
 10. [x] Executar gates locais e revisar o diff.
-11. [ ] Publicar somente após autorização explícita.
+11. [x] Publicar após autorização explícita e validar o endpoint no domínio canônico.
