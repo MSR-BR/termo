@@ -6395,6 +6395,12 @@
       return `termoDailyChallengeV1:${userId || "anonymous"}:${dateKey}`;
     }
 
+    const DAILY_CHALLENGE_RETRY_COOLDOWN_MS = 60 * 1000;
+
+    function getDailyChallengeFailureStorageKey(userId, chapterId, dateKey = getDailyChallengeDateKey()) {
+      return `termoDailyChallengeFailureV1:${userId || "anonymous"}:${dateKey}:${chapterId || "unknown"}`;
+    }
+
     function hashDailyChallengeSeed(value) {
       return String(value || "").split("").reduce(function (hash, char) {
         return ((hash << 5) - hash + char.charCodeAt(0)) | 0;
@@ -6420,6 +6426,78 @@
       } catch (_error) {
         return;
       }
+    }
+
+    function readDailyChallengeFailureState(userId, chapterId) {
+      try {
+        const raw = window.localStorage?.getItem(getDailyChallengeFailureStorageKey(userId, chapterId)) || "";
+        const parsed = raw ? JSON.parse(raw) : null;
+        return parsed && Number(parsed.retryAfter || 0) > Date.now() ? parsed : null;
+      } catch (_error) {
+        return null;
+      }
+    }
+
+    function writeDailyChallengeFailureState(userId, chapterId) {
+      const failure = {
+        retryAfter: Date.now() + DAILY_CHALLENGE_RETRY_COOLDOWN_MS
+      };
+      try {
+        window.localStorage?.setItem(
+          getDailyChallengeFailureStorageKey(userId, chapterId),
+          JSON.stringify(failure)
+        );
+      } catch (_error) {
+        return failure;
+      }
+      return failure;
+    }
+
+    function clearDailyChallengeFailureState(userId, chapterId) {
+      try {
+        window.localStorage?.removeItem(getDailyChallengeFailureStorageKey(userId, chapterId));
+      } catch (_error) {
+        return;
+      }
+    }
+
+    function renderDailyChallengeGenerationError(userId, chapterId, failureState = null) {
+      const waitMs = Math.max(0, Number(failureState?.retryAfter || 0) - Date.now());
+      const waiting = waitMs > 0;
+      topicContainer.innerHTML = `
+        <div class="empty-state">
+          <strong>Não foi possível preparar o desafio agora.</strong><br />
+          Aguarde um instante e tente novamente. Você também pode continuar estudando normalmente.<br /><br />
+          <button class="saved-card__button saved-card__button--primary" data-role="daily-challenge-retry" type="button" ${waiting ? "disabled" : ""}>
+            <i class="fa-solid fa-rotate-right"></i>
+            <span>${waiting ? "Nova tentativa disponível em instantes" : "Tentar novamente"}</span>
+          </button>
+          <a class="saved-card__button" href="index.html?view=journey">
+            <i class="fa-solid fa-seedling"></i>
+            Ver pontos e simulados
+          </a>
+          <span class="journey-quiz__error" aria-live="polite" data-role="daily-challenge-retry-status"></span>
+        </div>
+      `;
+
+      const retryButton = topicContainer.querySelector("[data-role='daily-challenge-retry']");
+      const retryStatus = topicContainer.querySelector("[data-role='daily-challenge-retry-status']");
+      const enableRetry = function () {
+        if (!retryButton?.isConnected) return;
+        retryButton.disabled = false;
+        const label = retryButton.querySelector("span");
+        if (label) label.textContent = "Tentar novamente";
+        if (retryStatus) retryStatus.textContent = "Uma nova tentativa já está disponível.";
+      };
+
+      if (waiting) {
+        window.setTimeout(enableRetry, waitMs);
+      }
+
+      retryButton?.addEventListener("click", function () {
+        clearDailyChallengeFailureState(userId, chapterId);
+        void renderDailyChallenge();
+      });
     }
 
     function getDailyChallengeEligibleChapters(profile) {
@@ -6480,6 +6558,7 @@
           chapterCode: quiz.chapterCode,
           chapterTitle: quiz.chapterTitle,
           note: quiz.note || "",
+          source: quiz.source || "ai_generated_on_demand",
           quizToken: quiz.quizToken || "",
           questions: [question],
           questionCount: 1
@@ -8172,23 +8251,23 @@
 
       let challenge = chapter === savedChapter ? savedChallenge : null;
       if (!challenge?.quiz?.questions?.length) {
+        const activeFailure = readDailyChallengeFailureState(state.userId, chapter.id);
+        if (activeFailure) {
+          renderDailyChallengeGenerationError(state.userId, chapter.id, activeFailure);
+          return;
+        }
+
         const quizResult = await fetchJourneyQuiz(chapter.id, "daily-challenge").catch(function (error) {
           return { ok: false, error };
         });
 
         if (!quizResult.ok || !quizResult.quiz) {
-          topicContainer.innerHTML = `
-            <div class="empty-state">
-              <strong>Não foi possível gerar o desafio agora.</strong><br />
-              ${escapeHtml(quizResult.error || "Tente novamente em alguns segundos. A pergunta é criada por IA a partir do capítulo escolhido.")}<br /><br />
-              <a class="saved-card__button" href="index.html?view=journey">
-                <i class="fa-solid fa-seedling"></i>
-                Ver pontos e simulados
-              </a>
-            </div>
-          `;
+          const failureState = writeDailyChallengeFailureState(state.userId, chapter.id);
+          renderDailyChallengeGenerationError(state.userId, chapter.id, failureState);
           return;
         }
+
+        clearDailyChallengeFailureState(state.userId, chapter.id);
 
         const question = pickDailyChallengeQuestion(quizResult.quiz, state.userId);
         if (!question) {
@@ -8207,6 +8286,10 @@
 
       const quiz = challenge.quiz || {};
       const question = Array.isArray(quiz.questions) ? quiz.questions[0] : null;
+      const isCanonicalFallback = quiz.source === "canonical_daily_challenge_fallback";
+      const generationNotice = isCanonicalFallback
+        ? "A pergunta de contingência foi montada automaticamente a partir do índice editorial publicado e pode ser relatada para revisão."
+        : "O desafio do dia é um experimento didático; a pergunta, as alternativas e a explicação são geradas automaticamente por IA e podem conter erros conceituais, matemáticos ou pedagógicos.";
 
       if (!question) {
         topicContainer.innerHTML = `
@@ -8228,8 +8311,7 @@
             </div>
             <div class="journey-quiz__disclaimer">
               <strong>Aviso importante:</strong> todo o conteúdo didático das páginas e do livro associado foi criado pelo autor do material.
-              O desafio do dia é um experimento didático; a pergunta, as alternativas e a explicação são geradas automaticamente por IA e
-              <strong>podem conter erros conceituais, matemáticos ou pedagógicos</strong>. Erros detectados podem ser relatados abaixo ou enviados para
+              ${escapeHtml(generationNotice)} Erros detectados podem ser relatados abaixo ou enviados para
               <a href="mailto:contatos@termo.app.br">contatos@termo.app.br</a>.
             </div>
           </section>

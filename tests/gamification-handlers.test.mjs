@@ -1,4 +1,6 @@
 import assert from "node:assert/strict";
+import { existsSync, readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import test from "node:test";
 
 import {
@@ -8,6 +10,7 @@ import {
 import { handleGamificationEventRequest } from "../lib/gamification-event-handler.mjs";
 import { handleGamificationProfileRequest } from "../lib/gamification-profile-handler.mjs";
 import { handleChapterQuizRequest } from "../lib/chapter-quiz-handler.mjs";
+import { openAiQuizToken } from "../lib/gamification-ai-quiz.mjs";
 
 const BASE_ENV = {
   PUBLIC_SUPABASE_URL: "https://example.supabase.co",
@@ -86,6 +89,191 @@ test("chapter quiz GET can generate AI quiz for any active chapter without touch
   assert.match(response.body.quiz.quizKey, /^ai-cap01-before-/);
   assert.equal(typeof response.body.quiz.quizToken, "string");
   assert.ok(response.body.quiz.quizToken.length > 20);
+});
+
+test("daily challenge requests exactly one question and preserves its own stage", async function () {
+  const response = await handleChapterQuizRequest({
+    method: "GET",
+    query: {
+      chapterId: "01",
+      stage: "daily-challenge"
+    },
+    env: {
+      ...BASE_ENV,
+      TERMO_AI_QUIZ_MOCK: "true"
+    }
+  });
+
+  assert.equal(response.status, 200);
+  assert.equal(response.body.ok, true);
+  assert.equal(response.body.quiz.questionCount, 1);
+  assert.match(response.body.quiz.quizKey, /^ai-cap01-daily-challenge-/);
+});
+
+test("daily challenge falls back to published chapter metadata after math repair fails", async function () {
+  const generationEnv = {
+    ...BASE_ENV,
+    GEMINI_API_KEY: "fake-key",
+    TERMO_QUIZ_TOKEN_SECRET: "test-daily-fallback"
+  };
+  const invalidDraft = {
+    note: "Pergunta com matematica crua",
+    questions: [
+      {
+        prompt: "Qual relacao representa F = U - TS neste contexto?",
+        options: {
+          a: "Helmholtz",
+          b: "Entalpia",
+          c: "Gibbs",
+          d: "Entropia"
+        },
+        correct: "a",
+        explanation: "A relacao F = U - TS define o potencial.",
+        reviewItem: "1.1",
+        reviewTitle: "Conceitos Fundamentais",
+        reviewPath: "slides/capitulo-01/page_2.html",
+        reviewWhy: "Rever F = U - TS.",
+        reviewCheck: {
+          prompt: "F = U - TS esta formatada corretamente?",
+          options: { a: "Sim", b: "Nao" },
+          correct: "a",
+          reinforcement: "Retome o item indicado."
+        }
+      }
+    ]
+  };
+  const prompts = [];
+  const diagnostics = [];
+  const originalWarn = console.warn;
+  console.warn = function (...values) {
+    diagnostics.push(values.join(" "));
+  };
+
+  try {
+    const response = await withMockedFetch(async function (_url, options = {}) {
+      const request = JSON.parse(String(options.body || "{}"));
+      prompts.push(request.contents?.[0]?.parts?.[0]?.text || "");
+      return createJsonResponse({
+        candidates: [
+          {
+            content: {
+              parts: [{ text: JSON.stringify(invalidDraft) }]
+            }
+          }
+        ]
+      });
+    }, async function () {
+      return handleChapterQuizRequest({
+        method: "GET",
+        query: {
+          chapterId: "01",
+          stage: "daily-challenge"
+        },
+        env: generationEnv
+      });
+    });
+
+    assert.equal(prompts.length, 2);
+    assert.match(prompts[0], /Crie exatamente 1 questao em portugues/);
+    assert.match(prompts[0], /Momento metodologico: desafio do dia/);
+    assert.equal(response.status, 200);
+    assert.equal(response.body.ok, true);
+    assert.equal(response.body.source, "canonical_daily_challenge_fallback");
+    assert.equal(response.body.quiz.source, "canonical_daily_challenge_fallback");
+    assert.equal(response.body.quiz.questionCount, 1);
+    assert.match(response.body.quiz.quizKey, /^fallback-cap01-daily-challenge-/);
+    assert.equal(typeof response.body.quiz.quizToken, "string");
+    assert.ok(response.body.quiz.quizToken.length > 20);
+    const sealedQuiz = openAiQuizToken(response.body.quiz.quizToken, generationEnv);
+    assert.match(sealedQuiz.questions[0].prompt, /corresponde à descrição/);
+    assert.doesNotMatch(sealedQuiz.questions[0].prompt, /corresponde a a/);
+    assert.equal(
+      existsSync(resolve(process.cwd(), sealedQuiz.questions[0].reviewPath)),
+      true
+    );
+    assert.equal(diagnostics.length, 1);
+    assert.match(diagnostics[0], /daily_challenge_generation_fallback/);
+    assert.doesNotMatch(diagnostics[0], /F = U - TS/);
+  } finally {
+    console.warn = originalWarn;
+  }
+});
+
+test("daily challenge canonical fallback covers every eligible chapter and excludes chapter 05", async function () {
+  const chapterIds = ["01", "02", "03", "04", "06"];
+  const fallbackEnv = {
+    ...BASE_ENV,
+    TERMO_QUIZ_TOKEN_SECRET: "test-all-daily-fallbacks"
+  };
+  const diagnostics = [];
+  const originalWarn = console.warn;
+  console.warn = function (...values) {
+    diagnostics.push(values.join(" "));
+  };
+
+  try {
+    for (const chapterId of chapterIds) {
+      const response = await handleChapterQuizRequest({
+        method: "GET",
+        query: { chapterId, stage: "daily-challenge" },
+        env: fallbackEnv
+      });
+
+      assert.equal(response.status, 200);
+      assert.equal(response.body.source, "canonical_daily_challenge_fallback");
+      assert.equal(response.body.quiz.questionCount, 1);
+      const sealedQuiz = openAiQuizToken(response.body.quiz.quizToken, fallbackEnv);
+      assert.equal(sealedQuiz.chapterId, chapterId);
+      assert.equal(existsSync(resolve(process.cwd(), sealedQuiz.questions[0].reviewPath)), true);
+    }
+
+    const blockedResponse = await handleChapterQuizRequest({
+      method: "GET",
+      query: { chapterId: "05", stage: "daily-challenge" },
+      env: fallbackEnv
+    });
+    assert.equal(blockedResponse.status, 404);
+    assert.equal(diagnostics.length, chapterIds.length);
+  } finally {
+    console.warn = originalWarn;
+  }
+});
+
+test("chapter quiz generation failures use an upstream failure status instead of not found", async function () {
+  const diagnostics = [];
+  const originalWarn = console.warn;
+  console.warn = function (...values) {
+    diagnostics.push(values.join(" "));
+  };
+
+  try {
+    const response = await handleChapterQuizRequest({
+      method: "GET",
+      query: {
+        chapterId: "01",
+        stage: "after"
+      },
+      env: {
+        ...BASE_ENV
+      }
+    });
+
+    assert.equal(response.status, 502);
+    assert.equal(response.body.code, "provider_not_configured");
+    assert.equal(diagnostics.length, 1);
+  } finally {
+    console.warn = originalWarn;
+  }
+});
+
+test("daily challenge UI hides technical errors and exposes an accessible bounded retry", function () {
+  const appSource = readFileSync(resolve(process.cwd(), "index.html"), "utf8");
+
+  assert.match(appSource, /DAILY_CHALLENGE_RETRY_COOLDOWN_MS = 60 \* 1000/);
+  assert.match(appSource, /data-role="daily-challenge-retry" type="button"/);
+  assert.match(appSource, /data-role="daily-challenge-retry-status"/);
+  assert.match(appSource, /aria-live="polite"/);
+  assert.doesNotMatch(appSource, /Simulado gerado com matematica fora do contrato de exibicao/);
 });
 
 test("gamification event uses RPC path when feature flag is enabled", async function () {

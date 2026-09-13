@@ -20,6 +20,7 @@ concorrentes com o mesmo número.
 | 030 | `030-auditoria-paridade-termo-quantum` | `gpt-5.6-sol / high` | `gpt-5.6-sol / xhigh` | planejada |
 | 031 | `031-video-apresentacao-landing` | `gpt-5.6-terra / medium` | `gpt-5.6-sol / medium` | publicada e validada em produção |
 | 032 | `032-po-magico-video-workflow-reference` | `gpt-5.6-terra / medium` | `gpt-5.6-sol / medium` | publicada e validada |
+| 033 | `033-confiabilidade-desafio-do-dia` | `gpt-5.6-sol / high` | `gpt-5.6-terra / high` | implementada e validada localmente; não publicada |
 
 Os documentos datados em `changes/` constituem o histórico anterior e não são
 renumerados. A busca pública já implementada localmente será reconciliada como
