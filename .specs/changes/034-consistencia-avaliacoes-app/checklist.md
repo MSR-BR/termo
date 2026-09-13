@@ -9,6 +9,6 @@
 - [x] Testes e checks aprovados.
 - [x] Privacidade e acessibilidade revisadas.
 - [x] Diff e segredos revisados; ocorrências encontradas são apenas valores fictícios de teste.
-- [ ] Commit e push realizados.
-- [ ] Deploy e produção validados.
-- [ ] Change encerrada.
+- [x] Commit funcional `161eb7b` e push realizados.
+- [x] Deploy `dpl_FbeVb4GcF5grcsgNjXM21kL9gd6w` e produção validados.
+- [x] Change encerrada.

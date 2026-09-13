@@ -10,4 +10,4 @@
 - [x] Falha de envio impede nova abertura automática durante uma hora.
 - [x] A política e o diálogo explicam que nome e e-mail não acompanham a avaliação.
 - [x] Testes, checks, revisão visual e `git diff --check` passam.
-- [ ] CPD ocorre somente depois dos gates locais.
+- [x] CPD ocorreu somente depois dos gates locais.

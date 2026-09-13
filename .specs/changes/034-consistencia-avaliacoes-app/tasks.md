@@ -8,5 +8,5 @@
 6. [x] Criar intervalo após falha e corrigir a mensagem de privacidade.
 7. [x] Ampliar testes de segurança, idempotência e regressão.
 8. [x] Executar validações locais e visuais.
-9. [ ] Fazer commit, push, acompanhar deploy e validar produção.
-10. [ ] Registrar evidências e encerrar a change.
+9. [x] Fazer commit, push, acompanhar deploy e validar produção.
+10. [x] Registrar evidências e encerrar a change.

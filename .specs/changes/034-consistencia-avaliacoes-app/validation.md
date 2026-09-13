@@ -12,7 +12,7 @@
 - [x] testar visualmente estados autenticado, não autenticado, já avaliado e falha controlada quando disponíveis.
 - [x] testar teclado, foco, desktop e mobile.
 - [x] `git diff --check`.
-- [ ] pós-deploy: endpoint anônimo negado, assets atualizados e ausência de 5xx.
+- [x] pós-deploy: endpoint anônimo negado, assets atualizados e ausência de 5xx.
 
 ## Evidência de execução
 
@@ -26,6 +26,9 @@
 - Banco: nenhum arquivo em `supabase/migrations` foi criado ou alterado; RLS, revogações públicas e índice único atuais foram cobertos por teste.
 - Segurança: o payload persistido contém somente o hash HMAC e os campos da avaliação; identificadores brutos, nome, e-mail e token não são gravados. As únicas strings semelhantes a credenciais no diff são valores fictícios em testes.
 - Navegador: app local carregou sem overlay, aviso ou erro de console. Um harness temporário, removido após a validação, confirmou diálogo em desktop e 390 px sem overflow, foco e envio por teclado, supressão para conta já avaliada, intervalo após falha e ausência de repetição após sucesso.
+- Publicação: commit funcional `161eb7b` enviado a `origin/main`; deploy Vercel `dpl_FbeVb4GcF5grcsgNjXM21kL9gd6w` concluído como `Ready` e associado aos dois aliases públicos.
+- Produção: `GET /api/app-rating?scope=status` sem sessão e POST anônimo retornaram `401`; `index.html`, `assets/termo-rating.js?v=0913.1` e a política com vigência em 13/09/2026 responderam `200` e contêm os novos contratos. Nenhuma resposta 5xx apareceu nos logs da janela de publicação.
+- Limitação honesta: uma submissão autenticada real não foi feita para evitar criar ou alterar uma avaliação em nome do administrador; o caminho autenticado foi coberto por testes de contrato e pelo navegador com serviço controlado.
 
 ## Modelo realmente observado
 

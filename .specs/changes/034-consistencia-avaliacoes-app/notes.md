@@ -21,6 +21,7 @@ Não será feita mudança de domínio nesta change. A deduplicação no servidor
 
 ## Publicação
 
-- Commit: pendente.
-- Push: pendente.
-- Deploy: pendente.
+- Commit funcional: `161eb7b` (`fix: deduplicate ratings by account`).
+- Push: enviado a `origin/main` em 2026-09-13.
+- Deploy: `dpl_FbeVb4GcF5grcsgNjXM21kL9gd6w`, produção `Ready`, aliases `termo.app.br` e `termo-theta.vercel.app`.
+- Produção: consulta de estado e POST sem sessão retornaram `401`; asset versionado, intervalo e política atualizada foram confirmados; nenhum 5xx foi encontrado na janela de publicação.
