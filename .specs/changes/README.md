@@ -22,6 +22,7 @@ concorrentes com o mesmo número.
 | 032 | `032-po-magico-video-workflow-reference` | `gpt-5.6-terra / medium` | `gpt-5.6-sol / medium` | publicada e validada |
 | 033 | `033-confiabilidade-desafio-do-dia` | `gpt-5.6-sol / high` | `gpt-5.6-terra / high` | publicada e validada em produção |
 | 034 | `034-consistencia-avaliacoes-app` | `gpt-5.6-sol / xhigh` | `gpt-5.5 / xhigh` | publicada e validada em produção |
+| 035 | `035-inventario-publico-migracao` | `gpt-5.6-sol / high` | `gpt-5.6-terra / high` | concluída localmente; privatização suspensa |
 
 Os documentos datados em `changes/` constituem o histórico anterior e não são
 renumerados. A busca pública já implementada localmente será reconciliada como
@@ -36,5 +37,15 @@ rota real somente com evidência. Campos desconhecidos recebem `não exposto` ou
 As rotas acima são o ponto de partida e não comprovam execução. Escalonamentos
 seguem falhas observáveis de validação. O ambiente consultado em 2026-09-11
 expôs Luna, Terra e Sol; Astra não foi anunciado pelo host desta tarefa.
+
+## Decisão sobre a visibilidade do repositório
+
+Em 14/09/2026, após a auditoria T35, foi decidido manter `MSR-BR/termo`
+público. O programa de privatização e as propostas T37–T40 foram suspensos e
+não devem ser executados sem uma nova decisão humana explícita. Uma futura T36
+poderá tratar somente da fronteira pública do Vercel e da proteção do índice
+administrativo, sem alterar a visibilidade do GitHub. Essa proteção reduz a
+exposição pelas URLs do produto, mas não torna confidenciais arquivos que
+continuem rastreados no repositório público.
 
 Use `_template/` para novas Changes.
