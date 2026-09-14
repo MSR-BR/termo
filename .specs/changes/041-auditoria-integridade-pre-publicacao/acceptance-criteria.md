@@ -8,4 +8,4 @@
 - [x] O capítulo 5 permaneceu bloqueado.
 - [x] Nenhuma correção funcional foi necessária.
 - [x] Nenhum segredo ou dado pessoal foi adicionado ao diff.
-- [ ] Commit, push, deploy e verificação pós-deploy foram concluídos.
+- [x] Commit, push, deploy e verificação pós-deploy foram concluídos.

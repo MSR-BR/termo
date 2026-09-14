@@ -11,8 +11,8 @@
 - [x] auditoria de referências locais.
 - [x] auditoria HTTP das rotas públicas.
 - [x] validação visual e funcional no navegador.
-- [ ] `git diff --check`, revisão final e busca de segredos.
-- [ ] validação pós-deploy.
+- [x] `git diff --check`, revisão final e busca de segredos.
+- [x] validação pós-deploy.
 
 ## Evidência de execução
 
@@ -41,6 +41,17 @@
   catálogo; os simuladores atuais usam páginas dedicadas e nova aba, conforme a
   convenção registrada no projeto.
 - Correção aplicada: nenhuma; não houve falha reproduzível.
+- Gates finais: `git diff --check` aprovado; revisão do diff e varredura de
+  segredos aprovadas.
+- Commit auditado: `511d442`; push concluído em `origin/main`.
+- Deploy de produção: `dpl_HkZiJYJkWHnEv8Zs5yWVGFdncikF`, estado `Ready`,
+  promovido para `https://termo.app.br` e `https://termo-theta.vercel.app`.
+- Pós-deploy HTTP: 114/114 rotas e recursos responderam `200` com conteúdo
+  significativo, inclusive `/api/public-config`.
+- Pós-deploy no navegador: landing, busca com 17 resultados para `entropia`,
+  capítulo 1 e simulador S05 renderizaram corretamente.
+- Logs Vercel: nenhum erro de runtime nem resposta `5xx` encontrado na janela
+  de validação.
 
 ## Modelo realmente observado
 

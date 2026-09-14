@@ -23,7 +23,7 @@ concorrentes com o mesmo número.
 | 033 | `033-confiabilidade-desafio-do-dia` | `gpt-5.6-sol / high` | `gpt-5.6-terra / high` | publicada e validada em produção |
 | 034 | `034-consistencia-avaliacoes-app` | `gpt-5.6-sol / xhigh` | `gpt-5.5 / xhigh` | publicada e validada em produção |
 | 035 | `035-inventario-publico-migracao` | `gpt-5.6-sol / high` | `gpt-5.6-terra / high` | publicada e validada; privatização suspensa |
-| 041 | `041-auditoria-integridade-pre-publicacao` | `gpt-5.6-sol / high` | `gpt-5.6-terra / high` | em validação para CPD |
+| 041 | `041-auditoria-integridade-pre-publicacao` | `gpt-5.6-sol / high` | `gpt-5.6-terra / high` | publicada e validada em produção |
 
 Os documentos datados em `changes/` constituem o histórico anterior e não são
 renumerados. A busca pública já implementada localmente será reconciliada como

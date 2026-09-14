@@ -21,6 +21,10 @@ varredura HTTP completa e os testes automatizados do repositório.
 
 ## Status de publicação
 
-- Commit: aguardando gate final.
-- Push: aguardando commit.
-- Deploy: aguardando push e validação final.
+- Commit auditado: `511d442`.
+- Push: `main` publicada em `origin/main`.
+- Deploy: `dpl_HkZiJYJkWHnEv8Zs5yWVGFdncikF`, estado `Ready`.
+- Domínios validados: `https://termo.app.br` e
+  `https://termo-theta.vercel.app`.
+- Verificação pós-deploy: 114/114 rotas válidas, superfícies principais
+  renderizadas e nenhum erro de runtime ou resposta `5xx` encontrado.

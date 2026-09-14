@@ -8,4 +8,4 @@
 6. [x] Solicitar as rotas públicas no servidor local.
 7. [x] Inspecionar fluxos representativos no navegador.
 8. [x] Classificar achados e aplicar correções somente quando necessárias.
-9. [ ] Executar gates finais, commit, push, deploy e validação de produção.
+9. [x] Executar gates finais, commit, push, deploy e validação de produção.

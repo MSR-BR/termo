@@ -10,4 +10,4 @@
 - [x] Ausência de quebra funcional registrada.
 - [x] Modelo real registrado somente com evidência.
 - [x] Decisões humanas pendentes registradas.
-- [ ] Gates finais e CPD concluídos.
+- [x] Gates finais e CPD concluídos.
