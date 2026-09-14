@@ -23,6 +23,7 @@ concorrentes com o mesmo número.
 | 033 | `033-confiabilidade-desafio-do-dia` | `gpt-5.6-sol / high` | `gpt-5.6-terra / high` | publicada e validada em produção |
 | 034 | `034-consistencia-avaliacoes-app` | `gpt-5.6-sol / xhigh` | `gpt-5.5 / xhigh` | publicada e validada em produção |
 | 035 | `035-inventario-publico-migracao` | `gpt-5.6-sol / high` | `gpt-5.6-terra / high` | publicada e validada; privatização suspensa |
+| 041 | `041-auditoria-integridade-pre-publicacao` | `gpt-5.6-sol / high` | `gpt-5.6-terra / high` | em validação para CPD |
 
 Os documentos datados em `changes/` constituem o histórico anterior e não são
 renumerados. A busca pública já implementada localmente será reconciliada como
@@ -49,3 +50,7 @@ exposição pelas URLs do produto, mas não torna confidenciais arquivos que
 continuem rastreados no repositório público.
 
 Use `_template/` para novas Changes.
+
+A numeração salta de 035 para 041 porque a T36 permanece reservada ao hardening
+independente do Vercel, enquanto T37–T40 continuam suspensas pela decisão
+registrada na T35.
