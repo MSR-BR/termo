@@ -34,6 +34,12 @@ modifica nenhuma interface ou comportamento do produto.
   seções elegíveis para exercícios IA; `git diff --check` foi aprovado.
 - Diff: somente o registro da Change 035 e o roadmap canônico foram alterados;
   nenhum arquivo do produto, SEO, deploy ou configuração remota entrou no diff.
+- Commit: `c2c5002`, enviado a `origin/main`.
+- Vercel: deployment `dpl_F86MWMkts55dg5btVQws1TGrCMUb` concluído como
+  `Ready` e associado a `termo.app.br` e `termo-theta.vercel.app`.
+- Produção após o deploy: `home.html` e `index.html` em `termo.app.br`,
+  `home.html` no domínio Vercel e a ponte GitHub Pages responderam `200`.
+- GitHub Pages: build do commit `c2c5002` concluído como `built`.
 
 ## Limitações verificadas
 

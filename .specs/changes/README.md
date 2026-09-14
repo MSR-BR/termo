@@ -22,7 +22,7 @@ concorrentes com o mesmo número.
 | 032 | `032-po-magico-video-workflow-reference` | `gpt-5.6-terra / medium` | `gpt-5.6-sol / medium` | publicada e validada |
 | 033 | `033-confiabilidade-desafio-do-dia` | `gpt-5.6-sol / high` | `gpt-5.6-terra / high` | publicada e validada em produção |
 | 034 | `034-consistencia-avaliacoes-app` | `gpt-5.6-sol / xhigh` | `gpt-5.5 / xhigh` | publicada e validada em produção |
-| 035 | `035-inventario-publico-migracao` | `gpt-5.6-sol / high` | `gpt-5.6-terra / high` | concluída localmente; privatização suspensa |
+| 035 | `035-inventario-publico-migracao` | `gpt-5.6-sol / high` | `gpt-5.6-terra / high` | publicada e validada; privatização suspensa |
 
 Os documentos datados em `changes/` constituem o histórico anterior e não são
 renumerados. A busca pública já implementada localmente será reconciliada como

@@ -122,9 +122,12 @@ no bundle server-side e testando explicitamente que caminhos internos retornam
 
 ## Status de publicação
 
-- Commit: não realizado.
-- Push: não realizado.
-- Deploy: não realizado.
-- Mutação remota: nenhuma.
+- Commit funcional/documental: `c2c5002` (`docs: record suspended repository privacy plan`).
+- Push: enviado a `origin/main` em 14/09/2026.
+- Deploy Vercel: `dpl_F86MWMkts55dg5btVQws1TGrCMUb`, produção `Ready`, com
+  aliases `termo.app.br` e `termo-theta.vercel.app`.
+- GitHub Pages: build do commit `c2c5002` concluído como `built`.
+- Mudanças remotas: somente push e publicações automáticas autorizadas pelo CPD;
+  nenhuma configuração ou visibilidade foi alterada.
 - Visibilidade do GitHub: permanece pública, sem alteração.
 - Programa de privatização: suspenso por decisão humana em 14/09/2026.
