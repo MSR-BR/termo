@@ -4,6 +4,6 @@
 - [x] Rota planejada confirmada.
 - [x] Plano reversível revisado.
 - [x] Alterações locais e build da Vercel validados.
-- [ ] Autorização para publicar a mudança externa registrada (CPD).
+- [x] Autorização para publicar a mudança externa registrada (CPD em 22/09/2026).
 - [ ] Gates e monitoramento pós-migração aprovados.
-- [ ] Commit, push e deploy registrados.
+- [x] Commit, push e deploy registrados.
