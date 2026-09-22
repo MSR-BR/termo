@@ -22,6 +22,10 @@
 
 ## Status de publicação
 
-- Commit: não realizado.
-- Push: não realizado.
-- Deploy: não realizado.
+- Commit funcional: `a9373d8` (`Implement T44 analytics measurement framework`).
+- Push: realizado em `main`.
+- Deploy de produção: `dpl_GUS4KzJnhZyZSeW6SMg7Z5NjZEtX`.
+- URL do artefato: `https://termo-qlo9atp1p-msr-brs-projects.vercel.app`.
+- Aliases confirmados: `https://termo.app.br`, `https://termo-theta.vercel.app`
+  e `https://termo-msr-brs-projects.vercel.app`.
+- Estado: `READY`; observação de 28 dias pendente.
