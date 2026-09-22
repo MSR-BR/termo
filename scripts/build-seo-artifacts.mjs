@@ -9,7 +9,7 @@ const slidesDir = path.join(rootDir, "slides");
 const dataDir = path.join(rootDir, "data");
 const editorialRegistryPath = path.join(dataDir, "termo-editorial-registry.json");
 
-const SITE_URL = "https://termo-theta.vercel.app";
+const SITE_URL = "https://termo.app.br";
 const GITHUB_PAGES_URL = "https://msr-br.github.io/termo";
 const GITHUB_REPOSITORY_URL = "https://github.com/MSR-BR/termo";
 const ANALYTICS_ASSET_VERSION = "0731.1";
@@ -30,7 +30,7 @@ const AUTHOR_SAME_AS = [
   "https://www.uff.br/informe/professor-da-uff-lanca-livro-didatico-sobre-mecanica-quantica/"
 ];
 const TODAY = process.env.SITEMAP_LASTMOD || todayInSaoPaulo();
-const SEO_ASSET_VERSION = process.env.SEO_ASSET_VERSION || "20260718";
+const SEO_ASSET_VERSION = process.env.SEO_ASSET_VERSION || "20260922";
 
 const simulatorCatalog = [
   {

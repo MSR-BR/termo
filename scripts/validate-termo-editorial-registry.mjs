@@ -148,7 +148,7 @@ for (const sectionId of actualSearchIds) if (!expectedSearchIds.has(sectionId)) 
 
 const sitemapLocations = new Set(Array.from(sitemapXml.matchAll(/<loc>([^<]+)<\/loc>/g), (match) => match[1]));
 for (const section of registry.sections || []) {
-  const absoluteUrl = `https://termo-theta.vercel.app/${section.url}`;
+  const absoluteUrl = `https://termo.app.br/${section.url}`;
   if (section.publicAvailable && section.seoEligible && !sitemapLocations.has(absoluteUrl)) {
     fail(`Sitemap: seção SEO elegível ausente ${section.sectionId}.`);
   }

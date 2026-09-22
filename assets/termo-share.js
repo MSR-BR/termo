@@ -21,7 +21,7 @@
     ".topic-note"
   ];
 
-  const SHARE_SITE_URL = "https://termo-theta.vercel.app";
+  const SHARE_SITE_URL = "https://termo.app.br";
 
   let refreshTimer = null;
   let observer = null;

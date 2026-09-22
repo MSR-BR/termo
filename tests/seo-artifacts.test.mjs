@@ -35,8 +35,8 @@ function canonical(html) {
 test("app e home têm intenções de busca e URLs canônicas distintas", function () {
   assert.notEqual(title(rootHtml), title(homeHtml));
   assert.notEqual(description(rootHtml), description(homeHtml));
-  assert.equal(canonical(rootHtml), "https://termo-theta.vercel.app/");
-  assert.equal(canonical(homeHtml), "https://termo-theta.vercel.app/home.html");
+  assert.equal(canonical(rootHtml), "https://termo.app.br/");
+  assert.equal(canonical(homeHtml), "https://termo.app.br/home.html");
   assert.match(title(rootHtml), /App de Termodinâmica/);
   assert.match(title(homeHtml), /Livro interativo/);
 });
@@ -69,17 +69,17 @@ test("landing preserva o vídeo de apresentação e seus metadados", function ()
 
 test("sitemap lista app e home uma única vez", function () {
   const locations = Array.from(sitemapXml.matchAll(/<loc>([^<]+)<\/loc>/g), (match) => match[1]);
-  assert.equal(locations.filter((url) => url === "https://termo-theta.vercel.app/").length, 1);
-  assert.equal(locations.filter((url) => url === "https://termo-theta.vercel.app/home.html").length, 1);
+  assert.equal(locations.filter((url) => url === "https://termo.app.br/").length, 1);
+  assert.equal(locations.filter((url) => url === "https://termo.app.br/home.html").length, 1);
   assert.equal(new Set(locations).size, locations.length);
   for (const { file } of intentPages) {
-    assert.equal(locations.filter((url) => url === `https://termo-theta.vercel.app/${file}`).length, 1);
+    assert.equal(locations.filter((url) => url === `https://termo.app.br/${file}`).length, 1);
   }
 });
 
 test("páginas de intenção têm metadados, H1 e ligações internas", function () {
   for (const { file, html } of intentPages) {
-    assert.equal(canonical(html), `https://termo-theta.vercel.app/${file}`);
+    assert.equal(canonical(html), `https://termo.app.br/${file}`);
     assert.match(html, /<h1[^>]*>[^<]+<\/h1>/i);
     assert.match(html, /href="home\.html"/);
     assert.match(html, /href="conteudo\.html/);
@@ -90,8 +90,8 @@ test("páginas de intenção têm metadados, H1 e ligações internas", function
 
 test("busca pública tem canonical, SearchAction e está no sitemap", function () {
   assert.equal(title(searchHtml), "Buscar conteúdo | TERMO");
-  assert.equal(canonical(searchHtml), "https://termo-theta.vercel.app/search.html");
+  assert.equal(canonical(searchHtml), "https://termo.app.br/search.html");
   assert.match(searchHtml, /"@type":"SearchAction"/);
   assert.match(searchHtml, /data\/termo-published-search-index\.json/);
-  assert.match(sitemapXml, /<loc>https:\/\/termo-theta\.vercel\.app\/search\.html<\/loc>/);
+  assert.match(sitemapXml, /<loc>https:\/\/termo\.app\.br\/search\.html<\/loc>/);
 });

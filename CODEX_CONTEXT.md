@@ -53,18 +53,21 @@ When sources disagree, stop and document the conflict instead of silently
 selecting the most convenient source. Chapter 5 remains blocked until an
 explicit editorial decision and synchronized validation make it public.
 
-Production:
-- https://termo-theta.vercel.app
+Production (canonical):
+- https://termo.app.br
+
+Legacy compatibility origin:
+- https://termo-theta.vercel.app (permanent redirect to the canonical domain; retain as the OAuth callback origin until the Supabase allow-list is updated and validated)
 
 Remote repository:
 - https://github.com/MSR-BR/termo.git
 
 Public discovery / SEO entry points:
-- Official static landing: https://termo-theta.vercel.app/home.html
-- Points and chapter quizzes: https://termo-theta.vercel.app/index.html?view=journey
-- Daily challenge: https://termo-theta.vercel.app/index.html?view=daily-challenge
-- Crawlable content map: https://termo-theta.vercel.app/conteudo.html
-- Main sitemap: https://termo-theta.vercel.app/sitemap.xml
+- Official static landing: https://termo.app.br/home.html
+- Points and chapter quizzes: https://termo.app.br/index.html?view=journey
+- Daily challenge: https://termo.app.br/index.html?view=daily-challenge
+- Crawlable content map: https://termo.app.br/conteudo.html
+- Main sitemap: https://termo.app.br/sitemap.xml
 - GitHub Pages bridge: https://msr-br.github.io/termo/
 - GitHub Pages bridge sitemap: https://msr-br.github.io/termo/sitemap.xml
 
@@ -252,7 +255,7 @@ Important commits:
 - `aea2dbf` Add GitHub Pages bridge for TERMO
 
 The GitHub Pages bridge intentionally declares:
-- canonical: `https://termo-theta.vercel.app/home.html`
+- canonical: `https://termo.app.br/home.html`
 - public URL: `https://msr-br.github.io/termo/`
 
 Marketing/ads note: public ads should continue using `home.html` as the main

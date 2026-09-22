@@ -1,6 +1,17 @@
 {
   "redirects": [
     {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "termo-theta.vercel.app"
+        }
+      ],
+      "destination": "https://termo.app.br/:path*",
+      "permanent": true
+    },
+    {
       "source": "/linkedin",
       "destination": "/?utm_source=linkedin&utm_medium=organic_social&utm_campaign=termo_launch_2026&utm_content=post_c11",
       "permanent": false

@@ -6,6 +6,8 @@
   const GAMIFICATION_EVENT_ENDPOINT = "/api/gamification-event";
   const LEGAL_PREFERENCES_ENDPOINT = "/api/legal-preferences";
   const SUPABASE_ESM_URL = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+  // Legacy callback origin retained until the Supabase allow-list includes termo.app.br.
+  // The Vercel hostname permanently redirects to the canonical public domain.
   const AUTH_SITE_URL = "https://termo-theta.vercel.app";
   const LOGIN_PENDING_KEY = "termo_auth_login_pending_v1";
   const LANDING_LOGIN_TARGET_KEY = "termoLandingPostLoginTarget";

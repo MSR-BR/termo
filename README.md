@@ -4,11 +4,11 @@
 
 ## Acessos principais
 
-- Página oficial: https://termo-theta.vercel.app/home.html
-- App interativo: https://termo-theta.vercel.app/
-- Pontos e simulados: https://termo-theta.vercel.app/index.html?view=journey
-- Desafio do dia: https://termo-theta.vercel.app/index.html?view=daily-challenge
-- Mapa de conteúdo: https://termo-theta.vercel.app/conteudo.html
+- Página oficial: https://termo.app.br/home.html
+- App interativo: https://termo.app.br/
+- Pontos e simulados: https://termo.app.br/index.html?view=journey
+- Desafio do dia: https://termo.app.br/index.html?view=daily-challenge
+- Mapa de conteúdo: https://termo.app.br/conteudo.html
 - Ponte no GitHub Pages: https://msr-br.github.io/termo/
 
 ## Conteúdo

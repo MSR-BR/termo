@@ -1,5 +1,5 @@
 (() => {
-  const SITE_URL = "https://termo-theta.vercel.app";
+  const SITE_URL = "https://termo.app.br";
   const COURSE_TITLE = "Termodinâmica para Estudantes de Física";
   const AUTHOR_NAME = "Prof. Mario Reis";
   const PUBLISHER_NAME = "Instituto de Física — Universidade Federal Fluminense";
