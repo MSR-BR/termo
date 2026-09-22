@@ -1,7 +1,7 @@
 (function () {
   if (window.TermoAnalytics) return;
 
-  const VERSION = "0824.1";
+  const VERSION = "0922.1";
   const GA_MEASUREMENT_ID = "G-NHEVHE096H";
   const GA_SCRIPT_SELECTOR = 'script[data-termo-ga="gtag"]';
   const SESSION_KEY = "termo_analytics_session_v1";
@@ -15,7 +15,22 @@
   const FLUSH_INTERVAL_MS = 15000;
   const EVENT_NAME_PATTERN = /^[a-z0-9_]{2,80}$/;
   const STUDY_ACTIVATION_SOURCES = new Set(["chapter_start", "exercise_generate_success"]);
-  const SENSITIVE_PROPERTY_NAME_PATTERN = /(^|_)(?:email|e_mail|name|full_name|first_name|last_name|phone|telephone|mobile|address|street|zipcode|postal_code|cpf|cnpj|document|password|passwd|secret|token|access_token|refresh_token|authorization|cookie|user_id)(_|$)/i;
+  const SENSITIVE_PROPERTY_NAME_PATTERN = /(^|_)(?:email|e_mail|name|full_name|first_name|last_name|phone|telephone|mobile|address|street|zipcode|postal_code|cpf|cnpj|document|password|passwd|secret|token|access_token|refresh_token|authorization|cookie|user_id|feedback|comment|comments|free_text)(_|$)/i;
+  const GA4_EVENT_NAMES = new Set([
+    "termo_open_app",
+    "chapter_start",
+    "exercise_start",
+    "exercise_generate_success",
+    "login_success",
+    "simulator_start",
+    "quiz_start",
+    "study_activation",
+    "rating_submitted",
+    "terms_accepted",
+    "privacy_acknowledged",
+    "email_updates_preference_changed",
+    "home_study_cta_click"
+  ]);
   const SIMULATOR_BY_FILE = {
     termometros: "S01",
     eqtermico: "S02",
@@ -166,7 +181,7 @@
     const output = {};
     Object.keys(source).slice(0, 18).forEach(function (key) {
       const safeKey = String(key || "").replace(/[^a-zA-Z0-9_:-]/g, "_").slice(0, 60);
-      if (!safeKey || SENSITIVE_PROPERTY_NAME_PATTERN.test(safeKey)) return;
+      if (!safeKey || (SENSITIVE_PROPERTY_NAME_PATTERN.test(safeKey) && safeKey !== "has_feedback")) return;
       const value = source[key];
       if (Array.isArray(value)) {
         output[safeKey] = value.slice(0, 8).map(cleanScalar).filter(function (item) { return item !== null && item !== ""; });
@@ -263,7 +278,7 @@
   }
 
   function getGoogleContext(context) {
-    const { user_id: _userId, ...anonymousContext } = context || {};
+    const { user_id: _userId, session_id: _sessionId, ...anonymousContext } = context || {};
     return anonymousContext;
   }
 
@@ -365,20 +380,7 @@
     const name = String(eventName || "").trim().toLowerCase();
     if (!EVENT_NAME_PATTERN.test(name)) return;
     const context = getContext();
-    if ([
-      "termo_open_app",
-      "chapter_start",
-      "exercise_start",
-      "exercise_generate_success",
-      "login_success",
-      "simulator_start",
-      "quiz_start",
-      "study_activation",
-      "terms_accepted",
-      "privacy_acknowledged",
-      "email_updates_preference_changed",
-      "home_study_cta_click"
-    ].includes(name)) {
+    if (GA4_EVENT_NAMES.has(name)) {
       sendGoogleEvent(name, {
         ...getGoogleContext(context),
         ...cleanProperties(properties)

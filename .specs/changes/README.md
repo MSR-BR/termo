@@ -25,8 +25,8 @@ concorrentes com o mesmo número.
 | 035 | `035-inventario-publico-migracao` | `gpt-5.6-sol / high` | `gpt-5.6-terra / high` | publicada e validada; privatização suspensa |
 | 041 | `041-auditoria-integridade-pre-publicacao` | `gpt-5.6-sol / high` | `gpt-5.6-terra / high` | publicada e validada em produção |
 | 042 | `042-analise-estatistica-integrada-uso` | `gpt-5.6-sol / high` | `gpt-5.6-terra / high` | consulta concluída; decisões de otimização pendentes |
-| 043 | `043-dominio-canonico-termo-app-br` | `gpt-5.6-sol / high` | `gpt-5.6-terra / high` | planejada; fundação obrigatória |
-| 044 | `044-medicao-conversoes-e-funil` | `gpt-5.6-sol / high` | `gpt-5.6-terra / high` | planejada; depende da T43 |
+| 043 | `043-dominio-canonico-termo-app-br` | `gpt-5.6-sol / high` | `gpt-5.6-terra / high` | publicada; validações Google e login ainda acompanhadas |
+| 044 | `044-medicao-conversoes-e-funil` | `gpt-5.6-sol / high` | `gpt-5.6-terra / high` | implementada localmente; CPD e observação de 28 dias pendentes |
 | 045 | `045-otimizacao-google-ads-termo` | `gpt-5.6-terra / high` | `gpt-5.6-sol / high` | planejada; depende da T44 e de decisão de orçamento |
 | 046 | `046-indexacao-seo-pos-dominio` | `gpt-5.6-sol / high` | `gpt-5.6-terra / high` | planejada; depende da T43 |
 | 047 | `047-otimizacao-landing-e-cta` | `gpt-5.6-terra / medium` | `gpt-5.6-sol / medium` | planejada; depende da T44 |

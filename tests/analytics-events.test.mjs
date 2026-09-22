@@ -115,11 +115,12 @@ test("funnel outcomes are forwarded to GA4", function () {
   assert.match(analyticsSource, /"home_study_cta_click"/);
   assert.match(analyticsSource, /"chapter_start"/);
   assert.match(analyticsSource, /"simulator_start"/);
+  assert.match(analyticsSource, /"rating_submitted"/);
 });
 
 test("GA4 payload excludes direct identifiers and raw custom UTM parameters", function () {
   assert.match(analyticsSource, /SENSITIVE_PROPERTY_NAME_PATTERN/);
-  assert.match(analyticsSource, /\{ user_id: _userId, \.\.\.anonymousContext \}/);
+  assert.match(analyticsSource, /\{ user_id: _userId, session_id: _sessionId, \.\.\.anonymousContext \}/);
   assert.doesNotMatch(analyticsSource, /utm_source:\s*getUtm/);
   assert.doesNotMatch(analyticsSource, /utm_medium:\s*getUtm/);
   assert.doesNotMatch(analyticsSource, /utm_campaign:\s*getUtm/);
@@ -139,8 +140,23 @@ test("GA4 payload excludes direct identifiers and raw custom UTM parameters", fu
   assert.equal(login.properties.full_name, undefined);
   assert.equal(login.properties.user_id, undefined);
   assert.equal(login.properties.access_token, undefined);
+  assert.equal(login.properties.session_id, undefined);
   assert.equal(login.properties.utm_source, undefined);
   assert.equal(login.properties.utm_campaign, undefined);
+});
+
+test("rating outcome reaches GA4 without free-text feedback", function () {
+  const runtime = bootAnalytics();
+  runtime.window.TermoAnalytics.track("rating_submitted", {
+    rating: 5,
+    has_feedback: true,
+    feedback: "Texto livre que não pode sair do fluxo de avaliação"
+  });
+  const rating = googleEvents(runtime.window).find(function (event) { return event.name === "rating_submitted"; });
+  assert.equal(rating.properties.rating, 5);
+  assert.equal(rating.properties.has_feedback, true);
+  assert.equal(rating.properties.feedback, undefined);
+  assert.equal(rating.properties.session_id, undefined);
 });
 
 test("OAuth return emits login success once, while a restored session does not", async function () {

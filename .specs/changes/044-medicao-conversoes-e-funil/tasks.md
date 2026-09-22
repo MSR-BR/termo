@@ -1,8 +1,8 @@
 # Tarefas — Change 044
 
-1. Documentar a taxonomia atual e os eventos observados na T42.
-2. Propor mapa de eventos e definição de conversão para aprovação humana.
-3. Auditar vínculos GA4–Ads e conversões sem atividade.
-4. Implementar apenas o menor ajuste aprovado.
-5. Testar deduplicação, consentimento/privacidade e funis reais.
-6. Comparar dados após 28 dias completos.
+1. [x] Documentar a taxonomia atual e os eventos observados na T42.
+2. [x] Propor mapa de eventos e definição de conversão para aprovação humana.
+3. [x] Reconciliar o vínculo GA4–Ads com os registros operacionais existentes; revalidação ao vivo permanece pendente antes de mudança externa.
+4. [x] Implementar o menor ajuste local: privacidade do payload, avaliação agregada e cache busting.
+5. [x] Testar deduplicação, autenticação, privacidade e funis reais.
+6. [ ] Comparar dados após 28 dias completos da publicação.
