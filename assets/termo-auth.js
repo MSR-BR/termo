@@ -2,6 +2,7 @@
   if (window.TermoAuth) return;
 
   const CONFIG_ENDPOINT = "/api/public-config";
+  const CONFIG_RETRY_DELAYS_MS = [0, 250, 750];
   const BOOK_API_ENDPOINT = "/api/livro-pdf";
   const GAMIFICATION_EVENT_ENDPOINT = "/api/gamification-event";
   const LEGAL_PREFERENCES_ENDPOINT = "/api/legal-preferences";
@@ -300,28 +301,87 @@
     return JSON.stringify([snapshot.url, snapshot.title, snapshot.label]);
   }
 
-  async function fetchConfig() {
+  function waitForConfigRetry(delayMs) {
+    return new Promise(function (resolve) {
+      window.setTimeout(resolve, delayMs);
+    });
+  }
+
+  async function requestPublicConfig() {
+    const response = await fetch(CONFIG_ENDPOINT, {
+      credentials: "same-origin",
+      cache: "no-store"
+    });
+
+    if (!response.ok) {
+      throw new Error(`Nao foi possivel carregar a configuracao de login (HTTP ${response.status}).`);
+    }
+
+    const config = await response.json();
+    if (!config || typeof config !== "object") {
+      throw new Error("A configuracao publica de login retornou um formato invalido.");
+    }
+
+    return config;
+  }
+
+  async function fetchConfig(options) {
+    const force = Boolean(options?.force);
+    if (force) {
+      state.config = null;
+      state.configPromise = null;
+    }
+
     if (state.config) return state.config;
     if (state.configPromise) return state.configPromise;
 
-    state.configPromise = fetch(CONFIG_ENDPOINT, { credentials: "same-origin" })
-      .then(async function (response) {
-        if (!response.ok) {
-          throw new Error("Nao foi possivel carregar a configuracao de login.");
-        }
-        const config = await response.json();
-        state.config = config;
-        return config;
-      })
-      .catch(function (error) {
-        state.config = {
-          authEnabled: false,
-          error: String(error)
-        };
-        return state.config;
-      });
+    const configPromise = (async function () {
+      let lastError = null;
 
-    return state.configPromise;
+      for (const delayMs of CONFIG_RETRY_DELAYS_MS) {
+        if (delayMs > 0) {
+          await waitForConfigRetry(delayMs);
+        }
+
+        try {
+          const config = await requestPublicConfig();
+          state.config = config;
+          return config;
+        } catch (error) {
+          lastError = error;
+        }
+      }
+
+      return {
+        authEnabled: false,
+        loadFailed: true,
+        error: String(lastError || "Falha desconhecida ao carregar a configuracao de login.")
+      };
+    })();
+    state.configPromise = configPromise;
+
+    try {
+      return await configPromise;
+    } finally {
+      if (state.configPromise === configPromise) {
+        state.configPromise = null;
+      }
+    }
+  }
+
+  async function getConfigurationStatus(options) {
+    const config = await fetchConfig(options);
+    if (config?.loadFailed) {
+      return {
+        status: "unavailable",
+        error: config.error || "Falha temporaria ao carregar a configuracao."
+      };
+    }
+
+    return {
+      status: config?.authEnabled ? "configured" : "missing",
+      config
+    };
   }
 
   async function ensureSupabase() {
@@ -569,12 +629,24 @@
 
   function buildSetupPanel() {
     return `
-      <div class="termo-auth-panel-title">Login pronto para ser ativado</div>
+      <div class="termo-auth-panel-title">Login não disponível neste ambiente</div>
       <div class="termo-auth-panel-copy">
-        O conteúdo continua aberto. Quando as chaves públicas forem configuradas no Vercel, este modal passa a oferecer o acesso com Google sem interromper a leitura.
+        O conteúdo continua aberto. O login opcional ainda não foi ativado neste ambiente.
       </div>
-      <div class="termo-auth-muted">
-        Variáveis esperadas: <code>PUBLIC_SUPABASE_URL</code>, <code>PUBLIC_SUPABASE_PUBLISHABLE_KEY</code> e <code>PUBLIC_GOOGLE_CLIENT_ID</code>.
+    `;
+  }
+
+  function buildUnavailablePanel() {
+    return `
+      <div class="termo-auth-panel-title">Não foi possível verificar o login agora</div>
+      <div class="termo-auth-panel-copy">
+        Sua leitura continua disponível. Verifique a conexão e tente novamente.
+      </div>
+      <div class="termo-auth-actions">
+        <button type="button" class="termo-auth-google-button" data-termo-auth-config-retry>
+          <i class="fa-solid fa-rotate-right" aria-hidden="true"></i>
+          <span>Tentar novamente</span>
+        </button>
       </div>
     `;
   }
@@ -782,14 +854,28 @@
     }
   }
 
-  async function hydrateModal() {
+  async function hydrateModal(configurationOverride) {
     const modal = ensureModal();
     const panel = modal.querySelector("[data-termo-auth-panel]");
-    const config = await fetchConfig();
+    const configuration = configurationOverride || await getConfigurationStatus();
 
     setStatus("");
 
-    if (!config.authEnabled) {
+    if (configuration.status === "unavailable") {
+      panel.innerHTML = buildUnavailablePanel();
+      const retryButton = panel.querySelector("[data-termo-auth-config-retry]");
+      retryButton?.addEventListener("click", async function () {
+        retryButton.disabled = true;
+        setStatus("Verificando o login...");
+        const retryResult = await retryConfiguration().catch(function () {
+          return { status: "unavailable" };
+        });
+        await hydrateModal(retryResult);
+      });
+      return;
+    }
+
+    if (configuration.status === "missing") {
       panel.innerHTML = buildSetupPanel();
       return;
     }
@@ -1310,6 +1396,27 @@
       });
 
     return state.bootPromise;
+  }
+
+  async function retryConfiguration() {
+    const result = await getConfigurationStatus({ force: true });
+
+    if (result.status === "configured") {
+      if (!state.supabase) {
+        state.supabasePromise = null;
+        state.bootPromise = null;
+        await bootAuthState();
+      } else {
+        await refreshSession().catch(function () {
+          return null;
+        });
+      }
+    }
+
+    window.dispatchEvent(new CustomEvent("termo-auth-config-change", {
+      detail: result
+    }));
+    return result;
   }
 
   async function waitUntilReady(timeoutMs) {
@@ -1861,6 +1968,16 @@
         void syncProgress(false);
       }
     });
+    window.addEventListener("pageshow", function (event) {
+      if (!event.persisted) return;
+
+      if (window.location.hostname === "termo-theta.vercel.app") {
+        window.location.reload();
+        return;
+      }
+
+      void retryConfiguration();
+    });
     void bootAuthState();
   }
 
@@ -1871,11 +1988,13 @@
     downloadBookPdf,
     refresh: scheduleRefresh,
     fetchConfig,
+    getConfigurationStatus,
+    retryConfiguration,
     ensureSupabase,
     whenReady: waitUntilReady,
     isConfigured: async function () {
-      const config = await fetchConfig();
-      return Boolean(config?.authEnabled);
+      const result = await getConfigurationStatus();
+      return result.status === "configured";
     },
     getSession: async function () {
       await waitUntilReady(1800);

@@ -8071,14 +8071,78 @@
       attachSimulatorActivityHandlers(topicContainer);
     }
 
+    async function getAuthConfigurationStatus() {
+      if (!window.TermoAuth) {
+        return { status: "unavailable" };
+      }
+
+      if (typeof window.TermoAuth.getConfigurationStatus === "function") {
+        return window.TermoAuth.getConfigurationStatus().catch(function () {
+          return { status: "unavailable" };
+        });
+      }
+
+      if (typeof window.TermoAuth.isConfigured === "function") {
+        const configured = await window.TermoAuth.isConfigured().catch(function () {
+          return null;
+        });
+        if (configured === null) return { status: "unavailable" };
+        return { status: configured ? "configured" : "missing" };
+      }
+
+      return { status: "unavailable" };
+    }
+
+    async function requireAuthConfiguration(options) {
+      const result = options.result || await getAuthConfigurationStatus();
+      if (result.status === "configured") return true;
+
+      if (result.status === "missing") {
+        topicContainer.innerHTML = `
+          <div class="empty-state">
+            <strong>O login não está disponível neste ambiente.</strong><br />
+            ${options.featureLabel} precisa do login opcional, que ainda não foi ativado aqui.
+          </div>
+        `;
+        return false;
+      }
+
+      topicContainer.innerHTML = `
+        <div class="empty-state">
+          <strong>Não foi possível verificar o login agora.</strong><br />
+          ${options.featureLabel} estará disponível assim que a conexão for restabelecida. Tente novamente.<br /><br />
+          <button class="saved-card__button saved-card__button--primary" data-role="retry-auth-configuration" type="button">
+            <i class="fa-solid fa-rotate-right"></i>
+            Tentar novamente
+          </button>
+        </div>
+      `;
+
+      const retryButton = topicContainer.querySelector('[data-role="retry-auth-configuration"]');
+      retryButton?.addEventListener("click", async function () {
+        retryButton.disabled = true;
+        retryButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Verificando...';
+        await ensureAuthModules();
+        if (typeof window.TermoAuth?.retryConfiguration === "function") {
+          const retryResult = await window.TermoAuth.retryConfiguration().catch(function () {
+            return { status: "unavailable" };
+          });
+          if (retryResult?.status === "configured") {
+            await options.render();
+            return;
+          }
+          await requireAuthConfiguration({ ...options, result: retryResult });
+          return;
+        }
+        await options.render();
+      });
+
+      return false;
+    }
+
     async function renderJourney() {
       setLandingMode(false);
       await ensureAuthModules();
-      const session = await window.TermoAuth?.getSession?.().catch(function () {
-        return null;
-      });
-      state.loggedIn = Boolean(session?.user);
-      state.userId = session?.user?.id || "";
 
       panelKicker.textContent = "Extras";
       panelTitle.textContent = journeyPanelCopy.title;
@@ -8088,24 +8152,17 @@
       setActiveExtra("journey");
       panelActions.innerHTML = "";
 
-      if (!window.TermoAuth || typeof window.TermoAuth.isConfigured !== "function") {
-        topicContainer.innerHTML = `<div class="empty-state"><strong>Login ainda não carregado.</strong><br />Recarregue a página para abrir seus pontos e simulados.</div>`;
-        return;
-      }
-
-      const configured = await window.TermoAuth.isConfigured().catch(function () {
-        return false;
+      const configurationReady = await requireAuthConfiguration({
+        featureLabel: "O acesso a pontos e simulados",
+        render: renderJourney
       });
+      if (!configurationReady) return;
 
-      if (!configured) {
-        topicContainer.innerHTML = `
-          <div class="empty-state">
-            <strong>Pontos e simulados estão prontos para serem ativados.</strong><br />
-            Falta configurar as variáveis públicas do Supabase e do Google para o login opcional entrar em funcionamento.
-          </div>
-        `;
-        return;
-      }
+      const session = await window.TermoAuth?.getSession?.().catch(function () {
+        return null;
+      });
+      state.loggedIn = Boolean(session?.user);
+      state.userId = session?.user?.id || "";
 
       if (!state.loggedIn) {
         topicContainer.innerHTML = `
@@ -8154,11 +8211,6 @@
     async function renderDailyChallenge() {
       setLandingMode(false);
       await ensureAuthModules();
-      const session = await window.TermoAuth?.getSession?.().catch(function () {
-        return null;
-      });
-      state.loggedIn = Boolean(session?.user);
-      state.userId = session?.user?.id || "";
 
       panelKicker.textContent = "Extras";
       panelTitle.textContent = dailyChallengePanelCopy.title;
@@ -8168,24 +8220,17 @@
       setActiveExtra("daily-challenge");
       panelActions.innerHTML = "";
 
-      if (!window.TermoAuth || typeof window.TermoAuth.isConfigured !== "function") {
-        topicContainer.innerHTML = `<div class="empty-state"><strong>Login ainda não carregado.</strong><br />Recarregue a página para abrir o desafio do dia.</div>`;
-        return;
-      }
-
-      const configured = await window.TermoAuth.isConfigured().catch(function () {
-        return false;
+      const configurationReady = await requireAuthConfiguration({
+        featureLabel: "O desafio do dia",
+        render: renderDailyChallenge
       });
+      if (!configurationReady) return;
 
-      if (!configured) {
-        topicContainer.innerHTML = `
-          <div class="empty-state">
-            <strong>Desafio do dia pronto para ser ativado.</strong><br />
-            Falta configurar as variáveis públicas do login para registrar pontos.
-          </div>
-        `;
-        return;
-      }
+      const session = await window.TermoAuth?.getSession?.().catch(function () {
+        return null;
+      });
+      state.loggedIn = Boolean(session?.user);
+      state.userId = session?.user?.id || "";
 
       if (!state.loggedIn) {
         topicContainer.innerHTML = `
@@ -8778,29 +8823,16 @@
       panelActions.innerHTML = "";
 
       await ensureAuthModules();
+      const configurationReady = await requireAuthConfiguration({
+        featureLabel: "A área Meus exercícios",
+        render: renderSavedExercises
+      });
+      if (!configurationReady) return;
+
       const session = await window.TermoAuth?.getSession?.().catch(function () {
         return null;
       });
       state.loggedIn = Boolean(session?.user);
-
-      if (!window.TermoAuth || typeof window.TermoAuth.isConfigured !== "function") {
-        topicContainer.innerHTML = `<div class="empty-state"><strong>Auth não carregado.</strong><br />Recarregue a página para montar a área pessoal.</div>`;
-        return;
-      }
-
-      const configured = await window.TermoAuth.isConfigured().catch(function () {
-        return false;
-      });
-
-      if (!configured) {
-        topicContainer.innerHTML = `
-          <div class="empty-state">
-            <strong>Meus exercícios está pronto para ser ativado.</strong><br />
-            Falta configurar as variáveis públicas do Supabase e do Google para o login opcional entrar em funcionamento.
-          </div>
-        `;
-        return;
-      }
 
       if (!state.loggedIn) {
         topicContainer.innerHTML = `

@@ -5,6 +5,7 @@
     "dev:vercel": "vercel dev",
     "check": "node scripts/check-content.mjs && node scripts/validate-termo-editorial-registry.mjs && node scripts/validate-ai-exercise-source-manifest.mjs",
     "test:analytics": "node --test tests/analytics-events.test.mjs",
+    "test:auth-config": "node --test tests/auth-public-config-recovery.test.mjs",
     "test:ratings": "node --test tests/app-rating.test.mjs",
     "test:gamification": "node --test tests/gamification-handlers.test.mjs",
     "test:seo": "node --test tests/seo-artifacts.test.mjs",
