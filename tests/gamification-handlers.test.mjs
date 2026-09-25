@@ -5,6 +5,7 @@ import test from "node:test";
 
 import {
   buildDefaultProfileRow,
+  isGamificationLedgerV1Enabled,
   isGamificationRpcEnabled
 } from "../lib/gamification-shared.mjs";
 import { handleGamificationEventRequest } from "../lib/gamification-event-handler.mjs";
@@ -54,6 +55,13 @@ test("isGamificationRpcEnabled only turns on for explicit truthy values", functi
   assert.equal(isGamificationRpcEnabled({ TERMO_GAMIFICATION_RPC_MODE: "1" }), true);
   assert.equal(isGamificationRpcEnabled({ TERMO_GAMIFICATION_RPC_MODE: "false" }), false);
   assert.equal(isGamificationRpcEnabled({}), false);
+});
+
+test("isGamificationLedgerV1Enabled is opt-in and fail-closed", function () {
+  assert.equal(isGamificationLedgerV1Enabled({ TERMO_GAMIFICATION_LEDGER_V1: "true" }), true);
+  assert.equal(isGamificationLedgerV1Enabled({ TERMO_GAMIFICATION_LEDGER_V1: "1" }), true);
+  assert.equal(isGamificationLedgerV1Enabled({ TERMO_GAMIFICATION_LEDGER_V1: "false" }), false);
+  assert.equal(isGamificationLedgerV1Enabled({}), false);
 });
 
 test("chapter quiz GET returns published quiz without touching Supabase", async function () {
@@ -361,6 +369,73 @@ test("gamification event uses RPC path when feature flag is enabled", async func
   }), true);
 });
 
+test("ledger v1 scopes idempotency by user and does not reward daily return", async function () {
+  const user = { id: "user-ledger", email: "learner@example.com" };
+  const profileRow = {
+    ...buildDefaultProfileRow(user.id),
+    user_id: user.id,
+    projection_version: "1.0.0",
+    policy_version: "termo-gamification-policy/1.0.0",
+    ledger_cursor: 7
+  };
+  const calls = [];
+
+  await withMockedFetch(async function (url, options = {}) {
+    calls.push({ url: String(url), method: options.method || "GET", body: options.body || "" });
+
+    if (String(url).endsWith("/auth/v1/user")) return createJsonResponse(user);
+    if (String(url).includes("/rest/v1/gamification_profiles")) return createJsonResponse([profileRow]);
+    if (String(url).includes("/rest/v1/gamification_event_log")) return createJsonResponse([]);
+
+    if (String(url).includes("/rest/v1/rpc/apply_gamification_event_atomic_v1")) {
+      const body = JSON.parse(String(options.body || "{}"));
+      assert.equal(body.p_user_id, user.id);
+      assert.equal(body.p_event_type, "daily_return");
+      assert.equal(body.p_xp_delta, 0);
+      assert.equal(body.p_occurred_at, "2026-09-24T10:00:00.000Z");
+      return createJsonResponse({
+        ok: true,
+        persisted: true,
+        deduped: false,
+        awarded: false,
+        reason: "non_rewarded_event",
+        event_id: "11111111-1111-1111-1111-111111111111",
+        profile: profileRow
+      });
+    }
+
+    throw new Error(`Unexpected fetch URL in test: ${url}`);
+  }, async function () {
+    const response = await handleGamificationEventRequest({
+      method: "POST",
+      headers: { authorization: "Bearer access-token" },
+      body: {
+        eventType: "daily_return",
+        idempotencyKey: "return:2026-09-24",
+        occurredAt: "2026-09-24T10:00:00.000Z"
+      },
+      env: {
+        ...BASE_ENV,
+        TERMO_GAMIFICATION_LEDGER_V1: "true"
+      }
+    });
+
+    assert.equal(response.status, 200);
+    assert.equal(response.body.awarded, false);
+    assert.equal(response.body.xpDelta, 0);
+    assert.equal(response.body.contractVersion, "termo-gamification-event/1.0.0");
+  });
+
+  const dedupCall = calls.find(function (call) {
+    return call.url.includes("/rest/v1/gamification_event_log");
+  });
+  assert.ok(dedupCall);
+  assert.match(dedupCall.url, /user_id=eq\.user-ledger/);
+  assert.equal(calls.some(function (call) {
+    return call.url.includes("/rest/v1/rpc/apply_gamification_event_atomic_v1");
+  }), true);
+});
+
 test("AI generated chapter quiz can be submitted through signed token", async function () {
   const generated = await handleChapterQuizRequest({
     method: "GET",
@@ -467,7 +542,7 @@ test("AI generated chapter quiz can be submitted through signed token", async fu
   }), true);
 });
 
-test("chapter quiz uses RPC path when feature flag is enabled", async function () {
+test("chapter quiz uses ledger v1 RPC with a stable attempt idempotency key", async function () {
   const user = { id: "user-quiz", email: "mario@example.com" };
   const profileRow = {
     ...buildDefaultProfileRow(user.id),
@@ -490,10 +565,12 @@ test("chapter quiz uses RPC path when feature flag is enabled", async function (
       return createJsonResponse([]);
     }
 
-    if (String(url).includes("/rest/v1/rpc/record_chapter_quiz_attempt_atomic")) {
+    if (String(url).includes("/rest/v1/rpc/record_chapter_quiz_attempt_atomic_v1")) {
       const body = JSON.parse(String(options.body || "{}"));
       assert.equal(body.p_quiz_key, "cap02");
       assert.equal(body.p_attempt_type, "full_quiz");
+      assert.equal(body.p_attempt_idempotency_key, "quiz:full_quiz:cap02:2026-07-16T10:05:00.000Z");
+      assert.equal(body.p_event_idempotency_key, body.p_attempt_idempotency_key);
       assert.equal(body.p_question_count, 5);
       assert.equal(body.p_xp_awarded, 45);
       assert.equal(body.p_profile_patch.last_quiz_summary.isMastered, true);
@@ -545,7 +622,7 @@ test("chapter quiz uses RPC path when feature flag is enabled", async function (
       },
       env: {
         ...BASE_ENV,
-        TERMO_GAMIFICATION_RPC_MODE: "true"
+        TERMO_GAMIFICATION_LEDGER_V1: "true"
       }
     });
 
@@ -560,7 +637,7 @@ test("chapter quiz uses RPC path when feature flag is enabled", async function (
   });
 
   assert.equal(calls.some(function (call) {
-    return call.url.includes("/rest/v1/rpc/record_chapter_quiz_attempt_atomic");
+    return call.url.includes("/rest/v1/rpc/record_chapter_quiz_attempt_atomic_v1");
   }), true);
   assert.equal(calls.some(function (call) {
     return call.url === "https://example.supabase.co/rest/v1/chapter_quiz_attempts" && call.method === "POST";
@@ -639,6 +716,9 @@ test("profile maps recent quiz attempts into mastery progress", async function (
     });
 
     assert.equal(response.status, 200);
+    assert.equal(response.body.contractVersion, "termo-gamification-profile/1.0.0");
+    assert.equal(response.body.viewer.email, undefined);
+    assert.equal(response.body.snapshot.version, "legacy-phase-1c");
     assert.equal(response.body.summary.chaptersMasteredCount, 1);
     assert.equal(response.body.featureFlags.masteryScore, 80);
     assert.equal(response.body.chapterProgress.length, 2);

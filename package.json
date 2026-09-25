@@ -8,6 +8,8 @@
     "test:auth-config": "node --test tests/auth-public-config-recovery.test.mjs",
     "test:ratings": "node --test tests/app-rating.test.mjs",
     "test:gamification": "node --test tests/gamification-handlers.test.mjs",
+    "test:gamification-contract": "node --test tests/gamification-unified-contract.test.mjs",
+    "test:gamification-ledger": "node --test tests/gamification-ledger-migration.test.mjs",
     "test:seo": "node --test tests/seo-artifacts.test.mjs",
     "test:editorial": "node --test tests/editorial-registry.test.mjs",
     "test:ai-source-manifest": "node --test tests/ai-exercise-source-manifest.test.mjs",

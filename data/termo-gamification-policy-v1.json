@@ -1,0 +1,188 @@
+{
+  "adapterId": "termo-gamification-policy",
+  "version": "1.0.0",
+  "status": "staged-local",
+  "updatedAt": "2026-09-24",
+  "contractRef": "contracts/adaptive-learning-gamification-events-v1.json#1.0.0",
+  "blueprintRef": "docs/architecture/adaptive-learning-gamification-blueprint-v1.md",
+  "editorialRegistryRef": "data/termo-editorial-registry.json",
+  "runtimeEnforcement": "staged-opt-in-t51",
+  "contentEligibility": {
+    "failClosed": true,
+    "requiredChapterStatus": "published",
+    "requiresPublicAvailability": true,
+    "requiresApprovedSourceForAi": true,
+    "excludedChapterIds": ["05"]
+  },
+  "levels": {
+    "xpPerLevel": 100,
+    "minimumLevel": 1
+  },
+  "rewards": [
+    {
+      "key": "eligible_section_completion",
+      "sharedEventType": "section_completed",
+      "points": 20,
+      "repeatPolicy": "once_per_user_section",
+      "requiresIdempotency": true
+    },
+    {
+      "key": "first_chapter_assessment",
+      "sharedEventType": "assessment_completed",
+      "points": 30,
+      "repeatPolicy": "once_per_user_chapter",
+      "requiresIdempotency": true
+    },
+    {
+      "key": "guided_review_completion",
+      "sharedEventType": "assessment_reviewed",
+      "points": 10,
+      "repeatPolicy": "once_per_verified_review_activity",
+      "requiresIdempotency": true
+    },
+    {
+      "key": "focused_retry_completion",
+      "sharedEventType": "assessment_retry_completed",
+      "points": 10,
+      "repeatPolicy": "once_per_verified_retry_activity",
+      "requiresIdempotency": true
+    },
+    {
+      "key": "chapter_mastery_milestone",
+      "sharedEventType": "concept_mastery_reached",
+      "points": 80,
+      "repeatPolicy": "once_per_user_chapter_policy_version",
+      "requiresIdempotency": true
+    }
+  ],
+  "nonRewardedEvents": [
+    "daily_return",
+    "simulator_opened",
+    "mechanic_exposed",
+    "page_view",
+    "scroll",
+    "refresh"
+  ],
+  "mastery": {
+    "minimumIndependentRetrievals": 2,
+    "minimumDistinctSessions": 2,
+    "minimumDistinctRepresentationsWhenApplicable": 2,
+    "singleAssessmentThresholdIsSufficient": false,
+    "helpedOrRevealedAnswerCountsAsIndependent": false
+  },
+  "legacyAuthoritativeEventMappings": [
+    {
+      "legacyEvent": "study_item_complete",
+      "sharedEventType": "section_completed",
+      "classification": "verified_activity",
+      "rewardAllowed": true,
+      "masteryAllowed": false,
+      "migrationStatus": "requires_stronger_completion_evidence"
+    },
+    {
+      "legacyEvent": "chapter_quiz_completed",
+      "sharedEventType": "assessment_completed",
+      "classification": "verified_assessment",
+      "rewardAllowed": true,
+      "masteryAllowed": false,
+      "migrationStatus": "preserve_attempt_history"
+    },
+    {
+      "legacyEvent": "chapter_quiz_review_completed",
+      "sharedEventType": "assessment_reviewed",
+      "classification": "verified_review",
+      "rewardAllowed": true,
+      "masteryAllowed": false,
+      "migrationStatus": "preserve_attempt_history"
+    },
+    {
+      "legacyEvent": "chapter_quiz_retry_completed",
+      "sharedEventType": "assessment_retry_completed",
+      "classification": "verified_retry",
+      "rewardAllowed": true,
+      "masteryAllowed": false,
+      "migrationStatus": "preserve_attempt_history"
+    },
+    {
+      "legacyEvent": "daily_return",
+      "sharedEventType": "mechanic_acted",
+      "classification": "behavior_only",
+      "rewardAllowed": false,
+      "masteryAllowed": false,
+      "migrationStatus": "removed_locally_in_t51_pending_rollout"
+    },
+    {
+      "legacyEvent": "chapter_mastery_completed",
+      "sharedEventType": "concept_mastery_reached",
+      "classification": "legacy_mastery_claim",
+      "rewardAllowed": true,
+      "masteryAllowed": true,
+      "migrationStatus": "replace_single_quiz_rule_in_t52"
+    },
+    {
+      "legacyEvent": "record_simulator_open",
+      "sharedEventType": "simulator_opened",
+      "classification": "activity_only",
+      "rewardAllowed": false,
+      "masteryAllowed": false,
+      "migrationStatus": "preserve_as_open_only"
+    }
+  ],
+  "analyticsEventMappings": [
+    { "legacyEvent": "auth_google_click", "sharedEventType": null, "classification": "analytics_only" },
+    { "legacyEvent": "auth_open_click", "sharedEventType": null, "classification": "analytics_only" },
+    { "legacyEvent": "auth_signout_click", "sharedEventType": null, "classification": "analytics_only" },
+    { "legacyEvent": "chapter_start", "sharedEventType": null, "classification": "analytics_only" },
+    { "legacyEvent": "email_updates_preference_changed", "sharedEventType": null, "classification": "analytics_only" },
+    { "legacyEvent": "exercise_generate_click", "sharedEventType": null, "classification": "analytics_only" },
+    { "legacyEvent": "exercise_generate_error", "sharedEventType": null, "classification": "analytics_only" },
+    { "legacyEvent": "exercise_generate_success", "sharedEventType": null, "classification": "analytics_only" },
+    { "legacyEvent": "exercise_solution_close", "sharedEventType": null, "classification": "analytics_only" },
+    { "legacyEvent": "exercise_solution_open", "sharedEventType": "solution_revealed", "classification": "analytics_only" },
+    { "legacyEvent": "exercise_solution_toggle_click", "sharedEventType": null, "classification": "analytics_only" },
+    { "legacyEvent": "exercise_start", "sharedEventType": "exercise_attempted", "classification": "analytics_only" },
+    { "legacyEvent": "exercise_validation_click", "sharedEventType": null, "classification": "analytics_only" },
+    { "legacyEvent": "exercise_validation_error", "sharedEventType": null, "classification": "analytics_only" },
+    { "legacyEvent": "exercise_validation_submit", "sharedEventType": null, "classification": "analytics_only" },
+    { "legacyEvent": "exercise_validation_success", "sharedEventType": null, "classification": "analytics_only" },
+    { "legacyEvent": "favorite_item_click", "sharedEventType": null, "classification": "analytics_only" },
+    { "legacyEvent": "favorite_items_changed", "sharedEventType": null, "classification": "analytics_only" },
+    { "legacyEvent": "home_study_cta_click", "sharedEventType": null, "classification": "analytics_only" },
+    { "legacyEvent": "login_success", "sharedEventType": null, "classification": "analytics_only" },
+    { "legacyEvent": "pdf_download_click", "sharedEventType": null, "classification": "analytics_only" },
+    { "legacyEvent": "pdf_download_denied", "sharedEventType": null, "classification": "analytics_only" },
+    { "legacyEvent": "pdf_download_error", "sharedEventType": null, "classification": "analytics_only" },
+    { "legacyEvent": "pdf_download_login_required", "sharedEventType": null, "classification": "analytics_only" },
+    { "legacyEvent": "pdf_download_notice_cancel", "sharedEventType": null, "classification": "analytics_only" },
+    { "legacyEvent": "pdf_download_ready", "sharedEventType": null, "classification": "analytics_only" },
+    { "legacyEvent": "pdf_download_request", "sharedEventType": null, "classification": "analytics_only" },
+    { "legacyEvent": "privacy_acknowledged", "sharedEventType": null, "classification": "analytics_only" },
+    { "legacyEvent": "quiz_start", "sharedEventType": "assessment_started", "classification": "analytics_only" },
+    { "legacyEvent": "rating_prompt_dismissed", "sharedEventType": "mechanic_opted_out", "classification": "analytics_only" },
+    { "legacyEvent": "rating_prompt_shown", "sharedEventType": "mechanic_exposed", "classification": "analytics_only" },
+    { "legacyEvent": "rating_selected", "sharedEventType": "mechanic_acted", "classification": "analytics_only" },
+    { "legacyEvent": "rating_submitted", "sharedEventType": "mechanic_acted", "classification": "analytics_only" },
+    { "legacyEvent": "session_start", "sharedEventType": null, "classification": "analytics_only" },
+    { "legacyEvent": "share_click", "sharedEventType": null, "classification": "analytics_only" },
+    { "legacyEvent": "simulator_open_click", "sharedEventType": "simulator_opened", "classification": "analytics_only" },
+    { "legacyEvent": "simulator_page_open", "sharedEventType": "simulator_opened", "classification": "analytics_only" },
+    { "legacyEvent": "simulator_start", "sharedEventType": "simulator_opened", "classification": "analytics_only" },
+    { "legacyEvent": "study_activation", "sharedEventType": null, "classification": "analytics_only" },
+    { "legacyEvent": "termo_open_app", "sharedEventType": null, "classification": "analytics_only" },
+    { "legacyEvent": "terms_accepted", "sharedEventType": null, "classification": "analytics_only" }
+  ],
+  "analyticsEffects": {
+    "rewardAllowed": false,
+    "masteryAllowed": false,
+    "profileMutationAllowed": false
+  },
+  "knownRuntimeGaps": [
+    "O runtime T51 preparado localmente atribui zero pontos a daily_return; a ativação remota ainda não foi autorizada.",
+    "O runtime atual pode atribuir 5 pontos a uma repetição dominada de simulado; esse prêmio não existe no adapter v1.",
+    "O runtime atual pode declarar domínio com um único simulado completo de 80%; a política v1 exige recuperações independentes em sessões distintas.",
+    "O streak atual é atualizado por qualquer evento autoritativo, inclusive retorno diário isolado.",
+    "A abertura de simulador é persistida, mas previsão, interação significativa, reflexão e objetivo ainda não existem.",
+    "Missões possuem campo de snapshot, mas não há mecanismo operacional.",
+    "O snapshot unificado e versionado foi implementado localmente na T51; a ativação remota ainda não foi autorizada."
+  ]
+}

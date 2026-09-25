@@ -1,0 +1,77 @@
+{
+  "contractId": "adaptive-learning-gamification-events",
+  "version": "1.0.0",
+  "status": "baseline",
+  "language": "internal-identifiers-en",
+  "purpose": "Contrato compartilhado e independente de produto para eventos de aprendizagem verificados.",
+  "eventEnvelope": {
+    "required": [
+      "event_id",
+      "user_id",
+      "event_type",
+      "occurred_at",
+      "received_at",
+      "idempotency_key",
+      "policy_version"
+    ],
+    "conditional": [
+      "content_id",
+      "chapter_id",
+      "section_id",
+      "concept_ids",
+      "source_ids",
+      "attempt_id",
+      "activity_id"
+    ],
+    "rules": {
+      "user_id": "Derivado exclusivamente da sessão verificada no servidor.",
+      "event_type": "Deve pertencer à allow-list desta versão.",
+      "idempotency_key": "Única por evento semântico premiável.",
+      "metadata": "Mínima, estruturada e sem segredo, e-mail ou texto livre desnecessário.",
+      "blockedContent": "Falha fechada quando a elegibilidade editorial não puder ser comprovada."
+    }
+  },
+  "eventTypes": [
+    "section_completed",
+    "exercise_attempted",
+    "exercise_corrected",
+    "hint_used",
+    "solution_revealed",
+    "assessment_started",
+    "assessment_completed",
+    "assessment_reviewed",
+    "assessment_retry_completed",
+    "daily_challenge_completed",
+    "simulator_opened",
+    "simulator_prediction_recorded",
+    "simulator_meaningful_interaction",
+    "simulator_reflection_recorded",
+    "simulator_goal_completed",
+    "concept_retrieved",
+    "concept_mastery_reached",
+    "mechanic_eligible",
+    "mechanic_exposed",
+    "mechanic_acted",
+    "mechanic_opted_out"
+  ],
+  "evidenceClasses": [
+    "activity_only",
+    "attempt_without_outcome",
+    "incorrect",
+    "correct_low_confidence",
+    "correct_with_help",
+    "solution_revealed",
+    "independent_retrieval",
+    "mastery_milestone"
+  ],
+  "invariants": {
+    "analyticsCannotAward": true,
+    "analyticsCannotSetMastery": true,
+    "pageViewIsNotLearning": true,
+    "simulatorOpenIsNotLearning": true,
+    "pointsDoNotProveLearning": true,
+    "errorsNeverRemoveEarnedPoints": true,
+    "publicIndividualRankingDefault": false,
+    "clientIsNotAuthoritative": true
+  }
+}

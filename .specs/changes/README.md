@@ -32,6 +32,11 @@ concorrentes com o mesmo número.
 | 047 | `047-otimizacao-landing-e-cta` | `gpt-5.6-terra / medium` | `gpt-5.6-sol / medium` | planejada; depende da T44 |
 | 048 | `048-relatorio-agregado-avaliacoes` | `gpt-5.6-sol / high` | `gpt-5.6-terra / high` | opcional; consulta protegida |
 | 049 | `049-recuperacao-configuracao-publica-auth` | `gpt-5.6-sol / high` | `gpt-5.6-terra / high` | publicada e validada em produção em 24/09/2026 |
+| 050 | `050-contrato-unificado-adapter-termo` | `gpt-5.6-sol / high` | `gpt-5.6-terra / high` | implementada e validada localmente; aguarda CPD |
+| 051 | `051-ledger-projecoes-perfil-autoritativo` | `gpt-5.6-sol / xhigh` | `gpt-5.6-sol / high` | implementada localmente e auditada no remoto; rollout bloqueado pelo histórico de migrations e auto-expose |
+| 052 | `052-modos-adaptativos-recompensas-pedagogicas` | `gpt-5.6-sol / high` | `gpt-5.6-sol / xhigh` | planejada; depende da T51 |
+| 053 | `053-ajuda-metodologica-explicabilidade` | `gpt-5.6-terra / medium` | `gpt-5.6-sol / medium` | planejada; depende da estabilidade pública da T52 |
+| 054 | `054-avaliacao-academica-comunicacao-responsavel` | `gpt-5.6-sol / high` | `gpt-5.6-terra / high` | planejada; interpretação depende da fidelidade de T51–T52 |
 
 Os documentos datados em `changes/` constituem o histórico anterior e não são
 renumerados. A busca pública já implementada localmente será reconciliada como
