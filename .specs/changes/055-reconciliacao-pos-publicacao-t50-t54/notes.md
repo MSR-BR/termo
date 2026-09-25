@@ -17,6 +17,11 @@
 
 ## Status de publicação
 
-- Commit, push e deploy: autorizados para a revisão validada. Os identificadores
-  e o resultado efetivo serão conferidos no Git e no Vercel após a execução,
-  sem inserir um hash autorreferente neste documento.
+- Commit `e10bb6c` (`fix: show recoverable journey sync error`) enviado a
+  `origin/main` em 25/09/2026.
+- Deploy de produção `dpl_k8rYxjamJ7K2QnoBoiYaABpEkPas` ficou `Ready`, com
+  alias `https://termo.app.br`. A landing respondeu HTTP 200, o domínio legado
+  redirecionou com HTTP 308 e a API da jornada recusou acesso anônimo (401).
+- O smoke no HTML publicado confirmou o aviso de falha de sincronização e o
+  botão de nova tentativa. Zoom real e VoiceOver seguem pendentes como teste
+  assistivo, sem evidência de regressão nos 125 testes então executados.

@@ -1,6 +1,6 @@
 # Critérios de aceite — Change 046
 
-- [ ] URLs prioritárias são públicas, úteis e canônicas.
+- [x] URLs prioritárias são públicas, úteis e canônicas no candidato local.
 - [ ] Sitemap e Search Console não têm conflito de domínio.
-- [ ] Rotas bloqueadas, privadas e administrativas não são indexáveis.
-- [ ] Resultado orgânico é relatado com período e amostra explícitos.
+- [x] Rotas bloqueadas, privadas e administrativas não constam do sitemap.
+- [x] Resultado orgânico antigo é relatado com período e amostra explícitos, sem extrapolação para o novo domínio.

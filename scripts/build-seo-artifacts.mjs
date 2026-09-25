@@ -282,6 +282,7 @@ function inferPageMeta(relativePath, html, topicMap) {
   const isSource = normalizedRelativePath.includes("/source/");
   const topic = topicMap.get(normalizedRelativePath);
   const coverMeta = getCoverMeta(normalizedRelativePath);
+  const simulator = simulatorCatalog.find((item) => item.standaloneUrl === normalizedRelativePath);
 
   if (isIndex) {
     return {
@@ -357,6 +358,31 @@ function inferPageMeta(relativePath, html, topicMap) {
         "@type": "WebPage",
         name: `Instruções internas | ${COURSE_TITLE}`,
         description: "Arquivo interno de instruções."
+      }
+    };
+  }
+
+  if (simulator) {
+    const title = `${simulator.title} | Simulador de Termodinâmica | TERMO`;
+    const description = truncate(`${simulator.description} Simulador interativo do livro ${COURSE_TITLE}.`, 160);
+    const canonical = `${SITE_URL}/${normalizedRelativePath}`;
+    return {
+      title,
+      description,
+      canonical,
+      robots: "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1",
+      ogType: "article",
+      jsonLd: {
+        "@context": "https://schema.org",
+        "@type": "LearningResource",
+        name: title,
+        description,
+        url: canonical,
+        inLanguage: "pt-BR",
+        isAccessibleForFree: true,
+        educationalUse: "instruction",
+        learningResourceType: "Simulation",
+        isPartOf: { "@type": "Course", name: COURSE_TITLE, url: `${SITE_URL}/` }
       }
     };
   }
@@ -478,6 +504,7 @@ async function writeRobotsFile() {
   const content = [
     "User-agent: *",
     "Allow: /",
+    "Disallow: /unsubscribe.html",
     "",
     `Sitemap: ${SITE_URL}/sitemap.xml`
   ].join("\n");
@@ -500,7 +527,6 @@ function collectSitemapUrls(topicMap, htmlFiles, editorialRegistry) {
   urls.add(`${SITE_URL}/leis-da-termodinamica.html`);
   urls.add(`${SITE_URL}/exercicios-de-termodinamica.html`);
   urls.add(`${SITE_URL}/simuladores-de-termodinamica.html`);
-  urls.add(`${SITE_URL}/simulators/index.html`);
 
   const activeChapterIds = new Set();
 
@@ -2053,7 +2079,12 @@ async function writeGithubPagesBridge(topicMap) {
 
 const editorialRegistry = JSON.parse(await readFile(editorialRegistryPath, "utf8"));
 const topicMap = await loadTopicMap(editorialRegistry);
-const htmlFiles = [path.join(rootDir, "index.html"), path.join(rootDir, "INSTRUCOES_SNIPPET.html"), ...(await collectHtmlFiles(slidesDir))];
+const htmlFiles = [
+  path.join(rootDir, "index.html"),
+  path.join(rootDir, "INSTRUCOES_SNIPPET.html"),
+  ...(await collectHtmlFiles(slidesDir)),
+  ...simulatorCatalog.map((simulator) => path.join(rootDir, simulator.standaloneUrl))
+];
 
 for (const filePath of htmlFiles) {
   await processHtmlFile(filePath, topicMap);

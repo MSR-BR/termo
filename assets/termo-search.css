@@ -55,6 +55,7 @@ h1 { margin: 0; color: var(--blue); font-size: clamp(2.1rem, 6vw, 3.6rem); lette
 .result-summary { margin: 0; color: var(--muted); font-family: "Lora", Georgia, serif; line-height: 1.55; }
 .result-keywords { margin: 10px 0 0; color: #53677a; font-size: .78rem; font-weight: 650; }
 .empty, .search-error { border: 1px solid #e2c9bd; border-radius: 10px; background: #fff8f4; color: #704137; padding: 17px 19px; line-height: 1.5; }
+.search-related { display: flex; flex-wrap: wrap; gap: 12px 20px; margin-top: 28px; font-size: .9rem; font-weight: 700; }
 
 @media (max-width: 600px) {
   .search-shell { width: min(100% - 24px, 960px); padding-top: 18px; }

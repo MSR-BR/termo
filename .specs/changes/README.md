@@ -28,7 +28,7 @@ concorrentes com o mesmo número.
 | 043 | `043-dominio-canonico-termo-app-br` | `gpt-5.6-sol / high` | `gpt-5.6-terra / high` | publicada; validações Google e login ainda acompanhadas |
 | 044 | `044-medicao-conversoes-e-funil` | `gpt-5.6-sol / high` | `gpt-5.6-terra / high` | publicada e validada; observação de 28 dias pendente |
 | 045 | `045-otimizacao-google-ads-termo` | `gpt-5.6-terra / high` | `gpt-5.6-sol / high` | planejada; depende da T44 e de decisão de orçamento |
-| 046 | `046-indexacao-seo-pos-dominio` | `gpt-5.6-sol / high` | `gpt-5.6-terra / high` | planejada; depende da T43 |
+| 046 | `046-indexacao-seo-pos-dominio` | `gpt-5.6-sol / high` | `gpt-5.6-terra / high` | ajustes técnicos em CPD; Search Console do domínio canônico pendente |
 | 047 | `047-otimizacao-landing-e-cta` | `gpt-5.6-terra / medium` | `gpt-5.6-sol / medium` | planejada; depende da T44 |
 | 048 | `048-relatorio-agregado-avaliacoes` | `gpt-5.6-sol / high` | `gpt-5.6-terra / high` | opcional; consulta protegida |
 | 049 | `049-recuperacao-configuracao-publica-auth` | `gpt-5.6-sol / high` | `gpt-5.6-terra / high` | publicada e validada em produção em 24/09/2026 |
@@ -37,7 +37,7 @@ concorrentes com o mesmo número.
 | 052 | `052-modos-adaptativos-recompensas-pedagogicas` | `gpt-5.6-sol / high` | `gpt-5.6-sol / xhigh` | publicada por CPD em 25/09/2026; migração e banco validados; smoke autenticado tratado pela T55 |
 | 053 | `053-ajuda-metodologica-explicabilidade` | `gpt-5.6-terra / medium` | `gpt-5.6-sol / medium` | publicada por CPD em 25/09/2026 |
 | 054 | `054-avaliacao-academica-comunicacao-responsavel` | `gpt-5.6-sol / high` | `gpt-5.6-terra / high` | publicada e validada em produção em 25/09/2026; nenhum e-mail enviado |
-| 055 | `055-reconciliacao-pos-publicacao-t50-t54` | `gpt-5.6-sol / high` | `gpt-5.6-sol / xhigh` | validada; `cpd` autorizado em 25/09/2026, publicação em verificação |
+| 055 | `055-reconciliacao-pos-publicacao-t50-t54` | `gpt-5.6-sol / high` | `gpt-5.6-sol / xhigh` | publicada e validada em produção em 25/09/2026 (`e10bb6c`) |
 
 Os documentos datados em `changes/` constituem o histórico anterior e não são
 renumerados. A busca pública já implementada localmente será reconciliada como

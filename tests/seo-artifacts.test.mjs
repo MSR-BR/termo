@@ -5,6 +5,8 @@ import test from "node:test";
 const rootHtml = await readFile(new URL("../index.html", import.meta.url), "utf8");
 const homeHtml = await readFile(new URL("../home.html", import.meta.url), "utf8");
 const sitemapXml = await readFile(new URL("../sitemap.xml", import.meta.url), "utf8");
+const robotsTxt = await readFile(new URL("../robots.txt", import.meta.url), "utf8");
+const editorialRegistry = JSON.parse(await readFile(new URL("../data/termo-editorial-registry.json", import.meta.url), "utf8"));
 const searchHtml = await readFile(new URL("../search.html", import.meta.url), "utf8");
 const learningHelpHtml = await readFile(new URL("../ajuda-aprendizado.html", import.meta.url), "utf8");
 const promoVideoStat = await stat(new URL("../assets/videos/termo-apresentacao.mp4", import.meta.url));
@@ -78,6 +80,35 @@ test("sitemap lista app e home uma única vez", function () {
   }
 });
 
+test("sitemap contém somente páginas públicas canônicas existentes", async function () {
+  const locations = Array.from(sitemapXml.matchAll(/<loc>([^<]+)<\/loc>/g), (match) => match[1]);
+  const publicChapters = new Set(editorialRegistry.chapters
+    .filter((chapter) => chapter.publicAvailable && chapter.seoEligible)
+    .map((chapter) => chapter.chapterId));
+  assert.ok(locations.length > 0);
+  assert.equal(new Set(locations).size, locations.length);
+
+  for (const location of locations) {
+    const url = new URL(location);
+    assert.equal(url.origin, "https://termo.app.br");
+    assert.equal(url.search, "");
+    assert.equal(url.hash, "");
+    const relativePath = url.pathname === "/" ? "index.html" : url.pathname.slice(1);
+    assert.doesNotMatch(relativePath, /(?:^|\/)(?:source|api)(?:\/|$)|unsubscribe\.html/);
+    const chapterId = relativePath.match(/^slides\/capitulo-(\d+)\/page_\d+\.html$/)?.[1];
+    if (chapterId) assert.ok(publicChapters.has(chapterId), `${relativePath} não está publicado`);
+    const html = await readFile(new URL(`../${relativePath}`, import.meta.url), "utf8");
+    assert.equal(canonical(html), location, `${relativePath} tem canonical diferente do sitemap`);
+    assert.match(html, /<meta\s+name="robots"\s+content="index,follow[^\"]*"\s*\/?\s*>/i, `${relativePath} não é indexável`);
+  }
+});
+
+test("robots aponta ao sitemap canônico e preserva o descadastro fora do rastreamento", function () {
+  assert.match(robotsTxt, /^Sitemap: https:\/\/termo\.app\.br\/sitemap\.xml$/m);
+  assert.match(robotsTxt, /^Disallow: \/unsubscribe\.html$/m);
+  assert.doesNotMatch(sitemapXml, /capitulo-05|\/source\/|\/unsubscribe\.html|termo-theta\.vercel\.app/);
+});
+
 test("páginas de intenção têm metadados, H1 e ligações internas", function () {
   for (const { file, html } of intentPages) {
     assert.equal(canonical(html), `https://termo.app.br/${file}`);
@@ -95,6 +126,14 @@ test("busca pública tem canonical, SearchAction e está no sitemap", function (
   assert.match(searchHtml, /"@type":"SearchAction"/);
   assert.match(searchHtml, /data\/termo-published-search-index\.json/);
   assert.match(sitemapXml, /<loc>https:\/\/termo\.app\.br\/search\.html<\/loc>/);
+  assert.match(searchHtml, /href="conteudo\.html"/);
+  assert.match(searchHtml, /href="simuladores-de-termodinamica\.html"/);
+});
+
+test("índice dinâmico de simuladores não é anunciado como página indexável", async function () {
+  const html = await readFile(new URL("../simulators/index.html", import.meta.url), "utf8");
+  assert.match(html, /<meta name="robots" content="noindex,follow"\s*\/>/);
+  assert.doesNotMatch(sitemapXml, /<loc>https:\/\/termo\.app\.br\/simulators\/index\.html<\/loc>/);
 });
 
 test("ajuda metodológica tem canonical, FAQPage e está no sitemap", function () {
