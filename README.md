@@ -9,6 +9,7 @@
 - Pontos e simulados: https://termo.app.br/index.html?view=journey
 - Desafio do dia: https://termo.app.br/index.html?view=daily-challenge
 - Mapa de conteúdo: https://termo.app.br/conteudo.html
+- Como funciona seu aprendizado: https://termo.app.br/ajuda-aprendizado.html
 - Ponte no GitHub Pages: https://msr-br.github.io/termo/
 
 ## Conteúdo

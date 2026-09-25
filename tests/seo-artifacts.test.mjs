@@ -6,6 +6,7 @@ const rootHtml = await readFile(new URL("../index.html", import.meta.url), "utf8
 const homeHtml = await readFile(new URL("../home.html", import.meta.url), "utf8");
 const sitemapXml = await readFile(new URL("../sitemap.xml", import.meta.url), "utf8");
 const searchHtml = await readFile(new URL("../search.html", import.meta.url), "utf8");
+const learningHelpHtml = await readFile(new URL("../ajuda-aprendizado.html", import.meta.url), "utf8");
 const promoVideoStat = await stat(new URL("../assets/videos/termo-apresentacao.mp4", import.meta.url));
 const promoPosterStat = await stat(new URL("../assets/videos/termo-apresentacao-poster.png", import.meta.url));
 const intentPages = await Promise.all([
@@ -94,4 +95,12 @@ test("busca pública tem canonical, SearchAction e está no sitemap", function (
   assert.match(searchHtml, /"@type":"SearchAction"/);
   assert.match(searchHtml, /data\/termo-published-search-index\.json/);
   assert.match(sitemapXml, /<loc>https:\/\/termo\.app\.br\/search\.html<\/loc>/);
+});
+
+test("ajuda metodológica tem canonical, FAQPage e está no sitemap", function () {
+  assert.equal(title(learningHelpHtml), "Ajuda — Como funciona seu aprendizado | TERMO");
+  assert.equal(canonical(learningHelpHtml), "https://termo.app.br/ajuda-aprendizado.html");
+  assert.match(learningHelpHtml, /"@type":"FAQPage"/);
+  assert.match(learningHelpHtml, /Versão da metodologia:/);
+  assert.match(sitemapXml, /<loc>https:\/\/termo\.app\.br\/ajuda-aprendizado\.html<\/loc>/);
 });

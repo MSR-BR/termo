@@ -1,0 +1,202 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "updatedAt": "2026-09-25",
+  "title": "Como funciona seu aprendizado no TERMO",
+  "description": "Entenda como o TERMO organiza práticas, simulados, desafios, simuladores, recomendações e registros de progresso.",
+  "policyRef": "data/termo-gamification-policy-v1.json#1.1.0",
+  "sections": [
+    {
+      "id": "principios",
+      "eyebrow": "Aprender com o conteúdo",
+      "title": "O método vem antes dos pontos",
+      "paragraphs": [
+        "O TERMO combina leitura, recuperação ativa, feedback e retomadas espaçadas. A proposta é ajudar você a explicar, calcular, comparar e revisar conceitos de Termodinâmica — não apenas acumular cliques.",
+        "Pontos, níveis, missões e badges organizam a jornada e reconhecem atividades verificadas. Eles não são nota, diagnóstico de capacidade nem prova isolada de aprendizagem."
+      ]
+    },
+    {
+      "id": "exercicios",
+      "eyebrow": "Conteúdo e revisão",
+      "title": "Como os exercícios são produzidos",
+      "paragraphs": [
+        "Os exercícios usam somente capítulos e seções publicados que possuem vínculo aprovado com o livro e com o registro editorial do TERMO. A fonte da seção, o trecho do livro e o tema correspondente são mantidos como proveniência.",
+        "Algumas questões são produzidas automaticamente por inteligência artificial a partir dessas fontes. Validações automáticas reduzem erros, mas não os eliminam. Por isso, o TERMO identifica esse uso, oferece uma forma de relatar problemas e permite revisão posterior pelo professor responsável."
+      ]
+    },
+    {
+      "id": "modos",
+      "eyebrow": "Quatro experiências diferentes",
+      "title": "Prática, simulado, Desafio do dia e simulador",
+      "items": [
+        {
+          "title": "Prática da seção",
+          "text": "Aplica um conceito logo após a leitura. Concluir a atividade registra prática, mas não declara domínio."
+        },
+        {
+          "title": "Simulado do capítulo",
+          "text": "Reúne questões de diferentes partes do capítulo para diagnóstico e revisão. Pode conduzir a uma retomada guiada e a uma nova tentativa focalizada."
+        },
+        {
+          "title": "Desafio do dia",
+          "text": "É uma revisão curta de conteúdo já estudado, fraco ou no momento de ser retomado. Perder um dia não retira pontos nem apaga progresso."
+        },
+        {
+          "title": "Simulador",
+          "text": "Permite explorar modelos e parâmetros. Abrir um simulador, sozinho, registra apenas uma abertura: não vale pontos e não comprova aprendizagem ou domínio."
+        }
+      ]
+    },
+    {
+      "id": "escolha",
+      "eyebrow": "Recomendação explicável",
+      "title": "Como uma próxima atividade é escolhida",
+      "paragraphs": [
+        "O TERMO considera apenas conteúdo publicado e elegível. Quando existe histórico suficiente, prioriza revisões vencidas, conceitos com evidência fraca, retomadas necessárias e uma parcela limitada de intercalação com outros temas.",
+        "Cada recomendação deve informar por que apareceu, qual fonte revisada a sustenta, quanto tempo deve levar e uma alternativa. Você pode escolher outra atividade ou adiar a sugestão. Quando faltam dados, o sistema deve dizer que ainda não há evidência suficiente."
+      ]
+    },
+    {
+      "id": "feedback",
+      "eyebrow": "Depois de responder",
+      "title": "Erro, acerto, confiança e dicas têm significados diferentes",
+      "items": [
+        {
+          "title": "Erro",
+          "text": "Gera feedback e pode levar a uma revisão guiada, uma questão semelhante com outra forma e uma retomada futura. Um erro não retira pontos já conquistados."
+        },
+        {
+          "title": "Acerto com baixa confiança",
+          "text": "Recebe feedback e pode ser revisto antes de um acerto autônomo e confiante, porque o resultado ainda pode precisar de confirmação."
+        },
+        {
+          "title": "Uso de dica ou solução",
+          "text": "Ajuda a continuar estudando, mas é registrado como resposta assistida e não equivale a uma recuperação independente."
+        },
+        {
+          "title": "Acerto autônomo",
+          "text": "É uma evidência mais forte, mas um único acerto ainda não basta para declarar domínio."
+        }
+      ]
+    },
+    {
+      "id": "recompensas",
+      "eyebrow": "Reconhecimento, não moeda",
+      "title": "O que significam pontos, nível, missões e badges",
+      "paragraphs": [
+        "Pontos reconhecem atividades pedagógicas verificadas, como concluir uma prática elegível ou uma revisão. Repetir a mesma solicitação não cria uma nova recompensa. O nível resume a progressão em pontos, sem representar nota ou domínio.",
+        "Missões são convites opcionais para uma ação de aprendizagem. Badges, quando exibidos, registram um critério alcançado e mostram sua evidência; não dão respostas, vantagens em avaliações ou facilidade artificial. O TERMO não usa ranking individual público."
+      ]
+    },
+    {
+      "id": "dominio",
+      "eyebrow": "Evidência ao longo do tempo",
+      "title": "O que conta como domínio",
+      "paragraphs": [
+        "Domínio exige recuperações corretas e sem ajuda em momentos diferentes e, quando aplicável, em mais de uma forma de problema ou representação. Uma leitura, um clique, a abertura de um simulador, pontos acumulados ou uma única resposta correta não bastam.",
+        "Quando há poucos dados, o TERMO apresenta progresso ou evidência insuficiente, sem transformar uma estimativa em diagnóstico."
+      ]
+    },
+    {
+      "id": "ia",
+      "eyebrow": "Uso responsável de IA",
+      "title": "Limites da inteligência artificial",
+      "paragraphs": [
+        "A IA pode criar uma variação de exercício ou ajudar a ordenar atividades já elegíveis. Ela não decide quais capítulos estão publicados, não altera a fonte do livro e não atribui pontos ou domínio por conta própria.",
+        "As solicitações são limitadas às fontes aprovadas e devem ter uma alternativa determinística quando o serviço não estiver disponível. Questões automáticas podem conter erros e não substituem a leitura do material nem a avaliação do professor."
+      ]
+    },
+    {
+      "id": "dados",
+      "eyebrow": "Privacidade e controle",
+      "title": "Quais dados de aprendizagem são armazenados",
+      "paragraphs": [
+        "Para contas autenticadas, o TERMO guarda os registros necessários para retomar o estudo e explicar recomendações: atividades concluídas, tentativas, evidências por conteúdo, pontos, revisões e preferências aplicáveis. Visitantes podem ler o conteúdo público sem criar esse histórico pessoal.",
+        "Esses registros não são usados para criar perfis de publicidade. Mensagens opcionais dependem de autorização separada e podem ser desativadas. Consulte a Política de Privacidade para detalhes sobre tratamento, segurança e direitos."
+      ],
+      "links": [
+        { "label": "Ler a Política de Privacidade", "href": "privacidade.html" }
+      ]
+    },
+    {
+      "id": "erros",
+      "eyebrow": "Revisão humana",
+      "title": "Como relatar um possível erro",
+      "paragraphs": [
+        "Use o formulário de relato exibido junto a exercícios e simulados quando ele estiver disponível. Informe o tipo de problema sem incluir nome, e-mail ou outros dados pessoais no comentário.",
+        "Você também pode escrever para contatos@termo.app.br, indicando a página, o capítulo ou o recurso envolvido. Relatos podem ser revisados pelo professor e usados para evitar a repetição de um erro confirmado."
+      ],
+      "links": [
+        { "label": "Enviar relato por e-mail", "href": "mailto:contatos@termo.app.br" }
+      ]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Por que estou vendo esta atividade?",
+      "answer": "Porque ela pertence ao conteúdo publicado e pode estar ligada ao que você estudou, a uma revisão vencida ou a uma evidência que precisa ser fortalecida. A recomendação deve mostrar o motivo e oferecer uma alternativa."
+    },
+    {
+      "question": "Como ganho pontos?",
+      "answer": "Concluindo atividades pedagógicas verificadas e elegíveis. Cliques, atualizações da página e repetição da mesma solicitação não geram novos pontos, e erros não retiram os pontos já conquistados."
+    },
+    {
+      "question": "O que conta como uso do simulador?",
+      "answer": "Na versão atual, o histórico pessoal registra a abertura. Abrir o simulador não vale pontos nem conta como domínio; uma futura atividade pedagógica exigirá previsão, interação significativa e reflexão verificáveis."
+    },
+    {
+      "question": "Posso escolher outra atividade?",
+      "answer": "Sim. Recomendações e missões são opcionais. Você pode abrir outra seção, escolher outro modo de estudo ou voltar mais tarde sem perder pontos ou domínio."
+    }
+  ],
+  "references": [
+    {
+      "authors": "Roediger e Karpicke",
+      "year": 2006,
+      "title": "Test-enhanced learning: Taking memory tests improves long-term retention",
+      "href": "https://pubmed.ncbi.nlm.nih.gov/16507066/"
+    },
+    {
+      "authors": "Cepeda et al.",
+      "year": 2006,
+      "title": "Distributed practice in verbal recall tasks: A review and quantitative synthesis",
+      "href": "https://pubmed.ncbi.nlm.nih.gov/16719566/"
+    },
+    {
+      "authors": "Butler, Karpicke e Roediger",
+      "year": 2008,
+      "title": "Correcting a metacognitive error: Feedback increases retention of low-confidence correct responses",
+      "href": "https://pubmed.ncbi.nlm.nih.gov/18605878/"
+    },
+    {
+      "authors": "Pastötter e Bäuml",
+      "year": 2020,
+      "title": "Retrieval practice enhances new learning: The forward effect of testing",
+      "href": "https://pubmed.ncbi.nlm.nih.gov/32418183/"
+    },
+    {
+      "authors": "Rawson e Dunlosky",
+      "year": 2022,
+      "title": "Successive relearning: An underexplored but potent technique for obtaining and maintaining knowledge",
+      "href": "https://doi.org/10.1177/09637214221100484"
+    },
+    {
+      "authors": "Richter e Kickmeier-Rust",
+      "year": 2025,
+      "title": "Gamification in Physics Education: Play Your Way to Better Learning",
+      "href": "https://doi.org/10.17083/ijsg.v12i1.858"
+    },
+    {
+      "authors": "Balci, Secaur e Morris",
+      "year": 2022,
+      "title": "Comparing the effectiveness of badges and leaderboards on academic performance and motivation of students in fully versus partially gamified online physics classes",
+      "href": "https://doi.org/10.1007/s10639-022-10983-z"
+    },
+    {
+      "authors": "Gaurina, Alajbeg e Weber",
+      "year": 2025,
+      "title": "The Power of Play: Investigating the Effects of Gamification on Motivation and Engagement in Physics Classroom",
+      "href": "https://doi.org/10.3390/educsci15010104"
+    }
+  ]
+}

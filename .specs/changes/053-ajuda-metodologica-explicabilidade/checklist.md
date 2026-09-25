@@ -1,7 +1,7 @@
 # Checklist — Change 053
 
-- [ ] Vocabulário de T52 estabilizado.
-- [ ] Fontes e rota planejada registradas.
-- [ ] Conteúdo público revisado.
-- [ ] SEO, links e acessibilidade aprovados.
-- [ ] Decisões e publicação registradas.
+- [x] Vocabulário de T52 estabilizado.
+- [x] Fontes e rota planejada registradas.
+- [x] Conteúdo público revisado.
+- [x] SEO, links e acessibilidade aprovados localmente.
+- [x] Publicação registrada após autorização por `cpd` em 25/09/2026.

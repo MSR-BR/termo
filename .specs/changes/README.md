@@ -35,7 +35,7 @@ concorrentes com o mesmo número.
 | 050 | `050-contrato-unificado-adapter-termo` | `gpt-5.6-sol / high` | `gpt-5.6-terra / high` | implementada e validada localmente; aguarda CPD |
 | 051 | `051-ledger-projecoes-perfil-autoritativo` | `gpt-5.6-sol / xhigh` | `gpt-5.6-sol / high` | implementada localmente e auditada no remoto; rollout bloqueado pelo histórico de migrations e auto-expose |
 | 052 | `052-modos-adaptativos-recompensas-pedagogicas` | `gpt-5.6-sol / high` | `gpt-5.6-sol / xhigh` | publicada por CPD em 25/09/2026; migração e banco validados; smoke autenticado manual pendente |
-| 053 | `053-ajuda-metodologica-explicabilidade` | `gpt-5.6-terra / medium` | `gpt-5.6-sol / medium` | planejada; depende da estabilidade pública da T52 |
+| 053 | `053-ajuda-metodologica-explicabilidade` | `gpt-5.6-terra / medium` | `gpt-5.6-sol / medium` | publicada por CPD em 25/09/2026 |
 | 054 | `054-avaliacao-academica-comunicacao-responsavel` | `gpt-5.6-sol / high` | `gpt-5.6-terra / high` | planejada; interpretação depende da fidelidade de T51–T52 |
 
 Os documentos datados em `changes/` constituem o histórico anterior e não são

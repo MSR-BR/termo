@@ -1,6 +1,7 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
+import { buildLearningHelpArtifact } from "./build-termo-learning-help.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -495,6 +496,7 @@ function collectSitemapUrls(topicMap, htmlFiles, editorialRegistry) {
   urls.add(`${SITE_URL}/home.html`);
   urls.add(`${SITE_URL}/conteudo.html`);
   urls.add(`${SITE_URL}/search.html`);
+  urls.add(`${SITE_URL}/ajuda-aprendizado.html`);
   urls.add(`${SITE_URL}/leis-da-termodinamica.html`);
   urls.add(`${SITE_URL}/exercicios-de-termodinamica.html`);
   urls.add(`${SITE_URL}/simuladores-de-termodinamica.html`);
@@ -866,6 +868,7 @@ function buildContentPage(topicMap) {
       <p>Esta página reúne links diretos para os capítulos, tópicos, simulados por capítulo, desafio do dia e simuladores do projeto TERMO.</p>
       <nav class="quick-links" aria-label="Atalhos de conteúdo">
         <a href="home.html">Apresentação</a>
+        <a href="ajuda-aprendizado.html">Como funciona seu aprendizado</a>
         <a href="index.html?view=journey">Pontos e simulados</a>
         <a href="index.html?view=daily-challenge">Desafio do dia</a>
         <a href="search.html">Buscar conteúdo</a>
@@ -1518,6 +1521,7 @@ function buildHomePage(topicMap) {
     <div class="wrap hero-content">
       <nav class="top-links" aria-label="Acessos principais">
         <a href="index.html">Abrir app</a>
+        <a href="ajuda-aprendizado.html">Como funciona seu aprendizado</a>
         <a href="index.html?view=journey">Pontos e simulados</a>
         <a href="index.html?view=daily-challenge">Desafio do dia</a>
         <a href="conteudo.html">Mapa de conteúdo</a>
@@ -1603,7 +1607,7 @@ ${simulatorCards}
       </div>
     </section>
 
-    <p class="footer-note">${escapeHtml(COURSE_TITLE)} é um projeto didático de ${escapeHtml(AUTHOR_NAME)} no ${escapeHtml(PUBLISHER_NAME)}. · <a href="termos.html">Termos de Uso</a> · <a href="privacidade.html">Privacidade</a></p>
+    <p class="footer-note">${escapeHtml(COURSE_TITLE)} é um projeto didático de ${escapeHtml(AUTHOR_NAME)} no ${escapeHtml(PUBLISHER_NAME)}. · <a href="ajuda-aprendizado.html">Como funciona seu aprendizado</a> · <a href="termos.html">Termos de Uso</a> · <a href="privacidade.html">Privacidade</a></p>
   </main>
 </body>
 </html>
@@ -2057,8 +2061,9 @@ for (const filePath of htmlFiles) {
 
 await writeHomePage(topicMap);
 await writeContentPage(topicMap);
+await buildLearningHelpArtifact(rootDir);
 await writeGithubPagesBridge(topicMap);
 await writeRobotsFile();
 await writeSitemaps(topicMap, htmlFiles, editorialRegistry);
 
-console.log(`SEO atualizado em ${htmlFiles.length} HTMLs, home.html, conteudo.html, docs/index.html, robots.txt, sitemap.xml, sitemap.txt e cópias de compatibilidade.`);
+console.log(`SEO atualizado em ${htmlFiles.length} HTMLs, home.html, conteudo.html, ajuda-aprendizado.html, docs/index.html, robots.txt, sitemap.xml, sitemap.txt e cópias de compatibilidade.`);

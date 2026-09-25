@@ -184,6 +184,43 @@
       display: none;
     }
 
+    .learning-help-context {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 12px;
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .learning-help-context > a {
+      display: inline-flex;
+      min-height: 40px;
+      align-items: center;
+      gap: 7px;
+      border: 1px solid rgba(0, 75, 135, 0.2);
+      border-radius: 999px;
+      padding: 8px 13px;
+      background: #FFFFFF;
+      color: var(--blue);
+      font-weight: 750;
+      text-decoration: none;
+    }
+
+    .learning-help-context > a:hover {
+      text-decoration: underline;
+    }
+
+    .learning-help-context--catalog {
+      margin: 0 0 18px;
+      padding: 14px 16px;
+      border: 1px solid rgba(0, 75, 135, 0.14);
+      border-radius: 12px;
+      background: #F6F9FD;
+    }
+
     .drawer-overlay {
       position: fixed;
       inset: 0;
@@ -3841,6 +3878,13 @@
                       <span class="extras-note">Pesquise nas seções publicadas do livro.</span>
                     </span>
                   </a>
+                  <a class="extras-button" href="ajuda-aprendizado.html">
+                    <span class="extras-icon"><i class="fa-solid fa-circle-question"></i></span>
+                    <span class="extras-text">
+                      <span class="extras-label">Como funciona seu aprendizado</span>
+                      <span class="extras-note">Entenda práticas, pontos, simulados, desafios e recomendações.</span>
+                    </span>
+                  </a>
                   <button type="button" class="extras-button" data-termo-book-button="true">
                     <span class="extras-icon"><i class="fa-solid fa-file-pdf"></i></span>
                     <span class="extras-text">
@@ -3954,6 +3998,8 @@
     <footer class="footer">
       <div class="footer-links" aria-label="Informações institucionais">
         <a class="footer-link" href="conteudo.html">Conteúdo</a>
+        <span class="footer-divider" aria-hidden="true">•</span>
+        <a class="footer-link" href="ajuda-aprendizado.html">Ajuda</a>
         <span class="footer-divider" aria-hidden="true">•</span>
         <a class="footer-link" href="termos.html" data-info-modal-open="terms">Termos de Uso</a>
         <span class="footer-divider" aria-hidden="true">•</span>
@@ -7078,6 +7124,9 @@
               ${escapeHtml(quiz.note || "Responda as questões de múltipla escolha. A correção aparece ao final.")}
               Este simulado tem ${Number(quiz.questionCount || quiz.questions?.length || 0)} questões de múltipla escolha e será salvo no seu progresso ao enviar.
             </div>
+            <div class="learning-help-context">
+              <a href="ajuda-aprendizado.html#modos"><i class="fa-solid fa-circle-question" aria-hidden="true"></i> Como funciona o simulado?</a>
+            </div>
             <div class="journey-quiz__disclaimer">
               <strong>Aviso importante:</strong> todo o conteúdo didático das páginas e do livro associado foi criado pelo autor do material.
               Este simulado é um experimento didático; as questões, alternativas e explicações são geradas automaticamente por IA e
@@ -8085,6 +8134,11 @@
         <div class="journey-shell">
           ${syncWarningMarkup}
 
+          <div class="learning-help-context">
+            <span>Quer entender como progresso, recomendações e domínio são registrados?</span>
+            <a href="ajuda-aprendizado.html"><i class="fa-solid fa-circle-question" aria-hidden="true"></i> Como funciona seu aprendizado</a>
+          </div>
+
           <section class="journey-metrics" aria-label="Resumo da jornada">
             ${renderJourneyMetric(
               "Pontos de estudo",
@@ -8431,6 +8485,9 @@
             <h2 class="journey-quiz__title">${escapeHtml(quiz.chapterCode || `Capítulo ${quiz.chapterId}`)} · pergunta curta</h2>
             <div class="journey-quiz__copy">
               Uma questão de múltipla escolha sobre um tema que você já marcou como estudado ou sobre um capítulo em que já fez simulado. Se acertar, ela vale 10 pontos uma vez por dia; isoladamente, não declara domínio.
+            </div>
+            <div class="learning-help-context">
+              <a href="ajuda-aprendizado.html#escolha"><i class="fa-solid fa-circle-question" aria-hidden="true"></i> Por que estou vendo isto?</a>
             </div>
             <div class="journey-quiz__disclaimer">
               <strong>Aviso importante:</strong> todo o conteúdo didático das páginas e do livro associado foi criado pelo autor do material.
@@ -9474,6 +9531,10 @@ Entre no ambiente para explorar os recursos disponíveis para o seu progresso.</
 
     function renderSimulatorCatalog() {
       topicContainer.innerHTML = `
+        <div class="learning-help-context learning-help-context--catalog">
+          <span>Abrir um simulador não vale pontos nem declara domínio.</span>
+          <a href="ajuda-aprendizado.html#modos"><i class="fa-solid fa-circle-question" aria-hidden="true"></i> O que conta como uso?</a>
+        </div>
         <div class="simulator-grid">
           ${simulatorsCatalog.map(function (simulator) {
             const sectionLink = simulator.sectionId && simulator.sectionUrl
@@ -9529,6 +9590,10 @@ Entre no ambiente para explorar os recursos disponíveis para o seu progresso.</
               <a class="simulator-detail__button simulator-detail__button--primary" href="${escapeHtml(simulator.standaloneUrl)}" target="_blank" rel="noopener noreferrer" data-role="record-simulator-open" data-simulator-slug="${escapeHtml(simulator.slug)}">
                 <i class="fa-solid fa-up-right-from-square"></i>
                 <span>Abrir em nova aba sem cabeçalho</span>
+              </a>
+              <a class="simulator-detail__button" href="ajuda-aprendizado.html#modos">
+                <i class="fa-solid fa-circle-question"></i>
+                <span>Como o uso é registrado?</span>
               </a>
             </div>
           </section>
