@@ -1901,6 +1901,69 @@
       padding: 14px;
     }
 
+    .evaluation-summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .evaluation-summary article,
+    .evaluation-section {
+      border: 1px solid #DDE8F6;
+      border-radius: 16px;
+      background: #FFFFFF;
+      padding: 18px;
+    }
+
+    .evaluation-summary strong {
+      display: block;
+      color: var(--blue);
+      font-size: 1.7rem;
+    }
+
+    .evaluation-summary span,
+    .evaluation-note,
+    .evaluation-section p {
+      color: #64748B;
+    }
+
+    .evaluation-sections {
+      display: grid;
+      gap: 16px;
+    }
+
+    .evaluation-section h3 {
+      margin: 0 0 8px;
+    }
+
+    .evaluation-table-wrap {
+      overflow-x: auto;
+    }
+
+    .evaluation-table {
+      width: 100%;
+      min-width: 680px;
+      border-collapse: collapse;
+    }
+
+    .evaluation-table th,
+    .evaluation-table td {
+      padding: 10px;
+      border-bottom: 1px solid #DDE8F6;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .evaluation-status {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #EEF5FF;
+      font-size: .78rem;
+      font-weight: 800;
+    }
+
     .journey-shell {
       display: grid;
       gap: 18px;
@@ -4577,6 +4640,12 @@
         label: "Comunicação",
         icon: "fa-envelope-circle-check",
         note: "Preparar e testar o canal de e-mail do TERMO."
+      },
+      {
+        id: "learning-evaluation",
+        label: "Avaliação e qualidade",
+        icon: "fa-chart-line",
+        note: "Ver métricas agregadas, fidelidade e limitações da evidência."
       }
     ];
 
@@ -4811,7 +4880,7 @@
 
     function getDrawerSectionForView(viewId) {
       if (viewId === "saved" || viewId === "favorites") return "personal";
-      if (viewId === "validation-review" || viewId === "rating-management" || viewId === "communication") return "admin";
+      if (viewId === "validation-review" || viewId === "rating-management" || viewId === "communication" || viewId === "learning-evaluation") return "admin";
       if (viewId === "journey") return "extras";
       if (viewId === "daily-challenge") return "extras";
       if (viewId === "simulators") return "extras";
@@ -9324,7 +9393,7 @@
         <article class="saved-card">
           <div class="saved-card__meta"><i class="fa-solid fa-shield-halved"></i> Administração restrita</div>
           <h3 class="saved-card__title">Preparar comunicação</h3>
-          <p class="saved-card__summary">Somente usuários com a preferência de novidades ativa podem entrar no público. Primeiro envie um teste para você; o envio real exige revisão e a confirmação <strong>ENVIAR</strong>.</p>
+          <p class="saved-card__summary">Somente usuários com opt-in afirmativo e sem pausa ativa podem entrar no público. Envios reais respeitam o período de silêncio (21h–8h, Brasília), o limite de 1 mensagem em 24 horas e 2 em 7 dias, além de incluir descadastro sem login. Primeiro envie um teste para você; o envio real exige revisão e a confirmação <strong>ENVIAR</strong>.</p>
           <form class="communication-form" data-role="communication-form">
             <label class="communication-form__field">Público
               <select data-role="communication-audience-type">
@@ -9418,7 +9487,8 @@ Entre no ambiente para explorar os recursos disponíveis para o seu progresso.</
           const result = await requestEmailCampaign({ action: "audience", ...getDraft() });
           recipients = Array.isArray(result.recipients) ? result.recipients : [];
           renderAudience();
-          status.textContent = `${recipients.length} destinatário(s) elegível(is) carregado(s).`;
+          const capped = Number(result.excludedByFrequencyCap || 0);
+          status.textContent = `${recipients.length} destinatário(s) elegível(is) carregado(s).${capped ? ` ${capped} excluído(s) pelo limite de frequência.` : ""}`;
         } catch (error) {
           status.textContent = error?.message || "Não foi possível carregar os destinatários.";
         }
@@ -9480,6 +9550,124 @@ Entre no ambiente para explorar os recursos disponíveis para o seu progresso.</
           button.disabled = false;
         }
       });
+    }
+
+    function evaluationMetricDisplay(value) {
+      if (value && typeof value === "object" && "display" in value) return escapeHtml(value.display);
+      if (value === null || typeof value === "undefined" || value === "") return "Indisponível";
+      return escapeHtml(value);
+    }
+
+    function evaluationStageLabel(stage) {
+      return ({
+        eligibility: "Elegibilidade",
+        exposure: "Exposição",
+        action: "Ação",
+        reward: "Recompensa",
+        duplicate_suppression: "Duplicata",
+        opt_out: "Opt-out"
+      })[stage] || stage;
+    }
+
+    async function requestLearningEvaluationReport(days = 28) {
+      const session = await window.TermoAuth?.getSession?.().catch(function () { return null; });
+      const accessToken = session?.access_token || "";
+      if (!accessToken) throw new Error("not_authenticated");
+      const response = await fetch(`/api/learning-evaluation-report?days=${encodeURIComponent(days)}`, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+        credentials: "same-origin",
+        cache: "no-store"
+      });
+      const payload = await response.json().catch(function () { return {}; });
+      if (!response.ok) throw new Error(payload.error || "evaluation_report_failed");
+      return payload;
+    }
+
+    async function renderLearningEvaluation() {
+      setLandingMode(false);
+      await ensureAuthModules();
+      const session = await window.TermoAuth?.getSession?.().catch(function () { return null; });
+      state.loggedIn = Boolean(session?.user);
+      state.canReviewValidations = await canCurrentUserReviewValidations(session);
+      panelKicker.textContent = "Administração";
+      panelTitle.textContent = "Avaliação e qualidade";
+      panelDescription.textContent = "Leitura agregada e separada de aprendizagem, uso, experiência, fidelidade e segurança.";
+      setActiveChapter(state.chapterId);
+      setActivePersonal("");
+      setActiveAdmin("learning-evaluation");
+      setActiveExtra("");
+      panelActions.innerHTML = "";
+
+      if (!state.loggedIn || !state.canReviewValidations) {
+        topicContainer.innerHTML = `<div class="empty-state"><strong>Área restrita.</strong><br />Entre com a conta administrativa autorizada.</div>`;
+        return;
+      }
+
+      topicContainer.innerHTML = `<div class="empty-state"><strong>Carregando relatório agregado...</strong></div>`;
+      let report;
+      try {
+        report = await requestLearningEvaluationReport(28);
+      } catch (error) {
+        topicContainer.innerHTML = `<div class="empty-state"><strong>Não foi possível carregar o relatório.</strong><br />${escapeHtml(error?.message || "Verifique as fontes e a configuração do servidor.")}</div>`;
+        return;
+      }
+
+      const mechanics = Array.isArray(report?.fidelity?.mechanics) ? report.fidelity.mechanics : [];
+      const sourceRows = Object.entries(report?.dataQuality?.sources || {});
+      topicContainer.innerHTML = `
+        <article class="saved-card">
+          <div class="saved-card__meta"><i class="fa-solid fa-shield-halved"></i> Agregado · janela de ${escapeHtml(report?.window?.days || 28)} dias</div>
+          <h3 class="saved-card__title">O que este painel mede</h3>
+          <p class="saved-card__summary"><strong>Não é uma prova causal de aprendizagem.</strong> Uso, satisfação e pontos permanecem separados de tentativas e evidências. Contagens pequenas aparecem como &lt;${escapeHtml(report?.privacy?.minimumCellSize || 5)}.</p>
+        </article>
+        <section class="evaluation-summary" aria-label="Resumo agregado">
+          <article><strong>${evaluationMetricDisplay(report?.learning?.attempts)}</strong><span>Tentativas registradas</span></article>
+          <article><strong>${evaluationMetricDisplay(report?.learning?.independentRetrievals)}</strong><span>Recuperações independentes</span></article>
+          <article><strong>${evaluationMetricDisplay(report?.behavior?.events)}</strong><span>Eventos de uso</span></article>
+          <article><strong>${evaluationMetricDisplay(report?.experience?.ratings)}</strong><span>Avaliações de experiência</span></article>
+        </section>
+        <div class="evaluation-sections">
+          <section class="evaluation-section">
+            <h3>Aprendizagem observada</h3>
+            <p>${escapeHtml(report?.learning?.exactOutcome || "")}</p>
+            <p><strong>Média observada:</strong> ${evaluationMetricDisplay(report?.learning?.averageObservedScore)}${report?.learning?.averageObservedScore !== null ? "%" : ""}</p>
+            <p class="evaluation-note"><strong>Gate de alegação:</strong> ${escapeHtml(report?.learning?.claimGate || "")}</p>
+          </section>
+          <section class="evaluation-section">
+            <h3>Fidelidade por mecânica</h3>
+            <p>${escapeHtml(report?.fidelity?.exactOutcome || "")}</p>
+            <div class="evaluation-table-wrap">
+              <table class="evaluation-table">
+                <thead><tr><th>Mecânica</th><th>Etapa</th><th>Cobertura</th><th>Contagem</th></tr></thead>
+                <tbody>
+                  ${mechanics.map(function (mechanic) {
+                    return Object.entries(mechanic.stages || {}).map(function ([stage, value]) {
+                      return `<tr><td>${escapeHtml(mechanic.label || mechanic.id)}</td><td>${escapeHtml(evaluationStageLabel(stage))}</td><td><span class="evaluation-status">${escapeHtml(value.status || "unavailable")}</span></td><td>${value.count ? evaluationMetricDisplay(value.count) : "—"}</td></tr>`;
+                    }).join("");
+                  }).join("")}
+                </tbody>
+              </table>
+            </div>
+          </section>
+          <section class="evaluation-section">
+            <h3>Comunicação e segurança</h3>
+            <p>${escapeHtml(report?.equitySafety?.exactOutcome || "")}</p>
+            <p><strong>Opt-in:</strong> ${evaluationMetricDisplay(report?.equitySafety?.optedIn)} · <strong>Pausados:</strong> ${evaluationMetricDisplay(report?.equitySafety?.paused)} · <strong>Opt-out:</strong> ${evaluationMetricDisplay(report?.equitySafety?.optedOut)}</p>
+          </section>
+          <section class="evaluation-section">
+            <h3>Qualidade e limitações</h3>
+            <div class="evaluation-table-wrap">
+              <table class="evaluation-table">
+                <thead><tr><th>Fonte</th><th>Leitura</th><th>Linhas</th><th>Limite atingido</th></tr></thead>
+                <tbody>${sourceRows.map(function ([name, value]) {
+                  return `<tr><td>${escapeHtml(name)}</td><td>${value.ok ? "Disponível" : "Falhou"}</td><td>${evaluationMetricDisplay(value.rows)}</td><td>${value.truncated ? "Sim" : "Não"}</td></tr>`;
+                }).join("")}</tbody>
+              </table>
+            </div>
+            <ul>${(report?.dataQuality?.limitations || []).map(function (item) { return `<li>${escapeHtml(item)}</li>`; }).join("")}</ul>
+          </section>
+        </div>
+      `;
     }
 
     function attachSimulatorFrameAutoResize(frame) {
@@ -9684,6 +9872,11 @@ Entre no ambiente para explorar os recursos disponíveis para o seu progresso.</
 
       if (viewId === "communication") {
         await renderCommunication();
+        return;
+      }
+
+      if (viewId === "learning-evaluation") {
+        await renderLearningEvaluation();
         return;
       }
 
@@ -9940,6 +10133,11 @@ Entre no ambiente para explorar os recursos disponíveis para o seu progresso.</
 
           if (state.view === "communication") {
             await renderCommunication();
+            return;
+          }
+
+          if (state.view === "learning-evaluation") {
+            await renderLearningEvaluation();
             return;
           }
 

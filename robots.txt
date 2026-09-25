@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /unsubscribe.html
 
 Sitemap: https://termo.app.br/sitemap.xml

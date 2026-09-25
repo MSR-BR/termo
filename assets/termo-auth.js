@@ -747,7 +747,14 @@
       preferences?.termsVersion === preferences?.termsCurrentVersion &&
       preferences?.privacyVersion === preferences?.privacyCurrentVersion
     );
-    const optedIn = preferences?.emailUpdatesOptedIn !== false;
+    const optedIn = preferences?.emailUpdatesOptedIn === true;
+    const pausedUntil = preferences?.emailUpdatesPausedUntil
+      ? new Date(preferences.emailUpdatesPausedUntil)
+      : null;
+    const isPaused = Boolean(pausedUntil && !Number.isNaN(pausedUntil.getTime()) && pausedUntil.getTime() > Date.now());
+    const pausedLabel = isPaused
+      ? pausedUntil.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "numeric" })
+      : "";
     host.innerHTML = `
       <div class="termo-auth-legal-title">Comunicações e privacidade</div>
       ${accepted ? "" : `<p class="termo-auth-legal-copy">Antes de usar os recursos vinculados à conta, leia e confirme os <a href="/termos.html" target="_blank" rel="noopener">Termos de Uso</a> e a <a href="/privacidade.html" target="_blank" rel="noopener">Política de Privacidade</a>. A escolha de receber novidades é separada e opcional.</p>`}
@@ -759,8 +766,12 @@
         <input type="checkbox" data-termo-auth-email-updates ${optedIn ? "checked" : ""}>
         <span>Quero receber novidades e recursos do TERMO por e-mail.</span>
       </label>
-      <p class="termo-auth-legal-copy">Essa preferência é opcional e pode ser alterada aqui a qualquer momento.</p>
-      <button type="button" class="termo-auth-secondary" data-termo-auth-save-legal>Salvar preferências</button>
+      <p class="termo-auth-legal-copy">Essa preferência começa desligada, é opcional e pode ser alterada aqui a qualquer momento.${isPaused ? ` Os envios estão pausados até ${escapeHtml(pausedLabel)}.` : ""}</p>
+      <div class="termo-auth-actions">
+        <button type="button" class="termo-auth-secondary" data-termo-auth-save-legal>Salvar preferências</button>
+        ${optedIn && !isPaused ? `<button type="button" class="termo-auth-secondary" data-termo-auth-pause-email>Pausar e-mails por 30 dias</button>` : ""}
+        ${isPaused ? `<button type="button" class="termo-auth-secondary" data-termo-auth-resume-email>Retomar e-mails</button>` : ""}
+      </div>
     `;
     const saveButton = host.querySelector("[data-termo-auth-save-legal]");
     saveButton?.addEventListener("click", async function () {
@@ -787,6 +798,36 @@
       } catch (_error) {
         setStatus("Não foi possível salvar suas preferências agora.", true);
         saveButton.disabled = false;
+      }
+    });
+
+    host.querySelector("[data-termo-auth-pause-email]")?.addEventListener("click", async function (event) {
+      const button = event.currentTarget;
+      button.disabled = true;
+      try {
+        const next = await saveLegalPreferences({ emailPauseDays: 30 });
+        state.legalPreferences = next;
+        trackLegalEvent("email_updates_preference_changed", { opted_in: true, paused_days: 30 });
+        renderLegalPreferences(host, next);
+        setStatus("E-mails pausados por 30 dias.");
+      } catch (_error) {
+        setStatus("Não foi possível pausar os e-mails agora.", true);
+        button.disabled = false;
+      }
+    });
+
+    host.querySelector("[data-termo-auth-resume-email]")?.addEventListener("click", async function (event) {
+      const button = event.currentTarget;
+      button.disabled = true;
+      try {
+        const next = await saveLegalPreferences({ resumeEmailUpdates: true });
+        state.legalPreferences = next;
+        trackLegalEvent("email_updates_preference_changed", { opted_in: true, resumed: true });
+        renderLegalPreferences(host, next);
+        setStatus("Recebimento de novidades retomado.");
+      } catch (_error) {
+        setStatus("Não foi possível retomar os e-mails agora.", true);
+        button.disabled = false;
       }
     });
   }

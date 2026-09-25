@@ -22,6 +22,8 @@ Também inclui simuladores para escalas termométricas, equilíbrio térmico, re
 
 A primeira versão pública da gamificação usa uma estrutura simples: o estudante marca seções como estudadas, ganha pontos, acompanha nível e sequência de estudo, libera simulados IA em ordem por capítulo e pode fazer um desafio do dia quando já tiver histórico suficiente. A ideia de um estudo guiado inteligente fica documentada para uma fase futura, depois de haver dados reais de uso.
 
+A avaliação administrativa mantém métricas de aprendizagem observada separadas de navegação, satisfação e pontos. O painel agregado suprime células pequenas e registra explicitamente as limitações atuais: ainda não existe baseline comparável, medida automática de retenção tardia nem transferência em forma alterada. Comunicações por e-mail são opcionais, começam desligadas e contam com pausa, limites de frequência, período de silêncio e descadastro sem login.
+
 Usuários autenticados também podem consultar, em **Pontos e simulados**, um
 histórico privado das aberturas dos simuladores interativos. Esse histórico não
 gera pontos automaticamente e não é criado para visitantes anônimos.

@@ -1,0 +1,163 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "updatedAt": "2026-09-25",
+  "status": "local-validation",
+  "purpose": "Separar evidência de aprendizagem, uso, experiência, fidelidade e equidade/segurança, com comunicação opcional e não coercitiva.",
+  "sources": {
+    "learningLedger": "gamification_event_log",
+    "assessmentAttempts": "chapter_quiz_attempts",
+    "behaviorTelemetry": "app_analytics_events e GA4",
+    "experience": "app_ratings",
+    "communicationPreferences": "user_legal_preferences",
+    "deliveryAudit": "email_recipient_deliveries"
+  },
+  "layers": [
+    {
+      "id": "learning",
+      "outcome": "Desempenho em recuperações independentes, retenção tardia e transferência em forma alterada.",
+      "sources": ["gamification_event_log", "chapter_quiz_attempts"],
+      "cannotProveAlone": ["pontos", "cliques", "tempo", "tentativas", "satisfação"]
+    },
+    {
+      "id": "behavior",
+      "outcome": "Abertura, ativação, navegação e uso de recursos.",
+      "sources": ["app_analytics_events", "GA4"],
+      "cannotProveAlone": ["aprendizagem", "retenção", "domínio", "transferência"]
+    },
+    {
+      "id": "experience",
+      "outcome": "Satisfação declarada e comentários opcionais.",
+      "sources": ["app_ratings"],
+      "cannotProveAlone": ["aprendizagem", "eficácia pedagógica"]
+    },
+    {
+      "id": "fidelity",
+      "outcome": "Se cada mecânica foi elegível, exposta, acionada, recompensada ou suprimida conforme o contrato.",
+      "sources": ["gamification_event_log", "chapter_quiz_attempts", "app_analytics_events"],
+      "cannotProveAlone": ["aprendizagem", "causalidade"]
+    },
+    {
+      "id": "equity_safety",
+      "outcome": "Atrito, dados ausentes, falhas, opt-out e efeitos adversos sem perfis públicos individuais.",
+      "sources": ["app_analytics_events", "user_legal_preferences", "email_recipient_deliveries"],
+      "cannotProveAlone": ["ausência de viés", "ausência de dano"]
+    }
+  ],
+  "fidelityStages": ["eligibility", "exposure", "action", "reward", "duplicate_suppression", "opt_out"],
+  "mechanics": [
+    {
+      "id": "section_completion",
+      "label": "Marcar seção como estudada",
+      "eligibility": { "status": "derived", "source": "termo-editorial-registry + conteúdo publicado" },
+      "exposure": { "status": "unavailable", "source": null },
+      "action": { "status": "available", "source": "gamification_event_log:section_completed" },
+      "reward": { "status": "available", "source": "gamification_event_log:reward_eligible/xp_delta" },
+      "duplicate_suppression": { "status": "partial", "source": "resposta do RPC; contagem histórica ainda indisponível" },
+      "opt_out": { "status": "not_applicable", "source": null }
+    },
+    {
+      "id": "chapter_assessment",
+      "label": "Simulado do capítulo",
+      "eligibility": { "status": "derived", "source": "capítulos publicados e catálogo do simulado" },
+      "exposure": { "status": "partial", "source": "app_analytics_events:quiz_start" },
+      "action": { "status": "available", "source": "chapter_quiz_attempts:full_quiz" },
+      "reward": { "status": "available", "source": "gamification_event_log:assessment_completed" },
+      "duplicate_suppression": { "status": "partial", "source": "resposta do RPC; contagem histórica ainda indisponível" },
+      "opt_out": { "status": "not_applicable", "source": null }
+    },
+    {
+      "id": "guided_review",
+      "label": "Retomada guiada",
+      "eligibility": { "status": "derived", "source": "feedback incorreto da tentativa anterior" },
+      "exposure": { "status": "unavailable", "source": null },
+      "action": { "status": "available", "source": "chapter_quiz_attempts:guided_review" },
+      "reward": { "status": "available", "source": "gamification_event_log:assessment_reviewed" },
+      "duplicate_suppression": { "status": "partial", "source": "resposta do RPC; contagem histórica ainda indisponível" },
+      "opt_out": { "status": "unavailable", "source": null }
+    },
+    {
+      "id": "focused_retry",
+      "label": "Nova tentativa focalizada",
+      "eligibility": { "status": "derived", "source": "conclusão de retomada guiada" },
+      "exposure": { "status": "unavailable", "source": null },
+      "action": { "status": "available", "source": "chapter_quiz_attempts:focused_retry" },
+      "reward": { "status": "available", "source": "gamification_event_log:assessment_retry_completed" },
+      "duplicate_suppression": { "status": "partial", "source": "resposta do RPC; contagem histórica ainda indisponível" },
+      "opt_out": { "status": "unavailable", "source": null }
+    },
+    {
+      "id": "daily_challenge",
+      "label": "Desafio do dia",
+      "eligibility": { "status": "derived", "source": "histórico elegível e capítulos publicados" },
+      "exposure": { "status": "unavailable", "source": null },
+      "action": { "status": "available", "source": "chapter_quiz_attempts:daily_challenge" },
+      "reward": { "status": "available", "source": "gamification_event_log:daily_challenge_completed" },
+      "duplicate_suppression": { "status": "enforced", "source": "índice único por usuário/dia" },
+      "opt_out": { "status": "unavailable", "source": null }
+    },
+    {
+      "id": "simulator",
+      "label": "Simulador",
+      "eligibility": { "status": "derived", "source": "catálogo público de simuladores" },
+      "exposure": { "status": "partial", "source": "app_analytics_events:simulator_open_click" },
+      "action": { "status": "partial", "source": "app_analytics_events:simulator_start" },
+      "reward": { "status": "not_applicable", "source": "abertura não gera recompensa" },
+      "duplicate_suppression": { "status": "not_applicable", "source": null },
+      "opt_out": { "status": "not_applicable", "source": null }
+    }
+  ],
+  "researchPlan": {
+    "primaryQuestion": "Após exposição fiel aos modos adaptativos, há melhora em recuperação independente tardia e em forma alterada?",
+    "baseline": {
+      "required": true,
+      "status": "not_collected",
+      "minimum": "pré-teste ou primeira tentativa comparável anterior à intervenção"
+    },
+    "retention": {
+      "required": true,
+      "status": "not_collected",
+      "minimumDelayDays": 7,
+      "outcome": "proporção de respostas corretas, independentes e sem solução revelada"
+    },
+    "transfer": {
+      "required": true,
+      "status": "not_collected",
+      "minimum": "mesmo conceito em enunciado, números ou representação alterados"
+    },
+    "reportingRequired": [
+      "amostra e critérios de inclusão",
+      "exposição à intervenção",
+      "atrito e dados ausentes",
+      "estimativa de efeito",
+      "intervalo de incerteza",
+      "efeitos adversos",
+      "limitações e alternativas explicativas"
+    ],
+    "claimGate": "Sem baseline comparável, retenção tardia e forma alterada, o TERMO só pode relatar uso, experiência e desempenho observado; não ganho causal de aprendizagem."
+  },
+  "communication": {
+    "optInDefault": false,
+    "productWorksWithoutMessages": true,
+    "quietHours": { "timezone": "America/Sao_Paulo", "startHour": 21, "endHour": 8 },
+    "frequencyCaps": { "per24Hours": 1, "per7Days": 2 },
+    "pauseDays": [30, 90],
+    "unsubscribeWithoutLogin": true,
+    "prohibitedPatterns": [
+      "última chance",
+      "agora ou nunca",
+      "você perderá seus pontos",
+      "não perca seus pontos",
+      "sua sequência acaba",
+      "suba no ranking"
+    ]
+  },
+  "privacy": {
+    "adminOutputAggregatedOnly": true,
+    "minimumCellSize": 5,
+    "forbiddenAdminFields": ["email", "user_id", "session_id", "answers", "feedback livre"],
+    "ga4CanAwardPoints": false,
+    "ga4CanSetMastery": false,
+    "ga4ContainsLearningLedger": false
+  }
+}
