@@ -33,10 +33,15 @@ test("contrato compartilhado tem envelope e allow-list versionados", async () =>
 
 test("adapter classifica toda a allow-list autoritativa legada", async () => {
   const adapter = await readJson("data/termo-gamification-policy-v1.json");
+  const contract = await readJson("contracts/adaptive-learning-gamification-events-v1.json");
   const handler = await readFile(new URL("lib/gamification-event-handler.mjs", ROOT), "utf8");
   const mapped = new Set(adapter.legacyAuthoritativeEventMappings.map((item) => item.legacyEvent));
+  const sharedAllowList = new Set(contract.eventTypes);
   for (const eventName of extractAuthoritativeEvents(handler)) {
     assert.ok(mapped.has(eventName), `evento autoritativo sem classificação: ${eventName}`);
+  }
+  for (const mapping of adapter.legacyAuthoritativeEventMappings) {
+    assert.ok(sharedAllowList.has(mapping.sharedEventType), `evento compartilhado fora do contrato: ${mapping.sharedEventType}`);
   }
   assert.ok(mapped.has("record_simulator_open"));
 });
@@ -70,7 +75,7 @@ test("adapter preserva valores iniciais e não recompensa retorno vazio", async 
     first_chapter_assessment: 30,
     guided_review_completion: 10,
     focused_retry_completion: 10,
-    chapter_mastery_milestone: 80
+    daily_challenge_correct: 10
   });
   const dailyReturn = adapter.legacyAuthoritativeEventMappings.find((item) => item.legacyEvent === "daily_return");
   assert.equal(dailyReturn.rewardAllowed, false);

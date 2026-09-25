@@ -35,7 +35,7 @@ test("daily return remains observable but cannot award new points", function () 
 });
 
 test("profile snapshot is versioned and does not expose learner email", function () {
-  assert.match(sharedSource, /termo-gamification-profile\/1\.0\.0/);
+  assert.match(sharedSource, /termo-gamification-profile\/1\.1\.0/);
   assert.match(sharedSource, /ledgerCursor/);
   assert.doesNotMatch(sharedSource, /email:\s*user\.email/);
 });

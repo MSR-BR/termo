@@ -2,20 +2,20 @@
 
 ## Funcionais
 
-- [ ] Criar grafo versionado de conceitos, representações e pré-requisitos.
-- [ ] Distinguir erro, baixa confiança, ajuda, solução e recuperação autônoma.
-- [ ] Implementar revisão guiada e near transfer.
-- [ ] Selecionar Desafio do dia por fraqueza, vencimento e intercalação.
-- [ ] Declarar capacidades pedagógicas por simulador.
-- [ ] Explicar próxima ação com motivo, fonte, duração e alternativa.
-- [ ] Aplicar o adapter v1 sem confundir pontos com aprendizagem.
+- [x] Criar grafo versionado de conceitos e representações; pré-requisitos permanecem vazios e inativos até revisão editorial.
+- [x] Distinguir erro, baixa confiança, ajuda, solução e recuperação autônoma.
+- [x] Implementar revisão guiada e near transfer.
+- [x] Selecionar Desafio do dia por fraqueza, vencimento e intercalação.
+- [x] Declarar capacidades pedagógicas por simulador.
+- [x] Explicar próxima ação com motivo, fonte, duração e alternativa.
+- [x] Aplicar o adapter v1.1 sem confundir pontos com aprendizagem.
 
 ## Segurança, IA e acessibilidade
 
-- [ ] IA usa somente fontes aprovadas e fallback determinístico.
-- [ ] Abrir simulador não rende pontos nem domínio.
-- [ ] Ausência diária não pune.
-- [ ] Desktop, 320 px, zoom, teclado, leitor de tela e reduced motion passam.
+- [x] IA usa somente fontes aprovadas e fallback determinístico.
+- [x] Abrir simulador não rende pontos nem domínio.
+- [x] Ausência diária não pune.
+- [ ] Desktop, 320 px, zoom, teclado, leitor de tela e reduced motion passam (desktop, 320 px e teclado validados; leitor de tela com sessão autenticada permanece como verificação manual pós-publicação).
 
 ## Rota planejada
 

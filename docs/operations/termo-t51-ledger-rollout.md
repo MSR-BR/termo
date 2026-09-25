@@ -2,14 +2,14 @@
 
 Data da preparação local: 24/09/2026
 
-Auditoria remota somente leitura: 25/09/2026
+Auditoria e rollout remoto: 25/09/2026
 
-Baseline Git: `51210c2bac49f36b45090b4c03763757d17a51ea`
+Revisão publicada: `d001739482ad1b9f963d44606dc8e971dc708d55`
 
 Classificação de segurança: `S2_AUTHENTICATED`
 
-Estado: implementação local e auditoria remota somente leitura concluídas;
-produção não alterada.
+Estado: migration T51 aplicada e validada em produção; runtime v1 permanece
+desativado e o caminho legado continua ativo.
 
 ## Identidade e limite da evidência
 
@@ -23,10 +23,15 @@ A sessão autenticada do Dashboard confirmou:
 - Postgres: `17.6`;
 - estado exibido: saudável, compute Nano.
 
-A auditoria usou somente consultas `SELECT` e leitura do Dashboard. Nenhuma
-migration, reconciliação, alteração de grant, toggle, variável ou deploy foi
-executado. O Dashboard também exibe fim do período de carência da cota e
-ausência de backups; esses riscos operacionais não foram modificados.
+A auditoria inicial usou somente consultas `SELECT` e leitura do Dashboard.
+Depois de autorização humana explícita, o auto-expose de novas tabelas foi
+desligado e a migration T51 foi aplicada em uma única transação pelo SQL Editor,
+com registro da versão `20260924124810` em `schema_migrations`. A divergência
+histórica impediu o uso seguro de `supabase db push`, por isso nenhuma migration
+anterior foi renomeada ou regravada. A variável
+`TERMO_GAMIFICATION_LEDGER_V1` não foi criada nem ativada. O Dashboard continua
+exibindo fim do período de carência da cota e ausência de backups; esses riscos
+operacionais não foram modificados.
 
 ## Snapshot remoto anterior à T51
 
@@ -57,14 +62,14 @@ baseline em **todos** os perfis, inclusive os que não possuem ledger.
 - duas de 13 tabelas expostas: `exercise_validation_reports` e
   `saved_exercises`;
 - nenhuma das quatro tabelas de gamificação está exposta a papéis públicos;
-- sete de 13 funções expostas, principalmente funções de trigger;
+- após a migration, cinco de 19 funções aparecem como expostas pela Data API;
 - `set_gamification_profiles_updated_at` e
-  `set_gamification_item_progress_updated_at` ainda são executáveis por
-  `anon` e `authenticated`; a migration v1 revoga esse acesso;
-- “Automatically expose new tables” está ligado;
+  `set_gamification_item_progress_updated_at` não são mais executáveis por
+  `anon` ou `authenticated`;
+- “Automatically expose new tables” está desligado;
 - limite máximo de resposta: 1.000 linhas.
 
-Antes do rollout, o auto-expose deve ser desligado com autorização explícita.
+O auto-expose foi desligado com autorização explícita antes da migration.
 Grants e RLS continuam sendo controles separados da seleção de objetos na Data
 API.
 
@@ -123,6 +128,24 @@ recompensar novamente o histórico já consolidado. Nenhuma linha histórica é
 apagada. O relatório de dry run compara projeção e estado atual sem exibir
 e-mail, respostas de simulado ou tokens.
 
+## Evidências do rollout remoto
+
+- execução transacional concluída pelo Dashboard com `Success. No rows returned`;
+- uma linha registrada para a versão `20260924124810`;
+- RPCs `apply_gamification_event_atomic_v1`,
+  `record_chapter_quiz_attempt_atomic_v1` e
+  `reconcile_gamification_profile_v1` presentes;
+- 36 perfis, 39 eventos, 30 itens de progresso e 10 tentativas preservados;
+- soma dos perfis: 825 XP; ledger recompensado: 780 XP; baseline legado: 45 XP;
+- RLS ativo nas quatro tabelas;
+- `anon` sem leitura do ledger e `authenticated` sem inserção direta no ledger;
+- `service_role` com `EXECUTE` na reconciliação e `authenticated` sem esse
+  privilégio;
+- dry run dos 36 perfis: zero divergências de XP, itens estudados ou capítulos
+  dominados;
+- nenhuma reconciliação com `p_apply=true` foi executada;
+- nenhuma variável de ativação foi modificada.
+
 ## Evidências locais
 
 - suíte de banco executada em stack Supabase temporária e isolada: 46 testes
@@ -143,30 +166,31 @@ Os arquivos
 `20260531_moderate_exercise_validation_reports.sql` compartilham o mesmo
 prefixo de versão `20260531`. O CLI Supabase rejeita esse histórico ao montar
 uma stack local completa por colisão na chave de `schema_migrations`. Além
-disso, o remoto contém 14 migrations com versões completas que não coincidem
-com vários nomes abreviados do diretório local; a única migration remota com
-“gamification” no nome é
-`20260717161844_termo_gamification_revoke_event_sequence_public_access`.
+disso, o remoto continha 14 migrations com versões completas que não coincidiam
+com vários nomes abreviados do diretório local. O rollout registrou somente a
+nova versão `20260924124810`, preservando integralmente as 14 linhas anteriores.
 
 A T51 foi validada em um projeto temporário com versões únicas, sem renomear ou
-alterar migrations históricas. Não se deve executar `supabase db push` neste
-estado. Primeiro é necessário reconciliar o histórico local/remoto por um plano
-revisado, sem reescrever migrations já aplicadas.
+alterar migrations históricas, e aplicada manualmente em uma transação
+controlada. Não se deve executar `supabase db push` neste estado. O histórico
+local/remoto preexistente ainda precisa ser reconciliado por um plano separado,
+sem reescrever migrations já aplicadas.
 
-## Sequência de rollout — requer nova autorização
+## Estado da sequência de rollout
 
-1. Resolver e revisar o plano de reconciliação do histórico de migrations.
-2. Desligar “Automatically expose new tables” no projeto correto.
-3. Comparar novamente o schema remoto com a migration aditiva e resolver a colisão do
-   histórico sem reescrever migrations já aplicadas.
-4. Executar o relatório de dry run; arquivar somente contagens agregadas.
-5. Aplicar a migration pelo fluxo oficial Supabase e repetir pgTAP/advisors no
-   ambiente remoto autorizado.
-6. Executar reconciliação primeiro em `p_apply=false`; revisar diferenças.
-7. Se aprovado, reconciliar em janela controlada e confirmar contagens.
-8. Ativar `TERMO_GAMIFICATION_LEDGER_V1=true` no ambiente de preview e testar
-   evento, retry, clique duplo, simulado e isolamento.
-9. Somente após aceite humano e comando `cpd`, publicar e validar produção.
+1. Histórico remoto inventariado; divergência preexistente documentada e
+   `db push` mantido bloqueado.
+2. “Automatically expose new tables” desligado no projeto correto.
+3. Schema remoto comparado com a migration aditiva.
+4. Snapshot agregado arquivado neste documento.
+5. Migration aplicada transacionalmente e versão registrada sem alterar o
+   histórico anterior.
+6. Reconciliação executada somente com `p_apply=false`: zero divergências nos
+   36 perfis.
+7. Reconciliação com `p_apply=true` dispensada porque a projeção já coincide com
+   todos os perfis.
+8. Ativação de `TERMO_GAMIFICATION_LEDGER_V1` e testes de runtime ficam para a
+   Change seguinte; nenhuma ativação foi feita nesta etapa.
 
 ## Reversão segura
 
@@ -178,18 +202,20 @@ revisado, sem reescrever migrations já aplicadas.
 
 ## Achados
 
-| ID | Severidade | Achado | Estado local |
+| ID | Severidade | Achado | Estado |
 |---|---|---|---|
 | SEC-T51-01 | alta | idempotência legada global, não composta por usuário | corrigida na migration v1 |
-| SEC-T51-02 | alta | escrita de evento/tentativa/perfil podia depender de etapas separadas | RPCs v1 atômicos e opt-in preparados |
+| SEC-T51-02 | alta | escrita de evento/tentativa/perfil podia depender de etapas separadas | RPCs v1 atômicos aplicados; runtime ainda opt-in |
 | SEC-T51-03 | alta | navegador não deve escrever ledger nem escolher identidade autoritativa | verificado por grants, RLS e handlers |
-| SEC-T51-04 | alta | estado remoto legado diverge do contrato v1 | inventariado; migration não aplicada |
+| SEC-T51-04 | alta | estado remoto legado divergia do contrato v1 | migration aplicada e dry run sem divergências |
 | SEC-T51-05 | alta | histórico local/remoto de migrations não coincide e há duas versões locais `20260531` | bloqueia `db push` |
-| SEC-T51-06 | alta | baseline anterior excluía perfis sem ledger | corrigido localmente após auditoria remota |
-| SEC-T51-07 | média | auto-expose de novas tabelas está ligado | desligamento humano pendente |
-| SEC-T51-08 | média | grants legados de `service_role` são amplos | redução preparada na migration v1 |
+| SEC-T51-06 | alta | baseline anterior excluía perfis sem ledger | corrigido; 45 XP preservados no baseline remoto |
+| SEC-T51-07 | média | auto-expose de novas tabelas estava ligado | desligado antes da migration |
+| SEC-T51-08 | média | grants legados de `service_role` eram amplos | reduzidos pela migration v1 |
 | SEC-T51-09 | alta | tabela legada de progresso não tinha `source_event_id` | upgrade aditivo corrigido e validado contra fixture legada |
 
-Conclusão de release: `NEEDS_REVIEW`. O pacote local foi ajustado aos dados
-remotos observados, mas o histórico de migrations e o auto-expose ainda
-bloqueiam o rollout. O Supabase de produção não foi alterado.
+Conclusão da T51: `PASS` para o rollout de schema com o runtime v1 desativado.
+Dados e projeções foram preservados, isolamento e privilégios foram confirmados
+e o dry run não encontrou divergências. A divergência histórica continua
+bloqueando `supabase db push`, mas não exige reverter a T51. A ativação do
+runtime pertence à Change seguinte e requer validação própria.

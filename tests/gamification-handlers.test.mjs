@@ -477,9 +477,9 @@ test("AI generated chapter quiz can be submitted through signed token", async fu
       assert.equal(body.p_chapter_id, "01");
       assert.equal(body.p_attempt_type, "full_quiz");
       assert.equal(body.p_score, 100);
-      assert.equal(body.p_xp_awarded, 45);
-      assert.equal(body.p_profile_patch.next_action_json.type, "next_chapter_quiz");
-      assert.match(body.p_profile_patch.next_action_json.href, /chapter=02/);
+      assert.equal(body.p_xp_awarded, 30);
+      assert.equal(body.p_profile_patch.next_action_json.type, "near_transfer_retry");
+      assert.match(body.p_profile_patch.next_action_json.href, /chapter=01/);
 
       return createJsonResponse({
         ok: true,
@@ -489,7 +489,7 @@ test("AI generated chapter quiz can be submitted through signed token", async fu
         event_id: 101,
         profile: {
           ...profileRow,
-          xp_total: 45,
+          xp_total: 30,
           level: 1,
           current_streak: 1,
           best_streak: 1,
@@ -534,7 +534,7 @@ test("AI generated chapter quiz can be submitted through signed token", async fu
     assert.equal(response.body.ok, true);
     assert.equal(response.body.result.score, 100);
     assert.equal(response.body.quiz.quizToken, quiz.quizToken);
-    assert.equal(response.body.nextAction.type, "next_chapter_quiz");
+    assert.equal(response.body.nextAction.type, "near_transfer_retry");
   });
 
   assert.equal(calls.some(function (call) {
@@ -572,11 +572,11 @@ test("chapter quiz uses ledger v1 RPC with a stable attempt idempotency key", as
       assert.equal(body.p_attempt_idempotency_key, "quiz:full_quiz:cap02:2026-07-16T10:05:00.000Z");
       assert.equal(body.p_event_idempotency_key, body.p_attempt_idempotency_key);
       assert.equal(body.p_question_count, 5);
-      assert.equal(body.p_xp_awarded, 45);
-      assert.equal(body.p_profile_patch.last_quiz_summary.isMastered, true);
+      assert.equal(body.p_xp_awarded, 30);
+      assert.equal(body.p_profile_patch.last_quiz_summary.isMastered, false);
       assert.equal(body.p_profile_patch.last_quiz_summary.isExcellent, true);
       assert.equal(body.p_profile_patch.last_quiz_summary.masteryThreshold, 80);
-      assert.equal(body.p_profile_patch.next_action_json.type, "next_chapter_quiz");
+      assert.equal(body.p_profile_patch.next_action_json.type, "near_transfer_retry");
 
       return createJsonResponse({
         ok: true,
@@ -586,7 +586,7 @@ test("chapter quiz uses ledger v1 RPC with a stable attempt idempotency key", as
         event_id: 99,
         profile: {
           ...profileRow,
-          xp_total: 45,
+          xp_total: 30,
           level: 1,
           current_streak: 1,
           best_streak: 1,
@@ -631,9 +631,9 @@ test("chapter quiz uses ledger v1 RPC with a stable attempt idempotency key", as
     assert.equal(response.body.attempt.id, "attempt-123");
     assert.equal(response.body.result.score, 100);
     assert.equal(response.body.profile.lastQuizResult.score, 100);
-    assert.equal(response.body.profile.lastQuizResult.isMastered, true);
+    assert.equal(response.body.profile.lastQuizResult.isMastered, false);
     assert.equal(response.body.profile.lastQuizResult.isExcellent, true);
-    assert.equal(response.body.nextAction.type, "next_chapter_quiz");
+    assert.equal(response.body.nextAction.type, "near_transfer_retry");
   });
 
   assert.equal(calls.some(function (call) {
@@ -664,13 +664,25 @@ test("profile maps recent quiz attempts into mastery progress", async function (
     if (String(url).includes("/rest/v1/chapter_quiz_attempts")) {
       return createJsonResponse([
         {
-          quiz_key: "cap02",
+          quiz_key: "cap02-form-a",
           chapter_id: "02",
           attempt_type: "full_quiz",
           score: 80,
           correct_count: 4,
           question_count: 5,
-          xp_awarded: 45,
+          xp_awarded: 30,
+          feedback: [{ isCorrect: true, masteryEligible: true }, { isCorrect: false, masteryEligible: false }],
+          completed_at: "2026-07-15T10:05:00.000Z"
+        },
+        {
+          quiz_key: "cap02-form-b",
+          chapter_id: "02",
+          attempt_type: "full_quiz",
+          score: 100,
+          correct_count: 5,
+          question_count: 5,
+          xp_awarded: 0,
+          feedback: [{ isCorrect: true, masteryEligible: true }],
           completed_at: "2026-07-16T10:05:00.000Z"
         },
         {
@@ -716,7 +728,7 @@ test("profile maps recent quiz attempts into mastery progress", async function (
     });
 
     assert.equal(response.status, 200);
-    assert.equal(response.body.contractVersion, "termo-gamification-profile/1.0.0");
+    assert.equal(response.body.contractVersion, "termo-gamification-profile/1.1.0");
     assert.equal(response.body.viewer.email, undefined);
     assert.equal(response.body.snapshot.version, "legacy-phase-1c");
     assert.equal(response.body.summary.chaptersMasteredCount, 1);
@@ -786,7 +798,7 @@ test("guided review grades only the focused review check", async function () {
     if (String(url).includes("/rest/v1/gamification_profiles") && method === "PATCH") {
       const body = JSON.parse(String(options.body || "{}"));
       assert.equal(body.xp_total, 40);
-      assert.equal(body.next_action_json.type, "retry_full_quiz");
+      assert.equal(body.next_action_json.type, "near_transfer_retry");
 
       return createJsonResponse([{
         ...profileRow,
@@ -819,6 +831,6 @@ test("guided review grades only the focused review check", async function () {
     assert.equal(response.body.attempt.attemptType, "guided_review");
     assert.equal(response.body.attempt.questionCount, 1);
     assert.equal(response.body.attempt.xpAwarded, 10);
-    assert.equal(response.body.nextAction.type, "retry_full_quiz");
+    assert.equal(response.body.nextAction.type, "near_transfer_retry");
   });
 });

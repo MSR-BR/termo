@@ -1,8 +1,10 @@
 # Checklist — Change 052
 
-- [ ] Dependência T51 confirmada.
-- [ ] Fontes e grafo aprovados.
-- [ ] Rota planejada registrada.
-- [ ] Implementação e migração concluídas.
-- [ ] Gates e acessibilidade aprovados.
-- [ ] Publicação e decisões registradas.
+- [x] Dependência T51 confirmada.
+- [x] Fontes aprovadas e grafo gerado com pré-requisitos inativos.
+- [x] Rota planejada registrada.
+- [x] Implementação e migração locais concluídas.
+- [x] Migração aplicada, registrada e validada antes do runtime.
+- [x] Ledger v1 ativado somente em produção.
+- [ ] Gates de acessibilidade autenticada aprovados.
+- [x] Publicação e decisões finais registradas.

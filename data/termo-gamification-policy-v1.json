@@ -1,12 +1,14 @@
 {
   "adapterId": "termo-gamification-policy",
-  "version": "1.0.0",
-  "status": "staged-local",
-  "updatedAt": "2026-09-24",
+  "version": "1.1.0",
+  "status": "production-rollout-2026-09-25",
+  "updatedAt": "2026-09-25",
   "contractRef": "contracts/adaptive-learning-gamification-events-v1.json#1.0.0",
   "blueprintRef": "docs/architecture/adaptive-learning-gamification-blueprint-v1.md",
   "editorialRegistryRef": "data/termo-editorial-registry.json",
-  "runtimeEnforcement": "staged-opt-in-t51",
+  "runtimeEnforcement": "ledger-v1-production",
+  "conceptGraphRef": "data/termo-concept-graph-v1.json",
+  "simulatorCapabilitiesRef": "data/termo-simulator-capabilities-v1.json",
   "contentEligibility": {
     "failClosed": true,
     "requiredChapterStatus": "published",
@@ -48,10 +50,10 @@
       "requiresIdempotency": true
     },
     {
-      "key": "chapter_mastery_milestone",
-      "sharedEventType": "concept_mastery_reached",
-      "points": 80,
-      "repeatPolicy": "once_per_user_chapter_policy_version",
+      "key": "daily_challenge_correct",
+      "sharedEventType": "daily_challenge_completed",
+      "points": 10,
+      "repeatPolicy": "once_per_user_utc_day",
       "requiresIdempotency": true
     }
   ],
@@ -63,6 +65,12 @@
     "scroll",
     "refresh"
   ],
+  "attemptModes": {
+    "full_quiz": "avaliacao completa com recuperacao sem ajuda",
+    "guided_review": "retomada orientada; nunca declara dominio",
+    "focused_retry": "transferencia proxima apos revisao",
+    "daily_challenge": "pratica curta diaria; separada da retomada orientada"
+  },
   "mastery": {
     "minimumIndependentRetrievals": 2,
     "minimumDistinctSessions": 2,
@@ -104,6 +112,14 @@
       "migrationStatus": "preserve_attempt_history"
     },
     {
+      "legacyEvent": "daily_challenge_completed",
+      "sharedEventType": "daily_challenge_completed",
+      "classification": "verified_daily_retrieval",
+      "rewardAllowed": true,
+      "masteryAllowed": false,
+      "migrationStatus": "introduced_in_t52"
+    },
+    {
       "legacyEvent": "daily_return",
       "sharedEventType": "mechanic_acted",
       "classification": "behavior_only",
@@ -115,9 +131,9 @@
       "legacyEvent": "chapter_mastery_completed",
       "sharedEventType": "concept_mastery_reached",
       "classification": "legacy_mastery_claim",
-      "rewardAllowed": true,
+      "rewardAllowed": false,
       "masteryAllowed": true,
-      "migrationStatus": "replace_single_quiz_rule_in_t52"
+      "migrationStatus": "legacy_only_no_new_reward_in_t52"
     },
     {
       "legacyEvent": "record_simulator_open",
@@ -177,9 +193,7 @@
     "profileMutationAllowed": false
   },
   "knownRuntimeGaps": [
-    "O runtime T51 preparado localmente atribui zero pontos a daily_return; a ativação remota ainda não foi autorizada.",
-    "O runtime atual pode atribuir 5 pontos a uma repetição dominada de simulado; esse prêmio não existe no adapter v1.",
-    "O runtime atual pode declarar domínio com um único simulado completo de 80%; a política v1 exige recuperações independentes em sessões distintas.",
+    "As relações de pré-requisito permanecem vazias até revisão editorial humana.",
     "O streak atual é atualizado por qualquer evento autoritativo, inclusive retorno diário isolado.",
     "A abertura de simulador é persistida, mas previsão, interação significativa, reflexão e objetivo ainda não existem.",
     "Missões possuem campo de snapshot, mas não há mecanismo operacional.",

@@ -1,0 +1,1645 @@
+{
+  "schemaVersion": 1,
+  "graphId": "termo-concept-graph",
+  "version": "1.0.0",
+  "status": "generated_pending_prerequisite_review",
+  "generatedAt": "2026-09-25T16:24:49.005Z",
+  "sources": {
+    "editorialRegistry": "data/termo-editorial-registry.json",
+    "exerciseManifest": "data/ai-exercise-source-manifest.json",
+    "topicTaxonomy": "data/book-topic-taxonomy.json"
+  },
+  "policy": {
+    "failClosed": true,
+    "excludedChapterIds": [
+      "05"
+    ],
+    "prerequisiteEdgesActive": false,
+    "note": "Nenhum pre-requisito foi inferido. As arestas permanecem vazias ate revisao editorial humana."
+  },
+  "concepts": [
+    {
+      "conceptId": "aplicacao-primeira-lei",
+      "label": "Exemplo: Aplicação da Primeira Lei",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "boltzmann",
+      "label": "Boltzmann, probabilidades e parametro beta",
+      "kind": "transversal",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "calor",
+      "label": "Calor e trocas termicas",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "calor-em-ciclos",
+      "label": "Calor em ciclos termodinamicos",
+      "kind": "transversal",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "calor-entalpia",
+      "label": "Calor em entalpia e transicoes",
+      "kind": "transversal",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "calor-fundamentos",
+      "label": "Calor em fundamentos",
+      "kind": "transversal",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "calor-sensivel",
+      "label": "Exemplo: Aquecendo um Bloco de Cobre",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "canonico-boltzmann-beta",
+      "label": "Ensemble Canônico, Distribuição de Boltzmann e Parâmetro Beta",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "capacidade-calorifica",
+      "label": "Capacidade calorifica e calores especificos",
+      "kind": "transversal",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "capacidade-calorifica-solidos",
+      "label": "Exemplo IV: Capacidade Calorífica em Sólidos",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "carnot",
+      "label": "Ciclo de Carnot",
+      "kind": "transversal",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "carnot-maquina-termica",
+      "label": "Ciclo de Carnot como Máquina Térmica",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "carnot-refrigerador",
+      "label": "Ciclo de Carnot como Refrigerador",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "ciclos-termodinamicos",
+      "label": "Ciclos termodinamicos",
+      "kind": "transversal",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "clausius-clapeyron",
+      "label": "Calor Latente e Equação de Clausius-Clapeyron",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "coexistencia-fases",
+      "label": "Coexistencia de fases e calor latente",
+      "kind": "transversal",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "compressibilidade-isotermica",
+      "label": "Compressibilidade Isotérmica",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "construcao-maxwell",
+      "label": "Construcao de Maxwell",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "conversao-escalas",
+      "label": "Relação entre Escalas",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "eficiencia-carnot",
+      "label": "Eficiência Geral e Eficiência de Carnot",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "eficiencia-cop",
+      "label": "Eficiencia e coeficiente de performance",
+      "kind": "transversal",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "energia-interna",
+      "label": "Energia interna",
+      "kind": "transversal",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "energia-livre-fases",
+      "label": "Energia Livre de Helmholtz e Gibbs",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "ensembles-gibbs",
+      "label": "Entropia, Gibbs e a Visão por Ensembles",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "entalpia",
+      "label": "Entalpia",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "entropia",
+      "label": "Entropia, irreversibilidade e Segunda Lei",
+      "kind": "advanced_support",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "entropia-estatistica",
+      "label": "Entropia estatistica",
+      "kind": "transversal",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "entropia-termodinamica",
+      "label": "Entropia termodinamica e Segunda Lei",
+      "kind": "transversal",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "equacao-van-der-waals",
+      "label": "Equação de Estado de Van der Waals",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "equilibrio",
+      "label": "Equilibrio termico e equilibrio termodinamico",
+      "kind": "transversal",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "equilibrio-termico",
+      "label": "Exemplo: Equilíbrio Térmico",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "escalas-termometricas",
+      "label": "Escalas Termométricas",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "espinodal",
+      "label": "Instabilidade Mecânica e Espinodal",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "estabilidade-mecanica",
+      "label": "Estabilidade mecanica, espinodal e metaestabilidade",
+      "kind": "transversal",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "estatistica-ensembles",
+      "label": "Termodinamica estatistica e ensembles",
+      "kind": "transversal",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "exemplo-maquina-carnot",
+      "label": "Exemplo: Máquina de Carnot",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "exemplo-refrigerador-carnot",
+      "label": "Exemplo: Refrigerador de Carnot",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "exemplo-stirling-alfa",
+      "label": "Exemplo: Motor Stirling Alfa",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "expansao-termica",
+      "label": "Expansão Térmica",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "funcao-particao",
+      "label": "Funcao de particao",
+      "kind": "transversal",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "funcao-particao-gas-ideal",
+      "label": "Exemplo I: Gás Ideal Monoatômico — Função de Partição",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "gas-ideal",
+      "label": "Gas ideal e aplicacoes",
+      "kind": "advanced_support",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "gas-ideal-ciclos",
+      "label": "Gas ideal em ciclos",
+      "kind": "transversal",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "gas-ideal-estatistico",
+      "label": "Gas ideal em termodinamica estatistica",
+      "kind": "transversal",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "gas-ideal-fundamentos",
+      "label": "Gas ideal em fundamentos",
+      "kind": "transversal",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "gibbs",
+      "label": "Energia livre de Gibbs",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "helmholtz",
+      "label": "Energia livre de Helmholtz",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "helmholtz-estatistica",
+      "label": "Energia Livre de Helmholtz e Energia Interna Estatística",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "indistinguibilidade",
+      "label": "Indistinguibilidade e paradoxo de Gibbs",
+      "kind": "transversal",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "lei-zero",
+      "label": "Lei Zero da Termodinâmica",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "maquinas-refrigeradores",
+      "label": "Máquinas Térmicas e Refrigeradores",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "maquinas-termicas",
+      "label": "Maquinas termicas",
+      "kind": "transversal",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "maxwell-relacoes",
+      "label": "Relacoes de Maxwell",
+      "kind": "transversal",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "metaestabilidade",
+      "label": "Superaquecimento e Super-resfriamento",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "microcanonico-boltzmann",
+      "label": "Ensemble Micro-Canônico e Fórmula de Boltzmann",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "paradoxo-gibbs",
+      "label": "Partículas Distinguíveis, Indistinguíveis e Paradoxo de Gibbs",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "paramagnetismo",
+      "label": "Paramagnetismo estatistico",
+      "kind": "transversal",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "paramagnetismo-classico",
+      "label": "Exemplo III: Paramagnetismo Clássico",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "paramagnetismo-quantico",
+      "label": "Exemplo II: Paramagnetismo Quântico",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "ponto-critico",
+      "label": "Ponto critico e variaveis reduzidas",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "potenciais-termodinamicos",
+      "label": "Potenciais termodinamicos",
+      "kind": "transversal",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "primeira-lei",
+      "label": "Primeira Lei e balanco de energia",
+      "kind": "transversal",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "primeira-lei-em-ciclos",
+      "label": "Energia Interna, Calor e Trabalho",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "refrigeradores",
+      "label": "Refrigeradores termodinamicos",
+      "kind": "transversal",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "relacoes-maxwell",
+      "label": "Relações de Maxwell e Retângulo Termodinâmico",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "sackur-tetrode",
+      "label": "Exemplo I: Gás Ideal Monoatômico — Energia Livre e Sackur-Tetrode",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "stirling",
+      "label": "Ciclo de Stirling",
+      "kind": "transversal",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "stirling-regenerador-alfa",
+      "label": "Motor de Stirling com Regenerador Tipo Alfa",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "stirling-sem-regenerador",
+      "label": "Ciclo de Stirling sem Regenerador",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "temperatura-termometria",
+      "label": "Temperatura e termometria",
+      "kind": "transversal",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "terceira-lei",
+      "label": "Terceira Lei da Termodinamica",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "trabalho",
+      "label": "Trabalho termodinamico",
+      "kind": "advanced_support",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "trabalho-em-ciclos",
+      "label": "Trabalho em ciclos termodinamicos",
+      "kind": "transversal",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "trabalho-fundamentos",
+      "label": "Trabalho em fundamentos",
+      "kind": "transversal",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "trabalho-isotermico",
+      "label": "Exemplo: Trabalho Isotérmico",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "transicoes-de-fase",
+      "label": "Transicoes de fase",
+      "kind": "transversal",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "van-der-waals",
+      "label": "Gas de Van der Waals",
+      "kind": "transversal",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "variaveis-conjugadas",
+      "label": "Variaveis conjugadas, intensivas e extensivas",
+      "kind": "transversal",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "conceptId": "variaveis-reduzidas",
+      "label": "Equação de Estado Reduzida",
+      "kind": "primary",
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    }
+  ],
+  "sections": [
+    {
+      "sectionKey": "01:1.1",
+      "chapterId": "01",
+      "chapterTitle": "Conceitos Fundamentais",
+      "sectionId": "1.1",
+      "title": "Lei Zero da Termodinâmica",
+      "url": "slides/capitulo-01/page_2.html",
+      "conceptIds": [
+        "lei-zero",
+        "temperatura-termometria",
+        "equilibrio"
+      ],
+      "primaryConceptId": "lei-zero",
+      "sourceIds": [
+        "01:1.1:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "01:1.3",
+      "chapterId": "01",
+      "chapterTitle": "Conceitos Fundamentais",
+      "sectionId": "1.3",
+      "title": "Escalas Termométricas",
+      "url": "slides/capitulo-01/page_4.html",
+      "conceptIds": [
+        "escalas-termometricas",
+        "temperatura-termometria"
+      ],
+      "primaryConceptId": "escalas-termometricas",
+      "sourceIds": [
+        "01:1.3:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "01:1.4",
+      "chapterId": "01",
+      "chapterTitle": "Conceitos Fundamentais",
+      "sectionId": "1.4",
+      "title": "Relação entre Escalas",
+      "url": "slides/capitulo-01/page_5.html",
+      "conceptIds": [
+        "conversao-escalas",
+        "temperatura-termometria"
+      ],
+      "primaryConceptId": "conversao-escalas",
+      "sourceIds": [
+        "01:1.4:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "01:1.8",
+      "chapterId": "01",
+      "chapterTitle": "Conceitos Fundamentais",
+      "sectionId": "1.8",
+      "title": "Calor",
+      "url": "slides/capitulo-01/page_9.html",
+      "conceptIds": [
+        "calor",
+        "calor-fundamentos"
+      ],
+      "primaryConceptId": "calor",
+      "sourceIds": [
+        "01:1.8:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "01:1.9",
+      "chapterId": "01",
+      "chapterTitle": "Conceitos Fundamentais",
+      "sectionId": "1.9",
+      "title": "Exemplo: Aquecendo um Bloco de Cobre",
+      "url": "slides/capitulo-01/page_10.html",
+      "conceptIds": [
+        "calor-sensivel",
+        "calor-fundamentos",
+        "calor"
+      ],
+      "primaryConceptId": "calor-sensivel",
+      "sourceIds": [
+        "01:1.9:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference",
+        "worked_example"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "01:1.10",
+      "chapterId": "01",
+      "chapterTitle": "Conceitos Fundamentais",
+      "sectionId": "1.10",
+      "title": "Exemplo: Equilíbrio Térmico",
+      "url": "slides/capitulo-01/page_11.html",
+      "conceptIds": [
+        "equilibrio-termico",
+        "calor-fundamentos",
+        "equilibrio",
+        "calor"
+      ],
+      "primaryConceptId": "equilibrio-termico",
+      "sourceIds": [
+        "01:1.10:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference",
+        "worked_example"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "01:1.13",
+      "chapterId": "01",
+      "chapterTitle": "Conceitos Fundamentais",
+      "sectionId": "1.13",
+      "title": "Exemplo: Trabalho Isotérmico",
+      "url": "slides/capitulo-01/page_14.html",
+      "conceptIds": [
+        "trabalho-isotermico",
+        "trabalho-fundamentos",
+        "gas-ideal-fundamentos",
+        "trabalho",
+        "gas-ideal"
+      ],
+      "primaryConceptId": "trabalho-isotermico",
+      "sourceIds": [
+        "01:1.13:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference",
+        "worked_example"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "01:1.17",
+      "chapterId": "01",
+      "chapterTitle": "Conceitos Fundamentais",
+      "sectionId": "1.17",
+      "title": "Exemplo: Aplicação da Primeira Lei",
+      "url": "slides/capitulo-01/page_18.html",
+      "conceptIds": [
+        "aplicacao-primeira-lei",
+        "primeira-lei"
+      ],
+      "primaryConceptId": "aplicacao-primeira-lei",
+      "sourceIds": [
+        "01:1.17:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference",
+        "worked_example"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "02:2.3",
+      "chapterId": "02",
+      "chapterTitle": "Potenciais Termodinâmicos e Aplicações",
+      "sectionId": "2.3",
+      "title": "Energia Livre de Helmholtz",
+      "url": "slides/capitulo-02/page_3.html",
+      "conceptIds": [
+        "helmholtz",
+        "potenciais-termodinamicos"
+      ],
+      "primaryConceptId": "helmholtz",
+      "sourceIds": [
+        "02:2.3:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "02:2.4",
+      "chapterId": "02",
+      "chapterTitle": "Potenciais Termodinâmicos e Aplicações",
+      "sectionId": "2.4",
+      "title": "Entalpia e Calor Isobárico",
+      "url": "slides/capitulo-02/page_4.html",
+      "conceptIds": [
+        "entalpia",
+        "potenciais-termodinamicos",
+        "calor-entalpia",
+        "capacidade-calorifica",
+        "calor"
+      ],
+      "primaryConceptId": "entalpia",
+      "sourceIds": [
+        "02:2.4:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "02:2.5",
+      "chapterId": "02",
+      "chapterTitle": "Potenciais Termodinâmicos e Aplicações",
+      "sectionId": "2.5",
+      "title": "Energia Livre de Gibbs e Espontaneidade",
+      "url": "slides/capitulo-02/page_5.html",
+      "conceptIds": [
+        "gibbs",
+        "potenciais-termodinamicos",
+        "equilibrio"
+      ],
+      "primaryConceptId": "gibbs",
+      "sourceIds": [
+        "02:2.5:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "02:2.8",
+      "chapterId": "02",
+      "chapterTitle": "Potenciais Termodinâmicos e Aplicações",
+      "sectionId": "2.8",
+      "title": "Relações de Maxwell e Retângulo Termodinâmico",
+      "url": "slides/capitulo-02/page_8.html",
+      "conceptIds": [
+        "relacoes-maxwell",
+        "potenciais-termodinamicos",
+        "maxwell-relacoes",
+        "variaveis-conjugadas"
+      ],
+      "primaryConceptId": "relacoes-maxwell",
+      "sourceIds": [
+        "02:2.8:1",
+        "02:2.8:2"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "03:3.1",
+      "chapterId": "03",
+      "chapterTitle": "Termodinâmica Estatística",
+      "sectionId": "3.1",
+      "title": "Entropia, Gibbs e a Visão por Ensembles",
+      "url": "slides/capitulo-03/page_2.html",
+      "conceptIds": [
+        "ensembles-gibbs",
+        "estatistica-ensembles",
+        "entropia-estatistica",
+        "equilibrio",
+        "entropia"
+      ],
+      "primaryConceptId": "ensembles-gibbs",
+      "sourceIds": [
+        "03:3.1:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "03:3.2",
+      "chapterId": "03",
+      "chapterTitle": "Termodinâmica Estatística",
+      "sectionId": "3.2",
+      "title": "Ensemble Micro-Canônico e Fórmula de Boltzmann",
+      "url": "slides/capitulo-03/page_5.html",
+      "conceptIds": [
+        "microcanonico-boltzmann",
+        "estatistica-ensembles",
+        "boltzmann",
+        "entropia-estatistica",
+        "entropia"
+      ],
+      "primaryConceptId": "microcanonico-boltzmann",
+      "sourceIds": [
+        "03:3.2:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "03:3.3",
+      "chapterId": "03",
+      "chapterTitle": "Termodinâmica Estatística",
+      "sectionId": "3.3",
+      "title": "Ensemble Canônico, Distribuição de Boltzmann e Parâmetro Beta",
+      "url": "slides/capitulo-03/page_7.html",
+      "conceptIds": [
+        "canonico-boltzmann-beta",
+        "estatistica-ensembles",
+        "boltzmann",
+        "funcao-particao"
+      ],
+      "primaryConceptId": "canonico-boltzmann-beta",
+      "sourceIds": [
+        "03:3.3:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "03:3.4",
+      "chapterId": "03",
+      "chapterTitle": "Termodinâmica Estatística",
+      "sectionId": "3.4",
+      "title": "Energia Livre de Helmholtz e Energia Interna Estatística",
+      "url": "slides/capitulo-03/page_10.html",
+      "conceptIds": [
+        "helmholtz-estatistica",
+        "funcao-particao",
+        "helmholtz",
+        "energia-interna",
+        "potenciais-termodinamicos"
+      ],
+      "primaryConceptId": "helmholtz-estatistica",
+      "sourceIds": [
+        "03:3.4:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "03:3.5",
+      "chapterId": "03",
+      "chapterTitle": "Termodinâmica Estatística",
+      "sectionId": "3.5",
+      "title": "Partículas Distinguíveis, Indistinguíveis e Paradoxo de Gibbs",
+      "url": "slides/capitulo-03/page_12.html",
+      "conceptIds": [
+        "paradoxo-gibbs",
+        "indistinguibilidade"
+      ],
+      "primaryConceptId": "paradoxo-gibbs",
+      "sourceIds": [
+        "03:3.5:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "03:3.6",
+      "chapterId": "03",
+      "chapterTitle": "Termodinâmica Estatística",
+      "sectionId": "3.6",
+      "title": "Exemplo I: Gás Ideal Monoatômico — Função de Partição",
+      "url": "slides/capitulo-03/page_14.html",
+      "conceptIds": [
+        "funcao-particao-gas-ideal",
+        "funcao-particao",
+        "gas-ideal-estatistico",
+        "indistinguibilidade",
+        "gas-ideal"
+      ],
+      "primaryConceptId": "funcao-particao-gas-ideal",
+      "sourceIds": [
+        "03:3.6:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "03:3.7",
+      "chapterId": "03",
+      "chapterTitle": "Termodinâmica Estatística",
+      "sectionId": "3.7",
+      "title": "Exemplo I: Gás Ideal Monoatômico — Energia Livre e Sackur-Tetrode",
+      "url": "slides/capitulo-03/page_16.html",
+      "conceptIds": [
+        "sackur-tetrode",
+        "funcao-particao",
+        "gas-ideal-estatistico",
+        "helmholtz",
+        "energia-interna",
+        "indistinguibilidade",
+        "gas-ideal"
+      ],
+      "primaryConceptId": "sackur-tetrode",
+      "sourceIds": [
+        "03:3.7:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "03:3.8",
+      "chapterId": "03",
+      "chapterTitle": "Termodinâmica Estatística",
+      "sectionId": "3.8",
+      "title": "Exemplo II: Paramagnetismo Quântico",
+      "url": "slides/capitulo-03/page_18.html",
+      "conceptIds": [
+        "paramagnetismo-quantico",
+        "paramagnetismo",
+        "funcao-particao"
+      ],
+      "primaryConceptId": "paramagnetismo-quantico",
+      "sourceIds": [
+        "03:3.8:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "03:3.9",
+      "chapterId": "03",
+      "chapterTitle": "Termodinâmica Estatística",
+      "sectionId": "3.9",
+      "title": "Exemplo III: Paramagnetismo Clássico",
+      "url": "slides/capitulo-03/page_20.html",
+      "conceptIds": [
+        "paramagnetismo-classico",
+        "paramagnetismo",
+        "funcao-particao"
+      ],
+      "primaryConceptId": "paramagnetismo-classico",
+      "sourceIds": [
+        "03:3.9:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "03:3.10",
+      "chapterId": "03",
+      "chapterTitle": "Termodinâmica Estatística",
+      "sectionId": "3.10",
+      "title": "Terceira Lei e Limites do Modelo Clássico",
+      "url": "slides/capitulo-03/page_21.html",
+      "conceptIds": [
+        "terceira-lei",
+        "paramagnetismo"
+      ],
+      "primaryConceptId": "terceira-lei",
+      "sourceIds": [
+        "03:3.10:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "03:3.11",
+      "chapterId": "03",
+      "chapterTitle": "Termodinâmica Estatística",
+      "sectionId": "3.11",
+      "title": "Exemplo IV: Capacidade Calorífica em Sólidos",
+      "url": "slides/capitulo-03/page_23.html",
+      "conceptIds": [
+        "capacidade-calorifica-solidos",
+        "capacidade-calorifica",
+        "funcao-particao",
+        "terceira-lei"
+      ],
+      "primaryConceptId": "capacidade-calorifica-solidos",
+      "sourceIds": [
+        "03:3.11:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "04:4.2",
+      "chapterId": "04",
+      "chapterTitle": "Transições de Fase",
+      "sectionId": "4.2",
+      "title": "Equação de Estado de Van der Waals",
+      "url": "slides/capitulo-04/page_2.html",
+      "conceptIds": [
+        "equacao-van-der-waals",
+        "transicoes-de-fase",
+        "van-der-waals"
+      ],
+      "primaryConceptId": "equacao-van-der-waals",
+      "sourceIds": [
+        "04:4.2:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "04:4.3",
+      "chapterId": "04",
+      "chapterTitle": "Transições de Fase",
+      "sectionId": "4.3",
+      "title": "Ponto Crítico",
+      "url": "slides/capitulo-04/page_6.html",
+      "conceptIds": [
+        "ponto-critico",
+        "transicoes-de-fase",
+        "van-der-waals"
+      ],
+      "primaryConceptId": "ponto-critico",
+      "sourceIds": [
+        "04:4.3:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "04:4.4",
+      "chapterId": "04",
+      "chapterTitle": "Transições de Fase",
+      "sectionId": "4.4",
+      "title": "Equação de Estado Reduzida",
+      "url": "slides/capitulo-04/page_7.html",
+      "conceptIds": [
+        "variaveis-reduzidas",
+        "transicoes-de-fase",
+        "van-der-waals",
+        "ponto-critico"
+      ],
+      "primaryConceptId": "variaveis-reduzidas",
+      "sourceIds": [
+        "04:4.4:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "04:4.5",
+      "chapterId": "04",
+      "chapterTitle": "Transições de Fase",
+      "sectionId": "4.5",
+      "title": "Instabilidade Mecânica e Espinodal",
+      "url": "slides/capitulo-04/page_9.html",
+      "conceptIds": [
+        "espinodal",
+        "transicoes-de-fase",
+        "van-der-waals",
+        "estabilidade-mecanica"
+      ],
+      "primaryConceptId": "espinodal",
+      "sourceIds": [
+        "04:4.5:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "04:4.6",
+      "chapterId": "04",
+      "chapterTitle": "Transições de Fase",
+      "sectionId": "4.6",
+      "title": "Energia Livre de Helmholtz e Gibbs",
+      "url": "slides/capitulo-04/page_11.html",
+      "conceptIds": [
+        "energia-livre-fases",
+        "transicoes-de-fase",
+        "potenciais-termodinamicos",
+        "helmholtz",
+        "gibbs",
+        "equilibrio",
+        "estabilidade-mecanica"
+      ],
+      "primaryConceptId": "energia-livre-fases",
+      "sourceIds": [
+        "04:4.6:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "04:4.7",
+      "chapterId": "04",
+      "chapterTitle": "Transições de Fase",
+      "sectionId": "4.7",
+      "title": "Construção de Maxwell",
+      "url": "slides/capitulo-04/page_13.html",
+      "conceptIds": [
+        "construcao-maxwell",
+        "transicoes-de-fase",
+        "gibbs",
+        "equilibrio",
+        "coexistencia-fases"
+      ],
+      "primaryConceptId": "construcao-maxwell",
+      "sourceIds": [
+        "04:4.7:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "04:4.8",
+      "chapterId": "04",
+      "chapterTitle": "Transições de Fase",
+      "sectionId": "4.8",
+      "title": "Superaquecimento e Super-resfriamento",
+      "url": "slides/capitulo-04/page_16.html",
+      "conceptIds": [
+        "metaestabilidade",
+        "transicoes-de-fase",
+        "van-der-waals",
+        "estabilidade-mecanica",
+        "coexistencia-fases"
+      ],
+      "primaryConceptId": "metaestabilidade",
+      "sourceIds": [
+        "04:4.8:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "04:4.9",
+      "chapterId": "04",
+      "chapterTitle": "Transições de Fase",
+      "sectionId": "4.9",
+      "title": "Calor Latente e Equação de Clausius-Clapeyron",
+      "url": "slides/capitulo-04/page_17.html",
+      "conceptIds": [
+        "clausius-clapeyron",
+        "transicoes-de-fase",
+        "coexistencia-fases",
+        "gibbs",
+        "entalpia",
+        "calor-entalpia",
+        "capacidade-calorifica",
+        "calor"
+      ],
+      "primaryConceptId": "clausius-clapeyron",
+      "sourceIds": [
+        "04:4.9:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "04:4.10",
+      "chapterId": "04",
+      "chapterTitle": "Transições de Fase",
+      "sectionId": "4.10",
+      "title": "Compressibilidade Isotérmica",
+      "url": "slides/capitulo-04/page_20.html",
+      "conceptIds": [
+        "compressibilidade-isotermica",
+        "transicoes-de-fase",
+        "van-der-waals",
+        "ponto-critico",
+        "estabilidade-mecanica"
+      ],
+      "primaryConceptId": "compressibilidade-isotermica",
+      "sourceIds": [
+        "04:4.10:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "04:4.11",
+      "chapterId": "04",
+      "chapterTitle": "Transições de Fase",
+      "sectionId": "4.11",
+      "title": "Expansão Térmica",
+      "url": "slides/capitulo-04/page_21.html",
+      "conceptIds": [
+        "expansao-termica",
+        "transicoes-de-fase",
+        "van-der-waals",
+        "ponto-critico"
+      ],
+      "primaryConceptId": "expansao-termica",
+      "sourceIds": [
+        "04:4.11:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "06:6.1",
+      "chapterId": "06",
+      "chapterTitle": "Ciclos Termodinâmicos",
+      "sectionId": "6.1",
+      "title": "Máquinas Térmicas e Refrigeradores",
+      "url": "slides/capitulo-06/page_1.html",
+      "conceptIds": [
+        "maquinas-refrigeradores",
+        "ciclos-termodinamicos",
+        "maquinas-termicas",
+        "refrigeradores",
+        "calor",
+        "trabalho"
+      ],
+      "primaryConceptId": "maquinas-refrigeradores",
+      "sourceIds": [
+        "06:6.1:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "06:6.2",
+      "chapterId": "06",
+      "chapterTitle": "Ciclos Termodinâmicos",
+      "sectionId": "6.2",
+      "title": "Ciclo de Carnot como Máquina Térmica",
+      "url": "slides/capitulo-06/page_2.html",
+      "conceptIds": [
+        "carnot-maquina-termica",
+        "ciclos-termodinamicos",
+        "carnot",
+        "maquinas-termicas"
+      ],
+      "primaryConceptId": "carnot-maquina-termica",
+      "sourceIds": [
+        "06:6.2:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "06:6.3",
+      "chapterId": "06",
+      "chapterTitle": "Ciclos Termodinâmicos",
+      "sectionId": "6.3",
+      "title": "Energia Interna, Calor e Trabalho",
+      "url": "slides/capitulo-06/page_3.html",
+      "conceptIds": [
+        "primeira-lei-em-ciclos",
+        "ciclos-termodinamicos",
+        "primeira-lei",
+        "energia-interna",
+        "calor-em-ciclos",
+        "trabalho-em-ciclos",
+        "entropia-termodinamica",
+        "calor",
+        "trabalho",
+        "entropia"
+      ],
+      "primaryConceptId": "primeira-lei-em-ciclos",
+      "sourceIds": [
+        "06:6.3:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "06:6.4",
+      "chapterId": "06",
+      "chapterTitle": "Ciclos Termodinâmicos",
+      "sectionId": "6.4",
+      "title": "Eficiência Geral e Eficiência de Carnot",
+      "url": "slides/capitulo-06/page_4.html",
+      "conceptIds": [
+        "eficiencia-carnot",
+        "ciclos-termodinamicos",
+        "carnot",
+        "maquinas-termicas",
+        "eficiencia-cop"
+      ],
+      "primaryConceptId": "eficiencia-carnot",
+      "sourceIds": [
+        "06:6.4:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "06:6.5",
+      "chapterId": "06",
+      "chapterTitle": "Ciclos Termodinâmicos",
+      "sectionId": "6.5",
+      "title": "Exemplo: Máquina de Carnot",
+      "url": "slides/capitulo-06/page_5.html",
+      "conceptIds": [
+        "exemplo-maquina-carnot",
+        "ciclos-termodinamicos",
+        "carnot",
+        "maquinas-termicas",
+        "eficiencia-cop",
+        "gas-ideal-ciclos",
+        "calor-em-ciclos",
+        "trabalho-em-ciclos",
+        "primeira-lei",
+        "gas-ideal",
+        "calor",
+        "trabalho"
+      ],
+      "primaryConceptId": "exemplo-maquina-carnot",
+      "sourceIds": [
+        "06:6.5:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference",
+        "worked_example"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "06:6.6",
+      "chapterId": "06",
+      "chapterTitle": "Ciclos Termodinâmicos",
+      "sectionId": "6.6",
+      "title": "Ciclo de Carnot como Refrigerador",
+      "url": "slides/capitulo-06/page_6.html",
+      "conceptIds": [
+        "carnot-refrigerador",
+        "ciclos-termodinamicos",
+        "carnot",
+        "refrigeradores",
+        "eficiencia-cop"
+      ],
+      "primaryConceptId": "carnot-refrigerador",
+      "sourceIds": [
+        "06:6.6:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "06:6.7",
+      "chapterId": "06",
+      "chapterTitle": "Ciclos Termodinâmicos",
+      "sectionId": "6.7",
+      "title": "Exemplo: Refrigerador de Carnot",
+      "url": "slides/capitulo-06/page_7.html",
+      "conceptIds": [
+        "exemplo-refrigerador-carnot",
+        "ciclos-termodinamicos",
+        "carnot",
+        "refrigeradores",
+        "eficiencia-cop",
+        "gas-ideal-ciclos",
+        "calor-em-ciclos",
+        "gas-ideal",
+        "calor"
+      ],
+      "primaryConceptId": "exemplo-refrigerador-carnot",
+      "sourceIds": [
+        "06:6.7:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference",
+        "worked_example"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "06:6.8",
+      "chapterId": "06",
+      "chapterTitle": "Ciclos Termodinâmicos",
+      "sectionId": "6.8",
+      "title": "Ciclo de Stirling sem Regenerador",
+      "url": "slides/capitulo-06/page_8.html",
+      "conceptIds": [
+        "stirling-sem-regenerador",
+        "ciclos-termodinamicos",
+        "stirling",
+        "maquinas-termicas",
+        "eficiencia-cop",
+        "trabalho-em-ciclos",
+        "trabalho"
+      ],
+      "primaryConceptId": "stirling-sem-regenerador",
+      "sourceIds": [
+        "06:6.8:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "06:6.10",
+      "chapterId": "06",
+      "chapterTitle": "Ciclos Termodinâmicos",
+      "sectionId": "6.10",
+      "title": "Motor de Stirling com Regenerador Tipo Alfa",
+      "url": "slides/capitulo-06/page_10.html",
+      "conceptIds": [
+        "stirling-regenerador-alfa",
+        "ciclos-termodinamicos",
+        "stirling",
+        "maquinas-termicas"
+      ],
+      "primaryConceptId": "stirling-regenerador-alfa",
+      "sourceIds": [
+        "06:6.10:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    },
+    {
+      "sectionKey": "06:6.11",
+      "chapterId": "06",
+      "chapterTitle": "Ciclos Termodinâmicos",
+      "sectionId": "6.11",
+      "title": "Exemplo: Motor Stirling Alfa",
+      "url": "slides/capitulo-06/page_11.html",
+      "conceptIds": [
+        "exemplo-stirling-alfa",
+        "ciclos-termodinamicos",
+        "stirling",
+        "maquinas-termicas",
+        "eficiencia-cop",
+        "trabalho-em-ciclos",
+        "primeira-lei",
+        "trabalho"
+      ],
+      "primaryConceptId": "exemplo-stirling-alfa",
+      "sourceIds": [
+        "06:6.11:1"
+      ],
+      "representations": [
+        "published_html_section",
+        "book_reference",
+        "worked_example"
+      ],
+      "prerequisiteIds": [],
+      "prerequisiteReviewStatus": "pending_editorial_review"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "status": "audited_open_only",
+  "policy": {
+    "openingAwardsPoints": false,
+    "openingCountsForMastery": false,
+    "predictionRequiredForLearningEvidence": true,
+    "meaningfulInteractionRequiredForLearningEvidence": true,
+    "reflectionRequiredForLearningEvidence": true,
+    "note": "A versao atual registra somente abertura. Capacidades pedagogicas ficam desativadas ate instrumentacao verificavel."
+  },
+  "simulators": [
+    { "id": "S01", "slug": "termometros", "sectionId": "1.3", "sourceEligible": true },
+    { "id": "S02", "slug": "eqtermico", "sectionId": "1.10", "sourceEligible": true },
+    { "id": "S03", "slug": "qt", "sectionId": "2.8", "sourceEligible": true },
+    { "id": "S04", "slug": "mag", "sectionId": "3.8", "sourceEligible": true },
+    { "id": "S05", "slug": "vdw", "sectionId": "4.5", "sourceEligible": true },
+    { "id": "S06", "slug": "vdw_pv_gv", "sectionId": "4.6", "sourceEligible": true },
+    { "id": "S07", "slug": "isotermico", "sectionId": null, "sourceEligible": false },
+    { "id": "S08", "slug": "mt_carnot", "sectionId": "6.2", "sourceEligible": true },
+    { "id": "S09", "slug": "stirling_reg", "sectionId": "6.10", "sourceEligible": true }
+  ],
+  "defaultCapabilities": {
+    "opened": true,
+    "predictionCaptured": false,
+    "meaningfulInteractionCaptured": false,
+    "reflectionCaptured": false,
+    "goalCaptured": false,
+    "rewardEligible": false,
+    "masteryEligible": false
+  }
+}

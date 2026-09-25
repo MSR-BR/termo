@@ -2829,6 +2829,30 @@
       accent-color: var(--blue);
     }
 
+    .journey-quiz-question__confidence {
+      display: grid;
+      gap: 6px;
+      margin-top: 12px;
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .journey-quiz-question__confidence select {
+      width: min(100%, 260px);
+      border: 1px solid #BFD3EA;
+      border-radius: 10px;
+      background: #FFFFFF;
+      color: var(--text);
+      font: inherit;
+      padding: 9px 10px;
+    }
+
+    .journey-quiz-question__confidence select:focus-visible {
+      outline: 3px solid rgba(0, 83, 155, .25);
+      outline-offset: 2px;
+    }
+
     .journey-quiz__actions {
       display: flex;
       flex-wrap: wrap;
@@ -6025,7 +6049,7 @@
       return { ok: true, quiz: body.quiz };
     }
 
-    async function submitJourneyQuiz({ session, quiz, answers, startedAt, attemptType = "full_quiz" }) {
+    async function submitJourneyQuiz({ session, quiz, answers, startedAt, attemptType = "full_quiz", activityId = "" }) {
       const accessToken = session?.access_token || "";
       if (!accessToken) {
         return { ok: false, error: "Entre com Google para enviar o simulado." };
@@ -6044,6 +6068,7 @@
           chapterId: quiz.chapterId,
           quizToken: quiz.quizToken || "",
           attemptType,
+          activityId,
           answers,
           startedAt,
           completedAt: new Date().toISOString()
@@ -6352,6 +6377,15 @@
               `;
             }).join("")}
           </div>
+          <label class="journey-quiz-question__confidence" for="journey-confidence-${escapeHtml(question.questionId)}">
+            Confiança nesta resposta
+            <select id="journey-confidence-${escapeHtml(question.questionId)}" name="confidence-${escapeHtml(question.questionId)}">
+              <option value="not_reported">Prefiro não informar</option>
+              <option value="low">Baixa</option>
+              <option value="medium">Média</option>
+              <option value="high">Alta</option>
+            </select>
+          </label>
         </article>
       `;
     }
@@ -6377,7 +6411,10 @@
 
         answers.push({
           questionId: question.questionId,
-          choice: selected.value
+          choice: selected.value,
+          confidence: form.querySelector(`select[name="confidence-${escapeCssIdentifier(question.questionId)}"]`)?.value || "not_reported",
+          helpUsed: false,
+          solutionRevealed: false
         });
       });
 
@@ -6532,10 +6569,30 @@
     function pickDailyChallengeChapter(profile, userId) {
       const candidates = getDailyChallengeEligibleChapters(profile);
       if (!candidates.length) return null;
-
+      const progressRows = Array.isArray(profile?.chapterProgress) ? profile.chapterProgress : [];
+      const progressByChapter = new Map(progressRows.map(function (row) {
+        return [String(row.chapterId || row.chapter_id || "").padStart(2, "0"), row];
+      }));
+      const today = new Date(`${getDailyChallengeDateKey()}T00:00:00`);
       const seed = hashDailyChallengeSeed(`${userId}:${getDailyChallengeDateKey()}:chapter`);
-      const index = Math.abs(seed) % candidates.length;
-      return candidates[index];
+
+      return candidates.slice().sort(function (left, right) {
+        function priority(chapter) {
+          const row = progressByChapter.get(chapter.id) || {};
+          const bestScore = Math.max(0, Math.min(100, Number(row.bestScore || row.best_score || 0)));
+          const latest = row.latestCompletedAt ? new Date(row.latestCompletedAt) : null;
+          const daysSince = latest && !Number.isNaN(latest.getTime())
+            ? Math.max(0, Math.floor((today.getTime() - latest.getTime()) / 86400000))
+            : 30;
+          const weakness = 100 - bestScore;
+          const due = Math.min(30, daysSince) * 2;
+          const unmastered = row.mastered || row.isMastered ? 0 : 25;
+          const interleaveTieBreak = Math.abs(hashDailyChallengeSeed(`${seed}:${chapter.id}`)) % 17;
+          return weakness + due + unmastered + interleaveTieBreak;
+        }
+
+        return priority(right) - priority(left);
+      })[0];
     }
 
     function pickDailyChallengeQuestion(quiz, userId) {
@@ -6656,7 +6713,8 @@
             quiz,
             answers: collected.answers,
             startedAt: challenge.startedAt,
-            attemptType: "guided_review"
+            attemptType: "daily_challenge",
+            activityId: `${challenge.dateKey}:${quiz.questions?.[0]?.questionId || quiz.quizKey}`
           });
 
           if (!result.ok) {
@@ -6767,8 +6825,12 @@
             startedAt: new Date().toISOString(),
             answers: [{
               questionId: `${sourceQuestionId}:review`,
-              choice: selected.value
-            }]
+              choice: selected.value,
+              confidence: "not_reported",
+              helpUsed: true,
+              solutionRevealed: false
+            }],
+            activityId: `guided-review:${quiz.quizKey}:${sourceQuestionId}`
           });
 
           if (!result.ok) {
@@ -6805,7 +6867,7 @@
       const masteryScore = Number(payload.profile?.featureFlags?.masteryScore || 80);
       const attemptType = attempt.attemptType || attempt.attempt_type || "full_quiz";
       const isFullQuiz = attemptType === "full_quiz";
-      const isMastered = isFullQuiz && score >= masteryScore;
+      const isMastered = isFullQuiz && payload.profile?.lastQuizResult?.isMastered === true;
       const isExcellent = isFullQuiz && score >= 100;
       const reviewCandidate = isFullQuiz ? getJourneyReviewCandidate(feedback) : null;
       const resultLabel = isFullQuiz ? "Resultado do simulado" : "Resultado da retomada";
@@ -6821,14 +6883,16 @@
             <div class="journey-quiz__copy">
               ${isFullQuiz
                 ? (isMastered
-                    ? `Capítulo dominado: ${masteryScore}% já conta como domínio e ajuda a seguir o programa.`
-                    : `Revisão recomendada: faltou chegar a ${masteryScore}% para considerar o capítulo dominado.`)
+                    ? "Domínio sustentado: o resultado foi confirmado por recuperações independentes em dias e formas diferentes."
+                    : `Este resultado usa ${masteryScore}% como patamar, mas uma única tentativa não declara domínio. O TERMO pedirá nova recuperação independente.`)
                 : "Retomada curta registrada. Se acertou, ela vale um pequeno reforço de pontos e o próximo passo é tentar o simulado completo novamente."}
               ${isExcellent ? " Você também liberou a conquista de excelência por 100%." : ""}
               ${xpAwarded > 0
                 ? ` Você ganhou ${xpAwarded} pontos de estudo.`
                 : "Tentativa registrada. Refazer depois da revisão ainda ajuda a consolidar o capítulo."}
               ${nextAction.reason ? ` Próximo passo: ${escapeHtml(nextAction.reason)}` : ""}
+              ${nextAction.source ? ` Fonte: ${escapeHtml(nextAction.source)}.` : ""}
+              ${nextAction.estimatedMinutes ? ` Duração estimada: ${escapeHtml(nextAction.estimatedMinutes)} min.` : ""}
             </div>
             <div class="journey-quiz__actions" style="margin-top: 14px;">
               <a class="saved-card__button saved-card__button--primary" href="${escapeHtml(primaryActionHref)}">
@@ -6843,6 +6907,12 @@
                 <a class="saved-card__button" href="${escapeHtml(retryQuizHref)}">
                   <i class="fa-solid fa-rotate-right"></i>
                   Refazer simulado
+                </a>
+              ` : ""}
+              ${nextAction.alternative?.href ? `
+                <a class="saved-card__button" href="${escapeHtml(nextAction.alternative.href)}">
+                  <i class="fa-solid fa-shuffle"></i>
+                  ${escapeHtml(nextAction.alternative.label || "Ver alternativa")}
                 </a>
               ` : ""}
             </div>
@@ -7179,7 +7249,7 @@
         ? clampPercent(Math.round((Math.min(gate.xpTotal, gate.requiredPoints) / gate.requiredPoints) * 100))
         : (unlocked ? 100 : 0);
       const note = mastered
-        ? `Capítulo dominado com ${bestScore}% ou mais; refazer serve como revisão rápida.`
+        ? `Domínio sustentado por recuperações independentes; melhor desempenho: ${bestScore}%.`
         : gate.reason;
       const infoNote = gate.requiredPoints
         ? `${note} O patamar deste card é ${gate.requiredPoints} pontos acumulados no percurso. Validar estudo, concluir simulados e fazer retomadas aumentam sua pontuação.`
@@ -7191,7 +7261,7 @@
           ? `<span class="journey-chip journey-chip--success"><i class="fa-solid fa-unlock"></i> Liberado</span>`
           : `<span class="journey-chip journey-chip--quiet"><i class="fa-solid fa-lock"></i> Bloqueado</span>`;
       const progressLabel = mastered
-        ? "Capítulo dominado"
+        ? "Domínio sustentado"
         : !gate.previousMastered && gate.previousChapter
           ? `Domine o Cap. ${gate.previousChapter.id}`
           : gate.requiredPoints
@@ -7496,7 +7566,15 @@
       return {
         href: rawHref || "index.html?view=chapters",
         label: rawLabel,
-        reason: rawReason
+        reason: rawReason,
+        source: String(nextAction?.source || ""),
+        estimatedMinutes: Math.max(0, Number(nextAction?.estimatedMinutes || 0)),
+        alternative: nextAction?.alternative && typeof nextAction.alternative === "object"
+          ? {
+              label: String(nextAction.alternative.label || "Ver alternativa"),
+              href: String(nextAction.alternative.href || "")
+            }
+          : null
       };
     }
 
@@ -8014,7 +8092,7 @@
               "Ganhos ao concluir itens, simulados e revisões.",
               "fa-seedling",
               levelProgress,
-              "Você ganha pontos quando valida estudo ou conclui atividades. Regra atual: validar uma seção estudada vale 20 pontos; fazer um simulado completo pela primeira vez vale 30; atingir 80% ou mais nesse simulado dá mais 15; refazer simulado já feito vale até 5; retomada curta correta vale 10."
+              "Você ganha pontos por atividades verificadas. Validar uma seção estudada vale 20 pontos; o primeiro simulado completo do capítulo vale 30; retomadas verificadas e o desafio do dia correto valem 10. Repetir o mesmo simulado não gera novos pontos."
             )}
             ${renderJourneyMetric(
               "Nível",
@@ -8038,7 +8116,7 @@
               `${studiedItems} ${pluralizePt(studiedItems, "item estudado", "itens estudados")} e ${masteredChapters} ${pluralizePt(masteredChapters, "capítulo dominado", "capítulos dominados")}.`,
               "fa-book-open-reader",
               undefined,
-              "Capítulo dominado significa 80% ou mais no simulado completo. Abrir páginas não conta domínio; o progresso cresce quando você valida seções estudadas e conclui simulados."
+              "Domínio exige pelo menos duas recuperações independentes, em dias e formas diferentes. Um único resultado de 80% não basta; abrir páginas ou simuladores também não conta como domínio."
             )}
           </section>
 
@@ -8049,7 +8127,7 @@
               <div class="journey-section-title">Simulados por capítulo</div>
               <div class="journey-section-note">
                 Os simulados são liberados em sequência conforme sua pontuação acumulada no percurso.
-                ${masteryScore}% ou mais no simulado conta como domínio.
+                ${masteryScore}% é o patamar de cada recuperação; domínio exige confirmação posterior independente.
               </div>
             </div>
             <div class="journey-chapters journey-chapters--quiz-grid">
@@ -8352,7 +8430,7 @@
             <div class="journey-quiz__eyebrow">Desafio do dia</div>
             <h2 class="journey-quiz__title">${escapeHtml(quiz.chapterCode || `Capítulo ${quiz.chapterId}`)} · pergunta curta</h2>
             <div class="journey-quiz__copy">
-              Uma questão de múltipla escolha sobre um tema que você já marcou como estudado ou sobre um capítulo em que já fez simulado. Se acertar, ela vale 10 pontos de estudo e ajuda a liberar simulados mais rápido.
+              Uma questão de múltipla escolha sobre um tema que você já marcou como estudado ou sobre um capítulo em que já fez simulado. Se acertar, ela vale 10 pontos uma vez por dia; isoladamente, não declara domínio.
             </div>
             <div class="journey-quiz__disclaimer">
               <strong>Aviso importante:</strong> todo o conteúdo didático das páginas e do livro associado foi criado pelo autor do material.
