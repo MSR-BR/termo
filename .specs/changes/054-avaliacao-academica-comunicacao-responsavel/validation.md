@@ -36,4 +36,6 @@
 - Security Advisor pós-migração: 0 erros. Dois avisos preexistentes, fora do
   escopo da T54, permanecem registrados (função legada de simulador e proteção
   contra senhas vazadas desabilitada).
+- Gate de hospedagem: as duas novas rotas compartilham funções existentes e o
+  projeto permanece dentro do limite de 12 funções do plano Vercel Hobby.
 - Modelo real: `não exposto`.

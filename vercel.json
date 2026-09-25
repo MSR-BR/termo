@@ -1,4 +1,14 @@
 {
+  "rewrites": [
+    {
+      "source": "/api/email-unsubscribe",
+      "destination": "/api/legal-preferences?action=unsubscribe"
+    },
+    {
+      "source": "/api/learning-evaluation-report",
+      "destination": "/api/gamification-profile?action=evaluation-report"
+    }
+  ],
   "redirects": [
     {
       "source": "/:path*",

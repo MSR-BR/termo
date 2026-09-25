@@ -13,16 +13,19 @@
 - `docs/architecture/termo-evaluation-communication-v1.md`
 - `scripts/validate-termo-evaluation-policy.mjs`
 - `lib/learning-evaluation-report-handler.mjs`
-- `api/learning-evaluation-report.js`
+- rota `/api/learning-evaluation-report`, consolidada em
+  `api/gamification-profile.js` por limite de funções do plano Hobby;
 - `lib/legal-preferences-handler.mjs`
 - `lib/email-campaign-handler.mjs`
 - `lib/email-unsubscribe-handler.mjs`
-- `api/email-unsubscribe.js`
+- rota `/api/email-unsubscribe`, consolidada em `api/legal-preferences.js` por
+  limite de funções do plano Hobby;
 - `unsubscribe.html`
 - `assets/termo-auth.js`
 - `index.html`
 - `privacidade.html`
 - `robots.txt`
+- `vercel.json`
 - `supabase/migrations/20260925181046_termo_evaluation_communication_v1.sql`
 - testes de política, relatório, consentimento, pausa, descadastro e campanha.
 
