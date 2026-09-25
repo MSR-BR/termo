@@ -8272,6 +8272,26 @@
       attachSimulatorActivityHandlers(topicContainer);
     }
 
+    function renderJourneyProfileLoadError() {
+      topicContainer.innerHTML = `
+        <div class="empty-state" role="status" aria-live="polite">
+          <strong>Não foi possível sincronizar seus pontos e simulados agora.</strong><br />
+          Seus dados de estudo não foram alterados. Verifique a conexão e tente novamente.<br /><br />
+          <button class="saved-card__button saved-card__button--primary" data-role="retry-journey-profile" type="button">
+            <i class="fa-solid fa-rotate-right" aria-hidden="true"></i>
+            <span>Tentar novamente</span>
+          </button>
+        </div>
+      `;
+
+      const retryButton = topicContainer.querySelector('[data-role="retry-journey-profile"]');
+      retryButton?.addEventListener("click", async function () {
+        retryButton.disabled = true;
+        retryButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i><span>Sincronizando...</span>';
+        await renderJourney();
+      });
+    }
+
     async function getAuthConfigurationStatus() {
       if (!window.TermoAuth) {
         return { status: "unavailable" };
@@ -8401,7 +8421,7 @@
       ]);
 
       if (!result.ok) {
-        renderJourneyProfile(buildJourneyFallbackProfile(""), simulatorActivityResult);
+        renderJourneyProfileLoadError();
         return;
       }
 

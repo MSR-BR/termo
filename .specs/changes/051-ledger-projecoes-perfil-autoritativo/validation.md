@@ -14,8 +14,7 @@
 
 ## Evidência
 
-- Estado: implementação local e auditoria remota somente leitura concluídas;
-  rollout não autorizado.
+- Estado: schema T51 publicado e validado no remoto; runtime ativado pela T52.
 - Baseline Git: `51210c2bac49f36b45090b4c03763757d17a51ea`.
 - CLI Supabase consultado: `2.117.0`.
 - pgTAP em stack local isolada: 46 testes do pacote e 2 verificações adicionais
@@ -32,13 +31,20 @@
   com versões únicas, sem reescrever o histórico.
 - Remoto confirmado: `MSR-BR's Org / termo / guifkjjuxsdgwjlhkmnx`, branch
   `main`, Postgres 17.6.
-- Snapshot remoto: 36 perfis, 39 eventos, 30 progressos e 10 tentativas; 825
-  pontos em perfis e 780 no ledger; 32 perfis sem eventos e uma divergência de
-  45 pontos.
-- Data API: ativa, gamificação fora das tabelas públicas, auto-expose ligado.
+- Snapshot remoto anterior: 36 perfis, 39 eventos, 30 progressos e 10
+  tentativas; 825 pontos em perfis, 780 no ledger e baseline histórico de 45
+  pontos preservado pela migration.
+- Data API: ativa, gamificação fora das tabelas públicas e auto-expose desligado
+  antes da migration.
 - Fixture do esquema legado confirmou a inclusão de `source_event_id` na tabela
   de progresso e a preservação do baseline de 45 pontos sem eventos.
-- Advisors remotos: segurança 0 erros/2 advertências; desempenho 0 erros/2
-  advertências. Nenhuma alteração ou rerun foi executado.
+- Advisors remotos após o rollout: segurança 0 erros/2 advertências; desempenho
+  0 erros/2 advertências; achados remanescentes são preexistentes e externos à
+  T51.
+- Migration `20260924124810` registrada; grants e RLS verificados; dry run dos
+  36 perfis com zero divergências. `p_apply=true` não foi necessário.
+- O histórico preexistente de migrations continua divergente e mantém
+  `supabase db push` bloqueado; o rollout manual controlado não reescreveu esse
+  histórico.
 - Evidência operacional: `docs/operations/termo-t51-ledger-rollout.md`.
 - Modelo real: `não exposto`.

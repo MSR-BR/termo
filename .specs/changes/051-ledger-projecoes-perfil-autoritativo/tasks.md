@@ -11,7 +11,8 @@
 
 ## Próxima ação elegível
 
-Reconciliar o histórico local/remoto de migrations sem reescrever migrations
-aplicadas e desligar o auto-expose da Data API. Migration, reconciliação com
-`apply=true`, variável de ambiente e deploy continuam bloqueados até revisão e
-autorização explícitas.
+O rollout desta Change foi concluído. Permanece como trabalho independente
+reconciliar o histórico local/remoto de migrations sem reescrever migrations
+aplicadas; até lá, `supabase db push` continua bloqueado. O auto-expose já foi
+desligado, a migration foi aplicada, o dry run retornou zero divergências e o
+runtime foi ativado posteriormente pela T52.

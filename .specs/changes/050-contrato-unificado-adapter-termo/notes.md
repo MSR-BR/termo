@@ -16,13 +16,14 @@
 
 ## Decisões humanas pendentes
 
-- Autorizar `cpd` desta Change, se aprovada.
-- Autorizar início da T51 e qualquer acesso/mutação remota separadamente.
-- Decidir se a exceção observada na raiz vazia do host legado merece uma Change
-  corretiva própria; as rotas de conteúdo testadas redirecionam com `308`.
+- A exceção observada na raiz vazia do host legado permanece registrada como
+  compatibilidade operacional; o domínio canônico continua sendo
+  `https://termo.app.br`.
 
 ## Status de publicação
 
-- Commit: não realizado.
-- Push: não realizado.
-- Deploy: não realizado e não aplicável ao comportamento público desta Change.
+- Commit: `d001739` (`feat: establish unified gamification contract and ledger v1`).
+- Push: realizado em `main` em 25/09/2026.
+- Deploy: o contrato foi incluído na revisão publicada; a T50 isoladamente não
+  ativou comportamento público nem exigiu migration remota.
+- Reconciliação documental: T55, em 25/09/2026.

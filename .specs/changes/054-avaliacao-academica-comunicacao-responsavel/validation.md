@@ -21,7 +21,8 @@
 - Testes de contrato de gamificação: 5/5 aprovados.
 - Testes do ledger: 9/9 aprovados.
 - Testes adaptativos: 7/7 aprovados.
-- Suíte integral `node --test tests/*.test.mjs`: 120/120 aprovados.
+- Suíte integral após consolidação das funções Vercel:
+  `node --test tests/*.test.mjs`: 122/122 aprovados.
 - `git diff --check`: aprovado.
 - Verificação visual local da página de descadastro:
   - sem erros ou avisos no console;

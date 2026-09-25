@@ -10,4 +10,4 @@
 - [x] Falhas e migrações futuras registradas.
 - [x] Modelo real registrado somente como `não exposto`.
 - [x] Decisões humanas pendentes registradas.
-- [x] Deploy registrado como não realizado.
+- [x] Publicação posterior registrada sem atribuir à T50 uma ativação de runtime.
