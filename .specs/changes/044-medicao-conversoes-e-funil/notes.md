@@ -29,3 +29,18 @@
 - Aliases confirmados: `https://termo.app.br`, `https://termo-theta.vercel.app`
   e `https://termo-msr-brs-projects.vercel.app`.
 - Estado: `READY`; observação de 28 dias pendente.
+
+## Verificação externa — 25/09/2026
+
+- O fluxo web do GA4 `TERMO site` mantém o ID `G-NHEVHE096H`, presente no
+  código, recebe tráfego nas últimas 48 horas e agora registra a URL
+  descritiva canônica `https://termo.app.br` (antes mostrava o domínio Vercel).
+- O vínculo GA4–Google Ads com a conta `383-835-9068 MSR-BR` está concluído.
+- No Ads, `TERMO (web) study_activation` está ativo, **primário** e incluído
+  nas metas da conta. `chapter_start`, `exercise_start` e `login_success`
+  estão ativos, **secundários** e fora das metas da conta. As ações de page
+  view consultadas estão inativas e secundárias. Isso corresponde à
+  configuração recomendada; nenhuma conversão foi alterada.
+- A janela de 28 dias após a publicação de T44 ainda não terminou. As
+  contagens atuais do Ads misturam períodos antes e depois da mudança e não
+  substituem a avaliação final planejada para 20/10/2026.

@@ -42,6 +42,60 @@
 - Rota planejada: `gpt-5.6-sol / high`; rota realmente usada: não exposta
   pelo ambiente desta tarefa.
 
+## Propriedade e sitemap canônicos — 25/09/2026
+
+- Com autorização do usuário, foi criada na conta titular do projeto a
+  propriedade de prefixo de URL
+  `https://termo.app.br/`. O Search Console confirmou a titularidade
+  automaticamente pelo método **arquivo HTML**. Esse arquivo não deve ser
+  removido, para preservar a verificação.
+- Com autorização separada, `https://termo.app.br/sitemap.xml` foi enviado à
+  nova propriedade. A interface confirmou o envio, mas o relatório exibiu
+  `Couldn't fetch`, tipo `Unknown` e 0 páginas descobertas. Isso **não**
+  comprova que o sitemap foi processado com sucesso; a validação externa
+  permanece aberta.
+- Verificações independentes: o URL público respondeu HTTP 200 e
+  `Content-Type: application/xml`; o XML local passou em `xmllint` e contém
+  104 URLs. No teste ao vivo de inspeção do Search Console, o Google informou
+  `Crawl allowed: Yes` e `Page fetch: Successful` para o próprio sitemap.
+  Portanto, a causa do `Couldn't fetch` ainda não está demonstrada. Não houve
+  reenvio, alteração de DNS, código ou configuração de Vercel nesta etapa.
+- Reconsultar o relatório após novas tentativas de leitura do Google. Se o
+  erro persistir, seguir o diagnóstico de fetch no Search Console antes de
+  reenviar o sitemap; não fechar T46 nem inferir indexação de URLs a partir
+  da confirmação inicial de envio.
+- Nova consulta na mesma data: o sitemap ainda figura como `Couldn't fetch`,
+  tipo `Unknown` e 0 URLs descobertas. O relatório de ações manuais da
+  propriedade informa `No issues detected`.
+- A inspeção indexada de `https://termo.app.br/` e `home.html` ainda retrata
+  rastreamentos de 12 e 13/09, com canonical antigo
+  `termo-theta.vercel.app` (a raiz aparecia como página com redirecionamento).
+  Isso é histórico, não o estado atual: testes ao vivo de 25/09 para essas
+  duas URLs mostraram fetch bem-sucedido, indexação permitida e canonical
+  autorreferente em `termo.app.br`. A raiz também respondeu HTTP 200 no
+  acesso público.
+- `conteudo.html` e `search.html` constam como URLs desconhecidas no índice
+  atual, sem sitemap de referência; seus testes ao vivo mostraram fetch
+  bem-sucedido, indexação permitida e canonical autorreferente. O teste ao
+  vivo demonstra elegibilidade técnica, **não** indexação concluída.
+- Após confirmação específica do usuário, foi solicitada em 25/09/2026 a
+  indexação de `https://termo.app.br/`, `home.html`, `conteudo.html` e
+  `search.html`, todas na propriedade canônica. Para cada URL, o Search
+  Console confirmou `Indexing requested` e a inclusão na fila prioritária
+  de rastreamento. Isso não comprova rastreamento novo nem indexação efetiva.
+  Não solicitar novamente as mesmas URLs apenas para tentar aumentar a
+  prioridade. A falha de leitura do sitemap deve ser reavaliada após as
+  tentativas automáticas do Google, sem reenvio imediato duplicado.
+
+## Leitura do sitemap confirmada — 25/09/2026
+
+- Nova consulta à propriedade `https://termo.app.br/` no Search Console:
+  `/sitemap.xml` passou a mostrar tipo `Sitemap`, status `Success`, última
+  leitura em 25/09/2026 e **104 páginas descobertas**. O erro inicial
+  `Couldn't fetch` se resolveu sem reenvio ou mudança de código/configuração.
+- Descoberta não significa indexação. Manter o acompanhamento das páginas
+  prioritárias e dos relatórios de desempenho nos prazos planejados.
+
 ## Validação local
 
 - `npm run check`: aprovado; 61 seções públicas, capítulo 05 bloqueado.
@@ -54,4 +108,4 @@
 
 - CPD dos ajustes técnicos: autorizado pelo usuário em 25/09/2026. Identidade
   da revisão e deployment devem ser consultadas no Git/Vercel; a etapa externa
-  do Search Console permanece separada até a propriedade ser verificada.
+  do Search Console permanece separada até o sitemap ser lido com sucesso.
