@@ -1,0 +1,34 @@
+{
+  "observedDate": "2026-10-02",
+  "google": {
+    "projectId": "project-53cb0003-f6ce-41f8-96f",
+    "projectNumber": "81434140400",
+    "clientName": "termo-web",
+    "clientId": "81434140400-5kp0f25t57pqgbl8c6t3dlemn2nlgqd3.apps.googleusercontent.com",
+    "javascriptOrigins": [
+      "http://127.0.0.1:4173",
+      "http://localhost:4173",
+      "https://termo-theta.vercel.app",
+      "https://qm-theta.vercel.app",
+      "https://qm-beta.vercel.app"
+    ],
+    "redirectUris": [
+      "https://guifkjjuxsdgwjlhkmnx.supabase.co/auth/v1/callback",
+      "https://plqiofznjlbpfufigpcp.supabase.co/auth/v1/callback"
+    ]
+  },
+  "supabase": {
+    "projectRef": "guifkjjuxsdgwjlhkmnx",
+    "siteUrl": "http://localhost:3000",
+    "redirectUrls": [
+      "https://termo-theta.vercel.app",
+      "https://termo-theta.vercel.app/**",
+      "http://127.0.0.1:4173",
+      "http://127.0.0.1:4173/**",
+      "http://localhost:4173",
+      "http://localhost:4173/**",
+      "https://qm-theta.vercel.app/**",
+      "https://qm-beta.vercel.app/**"
+    ]
+  }
+}
