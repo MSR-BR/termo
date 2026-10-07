@@ -31,3 +31,11 @@
 ## Modelo efetivo
 
 - Modelo: `não exposto`; raciocínio: `não exposto`; fallback: `não observado`; tokens/latência: `não medidos`.
+
+## CPD e pós-publicação
+
+- O proprietário autorizou `cpd limpo` em 07/10/2026. Commit de código `a202fee077292cfb8c013642967dea15a63d703a` contém só a T57; push para `origin/main` realizado.
+- Vercel: projeto `prj_fGSmfeq3VApRydE1WSIKNcEHS3KF`, deployment `dpl_4jjJSF17hVuLxkgqUPRbEaNFMTy2`, ambiente production, commit Git correspondente, estado `READY`, alias `termo.app.br` atribuído.
+- `https://termo.app.br/home.html`, `/index.html` e `/conteudo.html` responderam HTTP 200. Logs de erro/fatal agrupados para o deployment nos últimos 30 minutos: nenhuma entrada retornada; isso não substitui teste do fluxo Gemini real.
+- Não houve chamada paga à API Gemini. O vínculo do aviso com a chave/projeto Google do TERMO permanece **não confirmado**.
+- Edições preexistentes em `scripts/inject-*.mjs` e `SUPABASE-EXPLICIT-GRANTS-2026-10-30.md` permaneceram fora do commit.
