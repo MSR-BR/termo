@@ -1903,6 +1903,20 @@
       padding: 14px;
     }
 
+    .evaluation-report, [data-evaluation-content] {
+      min-width: 0;
+      display: grid;
+      gap: 16px;
+    }
+
+    .evaluation-toolbar button:focus-visible {
+      outline: 3px solid #004E86;
+      outline-offset: 3px;
+    }
+
+    .evaluation-toolbar button:disabled { cursor: wait; opacity: .7; }
+    .evaluation-summary p { font-size: .95rem; line-height: 1.5; }
+
     .evaluation-summary {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(min(170px, 100%), 1fr));
@@ -9620,35 +9634,25 @@ Entre no ambiente para explorar os recursos disponíveis para o seu progresso.</
       void loadAudience();
     }
 
-    function evaluationMetricDisplay(value) {
-      if (value && typeof value === "object" && "display" in value) return escapeHtml(value.display);
-      if (value === null || typeof value === "undefined" || value === "") return "Indisponível";
-      return escapeHtml(value);
-    }
-
-    function evaluationStageLabel(stage) {
-      return ({
-        eligibility: "Elegibilidade",
-        exposure: "Exposição",
-        action: "Ação",
-        reward: "Recompensa",
-        duplicate_suppression: "Duplicata",
-        opt_out: "Opt-out"
-      })[stage] || stage;
-    }
-
     async function requestLearningEvaluationReport(days = 28) {
       const session = await window.TermoAuth?.getSession?.().catch(function () { return null; });
       const accessToken = session?.access_token || "";
       if (!accessToken) throw new Error("not_authenticated");
-      const response = await fetch(`/api/learning-evaluation-report?days=${encodeURIComponent(days)}`, {
-        headers: { Authorization: `Bearer ${accessToken}` },
-        credentials: "same-origin",
-        cache: "no-store"
-      });
-      const payload = await response.json().catch(function () { return {}; });
-      if (!response.ok) throw new Error(payload.error || "evaluation_report_failed");
-      return payload;
+      const controller = new AbortController();
+      const timeout = window.setTimeout(() => controller.abort(), 20000);
+      try {
+        const response = await fetch(`/api/learning-evaluation-report?days=${encodeURIComponent(days)}`, {
+          headers: { Authorization: `Bearer ${accessToken}` },
+          credentials: "same-origin",
+          cache: "no-store",
+          signal: controller.signal
+        });
+        const payload = await response.json().catch(function () { return {}; });
+        if (!response.ok) throw new Error(payload.error || "evaluation_report_failed");
+        return payload;
+      } finally {
+        window.clearTimeout(timeout);
+      }
     }
 
     async function renderLearningEvaluation() {
@@ -9659,7 +9663,7 @@ Entre no ambiente para explorar os recursos disponíveis para o seu progresso.</
       state.canReviewValidations = await canCurrentUserReviewValidations(session);
       panelKicker.textContent = "Administração";
       panelTitle.textContent = "Avaliação e qualidade";
-      panelDescription.textContent = "Leitura agregada e separada de aprendizagem, uso, experiência, fidelidade e segurança.";
+      panelDescription.textContent = "Entenda o uso do TERMO, os resultados das atividades e os próximos passos, com os limites dos dados à vista.";
       setActiveChapter(state.chapterId);
       setActivePersonal("");
       setActiveAdmin("learning-evaluation");
@@ -9671,71 +9675,25 @@ Entre no ambiente para explorar os recursos disponíveis para o seu progresso.</
         return;
       }
 
-      topicContainer.innerHTML = `<div class="empty-state"><strong>Carregando relatório agregado...</strong></div>`;
-      let report;
-      try {
-        report = await requestLearningEvaluationReport(28);
-      } catch (error) {
-        topicContainer.innerHTML = `<div class="empty-state"><strong>Não foi possível carregar o relatório.</strong><br />${escapeHtml(error?.message || "Verifique as fontes e a configuração do servidor.")}</div>`;
-        return;
-      }
-
-      const mechanics = Array.isArray(report?.fidelity?.mechanics) ? report.fidelity.mechanics : [];
-      const sourceRows = Object.entries(report?.dataQuality?.sources || {});
       topicContainer.innerHTML = `
-        <article class="saved-card">
-          <div class="saved-card__meta"><i class="fa-solid fa-shield-halved"></i> Agregado · janela de ${escapeHtml(report?.window?.days || 28)} dias</div>
-          <h3 class="saved-card__title">O que este painel mede</h3>
-          <p class="saved-card__summary"><strong>Não é uma prova causal de aprendizagem.</strong> Uso, satisfação e pontos permanecem separados de tentativas e evidências. Contagens pequenas aparecem como &lt;${escapeHtml(report?.privacy?.minimumCellSize || 5)}.</p>
-        </article>
-        <section class="evaluation-summary" aria-label="Resumo agregado">
-          <article><strong>${evaluationMetricDisplay(report?.learning?.attempts)}</strong><span>Tentativas registradas</span></article>
-          <article><strong>${evaluationMetricDisplay(report?.learning?.independentRetrievals)}</strong><span>Recuperações independentes</span></article>
-          <article><strong>${evaluationMetricDisplay(report?.behavior?.events)}</strong><span>Eventos de uso</span></article>
-          <article><strong>${evaluationMetricDisplay(report?.experience?.ratings)}</strong><span>Avaliações de experiência</span></article>
-        </section>
-        <div class="evaluation-sections">
-          <section class="evaluation-section">
-            <h3>Aprendizagem observada</h3>
-            <p>${escapeHtml(report?.learning?.exactOutcome || "")}</p>
-            <p><strong>Média observada:</strong> ${evaluationMetricDisplay(report?.learning?.averageObservedScore)}${report?.learning?.averageObservedScore !== null ? "%" : ""}</p>
-            <p class="evaluation-note"><strong>Gate de alegação:</strong> ${escapeHtml(report?.learning?.claimGate || "")}</p>
+        <div class="evaluation-report">
+          <section class="evaluation-section evaluation-toolbar" aria-label="Atualização do relatório">
+            <button type="button" class="saved-card__button saved-card__button--primary" data-evaluation-refresh>Atualizar</button>
+            <p data-evaluation-time>Nenhuma consulta recebida nesta abertura.</p>
+            <p data-evaluation-status role="status" aria-live="polite"></p>
           </section>
-          <section class="evaluation-section">
-            <h3>Fidelidade por mecânica</h3>
-            <p>${escapeHtml(report?.fidelity?.exactOutcome || "")}</p>
-            <div class="evaluation-table-wrap" tabindex="0" role="region" aria-label="Fidelidade por mecânica — tabela com rolagem horizontal">
-              <table class="evaluation-table">
-                <thead><tr><th>Mecânica</th><th>Etapa</th><th>Cobertura</th><th>Contagem</th></tr></thead>
-                <tbody>
-                  ${mechanics.map(function (mechanic) {
-                    return Object.entries(mechanic.stages || {}).map(function ([stage, value]) {
-                      return `<tr><td>${escapeHtml(mechanic.label || mechanic.id)}</td><td>${escapeHtml(evaluationStageLabel(stage))}</td><td><span class="evaluation-status">${escapeHtml(value.status || "unavailable")}</span></td><td>${value.count ? evaluationMetricDisplay(value.count) : "—"}</td></tr>`;
-                    }).join("");
-                  }).join("")}
-                </tbody>
-              </table>
-            </div>
-          </section>
-          <section class="evaluation-section">
-            <h3>Comunicação e segurança</h3>
-            <p>${escapeHtml(report?.equitySafety?.exactOutcome || "")}</p>
-            <p><strong>Opt-in:</strong> ${evaluationMetricDisplay(report?.equitySafety?.optedIn)} · <strong>Pausados:</strong> ${evaluationMetricDisplay(report?.equitySafety?.paused)} · <strong>Opt-out:</strong> ${evaluationMetricDisplay(report?.equitySafety?.optedOut)}</p>
-          </section>
-          <section class="evaluation-section">
-            <h3>Qualidade e limitações</h3>
-            <div class="evaluation-table-wrap" tabindex="0" role="region" aria-label="Qualidade das fontes — tabela com rolagem horizontal">
-              <table class="evaluation-table">
-                <thead><tr><th>Fonte</th><th>Leitura</th><th>Linhas</th><th>Limite atingido</th></tr></thead>
-                <tbody>${sourceRows.map(function ([name, value]) {
-                  return `<tr><td>${escapeHtml(name)}</td><td>${value.ok ? "Disponível" : "Falhou"}</td><td>${evaluationMetricDisplay(value.rows)}</td><td>${value.truncated ? "Sim" : "Não"}</td></tr>`;
-                }).join("")}</tbody>
-              </table>
-            </div>
-            <ul>${(report?.dataQuality?.limitations || []).map(function (item) { return `<li>${escapeHtml(item)}</li>`; }).join("")}</ul>
-          </section>
-        </div>
-      `;
+          <div data-evaluation-content></div>
+        </div>`;
+      const root = topicContainer.querySelector(".evaluation-report");
+      try {
+        const { mountEvaluationReport } = await import("./assets/termo-evaluation-report.js?v=1008.1");
+        if (root.isConnected) await mountEvaluationReport(root, () => requestLearningEvaluationReport(28));
+      } catch (_) {
+        if (root.isConnected) {
+          root.querySelector("[data-evaluation-status]").textContent = "Não foi possível abrir o painel. Recarregue a página para tentar novamente.";
+          root.querySelector("[data-evaluation-refresh]").addEventListener("click", () => renderLearningEvaluation(), { once: true });
+        }
+      }
     }
 
     function attachSimulatorFrameAutoResize(frame) {

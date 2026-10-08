@@ -7,6 +7,7 @@ const analytics = await readFile(new URL("../assets/termo-analytics.js", import.
 const migration = await readFile(new URL("../supabase/migrations/20260925181046_termo_evaluation_communication_v1.sql", import.meta.url), "utf8");
 const privacy = await readFile(new URL("../privacidade.html", import.meta.url), "utf8");
 const index = await readFile(new URL("../index.html", import.meta.url), "utf8");
+const reportView = await readFile(new URL("../assets/termo-evaluation-report.js", import.meta.url), "utf8");
 const auth = await readFile(new URL("../assets/termo-auth.js", import.meta.url), "utf8");
 
 test("policy separates the five evaluation layers and six fidelity stages", function () {
@@ -46,6 +47,7 @@ test("communication defaults to opt-out and exposes pause and passwordless unsub
 
 test("admin evaluation view is explicit about aggregation and causal limits", function () {
   assert.match(index, /Avaliação e qualidade/);
-  assert.match(index, /Não é uma prova causal de aprendizagem/);
-  assert.match(index, /Contagens pequenas aparecem/);
+  assert.match(index, /mountEvaluationReport/);
+  assert.match(reportView, /não provam que o app causou aprendizagem/);
+  assert.match(reportView, /ocultam quantidades pequenas/);
 });

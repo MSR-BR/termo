@@ -12,6 +12,9 @@ const page = await browser.newPage();
 const errors = [];
 const actions = [];
 let audienceMode = "success";
+let evaluationMode = "success";
+let evaluationCalls = 0;
+let releaseEvaluation;
 page.on("pageerror", error => errors.push(error.message));
 await page.addInitScript(() => {
   window.TermoAuth = {
@@ -34,15 +37,21 @@ await page.route("**/*", async route => {
       : { recipients: audienceMode === "empty" ? [] : [{ id: "fixture-1", email: "teste@example.invalid" }], excludedByFrequencyCap: 0,
         consentSummary: { available: true, optedIn: 2, pendingLegal: 1, paused: 0, limited: false } } });
   }
-  if (url.pathname === "/api/learning-evaluation-report") return route.fulfill({ json: {
-    window: { days: 28 }, privacy: { minimumCellSize: 5 },
+  if (url.pathname === "/api/learning-evaluation-report") {
+    evaluationCalls++;
+    if (evaluationMode === "delayed") await new Promise(resolve => { releaseEvaluation = resolve; });
+    if (evaluationMode === "error") return route.fulfill({ status: 503, json: { error: "fixture failure" } });
+    return route.fulfill({ json: {
+    generatedAt: `2026-10-08T15:${String(evaluationCalls).padStart(2, "0")}:00Z`,
+    window: { days: 28, since: "2026-09-10T15:00:00Z" }, privacy: { minimumCellSize: 5 },
     learning: { attempts: { display: "<5" }, averageObservedScore: null,
       exactOutcome: "Desempenho observado em tentativas registradas; não é uma estimativa causal de aprendizagem.",
       claimGate: "Sem baseline, recuperação tardia e forma alterada, o TERMO descreve experiência e desempenho observado, não ganho de aprendizagem." },
     fidelity: { exactOutcome: "Cobertura observável das etapas; lacunas aparecem como indisponíveis.",
       mechanics: [{ label: "Marcar seção como estudada", stages: { eligibility: { status: "observed", count: { display: "<5" } }, exposure: { status: "unavailable" } } }] },
-    dataQuality: { sources: { source_with_long_unbroken_name_for_testing: { ok: true, rows: 2, truncated: false } }, limitations: ["Dados de teste, sem pessoas reais."] }
+    dataQuality: { sources: Object.fromEntries(["learningLedger", "assessmentAttempts", "behaviorTelemetry", "experience", "communicationPreferences", "deliveryAudit"].map(name => [name, { ok: true, rows: { display: "<5" }, truncated: false }])), limitations: ["Dados de teste, sem pessoas reais."] }
   } });
+  }
   if (url.pathname.startsWith("/api/")) return route.fulfill({ json: {} });
   if (/termo-(user-data|rating|analytics|share)\.js/.test(url.pathname)) return route.fulfill({ contentType: "text/javascript", body: "" });
   const target = path.resolve(root, `.${url.pathname}`);
@@ -72,11 +81,47 @@ try {
     await page.keyboard.press("ArrowRight");
     assert.equal(await table.evaluate(x => document.activeElement === x), true);
     if (width === 390) {
-      await page.screenshot({ path: "/private/tmp/termo-t58-mobile.png", fullPage: true });
+      await page.screenshot({ path: "/private/tmp/termo-t59-mobile.png", fullPage: true });
       assert.ok(layout.tables[0].scroll > layout.tables[0].width);
     }
     console.log(`quality layout ${width}px: passed`);
   }
+  const evaluationRefresh = page.locator("[data-evaluation-refresh]");
+  const evaluationStatus = page.locator("[data-evaluation-status]");
+  const evaluationTime = page.locator("[data-evaluation-time]");
+  const oldTime = await evaluationTime.innerText();
+  const oldReport = await page.locator("[data-evaluation-content]").innerHTML();
+  evaluationMode = "error";
+  await evaluationRefresh.click();
+  await evaluationStatus.getByText(/dados anteriores/).waitFor();
+  assert.equal(await evaluationTime.innerText(), oldTime);
+  assert.equal(await page.locator("[data-evaluation-content]").innerHTML(), oldReport);
+  evaluationMode = "delayed";
+  const before = evaluationCalls;
+  await evaluationRefresh.focus();
+  await page.keyboard.press("Enter");
+  await page.waitForFunction(() => document.querySelector("[data-evaluation-refresh]").disabled);
+  await evaluationRefresh.evaluate(button => button.click());
+  assert.equal(evaluationCalls, before + 1, "no concurrent refresh");
+  releaseEvaluation();
+  await evaluationStatus.getByText(/Relatório atualizado/).waitFor();
+  assert.notEqual(await evaluationTime.innerText(), oldTime);
+  // A late response must not overwrite a different screen.
+  await evaluationRefresh.click();
+  await page.waitForFunction(() => document.querySelector("[data-evaluation-refresh]").disabled);
+  await page.locator('[data-view="communication"]').first().count().then(async count => {
+    if (count) await page.locator('[data-view="communication"]').first().click();
+    else await page.evaluate(() => { document.querySelector(".evaluation-report").remove(); });
+  });
+  releaseEvaluation();
+  evaluationMode = "error";
+  await page.goto("http://termo.test/index.html?view=learning-evaluation");
+  await evaluationStatus.getByText(/Não foi possível carregar/).waitFor();
+  assert.equal(await page.locator("[data-evaluation-content]").innerHTML(), "");
+  evaluationMode = "success";
+  await evaluationRefresh.click();
+  await evaluationStatus.getByText(/Relatório atualizado/).waitFor();
+  console.log("evaluation: refresh, keyboard, double request, failure preservation, initial retry passed");
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("http://termo.test/index.html?view=communication");
   const content = page.locator('[data-role="communication-audience-content"]');
