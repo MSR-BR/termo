@@ -5,5 +5,5 @@
 - [x] Reutilização do endpoint sem ampliar acesso.
 - [x] Privacidade e falta de dados preservadas.
 - [x] Testes e checks locais aprovados.
-- [ ] Inspeção visual final e CPD verificados.
-- [ ] Pó Mágico versionado e sincronizado.
+- [x] Inspeção visual final e CPD verificados.
+- [x] Pó Mágico versionado e sincronizado.
