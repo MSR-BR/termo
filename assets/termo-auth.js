@@ -1,4 +1,12 @@
 (function () {
+  // Safari may restore an old document without visiting Vercel's redirect.
+  // Navigate before API calls, preserving OAuth and reading state; never log it.
+  function recoverCanonicalOrigin() {
+    if (window.location.hostname !== "termo-theta.vercel.app") return false;
+    window.location.replace(`https://termo.app.br${window.location.pathname}${window.location.search}${window.location.hash}`);
+    return true;
+  }
+  if (recoverCanonicalOrigin()) return;
   if (window.TermoAuth) return;
 
   const CONFIG_ENDPOINT = "/api/public-config";
@@ -2012,10 +2020,7 @@
     window.addEventListener("pageshow", function (event) {
       if (!event.persisted) return;
 
-      if (window.location.hostname === "termo-theta.vercel.app") {
-        window.location.reload();
-        return;
-      }
+      if (recoverCanonicalOrigin()) return;
 
       void retryConfiguration();
     });

@@ -1892,6 +1892,8 @@
       gap: 8px;
       color: #334155;
       font-size: 13px;
+      overflow-wrap: anywhere;
+      min-width: 0;
     }
 
     .communication-confirmation {
@@ -1903,7 +1905,7 @@
 
     .evaluation-summary {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(170px, 100%), 1fr));
       gap: 14px;
       margin-bottom: 20px;
     }
@@ -1930,7 +1932,24 @@
 
     .evaluation-sections {
       display: grid;
+      grid-template-columns: minmax(0, 1fr);
       gap: 16px;
+    }
+
+    .evaluation-sections,
+    .evaluation-summary,
+    .evaluation-section,
+    .evaluation-summary article,
+    .evaluation-table-wrap {
+      min-width: 0;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+
+    .evaluation-section {
+      overflow-wrap: anywhere;
+      font-size: 1rem;
+      line-height: 1.55;
     }
 
     .evaluation-section h3 {
@@ -1939,6 +1958,11 @@
 
     .evaluation-table-wrap {
       overflow-x: auto;
+    }
+
+    .evaluation-table-wrap:focus-visible {
+      outline: 3px solid var(--blue);
+      outline-offset: 3px;
     }
 
     .evaluation-table {
@@ -3773,7 +3797,7 @@
 (function () {
   const scripts = [
     "assets/termo-share.js?v=0611.3",
-    "assets/termo-auth.js?v=0625.3",
+    "assets/termo-auth.js?v=1008.1",
     "assets/termo-user-data.js?v=0911.1",
     "assets/termo-analytics.js?v=0922.1",
     "assets/termo-rating.js?v=0913.1"
@@ -9422,7 +9446,7 @@
               </select>
             </label>
             <div class="communication-audience" data-role="communication-audience" aria-live="polite">
-              <strong>O público ainda não foi carregado.</strong>
+              <div data-role="communication-audience-content"><strong>Carregando destinatários autorizados...</strong></div>
               <div class="saved-card__actions">
                 <button class="saved-card__button" data-role="load-communication-audience" type="button"><i class="fa-solid fa-users"></i> Conferir destinatários</button>
               </div>
@@ -9463,11 +9487,13 @@ Entre no ambiente para explorar os recursos disponíveis para o seu progresso.</
 
       const form = topicContainer.querySelector('[data-role="communication-form"]');
       const status = topicContainer.querySelector('[data-role="communication-status"]');
-      const audienceBox = topicContainer.querySelector('[data-role="communication-audience"]');
+      const audienceBox = topicContainer.querySelector('[data-role="communication-audience-content"]');
+      const audienceButton = topicContainer.querySelector('[data-role="load-communication-audience"]');
       const audienceType = topicContainer.querySelector('[data-role="communication-audience-type"]');
       const confirmation = topicContainer.querySelector('[data-role="communication-confirmation"]');
       const confirmationCopy = topicContainer.querySelector('[data-role="communication-confirmation-copy"]');
       let recipients = [];
+      let audienceLoading = false;
 
       function getDraft() {
         return {
@@ -9487,7 +9513,7 @@ Entre no ambiente para explorar os recursos disponíveis para o seu progresso.</
 
       function renderAudience() {
         if (!recipients.length) {
-          audienceBox.innerHTML = "<strong>Nenhum usuário com opt-in de novidades foi encontrado.</strong>";
+          audienceBox.innerHTML = "<strong>Nenhum destinatário elegível neste momento.</strong><p>Isso não significa que não existam autorizações: os documentos atuais, as pausas e os limites de frequência também são verificados.</p>";
           return;
         }
         const selectable = audienceType.value === "selected_users";
@@ -9502,15 +9528,34 @@ Entre no ambiente para explorar os recursos disponíveis para o seu progresso.</
       }
 
       async function loadAudience() {
-        status.textContent = "Carregando destinatários autorizados...";
+        if (audienceLoading) return;
+        audienceLoading = true;
+        recipients = [];
+        confirmation.hidden = true;
+        audienceButton.disabled = true;
+        audienceBox.setAttribute("aria-busy", "true");
+        audienceBox.textContent = "Carregando destinatários autorizados...";
         try {
           const result = await requestEmailCampaign({ action: "audience", ...getDraft() });
           recipients = Array.isArray(result.recipients) ? result.recipients : [];
           renderAudience();
           const capped = Number(result.excludedByFrequencyCap || 0);
-          status.textContent = `${recipients.length} destinatário(s) elegível(is) carregado(s).${capped ? ` ${capped} excluído(s) pelo limite de frequência.` : ""}`;
+          const consent = result.consentSummary;
+          if (consent?.available) {
+            const details = `${consent.limited ? "Consulta limitada a " : ""}${Number(consent.optedIn) || 0} autorização(ões) de novidades registrada(s); ${Number(consent.pendingLegal) || 0} aguardando aceite dos documentos atuais; ${Number(consent.paused) || 0} com pausa ativa. As duas últimas contagens podem se sobrepor.`;
+            const note = document.createElement("p");
+            note.textContent = details;
+            audienceBox.appendChild(note);
+          } else {
+            audienceBox.insertAdjacentHTML("beforeend", "<p>O total de autorizações registradas não pôde ser verificado; a lista acima considera apenas a elegibilidade atual.</p>");
+          }
+          if (capped) audienceBox.insertAdjacentHTML("beforeend", `<p>${capped} excluído(s) pelo limite de frequência.</p>`);
         } catch (error) {
-          status.textContent = error?.message || "Não foi possível carregar os destinatários.";
+          audienceBox.innerHTML = `<strong>Não foi possível consultar os destinatários.</strong><p>${escapeHtml(error?.message || "Verifique a conexão e tente novamente.")}</p><p>Use “Conferir destinatários” para tentar novamente. A lista não foi considerada vazia.</p>`;
+        } finally {
+          audienceLoading = false;
+          audienceButton.disabled = false;
+          audienceBox.removeAttribute("aria-busy");
         }
       }
 
@@ -9535,6 +9580,7 @@ Entre no ambiente para explorar os recursos disponíveis para o seu progresso.</
       });
 
       topicContainer.querySelector('[data-role="review-communication-send"]')?.addEventListener("click", async function () {
+        if (audienceLoading) return;
         if (!recipients.length) await loadAudience();
         const count = selectedRecipientCount();
         if (!count) {
@@ -9570,6 +9616,8 @@ Entre no ambiente para explorar os recursos disponíveis para o seu progresso.</
           button.disabled = false;
         }
       });
+      // Only reads the audience; sending remains an explicit, confirmed action.
+      void loadAudience();
     }
 
     function evaluationMetricDisplay(value) {
@@ -9656,7 +9704,7 @@ Entre no ambiente para explorar os recursos disponíveis para o seu progresso.</
           <section class="evaluation-section">
             <h3>Fidelidade por mecânica</h3>
             <p>${escapeHtml(report?.fidelity?.exactOutcome || "")}</p>
-            <div class="evaluation-table-wrap">
+            <div class="evaluation-table-wrap" tabindex="0" role="region" aria-label="Fidelidade por mecânica — tabela com rolagem horizontal">
               <table class="evaluation-table">
                 <thead><tr><th>Mecânica</th><th>Etapa</th><th>Cobertura</th><th>Contagem</th></tr></thead>
                 <tbody>
@@ -9676,7 +9724,7 @@ Entre no ambiente para explorar os recursos disponíveis para o seu progresso.</
           </section>
           <section class="evaluation-section">
             <h3>Qualidade e limitações</h3>
-            <div class="evaluation-table-wrap">
+            <div class="evaluation-table-wrap" tabindex="0" role="region" aria-label="Qualidade das fontes — tabela com rolagem horizontal">
               <table class="evaluation-table">
                 <thead><tr><th>Fonte</th><th>Leitura</th><th>Linhas</th><th>Limite atingido</th></tr></thead>
                 <tbody>${sourceRows.map(function ([name, value]) {
@@ -10275,7 +10323,7 @@ Entre no ambiente para explorar os recursos disponíveis para o seu progresso.</
 
           if (!existingScript) {
             const script = document.createElement("script");
-            script.src = "assets/termo-auth.js?v=0625.3";
+            script.src = "assets/termo-auth.js?v=1008.1";
             script.async = true;
             script.onerror = function () {
               if (settled) return;

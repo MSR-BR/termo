@@ -41,6 +41,8 @@ concorrentes com o mesmo número.
 | 056 | `056-limpeza-oauth-legado-quantum` | `gpt-6.1-sol / high` | `gpt-6.1-sol / xhigh` | limpeza remota e login de produção validados; CPD documental 7bc7beb publicado READY em 03/10/2026; teste Preview real pendente por inexistência de ambiente |
 | 057 | `057-compatibilidade-parametros-gemini` | `gpt-6.1-sol / high` | `gpt-6.1-sol / xhigh` | correção publicada e validada em produção em 07/10/2026 (`a202fee`); vínculo do aviso com TERMO não confirmado |
 
+| 058 | `058-recuperacao-login-paineis-admin` | `gpt-6.1-sol / high` | `gpt-6.1-sol / xhigh` | correções e gates locais concluídos; CPD autorizado em andamento |
+
 Os documentos datados em `changes/` constituem o histórico anterior e não são
 renumerados. A busca pública já implementada localmente será reconciliada como
 Change 026, sem duplicar sua implementação.

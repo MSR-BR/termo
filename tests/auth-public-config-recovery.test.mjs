@@ -17,7 +17,7 @@ function createResponse(payload, options = {}) {
   };
 }
 
-function bootAuth(fetchImplementation) {
+function bootAuth(fetchImplementation, locationOverride = {}) {
   const listeners = new Map();
   const dispatchedEvents = [];
   const window = {
@@ -27,7 +27,9 @@ function bootAuth(fetchImplementation) {
       pathname: "/index.html",
       search: "",
       hash: "",
-      reload() {}
+      reload() {},
+      replace(value) { this.replacedWith = value; },
+      ...locationOverride
     },
     setTimeout(callback) {
       callback();
@@ -149,9 +151,28 @@ test("a interface oferece recuperação sem expor nomes de fornecedores", functi
   assert.doesNotMatch(authSource, /Variáveis esperadas:/);
 });
 
-test("o retorno por bfcache força revalidação e o host legado recarrega", function () {
+test("o retorno por bfcache força revalidação e o host legado navega ao canônico", function () {
   assert.match(authSource, /window\.addEventListener\("pageshow"/);
   assert.match(authSource, /if \(!event\.persisted\) return;/);
-  assert.match(authSource, /window\.location\.hostname === "termo-theta\.vercel\.app"/);
+  assert.match(authSource, /if \(recoverCanonicalOrigin\(\)\) return;/);
   assert.match(authSource, /void retryConfiguration\(\);/);
+});
+
+test("aba legada preserva rota, código e fragmento antes de consultar APIs", function () {
+  let calls = 0;
+  const runtime = bootAuth(() => { calls += 1; }, {
+    hostname: "termo-theta.vercel.app", origin: "https://termo-theta.vercel.app",
+    pathname: "/index.html", search: "?view=journey&code=fixture-only", hash: "#section-2"
+  });
+  assert.equal(runtime.window.location.replacedWith, "https://termo.app.br/index.html?view=journey&code=fixture-only#section-2");
+  assert.equal(runtime.auth, undefined);
+  assert.equal(calls, 0);
+});
+
+test("localhost e Preview não são redirecionados", function () {
+  for (const hostname of ["localhost", "127.0.0.1", "termo-preview.vercel.app"]) {
+    const runtime = bootAuth(() => createResponse({ authEnabled: false }), { hostname });
+    assert.ok(runtime.auth);
+    assert.equal(runtime.window.location.replacedWith, undefined);
+  }
 });

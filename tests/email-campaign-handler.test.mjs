@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { handleEmailCampaignRequest } from "../lib/email-campaign-handler.mjs";
+import { TERMS_VERSION, PRIVACY_VERSION } from "../lib/legal-preferences-handler.mjs";
 
 const BASE_ENV = {
   PUBLIC_SUPABASE_URL: "https://example.supabase.co",
@@ -73,6 +74,47 @@ test("campaign audience lists only users with email opt-in", async function () {
     { id: "student-2", email: "bruno@example.com" }
   ]);
   assert.equal(response.body.optedInCount, 2);
+});
+
+test("audience explains pending consent and pauses without changing strict recipient filters", async function () {
+  const response = await withMockedFetch(async function (url) {
+    const parsed = new URL(url);
+    if (parsed.pathname.endsWith("/user_legal_preferences")) {
+      assert.equal(parsed.searchParams.get("email_updates_opted_in"), "is.true");
+      if (parsed.searchParams.get("limit") === "1001") return createJsonResponse([
+        { terms_version: TERMS_VERSION, terms_accepted_at: "2026-10-01", privacy_version: PRIVACY_VERSION, privacy_acknowledged_at: "2026-10-01" },
+        { terms_version: TERMS_VERSION, terms_accepted_at: "2026-10-01", privacy_version: "old", privacy_acknowledged_at: "2026-08-01", email_updates_paused_until: "2099-01-01" }
+      ]);
+      assert.equal(parsed.searchParams.get("privacy_version"), `eq.${PRIVACY_VERSION}`);
+      assert.equal(parsed.searchParams.get("terms_version"), `eq.${TERMS_VERSION}`);
+      return createJsonResponse([]);
+    }
+    return adminResponse(url);
+  }, () => handleEmailCampaignRequest({ method: "POST", headers: { authorization: "Bearer fixture" }, body: { action: "audience" }, env: BASE_ENV }));
+  assert.equal(response.status, 200);
+  assert.deepEqual(response.body.recipients, []);
+  assert.deepEqual(response.body.consentSummary, { available: true, limited: false, optedIn: 2, pendingLegal: 1, paused: 1 });
+});
+
+test("failed diagnostic count is unavailable, never a zero opt-in claim", async function () {
+  const response = await withMockedFetch(async function (url) {
+    if (new URL(url).searchParams.get("limit") === "1001") return createJsonResponse({}, 500);
+    return adminResponse(url);
+  }, () => handleEmailCampaignRequest({ method: "POST", headers: { authorization: "Bearer fixture" }, body: { action: "audience" }, env: BASE_ENV }));
+  assert.equal(response.status, 200);
+  assert.deepEqual(response.body.consentSummary, { available: false });
+  assert.equal(response.body.recipients.length, 2);
+});
+
+test("non-administrator cannot read audience or consent counts", async function () {
+  let reads = 0;
+  const response = await withMockedFetch(async function (url) {
+    if (String(url).endsWith("/auth/v1/user")) return createJsonResponse({ id: "ordinary", email: "student@example.invalid" });
+    reads += 1;
+    throw new Error("unexpected privileged read");
+  }, () => handleEmailCampaignRequest({ method: "POST", headers: { authorization: "Bearer fixture" }, body: { action: "audience" }, env: BASE_ENV }));
+  assert.equal(response.status, 403);
+  assert.equal(reads, 0);
 });
 
 test("campaign test sends only to the administrator", async function () {
