@@ -27,7 +27,12 @@
 - Migração canônica `20260824_create_email_recipient_deliveries.sql` aplicada em transação pelo editor. Sem db push, sem alterar o histórico divergente de migrations.
 - Pós-migração: tabela existe; service_role SELECT/INSERT true; anon e authenticated SELECT false; RLS true.
 - Consulta autenticada pós-migração: HTTP 200, 1 destinatário elegível, 0 excluídos por frequência. Sem imprimir endereços de destinatários ou dados de sessão.
-- Produção: verificação após CPD pendente.
+- Produção: commit `e5dee16957f3fa5e688a6a3f24f0cd6d088059c3`, deployment `dpl_9agroCamuhkbE1cRJ4HsAZ8tgknM`, READY, source Git, projeto/time corretos, alias `termo.app.br` confirmado.
+- HTTP: index 200 com nova versão de auth; script 200 idêntico ao arquivo local; host legado retorna 308 preservando `?view=journey`.
+- Safari pós-deploy/recarregamento: sessão administrativa persistiu; interface carregou automaticamente 1 destinatário, resumo 6 autorizações / 5 aguardando documentos / 0 pausas; botão de atualização presente.
+- Relatório real em produção: 4 seções carregadas sem estado de erro, documento com mesma largura do viewport (1401px), duas tabelas com foco e overflow interno. Mobile e texto ampliado validados com fixtures no navegador, não em iPhone físico.
+- Observabilidade: três registros stderr `DEP0169 DeprecationWarning: url.parse()` em app-rating, gamification-profile e legal-preferences; não são prova de falha HTTP. Nenhum uso de url.parse encontrado em api/lib. Não houve erro funcional nos fluxos testados. Não ampliar esta Change para eliminar avisos da plataforma.
+- Nenhum e-mail (inclusive teste), chamada Gemini, campanha, orçamento ou consentimento foi alterado/enviado.
 
 ## Modelo realmente observado
 

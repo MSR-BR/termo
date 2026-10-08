@@ -5,4 +5,4 @@
 - [x] Autorização CPD recebida.
 - [x] Correções e critérios locais validados.
 - [x] Revisão de diff sem segredos/dados pessoais de destinatários.
-- [ ] Publicação e limitações registradas.
+- [x] Publicação e limitações registradas.

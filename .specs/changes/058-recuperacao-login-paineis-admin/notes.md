@@ -8,7 +8,9 @@ Contagens reais (somente agregadas): 6 opt-ins; 1 com documentos vigentes; 0 pau
 
 ## Publicação
 
-Código e testes: commit `a6cbac5`. Push/deploy ainda pendentes. Autorizados nesta solicitação.
+Código e testes: commit `a6cbac5`; evidência e correção do banco: `e5dee16`. Ambos enviados a `origin/main`. Deploy Git `dpl_9agroCamuhkbE1cRJ4HsAZ8tgknM` READY, alias `termo.app.br`, smoke real autenticado aprovado. Este fechamento documental não altera código do produto.
+
+Sem decisão humana bloqueante para a T58. Os 5 usuários com documentos antigos precisam realizar o próprio aceite; não se deve ativar consentimentos em seu nome. Sessão administrativa deixada funcional no Safari. Arquivos preexistentes de outras tarefas preservados fora dos commits/deploy.
 
 ## Reversão
 
