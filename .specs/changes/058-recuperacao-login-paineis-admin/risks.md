@@ -8,4 +8,3 @@
 | Enviar sem autorização | Testar com mocks; jamais acionar test/send em produção |
 | Publicar arquivos de outra tarefa | Stage explícito e deploy Git, não diretório sujo |
 | Vazamento | Não persistir tokens, URLs OAuth ou lista de e-mails nos artefatos |
-

@@ -8,5 +8,4 @@ Recuperar o login de abas legadas do desktop, tornar a consulta de destinatário
 
 ## Limites
 
-Sem troca de credenciais, cliente OAuth, modelo IA, schema ou consentimentos. Nenhum e-mail enviado. CPD autorizado pelo usuário em 08/10/2026.
-
+Sem troca de credenciais, cliente OAuth, modelo IA ou consentimentos. A única alteração de schema foi aplicar a migração já existente da tabela ausente de histórico de envios. Nenhum e-mail enviado. CPD autorizado pelo usuário em 08/10/2026.

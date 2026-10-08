@@ -6,4 +6,3 @@
 4. Executar testes de regressão, conteúdo, sintaxe e navegador.
 5. Consultar dados reais apenas com sessão autorizada e registrar contagens, não e-mails/tokens.
 6. CPD seletivo, sem incorporar alterações preexistentes; verificar produção.
-

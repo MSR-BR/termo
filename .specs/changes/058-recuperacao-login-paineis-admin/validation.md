@@ -19,8 +19,14 @@
 - Captura mobile inspecionada visualmente, mantida apenas em `/private/tmp`, com fixtures.
 - `git diff --check`: passou.
 - Sandbox inicialmente bloqueou lançamento do Chromium (MachPort); teste repetido com permissão de processo, sem mudanças no produto por esse motivo.
-- Checklist Supabase: autorização server-side preservada, service-role somente servidor, sem mudança de RLS/grants/credenciais. Diagnóstico adicional retorna apenas contagens ao administrador e não altera seleção de envio.
-- Safari canônico: configuração carregou e botão Google disponível; fluxo chegou ao seletor Google. Validação da sessão final/contagens reais ainda pendente.
+- Checklist Supabase: autorização server-side preservada, service-role somente servidor, nenhuma credencial alterada. Diagnóstico adicional retorna apenas contagens ao administrador e não altera seleção de envio.
+- Safari canônico: login Google real concluído com `marioreis@id.uff.br`, sessão administrativa confirmada sem exportar tokens.
+- Consulta real antes da correção: HTTP 502 no controle de frequência.
+- SQL Editor confirmou projeto `termo`, organização `MSR-BR's Org`, ref `guifkjjuxsdgwjlhkmnx`; `to_regclass` comprovou tabela de histórico ausente.
+- Contagens agregadas: 6 opt-ins, 1 com documentos vigentes, 0 pausas. Uma campanha histórica; zero campanhas e zero entregas nos últimos 7 dias, portanto sem histórico recente a reconciliar para os limites.
+- Migração canônica `20260824_create_email_recipient_deliveries.sql` aplicada em transação pelo editor. Sem db push, sem alterar o histórico divergente de migrations.
+- Pós-migração: tabela existe; service_role SELECT/INSERT true; anon e authenticated SELECT false; RLS true.
+- Consulta autenticada pós-migração: HTTP 200, 1 destinatário elegível, 0 excluídos por frequência. Sem imprimir endereços de destinatários ou dados de sessão.
 - Produção: verificação após CPD pendente.
 
 ## Modelo realmente observado

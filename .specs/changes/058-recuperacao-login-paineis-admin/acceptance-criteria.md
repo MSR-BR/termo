@@ -1,10 +1,9 @@
 # Critérios de aceite
 
-- [ ] Documento legado recupera domínio canônico antes de consultar configuração.
-- [ ] Domínio canônico continua oferecendo login e mantém callback autorizado.
-- [ ] Consulta automática distingue sucesso vazio, sucesso com público e falha; retry permanece disponível.
-- [ ] Falha de consulta não autoriza revisão/envio com seleção antiga.
-- [ ] Painel sem overflow externo a 320px, 390px e desktop; tabela acessível por teclado.
-- [ ] Gates locais passam; nenhuma chamada IA paga ou envio de e-mail.
+- [x] Documento legado recupera domínio canônico antes de consultar configuração.
+- [x] Domínio canônico continua oferecendo login e mantém callback autorizado.
+- [x] Consulta automática distingue sucesso vazio, sucesso com público e falha; retry permanece disponível.
+- [x] Falha de consulta não autoriza revisão/envio com seleção antiga.
+- [x] Painel sem overflow externo a 320px, 390px e desktop; tabela acessível por teclado.
+- [x] Gates locais passam; nenhuma chamada IA paga ou envio de e-mail.
 - [ ] Deploy READY e alias verificados; limites de teste autenticado explicitados.
-
