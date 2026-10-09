@@ -5,4 +5,4 @@
 - [x] O usuário dispõe de botão manual se a impressão automática não abrir.
 - [x] A impressão não é habilitada quando MathJax falha.
 - [x] Metadados de exercício são escapados e o link de página não aceita esquema perigoso.
-- [x] Gates gerais aprovados; publicação ainda depende do fechamento do CPD.
+- [x] Gates gerais aprovados e publicação Vercel `READY` no domínio canônico.

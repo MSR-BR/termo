@@ -10,7 +10,15 @@
 - [x] Equações MathJax compostas; 40 fórmulas reconhecidas no exemplo.
 - [x] Inspeção em 390 px sem rolagem horizontal; botão manual habilitado.
 - [x] Clique de exportação abriu nova aba, com 2 equações compostas e botão de impressão habilitado.
-- [ ] Arquivo novo e revisão publicada verificados no domínio canônico.
+- [x] Arquivo novo HTTP 200 e revisão publicada `READY` verificados no domínio canônico.
+
+## Produção
+
+- Revisão `8d8f0ad` em produção no deployment `dpl_H5NuAbup3dPSGt8zZ8oduGruhkvH`.
+- `https://termo.app.br/assets/termo-exercise-pdf.js?v=20261009`: HTTP 200.
+- `https://termo.app.br/index.html`: referência ao script e texto “Exportar PDF” confirmados.
+- Vercel: nenhum erro de runtime no intervalo recente de 15 minutos consultado.
+- Teste com login real em produção não executado; não se acessou dados pessoais do proprietário.
 
 ## Modelo realmente observado
 

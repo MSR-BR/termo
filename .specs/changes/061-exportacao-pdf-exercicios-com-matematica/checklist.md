@@ -6,4 +6,4 @@
 - [x] Implementação concentrada na exportação dos exercícios salvos.
 - [x] PDF de exemplo renderizado e inspecionado.
 - [x] Gates gerais e revisão final do diff.
-- [ ] CPD e URL de produção registrados.
+- [x] CPD e URL de produção registrados.

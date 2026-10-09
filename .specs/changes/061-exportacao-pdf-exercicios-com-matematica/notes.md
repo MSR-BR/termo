@@ -6,4 +6,9 @@ O proprietário autorizou “cpd” na solicitação de 09/10/2026. Os três scr
 
 ## Status de publicação
 
-- Commit/push/deploy: solicitados, a confirmar após os gates e a verificação da produção.
+- Commit: `8d8f0ad` (`fix(pdf): render exercise equations and add author header`).
+- Push: `origin/main` concluído em 09/10/2026.
+- Deploy: Vercel produção `READY`, deployment `dpl_H5NuAbup3dPSGt8zZ8oduGruhkvH`.
+- Domínio canônico: novo script HTTP 200; `index.html` público carrega o exportador.
+- Erros de runtime Vercel: nenhum no intervalo de 15 minutos consultado.
+- Limite: a exportação autenticada de uma conta real não foi executada em produção; o mesmo fluxo foi testado no Chrome local com janela e equações reais.
