@@ -19,6 +19,7 @@
   // The Vercel hostname permanently redirects to the canonical public domain.
   const AUTH_SITE_URL = "https://termo-theta.vercel.app";
   const LOGIN_PENDING_KEY = "termo_auth_login_pending_v1";
+  const LEGAL_PROMPT_SEEN_KEY = "termoLegalPromptSeenV1";
   const LANDING_LOGIN_TARGET_KEY = "termoLandingPostLoginTarget";
   const BOOK_PENDING_DOWNLOAD_KEY = "termoPendingBookPdfDownload";
   const STUDY_MARKERS_STORAGE_KEY = "termoStudyMarkersV1";
@@ -259,6 +260,14 @@
 
   function buildPageContext() {
     const title = firstText(TITLE_SELECTORS) || "esta página";
+
+    if (state.session?.user) {
+      return {
+        kicker: "Área pessoal",
+        title: "Sua conta e preferências",
+        copy: "Acesse seus marcadores, exercícios e favoritos. Você também pode revisar as preferências de comunicação e privacidade."
+      };
+    }
 
     if (isIndexPage()) {
       return {
@@ -856,10 +865,21 @@
 
     try {
       const preferences = await fetchLegalPreferences();
+      if (!preferences || state.session?.user?.id !== userId) return;
       state.legalPreferences = preferences;
-      if (!hasCurrentLegalAcceptance(preferences)) {
-        openModal();
+      if (hasCurrentLegalAcceptance(preferences)) return;
+
+      // A lembrança é apenas da exibição, nunca uma aceitação dos documentos.
+      // localStorage é compartilhado entre as janelas do mesmo navegador.
+      const promptKey = `${LEGAL_PROMPT_SEEN_KEY}:${userId}:${preferences.termsCurrentVersion}:${preferences.privacyCurrentVersion}`;
+      try {
+        if (window.localStorage.getItem(promptKey)) return;
+        window.localStorage.setItem(promptKey, "1");
+      } catch (_error) {
+        // Armazenamento indisponível não deve impedir o acesso manual ao perfil.
+        return;
       }
+      openModal();
     } catch (_error) {
       // A área continua acessível se a preferência estiver temporariamente indisponível.
     }
