@@ -18,6 +18,7 @@
   <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
   <link rel="stylesheet" href="assets/ai-exercises.css?v=0406.6">
   <script defer src="assets/ai-exercises.js?v=0406.6"></script>
+  <script defer src="assets/termo-exercise-pdf.js?v=20261009"></script>
 
   <style>
     :root {
@@ -4638,7 +4639,6 @@
       }
     };
 
-    const JSPDF_CDN_URL = "https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js";
     const releaseInfo = {
       version: "v0625.1",
       date: "2026-06-25",
@@ -4809,7 +4809,6 @@
       validationReviewStatus: "pending",
       exerciseModal: null,
       selectedExerciseId: null,
-      jsPdfPromise: null,
       gamificationProfile: null,
       gamificationProfileUserId: "",
       gamificationProfilePromise: null,
@@ -5104,51 +5103,6 @@
       } catch {
         return value;
       }
-    }
-
-    async function ensureJsPdf() {
-      if (window.jspdf && window.jspdf.jsPDF) {
-        return window.jspdf.jsPDF;
-      }
-
-      if (!state.jsPdfPromise) {
-        state.jsPdfPromise = new Promise(function (resolve, reject) {
-          const existing = document.querySelector('script[data-termo-jspdf="true"]');
-          if (existing) {
-            existing.addEventListener("load", function () {
-              if (window.jspdf && window.jspdf.jsPDF) {
-                resolve(window.jspdf.jsPDF);
-              } else {
-                reject(new Error("jsPDF não disponível após o carregamento."));
-              }
-            }, { once: true });
-            existing.addEventListener("error", function () {
-              reject(new Error("Não foi possível carregar jsPDF."));
-            }, { once: true });
-            return;
-          }
-
-          const script = document.createElement("script");
-          script.src = JSPDF_CDN_URL;
-          script.async = true;
-          script.setAttribute("data-termo-jspdf", "true");
-          script.onload = function () {
-            if (window.jspdf && window.jspdf.jsPDF) {
-              resolve(window.jspdf.jsPDF);
-              return;
-            }
-            reject(new Error("jsPDF não disponível após o carregamento."));
-          };
-          script.onerror = function () {
-            reject(new Error("Não foi possível carregar jsPDF."));
-          };
-          document.head.appendChild(script);
-        }).finally(function () {
-          state.jsPdfPromise = null;
-        });
-      }
-
-      return state.jsPdfPromise;
     }
 
     function findChapterById(id) {
@@ -5696,7 +5650,7 @@
               </button>
               <button class="saved-card__button" data-role="exercise-export" type="button">
                 <i class="fa-solid fa-file-export"></i>
-                Exportar
+                Exportar PDF
               </button>
             </div>
             <div class="exercise-modal__status" data-role="exercise-status" aria-live="polite"></div>
@@ -5809,84 +5763,15 @@
       return "mail";
     }
 
-    async function exportExercise(exercise) {
-      const jsPDF = await ensureJsPdf();
-      const doc = new jsPDF({
-        orientation: "portrait",
-        unit: "pt",
-        format: "a4"
+    function exportExercise(exercise) {
+      if (!window.TermoExercisePdf?.openExercisePdf) {
+        throw new Error("Exportação de PDF indisponível.");
+      }
+      return window.TermoExercisePdf.openExercisePdf(exercise, {
+        pageUrl: buildAbsoluteCourseUrl(exercise.page_path || exercise.page_url),
+        difficultyLabel: difficultyLabel(exercise.difficulty),
+        formatGeneratedText: window.TermoAIExercise?.formatGeneratedText
       });
-      const pageWidth = doc.internal.pageSize.getWidth();
-      const pageHeight = doc.internal.pageSize.getHeight();
-      const margin = 48;
-      const contentWidth = pageWidth - (margin * 2);
-      const lineHeight = 16;
-      const filename = `exercicio-${String(exercise.item_id || exercise.chapter_id || "curso").replace(/[^a-z0-9.-]+/gi, "-").toLowerCase()}.pdf`;
-
-      const bodyText = buildExercisePlainText(exercise);
-      let cursorY = margin;
-
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(18);
-      doc.text("Termodinâmica para Estudantes de Física", margin, cursorY);
-      cursorY += 26;
-
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(14);
-      const titleLines = doc.splitTextToSize(exercise.exercise_title || "Exercício", contentWidth);
-      doc.text(titleLines, margin, cursorY);
-      cursorY += (titleLines.length * 18) + 10;
-
-      doc.setFont("helvetica", "normal");
-      doc.setFontSize(11);
-      const lines = doc.splitTextToSize(bodyText, contentWidth);
-
-      for (const line of lines) {
-        if (cursorY > pageHeight - margin) {
-          doc.addPage();
-          cursorY = margin;
-          doc.setFont("helvetica", "normal");
-          doc.setFontSize(11);
-        }
-        doc.text(String(line), margin, cursorY);
-        cursorY += lineHeight;
-      }
-
-      const pdfArrayBuffer = doc.output("arraybuffer");
-
-      if (window.showSaveFilePicker) {
-        try {
-          const handle = await window.showSaveFilePicker({
-            suggestedName: filename,
-            types: [{
-              description: "Arquivo PDF",
-              accept: {
-                "application/pdf": [".pdf"]
-              }
-            }]
-          });
-          const writable = await handle.createWritable();
-          await writable.write(pdfArrayBuffer);
-          await writable.close();
-          return "saved";
-        } catch (error) {
-          if (error && error.name === "AbortError") {
-            return "cancelled";
-          }
-        }
-      }
-
-      const blob = new Blob([pdfArrayBuffer], { type: "application/pdf" });
-      const link = document.createElement("a");
-      link.href = URL.createObjectURL(blob);
-      link.download = filename;
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      window.setTimeout(function () {
-        URL.revokeObjectURL(link.href);
-      }, 1000);
-      return "pdf";
     }
 
     async function openExerciseModal(exerciseId) {
@@ -5981,10 +5866,15 @@
             setExerciseModalStatus("");
             return;
           }
-          setExerciseModalStatus("Arquivo exportado.");
+          setExerciseModalStatus("Na nova aba, escolha Imprimir / Salvar PDF. As equações serão compostas antes da impressão.");
         } catch (error) {
           console.warn("Nao foi possivel exportar o exercicio.", error);
-          setExerciseModalStatus("Não foi possível exportar este exercício agora.", true);
+          setExerciseModalStatus(
+            /bloqueou a janela/.test(String(error?.message || ""))
+              ? "O navegador bloqueou a nova aba. Permita pop-ups para o TERMO e tente novamente."
+              : "Não foi possível preparar a exportação deste exercício agora.",
+            true
+          );
         } finally {
           button.disabled = false;
         }
