@@ -44,7 +44,7 @@ concorrentes com o mesmo número.
 | 058 | `058-recuperacao-login-paineis-admin` | `gpt-6.1-sol / high` | `gpt-6.1-sol / xhigh` | publicada READY em 08/10/2026 (`e5dee16`); login Safari, audiência real e relatório validados; tabela de histórico ausente reconciliada |
 
 | 059 | `059-relatorio-admin-pratico-atualizavel` | `gpt-6.1-sol / high` | `gpt-6.1-sol / xhigh` | publicada READY em 08/10/2026 (`1ff9365`); refresh autenticado validado; Pó Mágico v20261008.002 sincronizado |
-| 060 | `060-aviso-legal-uma-vez-por-versao` | `gpt-6.1-sol / high` | `gpt-6.1-sol / xhigh` | em validação; CPD autorizado em 08/10/2026 |
+| 060 | `060-aviso-legal-uma-vez-por-versao` | `gpt-6.1-sol / high` | `gpt-6.1-sol / xhigh` | publicada READY em 08/10/2026 (`f578359`); domínio canônico validado |
 
 Os documentos datados em `changes/` constituem o histórico anterior e não são
 renumerados. A busca pública já implementada localmente será reconciliada como

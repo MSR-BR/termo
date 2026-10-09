@@ -5,3 +5,5 @@ O modal era aberto automaticamente em cada carregamento de página quando `/api/
 Decisão: manter um aviso por conta e versão dos documentos no armazenamento local, sem registrar aceite local. A abertura manual permanece disponível. Nenhuma alteração no endpoint de preferências ou no consentimento em si.
 
 O usuário autorizou correção e CPD em 08/10/2026. Edições preexistentes em scripts de injeção e nota de Supabase não pertencem a esta Change.
+
+Código publicado em produção via Git/Vercel (commit `f578359`), sem deploy manual adicional. A primeira exibição ainda é permitida por par de versões dos documentos; novas janelas no mesmo navegador não repetem o aviso.

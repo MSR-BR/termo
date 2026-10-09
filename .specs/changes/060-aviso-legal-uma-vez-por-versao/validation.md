@@ -18,7 +18,9 @@
 
 ## Publicação
 
-CPD autorizado. Resultado de produção será registrado no fechamento desta Change.
+Commit `f578359` enviado para `origin/main`. Vercel confirmou deployment de produção `dpl_4VhoEd2PYsN1bC8S1DGrSw7FvQGV` em estado READY, associado ao SHA integral desse commit. O domínio canônico `termo.app.br` respondeu HTTP 200 e entregou o novo script contendo a regra de exibição única e o título corrigido. Cache-Control do asset: `public, max-age=0, must-revalidate`.
+
+O teste de duas janelas foi feito localmente com sessão simulada; nenhuma credencial real foi usada. O comportamento da sessão pessoal do usuário em produção não foi reproduzido automatizadamente.
 
 ## Modelo realmente observado
 
