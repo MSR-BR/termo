@@ -6,12 +6,14 @@ import vm from "node:vm";
 const analyticsSource = await readFile(new URL("../assets/termo-analytics.js", import.meta.url), "utf8");
 const authSource = await readFile(new URL("../assets/termo-auth.js", import.meta.url), "utf8");
 const exercisesSource = await readFile(new URL("../assets/ai-exercises.js", import.meta.url), "utf8");
+const appSource = await readFile(new URL("../index.html", import.meta.url), "utf8");
 
 function bootAnalytics(options = {}) {
   const pageUrl = new URL(options.href || "https://termo.app.br/home.html?utm_source=raw-value&utm_campaign=private-campaign");
   const localValues = new Map();
   const sessionValues = new Map();
   const documentListeners = new Map();
+  const timeoutCallbacks = [];
   class MockElement {
     constructor(link = null) { this.link = link; }
     closest(selector) { return selector === "a[href]" ? this.link : null; }
@@ -34,10 +36,21 @@ function bootAnalytics(options = {}) {
     sessionStorage: storage(sessionValues),
     crypto: { randomUUID() { return "anonymous-session"; } },
     screen: { width: 390, height: 844 },
-    setTimeout() { return 1; },
+    setTimeout(callback) { timeoutCallbacks.push(callback); return timeoutCallbacks.length; },
     clearTimeout() {},
     setInterval() { return 1; },
     addEventListener() {}
+  };
+  const historyCalls = [];
+  window.history = {
+    state: null,
+    replaceState(_state, _title, target) {
+      if (options.historyThrows) throw new Error("history unavailable");
+      const next = new URL(String(target), window.location.href);
+      historyCalls.push(next.href);
+      window.location.href = next.href;
+      window.location.pathname = next.pathname;
+    }
   };
   if (options.session) {
     window.TermoAuth = {
@@ -68,7 +81,29 @@ function bootAnalytics(options = {}) {
     fetch: async function () { return { ok: true, json: async function () { return {}; } }; }
   });
   vm.runInContext(analyticsSource, context);
-  return { window, localValues, sessionValues, documentListeners, MockElement };
+  return { window, localValues, sessionValues, documentListeners, MockElement, historyCalls, timeoutCallbacks };
+}
+
+function runAppRouteSync(href, routeState) {
+  const start = appSource.indexOf("    const ROUTE_CAMPAIGN_KEYS = new Set([");
+  const end = appSource.indexOf("    function renderChapterMenu()", start);
+  assert.ok(start >= 0 && end > start, "route sync source must be present");
+  const calls = [];
+  const window = {
+    location: { href },
+    history: {
+      replaceState(_state, _title, target) {
+        window.location.href = new URL(String(target), window.location.href).href;
+        calls.push(window.location.href);
+      }
+    }
+  };
+  const context = vm.createContext({
+    window, state: routeState, URL, URLSearchParams, Set,
+    simulatorsBySlug: { vdw: { slug: "vdw" } }
+  });
+  vm.runInContext(appSource.slice(start, end) + "\nsyncUrl();", context);
+  return { href: window.location.href, calls };
 }
 
 function flushPromises() {
@@ -81,19 +116,107 @@ function googleEvents(window) {
     .map(function (entry) { return { name: entry[1], properties: entry[2] }; });
 }
 
-test("GA4 page view excludes OAuth return data and retains campaign attribution", function () {
+test("GA4 waits for OAuth cleanup and then retains campaign attribution", async function () {
   const href = "https://termo.app.br/home.html?code=one-time-code&state=oauth-state&utm_source=google&utm_medium=cpc&gclid=ad-click-id&unknown=private-value#access_token=private-token";
   const runtime = bootAnalytics({ href });
+  assert.equal(Array.from(runtime.window.dataLayer || []).some(function (entry) { return entry[0] === "config"; }), false);
+  assert.equal(runtime.window.location.href, href);
+  runtime.window.TermoAuth = { whenReady() { return Promise.resolve(); } };
+  runtime.window.location.href = "https://termo.app.br/home.html?utm_source=google&utm_medium=cpc&gclid=ad-click-id&unknown=private-value";
+  runtime.timeoutCallbacks.shift()();
+  await flushPromises();
   const config = Array.from(runtime.window.dataLayer).find(function (entry) { return entry[0] === "config"; });
   assert.equal(config[1], "G-NHEVHE096H");
   assert.equal(config[2].page_location, "https://termo.app.br/home.html?utm_source=google&utm_medium=cpc&gclid=ad-click-id");
-  assert.equal(runtime.window.location.href, href);
+  assert.equal(runtime.window.location.href, config[2].page_location);
 });
 
 test("GA4 page view excludes personal values even in campaign parameters", function () {
-  const runtime = bootAnalytics({ href: "https://termo.app.br/index.html?view=chapters&utm_campaign=person%40example.com&utm_source=google&code=temporary" });
+  const runtime = bootAnalytics({ href: "https://termo.app.br/index.html?view=chapters&utm_campaign=person%40example.com&utm_source=google" });
   const config = Array.from(runtime.window.dataLayer).find(function (entry) { return entry[0] === "config"; });
   assert.equal(config[2].page_location, "https://termo.app.br/index.html?view=chapters&utm_source=google");
+});
+
+test("ordinary browser URLs are cleaned before the Google tag loads", function () {
+  const runtime = bootAnalytics({
+    href: "https://termo.app.br/index.html?view=chapters&trk=private-value&utm_source=google&gclid=ad-click-id"
+  });
+  const config = Array.from(runtime.window.dataLayer).find(function (entry) { return entry[0] === "config"; });
+  assert.equal(runtime.window.location.href, "https://termo.app.br/index.html?view=chapters&utm_source=google&gclid=ad-click-id");
+  assert.equal(config[2].page_location, runtime.window.location.href);
+  assert.equal(runtime.historyCalls.length, 1);
+});
+
+test("Google tag remains disabled if an unsafe URL cannot be cleaned", function () {
+  const runtime = bootAnalytics({
+    href: "https://termo.app.br/index.html?view=chapters&trk=private-value",
+    historyThrows: true
+  });
+  assert.equal(Array.from(runtime.window.dataLayer || []).some(function (entry) { return entry[0] === "config"; }), false);
+  assert.match(runtime.window.location.href, /trk=private-value/);
+});
+
+test("OAuth callback URL remains intact until authentication consumes it", function () {
+  const href = "https://termo.app.br/index.html?code=one-time-code&view=chapters#access_token=private-token";
+  const runtime = bootAnalytics({ href });
+  assert.equal(runtime.window.location.href, href);
+  assert.equal(runtime.historyCalls.length, 0);
+  assert.equal(Array.from(runtime.window.dataLayer || []).some(function (entry) { return entry[0] === "config"; }), false);
+});
+
+test("Google events queued during OAuth return are sent after cleanup", async function () {
+  const runtime = bootAnalytics({ href: "https://termo.app.br/index.html?code=one-time-code&view=chapters" });
+  runtime.window.TermoAnalytics.track("chapter_start", { chapter_id: "01" });
+  runtime.window.TermoAuth = { whenReady() { return Promise.resolve(); } };
+  runtime.window.location.href = "https://termo.app.br/index.html?view=chapters";
+  runtime.timeoutCallbacks.shift()();
+  await flushPromises();
+  const commands = Array.from(runtime.window.dataLayer).map(function (entry) { return entry[0]; });
+  assert.ok(commands.indexOf("config") >= 0);
+  assert.ok(commands.indexOf("event") > commands.indexOf("config"));
+  assert.equal(googleEvents(runtime.window).filter(function (event) { return event.name === "chapter_start"; }).length, 1);
+});
+
+test("Google tag remains disabled if OAuth cleanup fails", async function () {
+  const runtime = bootAnalytics({ href: "https://termo.app.br/index.html?code=one-time-code" });
+  runtime.window.TermoAuth = { whenReady() { return Promise.resolve(); } };
+  runtime.timeoutCallbacks.shift()();
+  await flushPromises();
+  assert.equal(Array.from(runtime.window.dataLayer || []).some(function (entry) { return entry[0] === "config"; }), false);
+});
+
+test("app route changes keep campaign attribution but drop unknown query parameters", function () {
+  const result = runAppRouteSync(
+    "https://termo.app.br/index.html?view=chapters&trk=private-value&utm_source=google&gclid=ad-click-id",
+    { view: "simulators", chapterId: "04", simulatorId: "vdw", journeySection: "", quizStage: "" }
+  );
+  const url = new URL(result.href);
+  assert.equal(url.searchParams.has("trk"), false);
+  assert.equal(url.searchParams.get("utm_source"), "google");
+  assert.equal(url.searchParams.get("gclid"), "ad-click-id");
+  assert.equal(url.searchParams.get("view"), "simulators");
+  assert.equal(url.searchParams.get("sim"), "vdw");
+  assert.equal(result.calls.length, 1);
+});
+
+test("route sync neither consumes OAuth data nor repeats an unchanged URL", function () {
+  const state = { view: "chapters", chapterId: "01", simulatorId: "", journeySection: "", quizStage: "" };
+  const callback = runAppRouteSync("https://termo.app.br/index.html?view=chapters&chapter=01&code=one-time-code", state);
+  assert.equal(callback.calls.length, 0);
+  assert.match(callback.href, /code=one-time-code/);
+  const ordinary = runAppRouteSync("https://termo.app.br/index.html?view=chapters&chapter=01", state);
+  assert.equal(ordinary.calls.length, 0);
+});
+
+test("quiz route retains its controlled section and stage", function () {
+  const result = runAppRouteSync(
+    "https://termo.app.br/index.html?view=journey&chapter=02&section=quiz&stage=after&trk=private-value",
+    { view: "journey", chapterId: "02", simulatorId: "", journeySection: "quiz", quizStage: "after" }
+  );
+  const url = new URL(result.href);
+  assert.equal(url.searchParams.get("section"), "quiz");
+  assert.equal(url.searchParams.get("stage"), "after");
+  assert.equal(url.searchParams.has("trk"), false);
 });
 
 test("same-site OAuth referrer is cleaned before GA4 receives it", function () {

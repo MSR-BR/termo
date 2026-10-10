@@ -5194,25 +5194,44 @@
       }, 220);
     }
 
+    const ROUTE_CAMPAIGN_KEYS = new Set([
+      "utm_source", "utm_medium", "utm_campaign", "utm_id",
+      "utm_source_platform", "utm_term", "utm_content",
+      "gclid", "dclid", "gbraid", "wbraid", "gad_source", "gad_campaignid"
+    ]);
+    const ROUTE_AUTH_KEYS = [
+      "code", "state", "error", "error_code", "error_description",
+      "access_token", "refresh_token", "expires_in", "token_type",
+      "provider_token", "provider_refresh_token"
+    ];
+
     function syncUrl() {
-      const url = new URL(window.location.href);
+      const current = new URL(window.location.href);
+      const hashParams = new URLSearchParams(current.hash.startsWith("#") ? current.hash.slice(1) : "");
+      // Supabase must consume callback data before any history change.
+      if (ROUTE_AUTH_KEYS.some((key) => current.searchParams.has(key) || hashParams.has(key))) return;
+
+      const url = new URL(current.origin + current.pathname);
+      current.searchParams.forEach((value, key) => {
+        if (ROUTE_CAMPAIGN_KEYS.has(key) && value && !/@|%40/i.test(value)) {
+          url.searchParams.append(key, value.slice(0, 220));
+        }
+      });
       url.searchParams.set("view", state.view);
-      if (state.chapterId) {
+      if (/^0[1-6]$/.test(state.chapterId)) {
         url.searchParams.set("chapter", state.chapterId);
-      } else {
-        url.searchParams.delete("chapter");
       }
-      if (state.view === "simulators" && state.simulatorId) {
+      if (state.view === "simulators" && simulatorsBySlug[state.simulatorId]) {
         url.searchParams.set("sim", state.simulatorId);
-      } else {
-        url.searchParams.delete("sim");
       }
-      if (state.view === "journey" && state.journeySection) {
-        url.searchParams.set("section", state.journeySection);
-      } else {
-        url.searchParams.delete("section");
+      if (state.view === "journey" && state.journeySection === "quiz") {
+        url.searchParams.set("section", "quiz");
+        if (state.quizStage === "after" || state.quizStage === "during") {
+          url.searchParams.set("stage", state.quizStage);
+        }
       }
-      window.history.replaceState({}, "", url);
+      url.hash = current.hash;
+      if (url.href !== current.href) window.history.replaceState({}, "", url);
     }
 
     function renderChapterMenu() {

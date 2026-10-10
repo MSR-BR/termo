@@ -10,6 +10,11 @@
     "utm_source_platform", "utm_term", "utm_content",
     "gclid", "dclid", "gbraid", "wbraid", "gad_source", "gad_campaignid"
   ]);
+  const AUTH_RETURN_KEYS = [
+    "code", "state", "error", "error_code", "error_description",
+    "access_token", "refresh_token", "expires_in", "token_type",
+    "provider_token", "provider_refresh_token"
+  ];
   const SESSION_KEY = "termo_analytics_session_v1";
   const DAILY_SESSION_KEY = "termo_analytics_session_day_v1";
   const LOGIN_PENDING_KEY = "termo_auth_login_pending_v1";
@@ -56,6 +61,7 @@
   let authUserId = "";
   let authAccessToken = "";
   let googleTagConfigured = false;
+  const pendingGoogleEvents = [];
 
   function getSafePageLocation(href) {
     try {
@@ -71,8 +77,40 @@
     }
   }
 
+  function hasAuthReturnParams(url) {
+    const hashParams = new URLSearchParams(url.hash.startsWith("#") ? url.hash.slice(1) : "");
+    return AUTH_RETURN_KEYS.some(function (key) {
+      return url.searchParams.has(key) || hashParams.has(key);
+    });
+  }
+
+  function cleanBrowserUrlBeforeTag() {
+    try {
+      const current = new URL(window.location.href);
+      if (hasAuthReturnParams(current)) return false;
+      const safe = new URL(getSafePageLocation(current.href));
+      if (current.searchParams.get("view") === "journey" && current.searchParams.get("section") === "quiz") {
+        safe.searchParams.set("section", "quiz");
+        const stage = current.searchParams.get("stage");
+        if (stage === "after" || stage === "during") safe.searchParams.set("stage", stage);
+      }
+      safe.hash = current.hash;
+      if (safe.href !== current.href) {
+        if (typeof window.history?.replaceState !== "function") return false;
+        window.history.replaceState(window.history.state, "", safe.href);
+      }
+      return true;
+    } catch (_error) {
+      return false;
+    }
+  }
+
   function initGoogleTag() {
     if (!GA_MEASUREMENT_ID || typeof document === "undefined") return;
+
+    // Enhanced measurement can observe history changes. Clean ordinary URLs
+    // before loading the Google tag; OAuth callback URLs must remain intact.
+    if (!cleanBrowserUrlBeforeTag()) return;
 
     window.dataLayer = window.dataLayer || [];
     if (typeof window.gtag !== "function") {
@@ -97,6 +135,39 @@
       }
       window.gtag("config", GA_MEASUREMENT_ID, config);
       googleTagConfigured = true;
+      pendingGoogleEvents.splice(0).forEach(function (event) {
+        window.gtag("event", event.name, event.properties);
+      });
+    }
+  }
+
+  function startGoogleTag() {
+    let current;
+    try { current = new URL(window.location.href); } catch (_error) { return; }
+    if (!hasAuthReturnParams(current)) {
+      initGoogleTag();
+      return;
+    }
+
+    // A history-based automatic page view could expose the callback URL as
+    // page_referrer when Supabase removes its code. Load GA only afterwards.
+    let attempts = 0;
+    function waitForAuth() {
+      if (typeof window.TermoAuth?.whenReady !== "function") {
+        if (attempts++ < 100) window.setTimeout(waitForAuth, 100);
+        return;
+      }
+      void window.TermoAuth.whenReady().then(function () {
+        const afterAuth = new URL(window.location.href);
+        if (!hasAuthReturnParams(afterAuth)) initGoogleTag();
+      }).catch(function () {
+        /* Fail closed: never load GA while the callback URL remains visible. */
+      });
+    }
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", waitForAuth, { once: true });
+    } else {
+      waitForAuth();
     }
   }
 
@@ -222,11 +293,15 @@
   }
 
   function sendGoogleEvent(eventName, properties) {
-    if (typeof window.gtag !== "function") return;
-    window.gtag("event", eventName, {
+    const eventProperties = {
       ...cleanProperties(properties),
       send_to: GA_MEASUREMENT_ID
-    });
+    };
+    if (!googleTagConfigured) {
+      if (pendingGoogleEvents.length < 20) pendingGoogleEvents.push({ name: eventName, properties: eventProperties });
+      return;
+    }
+    window.gtag("event", eventName, eventProperties);
   }
 
   function trackStudyActivation(sourceEvent, properties) {
@@ -611,7 +686,7 @@
     getSessionId: getSessionId
   };
 
-  initGoogleTag();
+  startGoogleTag();
 
   document.addEventListener("click", trackClick, true);
   window.addEventListener("termo-auth-state-change", handleAuthState);
