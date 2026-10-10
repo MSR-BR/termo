@@ -2,7 +2,7 @@
 
 O `gtag("config", ...)` anterior enviava a URL corrente sem substituição explícita de `page_location`. No retorno OAuth, ela podia conter um código temporário. A solução usa uma lista positiva de parâmetros de campanha e navegação para o valor enviado ao GA4, sem alterar `window.location` ou a rotina de login. O referenciador interno e o caminho enviado pelo evento `termo_open_app` recebem o mesmo filtro.
 
-Os testes locais comprovam a forma do payload e a emissão dos eventos, não a chegada dos dados à propriedade GA4 em produção. A queda histórica de `termo_open_app` ainda não tem causa comprovada; não justificar alterações em Ads com base apenas nesse teste. A verificação de medição automática do GA4 e de cache do script permanece para depois de publicação autorizada.
+Os testes locais comprovam a forma do payload e a emissão dos eventos, não a chegada dos dados à propriedade GA4 em produção. A queda histórica de `termo_open_app` ainda não tem causa comprovada; não justificar alterações em Ads com base apenas nesse teste. O script publicado e seu novo ETag foram verificados; a medição automática do GA4 ainda requer tráfego real posterior.
 
 O repositório já tinha modificações não relacionadas em três scripts de injeção e um documento de permissões Supabase; foram preservados.
 
@@ -10,7 +10,8 @@ Em 10/10/2026, o proprietário autorizou CPD da T62. Antes da publicação, a re
 
 ## Status de publicação
 
-- Commit: não realizado.
-- Push: não realizado.
-- Deploy: não realizado.
+- Commit de implementação: `f63a3e2` (`fix(analytics): sanitize GA4 OAuth URLs (T62)`).
+- Push: `origin/main` em 10/10/2026.
+- Deploy: produção `READY`, deployment `dpl_3vYDw2pK6T5XrP6ZNmjvBxbA5baR`, alias `termo.app.br`.
 - Configuração remota: não alterada.
+- Limite: nenhum evento apareceu na consulta GA4 Realtime dos 30 minutos verificados; não se pode inferir falha nem sucesso de ingestão real sem tráfego posterior. Login real pós-publicação não foi executado.

@@ -10,4 +10,4 @@ Impedir que códigos temporários de OAuth e parâmetros desconhecidos da URL se
 
 - Fora do escopo: alterações remotas no GA4, Google Ads, Supabase ou Vercel; mudanças no login; análise causal da queda histórica de eventos.
 - Dependências: `assets/termo-analytics.js`, testes e fluxo atual de retorno OAuth.
-- Decisão humana necessária: autorizar publicação posterior e conferir eventos reais no GA4 após a publicação.
+- Decisão humana: CPD autorizado em 10/10/2026; a conferência de eventos reais no GA4 e de login real pós-publicação permanece pendente.

@@ -9,4 +9,4 @@
 
 ## Riscos que impedem conclusão
 
-- A validação de dados reais no GA4 depende de publicação futura; não é possível comprovar remotamente nesta etapa.
+- A validação de dados reais no GA4 depende de tráfego posterior à publicação; a consulta Realtime feita após o deploy não retornou eventos.

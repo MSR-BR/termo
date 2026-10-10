@@ -10,7 +10,12 @@
 - [x] `node --test tests/*.test.mjs` — 156/156 testes aprovados.
 - [x] `git diff --check` — aprovado.
 - [x] Revisão final do diff — restrita à medição, testes e documentação T62; arquivos preexistentes preservados.
-- [ ] Teste de login e payload GA4 em produção, condicionado a publicação autorizada.
+- [x] Deployment `dpl_3vYDw2pK6T5XrP6ZNmjvBxbA5baR` do commit `f63a3e2` em produção: `READY`, alias canônico presente.
+- [x] `home.html`, `index.html` e script de analytics: HTTP 200 no domínio canônico.
+- [x] Script público contém a filtragem `GA_PAGE_QUERY_KEYS` e `page_location: getSafePageLocation()`; ETag mudou de `W/"f2dc86fbc1d722b5d2b0012ef96e9aa8"` para `W/"7b05596d7c0dad0d9d73828cd3496134"` e responde com `max-age=0, must-revalidate`.
+- [x] Erros de execução Vercel: nenhum no intervalo de uma hora consultado após a publicação.
+- [ ] GA4 Realtime: nenhum evento nos últimos 30 minutos da consulta; ingestão real e ausência de novos parâmetros OAuth ainda não verificáveis.
+- [ ] Login real pós-publicação não executado; testes locais de autenticação aprovados.
 
 ## Modelo realmente observado
 
