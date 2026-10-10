@@ -8,8 +8,14 @@ const authSource = await readFile(new URL("../assets/termo-auth.js", import.meta
 const exercisesSource = await readFile(new URL("../assets/ai-exercises.js", import.meta.url), "utf8");
 
 function bootAnalytics(options = {}) {
+  const pageUrl = new URL(options.href || "https://termo.app.br/home.html?utm_source=raw-value&utm_campaign=private-campaign");
   const localValues = new Map();
   const sessionValues = new Map();
+  const documentListeners = new Map();
+  class MockElement {
+    constructor(link = null) { this.link = link; }
+    closest(selector) { return selector === "a[href]" ? this.link : null; }
+  }
   const storage = function (values) {
     return {
       getItem(key) { return values.get(key) || null; },
@@ -19,9 +25,10 @@ function bootAnalytics(options = {}) {
   };
   const window = {
     location: {
-      href: "https://termo.app.br/home.html?utm_source=raw-value&utm_campaign=private-campaign",
-      host: "termo.app.br",
-      pathname: "/home.html"
+      href: pageUrl.href,
+      origin: pageUrl.origin,
+      host: pageUrl.host,
+      pathname: pageUrl.pathname
     },
     localStorage: storage(localValues),
     sessionStorage: storage(sessionValues),
@@ -40,13 +47,13 @@ function bootAnalytics(options = {}) {
   if (options.pendingLogin) sessionValues.set("termo_auth_login_pending_v1", "1");
   if (options.previousLoginUserId) sessionValues.set("termo_analytics_login_" + options.previousLoginUserId, "1");
   const document = {
-    referrer: "",
+    referrer: options.referrer || "",
     readyState: "complete",
     visibilityState: "visible",
     head: { appendChild() {} },
     createElement() { return { setAttribute() {} }; },
     querySelector() { return null; },
-    addEventListener() {}
+    addEventListener(name, listener) { documentListeners.set(name, listener); }
   };
   const context = vm.createContext({
     window,
@@ -57,11 +64,11 @@ function bootAnalytics(options = {}) {
     Intl,
     Date,
     Math,
-    Element: class Element {},
+    Element: MockElement,
     fetch: async function () { return { ok: true, json: async function () { return {}; } }; }
   });
   vm.runInContext(analyticsSource, context);
-  return { window, localValues, sessionValues };
+  return { window, localValues, sessionValues, documentListeners, MockElement };
 }
 
 function flushPromises() {
@@ -73,6 +80,53 @@ function googleEvents(window) {
     .filter(function (entry) { return entry[0] === "event"; })
     .map(function (entry) { return { name: entry[1], properties: entry[2] }; });
 }
+
+test("GA4 page view excludes OAuth return data and retains campaign attribution", function () {
+  const href = "https://termo.app.br/home.html?code=one-time-code&state=oauth-state&utm_source=google&utm_medium=cpc&gclid=ad-click-id&unknown=private-value#access_token=private-token";
+  const runtime = bootAnalytics({ href });
+  const config = Array.from(runtime.window.dataLayer).find(function (entry) { return entry[0] === "config"; });
+  assert.equal(config[1], "G-NHEVHE096H");
+  assert.equal(config[2].page_location, "https://termo.app.br/home.html?utm_source=google&utm_medium=cpc&gclid=ad-click-id");
+  assert.equal(runtime.window.location.href, href);
+});
+
+test("GA4 page view excludes personal values even in campaign parameters", function () {
+  const runtime = bootAnalytics({ href: "https://termo.app.br/index.html?view=chapters&utm_campaign=person%40example.com&utm_source=google&code=temporary" });
+  const config = Array.from(runtime.window.dataLayer).find(function (entry) { return entry[0] === "config"; });
+  assert.equal(config[2].page_location, "https://termo.app.br/index.html?view=chapters&utm_source=google");
+});
+
+test("same-site OAuth referrer is cleaned before GA4 receives it", function () {
+  const runtime = bootAnalytics({ referrer: "https://termo.app.br/index.html?code=one-time-code&view=journey#access_token=private-token" });
+  const config = Array.from(runtime.window.dataLayer).find(function (entry) { return entry[0] === "config"; });
+  assert.equal(config[2].page_referrer, "https://termo.app.br/index.html?view=journey");
+});
+
+test("landing app links emit one open event and the mobile CTA emits its own event", function () {
+  const runtime = bootAnalytics();
+  const link = {
+    textContent: "Começar a estudar",
+    getAttribute(name) { return name === "href" ? "index.html?view=chapters" : null; },
+    classList: { contains(name) { return name === "mobile-study-cta"; } }
+  };
+  runtime.documentListeners.get("click")({ target: new runtime.MockElement(link) });
+  const events = googleEvents(runtime.window);
+  assert.deepEqual(events.map(function (event) { return event.name; }), ["termo_open_app", "home_study_cta_click"]);
+  assert.equal(events[0].properties.destination_path, "/index.html?view=chapters");
+});
+
+test("app-open event does not forward transient parameters from a landing link", function () {
+  const runtime = bootAnalytics();
+  const link = {
+    textContent: "Abrir app",
+    getAttribute(name) { return name === "href" ? "index.html?view=chapters&code=temporary" : null; },
+    classList: { contains() { return false; } }
+  };
+  runtime.documentListeners.get("click")({ target: new runtime.MockElement(link) });
+  const events = googleEvents(runtime.window);
+  assert.deepEqual(events.map(function (event) { return event.name; }), ["termo_open_app"]);
+  assert.equal(events[0].properties.destination_path, "/index.html?view=chapters");
+});
 
 test("study activation accepts only real study outcomes", function () {
   assert.match(
@@ -101,6 +155,12 @@ test("only chapter start and successful exercise generation emit study activatio
   const generated = bootAnalytics();
   generated.window.TermoAnalytics.trackActivation("exercise_generate_success", { difficulty: "medium" });
   assert.deepEqual(googleEvents(generated.window).map(function (event) { return event.name; }), ["exercise_generate_success", "study_activation"]);
+});
+
+test("opening a chapter page records one study activation", async function () {
+  const runtime = bootAnalytics({ href: "https://termo.app.br/slides/capitulo-01/page_2.html" });
+  await flushPromises();
+  assert.deepEqual(googleEvents(runtime.window).map(function (event) { return event.name; }), ["chapter_start", "study_activation"]);
 });
 
 test("study activation is deduplicated for thirty minutes", function () {

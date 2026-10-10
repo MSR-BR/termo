@@ -4,6 +4,12 @@
   const VERSION = "0922.1";
   const GA_MEASUREMENT_ID = "G-NHEVHE096H";
   const GA_SCRIPT_SELECTOR = 'script[data-termo-ga="gtag"]';
+  const GA_PAGE_QUERY_KEYS = new Set([
+    "view", "chapter", "sim",
+    "utm_source", "utm_medium", "utm_campaign", "utm_id",
+    "utm_source_platform", "utm_term", "utm_content",
+    "gclid", "dclid", "gbraid", "wbraid", "gad_source", "gad_campaignid"
+  ]);
   const SESSION_KEY = "termo_analytics_session_v1";
   const DAILY_SESSION_KEY = "termo_analytics_session_day_v1";
   const LOGIN_PENDING_KEY = "termo_auth_login_pending_v1";
@@ -51,6 +57,20 @@
   let authAccessToken = "";
   let googleTagConfigured = false;
 
+  function getSafePageLocation(href) {
+    try {
+      const source = new URL(href || window.location.href);
+      const safe = new URL(source.origin + source.pathname);
+      source.searchParams.forEach(function (value, key) {
+        if (!GA_PAGE_QUERY_KEYS.has(key) || !value || /@|%40/i.test(value)) return;
+        safe.searchParams.append(key, value.slice(0, 220));
+      });
+      return safe.href;
+    } catch (_error) {
+      return window.location.origin + window.location.pathname;
+    }
+  }
+
   function initGoogleTag() {
     if (!GA_MEASUREMENT_ID || typeof document === "undefined") return;
 
@@ -71,7 +91,11 @@
 
     if (!googleTagConfigured) {
       window.gtag("js", new Date());
-      window.gtag("config", GA_MEASUREMENT_ID);
+      const config = { page_location: getSafePageLocation() };
+      if (document.referrer && isSameHost(document.referrer)) {
+        config.page_referrer = getSafePageLocation(document.referrer);
+      }
+      window.gtag("config", GA_MEASUREMENT_ID, config);
       googleTagConfigured = true;
     }
   }
@@ -529,12 +553,14 @@
         destination.host === window.location.host &&
         destination.pathname.endsWith("/index.html")
       ) {
+        const safeDestination = new URL(getSafePageLocation(destination.href));
+        const destinationPath = (safeDestination.pathname + safeDestination.search).slice(0, 180);
         track("termo_open_app", {
-          destination_path: (destination.pathname + destination.search).slice(0, 180),
+          destination_path: destinationPath,
           label: String(link.textContent || link.getAttribute("aria-label") || "").trim().slice(0, 80)
         });
         if (link.classList.contains("mobile-study-cta")) {
-          track("home_study_cta_click", { destination_path: (destination.pathname + destination.search).slice(0, 180) });
+          track("home_study_cta_click", { destination_path: destinationPath });
         }
       }
 
