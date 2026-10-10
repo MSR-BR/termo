@@ -1,0 +1,13 @@
+# Notas e decisões
+
+Em 10/10/2026, a propriedade GA4 TERMO (`properties/545548015`) mostrou um `page_view` com a chave `trk` em URL de troca de tela; nenhum valor de parâmetro sensível foi registrado nestas notas. A mudança `view=chapters` → `view=simulators` já constava da T62. A medição aprimorada do GA4 pode observar `replaceState`, mas sua configuração remota não foi lida. Por isso, a correção local protege a URL antes de carregar a tag e nas rotas, sem afirmar que a configuração remota esteja resolvida.
+
+No retorno OAuth, limpar ou substituir a URL antes de o Supabase consumir o código quebraria o login. A tag fica adiada até `TermoAuth.whenReady()` e só carrega se o retorno tiver sido limpo. Eventos GA4 ocorridos nesse intervalo ficam em fila limitada. Se a limpeza falhar, o sistema privilegia privacidade e não inicia a tag nessa página.
+
+O SEO público foi rechecado por rastreamento externo: `home.html` e `search.html` responderam HTTP 200 com canônicos próprios. A home e o mapa de conteúdo aparecem em resultados de busca, mas isso não mede cobertura. As conexões disponíveis de Search Console listaram zero propriedades; tentativa de registrar a propriedade já conhecida `https://termo.app.br/` no GSC Wizard retornou `INVALID_ARGUMENT`, sem confirmação de registro. A T46 permanece pendente de inspeção direta da propriedade, não de mudança em sitemap ou código.
+
+O usuário autorizou CPD limpo em 10/10/2026. Somente os três arquivos de código/teste da T63 entraram no commit `1996ced5358784b3e3115529eca6019929fb2969`, enviado a `MSR-BR/termo` em `main`. O deploy Git da Vercel `dpl_3TnpBz4NoZFDFnbta4CdG8KefD7M` ficou `READY` às 18h50 (Brasília), com `termo.app.br` associado. Nenhuma propriedade Google, campanha, conta, credencial ou banco foi alterada; três scripts e um documento preexistentes permaneceram fora do commit.
+
+O domínio serviu a versão nova de `assets/termo-analytics.js` e `index.html`. App, home, busca, sitemap e robots responderam HTTP 200; o endpoint público de configuração manteve autenticação habilitada e projeto Supabase `guifkjjuxsdgwjlhkmnx`, sem leitura de chave. A Vercel não apresentou erros de runtime na janela recente; a consulta de drains não ficou disponível. Não houve teste interativo de login com a conta do proprietário nesta sessão.
+
+A consulta detalhada de GA4 às 18h54 ainda mostrava 16 `page_view` de 10/10, dos quais 1 com `trk` às 09h32, antes do deploy; o último evento detalhado estava às 17h42. Havia eventos de página no relatório em tempo real, mas sem URL nessa API. Logo, a ausência de `trk` após o deploy ainda não está comprovada. Search Console permanece sem propriedade acessível ao conector.

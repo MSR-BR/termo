@@ -47,6 +47,7 @@ concorrentes com o mesmo número.
 | 060 | `060-aviso-legal-uma-vez-por-versao` | `gpt-6.1-sol / high` | `gpt-6.1-sol / xhigh` | publicada READY em 08/10/2026 (`f578359`); domínio canônico validado |
 | 061 | `061-exportacao-pdf-exercicios-com-matematica` | `gpt-6.1-sol / high` | `gpt-6.1-sol / xhigh` | publicada READY em 09/10/2026 (`8d8f0ad`); PDF, domínio e matemática verificados |
 | 062 | `062-privacidade-ga4-e-validacao-funil` | `gpt-6.1-sol / high` | `gpt-6.1-sol / xhigh` | publicada READY em 10/10/2026 (`f63a3e2`); ingestão GA4 e login real confirmados; `trk` em visualização de rota ainda pendente |
+| 063 | `063-privacidade-navegacao-ga4` | `gpt-6.1-sol / high` | `gpt-6.1-sol / xhigh` | código publicado READY em 10/10/2026 (`1996ced`); domínio e configuração pública verificados; login real, GA4 pós-publicação e indexação GSC pendentes |
 
 Os documentos datados em `changes/` constituem o histórico anterior e não são
 renumerados. A busca pública já implementada localmente será reconciliada como
