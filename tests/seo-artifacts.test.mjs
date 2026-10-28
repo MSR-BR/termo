@@ -72,16 +72,15 @@ test("landing preserva o vídeo de apresentação e seus metadados", function ()
   assert.ok(promoPosterStat.size > 0);
 });
 
-test("aviso do pedido de registro permanece nos rodapés, Termos e gerador SEO", function () {
+test("rodapés usam INPI e Termos preservam o aviso completo", function () {
   const processNumber = "512026009877-7";
-  for (const html of [rootHtml, homeHtml, termsHtml]) {
-    assert.match(html, new RegExp(processNumber));
-  }
+  assert.match(termsHtml, new RegExp(processNumber));
   assert.match(termsHtml, /id="registro-software"/);
   assert.match(termsHtml, /O protocolo do pedido não equivale à concessão do registro/);
-  assert.match(homeHtml, /href="termos\.html#registro-software"/);
-  assert.match(rootHtml, /href="termos\.html#registro-software"/);
-  assert.match(seoBuilder, /href="termos\.html#registro-software"/);
+  for (const content of [homeHtml, rootHtml, seoBuilder]) {
+    assert.match(content, /href="termos\.html#registro-software">INPI<\/a>/);
+    assert.doesNotMatch(content, /Pedido de registro de software no INPI nº/);
+  }
 });
 
 test("sitemap lista app e home uma única vez", function () {

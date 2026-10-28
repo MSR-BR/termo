@@ -1633,7 +1633,7 @@ ${simulatorCards}
       </div>
     </section>
 
-    <p class="footer-note">${escapeHtml(COURSE_TITLE)} é um projeto didático de ${escapeHtml(AUTHOR_NAME)} no ${escapeHtml(PUBLISHER_NAME)}. · <a href="ajuda-aprendizado.html">Como funciona seu aprendizado</a> · <a href="termos.html">Termos de Uso</a> · <a href="privacidade.html">Privacidade</a> · <a href="termos.html#registro-software">Pedido de registro de software no INPI nº 512026009877-7</a></p>
+    <p class="footer-note">${escapeHtml(COURSE_TITLE)} é um projeto didático de ${escapeHtml(AUTHOR_NAME)} no ${escapeHtml(PUBLISHER_NAME)}. · <a href="ajuda-aprendizado.html">Como funciona seu aprendizado</a> · <a href="termos.html">Termos de Uso</a> · <a href="privacidade.html">Privacidade</a> · <a href="termos.html#registro-software">INPI</a></p>
   </main>
 </body>
 </html>
