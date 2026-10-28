@@ -10,6 +10,8 @@ concorrentes com o mesmo número.
 
 ## Programa atual
 
+Nota: a [Change 072 — aviso do pedido de registro do software](072-aviso-pedido-registro-software/objective.md) tem implementação local validada; o CPD depende de candidato isolado e aprovação.
+
 | Change | Nome canônico | Rota planejada | Fallback | Estado |
 |---|---|---|---|---|
 | 025 | `025-po-magico-governance-baseline` | `gpt-5.6-terra / medium` | `gpt-5.6-sol / medium` | publicada |

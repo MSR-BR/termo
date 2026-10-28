@@ -4,6 +4,8 @@ import test from "node:test";
 
 const rootHtml = await readFile(new URL("../index.html", import.meta.url), "utf8");
 const homeHtml = await readFile(new URL("../home.html", import.meta.url), "utf8");
+const termsHtml = await readFile(new URL("../termos.html", import.meta.url), "utf8");
+const seoBuilder = await readFile(new URL("../scripts/build-seo-artifacts.mjs", import.meta.url), "utf8");
 const sitemapXml = await readFile(new URL("../sitemap.xml", import.meta.url), "utf8");
 const robotsTxt = await readFile(new URL("../robots.txt", import.meta.url), "utf8");
 const editorialRegistry = JSON.parse(await readFile(new URL("../data/termo-editorial-registry.json", import.meta.url), "utf8"));
@@ -68,6 +70,18 @@ test("landing preserva o vídeo de apresentação e seus metadados", function ()
   assert.match(homeHtml, /"duration":"PT1M6S"/);
   assert.ok(promoVideoStat.size > 0);
   assert.ok(promoPosterStat.size > 0);
+});
+
+test("aviso do pedido de registro permanece nos rodapés, Termos e gerador SEO", function () {
+  const processNumber = "512026009877-7";
+  for (const html of [rootHtml, homeHtml, termsHtml]) {
+    assert.match(html, new RegExp(processNumber));
+  }
+  assert.match(termsHtml, /id="registro-software"/);
+  assert.match(termsHtml, /O protocolo do pedido não equivale à concessão do registro/);
+  assert.match(homeHtml, /href="termos\.html#registro-software"/);
+  assert.match(rootHtml, /href="termos\.html#registro-software"/);
+  assert.match(seoBuilder, /href="termos\.html#registro-software"/);
 });
 
 test("sitemap lista app e home uma única vez", function () {
