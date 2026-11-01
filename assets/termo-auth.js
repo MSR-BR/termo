@@ -1192,10 +1192,10 @@
       updateStudyMarkerVisual(button, "idle");
       setStudyMarkerButtonHtml(
         button,
-        `<i class="fa-solid fa-right-to-bracket"></i><span>Entrar para validar estudo</span>`,
+        `<i class="fa-solid fa-right-to-bracket"></i><span>Entrar para salvar progresso</span>`,
         "study-signed-out"
       );
-      setButtonAttribute(button, "aria-label", "Entrar para marcar este item como estudado");
+      setButtonAttribute(button, "aria-label", "Entrar para salvar o progresso e marcar este item como estudado");
       setButtonAttribute(button, "title", "Entre com Google para registrar este item na sua jornada.");
       return;
     }
