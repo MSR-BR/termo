@@ -1150,7 +1150,7 @@
     }
   }
 
-  function writeStudyMarker(context) {
+  function writeStudyMarker(context, synced) {
     const key = getStudyMarkerKey(context);
     if (!key) return;
 
@@ -1158,6 +1158,7 @@
       const markers = readStudyMarkers();
       markers[key] = {
         markedAt: new Date().toISOString(),
+        synced: synced === true,
         title: context.title || "",
         pagePath: context.pagePath || ""
       };
@@ -1171,6 +1172,12 @@
     const key = getStudyMarkerKey(context);
     if (!key || !state.session?.user) return false;
     return Boolean(readStudyMarkers()[key]);
+  }
+
+  function hasConfirmedStudyMarker(context) {
+    const key = getStudyMarkerKey(context);
+    if (!key || !state.session?.user) return false;
+    return readStudyMarkers()[key]?.synced === true;
   }
 
   function buildStudyMarkerIdempotencyKey(context) {
@@ -1230,15 +1237,26 @@
       return;
     }
 
-    if (hasLocalStudyMarker(context)) {
+    if (hasConfirmedStudyMarker(context)) {
       updateStudyMarkerVisual(button, "marked");
       setStudyMarkerButtonHtml(
         button,
-        `<i class="fa-solid fa-circle-check"></i><span>Estudado (+${STUDY_ITEM_POINTS})</span>`,
+        `<i class="fa-solid fa-circle-check"></i><span>Estudado</span>`,
         `study-marked:${getStudyMarkerKey(context)}`
       );
-      setButtonAttribute(button, "aria-label", `Item ja marcado como estudado. ${STUDY_ITEM_POINTS} pontos ja foram considerados uma vez.`);
-      setButtonAttribute(button, "title", `Este item ja foi marcado. Os +${STUDY_ITEM_POINTS} pontos nao sao duplicados.`);
+      setButtonAttribute(button, "aria-label", "Item confirmado como estudado");
+      setButtonAttribute(button, "title", "Este item ja foi confirmado como estudado.");
+      return;
+    }
+
+    if (hasLocalStudyMarker(context)) {
+      updateStudyMarkerVisual(button, "idle");
+      button.disabled = false;
+      setStudyMarkerButtonHtml(button,
+        '<i class="fa-solid fa-rotate"></i><span>Confirmar estudo salvo</span>',
+        `study-pending:${getStudyMarkerKey(context)}`);
+      setButtonAttribute(button, "aria-label", "Confirmar no servidor o estudo salvo neste aparelho");
+      setButtonAttribute(button, "title", "Clique para confirmar seu progresso no servidor.");
       return;
     }
 
@@ -1268,7 +1286,7 @@
       return;
     }
 
-    if (hasLocalStudyMarker(context)) {
+    if (hasConfirmedStudyMarker(context)) {
       setStudyMarkerFeedback(button, "Validado", "fa-circle-check", "marked", 1600);
       return;
     }
@@ -1318,7 +1336,7 @@
       if (!response.ok || !payload?.ok) {
         const serverMessage = `${payload?.error || ""} ${payload?.details || ""}`.toLowerCase();
         if (serverMessage.includes("gamificacao ainda nao configurada")) {
-          writeStudyMarker(context);
+          writeStudyMarker(context, false);
           setStudyMarkerFeedback(button, "Estudado local", "fa-circle-check", "marked", 1800);
           window.dispatchEvent(new CustomEvent("termo-study-item-marked", {
             detail: {
@@ -1334,15 +1352,15 @@
         throw new Error(payload?.error || "Nao foi possivel registrar este item.");
       }
 
-      writeStudyMarker(context);
-      const label = payload.awarded === false ? "Já estudado" : `Estudado (+${STUDY_ITEM_POINTS})`;
+      writeStudyMarker(context, true);
+      const label = payload.awarded === false || payload.deduped ? "Já estudado" : `Estudado (+${STUDY_ITEM_POINTS})`;
       setStudyMarkerFeedback(button, label, "fa-circle-check", "marked", 1800);
       window.dispatchEvent(new CustomEvent("termo-study-item-marked", {
         detail: {
           chapterId: context.chapterId,
           itemId: context.itemId,
-          xpDelta: Number(payload.xpDelta || 0),
-          awarded: Boolean(payload.awarded)
+          xpDelta: payload.deduped ? 0 : Number(payload.xpDelta || 0),
+          awarded: !payload.deduped && Boolean(payload.awarded)
         }
       }));
     } catch (_error) {
