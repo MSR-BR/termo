@@ -258,7 +258,7 @@
     return state.itemContextPromise;
   }
 
-  function buildPageContext() {
+  function buildPageContext(intent) {
     const title = firstText(TITLE_SELECTORS) || "esta página";
 
     if (state.session?.user) {
@@ -266,6 +266,14 @@
         kicker: "Área pessoal",
         title: "Sua conta e preferências",
         copy: "Acesse seus marcadores, exercícios e favoritos. Você também pode revisar as preferências de comunicação e privacidade."
+      };
+    }
+
+    if (intent === "study") {
+      return {
+        kicker: "Acesso opcional",
+        title: "Salve seu estudo",
+        copy: "Entre com Google e, ao voltar para esta página, clique novamente em Validar estudo para registrar este item."
       };
     }
 
@@ -637,8 +645,12 @@
     window.location.assign(targetUrl);
   }
 
-  function openModal() {
+  function openModal(intent) {
     const modal = ensureModal();
+    const context = buildPageContext(intent);
+    modal.querySelector(".termo-auth-kicker").textContent = context.kicker;
+    modal.querySelector(".termo-auth-title").textContent = context.title;
+    modal.querySelector(".termo-auth-copy").textContent = context.copy;
     modal.classList.add("is-open");
     modal.setAttribute("aria-hidden", "false");
     void hydrateModal();
@@ -1234,7 +1246,7 @@
     if (!context) return;
 
     if (!state.session?.user) {
-      openModal();
+      openModal("study");
       return;
     }
 
