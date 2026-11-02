@@ -141,7 +141,7 @@ export function buildLearningHelpHtml(source) {
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Lora:wght@400;600&amp;display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/termo-learning-help.css?v=${escapeHtml(source.version)}" />
-  <script defer src="assets/termo-analytics.js?v=0922.1"></script>
+  <script defer src="assets/termo-analytics.js?v=20261102.1"></script>
   <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
 </head>
 <body>

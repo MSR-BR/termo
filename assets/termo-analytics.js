@@ -33,6 +33,7 @@
     "exercise_start",
     "exercise_generate_success",
     "login_success",
+    "sign_up",
     "simulator_start",
     "quiz_start",
     "study_activation",
@@ -662,6 +663,49 @@
     }
   }
 
+  let signupPromptPending = false;
+
+  async function signupMeasurementRpc(name, token) {
+    const config = await getPublicConfig();
+    if (!config?.supabaseUrl || !config?.supabasePublishableKey || !token) return false;
+    const response = await fetch(String(config.supabaseUrl).replace(/\/$/, "") + "/rest/v1/rpc/" + name, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", apikey: config.supabasePublishableKey, Authorization: "Bearer " + token },
+      body: "{}"
+    });
+    return response.ok && (await response.json()) === true;
+  }
+
+  async function offerSignupMeasurement() {
+    if (signupPromptPending || !authAccessToken || !document.body) return;
+    signupPromptPending = true;
+    const token = authAccessToken;
+    try {
+      if (!await signupMeasurementRpc("signup_measurement_available", token) || token !== authAccessToken) return;
+      const panel = document.createElement("section");
+      panel.setAttribute("role", "region");
+      panel.setAttribute("aria-label", "Medição opcional de cadastro");
+      panel.style.cssText = "position:fixed;bottom:1rem;left:1rem;right:1rem;z-index:9999;max-width:38rem;margin:auto;padding:1rem;background:#fff;color:#17324f;border:1px solid #9eb3ca;border-radius:.8rem;box-shadow:0 4px 22px #0003;font:16px/1.5 system-ui";
+      panel.innerHTML = '<p>Permite registrar este cadastro no Google Analytics para avaliar a divulgação do TERMO? A escolha é opcional e não impede o uso do aplicativo.</p><button type="button" data-signup-allow>Permitir medição</button> <button type="button" data-signup-decline>Agora não</button>';
+      const allow = panel.querySelector("[data-signup-allow]");
+      const decline = panel.querySelector("[data-signup-decline]");
+      decline.addEventListener("click", function () { panel.remove(); });
+      allow.addEventListener("click", async function () {
+        allow.disabled = true;
+        decline.disabled = true;
+        try {
+          const claimed = token === authAccessToken && await signupMeasurementRpc("claim_signup_measurement", token);
+          if (claimed && token === authAccessToken) {
+            track("sign_up", { method: "Google" });
+          }
+        } catch (_error) { /* Measurement is optional and must not affect login. */ }
+        panel.remove();
+      });
+      document.body.appendChild(panel);
+    } catch (_error) { /* Login and reading remain available. */ }
+    finally { signupPromptPending = false; }
+  }
+
   function trackLoginSuccess(options) {
     if (!authUserId) return;
     const pendingLogin = storageGet("sessionStorage", LOGIN_PENDING_KEY) === "1";
@@ -672,6 +716,7 @@
       storageRemove("sessionStorage", LOGIN_PENDING_KEY);
       storageSet("sessionStorage", key, "1");
       track("login_success", {});
+      void offerSignupMeasurement();
       return;
     }
     if (storageGet("sessionStorage", key) === "1") return;
