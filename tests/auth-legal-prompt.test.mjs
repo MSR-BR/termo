@@ -5,7 +5,7 @@ import vm from "node:vm";
 
 const source = await readFile(new URL("../assets/termo-auth.js", import.meta.url), "utf8");
 const instrumentedSource = source
-  .replace("function openModal() {", "function openModal() { window.__opened += 1; return;")
+  .replace("function openModal(intent) {", "function openModal(intent) { window.__opened += 1; return;")
   .replace(/\}\)\(\);\s*$/, "window.__test = { state, promptForLegalPreferencesIfNeeded, buildPageContext };\n})();");
 
 function createRuntime({ preferences, storage = new Map(), userId = "user-1", fetchFails = false } = {}) {

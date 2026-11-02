@@ -803,13 +803,22 @@
       </div>
     `;
     const saveButton = host.querySelector("[data-termo-auth-save-legal]");
-    saveButton?.addEventListener("click", async function () {
+    async function saveForm(closeAfterSave) {
       const acceptLegal = host.querySelector("[data-termo-auth-accept-legal]");
       const emailUpdates = host.querySelector("[data-termo-auth-email-updates]");
       if (!accepted && !acceptLegal?.checked) {
+        if (closeAfterSave && Boolean(emailUpdates?.checked) === optedIn) {
+          closeModal();
+          return;
+        }
         setStatus("Confirme os documentos para salvar suas preferências.", true);
         return;
       }
+      if (closeAfterSave && accepted && Boolean(emailUpdates?.checked) === optedIn) {
+        closeModal();
+        return;
+      }
+      if (saveButton?.disabled) return;
       saveButton.disabled = true;
       try {
         const next = await saveLegalPreferences({
@@ -824,11 +833,14 @@
         }
         renderLegalPreferences(host, next);
         setStatus("Preferências salvas.");
+        if (closeAfterSave) closeModal();
       } catch (_error) {
         setStatus("Não foi possível salvar suas preferências agora.", true);
         saveButton.disabled = false;
       }
-    });
+    }
+    host.termoSaveAndContinue = function () { return saveForm(true); };
+    saveButton?.addEventListener("click", function () { void saveForm(false); });
 
     host.querySelector("[data-termo-auth-pause-email]")?.addEventListener("click", async function (event) {
       const button = event.currentTarget;
@@ -978,7 +990,13 @@
       const signOutButton = panel.querySelector("[data-termo-auth-signout]");
       const savedButton = panel.querySelector("[data-termo-auth-goto-saved]");
       const favoritesButton = panel.querySelector("[data-termo-auth-goto-favorites]");
-      if (closeButton) closeButton.addEventListener("click", closeModal);
+      if (closeButton) closeButton.addEventListener("click", function () {
+        if (legalHost?.termoSaveAndContinue) {
+          void legalHost.termoSaveAndContinue();
+        } else {
+          closeModal();
+        }
+      });
       if (savedButton) {
         savedButton.addEventListener("click", function () {
           closeModal();
